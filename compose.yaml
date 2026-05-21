@@ -30,6 +30,23 @@ services:
         published: ${HTTP3_PORT:-443}
         protocol: udp
 
+  # Long-running worker: consumes async messages (Doctrine transport) and drives the scheduler.
+  # Without it, queued messages sit in messenger_messages and scheduled tasks never fire.
+  worker:
+    restart: unless-stopped
+    command: php bin/console messenger:consume async scheduler_default -v --time-limit=3600 --memory-limit=128M
+    # The base image healthcheck probes the Caddy admin API; the worker runs no web server.
+    healthcheck:
+      disable: true
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-!ChangeMe!}@database:5432/${POSTGRES_DB:-app}?serverVersion=${POSTGRES_VERSION:-15}&charset=${POSTGRES_CHARSET:-utf8}
+      MERCURE_URL: ${CADDY_MERCURE_URL:-http://php/.well-known/mercure}
+      MERCURE_PUBLIC_URL: ${CADDY_MERCURE_PUBLIC_URL:-https://${SERVER_NAME:-localhost}:${HTTPS_PORT:-443}/.well-known/mercure}
+      MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
+
 # Mercure is installed as a Caddy module, prevent the Flex recipe from installing another service
 ###> symfony/mercure-bundle ###
 ###< symfony/mercure-bundle ###
