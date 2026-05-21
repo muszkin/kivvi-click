@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'app.name'|trans }} — {{ 'home.tagline'|trans }}{% endblock %}
+
+{% block body %}
+    <header class="topbar">
+        <span class="brand">{{ 'app.name'|trans }}</span>
+        <nav class="lang" aria-label="{{ 'nav.language'|trans }}">
+            <a href="{{ path('home', {_locale: 'pl'}) }}"{{ app.request.locale == 'pl' ? ' aria-current="page"'|raw }}>PL</a>
+            <a href="{{ path('home', {_locale: 'en'}) }}"{{ app.request.locale == 'en' ? ' aria-current="page"'|raw }}>EN</a>
+        </nav>
+    </header>
+
+    <main class="hero">
+        <h1>{{ 'home.title'|trans }}</h1>
+        <p class="tagline">{{ 'home.tagline'|trans }}</p>
+        <p class="lead">{{ 'home.lead'|trans }}</p>
+    </main>
+{% endblock %}

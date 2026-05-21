@@ -1,0 +1,21 @@
+framework:
+    messenger:
+        # Failed messages go to a Doctrine-backed transport for later retry/inspection.
+        failure_transport: failed
+
+        transports:
+            # Async work runs through the Doctrine transport on Postgres (no RabbitMQ/Redis).
+            # Tables are auto-created (auto_setup) on first use.
+            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+            failed: 'doctrine://default?queue_name=failed'
+
+        routing:
+            # Route messages to the async transport, e.g.:
+            # 'App\Message\YourMessage': async
+
+when@test:
+    framework:
+        messenger:
+            transports:
+                async: 'in-memory://'
+                failed: 'in-memory://'

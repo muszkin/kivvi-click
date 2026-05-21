@@ -1,0 +1,16 @@
+framework:
+    cache:
+        # Unique name of your app: used to compute stable namespaces for cache keys.
+        #prefix_seed: your_vendor_name/app_name
+
+        # Application cache lives in Postgres (architecture decision — no Redis/Memcached).
+        # The Doctrine DBAL adapter auto-creates its table on first use.
+        # NOTE: convert that table to UNLOGGED via a migration for write throughput.
+        app: cache.adapter.doctrine_dbal
+        default_doctrine_dbal_provider: 'doctrine.dbal.default_connection'
+
+        system: cache.adapter.system
+
+        # Namespaced pools use the above "app" backend by default
+        #pools:
+            #my.dedicated.cache: null

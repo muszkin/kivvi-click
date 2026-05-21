@@ -1,6 +1,7 @@
 # Claude Code — keep team-shared config tracked, ignore personal/local
 CLAUDE.local.md
 .claude/settings.local.json
+.claude/scheduled_tasks.lock
 
 # Symfony / PHP
 /.env.local
@@ -15,3 +16,23 @@ npm-debug.log*
 
 # OS
 .DS_Store
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/asset-mapper ###
+/public/assets/
+/assets/vendor/
+###< symfony/asset-mapper ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###
