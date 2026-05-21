@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=$(jq -r '.tool_response.filePath // .tool_input.file_path // empty'); case \"$f\" in *.php) [ -x vendor/bin/php-cs-fixer ] && vendor/bin/php-cs-fixer fix \"$f\" ;; *.ts) [ -x node_modules/.bin/prettier ] && node_modules/.bin/prettier --write \"$f\" ;; esac 2>/dev/null || true",
+            "statusMessage": "Formatting edited file..."
+          }
+        ]
+      }
+    ]
+  }
+}
