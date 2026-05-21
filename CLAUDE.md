@@ -35,10 +35,14 @@ Postgres backs everything; there is no Redis, RabbitMQ, or Memcached.
 
 ## Commands
 
-Project is not scaffolded yet — bootstrap with dunglas/symfony-docker.
+Docker-first — run everything inside the `php` container.
 
-- Run the stack: `docker compose up` (FrankenPHP + Caddy + Postgres).
-- Run tests: `php bin/phpunit` (Symfony PHPUnit bridge), inside the app container.
+- Start: `HTTP_PORT=8080 HTTPS_PORT=8443 HTTP3_PORT=8443 docker compose up -d --wait` → https://localhost:8443
+- Rebuild image after a Dockerfile/extension change: `docker compose build php` (the doctrine recipe adds `pdo_pgsql` there — rebuild if you see "could not find driver")
+- Console: `docker compose exec php php bin/console <cmd>`
+- Tests: `docker compose exec php php bin/phpunit`. The test DB is `app_test` (Doctrine `dbname_suffix`); create + migrate it once: `php bin/console --env=test doctrine:database:create` then `doctrine:migrations:migrate --env=test`.
+- Format: `vendor/bin/php-cs-fixer fix` (PHP) and `npm run format` (prettier, TS/CSS).
+- Run the scheduler: `php bin/console messenger:consume scheduler_default`.
 
 ## Workflow — overrides the global gitflow/Jira rules for this repo
 
