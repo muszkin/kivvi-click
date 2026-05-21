@@ -10,3 +10,37 @@ services:
       APP_SECRET: ${APP_SECRET}
       MERCURE_PUBLISHER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET}
       MERCURE_SUBSCRIBER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET}
+      # Migrations are owned by the one-shot 'migrations' job below.
+      AUTO_MIGRATE: "0"
+    depends_on:
+      migrations:
+        condition: service_completed_successfully
+
+  # One-shot: applies migrations once, then exits. Web + worker wait for it to succeed.
+  migrations:
+    image: ${IMAGES_PREFIX:-}app-php-prod
+    build:
+      context: .
+      target: frankenphp_prod
+    command: php bin/console doctrine:migrations:migrate --no-interaction --all-or-nothing
+    restart: "no"
+    environment:
+      APP_SECRET: ${APP_SECRET}
+      AUTO_MIGRATE: "0"
+      DATABASE_URL: postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-!ChangeMe!}@database:5432/${POSTGRES_DB:-app}?serverVersion=${POSTGRES_VERSION:-15}&charset=${POSTGRES_CHARSET:-utf8}
+    depends_on:
+      database:
+        condition: service_healthy
+
+  worker:
+    image: ${IMAGES_PREFIX:-}app-php-prod
+    build:
+      context: .
+      target: frankenphp_prod
+    environment:
+      APP_SECRET: ${APP_SECRET}
+      MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET}
+      AUTO_MIGRATE: "0"
+    depends_on:
+      migrations:
+        condition: service_completed_successfully

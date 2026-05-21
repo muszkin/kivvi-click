@@ -33,7 +33,9 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 			echo 'The database is now ready and reachable'
 		fi
 
-		if [ "$(find ./migrations -iname '*.php' -print -quit)" ]; then
+		# Auto-migrate on start (default on). Set AUTO_MIGRATE=0 where a dedicated
+		# migrations job owns this (prod) or to avoid multiple containers racing (worker).
+		if [ "${AUTO_MIGRATE:-1}" = "1" ] && [ "$(find ./migrations -iname '*.php' -print -quit)" ]; then
 			php bin/console doctrine:migrations:migrate --no-interaction --all-or-nothing
 		fi
 	fi

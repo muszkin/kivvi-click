@@ -26,6 +26,10 @@ HTTP_PORT=8080 HTTPS_PORT=8443 HTTP3_PORT=8443 docker compose up -d --wait
 
 Open https://localhost:8443/ (self-signed certificate in dev).
 
+This also starts a `worker` container that runs `messenger:consume async scheduler_default`,
+so async (Doctrine transport) messages are processed and scheduled tasks fire automatically.
+Migrations run on the `php` container's start; the `worker` skips them (`AUTO_MIGRATE=0`).
+
 ## Common commands
 
 ```bash
@@ -40,3 +44,17 @@ docker compose logs -f php                           # follow app logs
 ```bash
 docker compose exec php php bin/phpunit
 ```
+
+## Production
+
+Production uses `compose.prod.yaml` (built prod image, no bind-mount). A one-shot `migrations`
+job applies migrations once and exits; `php` and `worker` wait for it to succeed
+(`service_completed_successfully`) and run with `AUTO_MIGRATE=0`, so no two containers race on
+migrations.
+
+```bash
+export APP_SECRET=... CADDY_MERCURE_JWT_SECRET=...
+docker compose -f compose.yaml -f compose.prod.yaml build
+docker compose -f compose.yaml -f compose.prod.yaml up -d --wait
+```
+

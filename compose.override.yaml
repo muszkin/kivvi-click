@@ -37,6 +37,8 @@ services:
       - /app/var
     environment:
       APP_ENV: "${APP_ENV:-dev}"
+      # The php container already runs migrations on start; don't race it from here.
+      AUTO_MIGRATE: "0"
     extra_hosts:
       - host.docker.internal:host-gateway
 ###> symfony/mercure-bundle ###
