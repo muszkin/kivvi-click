@@ -40,8 +40,10 @@ Docker-first — run everything inside the `php` container.
 - Start: `HTTP_PORT=8080 HTTPS_PORT=8443 HTTP3_PORT=8443 docker compose up -d --wait` → https://localhost:8443
 - Rebuild image after a Dockerfile/extension change: `docker compose build php` (the doctrine recipe adds `pdo_pgsql` there — rebuild if you see "could not find driver")
 - Console: `docker compose exec php php bin/console <cmd>`
-- Tests: `docker compose exec php php bin/phpunit`. The test DB is `app_test` (Doctrine `dbname_suffix`); create + migrate it once: `php bin/console --env=test doctrine:database:create` then `doctrine:migrations:migrate --env=test`.
-- Format: `vendor/bin/php-cs-fixer fix` (PHP) and `npm run format` (prettier, TS/CSS).
+- Tests: `docker compose exec php composer test`. The script creates the `app_test` database if missing, builds TypeScript assets for AssetMapper, then runs PHPUnit. If migrations are added later, migrate the test DB with `php bin/console --env=test doctrine:migrations:migrate`.
+- Format: `vendor/bin/php-cs-fixer fix` (PHP) and `yarn format` (prettier, TS/CSS).
+- Static analysis: `docker compose exec php composer phpstan` and `yarn typecheck`.
+- CI/CD: GitHub Actions builds the production Docker image on push to `main`.
 - Run the scheduler: `php bin/console messenger:consume scheduler_default`.
 
 ## Workflow — overrides the global gitflow/Jira rules for this repo

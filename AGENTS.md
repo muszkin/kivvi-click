@@ -69,7 +69,7 @@ Common commands:
 
 ```bash
 docker compose exec php php bin/console <command>
-docker compose exec php php bin/phpunit
+docker compose exec php composer test
 docker compose exec php composer require <package>
 docker compose logs -f php
 ```
@@ -87,12 +87,26 @@ docker compose exec php php bin/console --env=test doctrine:database:create
 docker compose exec php php bin/console --env=test doctrine:migrations:migrate
 ```
 
+The canonical test command is `docker compose exec php composer test`; it creates the test
+database if missing, builds TypeScript assets for AssetMapper, then runs PHPUnit.
+
 Formatting:
 
 ```bash
 docker compose exec php vendor/bin/php-cs-fixer fix
-npm run format
+yarn format
 ```
+
+Static analysis:
+
+```bash
+docker compose exec php composer phpstan
+yarn typecheck
+```
+
+CI/CD:
+
+- GitHub Actions builds the production Docker image on push to `main`.
 
 ## Current Shape
 
