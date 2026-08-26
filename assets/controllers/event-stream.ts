@@ -21,9 +21,21 @@ export function registerEventStream(el: HTMLElement): void {
     );
     hub.searchParams.append("topic", topic);
 
+    // Rows are only pushed once the hub has accepted the subscription, so the state is
+    // published on the element: the UI (and the e2e suite) can tell "connecting" from "live".
+    el.dataset.streamState = "connecting";
+
     const source = new EventSource(hub, { withCredentials: true });
 
+    source.onopen = (): void => {
+        el.dataset.streamState = "live";
+    };
+
     source.onmessage = (message: MessageEvent<string>): void => {
+        // Pause stops the rows from piling up while someone reads them; the subscription
+        // itself stays open, so the stream is current again the moment it is resumed.
+        if (el.dataset.paused === "true") return;
+
         const { html } = JSON.parse(message.data) as { html: string };
         const tpl = document.createElement("template");
         tpl.innerHTML = html.trim();

@@ -39,6 +39,8 @@ test.describe("event stream", () => {
         await page.goto("/pl/events");
         const stream = page.locator("#event-stream");
         await expect(stream.locator(".event-row")).toHaveCount(30);
+        // Mercure has no replay: publish only once the subscription is open.
+        await expect(stream).toHaveAttribute("data-stream-state", "live");
 
         // Other specs publish to the same topic, so recognise this event by its own detail.
         const marker = `412,00 PLN · zamówienie ${Date.now()}`;
@@ -66,6 +68,7 @@ test.describe("event stream", () => {
     test("a replayed event is not shown twice", async ({ page, request }) => {
         await page.goto("/pl/events");
         const stream = page.locator("#event-stream");
+        await expect(stream).toHaveAttribute("data-stream-state", "live");
 
         // The topic is shared, so identify this test's own event by its detail line
         // rather than by counting every row that flashed in.
