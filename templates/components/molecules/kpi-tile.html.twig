@@ -1,0 +1,27 @@
+{#
+  MOLECULE · kpi-tile
+  Single metric tile. Sparkline bleeds into the bottom 38px at 45% opacity.
+
+  Params:
+    label (string, required)
+    value (string, required) — pre-formatted (pl-PL)
+    unit (string) — small suffix inside the value
+    delta (string) — change readout
+    dir (enum: up|down|flat) — colours the delta
+    deltaIcon (string) default arrow_up/arrow_down
+    series (array) — sparkline values
+
+  Usage:
+    {{ include('components/molecules/kpi-tile.html.twig', { label: 'Aktywne sesje', value: '312', delta: '+4.1%', dir: 'up' }) }}
+#}
+<div class="kpi">
+  <div class="kpi-label">{{ label }}</div>
+  <div class="kpi-value">{{ value }}{% if unit is defined %}<span class="unit">{{ unit }}</span>{% endif %}</div>
+  {%- if delta is defined %}
+  <div class="kpi-delta {{ dir|default('flat') }}">
+    {{ include('components/atoms/icon.html.twig', { name: deltaIcon|default(dir|default('up') == 'down' ? 'arrow_down' : 'arrow_up') }, false) }}
+    <span>{{ delta }}</span>
+  </div>
+  {%- endif %}
+  {%- if series is defined %}<div class="kpi-spark">{{ include('components/atoms/sparkline.html.twig', { values: series }, false) }}</div>{% endif %}
+</div>

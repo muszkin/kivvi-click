@@ -1,0 +1,387 @@
+/* ============================================================
+   STORYBOOK CHROME
+   Deliberately namespaced sb-* so it can never be mistaken for
+   the product design system it displays. Uses the same tokens.
+   ============================================================ */
+
+.sb-body {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+    margin: 0;
+    background: var(--bg);
+}
+
+.sb-nav {
+    border-right: 1px solid var(--line);
+    background: var(--bg-2);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+.sb-brand {
+    padding: 16px;
+    border-bottom: 1px solid var(--line);
+    display: block;
+}
+.sb-nav-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 8px;
+}
+.sb-nav-group {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    font-weight: 600;
+    color: var(--fg-subtle);
+    padding: 14px 10px 6px;
+}
+.sb-nav-item {
+    display: block;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    color: var(--fg-1);
+    font-family: var(--font-mono);
+    cursor: pointer;
+}
+.sb-nav-item:hover {
+    background: var(--bg-card);
+}
+.sb-nav-item[aria-current="page"],
+.sb-nav-item[data-active="true"] {
+    background: var(--accent-soft);
+    color: var(--accent-soft-fg);
+    font-weight: 500;
+}
+
+.sb-nav-foot {
+    border-top: 1px solid var(--line);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.sb-control {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.sb-control__label {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--fg-muted);
+    font-weight: 600;
+}
+.sb-accents {
+    display: flex;
+    gap: 6px;
+}
+.sb-accents button {
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+.sb-accents button[data-active="true"] {
+    border-color: var(--fg);
+}
+.sb-accents button[data-sb-accent="green"] {
+    background: oklch(0.42 0.06 150);
+}
+.sb-accents button[data-sb-accent="brown"] {
+    background: oklch(0.45 0.07 60);
+}
+.sb-accents button[data-sb-accent="rust"] {
+    background: oklch(0.52 0.12 32);
+}
+.sb-accents button[data-sb-accent="plum"] {
+    background: oklch(0.4 0.08 320);
+}
+
+.sb-main {
+    min-width: 0;
+}
+.sb-page {
+    padding: 32px 36px 100px;
+    max-width: 1180px;
+}
+
+.sb-h1 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 40px;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    padding-bottom: 0.08em;
+    margin: 0;
+}
+.sb-h2 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 26px;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    margin: 40px 0 14px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+.sb-count {
+    font-family: var(--font-mono);
+    font-style: normal;
+    font-size: 12px;
+    color: var(--fg-muted);
+}
+.sb-kicker {
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+}
+.sb-lead {
+    color: var(--fg-muted);
+    font-size: 14.5px;
+    max-width: 680px;
+    margin: 8px 0 0;
+    text-wrap: pretty;
+}
+
+.sb-story-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 8px;
+}
+/* The prose is the point of this page — it gets the room. */
+.sb-story-head__text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+.sb-path {
+    font-size: 11.5px;
+    color: var(--fg-muted);
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    padding: 5px 9px;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 40%;
+}
+@media (max-width: 900px) {
+    .sb-story-head {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .sb-path {
+        max-width: 100%;
+    }
+}
+
+/* Icon catalogue */
+.sb-icon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+    gap: 8px;
+}
+.sb-icon-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 8px;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    min-width: 0;
+}
+.sb-icon-cell .icon {
+    width: 20px;
+    height: 20px;
+    color: var(--fg);
+}
+.sb-icon-cell code {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--fg-muted);
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sb-index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+}
+.sb-index-card {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    cursor: pointer;
+    transition:
+        border-color 120ms,
+        transform 120ms;
+    text-align: left;
+    display: block;
+    width: 100%;
+}
+.sb-index-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+}
+.sb-index-card__title {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+.sb-index-card__meta {
+    font-size: 11.5px;
+    color: var(--fg-muted);
+}
+.sb-index-card__meta.mono {
+    font-family: var(--font-mono);
+}
+
+.sb-variant {
+    margin-top: 30px;
+}
+.sb-variant__head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+.sb-variant__name {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--fg-1);
+    background: var(--bg-sunken);
+    border: 1px solid var(--line);
+    padding: 3px 8px;
+    border-radius: var(--radius-xs);
+    margin: 0;
+}
+.sb-variant__frame {
+    font-size: 11.5px;
+    color: var(--fg-muted);
+    margin-left: auto;
+    cursor: pointer;
+}
+.sb-variant__frame:hover {
+    color: var(--accent);
+}
+
+.sb-canvas {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: repeating-conic-gradient(var(--bg-2) 0% 25%, var(--bg) 0% 50%) 0
+        0 / 16px 16px;
+    padding: 22px;
+    overflow: auto;
+}
+.sb-canvas[data-fill="true"] {
+    padding: 0;
+}
+.sb-canvas[data-tall="true"] {
+    min-height: 420px;
+}
+
+.sb-code {
+    margin-top: 8px;
+}
+.sb-code summary {
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+    padding: 4px 0;
+    user-select: none;
+}
+.sb-code summary:hover {
+    color: var(--accent);
+}
+.sb-code .code-block {
+    margin-top: 6px;
+    white-space: pre-wrap;
+}
+
+.sb-props {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+.sb-props th {
+    text-align: left;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--fg-muted);
+    background: var(--bg-2);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--line);
+}
+.sb-props td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+}
+.sb-props tr:last-child td {
+    border-bottom: 0;
+}
+.sb-props td:first-child {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    white-space: nowrap;
+}
+.sb-props td:nth-child(2) {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--accent);
+    white-space: nowrap;
+}
+.sb-props td:last-child {
+    color: var(--fg-muted);
+}
+.sb-req {
+    color: var(--bad);
+    font-weight: 600;
+}
+
+.sb-note {
+    background: var(--warn-soft);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    font-size: 13px;
+    margin-top: 14px;
+    display: flex;
+    gap: 8px;
+}
+[data-theme="dark"] .sb-note {
+    color: var(--fg);
+}
+.sb-note .icon {
+    flex-shrink: 0;
+    color: var(--warn);
+}

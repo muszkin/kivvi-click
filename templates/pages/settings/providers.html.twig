@@ -1,0 +1,19 @@
+{#
+  PARTIAL · settings / Dostawcy email
+  Sending providers with deliverability, domain authentication and sender limits.
+#}
+{{ include('components/molecules/card.html.twig', {
+  title: 'Dostawcy wysyłki'|trans, icon: 'mail', sub: 'failover przy błędzie głównego dostawcy jest włączony'|trans,
+  headActions: include('components/atoms/button.html.twig', { variant: 'primary', size: 'sm', icon: 'plus', label: 'Dodaj dostawcę'|trans, action: 'add-provider' }),
+  body: include('pages/settings/provider-list.html.twig', { providers: settings.emailProviders })
+}) }}
+
+{{ include('components/molecules/card.html.twig', {
+  title: 'Uwierzytelnianie domeny'|trans, sub: 'aureashop.pl',
+  body: include('pages/settings/dns-records.html.twig', { records: settings.dnsRecords })
+}) }}
+
+{{ include('components/molecules/card.html.twig', {
+  title: 'Adresy nadawcy i limity'|trans,
+  body: include('pages/settings/sender-limits.html.twig')
+}) }}

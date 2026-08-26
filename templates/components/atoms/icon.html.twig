@@ -1,0 +1,21 @@
+{#
+  ATOM · icon
+  Inline stroke SVG from the sprite map. 24×24 viewBox, sized by CSS (.icon = 14px default).
+
+  Params:
+    name   (string, required) — key in ICONS (see assets/js/icons.js / Twig global `icons`)
+    class  (string) — extra classes, e.g. "nav-icon"
+    size   (int)    — inline px override; prefer CSS
+
+  Usage:
+    {{ include('components/atoms/icon.html.twig', { name: 'bolt' }) }}
+#}
+{#- `size` is a pixel override. Includes inherit their caller's context, so ignore
+    anything that is not a number (a button passes size: 'sm' for its own scale). -#}
+{%- set _p = icons[name]|default(null) -%}
+{%- set _size = (size is defined and size is not iterable and size matches '/^[0-9]+$/') ? size : null -%}
+{%- if _p -%}
+<svg class="icon {{ class|default('') }}"{% if _size %} width="{{ _size }}" height="{{ _size }}"{% endif %}
+     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{{ _p|raw }}</svg>
+{%- endif -%}

@@ -1,0 +1,20 @@
+{#
+  ORGANISM · rule-pipeline
+  Linear rule builder: three equal steps (KIEDY → JEŚLI → WTEDY) joined by CSS arrows above 1100px, stacked below.
+
+  Params:
+    steps (array of {n,kicker,title,blocks[],addLabel}, required) — blocks use the rb-block contract
+
+  Usage:
+    {{ include('components/organisms/rule-pipeline.html.twig', { steps: steps }) }}
+#}
+<div class="rb-pipeline">
+  {%- for s in steps %}
+  <section class="rb-step">
+    <div class="rb-step__kicker"><span class="num">{{ s.n }}</span> {{ s.kicker }}</div>
+    <h3 class="rb-step__title">{{ s.title }}</h3>
+    {%- for b in s.blocks %}{{ include('components/molecules/rb-block.html.twig', b, false) }}{% endfor %}
+    {{ include('components/molecules/add-slot.html.twig', { label: s.addLabel, action: 'add-block', payload: s.n }, false) }}
+  </section>
+  {%- endfor %}
+</div>

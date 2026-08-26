@@ -1,0 +1,21 @@
+{#
+  MOLECULE · segmented
+  Mutually exclusive control, 2–4 short options. Active item gets bg-card + shadow-sm.
+
+  Params:
+    options (array of {value,label,icon,active}, required)
+    action  (string) — data-action fired on each button, value goes to data-payload
+    class   (string)
+
+  Usage:
+    {{ include('components/molecules/segmented.html.twig', { action: 'set-theme', options: [{value:'light',label:'Light',icon:'sun',active:true},{value:'dark',label:'Dark',icon:'moon'}] }) }}
+#}
+<div class="seg {{ class|default('') }}" role="tablist">
+  {%- for o in options %}
+  <button role="tab" aria-selected="{{ o.active|default(false) ? 'true' : 'false' }}" data-active="{{ o.active|default(false) ? 'true' : 'false' }}"
+    {%- if action is defined %} data-action="{{ action }}" data-payload="{{ o.value }}"{% endif %}>
+    {%- if o.icon is defined %}{{ include('components/atoms/icon.html.twig', { name: o.icon }, false) }}{% endif %}
+    {{ o.label }}
+  </button>
+  {%- endfor %}
+</div>

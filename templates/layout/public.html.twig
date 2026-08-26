@@ -1,0 +1,39 @@
+{#
+  LAYOUT · public
+  Marketing shell: sticky translucent nav (backdrop-filter blur 10px) + footer. No app chrome.
+
+  Params:
+    content (block, required)
+
+  Usage:
+    {% extends 'layout/public.html.twig' %}
+#}
+{% extends 'layout/base.html.twig' %}
+
+{% block body %}
+<div class="landing-wrap">
+  <header class="landing-nav">
+    {{ include('components/atoms/wordmark.html.twig', { size: 22, fontSize: 19 }) }}
+    <nav class="nav-links">
+      <a href="#features">{{ 'Funkcje'|trans }}</a>
+      <a href="#how">{{ 'Jak to działa'|trans }}</a>
+      <a href="#pricing">{{ 'Cennik'|trans }}</a>
+      <a href="#docs">{{ 'Dokumentacja'|trans }}</a>
+      <a href="#blog">{{ 'Blog'|trans }}</a>
+    </nav>
+    <div class="spacer"></div>
+    {{ include('components/atoms/button.html.twig', { variant: 'ghost', size: 'sm', label: 'Logowanie'|trans, href: path('login') }) }}
+    {{ include('components/atoms/button.html.twig', { variant: 'primary', size: 'sm', label: 'Załóż konto →'|trans, href: path('login') }) }}
+  </header>
+
+  {% block content %}{% endblock %}
+
+  <footer class="landing-foot">
+    {{ include('components/atoms/wordmark.html.twig', { size: 16, fontSize: 14 }) }}
+    <span>·</span><span>© {{ 'now'|date('Y') }}</span><span>·</span>
+    <a href="#">{{ 'Regulamin'|trans }}</a><a href="#">{{ 'Prywatność'|trans }}</a><a href="#">RODO / DPA</a><a href="#">Status</a>
+    <div style="flex:1;"></div>
+    <span class="mono" style="font-size: 11px;">{{ 'Zbudowane w Polsce z Symfony, PHP i sporą ilością herbaty'|trans }}</span>
+  </footer>
+</div>
+{% endblock %}

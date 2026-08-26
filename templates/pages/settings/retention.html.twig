@@ -1,0 +1,22 @@
+{#
+  PARTIAL · settings / retention windows
+
+  Params:
+    policies (array of {label, options, selected}, required)
+#}
+<div class="form-grid">
+  {%- for policy in policies %}
+    {% set options = [] %}
+    {% for option in policy.options %}
+      {% set options = options|merge([{ value: option, label: option, selected: option == policy.selected }]) %}
+    {% endfor %}
+    {{ include('components/atoms/field.html.twig', {
+      name: 'retention_' ~ loop.index, type: 'select', label: policy.label, options: options
+    }) }}
+  {%- endfor %}
+</div>
+<div style="margin-top:12px;">
+  {{ include('components/atoms/toggle-row.html.twig', { name: 'anonymize_ip', checked: true, label: 'Anonimizuj adresy IP w zdarzeniach (ostatni oktet)'|trans }) }}
+  {{ include('components/atoms/toggle-row.html.twig', { name: 'consent_gate', checked: true, label: 'Nie zapisuj zdarzeń, dopóki nie ma zgody na cookies analityczne'|trans }) }}
+  {{ include('components/atoms/toggle-row.html.twig', { name: 'ml_consent', checked: false, label: 'Wyłącz profilowanie ML dla klientów z UE bez wyraźnej zgody'|trans }) }}
+</div>

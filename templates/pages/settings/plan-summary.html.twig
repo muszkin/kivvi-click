@@ -1,0 +1,17 @@
+{#
+  PARTIAL · settings / current plan
+#}
+<div class="row" style="gap:18px; align-items:flex-start;">
+  <div style="flex:1;">
+    <div class="mono" style="font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--fg-muted);">{{ 'Twój plan'|trans }}</div>
+    <div class="row" style="gap:10px; margin:6px 0 4px;">
+      <span class="h-display" style="font-size:40px;">Pro</span>
+      {{ include('components/atoms/chip.html.twig', { label: 'rozliczenie miesięczne'|trans, tone: 'accent' }) }}
+    </div>
+    <div class="muted" style="font-size:13px;">{{ 'Następne odnowienie 1 września 2026 · 149,00 zł netto'|trans }}</div>
+  </div>
+  <div class="row" style="gap:8px;">
+    {{ include('components/atoms/button.html.twig', { size: 'sm', label: 'Zmień na roczny (−20%)'|trans, action: 'switch-billing-period' }) }}
+    {{ include('components/atoms/button.html.twig', { size: 'sm', label: 'Zmień plan'|trans, action: 'change-plan' }) }}
+  </div>
+</div>

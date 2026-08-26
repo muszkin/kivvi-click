@@ -1,0 +1,17 @@
+{#
+  PARTIAL · popup editor / widget types
+  Five shapes; picking one is a URL change so the preview is linkable.
+
+  Params:
+    types (array of {id, label, icon}, required)
+    current (string, required)
+#}
+<div class="pw-type-list">
+  {%- for t in types %}
+  <a class="pw-type" data-active="{{ t.id == current ? 'true' : 'false' }}"
+     href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({ type: t.id })) }}">
+    {{ include('components/atoms/icon.html.twig', { name: t.icon }) }}
+    <span>{{ t.label }}</span>
+  </a>
+  {%- endfor %}
+</div>

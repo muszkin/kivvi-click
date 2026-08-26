@@ -1,0 +1,20 @@
+{#
+  PARTIAL · dashboard / recently seen
+  Compact customer rows reusing the event-row grid: avatar, identity, orders, last seen.
+
+  Params:
+    customers (array of {id, name, email, initials, orders, lastSeen}, required)
+#}
+<div>
+  {%- for c in customers %}
+  <a class="event-row" href="{{ path('customer_show', { id: c.id }) }}" style="grid-template-columns: auto 1fr auto auto; text-decoration: none; color: inherit;">
+    {{ include('components/atoms/avatar.html.twig', { name: c.name, size: 28 }) }}
+    <div style="min-width:0;">
+      <div style="font-weight:500; font-size:13px;">{{ c.name }}</div>
+      <div class="muted mono" style="font-size:11px;">{{ c.email }}</div>
+    </div>
+    <div class="mono" style="font-size:12px;">{{ c.orders }} {{ 'zam.'|trans }}</div>
+    <div class="muted" style="font-size:11px;">{{ c.lastSeen }}</div>
+  </a>
+  {%- endfor %}
+</div>

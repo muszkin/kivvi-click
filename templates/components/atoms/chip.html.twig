@@ -1,0 +1,19 @@
+{#
+  ATOM · chip
+  Status / metadata pill. Never interactive — use filter-chip for that.
+
+  Params:
+    label  (string, required)
+    tone   (enum: neutral|good|warn|bad|info|accent|brown) default "neutral"
+    icon   (string) — leading icon
+    live   (bool)   — prepend pulsing dot (use with tone "good")
+    mono   (bool)   — monospace label (for identifiers)
+
+  Usage:
+    {{ include('components/atoms/chip.html.twig', { label: 'Aktywna', tone: 'good' }) }}
+#}
+<span class="chip {{ tone|default('neutral') != 'neutral' ? tone : '' }} {{ mono|default(false) ? 'mono' : '' }}">
+  {%- if live|default(false) %}<span class="dot-wrap"><span class="dot live"></span></span>{% endif %}
+  {%- if icon is defined %}{{ include('components/atoms/icon.html.twig', { name: icon }, false) }}{% endif %}
+  {{ label }}
+</span>

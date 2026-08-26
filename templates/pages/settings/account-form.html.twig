@@ -1,0 +1,16 @@
+{#
+  PARTIAL · settings / account fields
+#}
+<div class="form-grid">
+  {{ include('components/atoms/field.html.twig', { name: 'company', label: 'Nazwa firmy'|trans, value: 'Aurea Shop sp. z o.o.' }) }}
+  {{ include('components/atoms/field.html.twig', { name: 'vat_id', label: 'NIP'|trans, value: '527-289-11-04', mono: true }) }}
+  {{ include('components/atoms/field.html.twig', { name: 'street', label: 'Adres'|trans, value: 'ul. Świętokrzyska 18/22' }) }}
+  {{ include('components/atoms/field.html.twig', { name: 'city', label: 'Miasto i kod'|trans, value: '00-052 Warszawa' }) }}
+  {{ include('components/atoms/field.html.twig', { name: 'country', type: 'select', label: 'Kraj'|trans, options: [
+    { value: 'pl', label: 'Polska'|trans, selected: true },
+    { value: 'de', label: 'Niemcy'|trans },
+    { value: 'cz', label: 'Czechy'|trans }] }) }}
+  {{ include('components/atoms/field.html.twig', { name: 'currency', type: 'select', label: 'Waluta raportowania'|trans, options: [
+    { value: 'PLN', label: 'PLN', selected: true },
+    { value: 'EUR', label: 'EUR' }] }) }}
+</div>

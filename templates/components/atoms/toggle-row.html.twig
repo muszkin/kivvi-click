@@ -1,0 +1,19 @@
+{#
+  ATOM · toggle-row
+  Checkbox or radio with inline label. accent-color: var(--accent).
+
+  Params:
+    kind    (enum: checkbox|radio) default "checkbox"
+    name    (string, required)
+    label   (string|html, required)
+    checked (bool)
+    value   (string)
+
+  Usage:
+    {{ include('components/atoms/toggle-row.html.twig', { name: 'mfa', label: 'Wymagaj 2FA', checked: true }) }}
+#}
+{%- set k = kind|default('checkbox') -%}
+<label class="{{ k == 'radio' ? 'radio-row' : 'checkbox-row' }}">
+  <input type="{{ k }}" name="{{ name }}"{% if value is defined %} value="{{ value }}"{% endif %}{{ checked|default(false) ? ' checked' : '' }}>
+  <span>{{ label|raw }}</span>
+</label>

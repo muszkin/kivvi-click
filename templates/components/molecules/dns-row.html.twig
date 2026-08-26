@@ -1,0 +1,17 @@
+{#
+  MOLECULE · dns-row
+  DNS record verification line (SPF/DKIM/DMARC/BIMI).
+
+  Params:
+    record (string, required)
+    value (string, required)
+    ok (bool, required)
+
+  Usage:
+    {{ include('components/molecules/dns-row.html.twig', { record: 'SPF', value: 'v=spf1 …', ok: true }) }}
+#}
+<div class="dns-row">
+  {{ include('components/atoms/chip.html.twig', { label: record, tone: ok ? 'good' : 'warn', icon: ok ? 'check' : 'info' }, false) }}
+  <span class="mono" style="font-size:11.5px; color: var(--fg-muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ value }}</span>
+  {{ include('components/atoms/button.html.twig', { variant: 'ghost', size: 'sm', icon: 'copy', action: 'copy-dns', payload: record }, false) }}
+</div>

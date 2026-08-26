@@ -1,0 +1,22 @@
+{#
+  PARTIAL · import step 3 · segments
+  Fixed segments plus conditional rules evaluated per imported row.
+#}
+<div style="display: flex; flex-direction: column; gap: 12px;">
+  <div class="row" style="gap: 6px; flex-wrap: wrap;">
+    {{ include('components/atoms/chip.html.twig', { label: 'Newsletter', tone: 'accent' }) }}
+    {{ include('components/atoms/chip.html.twig', { label: 'Import — marzec 2026', tone: 'brown' }) }}
+    {{ include('components/atoms/button.html.twig', { variant: 'ghost', size: 'sm', icon: 'plus', label: 'Dodaj segment'|trans, action: 'add-segment' }) }}
+  </div>
+
+  <div class="muted" style="font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 6px;">{{ 'Warunkowe segmenty'|trans }}</div>
+  {{ include('components/molecules/cond-rule.html.twig', {
+    field: 'lifetime_value', operators: ['≥', '>', '='], value: '500',
+    suffix: 'PLN, dodaj do'|trans, targetLabel: 'VIP', targetTone: 'accent'
+  }) }}
+  {{ include('components/molecules/cond-rule.html.twig', {
+    field: 'orders_count', operators: ['='], value: '0',
+    suffix: ', dodaj do'|trans, targetLabel: 'Do reaktywacji'|trans, targetTone: 'brown'
+  }) }}
+  {{ include('components/molecules/add-slot.html.twig', { label: 'Dodaj regułę warunkową'|trans, action: 'add-cond-rule' }) }}
+</div>

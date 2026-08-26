@@ -1,0 +1,13 @@
+{#
+  MOLECULE · coupon-code
+  Dashed brown ticket showing a discount code. Appears in emails and popups.
+
+  Params:
+    code (string, required)
+    note (string)
+
+  Usage:
+    {{ include('components/molecules/coupon-code.html.twig', { code: 'WROCMY-A8F2', note: 'Ważny 48h' }) }}
+#}
+<div class="coupon-code">{{ code }}</div>
+{%- if note is defined %}<div style="font-size: 12px; color: oklch(0.5 0.025 150);">{{ note }}</div>{% endif %}

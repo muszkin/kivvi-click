@@ -1,0 +1,20 @@
+{#
+  MOLECULE · swatch-grid
+  Curated accent palettes (never a free colour picker). Each swatch is a 60/40 split of base and soft tone.
+
+  Params:
+    palettes (array of {id,name,base,soft}, required)
+    selected (string)
+    action (string) default "set-accent"
+
+  Usage:
+    {{ include('components/molecules/swatch-grid.html.twig', { palettes: palettes, selected: 'green' }) }}
+#}
+<div class="swatches">
+  {%- for p in palettes %}
+  <button class="swatch" data-active="{{ p.id == selected|default('') ? 'true' : 'false' }}" data-label="{{ p.name }}"
+          data-action="{{ action|default('set-accent') }}" data-payload="{{ p.id }}"
+          style="background: linear-gradient(135deg, {{ p.base }} 60%, {{ p.soft }} 60%);"
+          aria-label="{{ p.name }}"></button>
+  {%- endfor %}
+</div>

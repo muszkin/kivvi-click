@@ -1,0 +1,31 @@
+{#
+  PARTIAL · import step 3 · GDPR consent
+  Consent source, consent date and the default opt-in decision.
+#}
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px;">
+  {{ include('components/atoms/field.html.twig', { name: 'consent_source', type: 'select', label: 'Źródło zgody'|trans, options: [
+    { value: 'form', label: 'Formularz na stronie'|trans },
+    { value: 'migration', label: 'Migracja z poprzedniego CRM'|trans, selected: true },
+    { value: 'purchase', label: 'Zapis przy zakupie'|trans },
+    { value: 'manual', label: 'Import ręczny (z weryfikacją)'|trans }] }) }}
+
+  {{ include('components/atoms/field.html.twig', { name: 'consent_date', type: 'select', label: 'Data uzyskania zgody'|trans, options: [
+    { value: 'column', label: 'Z kolumny „Data rejestracji”'|trans, selected: true },
+    { value: 'today', label: 'Dziś (dzień importu)'|trans },
+    { value: 'manual', label: 'Ręcznie ustawiona'|trans }] }) }}
+
+  <div>
+    <label class="label">{{ 'Domyślny opt-in'|trans }}</label>
+    {{ include('components/molecules/segmented.html.twig', { action: 'set-optin', options: [
+      { value: 'file', label: 'Z pliku'|trans, active: true },
+      { value: 'yes', label: 'Wszyscy: Tak'|trans },
+      { value: 'no', label: 'Wszyscy: Nie'|trans }] }) }}
+  </div>
+
+  <div style="grid-column: span 3;">
+    {{ include('components/atoms/toggle-row.html.twig', {
+      name: 'gdpr_confirmed', checked: true,
+      label: 'Potwierdzam, że zgody zostały uzyskane zgodnie z RODO i mogę je udokumentować na żądanie.'|trans
+    }) }}
+  </div>
+</div>

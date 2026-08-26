@@ -1,0 +1,15 @@
+{#
+  PARTIAL · settings / tracker snippet
+
+  Params:
+    snippet (string, required)
+#}
+<p class="muted" style="margin:0 0 12px; font-size:13px;">
+  {{ 'Wklej ten kod tuż przed'|trans }} <span class="mono">&lt;/head&gt;</span> {{ 'na wszystkich stronach. Skrypt waży ~2KB, ładuje się asynchronicznie, nie blokuje renderu.'|trans }}
+</p>
+{{ include('components/atoms/code-block.html.twig', { code: snippet, lang: 'html' }) }}
+<div class="row" style="margin-top: 14px; gap: 14px; flex-wrap: wrap;">
+  {{ include('components/atoms/chip.html.twig', { label: 'Skrypt wykryty na 14 z 14 stron'|trans, tone: 'good', icon: 'check' }) }}
+  {{ include('components/atoms/chip.html.twig', { label: 'Pierwsze zdarzenie: 14 stycznia 2024'|trans }) }}
+  {{ include('components/atoms/chip.html.twig', { label: 'Wersja k.js: 2.4.1' }) }}
+</div>

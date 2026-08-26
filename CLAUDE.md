@@ -45,6 +45,11 @@ Docker-first — run everything inside the `php` container.
 - Static analysis: `docker compose exec php composer phpstan` and `yarn typecheck`.
 - CI/CD: GitHub Actions builds the production Docker image on push to `main`.
 - Run the scheduler: `php bin/console messenger:consume scheduler_default`.
+- E2E: `cd tests/e2e && npm install && npx playwright test` — headless Chrome against the running
+  stack (`E2E_BASE_URL` overrides the default `https://localhost:8543`). Isolated `package.json`
+  on purpose: the root project stays on yarn/PnP.
+- Component storybook (dev/test only): https://localhost:8443/_storybook — every component
+  rendered from its production template; stories are data in `config/storybook.php`.
 
 ## Workflow — overrides the global gitflow/Jira rules for this repo
 

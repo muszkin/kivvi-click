@@ -1,0 +1,15 @@
+{#
+  PARTIAL · customer / active automations
+  One line per automation currently running for this person.
+
+  Params:
+    automations (array of {name}, required)
+#}
+<div style="padding: 8px 0;">
+  {%- for a in automations %}
+  <div class="row" style="padding: 8px 14px; border-bottom: 1px solid var(--line); font-size: 13px;">
+    {{ include('components/atoms/dot.html.twig', { color: 'var(--good)' }) }}
+    <span>{{ a.name }}</span>
+  </div>
+  {%- endfor %}
+</div>

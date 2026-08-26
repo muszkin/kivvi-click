@@ -1,0 +1,11 @@
+{#
+  PARTIAL · popups / when does it show
+  One sentence describing the trigger combination of the previewed widget.
+#}
+<div class="muted" style="font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">{{ 'Pokazuje się gdy'|trans }}</div>
+<div style="font-size: 13px;">
+  {{ 'klient próbuje opuścić stronę (exit intent)'|trans }} <strong>{{ 'oraz'|trans }}</strong> {{ 'spędził'|trans }}
+  {{ include('components/atoms/chip.html.twig', { label: '≥ 20s' }) }}
+  <strong>{{ 'oraz'|trans }}</strong> {{ 'nie widział tego popupu w ostatnich'|trans }}
+  {{ include('components/atoms/chip.html.twig', { label: '14 dniach'|trans }) }}
+</div>

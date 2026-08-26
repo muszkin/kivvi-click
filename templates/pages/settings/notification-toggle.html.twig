@@ -1,0 +1,12 @@
+{#
+  PARTIAL · settings / one checkbox in the notification matrix
+
+  Params:
+    channel (string, required)
+    label (string, required) — the event it belongs to, used for the accessible name
+    checked (bool, required)
+#}
+<div style="text-align:center;">
+  <input type="checkbox" name="notify[{{ channel }}][]" value="{{ label }}"{{ checked ? ' checked' : '' }}
+         aria-label="{{ label }} — {{ channel }}" style="accent-color: var(--accent); width:16px; height:16px;">
+</div>

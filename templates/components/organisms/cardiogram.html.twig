@@ -1,0 +1,34 @@
+{#
+  ORGANISM · cardiogram
+  Events-per-second canvas. The only <canvas> in the system. cardiogram.ts holds a rolling 60-bucket ring buffer, redraws every 1s and on the [data-theme] mutation (colours are read from computed custom properties).
+
+  Params:
+    id (string) default "cardiogram"
+    title (string)
+    sub (string)
+    ranges (array of {label,active})
+    legend (array of {label,value})
+
+  Usage:
+    {{ include('components/organisms/cardiogram.html.twig', { title: 'Pulsacja zdarzeń' }) }}
+#}
+<div class="cardiogram-wrap">
+  <div class="cardiogram-head">
+    <h3 class="section-title" style="margin:0;">{{ include('components/atoms/icon.html.twig', { name: 'activity' }, false) }} {{ title }}</h3>
+    {%- if sub is defined %}<span class="muted" style="font-size:12px;">{{ sub }}</span>{% endif %}
+    {%- if ranges is defined %}
+    <div style="margin-left:auto; display:flex; gap:6px;">
+      {%- for r in ranges %}
+        <button class="btn ghost sm" data-active="{{ r.active|default(false) ? 'true' : 'false' }}" data-action="set-range" data-payload="{{ r.label }}">{{ r.label }}</button>
+      {%- endfor %}
+    </div>
+    {%- endif %}
+  </div>
+  <canvas id="{{ id|default('cardiogram') }}" class="cardiogram-canvas" width="900" height="120"
+          data-controller="cardiogram" role="img" aria-label="{{ title }}"></canvas>
+  {%- if legend is defined %}
+  <div class="cardiogram-meta">
+    {%- for l in legend %}<span>{{ l.label }} <span class="mono" style="color: var(--fg);">{{ l.value }}</span></span>{% endfor %}
+  </div>
+  {%- endif %}
+</div>

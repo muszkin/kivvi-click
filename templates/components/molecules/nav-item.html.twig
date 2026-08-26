@@ -1,0 +1,22 @@
+{#
+  MOLECULE · nav-item
+  Sidebar navigation row. Label truncates with ellipsis; hidden entirely when the sidebar
+  is collapsed. Navigation is a real link — the route key only drives the active state.
+
+  Params:
+    label (string, required)
+    icon (string, required)
+    href (string, required)
+    route (string, required) — route key compared against the current section
+    active (bool)
+    badge (string) — right-aligned counter
+
+  Usage:
+    {{ include('components/molecules/nav-item.html.twig', { label: 'Pulpit', icon: 'dashboard', href: path('dashboard'), route: 'dashboard', active: true }) }}
+#}
+<a class="nav-item" href="{{ href }}" data-route="{{ route }}" data-active="{{ active|default(false) ? 'true' : 'false' }}"
+   {% if active|default(false) %}aria-current="page"{% endif %} title="{{ label }}">
+  {{ include('components/atoms/icon.html.twig', { name: icon, class: 'nav-icon' }, false) }}
+  <span class="nav-label">{{ label }}</span>
+  {%- if badge is defined %}<span class="nav-badge">{{ badge }}</span>{% endif %}
+</a>

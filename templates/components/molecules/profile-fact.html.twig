@@ -1,0 +1,16 @@
+{#
+  MOLECULE · profile-fact
+  Label/value row inside the customer profile card. Bottom border except on the last child.
+
+  Params:
+    label (string, required)
+    value (string, required)
+    small (bool) — 11px value, for identifiers
+
+  Usage:
+    {{ include('components/molecules/profile-fact.html.twig', { label: 'Wartość życiowa', value: '4 992 zł' }) }}
+#}
+<div class="profile-fact">
+  <span class="lbl">{{ label }}</span>
+  <span class="val"{% if small|default(false) %} style="font-size:11px;"{% endif %}>{{ value }}</span>
+</div>

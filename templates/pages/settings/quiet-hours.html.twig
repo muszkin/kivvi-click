@@ -1,0 +1,10 @@
+{#
+  PARTIAL · settings / quiet hours
+#}
+<div class="form-grid">
+  {{ include('components/atoms/field.html.twig', { name: 'quiet_from', label: 'Nie powiadamiaj od'|trans, value: '22:00', mono: true }) }}
+  {{ include('components/atoms/field.html.twig', { name: 'quiet_to', label: 'do'|trans, value: '07:00', mono: true }) }}
+</div>
+<div style="margin-top:12px;">
+  {{ include('components/atoms/toggle-row.html.twig', { name: 'critical_bypass', checked: true, label: 'Alerty krytyczne omijają ciszę nocną'|trans }) }}
+</div>

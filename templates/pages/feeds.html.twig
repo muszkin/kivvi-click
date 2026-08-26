@@ -1,0 +1,51 @@
+{#
+  PAGE · Feedy produktów
+  Route: GET /{_locale}/feeds
+  Purpose: Catalog sync so events can be priced and matched to products.
+
+  Structure:
+    page-head (docs, connect feed)
+    kpi-grid x4
+    feed-sources grid x4 (Google, Facebook, XML, CSV)
+    feed-card per connected feed
+    matching diagnostic card — join field, fallback rules, coverage bars
+#}
+{% extends 'layout/app.html.twig' %}
+{% block content %}
+<div class="page">
+  {{ include('components/organisms/page-head.html.twig', { title: 'feeds.title'|trans, sub: 'feeds.sub'|trans, actions: block('actions') }) }}
+  {{ include('components/organisms/kpi-grid.html.twig', { tiles: kpis }) }}
+
+  <div class="section-title" style="margin-top:8px;">{{ 'Dostępne źródła'|trans }}</div>
+  <div class="feed-sources">
+    {%- for s in sources %}
+    <button class="feed-source" data-action="connect-feed" data-payload="{{ s.id }}">
+      <span class="feed-badge" style="background:{{ s.bg }}; color:{{ s.color }};">{{ s.letter }}</span>
+      <div>
+        <div class="feed-source__title">{{ s.title }}</div>
+        <div class="muted" style="font-size: 12px;">{{ s.sub }}</div>
+      </div>
+      {%- if s.recommended|default(false) %}<span class="chip accent" style="margin-left:auto;">{{ 'Polecane'|trans }}</span>{% endif %}
+    </button>
+    {%- endfor %}
+  </div>
+
+  <div class="section-title" style="margin-top:24px;">{{ 'Podłączone feedy'|trans }}</div>
+  <div class="col" style="gap: 14px;">
+    {%- for feed in feeds %}{{ include('components/organisms/feed-card.html.twig', feed) }}{% endfor %}
+  </div>
+
+  <div style="margin-top:24px;">
+    {{ include('components/molecules/card.html.twig', {
+      title: 'Dopasowanie cen do zdarzeń'|trans, icon: 'target', sub: 'jak zdarzenia z Twoich stron pasują do katalogu'|trans,
+      headActions: include('components/atoms/button.html.twig', { variant: 'ghost', size: 'sm', icon: 'download', label: 'Raport'|trans, action: 'export' }),
+      body: include('pages/feeds/matching.html.twig', { coverage: coverage, fallback_rules: fallback_rules, mismatched: mismatched })
+    }) }}
+  </div>
+</div>
+{% endblock %}
+
+{% block actions %}
+  {{ include('components/atoms/button.html.twig', { size: 'sm', icon: 'book', label: 'Dokumentacja'|trans, action: 'open-docs' }) }}
+  {{ include('components/atoms/button.html.twig', { variant: 'primary', size: 'sm', icon: 'plus', label: 'Podłącz feed'|trans, action: 'connect-feed' }) }}
+{% endblock %}

@@ -1,0 +1,19 @@
+{#
+  MOLECULE · rb-block
+  One block inside a rule-builder step. Body accepts .pill spans for inline editable values.
+
+  Params:
+    icon (string, required)
+    title (string, required)
+    body (html, required)
+
+  Usage:
+    {{ include('components/molecules/rb-block.html.twig', { icon: 'cart', title: 'Zdarzenie', body: '<span class="pill">cart_abandon</span>' }) }}
+#}
+<div class="rb-block">
+  <div class="rb-block__head">
+    <span class="ic">{{ include('components/atoms/icon.html.twig', { name: icon }, false) }}</span>
+    <span>{{ title }}</span>
+  </div>
+  <div class="rb-block__body">{{ body|raw }}</div>
+</div>

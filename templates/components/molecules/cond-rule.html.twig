@@ -1,0 +1,24 @@
+{#
+  MOLECULE · cond-rule
+  Editable condition line — "JEŚLI <field> <op> <value> → <target>". Used in import rules and segment builders.
+
+  Params:
+    field (string, required)
+    operators (array of string, required)
+    value (string, required)
+    suffix (string) — text after the value
+    targetLabel (string)
+    targetTone (string) default "accent"
+
+  Usage:
+    {{ include('components/molecules/cond-rule.html.twig', { field: 'lifetime_value', operators: ['≥','>','='], value: '500', suffix: 'PLN, dodaj do', targetLabel: 'VIP' }) }}
+#}
+<div class="cond-rule">
+  <span class="muted">JEŚLI</span>
+  {{ include('components/atoms/chip.html.twig', { label: field, mono: true }, false) }}
+  <select class="select" style="width:auto;">{% for o in operators %}<option>{{ o }}</option>{% endfor %}</select>
+  <input class="input mono" value="{{ value }}" style="width: 80px;">
+  {%- if suffix is defined %}<span class="muted">{{ suffix }}</span>{% endif %}
+  {%- if targetLabel is defined %}{{ include('components/atoms/chip.html.twig', { label: targetLabel, tone: targetTone|default('accent') }, false) }}{% endif %}
+  {{ include('components/atoms/button.html.twig', { variant: 'ghost', size: 'sm', icon: 'trash', action: 'remove-rule' }, false) }}
+</div>

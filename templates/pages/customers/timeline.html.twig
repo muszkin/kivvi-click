@@ -1,0 +1,10 @@
+{#
+  PARTIAL · customer / activity axis
+  Rail of timeline-item molecules; the 1px rail is drawn by .timeline.
+
+  Params:
+    timeline (array of timeline-item param hashes, required)
+#}
+<div class="timeline">
+  {%- for item in timeline %}{{ include('components/molecules/timeline-item.html.twig', item) }}{% endfor %}
+</div>

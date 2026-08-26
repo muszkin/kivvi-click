@@ -1,0 +1,18 @@
+{#
+  MOLECULE · timeline-item
+  One node on the customer activity axis. The 12px ring is drawn by ::before against the 1px rail on .timeline.
+
+  Params:
+    time (string, required)
+    title (string, required)
+    detail (string) — mono
+    icon (string) default "eye"
+
+  Usage:
+    {{ include('components/molecules/timeline-item.html.twig', { time: 'Dziś · 14:42', title: 'Wyświetlenie produktu', detail: '/produkt/sencha', icon: 'eye' }) }}
+#}
+<div class="tl-item">
+  <div class="tl-time">{{ time }}</div>
+  <div class="tl-title">{{ include('components/atoms/icon.html.twig', { name: icon|default('eye') }, false) }} {{ title }}</div>
+  {%- if detail is defined %}<div class="tl-detail">{{ detail }}</div>{% endif %}
+</div>

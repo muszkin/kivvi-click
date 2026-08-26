@@ -1,0 +1,11 @@
+{
+  "name": "kivvi-click-e2e",
+  "private": true,
+  "description": "End-to-end suite for the panel; kept out of the root package so the app's yarn/PnP setup stays untouched.",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0"
+  }
+}

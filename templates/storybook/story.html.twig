@@ -1,0 +1,39 @@
+{#
+  STORYBOOK · story
+  One component, all variants. Each variant is rendered twice: inline (so it
+  inherits the storybook theme toggle) and available as an isolated iframe URL.
+#}
+{% extends 'storybook/shell.html.twig' %}
+
+{% block storybook_content %}
+  <div class="sb-page">
+    <div class="sb-story-head">
+      <div>
+        <div class="sb-kicker mono">{{ story.group }}</div>
+        <h1 class="sb-h1">{{ story.title }}</h1>
+        {% if story.doc is defined %}<p class="sb-lead">{{ story.doc }}</p>{% endif %}
+      </div>
+      <code class="sb-path mono">{{ story.template }}</code>
+    </div>
+
+    {% for name, params in story.variants %}
+      <section class="sb-variant">
+        <header class="sb-variant__head">
+          <h3 class="sb-variant__name">{{ name }}</h3>
+          <a class="sb-variant__frame mono" href="{{ path('storybook_frame', { id: id, variant: name }) }}" target="_blank" rel="noopener">
+            izolowana ramka →
+          </a>
+        </header>
+
+        <div class="sb-canvas" data-sb-canvas>
+          {{ include(story.template, params) }}
+        </div>
+
+        <details class="sb-code">
+          <summary>Kod Twig</summary>
+          <pre class="code-block">{{ '{{' }} include('{{ story.template }}', {{ params|json_encode(constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_UNICODE') b-or constant('JSON_UNESCAPED_SLASHES')) }}) {{ '}}' }}</pre>
+        </details>
+      </section>
+    {% endfor %}
+  </div>
+{% endblock %}

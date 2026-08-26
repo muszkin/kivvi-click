@@ -1,0 +1,40 @@
+{#
+  PARTIAL · settings / RODO / DPA
+  Processing agreement, retention windows, data-subject requests, export and erasure.
+#}
+{{ include('components/molecules/card.html.twig', {
+  title: 'Umowa powierzenia (DPA)'|trans, icon: 'info',
+  body: include('pages/settings/dpa.html.twig')
+}) }}
+
+{{ include('components/molecules/card.html.twig', {
+  title: 'Retencja danych'|trans, sub: 'po upływie okresu dane są nieodwracalnie usuwane'|trans,
+  body: include('pages/settings/retention.html.twig', { policies: settings.retentionPolicies })
+}) }}
+
+{% set tableColumns = [
+  { label: 'ID' }, { label: 'Osoba'|trans }, { label: 'Typ'|trans },
+  { label: 'Status'|trans }, { label: 'Termin'|trans }, { label: '', align: 'right' }
+] %}
+{% set rows = [] %}
+{% for request in settings.dataSubjectRequests %}
+  {% set rows = rows|merge([[
+    '<span class="mono" style="font-size:12px;">' ~ request.id ~ '</span>',
+    '<span class="mono" style="font-size:12px;">' ~ request.person ~ '</span>',
+    request.type,
+    include('components/atoms/chip.html.twig', { label: request.status, tone: request.done ? 'good' : 'warn' }),
+    '<span class="muted" style="font-size:12.5px;">' ~ request.due ~ '</span>',
+    include('components/atoms/button.html.twig', { variant: 'ghost', size: 'sm', icon: 'chevron_r', action: 'open-dsr', payload: request.id })
+  ]]) %}
+{% endfor %}
+
+{{ include('components/molecules/card.html.twig', {
+  title: 'Żądania podmiotów danych'|trans, sub: 'termin ustawowy: 30 dni'|trans,
+  headActions: include('components/atoms/button.html.twig', { variant: 'primary', size: 'sm', icon: 'plus', label: 'Nowe żądanie'|trans, action: 'create-dsr' }),
+  raw: include('components/molecules/table.html.twig', { columns: tableColumns, rows: rows })
+}) }}
+
+{{ include('components/molecules/card.html.twig', {
+  title: 'Eksport i usuwanie'|trans,
+  body: include('pages/settings/data-export.html.twig')
+}) }}

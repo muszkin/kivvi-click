@@ -1,0 +1,16 @@
+{#
+  MOLECULE · tabs
+  Underline tab strip used inside detail pages (automation editor, customer profile).
+
+  Params:
+    tabs (array of {label,active,action,payload}, required)
+
+  Usage:
+    {{ include('components/molecules/tabs.html.twig', { tabs: [{label:'Budowniczy',active:true},{label:'Statystyki'}] }) }}
+#}
+<div class="tab-strip" role="tablist">
+  {%- for t in tabs %}
+  <button class="tab" role="tab" aria-selected="{{ t.active|default(false) ? 'true' : 'false' }}" data-active="{{ t.active|default(false) ? 'true' : 'false' }}"
+    {%- if t.action is defined %} data-action="{{ t.action }}" data-payload="{{ t.payload|default('') }}"{% endif %}>{{ t.label }}</button>
+  {%- endfor %}
+</div>

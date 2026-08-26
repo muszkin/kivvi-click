@@ -31,3 +31,13 @@ services:
     Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler:
         arguments:
             $pdoOrDsn: '@session.pdo'
+
+    # Uploaded import files live outside the bind-mounted source tree.
+    App\Panel\ImportUploadStorage:
+        arguments:
+            $uploadDirectory: '%kernel.project_dir%/var/import'
+
+    # Storybook catalogue: plain data, loaded from config/storybook.php.
+    App\Storybook\StoryRegistry:
+        arguments:
+            $storyFile: '%kernel.project_dir%/config/storybook.php'

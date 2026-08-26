@@ -1,0 +1,34 @@
+{#
+  LAYOUT · auth
+  Split screen for login/registration: editorial left panel with the radial-gradient wash, form right. Left panel is hidden under 900px.
+
+  Params:
+    content (block, required)
+
+  Usage:
+    {% extends 'layout/auth.html.twig' %}
+#}
+{% extends 'layout/base.html.twig' %}
+
+{% block body %}
+<div class="auth-wrap">
+  <div class="auth-side">
+    {{ include('components/atoms/wordmark.html.twig', { size: 28, fontSize: 24 }) }}
+    <div>
+      <div class="mono" style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); margin-bottom: 12px;">
+        {{ 'MARKETING AUTOMATION'|trans }}
+      </div>
+      <h1 style="font-family: var(--font-display); font-style: italic; font-size: 56px; line-height: 1.12; letter-spacing: -0.025em; margin: 0; padding-bottom: 0.15em;">
+        {{ 'auth.headline'|trans|raw }}
+      </h1>
+      <p class="muted" style="font-size: 16px; max-width: 360px; margin-top: 18px;">{{ 'auth.lead'|trans }}</p>
+    </div>
+    <div class="row" style="gap: 14px; font-size: 13px; color: var(--fg-muted);">
+      <span>© {{ 'now'|date('Y') }} kivvi-click</span><span>·</span><a href="#">Status</a><span>·</span><a href="#">{{ 'Dokumentacja'|trans }}</a>
+    </div>
+  </div>
+  <div class="auth-form">
+    <div class="form">{% block content %}{% endblock %}</div>
+  </div>
+</div>
+{% endblock %}

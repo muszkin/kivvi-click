@@ -1,0 +1,19 @@
+{#
+  MOLECULE · position-grid
+  3×3 placement picker for popups/widgets. Value is a 0–8 index, row-major.
+
+  Params:
+    selected (int) default 4 — centre
+    action (string) default "set-popup-position"
+
+  Usage:
+    {{ include('components/molecules/position-grid.html.twig', { selected: 4 }) }}
+#}
+{%- set glyphs = ['↖','↑','↗','←','●','→','↙','↓','↘'] -%}
+<div class="pos-grid" role="radiogroup" aria-label="Pozycja widgetu">
+  {%- for i, g in glyphs %}
+  <button class="pos-cell" role="radio" aria-checked="{{ i == selected|default(4) ? 'true' : 'false' }}"
+          data-active="{{ i == selected|default(4) ? 'true' : 'false' }}"
+          data-action="{{ action|default('set-popup-position') }}" data-payload="{{ i }}">{{ g }}</button>
+  {%- endfor %}
+</div>

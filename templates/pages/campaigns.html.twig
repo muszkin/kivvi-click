@@ -1,0 +1,49 @@
+{#
+  PAGE · Kampanie email
+  Route: GET /{_locale}/campaigns
+  Purpose: Triggered and broadcast email performance.
+
+  Structure:
+    page-head (templates, new campaign)
+    kpi-grid x4 — sent, open rate, CTR, revenue
+    filter rail
+    card > table (8 columns, row click routes to the email editor)
+#}
+{% extends 'layout/app.html.twig' %}
+{% block content %}
+<div class="page">
+  {{ include('components/organisms/page-head.html.twig', { title: 'campaigns.title'|trans, sub: 'campaigns.sub'|trans, actions: block('actions') }) }}
+  {{ include('components/organisms/kpi-grid.html.twig', { tiles: kpis }) }}
+
+  <div class="row" style="margin-bottom:14px; gap: 8px;">
+    {%- for fl in filters %}{{ include('components/molecules/filter-chip.html.twig', fl) }}{% endfor %}
+    <div style="flex:1;"></div>
+    {{ include('components/atoms/button.html.twig', { size: 'sm', icon: 'filter', label: 'Filtry'|trans, action: 'open-filters' }) }}
+  </div>
+
+  {% set tableRows = [] %}
+  {% set rowActions = [] %}
+  {% for c in rows %}
+    {% set tableRows = tableRows|merge([[
+      '<span style="font-weight: 500;">' ~ c.name ~ '</span>',
+      include('components/atoms/chip.html.twig', { label: c.typeLabel, tone: c.typeTone }),
+      include('components/atoms/chip.html.twig', { label: c.statusLabel, tone: c.statusTone }),
+      '<span class="mono">' ~ c.sent ~ '</span>',
+      '<span class="mono">' ~ c.open ~ '</span>',
+      '<span class="mono">' ~ c.click ~ '</span>',
+      '<span class="mono" style="font-weight:500;">' ~ c.revenue ~ '</span>',
+      include('components/atoms/icon.html.twig', { name: 'chevron_r' })
+    ]]) %}
+    {% set rowActions = rowActions|merge([{ action: 'navigate', payload: path('email_edit', { id: c.id }) }]) %}
+  {% endfor %}
+
+  {{ include('components/molecules/card.html.twig', {
+    raw: include('components/molecules/table.html.twig', { columns: columns, rows: tableRows, rowActions: rowActions })
+  }) }}
+</div>
+{% endblock %}
+
+{% block actions %}
+  {{ include('components/atoms/button.html.twig', { size: 'sm', icon: 'layout', label: 'Szablony'|trans, action: 'open-templates' }) }}
+  {{ include('components/atoms/button.html.twig', { variant: 'primary', size: 'sm', icon: 'plus', label: 'common.new_campaign'|trans, href: path('email_new') }) }}
+{% endblock %}

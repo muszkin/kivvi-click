@@ -1,0 +1,57 @@
+{#
+  ORGANISM · feed-card
+  Connected product-feed panel: source badge, sync status, 4 stats, actions. Error state inserts a bad-tone strip above the stats.
+
+  Params:
+    name (string, required)
+    url (string, required)
+    source (enum: google|facebook|xml|csv, required)
+    status (enum: synced|syncing|error|paused, required)
+    error (string) — required when status = error
+    products (int), mapped (int), mismatched (int)
+    lastSync (string), schedule (string)
+
+  Usage:
+    {{ include('components/organisms/feed-card.html.twig', feed, false) }}
+#}
+{%- set badges = {
+  google:   { letter: 'G', color: 'oklch(0.62 0.16 28)',  bg: 'oklch(0.93 0.04 28)' },
+  facebook: { letter: 'f', color: 'oklch(0.55 0.13 250)', bg: 'oklch(0.91 0.04 250)' },
+  xml:      { letter: '×', color: 'oklch(0.45 0.07 60)',  bg: 'oklch(0.91 0.04 60)' },
+  csv:      { letter: '↧', color: 'oklch(0.42 0.06 150)', bg: 'oklch(0.91 0.04 150)' }
+} -%}
+{%- set states = { synced: { tone: 'good', label: 'Zsynchronizowany' }, syncing: { tone: 'info', label: 'Synchronizuje…' }, error: { tone: 'bad', label: 'Błąd' }, paused: { tone: 'warn', label: 'Wstrzymany' } } -%}
+{%- set b = badges[source] %}{%- set s = states[status] -%}
+<div class="feed-card">
+  <div class="feed-card__head">
+    <span class="feed-badge" style="background:{{ b.bg }}; color:{{ b.color }};">{{ b.letter }}</span>
+    <div style="min-width:0; flex:1;">
+      <div class="feed-card__title">{{ name }}</div>
+      <div class="muted mono" style="font-size:11.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ url }}</div>
+    </div>
+    {{ include('components/atoms/chip.html.twig', { label: s.label, tone: s.tone, live: status == 'syncing' }, false) }}
+  </div>
+
+  {%- if status == 'error' %}
+  <div class="feed-card__err">
+    {{ include('components/atoms/icon.html.twig', { name: 'info' }, false) }} {{ error }}
+    <span style="margin-left:auto;">{{ include('components/atoms/button.html.twig', { size: 'sm', icon: 'play', label: 'Wznów', action: 'resume-feed' }, false) }}</span>
+  </div>
+  {%- endif %}
+
+  <div class="feed-stats">
+    <div class="feed-stat"><div class="muted" style="font-size:11px; text-transform:uppercase; letter-spacing:0.06em;">Produktów</div><div class="mono" style="font-size:20px; font-weight:500; letter-spacing:-0.02em;">{{ products|number_format(0, ',', ' ') }}</div></div>
+    <div class="feed-stat"><div class="muted" style="font-size:11px; text-transform:uppercase; letter-spacing:0.06em;">Zmapowanych</div><div class="mono" style="font-size:20px; font-weight:500; letter-spacing:-0.02em;">{{ mapped|number_format(0, ',', ' ') }}{% if products %} <span class="muted" style="font-size:11px; font-weight:400;">({{ (mapped / products * 100)|number_format(1, ',', ' ') }}%)</span>{% endif %}</div></div>
+    <div class="feed-stat"><div class="muted" style="font-size:11px; text-transform:uppercase; letter-spacing:0.06em;">Niedopasowane</div><div class="mono" style="font-size:20px; font-weight:500; letter-spacing:-0.02em; color: {{ mismatched ? 'var(--bad)' : 'var(--good)' }};">{{ mismatched }}</div></div>
+    <div class="feed-stat"><div class="muted" style="font-size:11px; text-transform:uppercase; letter-spacing:0.06em;">Ostatnia sync.</div><div class="mono" style="font-size:13px; font-weight:500;">{{ lastSync }}</div><div class="muted" style="font-size:11px;">harmonogram: {{ schedule }}</div></div>
+  </div>
+
+  <div class="feed-card__actions">
+    {{ include('components/atoms/button.html.twig', { size: 'sm', icon: 'play', label: 'Synchronizuj teraz', action: 'sync-feed' }, false) }}
+    {{ include('components/atoms/button.html.twig', { size: 'sm', icon: 'list', label: 'Mapowanie pól', action: 'map-feed' }, false) }}
+    {{ include('components/atoms/button.html.twig', { size: 'sm', icon: 'eye', label: 'Podgląd', action: 'preview-feed' }, false) }}
+    {{ include('components/atoms/button.html.twig', { variant: 'ghost', size: 'sm', icon: 'settings', label: 'Ustawienia', action: 'edit-feed' }, false) }}
+    <div style="flex:1;"></div>
+    {{ include('components/atoms/button.html.twig', { variant: 'danger', size: 'sm', icon: 'trash', action: 'remove-feed', attrs: { 'aria-label': 'Usuń feed' } }, false) }}
+  </div>
+</div>

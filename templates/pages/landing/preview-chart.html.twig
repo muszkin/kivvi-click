@@ -1,0 +1,14 @@
+{#
+  PARTIAL · landing / preview chart
+  The panel's events-per-second shape, server-rendered. The live canvas belongs to the
+  panel; the marketing page has no account behind it and must never show an empty chart.
+
+  Params:
+    series (array of float, required)
+#}
+<div style="position: relative; height: 120px;">
+  {{ include('components/atoms/sparkline.html.twig', { values: series, w: 900, h: 120 }, false) }}
+  <span class="mono" style="position:absolute; top: 4px; right: 8px; font-size: 11px; color: var(--fg-subtle);">
+    {{ series|last|round }} ev/s
+  </span>
+</div>

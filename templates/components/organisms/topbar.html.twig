@@ -1,0 +1,42 @@
+{#
+  ORGANISM · topbar
+  Sticky 56px header: collapse toggle, breadcrumbs, command bar, locale + theme toggles. Breadcrumbs and the command bar never wrap — the bar shrinks to an icon under 1100px.
+
+  Params:
+    siteName (string, required)
+    crumb (string, required)
+    locale (string, required) — "pl"|"en"
+    theme (string, required) — "light"|"dark"
+    searchPlaceholder (string)
+
+  Usage:
+    {{ include('components/organisms/topbar.html.twig', { siteName: 'aureashop.pl', crumb: 'Pulpit', locale: 'pl', theme: 'light' }) }}
+#}
+<header class="topbar">
+  {{ include('components/atoms/button.html.twig', { variant: 'ghost', size: 'sm', icon: 'sidebar', action: 'toggle-sidebar', attrs: { title: 'Zwiń panel boczny', 'aria-label': 'Zwiń panel boczny' } }, false) }}
+
+  <nav class="crumbs" aria-label="Ścieżka">
+    <span>{{ siteName }}</span>
+    <span class="sep">/</span>
+    <span class="now">{{ crumb }}</span>
+  </nav>
+
+  <div class="topbar-spacer"></div>
+
+  <button class="kbar" data-action="open-command-bar" aria-label="Szukaj">
+    {{ include('components/atoms/icon.html.twig', { name: 'search' }, false) }}
+    <span>{{ searchPlaceholder|default('Szukaj zdarzeń, klientów, reguł…'|trans) }}</span>
+    {{ include('components/atoms/kbd.html.twig', { keys: '⌘K' }, false) }}
+  </button>
+
+  <a class="tb-btn" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({ _locale: locale == 'pl' ? 'en' : 'pl' })) }}"
+     title="{{ 'Zmień język'|trans }}"><span class="mono" style="font-size:11px;">{{ locale|upper }}</span></a>
+
+  <button class="tb-btn" data-action="set-theme" data-payload="{{ theme == 'light' ? 'dark' : 'light' }}" title="{{ 'Motyw'|trans }}">
+    {{ include('components/atoms/icon.html.twig', { name: theme == 'light' ? 'moon' : 'sun' }, false) }}
+  </button>
+
+  <button class="tb-btn" data-action="open-notifications" title="{{ 'Powiadomienia'|trans }}">
+    {{ include('components/atoms/icon.html.twig', { name: 'bell' }, false) }}
+  </button>
+</header>

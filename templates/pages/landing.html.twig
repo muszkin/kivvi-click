@@ -1,0 +1,111 @@
+{#
+  PAGE · Landing
+  Route: GET /{_locale}/
+  Purpose: Public marketing page.
+
+  Structure:
+    hero — serif italic headline, lead, two CTAs, trust row
+    hero-preview — framed app mock with kpi tiles + cardiogram
+    #features — feat-grid 3x2
+    #how — three numbered mono steps
+    #pricing — pricing-grid Free | Pro (.price-card.pro carries the accent gradient)
+#}
+{% extends 'layout/public.html.twig' %}
+
+{% block title %}kivvi·click — {{ 'landing.kicker'|trans }}{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <div class="mono" style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px;">
+      {{ include('components/atoms/icon.html.twig', { name: 'activity' }) }} {{ 'landing.kicker'|trans }}
+    </div>
+    <h1>{{ 'landing.headline'|trans|raw }}</h1>
+    <p class="lead">{{ 'landing.lead'|trans }}</p>
+    <div class="hero-cta">
+      {{ include('components/atoms/button.html.twig', { variant: 'primary', size: 'lg', label: 'landing.cta_primary'|trans, href: path('login') }) }}
+      {{ include('components/atoms/button.html.twig', { size: 'lg', label: 'landing.cta_secondary'|trans, href: path('demo') }) }}
+    </div>
+    <div class="row" style="justify-content: center; gap: 18px; margin-top: 28px; font-size: 12.5px; color: var(--fg-muted);">
+      {%- for point in trust_points %}
+      <span class="row" style="gap:4px;">{{ include('components/atoms/icon.html.twig', { name: 'check' }) }} {{ point }}</span>
+      {%- endfor %}
+    </div>
+  </section>
+
+  <section class="hero-preview">
+    <div class="frame">
+      <div class="frame-inner" style="padding: 0; overflow: hidden; background: var(--bg-card);">
+        <div class="row" style="padding: 10px 14px; background: var(--bg-2); border-bottom: 1px solid var(--line); gap: 6px;">
+          <div style="width: 11px; height: 11px; border-radius: 999px; background: oklch(0.78 0.12 28);"></div>
+          <div style="width: 11px; height: 11px; border-radius: 999px; background: oklch(0.85 0.12 80);"></div>
+          <div style="width: 11px; height: 11px; border-radius: 999px; background: oklch(0.78 0.10 150);"></div>
+          <div class="mono" style="margin-left: 14px; font-size: 11px; color: var(--fg-muted);">app.kivvi-click.io/aureashop/dashboard</div>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; padding: 24px;">
+          {%- for tile in preview_tiles %}
+          <div class="kpi">
+            <div class="kpi-label">{{ tile.label }}</div>
+            <div class="kpi-value">{{ tile.value }}{% if tile.unit is defined %}<span class="unit">{{ tile.unit }}</span>{% endif %}</div>
+          </div>
+          {%- endfor %}
+        </div>
+        <div style="padding: 0 24px 24px;">
+          {{ include('pages/landing/preview-chart.html.twig', { series: preview_series }) }}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-section" id="features">
+    <div class="mono" style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg-muted); margin-bottom: 8px;">{{ 'Funkcje'|trans }}</div>
+    <h2>{{ 'landing.features_title'|trans|raw }}</h2>
+    <p class="lead">{{ 'landing.features_lead'|trans }}</p>
+    <div class="feat-grid">
+      {%- for feat in features %}
+      <div class="feat">
+        <div class="feat-icon">{{ include('components/atoms/icon.html.twig', { name: feat.icon }) }}</div>
+        <h3>{{ feat.title }}</h3>
+        <p>{{ feat.body }}</p>
+      </div>
+      {%- endfor %}
+    </div>
+  </section>
+
+  <section class="landing-section" id="how" style="border-top: 1px solid var(--line);">
+    <div class="mono" style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg-muted); margin-bottom: 8px;">{{ 'Jak to działa'|trans }}</div>
+    <h2>{{ 'landing.how_title'|trans|raw }}</h2>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 36px;">
+      {%- for step in steps %}
+      <div class="feat">
+        <div class="mono" style="font-size: 36px; color: var(--accent); font-weight: 500; letter-spacing: -0.04em;">{{ step.number }}</div>
+        <h3>{{ step.title }}</h3>
+        <p>{{ step.body }}</p>
+      </div>
+      {%- endfor %}
+    </div>
+  </section>
+
+  <section class="landing-section" id="pricing" style="border-top: 1px solid var(--line);">
+    <div class="mono" style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fg-muted); margin-bottom: 8px;">{{ 'Cennik'|trans }}</div>
+    <h2>{{ 'landing.pricing_title'|trans|raw }}</h2>
+    <p class="lead">{{ 'landing.pricing_lead'|trans }}</p>
+    <div class="pricing-grid">
+      {%- for plan in plans %}
+      <div class="price-card {{ plan.featured|default(false) ? 'pro' : '' }}">
+        <div class="row" style="justify-content: space-between;">
+          <div class="tier">{{ plan.tier }}</div>
+          {%- if plan.badge is defined %}{{ include('components/atoms/chip.html.twig', { label: plan.badge, tone: 'accent' }) }}{% endif %}
+        </div>
+        <div class="price">{{ plan.price }}<span class="unit">{{ plan.unit }}</span></div>
+        <ul class="price-list">
+          {%- for item in plan.items %}<li>{{ include('components/atoms/icon.html.twig', { name: 'check' }) }} {{ item }}</li>{% endfor %}
+        </ul>
+        {{ include('components/atoms/button.html.twig', {
+          variant: plan.featured|default(false) ? 'primary' : 'default', size: 'lg', label: plan.cta, href: path('login'),
+          attrs: { style: 'width:100%; justify-content: center;' }
+        }) }}
+      </div>
+      {%- endfor %}
+    </div>
+  </section>
+{% endblock %}

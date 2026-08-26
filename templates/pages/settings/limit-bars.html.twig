@@ -1,0 +1,9 @@
+{#
+  PARTIAL · settings / usage bars
+
+  Params:
+    bars (array of bar param hashes, required)
+#}
+<div class="bars">
+  {%- for bar in bars %}{{ include('components/atoms/bar.html.twig', bar) }}{% endfor %}
+</div>

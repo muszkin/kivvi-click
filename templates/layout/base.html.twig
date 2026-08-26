@@ -1,0 +1,33 @@
+{#
+  LAYOUT · base
+  Document root. data-theme drives every token; it is set server-side from the stored
+  preference so there is no flash of the wrong theme.
+
+  Params:
+    title (block)
+    body (block)
+    stylesheets (block)
+    javascripts (block)
+#}
+<!doctype html>
+<html lang="{{ app.request.locale }}" data-theme="{{ panel.theme }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Kivvi-click{% endblock %}</title>
+  {# The kiwi mark, inline so the tab icon costs no request and follows the accent token. #}
+  <link rel="icon" href="data:image/svg+xml,{{ include('components/atoms/logo.html.twig', { size: 32, mono: true })|trim|url_encode }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">
+  {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+  {% endblock %}
+</head>
+<body>
+  {% block body %}{% endblock %}
+  {% block javascripts %}
+    {{ importmap('app') }}
+  {% endblock %}
+</body>
+</html>

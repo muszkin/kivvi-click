@@ -65,9 +65,11 @@ services:
       retries: 5
       start_period: 60s
     volumes:
-      - database_data:/var/lib/postgresql/data:rw
+      # Postgres 18+ images keep the cluster in a versioned subdirectory of
+      # /var/lib/postgresql; mounting .../data directly makes the entrypoint abort.
+      - database_data:/var/lib/postgresql:rw
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
+      # - ./docker/db/data:/var/lib/postgresql:rw
 ###< doctrine/doctrine-bundle ###
 
 volumes:

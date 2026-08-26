@@ -1,0 +1,24 @@
+{#
+  MOLECULE · stepper
+  Wizard progress header. Completed steps show a check; the whole item is a jump target.
+
+  Params:
+    steps (array of {n,label}, required)
+    current (int, required)
+    action (string) default "set-import-step"
+
+  Usage:
+    {{ include('components/molecules/stepper.html.twig', { steps: steps, current: 2 }) }}
+#}
+<ol class="stepper">
+  {%- for s in steps %}
+  {%- set st = s.n < current ? 'done' : (s.n == current ? 'cur' : 'todo') %}
+  <li class="step" data-state="{{ st }}" data-action="{{ action|default('set-import-step') }}" data-payload="{{ s.n }}">
+    <span class="step__num">{% if st == 'done' %}{{ include('components/atoms/icon.html.twig', { name: 'check' }, false) }}{% else %}{{ s.n }}{% endif %}</span>
+    <span class="step__label">
+      <span class="step__kicker mono">KROK {{ s.n }} / {{ steps|length }}</span>
+      <span class="step__title">{{ s.label }}</span>
+    </span>
+  </li>
+  {%- endfor %}
+</ol>

@@ -1,0 +1,39 @@
+{#
+  PARTIAL · settings / Webhooks i API
+  API keys with scopes, webhook endpoints with their last HTTP status, and rate limits.
+#}
+{% set tableColumns = [
+  { label: 'Nazwa'|trans }, { label: 'Klucz'|trans }, { label: 'Zakresy'|trans },
+  { label: 'Utworzony'|trans }, { label: 'Ostatnie użycie'|trans }, { label: '', align: 'right' }
+] %}
+{% set rows = [] %}
+{% for key in settings.apiKeys %}
+  {% set scopes = '' %}
+  {% for scope in key.scopes %}{% set scopes = scopes ~ include('components/atoms/chip.html.twig', { label: scope, mono: true }) %}{% endfor %}
+  {% set rows = rows|merge([[
+    '<span style="font-weight:500;">' ~ key.name ~ '</span>',
+    '<span class="mono" style="font-size:11.5px;">' ~ key.prefix ~ '<span class="muted">…••••</span></span>',
+    scopes,
+    '<span class="muted" style="font-size:12.5px;">' ~ key.created ~ '</span>',
+    '<span class="muted" style="font-size:12.5px;">' ~ key.last ~ '</span>',
+    include('components/atoms/button.html.twig', { variant: 'ghost', size: 'sm', icon: 'copy', action: 'copy-api-key', payload: key.prefix })
+      ~ include('components/atoms/button.html.twig', { variant: 'ghost', size: 'sm', icon: 'trash', action: 'revoke-api-key', payload: key.prefix })
+  ]]) %}
+{% endfor %}
+
+{{ include('components/molecules/card.html.twig', {
+  title: 'Klucze API'|trans, icon: 'code',
+  headActions: include('components/atoms/button.html.twig', { variant: 'primary', size: 'sm', icon: 'plus', label: 'Nowy klucz'|trans, action: 'create-api-key' }),
+  raw: include('components/molecules/table.html.twig', { columns: tableColumns, rows: rows, scroll: true })
+}) }}
+
+{{ include('components/molecules/card.html.twig', {
+  title: 'Webhooks', sub: 'retry z backoffem: 5 prób w ciągu 6 godzin'|trans,
+  headActions: include('components/atoms/button.html.twig', { variant: 'primary', size: 'sm', icon: 'plus', label: 'Dodaj webhook'|trans, action: 'create-webhook' }),
+  body: include('pages/settings/webhooks.html.twig', { hooks: settings.webhooks })
+}) }}
+
+{{ include('components/molecules/card.html.twig', {
+  title: 'Limity API'|trans,
+  body: include('pages/settings/limit-bars.html.twig', { bars: settings.apiLimits })
+}) }}

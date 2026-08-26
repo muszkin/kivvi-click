@@ -1,0 +1,42 @@
+{#
+  PARTIAL · settings / Zespół
+  Members with their role and 2FA state, then the role catalogue.
+#}
+{% set tableColumns = [
+  { label: 'Osoba'|trans }, { label: 'Rola'|trans }, { label: '2FA' },
+  { label: 'Ostatnia aktywność'|trans }, { label: 'Akcje'|trans, align: 'right' }
+] %}
+{% set rows = [] %}
+{% for member in settings.team %}
+  {% set identity %}
+    <div class="row">
+      {{ include('components/atoms/avatar.html.twig', { name: member.name, size: 28, text: member.invited ? '?' : null }) }}
+      <div style="min-width:0;">
+        <div style="font-weight:500;">{{ member.name }}{% if member.invited %} {{ include('components/atoms/chip.html.twig', { label: 'zaproszony'|trans, tone: 'warn' }) }}{% endif %}</div>
+        <div class="muted mono" style="font-size:11.5px;">{{ member.email }}</div>
+      </div>
+    </div>
+  {% endset %}
+  {% set rows = rows|merge([[
+    identity,
+    include('components/atoms/chip.html.twig', { label: member.role, tone: member.roleTone }),
+    member.mfa
+      ? include('components/atoms/chip.html.twig', { label: 'włączone'|trans, tone: 'good', icon: 'check' })
+      : include('components/atoms/chip.html.twig', { label: 'brak'|trans, tone: 'bad' }),
+    '<span class="muted" style="font-size:12.5px;">' ~ member.last ~ '</span>',
+    include('components/atoms/button.html.twig', { variant: 'ghost', size: 'sm', icon: 'edit', action: 'edit-member', payload: member.email })
+      ~ include('components/atoms/button.html.twig', { variant: 'ghost', size: 'sm', icon: 'trash', action: 'remove-member', payload: member.email })
+  ]]) %}
+{% endfor %}
+
+{{ include('components/molecules/card.html.twig', {
+  title: 'Członkowie zespołu'|trans, icon: 'users', sub: '4 aktywnych · 1 zaproszenie oczekuje · limit planu Pro: 10'|trans,
+  headActions: include('components/atoms/button.html.twig', { variant: 'primary', size: 'sm', icon: 'plus', label: 'Zaproś osobę'|trans, action: 'invite-member' }),
+  raw: include('components/molecules/table.html.twig', { columns: tableColumns, rows: rows })
+}) }}
+
+{{ include('components/molecules/card.html.twig', {
+  title: 'Role i uprawnienia'|trans,
+  headActions: include('components/atoms/button.html.twig', { size: 'sm', icon: 'plus', label: 'Rola własna'|trans, action: 'create-role' }),
+  body: include('pages/settings/roles.html.twig', { roles: settings.roles })
+}) }}

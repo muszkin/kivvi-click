@@ -1,0 +1,14 @@
+{#
+  PARTIAL · settings / data processing agreement
+#}
+<div class="row" style="gap:14px; flex-wrap: wrap;">
+  {{ include('components/atoms/chip.html.twig', { label: 'Podpisana 14 stycznia 2024'|trans, tone: 'good', icon: 'check' }) }}
+  {{ include('components/atoms/chip.html.twig', { label: 'wersja 3.1'|trans }) }}
+  {{ include('components/atoms/chip.html.twig', { label: 'podmiot przetwarzający: Kivvi sp. z o.o.'|trans }) }}
+  <div style="flex:1;"></div>
+  {{ include('components/atoms/button.html.twig', { size: 'sm', icon: 'download', label: 'Pobierz PDF'|trans, action: 'download-dpa' }) }}
+  {{ include('components/atoms/button.html.twig', { size: 'sm', label: 'Podpisz nową wersję'|trans, action: 'sign-dpa' }) }}
+</div>
+<p class="muted" style="font-size:13px; margin:14px 0 0;">
+  {{ 'Dane przechowywane są w regionie'|trans }} <strong>eu-central-1 (Frankfurt)</strong>. {{ 'Podprzetwarzający: Amazon Web Services, SendGrid (EU). Lista podprzetwarzających jest częścią DPA.'|trans }}
+</p>

@@ -1,0 +1,13 @@
+{#
+  PARTIAL · settings / sender addresses and limits
+#}
+<div class="form-grid">
+  {{ include('components/atoms/field.html.twig', { name: 'default_sender', label: 'Domyślny nadawca'|trans, value: 'sklep@aureashop.pl', mono: true }) }}
+  {{ include('components/atoms/field.html.twig', { name: 'sender_name', label: 'Nazwa nadawcy'|trans, value: 'Aurea Shop' }) }}
+  {{ include('components/atoms/field.html.twig', { name: 'reply_to', label: 'Reply-to', value: 'bok@aureashop.pl', mono: true }) }}
+  {{ include('components/atoms/field.html.twig', { name: 'daily_limit', label: 'Limit dzienny'|trans, value: '50 000', mono: true }) }}
+</div>
+<div style="margin-top:12px;">
+  {{ include('components/atoms/toggle-row.html.twig', { name: 'unsubscribe_hard_bounce', checked: true, label: 'Automatycznie wypisuj adresy po hard bounce'|trans }) }}
+  {{ include('components/atoms/toggle-row.html.twig', { name: 'pause_on_bounce', checked: true, label: 'Wstrzymaj kampanię, gdy bounce rate przekroczy 2%'|trans }) }}
+</div>

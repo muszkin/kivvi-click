@@ -1,0 +1,37 @@
+{#
+  PAGE · Edytor szablonu email
+  Route: GET /{_locale}/emails/{id}
+  Purpose: WYSIWYG email composer with placeholder variables and A/B variants.
+
+  Structure:
+    page-head (desktop/mobile preview, send test, draft, publish)
+    editor-shell: block-library + variables | from/subject bar + email-document | inspector
+#}
+{% extends 'layout/app.html.twig' %}
+{% block content %}
+<div class="page" style="max-width:none; padding: 16px 16px 0;">
+  {{ include('components/organisms/page-head.html.twig', {
+    title: template.name, sub: template.meta,
+    back: { label: '← Powrót'|trans, route: path('campaigns') }, actions: block('actions')
+  }) }}
+
+  <div data-controller="editor" data-editor-endpoint="{{ app.request.pathinfo }}">
+    {{ include('components/organisms/editor-shell.html.twig', {
+      leftTitle: 'Bloki'|trans, leftIcon: 'grid',
+      left: include('components/organisms/block-library.html.twig', { blocks: blocks })
+          ~ include('pages/emails/variables.html.twig', { variables: variables }),
+      canvas: include('pages/emails/envelope.html.twig', { template: template })
+            ~ include('components/organisms/email-document.html.twig', { sections: sections }),
+      right: include('pages/emails/inspector.html.twig', { block: selected_block })
+    }) }}
+  </div>
+</div>
+{% endblock %}
+
+{% block actions %}
+  {{ include('components/atoms/button.html.twig', { size: 'sm', icon: 'eye', label: 'Podgląd desktop'|trans, action: 'set-email-device', payload: 'desktop' }) }}
+  {{ include('components/atoms/button.html.twig', { size: 'sm', icon: 'eye', label: 'Mobile', action: 'set-email-device', payload: 'mobile' }) }}
+  {{ include('components/atoms/button.html.twig', { size: 'sm', icon: 'mail', label: 'Wyślij test'|trans, action: 'send-test' }) }}
+  {{ include('components/atoms/button.html.twig', { size: 'sm', label: 'common.draft'|trans, action: 'save-draft' }) }}
+  {{ include('components/atoms/button.html.twig', { variant: 'primary', size: 'sm', icon: 'play', label: 'common.publish'|trans, action: 'publish', payload: template.id }) }}
+{% endblock %}

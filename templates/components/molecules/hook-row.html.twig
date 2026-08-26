@@ -1,0 +1,23 @@
+{#
+  MOLECULE · hook-row
+  Webhook endpoint with last HTTP status. Non-2xx renders the code chip in the bad tone.
+
+  Params:
+    url (string, required)
+    events (array of string, required)
+    code (int, required)
+    last (string)
+
+  Usage:
+    {{ include('components/molecules/hook-row.html.twig', { url: 'https://…', events: ['purchase'], code: 200, last: '2 min temu' }) }}
+#}
+<div class="hook-row">
+  <span class="chip {{ code >= 200 and code < 300 ? 'good' : 'bad' }}" style="min-width:56px; justify-content:center;">{{ code }}</span>
+  <div style="min-width:0; flex:1;">
+    <div class="mono" style="font-size:12.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ url }}</div>
+    <div style="margin-top:4px;">{% for ev in events %}{{ include('components/atoms/chip.html.twig', { label: ev, mono: true }, false) }}{% endfor %}</div>
+  </div>
+  {%- if last is defined %}<span class="muted" style="font-size:12px; white-space:nowrap;">{{ last }}</span>{% endif %}
+  {{ include('components/atoms/button.html.twig', { variant: 'ghost', size: 'sm', icon: 'play', action: 'test-webhook' }, false) }}
+  {{ include('components/atoms/button.html.twig', { variant: 'ghost', size: 'sm', icon: 'settings', action: 'edit-webhook' }, false) }}
+</div>

@@ -1,0 +1,28 @@
+{#
+  PARTIAL · import step 1 · recent imports
+  Sticky right column: what was imported before, by whom, with what result.
+
+  Params:
+    imports (array of {file, rows, date, who, ok, note}, required)
+#}
+<div class="card" style="height: fit-content; position: sticky; top: 24px;">
+  <div class="card-head">
+    <h3 class="card-title">{{ include('components/atoms/icon.html.twig', { name: 'list' }) }} {{ 'Ostatnie importy'|trans }}</h3>
+  </div>
+  <div>
+    {%- for item in imports %}
+    <div class="event-row" style="grid-template-columns: 1fr auto; padding: 12px 14px;">
+      <div>
+        <div class="mono" style="font-size: 12.5px; font-weight: 500;">{{ item.file }}</div>
+        <div class="muted" style="font-size: 11px; margin-top: 2px;">
+          {{ item.rows }} {{ 'wierszy'|trans }} · {{ item.date }} · {{ item.who }}
+        </div>
+      </div>
+      {{ include('components/atoms/chip.html.twig', { label: item.note, tone: item.ok ? 'good' : 'warn' }) }}
+    </div>
+    {%- endfor %}
+  </div>
+  <div class="card-foot">
+    <a class="muted" style="font-size:12px;" href="{{ path('import') }}" data-action="import-history">{{ 'Pokaż wszystkie (28) →'|trans }}</a>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+{#
+  STORYBOOK · index
+  Lists every story grouped by layer. Rendered by StorybookController::index.
+#}
+{% extends 'storybook/shell.html.twig' %}
+
+{% block storybook_content %}
+  <div class="sb-page">
+    <h1 class="sb-h1">Kivvi-click — biblioteka komponentów</h1>
+    <p class="sb-lead">
+      Każdy komponent renderuje się z tego samego szablonu Twig, którego używa aplikacja.
+      Jeśli storybook wygląda inaczej niż produkcja, to produkcja ma błąd — nie storybook.
+    </p>
+
+    {% for group, ids in groups %}
+      <h2 class="sb-h2">{{ group }} <span class="sb-count">{{ ids|length }}</span></h2>
+      <div class="sb-index-grid">
+        {% for id in ids %}
+          <a class="sb-index-card" href="{{ path('storybook_story', { id: id }) }}">
+            <div class="sb-index-card__title">{{ stories[id].title }}</div>
+            <div class="sb-index-card__meta mono">{{ stories[id].template }}</div>
+            <div class="sb-index-card__meta">{{ stories[id].variants|length }} wariantów</div>
+          </a>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

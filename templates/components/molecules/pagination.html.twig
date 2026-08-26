@@ -1,0 +1,17 @@
+{#
+  MOLECULE · pagination
+  Centred prev/next with a mono page readout.
+
+  Params:
+    page (int, required)
+    pages (int, required)
+    action (string) default "go-page"
+
+  Usage:
+    {{ include('components/molecules/pagination.html.twig', { page: 1, pages: 192 }) }}
+#}
+<div class="row" style="margin-top: 14px; justify-content: center; gap: 8px;">
+  <button class="btn sm" data-action="{{ action|default('go-page') }}" data-payload="{{ page - 1 }}"{{ page <= 1 ? ' disabled' : '' }}>← Poprzednia</button>
+  <span class="mono muted" style="padding: 0 12px;">Strona {{ page }} z {{ pages }}</span>
+  <button class="btn sm" data-action="{{ action|default('go-page') }}" data-payload="{{ page + 1 }}"{{ page >= pages ? ' disabled' : '' }}>Następna →</button>
+</div>

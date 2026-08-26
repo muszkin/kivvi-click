@@ -1,0 +1,32 @@
+{#
+  ORGANISM · flow-canvas
+  Node graph variant of the rule builder. Edges are dashed bezier paths in one SVG behind the nodes; the dotted background is a repeating radial-gradient at 24px.
+
+  Params:
+    nodes (array of flow-node param hashes, required)
+    edges (array of [fromIndex, toIndex], required)
+    nodeWidth (int) default 220 — used for edge anchor maths
+
+  Usage:
+    {{ include('components/organisms/flow-canvas.html.twig', { nodes: nodes, edges: edges }) }}
+#}
+{%- set nw = nodeWidth|default(220) -%}
+<div class="flow-canvas" data-controller="flow-canvas">
+  <svg class="flow-svg" viewBox="0 0 900 540" preserveAspectRatio="none" aria-hidden="true">
+    {%- for e in edges %}
+      {%- set a = nodes[e[0]] %}{%- set b = nodes[e[1]] %}
+      {%- set ax = a.x + nw %}{%- set ay = a.y + 32 %}{%- set bx = b.x %}{%- set by = b.y + 32 %}
+      <path d="M {{ ax }} {{ ay }} C {{ ax + 60 }} {{ ay }} {{ bx - 60 }} {{ by }} {{ bx }} {{ by }}"
+            stroke="var(--line-strong)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
+      <circle cx="{{ bx }}" cy="{{ by }}" r="3" fill="var(--accent)"/>
+    {%- endfor %}
+  </svg>
+  {%- for n in nodes %}{{ include('components/molecules/flow-node.html.twig', n, false) }}{% endfor %}
+  <div style="position:absolute; left:24px; bottom:24px; display:flex; gap:6px;">
+    {{ include('components/atoms/button.html.twig', { size: 'sm', icon: 'plus', label: 'Węzeł', action: 'add-node' }, false) }}
+    {{ include('components/atoms/button.html.twig', { size: 'sm', icon: 'move', label: 'Auto-układ', action: 'autolayout' }, false) }}
+  </div>
+  <div style="position:absolute; right:24px; bottom:24px; font-family: var(--font-mono); font-size:11px; color: var(--fg-muted);">
+    {{ nodes|length }} węzłów · {{ edges|length }} połączeń
+  </div>
+</div>

@@ -1,0 +1,12 @@
+{#
+  ATOM · code-block
+  Dark snippet panel. Highlighting is a Twig filter (see src/Twig/CodeHighlightExtension.php); never client-side.
+
+  Params:
+    code (string, required) — pre-escaped source
+    lang (string) — informational only
+
+  Usage:
+    {{ include('components/atoms/code-block.html.twig', { code: snippet }) }}
+#}
+<pre class="code-block"{% if lang is defined %} data-lang="{{ lang }}"{% endif %}>{{ code|kivvi_highlight|raw }}</pre>

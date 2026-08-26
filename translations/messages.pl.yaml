@@ -1,8 +1,104 @@
 app:
     name: 'Kivvi-click'
+
 nav:
     language: 'Wybór języka'
-home:
-    title: 'Automatyzacja marketingu dla e-commerce'
-    tagline: 'Widzisz. Decydujesz. Działasz — w czasie rzeczywistym.'
-    lead: 'Śledź zachowanie odwiedzających i automatycznie uruchamiaj e-maile, popupy, kupony oraz rekomendacje produktów we właściwym momencie ścieżki zakupowej.'
+    main: 'Główne'
+    automate: 'Automatyzacja'
+    data: 'Dane'
+    config: 'Konfiguracja'
+    dashboard: 'Pulpit'
+    events: 'Strumień zdarzeń'
+    customers: 'Klienci'
+    automations: 'Reguły'
+    campaigns: 'Kampanie email'
+    popups: 'Popupy i widgety'
+    feeds: 'Feedy produktów'
+    import: 'Import klientów'
+    settings: 'Ustawienia'
+
+common:
+    search: 'Szukaj zdarzeń, klientów, reguł…'
+    new_automation: 'Nowa automatyzacja'
+    new_campaign: 'Nowa kampania'
+    new_popup: 'Nowy popup'
+    save: 'Zapisz'
+    cancel: 'Anuluj'
+    publish: 'Opublikuj'
+    draft: 'Szkic'
+    live: 'na żywo'
+    all: 'Wszystkie'
+
+dashboard:
+    title: 'Co dzieje się teraz'
+    sub: 'Strumień zdarzeń z Twoich stron, na żywo, oraz wpływ uruchomionych automatyzacji.'
+    liveFeed: 'Strumień na żywo'
+    liveFeedSub: 'wszystkie strony'
+    cardiogram: 'Pulsacja zdarzeń'
+    cardiogramSub: 'liczba zdarzeń / sekundę'
+    topRules: 'Najskuteczniejsze automatyzacje'
+    topRulesSub: 'wg konwersji w ostatnich 7 dniach'
+    recentCustomers: 'Ostatnio widziani'
+
+events:
+    title: 'Strumień zdarzeń'
+    sub: 'Wszystkie zdarzenia odebrane ze skryptu trackingowego, z możliwością filtrowania.'
+    pageview: 'Wyświetlenie strony'
+    add_to_cart: 'Dodanie do koszyka'
+    remove_from_cart: 'Usunięcie z koszyka'
+    purchase: 'Zakup'
+    login: 'Zalogowanie'
+    signup: 'Rejestracja'
+    search: 'Wyszukiwanie'
+    cart_abandon: 'Porzucony koszyk'
+    wishlist: 'Lista życzeń'
+    email_open: 'Otwarcie maila'
+    email_click: 'Kliknięcie w mailu'
+    popup_shown: 'Wyświetlenie popupu'
+    coupon_used: 'Użycie kuponu'
+
+customers:
+    title: 'Klienci'
+
+automations:
+    title: 'Reguły i automatyzacje'
+    sub: 'Skonfiguruj logikę „jeśli to — to tamto” w oparciu o zdarzenia z Twoich stron.'
+
+campaigns:
+    title: 'Kampanie email'
+    sub: 'Wyzwalane przez automatyzacje oraz jednorazowe wysyłki masowe.'
+
+popups:
+    title: 'Popupy i widgety'
+    sub: 'Wszystkie nakładki, które pokazują się odwiedzającym Twoich stron — modale, paski, slide-iny.'
+
+feeds:
+    title: 'Feedy produktów'
+    sub: 'Synchronizuj katalog z Google Merchant, Facebook Catalog lub własnego XML — żeby Kivvi-click znał ceny, dostępność i obrazy do dopasowania w zdarzeniach <span class="mono">add_to_cart</span> i <span class="mono">purchase</span>.'
+
+import:
+    title: 'Import klientów'
+    sub: 'Wgraj listę kontaktów z CRM, Mailchimp, MailerLite, Shoper albo dowolnego pliku CSV/XML. Kreator zmapuje pola, sprawdzi dane i bezpiecznie zaimportuje do Kivvi.'
+
+settings:
+    title: 'Ustawienia'
+
+auth:
+    headline: 'Widzisz.<br><span style="color: var(--accent);">Decydujesz.</span><br><span style="color: var(--brown);">Działasz</span> w czasie rzeczywistym.'
+    lead: 'Śledź zachowanie odwiedzających i automatycznie uruchamiaj e-maile, popupy, kupony i rekomendacje w odpowiednim momencie ścieżki zakupowej.'
+    welcome_back: 'Wróć do Kivvi'
+    login_sub: 'Zaloguj się do panelu zarządzania automatyzacjami.'
+    no_account: 'Nie masz jeszcze konta?'
+    register_cta: 'Załóż w 2 minuty →'
+
+landing:
+    kicker: 'Marketing automation dla e-commerce'
+    headline: '<span class="accent">Widzisz</span>, <span class="brown">decydujesz</span>,<br>i działasz <em class="accent">w czasie rzeczywistym</em>.'
+    lead: 'Kivvi-click łączy śledzenie zachowania odwiedzających z automatyzacjami: popupami, e-mailami, kuponami i rekomendacjami — wysyłanymi w odpowiednim momencie.'
+    cta_primary: 'Załóż darmowe konto →'
+    cta_secondary: 'Zobacz panel demo'
+    features_title: 'Wszystko czego potrzebuje<br>nowoczesny <em>e-commerce</em>.'
+    features_lead: 'Jeden panel zamiast pięciu narzędzi. Pełny obraz klienta, automatyzacje oparte o realne zachowanie, kanały dostarczania w jednym miejscu.'
+    how_title: 'Pięć minut do pierwszego<br><em>„wow”</em>.'
+    pricing_title: 'Bez ukrytych kosztów,<br>bez kar za sukces.'
+    pricing_lead: 'Zaczynasz za darmo. Płacisz dopiero gdy potrzebujesz większej skali albo silnika ML.'
