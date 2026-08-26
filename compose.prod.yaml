@@ -10,8 +10,20 @@ services:
       APP_SECRET: ${APP_SECRET}
       MERCURE_PUBLISHER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET}
       MERCURE_SUBSCRIBER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET}
+      # TLS is terminated by the reverse proxy in front of this stack, so Caddy serves plain
+      # HTTP on the published port and the public address is configured, not derived.
+      SERVER_NAME: ${SERVER_NAME:-:80}
+      DEFAULT_URI: ${DEFAULT_URI:-https://kivvi.click}
+      MERCURE_PUBLIC_URL: ${CADDY_MERCURE_PUBLIC_URL:-https://kivvi.click/.well-known/mercure}
+      TRUSTED_PROXIES: ${TRUSTED_PROXIES:-private_ranges}
+      TRUSTED_HOSTS: ${TRUSTED_HOSTS:-^(localhost|kivvi\.click)$$}
       # Migrations are owned by the one-shot 'migrations' job below.
       AUTO_MIGRATE: "0"
+    volumes:
+      # The prod image runs as www-data; the dev one runs as root and would leave
+      # root-owned files behind in a shared Caddy volume.
+      - caddy_data_prod:/data
+      - caddy_config_prod:/config
     depends_on:
       migrations:
         condition: service_completed_successfully
@@ -26,11 +38,18 @@ services:
     restart: "no"
     environment:
       APP_SECRET: ${APP_SECRET}
+      DEFAULT_URI: ${DEFAULT_URI:-https://kivvi.click}
       AUTO_MIGRATE: "0"
       DATABASE_URL: postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-!ChangeMe!}@database:5432/${POSTGRES_DB:-app}?serverVersion=${POSTGRES_VERSION:-15}&charset=${POSTGRES_CHARSET:-utf8}
     depends_on:
       database:
         condition: service_healthy
+
+  # Its own cluster: production never shares a database (or a password) with the dev stack,
+  # which runs from the same compose project on this host.
+  database:
+    volumes:
+      - database_data_prod:/var/lib/postgresql:rw
 
   worker:
     image: ${IMAGES_PREFIX:-}app-php-prod
@@ -40,7 +59,15 @@ services:
     environment:
       APP_SECRET: ${APP_SECRET}
       MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET}
+      # The worker generates URLs without a request behind it.
+      DEFAULT_URI: ${DEFAULT_URI:-https://kivvi.click}
+      MERCURE_PUBLIC_URL: ${CADDY_MERCURE_PUBLIC_URL:-https://kivvi.click/.well-known/mercure}
       AUTO_MIGRATE: "0"
     depends_on:
       migrations:
         condition: service_completed_successfully
+
+volumes:
+  database_data_prod:
+  caddy_data_prod:
+  caddy_config_prod:

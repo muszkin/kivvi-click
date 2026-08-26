@@ -24,7 +24,8 @@ docker compose build
 HTTP_PORT=8080 HTTPS_PORT=8443 HTTP3_PORT=8443 docker compose up -d --wait
 ```
 
-Open https://localhost:8443/ (self-signed certificate in dev).
+Open https://localhost:8443/ (self-signed certificate in dev). The container compiles the
+TypeScript bundle on start, so a fresh `var/` needs no extra step.
 
 This also starts a `worker` container that runs `messenger:consume async scheduler_default`,
 so async (Doctrine transport) messages are processed and scheduled tasks fire automatically.
@@ -84,9 +85,50 @@ job applies migrations once and exits; `php` and `worker` wait for it to succeed
 (`service_completed_successfully`) and run with `AUTO_MIGRATE=0`, so no two containers race on
 migrations.
 
+TLS is **not** terminated here. Caddy serves plain HTTP on the published port and a reverse proxy
+in front of the stack answers for https://kivvi.click. The proxy must forward `X-Forwarded-Proto`,
+`X-Forwarded-Host` and `X-Forwarded-For` — Symfony trusts them (`TRUSTED_PROXIES`, default
+`private_ranges`) and generates `https://kivvi.click/...` URLs and secure session cookies from
+them. `TRUSTED_HOSTS` is the allow-list of names the app answers for.
+
+Runtime configuration and secrets live in `.env.prod.docker` (git- and docker-ignored):
+`APP_SECRET`, `CADDY_MERCURE_JWT_SECRET`, `POSTGRES_PASSWORD`, the published port and the public
+address. Copy `.env.prod.docker.example`, fill in the secrets, then:
+
 ```bash
-export APP_SECRET=... CADDY_MERCURE_JWT_SECRET=...
-docker compose -f compose.yaml -f compose.prod.yaml build
-docker compose -f compose.yaml -f compose.prod.yaml up -d --wait
+docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml build
+docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --wait
 ```
 
+The app is then reachable on http://localhost:23456 and, through the proxy,
+on https://kivvi.click. Example nginx server block:
+
+```nginx
+server {
+    server_name kivvi.click;
+    listen 443 ssl http2;
+
+    location / {
+        proxy_pass http://127.0.0.1:23456;
+        proxy_set_header Host              $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host  $host;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+
+        # The live event stream is Server-Sent Events: no buffering, no read timeout.
+        proxy_http_version 1.1;
+        proxy_buffering    off;
+        proxy_read_timeout 24h;
+    }
+}
+```
+
+Caddy in front instead:
+
+```caddyfile
+kivvi.click {
+	reverse_proxy 127.0.0.1:23456 {
+		flush_interval -1   # stream SSE straight through
+	}
+}
+```

@@ -40,6 +40,14 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 		fi
 	fi
 
+	# var/ is a container-local volume in dev, so the compiled TypeScript is gone after a
+	# rebuild and every page would fail on the missing bundle. The prod image compiles the
+	# assets at build time instead.
+	if [ "$APP_ENV" = 'dev' ] && [ ! -f var/typescript/assets/app.js ]; then
+		echo 'Building TypeScript assets...'
+		php bin/console typescript:build
+	fi
+
 	echo 'PHP app ready!'
 fi
 

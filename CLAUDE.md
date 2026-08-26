@@ -45,6 +45,10 @@ Docker-first — run everything inside the `php` container.
 - Static analysis: `docker compose exec php composer phpstan` and `yarn typecheck`.
 - CI/CD: GitHub Actions builds the production Docker image on push to `main`.
 - Run the scheduler: `php bin/console messenger:consume scheduler_default`.
+- Production on this host: `docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --wait`
+  → http://localhost:23456, fronted by a reverse proxy that terminates TLS for https://kivvi.click.
+  Secrets and ports live in `.env.prod.docker` (git- and docker-ignored); prod uses its own
+  database and Caddy volumes, so it never shares state with the dev stack.
 - E2E: `cd tests/e2e && npm install && npx playwright test` — headless Chrome against the running
   stack (`E2E_BASE_URL` overrides the default `https://localhost:8543`). Isolated `package.json`
   on purpose: the root project stays on yarn/PnP.
