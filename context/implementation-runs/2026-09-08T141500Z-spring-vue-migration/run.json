@@ -94,7 +94,7 @@
       }
     },
     "w2-customers": {
-      "state": "IMPLEMENTED",
+      "state": "FEATURE_HEAD_GREEN",
       "wave": "wave-2",
       "branch": "migration/wave-2/customers",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w2-customers",
@@ -105,7 +105,11 @@
         "packet": "slices/w2-customers/repair-1.md",
         "worktree": "/home/muszkin/work/kivvi-click-wt/w2-customers-r1",
         "branch": "migration/wave-2/customers-repair1",
-        "base_sha": "22d7fcb6380723728a33fc21fda22a92594a2e88"
+        "base_sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
+        "candidate_sha": "d0545af8f158573e686b70c9588bf200641bb79a",
+        "review": "slices/w2-customers/review-repair-1.md",
+        "review_verdict": "PASS",
+        "integrated_sha": "91ae8db8874955980788e45cfaf930932821a4a9"
       }
     }
   },
@@ -555,5 +559,6 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-08T22:12:12Z"
+  "updated_at": "2026-09-08T22:26:58Z",
+  "feature_head_sha": "91ae8db8874955980788e45cfaf930932821a4a9"
 }

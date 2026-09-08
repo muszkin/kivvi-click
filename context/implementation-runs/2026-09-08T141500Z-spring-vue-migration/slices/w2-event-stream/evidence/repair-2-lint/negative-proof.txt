@@ -1,0 +1,18 @@
+
+> kivvi-click-frontend@0.1.0 lint
+> eslint .
+
+
+/home/muszkin/work/kivvi-click-wt/w2-event-stream-r2/frontend/src/components/molecules/NegativeProofRow.vue
+  3:14  error  'event-row' class is not allowed  vue/no-restricted-class
+
+/home/muszkin/work/kivvi-click-wt/w2-event-stream-r2/frontend/src/components/organisms/FeedCard.vue
+  164:26  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  169:26  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+
+/home/muszkin/work/kivvi-click-wt/w2-event-stream-r2/frontend/src/negative-proof-topic.ts
+  1:25  error  Mercure topics are built server-side only (domain/tracking/EventStreamTopic.java); read the topic from the API payload instead of composing it here  no-restricted-syntax
+
+✖ 4 problems (2 errors, 2 warnings)
+  0 errors and 2 warnings potentially fixable with the `--fix` option.
+

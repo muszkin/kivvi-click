@@ -123,3 +123,53 @@ nothing to commit, working tree clean
 ```
 
 Stack torn down (`docker compose -p kivvi-w-customers -f compose.next.yaml down -v`) and the built image (`kivvi-w-customers-api`) removed after the last gate run — confirmed absent from both `docker compose ls` and `docker images`.
+
+## Repair-1
+
+Repair packet: `context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/slices/w2-customers/repair-1.md`. Cohort: wave-2 integration FAIL on B03. Worked in the fresh worktree the orchestrator created, `/home/muszkin/work/kivvi-click-wt/w2-customers-r1`, branch `migration/wave-2/customers-repair1`, base `22d7fcb6380723728a33fc21fda22a92594a2e88` (identity guard checked before starting and re-checked before the commit — clean tree both times).
+
+### R1-A — B03 "detail routes keep their index section active" at integration level
+
+**Finding first:** traced the production chain before writing anything — `frontend/src/layouts/AppLayout.vue`'s `loadForCurrentRoute()` already sends `route.name` (`"customer_show"` for `/pl/customers/c_1001`) as the shell API's `route` query param, `frontend/src/stores/shell.ts`'s `load()` already builds `GET /api/v1/{locale}/shell?route=customer_show` from it, and the backend's `NavigationCatalog.currentSection("customer_show")` already resolves to `"customers"` via its `INDEX_OF_DETAIL` map. **No seam was missing** — the existing `Sidebar.spec.ts` test just proved B03 by handing `Sidebar.vue` a hard-written `current: "customers"` prop, never exercising the router → AppLayout → shell-store → API → prop chain a real browser goes through. This repair is test-only, exactly as the packet anticipated ("Test-only change unless a seam is missing").
+
+**Files changed:**
+- `frontend/test/integration/CustomerDetailSidebarSection.spec.ts` (new) — mounts the real `AppLayout` (which itself renders the real `AppShell`/`Sidebar`) with a real `vue-router` already navigated to `/pl/customers/c_1001`, a real Pinia instance, and a stubbed `fetch` standing in for `GET /api/v1/pl/shell?route=customer_show`. Three tests, `describe("B03 detail routes keep their index section active (integration)")`: (1) asserts the exact fetch URL/headers sent for the detail route, (2) asserts `.nav-item[data-route="customers"]` gets `data-active="true"`/`aria-current="page"` while `dashboard`'s item does not, (3) a control case re-runs the same chain for the plain `/pl/dashboard` route to prove the mechanism is route-driven both ways, not just hard-coded to always highlight "customers".
+- `backend/src/test/java/click/kivvi/CustomersApiIT.java` — added `shellForCustomerDetailRouteKeepsCustomersSectionActiveThroughTheRealHttpLayer` (`@DisplayName("B03 GET /api/v1/pl/shell?route=customer_show reports currentSection \"customers\" and crumb \"Klienci\", through the real HTTP layer")`): a real-HTTP-layer call to `GET /api/v1/pl/shell?route=customer_show`, asserting `currentSection == "customers"` and `crumb == "Klienci"`. Chose `CustomersApiIT` over `ShellApiIT` (the packet offered either) to keep the change inside a file this slice already owns.
+
+Neither `backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java` nor `frontend/eslint.config.js` was touched, per the coordinator's explicit instruction (the parallel `w2-event-stream` repair owns those).
+
+### Gates on the new candidate SHA (`d0545af8f158573e686b70c9588bf200641bb79a`)
+
+Test-only change: no `docker compose` stack was brought up (not needed — `compare.mjs`/Playwright are skipped, as the packet allows for a test-only repair). Logs under `evidence/repair-1-gates/`.
+
+| Order | Gate | Command | cwd | Exit | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Backend unit | `./mvnw -q test` | `backend/` | 0 | `evidence/repair-1-gates/01-mvnw-test.txt` (162 tests, incl. `ArchitectureTest` unchanged/green) |
+| 2 | Backend integration | `./mvnw -q verify` | `backend/` | 0 | `evidence/repair-1-gates/02-mvnw-verify.txt` (Testcontainers Postgres 18; 35 IT tests, incl. `CustomersApiIT` now 7/7 with the new B03 case) |
+| 3 | Frontend unit | `npm run test -- --run` | `frontend/` | 0 | `evidence/repair-1-gates/03-npm-test.txt` (14 files / 74 tests) |
+| 4 | Frontend integration | `npm run test:integration -- --run` | `frontend/` | 0 | `evidence/repair-1-gates/04-npm-test-integration.txt` (9 files / 39 tests, incl. the new 3-test `CustomerDetailSidebarSection.spec.ts`) |
+| 5 | ArchUnit | inside gate-1/2 backend runs (`ArchitectureTest`, not edited by this repair) | `backend/` | 0 | same as gates 1–2 |
+| 6 | Frontend lint + typecheck + format:check + build | `npm run lint && npm run typecheck && npm run format:check && npm run build` | `frontend/` | 0 | `evidence/repair-1-gates/05-lint-typecheck-format-build.txt` — lint: 0 errors, the same 2 pre-existing whitespace-preservation warnings on `FeedCard.vue` (untouched by this slice); typecheck clean; `format:check`: "All matched files use Prettier code style!" (after one `prettier --write` pass on the new spec file — see below); build: JS entry gzip 74.20 kB |
+| — | Backend static (spotless) | inside `./mvnw verify` (`spotless:check`) | `backend/` | 0 | `evidence/repair-1-gates/02-mvnw-verify.txt` — first run failed on `CustomersApiIT.java`'s new Javadoc comment wrapping; fixed with `./mvnw spotless:apply`, re-ran green |
+| — | compare.mjs / Playwright | skipped | — | — | test-only repair, no product code changed, per the packet's "compare.mjs/Playwright may be skipped — say so" |
+
+Two formatting fixups were needed and applied before the final gate run: `./mvnw spotless:apply` (backend Javadoc line-wrap on the new `CustomersApiIT` test) and `npx prettier --write frontend/test/integration/CustomerDetailSidebarSection.spec.ts` (frontend). Both are reflected in the single commit below — no separate commit was made for them.
+
+### `git log --oneline 22d7fcb..HEAD`
+
+```
+d0545af test: prove B03 detail-route sidebar section at integration level (#customers)
+```
+
+### Final candidate SHA and clean worktree
+
+```
+$ git log -1 --format='%H %s'
+d0545af8f158573e686b70c9588bf200641bb79a test: prove B03 detail-route sidebar section at integration level (#customers)
+
+$ git status
+On branch migration/wave-2/customers-repair1
+nothing to commit, working tree clean
+```
+
+No compose stack was brought up for this repair, so there is nothing to tear down and no image to remove — confirmed via `docker compose ls`/`docker images` (no `kivvi-w2-cr1` entries either before or after).
