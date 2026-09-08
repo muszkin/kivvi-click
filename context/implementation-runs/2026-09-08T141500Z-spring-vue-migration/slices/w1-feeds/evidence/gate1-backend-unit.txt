@@ -1,0 +1,93 @@
+cmd: cd backend && ./mvnw -q test
+sha: 81af73fedfc5750d99a665a38bc064695d244279
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/home/muszkin/.m2/wrapper/dists/apache-maven-3.9.11/a2d47e15/lib/guice-5.1.0-classes.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
+WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
+19:05:25.346 [main] INFO com.tngtech.archunit.core.PluginLoader -- Detected Java version 25.0.4.1
+19:05:26.640 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.web.FeedsControllerTest]: FeedsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:05:26.763 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.FeedsControllerTest
+19:05:26.764 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.web.FeedsControllerTest]: FeedsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:05:26.773 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.FeedsControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-08T19:05:27.075Z  INFO 4097501 --- [kivvi-click] [           main] click.kivvi.web.FeedsControllerTest      : Starting FeedsControllerTest using Java 25.0.4.1 with PID 4097501 (started by muszkin in /home/muszkin/work/kivvi-click-wt/w1-feeds/backend)
+2026-09-08T19:05:27.076Z  INFO 4097501 --- [kivvi-click] [           main] click.kivvi.web.FeedsControllerTest      : No active profile set, falling back to 1 default profile: "default"
+2026-09-08T19:05:27.445Z  INFO 4097501 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-08T19:05:27.599Z  INFO 4097501 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-08T19:05:27.599Z  INFO 4097501 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-08T19:05:27.601Z  INFO 4097501 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2026-09-08T19:05:27.624Z  INFO 4097501 --- [kivvi-click] [           main] click.kivvi.web.FeedsControllerTest      : Started FeedsControllerTest in 0.816 seconds (process running for 2.986)
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-09-08T19:05:28.141Z  INFO 4097501 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.LoginControllerTest]: LoginControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-08T19:05:28.146Z  INFO 4097501 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.LoginControllerTest
+2026-09-08T19:05:28.147Z  INFO 4097501 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.LoginControllerTest]: LoginControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-08T19:05:28.151Z  INFO 4097501 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.LoginControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-08T19:05:28.175Z  INFO 4097501 --- [kivvi-click] [           main] click.kivvi.web.LoginControllerTest      : Starting LoginControllerTest using Java 25.0.4.1 with PID 4097501 (started by muszkin in /home/muszkin/work/kivvi-click-wt/w1-feeds/backend)
+2026-09-08T19:05:28.175Z  INFO 4097501 --- [kivvi-click] [           main] click.kivvi.web.LoginControllerTest      : No active profile set, falling back to 1 default profile: "default"
+2026-09-08T19:05:28.262Z  INFO 4097501 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-08T19:05:28.290Z  INFO 4097501 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-08T19:05:28.290Z  INFO 4097501 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-08T19:05:28.291Z  INFO 4097501 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-08T19:05:28.296Z  INFO 4097501 --- [kivvi-click] [           main] click.kivvi.web.LoginControllerTest      : Started LoginControllerTest in 0.141 seconds (process running for 3.659)
+2026-09-08T19:05:28.337Z  INFO 4097501 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.SpaDocumentControllerTest]: SpaDocumentControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-08T19:05:28.343Z  INFO 4097501 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.SpaDocumentControllerTest
+2026-09-08T19:05:28.344Z  INFO 4097501 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.SpaDocumentControllerTest]: SpaDocumentControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-08T19:05:28.349Z  INFO 4097501 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.SpaDocumentControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-08T19:05:28.368Z  INFO 4097501 --- [kivvi-click] [           main] c.kivvi.web.SpaDocumentControllerTest    : Starting SpaDocumentControllerTest using Java 25.0.4.1 with PID 4097501 (started by muszkin in /home/muszkin/work/kivvi-click-wt/w1-feeds/backend)
+2026-09-08T19:05:28.369Z  INFO 4097501 --- [kivvi-click] [           main] c.kivvi.web.SpaDocumentControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2026-09-08T19:05:28.456Z  INFO 4097501 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-08T19:05:28.483Z  INFO 4097501 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-08T19:05:28.483Z  INFO 4097501 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-08T19:05:28.484Z  INFO 4097501 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-08T19:05:28.488Z  INFO 4097501 --- [kivvi-click] [           main] c.kivvi.web.SpaDocumentControllerTest    : Started SpaDocumentControllerTest in 0.137 seconds (process running for 3.851)
+2026-09-08T19:05:28.687Z  INFO 4097501 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.PreferencesControllerTest]: PreferencesControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-08T19:05:28.692Z  INFO 4097501 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.PreferencesControllerTest
+2026-09-08T19:05:28.693Z  INFO 4097501 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.PreferencesControllerTest]: PreferencesControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-08T19:05:28.699Z  INFO 4097501 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.PreferencesControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-08T19:05:28.723Z  INFO 4097501 --- [kivvi-click] [           main] c.kivvi.web.PreferencesControllerTest    : Starting PreferencesControllerTest using Java 25.0.4.1 with PID 4097501 (started by muszkin in /home/muszkin/work/kivvi-click-wt/w1-feeds/backend)
+2026-09-08T19:05:28.724Z  INFO 4097501 --- [kivvi-click] [           main] c.kivvi.web.PreferencesControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2026-09-08T19:05:28.843Z  INFO 4097501 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-08T19:05:28.874Z  INFO 4097501 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-08T19:05:28.874Z  INFO 4097501 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-08T19:05:28.875Z  INFO 4097501 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-08T19:05:28.880Z  INFO 4097501 --- [kivvi-click] [           main] c.kivvi.web.PreferencesControllerTest    : Started PreferencesControllerTest in 0.178 seconds (process running for 4.242)
+exit:0

@@ -1,0 +1,45 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "feeds" opens its page (5.5s)
+
+
+  1) [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "feeds" opens its page ──
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('.page-title')
+    Expected substring: "Feedy produktów"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('.page-title')
+
+
+      35 |                 new RegExp(`${section.url.replace(/\//g, "\\/")}`),
+      36 |             );
+    > 37 |             await expect(page.locator(".page-title")).toContainText(
+         |                                                       ^
+      38 |                 section.title,
+      39 |             );
+      40 |             await expect(
+        at /home/muszkin/work/kivvi-click-wt/w1-feeds/tests/e2e/specs/navigation.spec.ts:37:55
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/navigation-app-shell-sidebar-entry-feeds-opens-its-page-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/navigation-app-shell-sidebar-entry-feeds-opens-its-page-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/navigation-app-shell-sidebar-entry-feeds-opens-its-page-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/navigation-app-shell-sidebar-entry-feeds-opens-its-page-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "feeds" opens its page ───

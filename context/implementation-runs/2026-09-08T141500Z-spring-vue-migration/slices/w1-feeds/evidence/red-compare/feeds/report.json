@@ -1,0 +1,51 @@
+{
+  "journey": "feeds",
+  "base": "https://localhost:19021",
+  "steps": [
+    {
+      "index": 1,
+      "dimensions": {
+        "contract": {
+          "verdict": "accepted-deviation(DEV-4)",
+          "detail": "",
+          "apiBaselineCount": 1
+        },
+        "visual": {
+          "url": {
+            "verdict": "parity",
+            "detail": ""
+          },
+          "texts": {
+            "verdict": "regression",
+            "detail": "text arrays differ"
+          },
+          "aria": {
+            "verdict": "regression",
+            "detail": "a11y trees differ"
+          },
+          "screenshotDesktop": {
+            "verdict": "regression",
+            "detail": "3.627% pixels differ (47001/1296000)"
+          },
+          "screenshotMobile": {
+            "verdict": "regression",
+            "detail": "2.210% pixels differ (7274/329160)"
+          }
+        }
+      }
+    }
+  ],
+  "regressions": 4,
+  "db": [
+    {
+      "table": "sessions",
+      "verdict": "accepted-deviation(DEV-9)",
+      "detail": "oracle delta 0, candidate delta 0 (mapped to spring_session)"
+    },
+    {
+      "table": "cache_items",
+      "verdict": "accepted-deviation(DEV-5)",
+      "detail": "oracle delta 0, candidate delta 0 (mapped to event_dedup+shedlock)"
+    }
+  ]
+}

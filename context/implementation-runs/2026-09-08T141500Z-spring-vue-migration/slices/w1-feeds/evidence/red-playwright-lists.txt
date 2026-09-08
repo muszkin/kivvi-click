@@ -1,0 +1,88 @@
+
+Running 2 tests using 2 workers
+
+  ✘  1 [chrome] › specs/lists.spec.ts:55:9 › product feeds › sources, connected feeds and the failing one (5.4s)
+  ✘  2 [chrome] › specs/lists.spec.ts:67:9 › product feeds › the matching diagnostic explains the coverage (5.5s)
+
+
+  1) [chrome] › specs/lists.spec.ts:55:9 › product feeds › sources, connected feeds and the failing one 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.feed-source')
+    Expected: 4
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('.feed-source')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      56 |         await page.goto("/pl/feeds");
+      57 |
+    > 58 |         await expect(page.locator(".feed-source")).toHaveCount(4);
+         |                                                    ^
+      59 |         await expect(page.locator(".feed-card")).toHaveCount(4);
+      60 |         await expect(page.locator(".feed-card__err")).toHaveCount(1);
+      61 |         await expect(page.locator(".feed-card__err")).toContainText("HTTP 503");
+        at /home/muszkin/work/kivvi-click-wt/w1-feeds/tests/e2e/specs/lists.spec.ts:58:52
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/lists-product-feeds-source-31050-d-feeds-and-the-failing-one-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/lists-product-feeds-source-31050-d-feeds-and-the-failing-one-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/lists-product-feeds-source-31050-d-feeds-and-the-failing-one-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/lists-product-feeds-source-31050-d-feeds-and-the-failing-one-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chrome] › specs/lists.spec.ts:67:9 › product feeds › the matching diagnostic explains the coverage 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.card').filter({ hasText: 'Dopasowanie cen do zdarzeń' }).locator('.bar-row')
+    Expected: 4
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('.card').filter({ hasText: 'Dopasowanie cen do zdarzeń' }).locator('.bar-row')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      71 |         });
+      72 |
+    > 73 |         await expect(card.locator(".bar-row")).toHaveCount(4);
+         |                                                ^
+      74 |         await expect(card).toContainText("event.product_id");
+      75 |         await expect(card).toContainText("feed.id");
+      76 |         await expect(
+        at /home/muszkin/work/kivvi-click-wt/w1-feeds/tests/e2e/specs/lists.spec.ts:73:48
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/lists-product-feeds-the-ma-12d34-ostic-explains-the-coverage-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/lists-product-feeds-the-ma-12d34-ostic-explains-the-coverage-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/lists-product-feeds-the-ma-12d34-ostic-explains-the-coverage-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/lists-product-feeds-the-ma-12d34-ostic-explains-the-coverage-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chrome] › specs/lists.spec.ts:55:9 › product feeds › sources, connected feeds and the failing one 
+    [chrome] › specs/lists.spec.ts:67:9 › product feeds › the matching diagnostic explains the coverage 
