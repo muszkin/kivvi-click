@@ -1,0 +1,131 @@
+
+Running 4 tests using 4 workers
+
+  ✘  2 [chrome] › specs/navigation.spec.ts:63:9 › app shell › sidebar collapse survives a reload (368ms)
+  ✘  3 [chrome] › specs/public.spec.ts:56:9 › login › the browser blocks a malformed address before it is sent (397ms)
+  ✘  1 [chrome] › specs/public.spec.ts:42:9 › login › signs in and shows the identity in the sidebar (442ms)
+  ✘  4 [chrome] › specs/navigation.spec.ts:89:9 › app shell › theme toggle survives a reload (418ms)
+
+
+  1) [chrome] › specs/navigation.spec.ts:63:9 › app shell › sidebar collapse survives a reload ─────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at https://localhost:19001/pl/dashboard
+    Call log:
+      - navigating to "https://localhost:19001/pl/dashboard", waiting until "load"
+
+
+      62 |
+      63 |     test("sidebar collapse survives a reload", async ({ page }) => {
+    > 64 |         await page.goto("/pl/dashboard");
+         |                    ^
+      65 |         await expect(page.locator(".app")).toHaveAttribute(
+      66 |             "data-sidebar",
+      67 |             "expanded",
+        at /home/muszkin/work/kivvi-click-wt/w0-login/tests/e2e/specs/navigation.spec.ts:64:20
+
+    Error Context: test-results/navigation-app-shell-sidebar-collapse-survives-a-reload-chrome/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/navigation-app-shell-sidebar-collapse-survives-a-reload-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/navigation-app-shell-sidebar-collapse-survives-a-reload-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chrome] › specs/navigation.spec.ts:89:9 › app shell › theme toggle survives a reload ─────────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at https://localhost:19001/pl/dashboard
+    Call log:
+      - navigating to "https://localhost:19001/pl/dashboard", waiting until "load"
+
+
+      88 |
+      89 |     test("theme toggle survives a reload", async ({ page }) => {
+    > 90 |         await page.goto("/pl/dashboard");
+         |                    ^
+      91 |         await expect(page.locator("html")).toHaveAttribute(
+      92 |             "data-theme",
+      93 |             "light",
+        at /home/muszkin/work/kivvi-click-wt/w0-login/tests/e2e/specs/navigation.spec.ts:90:20
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/navigation-app-shell-theme-toggle-survives-a-reload-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/navigation-app-shell-theme-toggle-survives-a-reload-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/navigation-app-shell-theme-toggle-survives-a-reload-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/navigation-app-shell-theme-toggle-survives-a-reload-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chrome] › specs/public.spec.ts:42:9 › login › signs in and shows the identity in the sidebar ─
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at https://localhost:19001/pl/login
+    Call log:
+      - navigating to "https://localhost:19001/pl/login", waiting until "load"
+
+
+      41 | test.describe("login", () => {
+      42 |     test("signs in and shows the identity in the sidebar", async ({ page }) => {
+    > 43 |         await page.goto("/pl/login");
+         |                    ^
+      44 |
+      45 |         await expect(page.locator(".auth-side h1")).toContainText("Widzisz");
+      46 |         await page.locator("#f-_username").fill("anna@aureashop.pl");
+        at /home/muszkin/work/kivvi-click-wt/w0-login/tests/e2e/specs/public.spec.ts:43:20
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/public-login-signs-in-and-shows-the-identity-in-the-sidebar-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/public-login-signs-in-and-shows-the-identity-in-the-sidebar-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/public-login-signs-in-and-shows-the-identity-in-the-sidebar-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/public-login-signs-in-and-shows-the-identity-in-the-sidebar-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chrome] › specs/public.spec.ts:56:9 › login › the browser blocks a malformed address before it is sent 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at https://localhost:19001/pl/login
+    Call log:
+      - navigating to "https://localhost:19001/pl/login", waiting until "load"
+
+
+      57 |         page,
+      58 |     }) => {
+    > 59 |         await page.goto("/pl/login");
+         |                    ^
+      60 |         await page.locator("#f-_username").fill("nie-adres");
+      61 |         await page.locator("#f-_password").fill("x");
+      62 |         await page.locator('button[type="submit"]').click();
+        at /home/muszkin/work/kivvi-click-wt/w0-login/tests/e2e/specs/public.spec.ts:59:20
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/public-login-the-browser-b-a2169-d-address-before-it-is-sent-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/public-login-the-browser-b-a2169-d-address-before-it-is-sent-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/public-login-the-browser-b-a2169-d-address-before-it-is-sent-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/public-login-the-browser-b-a2169-d-address-before-it-is-sent-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    [chrome] › specs/navigation.spec.ts:63:9 › app shell › sidebar collapse survives a reload ──────
+    [chrome] › specs/navigation.spec.ts:89:9 › app shell › theme toggle survives a reload ──────────
+    [chrome] › specs/public.spec.ts:42:9 › login › signs in and shows the identity in the sidebar ──
+    [chrome] › specs/public.spec.ts:56:9 › login › the browser blocks a malformed address before it is sent 
+exit code: 1

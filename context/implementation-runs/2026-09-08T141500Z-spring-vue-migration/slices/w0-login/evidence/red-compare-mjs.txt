@@ -1,0 +1,20 @@
+compare.mjs: replaying journey "login" against https://localhost:19001 (dimensions: contract,visual)
+service "database" is not running
+Error: Command failed: docker compose -p kivvi-w-login -f compose.next.yaml exec -T database psql -U app -d app -tAc "select 'spring_session', count(*) from spring_session union all select 'event_dedup', count(*) from event_dedup union all select 'shedlock', count(*) from shedlock"
+service "database" is not running
+
+    at genericNodeError (node:internal/errors:999:15)
+    at wrappedFn (node:internal/errors:544:14)
+    at checkExecSyncError (node:child_process:942:11)
+    at execSync (node:child_process:1014:15)
+    at dbCounts (file:///home/muszkin/work/kivvi-click-wt/w0-login/tools/migration-verify/compare.mjs:202:15)
+    at runJourney (file:///home/muszkin/work/kivvi-click-wt/w0-login/tools/migration-verify/compare.mjs:293:60)
+    at async file:///home/muszkin/work/kivvi-click-wt/w0-login/tools/migration-verify/compare.mjs:558:25 {
+  status: 1,
+  signal: null,
+  output: [ null, '', 'service "database" is not running\n' ],
+  pid: 2923143,
+  stdout: '',
+  stderr: 'service "database" is not running\n'
+}
+compare.mjs exit code: 1

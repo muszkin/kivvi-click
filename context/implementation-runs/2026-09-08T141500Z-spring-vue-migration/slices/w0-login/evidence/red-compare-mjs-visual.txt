@@ -1,0 +1,14 @@
+compare.mjs: replaying journey "login" against https://localhost:19001 (dimensions: visual)
+page.goto: net::ERR_CONNECTION_REFUSED at https://localhost:19001/pl/login
+Call log:
+[2m  - navigating to "https://localhost:19001/pl/login", waiting until "domcontentloaded"[22m
+
+    at runStep (/home/muszkin/work/kivvi-click-wt/w0-login/tools/migration-verify/compare.mjs:155:33)
+    at runJourney (/home/muszkin/work/kivvi-click-wt/w0-login/tools/migration-verify/compare.mjs:301:28)
+    at async file:///home/muszkin/work/kivvi-click-wt/w0-login/tools/migration-verify/compare.mjs:558:25 {
+  log: [
+    '  - navigating to "https://localhost:19001/pl/login", waiting until "domcontentloaded"'
+  ],
+  name: 'Error'
+}
+exit code: 1
