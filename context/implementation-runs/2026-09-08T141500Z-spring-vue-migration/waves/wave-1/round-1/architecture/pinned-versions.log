@@ -1,0 +1,38 @@
+cwd: /home/muszkin/work/kivvi-click-wt/verify-wave-1-architecture
+
+=== backend/pom.xml ===
+spring-boot-starter-parent: 4.1.1        (plan: Spring Boot 4.1.1)              MATCH
+java.version property:      25            (plan: Temurin 25)                    MATCH
+`java -version` (JAVA_HOME toolchain): openjdk 25.0.4.1 Temurin-25.0.4.1+1      MATCH
+archunit.version:           1.5.0         (plan: ArchUnit 1.5.0)                MATCH
+shedlock-spring / shedlock-provider-jdbc-template: 7.10.0 (plan: ShedLock 7.10.0) MATCH
+maven wrapper:               apache-maven-3.9.11 (plan: Maven 3.9 wrapper)      MATCH
+
+Resolved (mvn dependency:tree -o):
+  org.junit.jupiter:junit-jupiter:6.0.3            (plan: JUnit 6.0.3)          MATCH
+  org.testcontainers:testcontainers:2.0.5          (plan: Testcontainers 2.0.5) MATCH
+  com.tngtech.archunit:archunit-junit5:1.5.0                                    MATCH
+
+=== frontend/package.json ===
+vue: 3.5.42                 (plan: Vue 3.5.42)            MATCH
+vue-router: 5.3.1           (plan: vue-router 5.3.1)      MATCH
+pinia: 4.0.3                (plan: Pinia 4.0.3)           MATCH
+vite: 8.2.2                 (plan: Vite 8.2.2)             MATCH
+@vitejs/plugin-vue: 6.0.8   (plan: 6.0.8)                  MATCH
+vitest: 5.0.0               (plan: Vitest 5.0.0)           MATCH
+@vue/test-utils: 2.5.0      (plan: 2.5.0)                  MATCH
+vue-tsc: 3.3.11             (plan: vue-tsc 3.3.11)         MATCH
+vue-i18n: 11.4.10           (plan: vue-i18n 11.4.10)       MATCH
+typescript: 6.0.3           (plan: TypeScript 6.0.3)       MATCH
+prettier: 3.8.4             (plan: Prettier 3.8.4)         MATCH
+node --version (host): v26.8.1 (plan: Node 26.8.1)         MATCH
+
+=== compose.next.yaml ===
+dunglas/mercure image: v0.24.2   (plan: Mercure hub v0.24.2)  MATCH
+
+=== ShedLock license ===
+$ grep -A3 '<license' ~/.m2/repository/net/javacrumbs/shedlock/shedlock-parent/7.10.0/*.pom
+<license><name>The Apache Software License, Version 2.0</name> ...>
+pom.xml comment (line 89): "Apache-2.0, pinned per the slice packet."   MATCH -- no
+license constraint in the plan is violated (only Mercure's AGPL-3.0 required an explicit
+plan note; ShedLock's Apache-2.0 needs none).

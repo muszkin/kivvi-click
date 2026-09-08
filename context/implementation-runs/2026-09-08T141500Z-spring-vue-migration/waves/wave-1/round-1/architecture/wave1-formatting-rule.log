@@ -1,0 +1,44 @@
+Rule (rules-translated.md, wave-1 row): "Formatting decided server-side (Panel\Format) ->
+SPA format.ts module is the only importer of Intl.NumberFormat; ESLint no-restricted-imports."
+
+=== grep for client-side number formatting in frontend/src ===
+$ grep -rn "Intl\.\|toLocaleString\|NumberFormat\|toFixed(" frontend/src/
+(no matches -- zero occurrences anywhere in the SPA source)
+
+There is no frontend/src/format.ts in this wave; all number/percent/money/relative-time
+formatting for the landing and feeds journeys lives entirely in
+backend/src/main/java/click/kivvi/domain/Format.java (ported from src/Panel/Format.php) and
+backend/src/main/java/click/kivvi/application/FeedsViewService.java. FeedCard.vue's own
+header comment documents this explicitly: "products/mapped/mappedPercent are pre-formatted
+strings, not numbers ... both moved to FeedsViewService on the backend, since the SPA never
+formats a number." Verified by reading Format.java and FeedsViewService.java: every numeric
+value that reaches a Vue prop (products, mapped, mappedPercent, lastSync, KPI values) is a
+String produced server-side; only `mismatched` is a raw int and the old Twig template never
+number_format'd it either (parity preserved).
+
+Verdict on substance: no violation -- the SPA never formats a number itself for the
+landing/feeds journeys in scope.
+
+=== ESLint tooling gap (evidence, not a wave-1 regression) ===
+eslint.config.js's `no-restricted-imports` rule (pattern `*Intl*`) only matches
+`ImportDeclaration` source strings. Probed in an isolated copy
+(/tmp/.../scratchpad/probe-eslint/frontend, outside the checkout):
+  - `import x from "some-Intl-polyfill"` -> flagged (1 error), confirms the rule fires on
+    literal import-source matches.
+  - `new Intl.NumberFormat(...)` used as the global (no import statement) in a probe .ts file
+    under src/ -> NOT flagged (0 problems). `Intl` is a JS global, never imported, so
+    no-restricted-imports can never catch the real violation pattern (a component calling
+    `Intl.NumberFormat` directly). No `no-restricted-globals` rule exists to cover it, and
+    `src/format.ts` (the file the rule and rules-translated.md name as the sanctioned
+    import point) does not exist in this checkout.
+  - Probe files were deleted after the test; the checkout itself was not modified.
+
+This is a real gap in the introduced tooling's coverage (a future wave could call
+`Intl.NumberFormat` directly in a component and no lint rule would catch it), but it is not
+scored as a wave-1 violation: (a) the packet's own check method for this row is the grep
+above, which found zero violations; (b) the actual behaviour is compliant -- all formatting
+for landing/feeds is server-side; (c) no Accepted-deviations entry is needed because nothing
+deviates from the observed behaviour. Recorded here as a risk to flag for wave-2+ (add
+`no-restricted-globals: ["error", { name: "Intl", message: "..." }]` alongside
+no-restricted-imports, and create src/format.ts when the SPA first needs any inline
+formatting), not as a FAIL condition for this wave.

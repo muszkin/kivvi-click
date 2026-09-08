@@ -1,0 +1,65 @@
+
+ RUN  v5.0.0 /home/muszkin/work/kivvi-click-wt/verify-wave-1-unit/frontend
+
+ ✓ test/unit/i18n.spec.ts > B04 the English catalogue translates every Polish navigation and page-head key > carries the same key set as the Polish catalogue 2ms
+ ✓ test/unit/i18n.spec.ts > B04 the English catalogue translates every Polish navigation and page-head key > translates every nav.* label 1ms
+ ✓ test/unit/i18n.spec.ts > B04 the English catalogue translates every Polish navigation and page-head key > translates the dashboard page-head 0ms
+ ✓ test/unit/Avatar.spec.ts > Avatar > derives initials from the first two words of the name 22ms
+ ✓ test/unit/Avatar.spec.ts > Avatar > derives a single initial from a one-word name 3ms
+ ✓ test/unit/Avatar.spec.ts > Avatar > accepts an explicit initials override 2ms
+ ✓ test/unit/WorkspaceCard.spec.ts > WorkspaceCard > keeps a space between the name and the meta text (regression: Vue's whitespace condense mode strips newline-only whitespace between adjacent inline spans, which otherwise silently concatenates them — matches the oracle's 'aureashop.pl Plan Pro · 3 strony' text) 22ms
+ ✓ test/unit/Icon.spec.ts > Icon > renders the stroke path for a known name 32ms
+ ✓ test/unit/Icon.spec.ts > Icon > renders nothing for an unknown name 2ms
+ ✓ test/unit/Icon.spec.ts > Icon > applies an explicit pixel size 4ms
+ ✓ test/unit/KpiGrid.spec.ts > KpiGrid > renders one .kpi tile per entry, in order 53ms
+ ✓ test/unit/KpiGrid.spec.ts > KpiGrid > renders no tiles for an empty array 3ms
+ ✓ test/unit/FeedCard.spec.ts > FeedCard > B30 renders the failing feed's HTTP 503 error strip 102ms
+ ✓ test/unit/FeedCard.spec.ts > FeedCard > B30 a synced feed carries no error strip and shows the mapped percentage 14ms
+ ✓ test/unit/FeedCard.spec.ts > FeedCard > B30 a syncing feed shows a live info chip 12ms
+ ✓ test/unit/FeedCard.spec.ts > FeedCard > colours the mismatched count bad only when it is non-zero 24ms
+stderr | test/unit/routes.spec.ts > B07 an unsupported locale prefix is unknown to the router > does not match /de/dashboard
+[VUE_ROUTER_R0004] No match found for location with path "/de/dashboard"
+├▶ fix: Add a route matching this path or check for typos in the location.
+╰▶ see: https://router.vuejs.org/guide/essentials/dynamic-matching.html#Catch-all-404-Not-found-Route
+
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > / matches a named route 3ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/login matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/dashboard matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/events matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/customers matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/customers/c_1 matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/automations matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/automations/new matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/automations/a1 matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/campaigns matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/emails/new matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/emails/k1 matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/popups matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/popups/new matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/popups/p1 matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/feeds matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/import matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/import/2 matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/settings matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /en/dashboard matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B07 an unsupported locale prefix is unknown to the router > does not match /de/dashboard 4ms
+ ✓ test/unit/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract (unit) > uses type=email on the username field, so the browser blocks a malformed address 63ms
+ ✓ test/unit/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract (unit) > uses type=password on the password field 11ms
+ ✓ test/unit/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract (unit) > posts natively to /{locale}/login 11ms
+ ✓ test/unit/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract (unit) > renders a submit button 8ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > renders the Polish hero heading, two hero CTAs and the demo link 139ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > renders four preview KPI tiles and a non-empty sparkline path 24ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > renders six features and three onboarding steps 20ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > renders two price cards, the Pro one carrying the .pro class and tier text 15ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > English landing keeps the same section counts 39ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > the KPI value and its unit render as one node with no separating space 21ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > the price and its unit render as one node with no separating space 14ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > a trust point keeps exactly one space between its icon and its label 14ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > a price-list item keeps exactly one space between its icon and its label 15ms
+
+ Test Files  9 passed (9)
+      Tests  51 passed (51)
+   Start at  19:53:04
+   Duration  1.86s (environment 67%, transform 17%, tests 6%, setup 5%, import 3%, worker 1%)
+

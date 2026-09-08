@@ -1,0 +1,19 @@
+=== npm ci ===
+added 259 packages, and audited 260 packages in 1s
+found 0 vulnerabilities
+exit=0
+
+=== npm run lint ===
+/home/muszkin/work/kivvi-click-wt/verify-wave-1-architecture/frontend/src/components/organisms/FeedCard.vue
+  164:26  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  169:26  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+2 problems (0 errors, 2 warnings)
+exit=0
+
+=== npm run typecheck (vue-tsc --noEmit) ===
+(no output)
+exit=0
+
+=== npm run format:check (prettier --check .) ===
+All matched files use Prettier code style!
+exit=0

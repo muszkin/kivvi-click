@@ -1,0 +1,33 @@
+Check: "scheduling in infrastructure only, landing/feeds in web/application/fixtures/domain
+with no reverse dependencies."
+
+$ find backend/src/main/java -ipath "*scheduling*"
+infrastructure/scheduling/JdbcHeartbeatLockHistory.java
+infrastructure/scheduling/HeartbeatJob.java
+infrastructure/scheduling/HeartbeatTrigger.java
+infrastructure/scheduling/HeartbeatLockHistory.java
+infrastructure/config/SchedulingConfig.java
+-> all scheduling code lives under infrastructure/. No scheduling class exists outside
+infrastructure/.
+
+$ find backend/src/main/java -ipath "*landing*" -o -ipath "*feeds*"
+fixtures/FeedsFixtures.java
+fixtures/LandingFixtures.java
+application/LandingView.java
+application/FeedsViewService.java
+application/LandingViewService.java
+web/FeedsController.java
+web/LandingController.java
+web/dto/FeedsResponse.java
+-> confined to fixtures/application/web (plus domain/Format.java, shared, generic).
+
+$ grep -rl "infrastructure" backend/src/main/java/click/kivvi/web/
+(no matches -- web never imports infrastructure directly)
+
+ArchUnit (ArchitectureTest, run above, exit 0) additionally proves for the whole codebase:
+  - domain never depends on web
+  - infrastructure is only accessed from infrastructure or application (so scheduling can
+    only be reached via application, never from web or domain directly)
+  - web/application/domain/infrastructure form no package cycle
+These three rules jointly enforce "no reverse dependencies" for both the new scheduling code
+and the new landing/feeds code; all passed with 0 failures.
