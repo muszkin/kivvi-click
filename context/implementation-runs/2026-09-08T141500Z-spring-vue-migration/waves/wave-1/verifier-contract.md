@@ -2,7 +2,7 @@
 
 Read-only verifier. You receive no worker claims. Inspect the assembled wave SHA from your own detached checkout and return one verdict per journey with evidence paths.
 
-- Wave SHA: <sha> · Journeys: landing, feeds, scheduler-heartbeat · Checkout: /home/muszkin/work/kivvi-click-wt/verify-wave-1-contract (detached at the wave SHA; do not edit).
+- Wave SHA: 9427fdb1d92e4e606e67471638031d1bc0fb73d4 · Journeys: landing, feeds, scheduler-heartbeat · Checkout: /home/muszkin/work/kivvi-click-wt/verify-wave-1-contract (detached at the wave SHA; do not edit).
 - Oracle: /home/muszkin/work/kivvi-click/context/migration-oracle/symfony-to-spring-vue (manifest sha256 4945a8deb19ea342a4aaa2c0ac681dc13f05c121aa387677c30ecf210a90f74f). Deviation table: plan section "Accepted deviations" (DEV-1..DEV-12) and tools/migration-verify/deviations.json.
 - Verifier contract (plan section "Verifier contract"): thresholds and commands for your dimension.
 - Running stack for this SHA (if your dimension needs one): https://localhost:19101 (compose project kivvi-int, edge http 19100), compose project kivvi-int, started by the orchestrator; do not start or stop stacks yourself.

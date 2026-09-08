@@ -38,7 +38,7 @@
   "feature": {
     "branch": "migration/spring-vue",
     "worktree": "/home/muszkin/work/kivvi-click-wt/integration",
-    "head_sha": "0e8498663ac0517c9c80a3baa69cea33d076f0a4"
+    "head_sha": "9427fdb1d92e4e606e67471638031d1bc0fb73d4"
   },
   "slices": {
     "w0-login": {
@@ -69,13 +69,14 @@
       "integration_commit": "6e7a847c5bcda11149585f7007bf3f2f349b0394"
     },
     "w1-scheduler-heartbeat": {
-      "state": "REVIEW_PENDING",
+      "state": "INTEGRATED",
       "wave": "wave-1",
       "branch": "migration/wave-1/scheduler-heartbeat",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w1-scheduler-heartbeat",
       "parent_sha": "887af4543c5a51255735f1ddfc0d8860d11551c0",
       "head_sha": "e778720f721e944583ee1e816e19323bb77dc152",
-      "note": "starts when landing or feeds integrates (concurrency cap 2)"
+      "note": "starts when landing or feeds integrates (concurrency cap 2)",
+      "integration_commit": "9427fdb1d92e4e606e67471638031d1bc0fb73d4"
     }
   },
   "deferred_obligations": [],
@@ -199,9 +200,52 @@
         "feeds",
         "scheduler-heartbeat"
       ],
-      "head_sha": null,
+      "head_sha": "9427fdb1d92e4e606e67471638031d1bc0fb73d4",
       "kill_reason": null,
-      "verifier_cohort": []
+      "verifier_cohort": [
+        {
+          "dimension": "unit",
+          "status": "RUNNING",
+          "sha": "9427fdb1d92e4e606e67471638031d1bc0fb73d4",
+          "evidence": "waves/wave-1/unit.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "integration",
+          "status": "RUNNING",
+          "sha": "9427fdb1d92e4e606e67471638031d1bc0fb73d4",
+          "evidence": "waves/wave-1/integration.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "architecture",
+          "status": "RUNNING",
+          "sha": "9427fdb1d92e4e606e67471638031d1bc0fb73d4",
+          "evidence": "waves/wave-1/architecture.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "contract",
+          "status": "RUNNING",
+          "sha": "9427fdb1d92e4e606e67471638031d1bc0fb73d4",
+          "evidence": "waves/wave-1/contract.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "visual",
+          "status": "RUNNING",
+          "sha": "9427fdb1d92e4e606e67471638031d1bc0fb73d4",
+          "evidence": "waves/wave-1/visual.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "e2e",
+          "status": "RUNNING",
+          "sha": "9427fdb1d92e4e606e67471638031d1bc0fb73d4",
+          "evidence": "waves/wave-1/e2e.md",
+          "journey_verdicts": []
+        }
+      ]
     },
     {
       "wave_id": "wave-2",
@@ -266,5 +310,5 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-08T19:44:56Z"
+  "updated_at": "2026-09-08T19:50:04Z"
 }
