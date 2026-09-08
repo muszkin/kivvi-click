@@ -1,6 +1,6 @@
 # Slice packet w1-scheduler-heartbeat — wave-1, journey J3 "scheduler-heartbeat" (backend only)
 
-Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w1-scheduler-heartbeat · branch `migration/wave-1/scheduler-heartbeat` · parent SHA <PARENT-SHA>. **Lease:** compose project `kivvi-w-heartbeat`, HTTP_PORT=19030, HTTPS_PORT=19031. **Model:** sonnet, effort HIGH.
+Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w1-scheduler-heartbeat · branch `migration/wave-1/scheduler-heartbeat` · parent SHA 6a53642c9c5ec9c256625854e6670f035e0292be (valid only once wave-0 reaches WAVE_INTEGRATED on this SHA). **Lease:** compose project `kivvi-w-heartbeat`, HTTP_PORT=19030, HTTPS_PORT=19031. **Model:** sonnet, effort HIGH.
 
 **Capability:** The system emits a scheduler heartbeat every hour through the worker and logs it.
 **Oracle:** journeys/scheduler-heartbeat/contract.md (static). Behaviours: B20, B33.

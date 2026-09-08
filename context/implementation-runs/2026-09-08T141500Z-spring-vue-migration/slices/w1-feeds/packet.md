@@ -1,6 +1,6 @@
 # Slice packet w1-feeds — wave-1, journey J2 "feeds"
 
-Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w1-feeds · branch `migration/wave-1/feeds` · parent SHA <PARENT-SHA>. **Lease:** compose project `kivvi-w-feeds`, HTTP_PORT=19020, HTTPS_PORT=19021. **Model:** sonnet, effort HIGH.
+Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w1-feeds · branch `migration/wave-1/feeds` · parent SHA 6a53642c9c5ec9c256625854e6670f035e0292be (valid only once wave-0 reaches WAVE_INTEGRATED on this SHA). **Lease:** compose project `kivvi-w-feeds`, HTTP_PORT=19020, HTTPS_PORT=19021. **Model:** sonnet, effort HIGH.
 
 **Capability:** The store owner can see product feed sources, sync state and the price-matching diagnostic.
 **Oracle:** journeys/feeds/steps/1 (`/pl/feeds`). Behaviours: B30, B01 (feeds row).
