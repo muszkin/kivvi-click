@@ -2,7 +2,7 @@
 
 Read-only verifier. You receive no worker claims. Inspect the assembled wave SHA from your own detached checkout and return one verdict per journey with evidence paths.
 
-- Wave SHA: 9427fdb1d92e4e606e67471638031d1bc0fb73d4 · Journeys: landing, feeds, scheduler-heartbeat · Checkout: /home/muszkin/work/kivvi-click-wt/verify-wave-1-visual (detached at the wave SHA; do not edit).
+- Wave SHA: 4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a · Journeys: landing, feeds, scheduler-heartbeat · Checkout: /home/muszkin/work/kivvi-click-wt/verify-wave-1-visual (detached at the wave SHA; do not edit).
 - Oracle: /home/muszkin/work/kivvi-click/context/migration-oracle/symfony-to-spring-vue (manifest sha256 4945a8deb19ea342a4aaa2c0ac681dc13f05c121aa387677c30ecf210a90f74f). Deviation table: plan section "Accepted deviations" (DEV-1..DEV-12) and tools/migration-verify/deviations.json.
 - Verifier contract (plan section "Verifier contract"): thresholds and commands for your dimension.
 - Running stack for this SHA (if your dimension needs one): https://localhost:19101 (compose project kivvi-int, edge http 19100), compose project kivvi-int, started by the orchestrator; do not start or stop stacks yourself.
@@ -15,3 +15,7 @@ Return: dimension status PASS | FAIL | NOT_APPLICABLE bound to the wave SHA; per
 ## Environment
 
 Java 25: `export JAVA_HOME=/home/muszkin/.cache/kivvi-toolchains/jdk-25; export PATH=$JAVA_HOME/bin:$PATH` before any `./mvnw`. Node 26 on host; `npm ci` inside `frontend/`, `tests/e2e/` and `tools/migration-verify/` of YOUR checkout only. Never touch other checkouts, the main repo, or the oracle. Playwright keeps only the last `-g`: one invocation per filter. Journeys of this wave and their specs: landing → `public.spec.ts -g "landing"`; feeds → `lists.spec.ts -g "product feeds"`; scheduler-heartbeat → no browser spec (static journey: contract.md, B20/B33 via the IT and the api log). Behaviours in scope: B22 (landing part), B01 landing/feeds rows, B30, B20, B33. Wave-0 behaviours are NOT re-scored here.
+
+## Round 2
+
+Second cohort round for wave-1: round-1 on 9427fdb failed only `integration` (no LandingApiIT); the repair 4f74907 was fast-forwarded as the new wave SHA. Round-1 evidence is archived under `round-1/` — do not touch it; write to the fresh round-2 paths named above.

@@ -5,3 +5,7 @@ Verdict: **PASS**. Reviewer ran backend test/verify and frontend unit (45/45), i
 ## Review — rebased candidate 0e84986 (update-1, fresh reviewer)
 
 Verdict: **PASS**. Format.java and i18n/index.ts byte-identical to feature HEAD; routes union; DEV-11 per-journey; copy parity byte-for-byte incl. the "94 200zł" no-space quirk; all gates green (51 unit / 20 integration frontend). INFO: `LandingView.java` lives in `application/` (accepted since the first review).
+
+## Review — repair-1 candidate 4f74907 (fresh reviewer)
+
+Verdict: **PASS**. LandingApiIT real-HTTP + Testcontainers, mutation of demo() redirect caught; U+202F literals; ESLint Intl ban proven positive/negative with src/format.ts exception; only test/lint files changed. Cosmetic: MemberExpression selector redundant with no-restricted-globals.

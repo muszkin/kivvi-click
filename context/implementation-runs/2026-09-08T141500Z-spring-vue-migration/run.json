@@ -38,7 +38,7 @@
   "feature": {
     "branch": "migration/spring-vue",
     "worktree": "/home/muszkin/work/kivvi-click-wt/integration",
-    "head_sha": "9427fdb1d92e4e606e67471638031d1bc0fb73d4"
+    "head_sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a"
   },
   "slices": {
     "w0-login": {
@@ -51,13 +51,13 @@
       "integration_commit": "887af4543c5a51255735f1ddfc0d8860d11551c0"
     },
     "w1-landing": {
-      "state": "REVIEW_PENDING",
+      "state": "INTEGRATED",
       "wave": "wave-1",
       "branch": "migration/wave-1/landing",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w1-landing",
       "parent_sha": "6e7a847c5bcda11149585f7007bf3f2f349b0394",
       "head_sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
-      "integration_commit": "0e8498663ac0517c9c80a3baa69cea33d076f0a4"
+      "integration_commit": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a"
     },
     "w1-feeds": {
       "state": "FEATURE_HEAD_GREEN",
@@ -200,146 +200,50 @@
         "feeds",
         "scheduler-heartbeat"
       ],
-      "head_sha": "9427fdb1d92e4e606e67471638031d1bc0fb73d4",
+      "head_sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
       "kill_reason": null,
       "verifier_cohort": [
         {
           "dimension": "unit",
-          "status": "PASS",
-          "sha": "9427fdb1d92e4e606e67471638031d1bc0fb73d4",
+          "status": "RUNNING",
+          "sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
           "evidence": "waves/wave-1/unit.md",
-          "journey_verdicts": [
-            {
-              "journey": "landing",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "feeds",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "scheduler-heartbeat",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "journey_verdicts": []
         },
         {
           "dimension": "integration",
-          "status": "FAIL",
-          "sha": "9427fdb1d92e4e606e67471638031d1bc0fb73d4",
+          "status": "RUNNING",
+          "sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
           "evidence": "waves/wave-1/integration.md",
-          "journey_verdicts": [
-            {
-              "journey": "landing",
-              "verdict": "regression",
-              "deviation_id": null
-            },
-            {
-              "journey": "feeds",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "scheduler-heartbeat",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "journey_verdicts": []
         },
         {
           "dimension": "architecture",
-          "status": "PASS",
-          "sha": "9427fdb1d92e4e606e67471638031d1bc0fb73d4",
+          "status": "RUNNING",
+          "sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
           "evidence": "waves/wave-1/architecture.md",
-          "journey_verdicts": [
-            {
-              "journey": "landing",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "feeds",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "scheduler-heartbeat",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "journey_verdicts": []
         },
         {
           "dimension": "contract",
-          "status": "PASS",
-          "sha": "9427fdb1d92e4e606e67471638031d1bc0fb73d4",
+          "status": "RUNNING",
+          "sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
           "evidence": "waves/wave-1/contract.md",
-          "journey_verdicts": [
-            {
-              "journey": "landing",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "feeds",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "scheduler-heartbeat",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "journey_verdicts": []
         },
         {
           "dimension": "visual",
-          "status": "PASS",
-          "sha": "9427fdb1d92e4e606e67471638031d1bc0fb73d4",
+          "status": "RUNNING",
+          "sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
           "evidence": "waves/wave-1/visual.md",
-          "journey_verdicts": [
-            {
-              "journey": "landing",
-              "verdict": "accepted-deviation",
-              "deviation_id": "DEV-11"
-            },
-            {
-              "journey": "feeds",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "scheduler-heartbeat",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "journey_verdicts": []
         },
         {
           "dimension": "e2e",
-          "status": "PASS",
-          "sha": "9427fdb1d92e4e606e67471638031d1bc0fb73d4",
+          "status": "RUNNING",
+          "sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
           "evidence": "waves/wave-1/e2e.md",
-          "journey_verdicts": [
-            {
-              "journey": "landing",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "feeds",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "scheduler-heartbeat",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "journey_verdicts": []
         }
       ],
       "repair_rounds": 1
@@ -407,5 +311,5 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-08T20:05:39Z"
+  "updated_at": "2026-09-08T20:11:29Z"
 }

@@ -4,3 +4,4 @@
 | 2026-09-08T19:28:48Z | w1-feeds | 81af73f, a9c8c30 | cherry-pick | 6e7a847c5bcda11149585f7007bf3f2f349b0394 | feature HEAD; landing to rebase |
 | 2026-09-08T19:40:41Z | w1-landing | 0e84986 | fast-forward | 0e8498663ac0517c9c80a3baa69cea33d076f0a4 | feature HEAD |
 | 2026-09-08T19:50:04Z | w1-scheduler-heartbeat | e778720 | cherry-pick | 9427fdb1d92e4e606e67471638031d1bc0fb73d4 | wave-1 SHA; cohort |
+| 2026-09-08T20:11:29Z | w1-landing repair-1 | 4f74907 | fast-forward | 4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a | wave-1 SHA (round-2 cohort) |
