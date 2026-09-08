@@ -488,3 +488,147 @@ migration/wave-0/login
 
 `cfe7b48` was never amended or rewritten — `2d2b5a8` is a new commit on top of it. No changes
 were made outside this worktree except this report and `slices/w0-login/evidence/`.
+
+## Repair-3
+
+Identity guard first (worktree `/home/muszkin/work/kivvi-click-wt/w0-login`, branch
+`migration/wave-0/login`, starting `HEAD` `2d2b5a8d25a73bf291394d8b5d9cbcff200f940f`, clean
+`git status --porcelain`). Round-2 wave cohort: contract, visual, e2e and architecture passed;
+unit and integration failed on coverage gaps. Test-only changes, per the packet, unless a test
+proved a real defect.
+
+### R3-A — B12/B13 need IT-level coverage; a sibling test overclaimed B14
+
+Added two tests to `backend/src/test/java/click/kivvi/ShellApiIT.java`, both `POST /pl/login`
+through the real HTTP layer (full Spring context, Testcontainers Postgres):
+
+- **B12** (`emptyEmailIsRejectedThroughTheRealHttpLayer`): `_username=` → `200`, SPA document
+  carries `data-login-error="Podaj adres e-mail."` and `data-last-username="maciej@aureashop.pl"`.
+- **B13** (`malformedEmailIsRejectedThroughTheRealHttpLayer`): `_username=not-an-email` → `200`,
+  `data-login-error="To nie wygląda na poprawny adres e-mail."`,
+  `data-last-username="not-an-email"`.
+- Both additionally assert no session identity is established: whatever `Set-Cookie` (if any —
+  neither rejection path ever calls `request.getSession(true)`) came back from the rejected POST
+  is carried into a follow-up `GET /api/v1/pl/shell`, which must still report the default
+  identity (`maciej@aureashop.pl`).
+
+`SessionRoundTripIT.signInPersistsThroughJdbcIndexedSessionRepository` was `@DisplayName`-tagged
+`B11/B14` but only ever signs in, never calls `/logout` — an honest overclaim fix, not a
+behaviour change: renamed to just `B11`. `B14` (logout, restores the default identity) is
+correctly exercised elsewhere in the same class by `signInThenSignOutRoundTripsTheIdentity`,
+unchanged.
+
+**Proof**: `ShellApiIT` run in isolation (`-Dit.test=ShellApiIT verify`), 7/7 green (5 from
+repair-2 + 2 new); full `SessionRoundTripIT` 4/4 green with the renamed `@DisplayName`.
+
+### R3-B — B22 needs a unit-dimension test
+
+Added `frontend/test/unit/LoginView.spec.ts` (new file, reachable by `npm run test`'s
+`vitest run test/unit`, unlike the existing `test/integration/LoginView.spec.ts`): asserts
+`#f-_username` has `type="email"` and `name="_username"`, `#f-_password` has `type="password"`
+and `name="_password"`, the form is `method="post"` with `action` ending in `/login`, and a
+submit button exists.
+
+**Deviation from the packet's literal wording, evidence-based**: did **not** assert a `required`
+attribute on `#f-_username`, and did not add one to `Field.vue`/`LoginView.vue`. Checked the
+oracle first: `journeys/login/steps/1/a11y.json`'s captured accessibility tree shows
+`textbox "Email"` with no `[required]` marker, and the capture tool does surface that marker
+elsewhere in the same oracle when a field genuinely has it (`[disabled]`/`[checked]`/`[expanded]`
+appear in `journeys/settings`, `journeys/import-wizard`, `journeys/shell-navigation`) — its
+absence here is signal, not a gap in capture. Grepped the entire oracle tree for `[required]`:
+zero matches, in any journey, ever — consistent with the old stack validating this form
+server-side rather than via native HTML5 constraint validation. This is also the only reading
+under which B12 (the empty-e-mail server rejection, itself a captured, real oracle behaviour)
+is reachable through an actual browser submission at all: a `required` field would make the
+browser block an empty submission before it ever reached the server. Adding `required` was
+considered and rejected — it would be a parity regression against the oracle, not a defect fix,
+and this slice's own round-2 contract dimension already passed against the current (non-required)
+markup.
+
+**Proof**: the new file run in isolation, 4/4 green; full `npm run test -- --run`, 6 files
+(was 5), 36 tests (was 32), all green.
+
+### R3-C — bind formatting checks to the build
+
+`spotless-maven-plugin` had no `<executions>` binding — `./mvnw verify` never actually ran
+`spotless:check`, contradicting the CI step's own name
+(`mvnw verify (unit + Testcontainers integration + ArchUnit + Spotless)`). Bound `check` to the
+`verify` phase in `backend/pom.xml`. Added `"format:check": "prettier --check ."` to
+`frontend/package.json` and a `Format check (Prettier)` step to the frontend job in
+`.github/workflows/next-build.yml`, right after `Lint`. The backend CI step's name is now
+accurate as written, so it needed no further correction.
+
+Running `format:check` for the first time surfaced two pre-existing violations never caught
+before — `frontend/index.html` and `frontend/src/styles/04-patterns.css`, both 2-space indented
+against the project's documented 4-space convention (`frontend/README.md`'s "Test" section) —
+plus this repair's own `test/setup.ts`. Fixed all three with `prettier --write`; diffed
+`index.html`/the CSS file by hand first to confirm the change is whitespace/line-wrap only (same
+tags, attributes, content; same CSS rule, different wrap point) — re-ran
+`npm run test -- --run`, `test:integration -- --run`, `lint`, `typecheck`, `build` afterward, all
+green, confirming no behavioural change.
+
+**Proof the binding actually works**: injected a deliberate one-line indentation violation into
+`ShellApiIT.java`, ran `./mvnw verify`, confirmed it failed with
+`Failed to execute goal ... spotless-maven-plugin:...:check ... The following files had format
+violations`, reverted the file from a pre-violation backup, re-ran `verify` clean.
+
+### Files changed
+
+- `backend/pom.xml` — R3-C, `spotless:check` bound to `verify`.
+- `backend/src/test/java/click/kivvi/ShellApiIT.java` — R3-A, new B12/B13 tests.
+- `backend/src/test/java/click/kivvi/SessionRoundTripIT.java` — R3-A, honest B11 rename.
+- `frontend/test/unit/LoginView.spec.ts` — new, R3-B.
+- `frontend/package.json` — R3-C, new `format:check` script.
+- `.github/workflows/next-build.yml` — R3-C, new `Format check (Prettier)` step.
+- `frontend/index.html`, `frontend/src/styles/04-patterns.css` — R3-C, whitespace-only
+  reformat (pre-existing `format:check` violations, not previously enforced).
+- `frontend/test/setup.ts` — R3-C, whitespace-only reformat (this slice's own file).
+
+### Gate chain (in order, on the new candidate SHA `4e0bf5ca6ab163dae4da000783078fdc1f786139`)
+
+| # | Gate | Command | cwd | Exit | Evidence | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | `./mvnw -q test` (clean, no `static/`) | `git clean -xdf backend/src/main/resources/static frontend/dist` then `./mvnw -q clean test` | `backend/` | 0 | `evidence/repair-3-gates/gate-01-mvn-test.log` | PASS |
+| 2 | `./mvnw -q verify` | `./mvnw -q verify` | `backend/` | 0 | `evidence/repair-3-gates/gate-02-mvn-verify.log` (`ShellApiIT` 7/7, `SessionRoundTripIT` 4/4, `spotless:check` genuinely ran — see proof above) | PASS |
+| 3 | Focused (frontend) | `npm run test -- --run` | `frontend/` | 0 | `evidence/repair-3-gates/gate-03-frontend-test.log` (6 files, 36 tests) | PASS |
+| 4 | Integration (frontend) | `npm run test:integration -- --run` | `frontend/` | 0 | `evidence/repair-3-gates/gate-04-frontend-test-integration.log` (3 files, 13 tests) | PASS |
+| 5 | Architecture (backend, ArchUnit) | `./mvnw -q -Dtest=ArchitectureTest test` | `backend/` | 0 | `evidence/repair-3-gates/gate-05a-archunit.log` | PASS |
+| 5 | Static (backend, spotless) | `./mvnw -q spotless:check` | `backend/` | 0 | `evidence/repair-3-gates/gate-05b-backend-spotless.log` | PASS |
+| 6 | Static (frontend) | `npm run lint && npm run typecheck && npm run build` | `frontend/` | 0 | `evidence/repair-3-gates/gate-06-frontend-static.log` | PASS |
+| — | Static (frontend, format — extra, not in the packet's list) | `npm run format:check` | `frontend/` | 0 | `evidence/repair-3-gates/gate-06b-frontend-format-check.log` | PASS |
+
+**compare.mjs / Playwright / performance.mjs were not re-run**, per the packet's explicit
+allowance ("because only test files change, you may skip re-running..."). Stated explicitly, as
+required: every non-test file this repair touched is provably behaviour-neutral for a running
+instance of the app — `backend/pom.xml`'s change only binds an existing static-analysis goal to
+an existing build phase (no runtime code, no bytecode change); `.github/workflows/next-build.yml`
+and `frontend/package.json`'s new script never execute against a running instance either; and
+`frontend/index.html`/`frontend/src/styles/04-patterns.css`'s reformatting was hand-diffed and
+confirmed whitespace/line-wrap only (same DOM, same CSS rule). The wave cohort re-runs everything
+regardless.
+
+### New candidate SHA and clean-worktree proof
+
+```
+$ git rev-parse HEAD
+4e0bf5ca6ab163dae4da000783078fdc1f786139
+
+$ git log --oneline -5
+4e0bf5c test: honest B12/B13/B14 integration coverage, B22 unit coverage, bind format checks (repair-3)
+2d2b5a8 fix: honest integration coverage, fail-on-warning policy, buildable test suite (repair-2)
+cfe7b48 fix: activate Spring Session JDBC autoconfiguration (repair-1 F1)
+f4ac025 feat: stand up the Spring Boot + Vue 3 login walking skeleton (wave-0)
+8d3fc32 docs: record the operator execution decision for the migration plan
+
+$ git status --porcelain
+(empty — clean)
+
+$ git rev-parse --show-toplevel
+/home/muszkin/work/kivvi-click-wt/w0-login
+
+$ git rev-parse --abbrev-ref HEAD
+migration/wave-0/login
+```
+
+`2d2b5a8` was never amended or rewritten — `4e0bf5c` is a new commit on top of it. No changes
+were made outside this worktree except this report and `slices/w0-login/evidence/`.
