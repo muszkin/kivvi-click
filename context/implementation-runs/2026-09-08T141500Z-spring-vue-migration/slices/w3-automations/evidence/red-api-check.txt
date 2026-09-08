@@ -1,0 +1,17 @@
+RED evidence — pre-implementation state (git stash of automations changes, worktree at parent SHA content)
+Stack: docker compose -p kivvi-w-automations -f compose.next.yaml, HTTP_PORT=19060 HTTPS_PORT=19061 HTTP3_PORT=19061
+
+$ curl -sk -D - https://localhost:19061/pl/automations
+HTTP/2 200 (SPA shell only, EmptyPageView mounted — no automations content)
+
+$ curl -sk -D - https://localhost:19061/api/v1/pl/automations -H "Accept: application/json"
+HTTP/2 404
+{"timestamp":"2026-09-08T23:22:13.476Z","status":404,"error":"Not Found","path":"/api/v1/pl/automations"}
+
+$ curl -sk -D - https://localhost:19061/api/v1/pl/automations/a1 -H "Accept: application/json"
+HTTP/2 404
+{"timestamp":"2026-09-08T23:22:13.493Z","status":404,"error":"Not Found","path":"/api/v1/pl/automations/a1"}
+
+Conclusion: the automations API does not exist yet; the SPA document route renders only the
+empty shell (AutomationsView/AutomationEditorView not wired). This is the expected RED state
+before implementation.

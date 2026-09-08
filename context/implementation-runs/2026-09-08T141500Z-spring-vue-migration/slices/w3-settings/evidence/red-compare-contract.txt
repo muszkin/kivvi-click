@@ -1,0 +1,13 @@
+compare.mjs: replaying journey "settings" against https://localhost:19071 (dimensions: contract)
+locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.settings-nav a').filter({ hasText: 'Śledzone strony' }).first()[22m
+
+    at runStep (/home/muszkin/work/kivvi-click-wt/w3-settings/tools/migration-verify/compare.mjs:172:35)
+    at async runJourney (/home/muszkin/work/kivvi-click-wt/w3-settings/tools/migration-verify/compare.mjs:316:22)
+    at async file:///home/muszkin/work/kivvi-click-wt/w3-settings/tools/migration-verify/compare.mjs:584:25 {
+  log: [
+    "  - waiting for locator('.settings-nav a').filter({ hasText: 'Śledzone strony' }).first()"
+  ],
+  name: 'TimeoutError'
+}

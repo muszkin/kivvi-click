@@ -1,0 +1,154 @@
+
+Running 4 tests using 4 workers
+
+  ✘  4 [chrome] › specs/automations.spec.ts:59:9 › automations › shows the simulation before publishing (6.1s)
+  ✘  1 [chrome] › specs/automations.spec.ts:7:9 › automations › lists rules with status, trigger and performance (6.3s)
+  ✘  2 [chrome] › specs/automations.spec.ts:38:9 › automations › switches to the diagram and back without changing the rule (30.1s)
+  ✘  3 [chrome] › specs/automations.spec.ts:24:9 › automations › opens the rule editor in list form (30.1s)
+
+
+  1) [chrome] › specs/automations.spec.ts:7:9 › automations › lists rules with status, trigger and performance 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.auto-card')
+    Expected: 6
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('.auto-card')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      10 |         await page.goto("/pl/automations");
+      11 |
+    > 12 |         await expect(page.locator(".auto-card")).toHaveCount(6);
+         |                                                  ^
+      13 |         const first = page.locator(".auto-card").first();
+      14 |         await expect(first.locator(".auto-card__title")).toHaveText(
+      15 |             "Powrót do porzuconego koszyka",
+        at /home/muszkin/work/kivvi-click-wt/w3-automations/tests/e2e/specs/automations.spec.ts:12:50
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/automations-automations-li-52f4f-tus-trigger-and-performance-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/automations-automations-li-52f4f-tus-trigger-and-performance-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/automations-automations-li-52f4f-tus-trigger-and-performance-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/automations-automations-li-52f4f-tus-trigger-and-performance-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chrome] › specs/automations.spec.ts:24:9 › automations › opens the rule editor in list form ──
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.auto-card').first()
+
+
+      24 |     test("opens the rule editor in list form", async ({ page }) => {
+      25 |         await page.goto("/pl/automations");
+    > 26 |         await page.locator(".auto-card").first().click();
+         |                                                  ^
+      27 |
+      28 |         await expect(page).toHaveURL(/\/pl\/automations\/a1/);
+      29 |         await expect(page.locator(".rb-step")).toHaveCount(3);
+        at /home/muszkin/work/kivvi-click-wt/w3-automations/tests/e2e/specs/automations.spec.ts:26:50
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/automations-automations-opens-the-rule-editor-in-list-form-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/automations-automations-opens-the-rule-editor-in-list-form-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/automations-automations-opens-the-rule-editor-in-list-form-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/automations-automations-opens-the-rule-editor-in-list-form-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chrome] › specs/automations.spec.ts:38:9 › automations › switches to the diagram and back without changing the rule 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.seg [data-action="navigate"]').filter({ hasText: 'Diagram' })
+
+
+      43 |         await page
+      44 |             .locator('.seg [data-action="navigate"]', { hasText: "Diagram" })
+    > 45 |             .click();
+         |              ^
+      46 |         await expect(page).toHaveURL(/view=flow/);
+      47 |         await expect(page.locator(".flow-canvas .flow-node")).toHaveCount(6);
+      48 |         await expect(page.locator(".flow-canvas .flow-svg path")).toHaveCount(
+        at /home/muszkin/work/kivvi-click-wt/w3-automations/tests/e2e/specs/automations.spec.ts:45:14
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/automations-automations-sw-dd69c-k-without-changing-the-rule-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/automations-automations-sw-dd69c-k-without-changing-the-rule-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/automations-automations-sw-dd69c-k-without-changing-the-rule-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/automations-automations-sw-dd69c-k-without-changing-the-rule-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chrome] › specs/automations.spec.ts:59:9 › automations › shows the simulation before publishing 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('.card').filter({ hasText: 'Test reguły' }).locator('.mono').first()
+    Expected substring: "2"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('.card').filter({ hasText: 'Test reguły' }).locator('.mono').first()
+
+
+      61 |         const card = page.locator(".card", { hasText: "Test reguły" });
+      62 |
+    > 63 |         await expect(card.locator(".mono").first()).toContainText("2");
+         |                                                     ^
+      64 |         await expect(card).toContainText("Estymowany przychód");
+      65 |         await expect(page.locator('[data-action="publish"]')).toBeVisible();
+      66 |     });
+        at /home/muszkin/work/kivvi-click-wt/w3-automations/tests/e2e/specs/automations.spec.ts:63:53
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/automations-automations-sh-43300-imulation-before-publishing-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/automations-automations-sh-43300-imulation-before-publishing-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/automations-automations-sh-43300-imulation-before-publishing-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/automations-automations-sh-43300-imulation-before-publishing-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    [chrome] › specs/automations.spec.ts:7:9 › automations › lists rules with status, trigger and performance 
+    [chrome] › specs/automations.spec.ts:24:9 › automations › opens the rule editor in list form ───
+    [chrome] › specs/automations.spec.ts:38:9 › automations › switches to the diagram and back without changing the rule 
+    [chrome] › specs/automations.spec.ts:59:9 › automations › shows the simulation before publishing 

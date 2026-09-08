@@ -1,0 +1,440 @@
+
+Running 12 tests using 8 workers
+
+  ✘   1 [chrome] › specs/settings.spec.ts:31:13 › settings › tab "sites" has its own URL and content (30.1s)
+  ✘   3 [chrome] › specs/settings.spec.ts:31:13 › settings › tab "notifications" has its own URL and content (30.1s)
+  ✘   2 [chrome] › specs/settings.spec.ts:31:13 › settings › tab "account" has its own URL and content (30.1s)
+  ✘   4 [chrome] › specs/settings.spec.ts:31:13 › settings › tab "providers" has its own URL and content (30.2s)
+  ✘   7 [chrome] › specs/settings.spec.ts:31:13 › settings › tab "team" has its own URL and content (30.2s)
+  ✘   5 [chrome] › specs/settings.spec.ts:31:13 › settings › tab "billing" has its own URL and content (30.2s)
+  ✘   6 [chrome] › specs/settings.spec.ts:31:13 › settings › tab "gdpr" has its own URL and content (30.2s)
+  ✘   8 [chrome] › specs/settings.spec.ts:31:13 › settings › tab "api" has its own URL and content (30.2s)
+  ✘   9 [chrome] › specs/settings.spec.ts:52:9 › settings › the tracker snippet is highlighted server-side (5.6s)
+  ✘  10 [chrome] › specs/settings.spec.ts:61:9 › settings › deliverability records show their verification state (5.6s)
+  ✘  11 [chrome] › specs/settings.spec.ts:71:9 › settings › a failing webhook is reported in place (5.7s)
+  ✘  12 [chrome] › specs/settings.spec.ts:79:9 › settings › the notification matrix covers every channel (5.7s)
+
+
+  1) [chrome] › specs/settings.spec.ts:31:13 › settings › tab "account" has its own URL and content 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.settings-nav a').filter({ hasText: 'Konto' })
+
+
+      35 |             await page
+      36 |                 .locator(".settings-nav a", { hasText: tab.label })
+    > 37 |                 .click();
+         |                  ^
+      38 |
+      39 |             // The default tab renders at /pl/settings; the others carry their id.
+      40 |             await expect(page).toHaveURL(
+        at /home/muszkin/work/kivvi-click-wt/w3-settings/tests/e2e/specs/settings.spec.ts:37:18
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/settings-settings-tab-account-has-its-own-URL-and-content-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/settings-settings-tab-account-has-its-own-URL-and-content-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/settings-settings-tab-account-has-its-own-URL-and-content-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/settings-settings-tab-account-has-its-own-URL-and-content-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chrome] › specs/settings.spec.ts:31:13 › settings › tab "sites" has its own URL and content ──
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.settings-nav a').filter({ hasText: 'Śledzone strony' })
+
+
+      35 |             await page
+      36 |                 .locator(".settings-nav a", { hasText: tab.label })
+    > 37 |                 .click();
+         |                  ^
+      38 |
+      39 |             // The default tab renders at /pl/settings; the others carry their id.
+      40 |             await expect(page).toHaveURL(
+        at /home/muszkin/work/kivvi-click-wt/w3-settings/tests/e2e/specs/settings.spec.ts:37:18
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/settings-settings-tab-sites-has-its-own-URL-and-content-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/settings-settings-tab-sites-has-its-own-URL-and-content-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/settings-settings-tab-sites-has-its-own-URL-and-content-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/settings-settings-tab-sites-has-its-own-URL-and-content-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chrome] › specs/settings.spec.ts:31:13 › settings › tab "team" has its own URL and content ───
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.settings-nav a').filter({ hasText: 'Zespół' })
+
+
+      35 |             await page
+      36 |                 .locator(".settings-nav a", { hasText: tab.label })
+    > 37 |                 .click();
+         |                  ^
+      38 |
+      39 |             // The default tab renders at /pl/settings; the others carry their id.
+      40 |             await expect(page).toHaveURL(
+        at /home/muszkin/work/kivvi-click-wt/w3-settings/tests/e2e/specs/settings.spec.ts:37:18
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/settings-settings-tab-team-has-its-own-URL-and-content-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/settings-settings-tab-team-has-its-own-URL-and-content-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/settings-settings-tab-team-has-its-own-URL-and-content-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/settings-settings-tab-team-has-its-own-URL-and-content-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chrome] › specs/settings.spec.ts:31:13 › settings › tab "providers" has its own URL and content 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.settings-nav a').filter({ hasText: 'Dostawcy email' })
+
+
+      35 |             await page
+      36 |                 .locator(".settings-nav a", { hasText: tab.label })
+    > 37 |                 .click();
+         |                  ^
+      38 |
+      39 |             // The default tab renders at /pl/settings; the others carry their id.
+      40 |             await expect(page).toHaveURL(
+        at /home/muszkin/work/kivvi-click-wt/w3-settings/tests/e2e/specs/settings.spec.ts:37:18
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/settings-settings-tab-providers-has-its-own-URL-and-content-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/settings-settings-tab-providers-has-its-own-URL-and-content-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/settings-settings-tab-providers-has-its-own-URL-and-content-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/settings-settings-tab-providers-has-its-own-URL-and-content-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [chrome] › specs/settings.spec.ts:31:13 › settings › tab "api" has its own URL and content ────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.settings-nav a').filter({ hasText: 'Webhooks i API' })
+
+
+      35 |             await page
+      36 |                 .locator(".settings-nav a", { hasText: tab.label })
+    > 37 |                 .click();
+         |                  ^
+      38 |
+      39 |             // The default tab renders at /pl/settings; the others carry their id.
+      40 |             await expect(page).toHaveURL(
+        at /home/muszkin/work/kivvi-click-wt/w3-settings/tests/e2e/specs/settings.spec.ts:37:18
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/settings-settings-tab-api-has-its-own-URL-and-content-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/settings-settings-tab-api-has-its-own-URL-and-content-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/settings-settings-tab-api-has-its-own-URL-and-content-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/settings-settings-tab-api-has-its-own-URL-and-content-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [chrome] › specs/settings.spec.ts:31:13 › settings › tab "notifications" has its own URL and content 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.settings-nav a').filter({ hasText: 'Powiadomienia' })
+
+
+      35 |             await page
+      36 |                 .locator(".settings-nav a", { hasText: tab.label })
+    > 37 |                 .click();
+         |                  ^
+      38 |
+      39 |             // The default tab renders at /pl/settings; the others carry their id.
+      40 |             await expect(page).toHaveURL(
+        at /home/muszkin/work/kivvi-click-wt/w3-settings/tests/e2e/specs/settings.spec.ts:37:18
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/settings-settings-tab-noti-373f1-has-its-own-URL-and-content-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/settings-settings-tab-noti-373f1-has-its-own-URL-and-content-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/settings-settings-tab-noti-373f1-has-its-own-URL-and-content-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/settings-settings-tab-noti-373f1-has-its-own-URL-and-content-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) [chrome] › specs/settings.spec.ts:31:13 › settings › tab "billing" has its own URL and content 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.settings-nav a').filter({ hasText: 'Plan i płatności' })
+
+
+      35 |             await page
+      36 |                 .locator(".settings-nav a", { hasText: tab.label })
+    > 37 |                 .click();
+         |                  ^
+      38 |
+      39 |             // The default tab renders at /pl/settings; the others carry their id.
+      40 |             await expect(page).toHaveURL(
+        at /home/muszkin/work/kivvi-click-wt/w3-settings/tests/e2e/specs/settings.spec.ts:37:18
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/settings-settings-tab-billing-has-its-own-URL-and-content-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/settings-settings-tab-billing-has-its-own-URL-and-content-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/settings-settings-tab-billing-has-its-own-URL-and-content-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/settings-settings-tab-billing-has-its-own-URL-and-content-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) [chrome] › specs/settings.spec.ts:31:13 › settings › tab "gdpr" has its own URL and content ───
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.settings-nav a').filter({ hasText: 'RODO / DPA' })
+
+
+      35 |             await page
+      36 |                 .locator(".settings-nav a", { hasText: tab.label })
+    > 37 |                 .click();
+         |                  ^
+      38 |
+      39 |             // The default tab renders at /pl/settings; the others carry their id.
+      40 |             await expect(page).toHaveURL(
+        at /home/muszkin/work/kivvi-click-wt/w3-settings/tests/e2e/specs/settings.spec.ts:37:18
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/settings-settings-tab-gdpr-has-its-own-URL-and-content-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/settings-settings-tab-gdpr-has-its-own-URL-and-content-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/settings-settings-tab-gdpr-has-its-own-URL-and-content-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/settings-settings-tab-gdpr-has-its-own-URL-and-content-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  9) [chrome] › specs/settings.spec.ts:52:9 › settings › the tracker snippet is highlighted server-side 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('.code-block')
+    Expected substring: "cdn.kivvi-click.io/k.js"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('.code-block')
+
+
+      54 |         const snippet = page.locator(".code-block");
+      55 |
+    > 56 |         await expect(snippet).toContainText("cdn.kivvi-click.io/k.js");
+         |                               ^
+      57 |         await expect(snippet.locator("span.s").first()).toBeVisible();
+      58 |         await expect(snippet.locator("span.c").first()).toBeVisible();
+      59 |     });
+        at /home/muszkin/work/kivvi-click-wt/w3-settings/tests/e2e/specs/settings.spec.ts:56:31
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/settings-settings-the-trac-9aae5--is-highlighted-server-side-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/settings-settings-the-trac-9aae5--is-highlighted-server-side-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/settings-settings-the-trac-9aae5--is-highlighted-server-side-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/settings-settings-the-trac-9aae5--is-highlighted-server-side-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  10) [chrome] › specs/settings.spec.ts:61:9 › settings › deliverability records show their verification state 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.dns-row')
+    Expected: 4
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('.dns-row')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      64 |         await page.goto("/pl/settings/providers");
+      65 |
+    > 66 |         await expect(page.locator(".dns-row")).toHaveCount(4);
+         |                                                ^
+      67 |         await expect(page.locator(".dns-row .chip.good")).toHaveCount(3);
+      68 |         await expect(page.locator(".dns-row .chip.warn")).toHaveCount(1);
+      69 |     });
+        at /home/muszkin/work/kivvi-click-wt/w3-settings/tests/e2e/specs/settings.spec.ts:66:48
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/settings-settings-delivera-db2d3-ow-their-verification-state-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/settings-settings-delivera-db2d3-ow-their-verification-state-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/settings-settings-delivera-db2d3-ow-their-verification-state-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/settings-settings-delivera-db2d3-ow-their-verification-state-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  11) [chrome] › specs/settings.spec.ts:71:9 › settings › a failing webhook is reported in place ───
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.hook-row')
+    Expected: 3
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('.hook-row')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      72 |         await page.goto("/pl/settings/api");
+      73 |
+    > 74 |         await expect(page.locator(".hook-row")).toHaveCount(3);
+         |                                                 ^
+      75 |         await expect(page.locator(".hook-row .chip.bad")).toHaveText("410");
+      76 |         await expect(page.locator(".callout")).toContainText("410 od 3 godzin");
+      77 |     });
+        at /home/muszkin/work/kivvi-click-wt/w3-settings/tests/e2e/specs/settings.spec.ts:74:49
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/settings-settings-a-failing-webhook-is-reported-in-place-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/settings-settings-a-failing-webhook-is-reported-in-place-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/settings-settings-a-failing-webhook-is-reported-in-place-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/settings-settings-a-failing-webhook-is-reported-in-place-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  12) [chrome] › specs/settings.spec.ts:79:9 › settings › the notification matrix covers every channel 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.table tbody tr')
+    Expected: 8
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('.table tbody tr')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      80 |         await page.goto("/pl/settings/notifications");
+      81 |
+    > 82 |         await expect(page.locator(".table tbody tr")).toHaveCount(8);
+         |                                                       ^
+      83 |         await expect(
+      84 |             page.locator('.table tbody input[type="checkbox"]'),
+      85 |         ).toHaveCount(24);
+        at /home/muszkin/work/kivvi-click-wt/w3-settings/tests/e2e/specs/settings.spec.ts:82:55
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/settings-settings-the-noti-26068-matrix-covers-every-channel-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/settings-settings-the-noti-26068-matrix-covers-every-channel-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/settings-settings-the-noti-26068-matrix-covers-every-channel-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/settings-settings-the-noti-26068-matrix-covers-every-channel-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  12 failed
+    [chrome] › specs/settings.spec.ts:31:13 › settings › tab "account" has its own URL and content ─
+    [chrome] › specs/settings.spec.ts:31:13 › settings › tab "sites" has its own URL and content ───
+    [chrome] › specs/settings.spec.ts:31:13 › settings › tab "team" has its own URL and content ────
+    [chrome] › specs/settings.spec.ts:31:13 › settings › tab "providers" has its own URL and content 
+    [chrome] › specs/settings.spec.ts:31:13 › settings › tab "api" has its own URL and content ─────
+    [chrome] › specs/settings.spec.ts:31:13 › settings › tab "notifications" has its own URL and content 
+    [chrome] › specs/settings.spec.ts:31:13 › settings › tab "billing" has its own URL and content ─
+    [chrome] › specs/settings.spec.ts:31:13 › settings › tab "gdpr" has its own URL and content ────
+    [chrome] › specs/settings.spec.ts:52:9 › settings › the tracker snippet is highlighted server-side 
+    [chrome] › specs/settings.spec.ts:61:9 › settings › deliverability records show their verification state 
+    [chrome] › specs/settings.spec.ts:71:9 › settings › a failing webhook is reported in place ─────
+    [chrome] › specs/settings.spec.ts:79:9 › settings › the notification matrix covers every channel 
