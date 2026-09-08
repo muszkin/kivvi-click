@@ -108,3 +108,54 @@ The first full GREEN pass found a genuine regression: `compare.mjs --dimension v
 - Stack torn down (`docker compose -p kivvi-w-automations -f compose.next.yaml down -v`) and the `kivvi-w-automations-api` image removed after the final gate run.
 - `git status --porcelain` empty at finish; `HEAD` at `11131281a05eb87cdef8e4fb2352706339274380` on `migration/wave-3/automations`.
 - No push, no merge, no PR opened.
+
+## Follow-up
+
+Independent review (`review.md`) verdict: **PASS**, with two non-blocking findings closed in this
+follow-up, on top of `1113128` — no functional change, test-name/comment-only.
+
+1. **B01 traceability (MEDIUM).** `AutomationsApiIT.java`'s three document-render tests
+   (`automationsIndexPageRenders200`, `automationNewPageRenders200`,
+   `unseededShapeValidAutomationDocumentStillRenders200`) are functionally the journey's B01 tests
+   (packet: "Behaviours: B26, B01") but were tagged `"B26 ..."` only, unlike the sibling-journey
+   convention (`EventsApiIT.java:34`, `FeedsApiIT.java:36`). Fixed by prefixing all three
+   `@DisplayName`s with `"B01/B26 "` (kept both ids — each test also proves a B26-specific fact:
+   card page vs. new-editor page vs. shape-valid-but-unseeded-id fallback). Also relabelled the one
+   matching frontend test — `AutomationEditorView.spec.ts`'s `/automations/new` mount test, which
+   already asserted `.page-title` — to `"B01/B26 GET /automations/new renders and shows its own
+   headline (the generic draft header)"`, mirroring `automationNewPageRenders200` on the frontend
+   side. No other journey's frontend integration spec carries a `"B01"` tag either (the frontend
+   behaviour is otherwise covered generically by the shared, non-journey-owned
+   `frontend/test/unit/routes.spec.ts`), so this is the first per-journey frontend `"B01"` label —
+   scoped to the one test that is the direct frontend counterpart of the relabelled backend test,
+   not a new pattern applied elsewhere.
+2. **Inaccurate citation (LOW).** `AutomationsViewService.java`'s class Javadoc cited a
+   non-existent `architecture/rules-translated.md` "query-string state only marks a chip active"
+   row. Repointed to `common-journey-rules.md`'s actual query-string-state rule, quoting it
+   directly instead of citing a table row that doesn't exist there.
+
+No test assertions changed — only `@DisplayName`/test-name strings and one Javadoc comment.
+
+**New candidate SHA:** `2ca5f07cf0dfc405feb6b13a9302883f134c328b`
+
+```
+$ git log --oneline b87a701..HEAD
+2ca5f07 test: label B01 automations coverage (#automations)
+1113128 fix: automations gate-5 regression found by compare.mjs (#automations)
+02a8c31 feat: add automations index and rule editor (#automations)
+```
+
+### Follow-up gate table (candidate SHA `2ca5f07cf0dfc405feb6b13a9302883f134c328b`)
+
+| Command | cwd | Exit | Evidence |
+| - | - | - | - |
+| `./mvnw -q -o test` | `backend/` | 0 | `evidence/followup-gates/mvn-test.log` |
+| `./mvnw -q -o verify` (Testcontainers ITs, incl. 7/7 `AutomationsApiIT`, + spotless + ArchUnit) | `backend/` | 0 | `evidence/followup-gates/mvn-verify.log` |
+| `npm run test -- --run` | `frontend/` | 0 (15 files, 80 tests) | `evidence/followup-gates/npm-test.log` |
+| `npm run test:integration -- --run` | `frontend/` | 0 (11 files, 57 tests) | `evidence/followup-gates/npm-test-integration.log` |
+| `npm run lint` | `frontend/` | 0 (2 pre-existing warnings in unrelated `FeedCard.vue`) | `evidence/followup-gates/npm-lint.log` |
+| `npm run format:check` | `frontend/` | 0 | `evidence/followup-gates/npm-format-check.log` |
+
+`git status --porcelain` empty after the commit; no compose stack was started for this follow-up
+(no compose-stack-dependent gate — e2e/compare/performance — was affected by a test-name/comment
+change, and none of them were re-run here).
