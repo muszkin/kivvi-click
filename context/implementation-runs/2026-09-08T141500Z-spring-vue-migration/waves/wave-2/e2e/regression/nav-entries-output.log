@@ -1,0 +1,173 @@
+
+Running 2 tests using 2 workers
+
+  ✓  1 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "customers" opens its page (1.0s)
+  ✓  2 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "events" opens its page (1.1s)
+
+  2 passed (2.1s)
+{
+  "config": {
+    "argv": [
+      "/usr/bin/node",
+      "/home/muszkin/work/kivvi-click-wt/verify-wave-2-e2e/tests/e2e/node_modules/.bin/playwright",
+      "test",
+      "navigation.spec.ts",
+      "-g",
+      "sidebar entry \"events\" opens its page|sidebar entry \"customers\" opens its page",
+      "--reporter=list,json,html",
+      "--output=/home/muszkin/work/kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-2/e2e/regression/nav-entries/test-results"
+    ],
+    "configFile": "/home/muszkin/work/kivvi-click-wt/verify-wave-2-e2e/tests/e2e/playwright.config.ts",
+    "rootDir": "/home/muszkin/work/kivvi-click-wt/verify-wave-2-e2e/tests/e2e/specs",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/muszkin/work/kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-2/e2e/regression/nav-entries/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "/home/muszkin/work/kivvi-click-wt/verify-wave-2-e2e/tests/e2e/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ],
+      [
+        "html"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 8,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "navigation.spec.ts",
+      "file": "navigation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "app shell",
+          "file": "navigation.spec.ts",
+          "line": 24,
+          "column": 6,
+          "specs": [
+            {
+              "title": "sidebar entry \"events\" opens its page",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome",
+                  "projectName": "chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1053,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-08T22:04:33.906Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5d2868f7d23420c27cca-c49cb759e08edae97677",
+              "file": "navigation.spec.ts",
+              "line": 26,
+              "column": 13
+            },
+            {
+              "title": "sidebar entry \"customers\" opens its page",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome",
+                  "projectName": "chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1034,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-08T22:04:33.885Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5d2868f7d23420c27cca-8d2a86f084f1ea05e216",
+              "file": "navigation.spec.ts",
+              "line": 26,
+              "column": 13
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-08T22:04:33.257Z",
+    "duration": 2110.648,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

@@ -1,0 +1,323 @@
+
+Running 4 tests using 4 workers
+
+  ✓  1 [chrome] › specs/events.spec.ts:8:9 › event stream › renders thirty rows with type, detail and site (1.5s)
+  ✓  3 [chrome] › specs/events.spec.ts:19:9 › event stream › offers every event type and every tracked site as a filter (1.3s)
+  ✓  4 [chrome] › specs/events.spec.ts:68:9 › event stream › a replayed event is not shown twice (2.3s)
+  ✘  2 [chrome] › specs/events.spec.ts:35:9 › event stream › a collected event reaches the stream as a rendered row (6.3s)
+
+
+  1) [chrome] › specs/events.spec.ts:35:9 › event stream › a collected event reaches the stream as a rendered row 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('#event-stream').locator('.event-row')
+    Expected: 30
+    Received: 31
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('#event-stream').locator('.event-row')
+        14 × locator resolved to 31 elements
+           - unexpected value "31"
+
+
+      39 |         await page.goto("/pl/events");
+      40 |         const stream = page.locator("#event-stream");
+    > 41 |         await expect(stream.locator(".event-row")).toHaveCount(30);
+         |                                                    ^
+      42 |         // Mercure has no replay: publish only once the subscription is open.
+      43 |         await expect(stream).toHaveAttribute("data-stream-state", "live");
+      44 |
+        at /home/muszkin/work/kivvi-click-wt/verify-wave-2-e2e/tests/e2e/specs/events.spec.ts:41:52
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-2/e2e/events-run-1/test-results/events-event-stream-a-coll-8a9e1-he-stream-as-a-rendered-row-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-2/e2e/events-run-1/test-results/events-event-stream-a-coll-8a9e1-he-stream-as-a-rendered-row-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-2/e2e/events-run-1/test-results/events-event-stream-a-coll-8a9e1-he-stream-as-a-rendered-row-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../../kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-2/e2e/events-run-1/test-results/events-event-stream-a-coll-8a9e1-he-stream-as-a-rendered-row-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chrome] › specs/events.spec.ts:35:9 › event stream › a collected event reaches the stream as a rendered row 
+  3 passed (8.2s)
+{
+  "config": {
+    "argv": [
+      "/usr/bin/node",
+      "/home/muszkin/work/kivvi-click-wt/verify-wave-2-e2e/tests/e2e/node_modules/.bin/playwright",
+      "test",
+      "events.spec.ts",
+      "--reporter=list,json,html",
+      "--output=/home/muszkin/work/kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-2/e2e/events-run-1/test-results"
+    ],
+    "configFile": "/home/muszkin/work/kivvi-click-wt/verify-wave-2-e2e/tests/e2e/playwright.config.ts",
+    "rootDir": "/home/muszkin/work/kivvi-click-wt/verify-wave-2-e2e/tests/e2e/specs",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 4
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/muszkin/work/kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-2/e2e/events-run-1/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "/home/muszkin/work/kivvi-click-wt/verify-wave-2-e2e/tests/e2e/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ],
+      [
+        "html"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 8,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "events.spec.ts",
+      "file": "events.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "event stream",
+          "file": "events.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders thirty rows with type, detail and site",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome",
+                  "projectName": "chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1451,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-08T22:02:01.300Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "42b677eba564a90dbb18-158746a6bde881fd11fb",
+              "file": "events.spec.ts",
+              "line": 8,
+              "column": 9
+            },
+            {
+              "title": "offers every event type and every tracked site as a filter",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome",
+                  "projectName": "chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1325,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-08T22:02:01.386Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "42b677eba564a90dbb18-66550356cf9191b48a31",
+              "file": "events.spec.ts",
+              "line": 19,
+              "column": 9
+            },
+            {
+              "title": "a collected event reaches the stream as a rendered row",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome",
+                  "projectName": "chrome",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "failed",
+                      "duration": 6345,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#event-stream').locator('.event-row')\nExpected: \u001b[32m30\u001b[39m\nReceived: \u001b[31m31\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#event-stream').locator('.event-row')\u001b[22m\n\u001b[2m    14 × locator resolved to 31 elements\u001b[22m\n\u001b[2m       - unexpected value \"31\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#event-stream').locator('.event-row')\nExpected: \u001b[32m30\u001b[39m\nReceived: \u001b[31m31\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#event-stream').locator('.event-row')\u001b[22m\n\u001b[2m    14 × locator resolved to 31 elements\u001b[22m\n\u001b[2m       - unexpected value \"31\"\u001b[22m\n\n    at /home/muszkin/work/kivvi-click-wt/verify-wave-2-e2e/tests/e2e/specs/events.spec.ts:41:52",
+                        "location": {
+                          "file": "/home/muszkin/work/kivvi-click-wt/verify-wave-2-e2e/tests/e2e/specs/events.spec.ts",
+                          "column": 52,
+                          "line": 41
+                        },
+                        "snippet": "  39 |         await page.goto(\"/pl/events\");\n  40 |         const stream = page.locator(\"#event-stream\");\n> 41 |         await expect(stream.locator(\".event-row\")).toHaveCount(30);\n     |                                                    ^\n  42 |         // Mercure has no replay: publish only once the subscription is open.\n  43 |         await expect(stream).toHaveAttribute(\"data-stream-state\", \"live\");\n  44 |"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/muszkin/work/kivvi-click-wt/verify-wave-2-e2e/tests/e2e/specs/events.spec.ts",
+                            "column": 52,
+                            "line": 41
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#event-stream').locator('.event-row')\nExpected: \u001b[32m30\u001b[39m\nReceived: \u001b[31m31\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#event-stream').locator('.event-row')\u001b[22m\n\u001b[2m    14 × locator resolved to 31 elements\u001b[22m\n\u001b[2m       - unexpected value \"31\"\u001b[22m\n\n\n  39 |         await page.goto(\"/pl/events\");\n  40 |         const stream = page.locator(\"#event-stream\");\n> 41 |         await expect(stream.locator(\".event-row\")).toHaveCount(30);\n     |                                                    ^\n  42 |         // Mercure has no replay: publish only once the subscription is open.\n  43 |         await expect(stream).toHaveAttribute(\"data-stream-state\", \"live\");\n  44 |\n    at /home/muszkin/work/kivvi-click-wt/verify-wave-2-e2e/tests/e2e/specs/events.spec.ts:41:52"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-08T22:02:01.382Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/muszkin/work/kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-2/e2e/events-run-1/test-results/events-event-stream-a-coll-8a9e1-he-stream-as-a-rendered-row-chrome/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/muszkin/work/kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-2/e2e/events-run-1/test-results/events-event-stream-a-coll-8a9e1-he-stream-as-a-rendered-row-chrome/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/muszkin/work/kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-2/e2e/events-run-1/test-results/events-event-stream-a-coll-8a9e1-he-stream-as-a-rendered-row-chrome/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/muszkin/work/kivvi-click-wt/verify-wave-2-e2e/tests/e2e/specs/events.spec.ts",
+                        "column": 52,
+                        "line": 41
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "42b677eba564a90dbb18-ab38967f623db493aac3",
+              "file": "events.spec.ts",
+              "line": 35,
+              "column": 9
+            },
+            {
+              "title": "a replayed event is not shown twice",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome",
+                  "projectName": "chrome",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 2298,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-08T22:02:01.392Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "42b677eba564a90dbb18-96ee506127952e54f2e7",
+              "file": "events.spec.ts",
+              "line": 68,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-08T22:02:00.289Z",
+    "duration": 8184.34,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

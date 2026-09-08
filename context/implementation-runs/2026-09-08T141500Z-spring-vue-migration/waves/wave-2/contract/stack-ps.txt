@@ -1,0 +1,5 @@
+NAME                   IMAGE                     COMMAND                  SERVICE    CREATED         STATUS                   PORTS
+kivvi-int-api-1        kivvi-int-api             "java -jar /app/app.…"   api        4 minutes ago   Up 4 minutes (healthy)   8080/tcp
+kivvi-int-database-1   postgres:18-alpine        "docker-entrypoint.s…"   database   4 minutes ago   Up 4 minutes (healthy)   0.0.0.0:33434->5432/tcp, [::]:33434->5432/tcp
+kivvi-int-mercure-1    dunglas/mercure:v0.24.2   "caddy run --config …"   mercure    4 minutes ago   Up 4 minutes (healthy)   2019/tcp, 0.0.0.0:19100->80/tcp, [::]:19100->80/tcp, 0.0.0.0:19101->443/tcp, 0.0.0.0:19101->443/udp, [::]:19101->443/tcp, [::]:19101->443/udp
+sha256:f01556f909c07c6b2e78dbbcc02b8ba760fb1f9f4c7c7a9176954458acf406bc

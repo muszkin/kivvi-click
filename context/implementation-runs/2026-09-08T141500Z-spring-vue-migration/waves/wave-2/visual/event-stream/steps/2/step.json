@@ -1,0 +1,20 @@
+{
+  "index": 2,
+  "step": {
+    "post": "/collect",
+    "json": {
+      "idempotency_id": "oracle-evt-mtt7uisbd",
+      "type": "purchase",
+      "detail": "412,00 PLN · zamówienie ORACLE-mtt7uisbd",
+      "customer_id": "c_1001",
+      "customer_name": "Hania Kowalska",
+      "site": "aureashop.pl"
+    },
+    "expectStatus": 202,
+    "waitText": [
+      "#event-stream .event-row",
+      "ORACLE-mtt7uisbd"
+    ]
+  },
+  "title": "Kivvi-click"
+}
