@@ -1,0 +1,80 @@
+%% Module dependencies — kivvi-click (static, observed from src/, assets/, templates/, config/)
+%% Legend: solid = observed static edge; dotted = inferred / external; "??" = missing target
+flowchart LR
+  subgraph browser["Browser (assets/)"]
+    appts["app.ts (intents + mount)"]
+    ctrl_stream["controllers/event-stream.ts"]
+    ctrl_upload["controllers/upload.ts"]
+    ctrl_editor["controllers/editor.ts"]
+    ctrl_misc["cardiogram / modal / shell"]
+  end
+  subgraph http["HTTP layer (src/Controller)"]
+    panel_ctrl["Panel controllers (Dashboard, Events, Customers, Automation, Campaign, Widget, ProductFeed, Import, Settings, Landing, Security)"]
+    prefs_ctrl["PreferencesController"]
+    collect_ctrl["EventIngestionController"]
+    story_ctrl["StorybookController"]
+  end
+  subgraph panel["src/Panel"]
+    content["Panel/Content/* catalogues (sample data)"]
+    shell["PanelContext / Navigation / Workspace / PanelPreferences / PanelIdentity"]
+    topic["EventStreamTopic"]
+    upload_store["ImportUploadStorage"]
+    format["Format"]
+  end
+  subgraph tracking["src/Tracking"]
+    tracked["TrackedEvent"]
+    ingest["EventIngestion"]
+  end
+  subgraph twigext["src/Twig"]
+    panel_ext["PanelExtension (global panel)"]
+    icon_ext["IconExtension (global icons)"]
+    code_ext["CodeHighlightExtension"]
+  end
+  subgraph views["templates/"]
+    layouts["layout/{base,app,auth,public}"]
+    pages["pages/**"]
+    components["components/{atoms,molecules,organisms}"]
+  end
+  subgraph infra["Infrastructure"]
+    session["Postgres sessions"]
+    cache["Postgres cache_items (UNLOGGED)"]
+    messenger["Postgres messenger_messages"]
+    mercure["Caddy Mercure hub"]
+  end
+  storyreg["Storybook/StoryRegistry + config/storybook.php"]
+  schedule["Schedule -> Heartbeat -> HeartbeatHandler"]
+
+  appts --> ctrl_stream
+  appts --> ctrl_upload
+  appts --> ctrl_editor
+  appts --> ctrl_misc
+  appts --> prefs_ctrl
+  ctrl_upload --> panel_ctrl
+  ctrl_editor -.->|"POST .../blocks ??"| panel_ctrl
+  ctrl_stream --> mercure
+  panel_ctrl --> content
+  panel_ctrl --> shell
+  panel_ctrl --> topic
+  panel_ctrl --> upload_store
+  panel_ctrl --> format
+  panel_ctrl --> pages
+  prefs_ctrl --> shell
+  collect_ctrl --> tracked
+  collect_ctrl --> ingest
+  ingest --> topic
+  ingest --> content
+  ingest --> components
+  ingest --> cache
+  ingest --> mercure
+  story_ctrl --> storyreg
+  storyreg --> components
+  panel_ext --> shell
+  pages --> layouts
+  pages --> components
+  layouts --> panel_ext
+  components --> icon_ext
+  components --> code_ext
+  shell --> session
+  upload_store --> session
+  schedule --> cache
+  schedule --> messenger

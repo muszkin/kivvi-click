@@ -1,0 +1,1486 @@
+{
+  "schema_version": 1,
+  "generator": "project-context-initializer",
+  "generator_version": "a26f4ab1f8949c90",
+  "manifest_digest": {
+    "algorithm": "sha256-rfc8785-with-empty-digest",
+    "value": "7e6068303a37f2772d67da48b2683dd77075eb52a7d5a7365fbf4f9bb2165895"
+  },
+  "operation": "initialize",
+  "project_classification": "brownfield",
+  "scope_kind": "repository",
+  "phase": "complete",
+  "generated_at": "2026-09-08T13:27:13Z",
+  "repository_root": ".",
+  "scope": [
+    "."
+  ],
+  "source_snapshot": {
+    "basis": "HEAD+worktree",
+    "revision": "91f8f85302a8084346eb5ce0b0b04d7ac143cd08",
+    "branch": "main",
+    "worktree_status": [
+      "M AGENTS.md",
+      "M CLAUDE.md"
+    ],
+    "untracked_nonignored_paths": [
+      ".agents/project-context.md",
+      ".ai/cezar/.gitignore",
+      "assets/.agents/project-context.md",
+      "config/.agents/project-context.md",
+      "context/README.md",
+      "context/map/INDEX.md",
+      "context/map/architecture-and-flows.md",
+      "context/map/delivery-and-verification.md",
+      "context/map/dependencies.md",
+      "context/map/diagrams/module-dependencies.mmd",
+      "context/map/diagrams/primary-runtime-flow.mmd",
+      "context/map/documentation-index.md",
+      "context/map/git-and-pr-history.md",
+      "context/map/project-overview.md",
+      "context/map/risks-and-unknowns.md",
+      "context/map/technology.md",
+      "frankenphp/.agents/project-context.md",
+      "src/.agents/project-context.md",
+      "src/Panel/.agents/project-context.md",
+      "src/Tracking/.agents/project-context.md",
+      "templates/.agents/project-context.md",
+      "tests/.agents/project-context.md",
+      "tests/e2e/.agents/project-context.md",
+      "context/map/**",
+      ".agents/**",
+      "*/.agents/**",
+      "context/README.md"
+    ],
+    "comparability": "comparable",
+    "non_comparable_reasons": [],
+    "dirty_tracked_fingerprints": [
+      {
+        "path": "AGENTS.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "b125930a712df47c507e16d1419f802273a9b6fae25df51291b9edd25973bd95"
+      },
+      {
+        "path": "CLAUDE.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "b70f6321a91c64c5d7cf428e65339660c37afc8ef729160c2a1d0b86459411b8"
+      }
+    ],
+    "inventory_fingerprint": "5194762e2addee6fa0a2d50e3bcd05164218e1b455557520bc439171af7ee9af",
+    "fingerprint_method": "sha256 over sorted lines '<path>\\tblob:<git blob id>' for clean tracked files, '<path>\\tworktree:<sha256 of current bytes>' for dirty tracked files (AGENTS.md, CLAUDE.md modified by the router write), '<path>\\tuntracked-path-only' for untracked paths inside excluded .ai/ (not content-hashed: excluded tool state). Secret-bearing ignored files (.env.local, .env.prod.docker, .ai/cezar/launch-key) are not part of the inventory."
+  },
+  "git_history": {
+    "available": true,
+    "shallow": false,
+    "commit_window": "all 11 commits, 2026-05-21T13:28:40+02:00 .. 2026-08-26T18:27:30Z, no path filter, no merges",
+    "pr_provider": "github via gh (authenticated, read-only)",
+    "pr_window": "gh pr list --state all --limit 20 on 2026-09-08 -> 0 PRs"
+  },
+  "exclusions": [
+    {
+      "path": ".git",
+      "reason": "VCS metadata"
+    },
+    {
+      "path": "vendor",
+      "reason": "Composer dependencies (root-owned, ignored)"
+    },
+    {
+      "path": "var",
+      "reason": "runtime cache/logs/uploads (ignored)"
+    },
+    {
+      "path": ".phpunit.cache",
+      "reason": "test cache (ignored)"
+    },
+    {
+      "path": "tests/e2e/node_modules",
+      "reason": "npm dependencies (ignored)"
+    },
+    {
+      "path": ".ai",
+      "reason": "untracked tool state (\"cezar\"), contains secret launch-key; not read beyond structure"
+    },
+    {
+      "path": ".ai/cezar",
+      "reason": "see .ai"
+    },
+    {
+      "path": ".ai/cezar/runs",
+      "reason": "see .ai"
+    },
+    {
+      "path": "kivvi-click.zip",
+      "reason": "ignored binary design archive"
+    },
+    {
+      "path": ".env.local",
+      "reason": "secret-bearing, ignored"
+    },
+    {
+      "path": ".env.prod.docker",
+      "reason": "secret-bearing, ignored"
+    },
+    {
+      "path": ".php-cs-fixer.cache",
+      "reason": "tool cache, ignored"
+    },
+    {
+      "path": "public/assets",
+      "reason": "generated, ignored (absent)"
+    },
+    {
+      "path": "assets/vendor",
+      "reason": "generated, ignored (absent)"
+    }
+  ],
+  "unreadable_paths": [],
+  "directories": [
+    {
+      "path": ".",
+      "coverage": "own",
+      "context": ".agents/project-context.md",
+      "reason": "repository root: ops, docs, translations, migrations"
+    },
+    {
+      "path": ".agents",
+      "coverage": "rolled-up",
+      "context": ".agents/project-context.md",
+      "reason": "initializer-owned context directory"
+    },
+    {
+      "path": ".ai",
+      "coverage": "excluded",
+      "context": null,
+      "reason": "untracked tool state (\"cezar\"), contains secret launch-key; not read beyond structure"
+    },
+    {
+      "path": ".ai/cezar",
+      "coverage": "excluded",
+      "context": null,
+      "reason": "see .ai"
+    },
+    {
+      "path": ".ai/cezar/runs",
+      "coverage": "excluded",
+      "context": null,
+      "reason": "see .ai"
+    },
+    {
+      "path": ".claude",
+      "coverage": "rolled-up",
+      "context": ".agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": ".claude/skills",
+      "coverage": "rolled-up",
+      "context": ".agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": ".claude/skills/product-spec",
+      "coverage": "rolled-up",
+      "context": ".agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": ".git",
+      "coverage": "excluded",
+      "context": null,
+      "reason": "VCS metadata"
+    },
+    {
+      "path": ".github",
+      "coverage": "rolled-up",
+      "context": ".agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": ".github/workflows",
+      "coverage": "rolled-up",
+      "context": ".agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": ".phpunit.cache",
+      "coverage": "excluded",
+      "context": null,
+      "reason": "test cache (ignored)"
+    },
+    {
+      "path": "assets",
+      "coverage": "own",
+      "context": "assets/.agents/project-context.md",
+      "reason": "TypeScript/CSS asset pipeline"
+    },
+    {
+      "path": "assets/.agents",
+      "coverage": "rolled-up",
+      "context": "assets/.agents/project-context.md",
+      "reason": "initializer-owned context directory"
+    },
+    {
+      "path": "assets/controllers",
+      "coverage": "rolled-up",
+      "context": "assets/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "assets/js",
+      "coverage": "rolled-up",
+      "context": "assets/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "assets/styles",
+      "coverage": "rolled-up",
+      "context": "assets/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "bin",
+      "coverage": "rolled-up",
+      "context": ".agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "config",
+      "coverage": "own",
+      "context": "config/.agents/project-context.md",
+      "reason": "Symfony configuration surface"
+    },
+    {
+      "path": "config/.agents",
+      "coverage": "rolled-up",
+      "context": "config/.agents/project-context.md",
+      "reason": "initializer-owned context directory"
+    },
+    {
+      "path": "config/packages",
+      "coverage": "rolled-up",
+      "context": "config/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "config/routes",
+      "coverage": "rolled-up",
+      "context": "config/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "context",
+      "coverage": "rolled-up",
+      "context": ".agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "context/archive",
+      "coverage": "rolled-up",
+      "context": ".agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "context/changes",
+      "coverage": "rolled-up",
+      "context": ".agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "context/foundation",
+      "coverage": "rolled-up",
+      "context": ".agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "context/map",
+      "coverage": "rolled-up",
+      "context": ".agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "context/map/diagrams",
+      "coverage": "rolled-up",
+      "context": ".agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "frankenphp",
+      "coverage": "own",
+      "context": "frankenphp/.agents/project-context.md",
+      "reason": "runtime/deploy boundary"
+    },
+    {
+      "path": "frankenphp/.agents",
+      "coverage": "rolled-up",
+      "context": "frankenphp/.agents/project-context.md",
+      "reason": "initializer-owned context directory"
+    },
+    {
+      "path": "frankenphp/conf.d",
+      "coverage": "rolled-up",
+      "context": "frankenphp/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "migrations",
+      "coverage": "rolled-up",
+      "context": ".agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "public",
+      "coverage": "rolled-up",
+      "context": ".agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "src",
+      "coverage": "own",
+      "context": "src/.agents/project-context.md",
+      "reason": "application code boundary"
+    },
+    {
+      "path": "src/.agents",
+      "coverage": "rolled-up",
+      "context": "src/.agents/project-context.md",
+      "reason": "initializer-owned context directory"
+    },
+    {
+      "path": "src/Controller",
+      "coverage": "rolled-up",
+      "context": "src/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "src/Entity",
+      "coverage": "rolled-up",
+      "context": "src/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "src/Message",
+      "coverage": "rolled-up",
+      "context": "src/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "src/MessageHandler",
+      "coverage": "rolled-up",
+      "context": "src/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "src/Panel",
+      "coverage": "own",
+      "context": "src/Panel/.agents/project-context.md",
+      "reason": "panel view-model and sample content boundary"
+    },
+    {
+      "path": "src/Panel/.agents",
+      "coverage": "rolled-up",
+      "context": "src/Panel/.agents/project-context.md",
+      "reason": "initializer-owned context directory"
+    },
+    {
+      "path": "src/Panel/Content",
+      "coverage": "rolled-up",
+      "context": "src/Panel/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "src/Repository",
+      "coverage": "rolled-up",
+      "context": "src/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "src/Storybook",
+      "coverage": "rolled-up",
+      "context": "src/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "src/Tracking",
+      "coverage": "own",
+      "context": "src/Tracking/.agents/project-context.md",
+      "reason": "only real domain flow; high risk"
+    },
+    {
+      "path": "src/Tracking/.agents",
+      "coverage": "rolled-up",
+      "context": "src/Tracking/.agents/project-context.md",
+      "reason": "initializer-owned context directory"
+    },
+    {
+      "path": "src/Twig",
+      "coverage": "rolled-up",
+      "context": "src/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "templates",
+      "coverage": "own",
+      "context": "templates/.agents/project-context.md",
+      "reason": "design system and pages"
+    },
+    {
+      "path": "templates/.agents",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "initializer-owned context directory"
+    },
+    {
+      "path": "templates/components",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "templates/components/atoms",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "templates/components/molecules",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "templates/components/organisms",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "templates/layout",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "templates/pages",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "templates/pages/automations",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "templates/pages/customers",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "templates/pages/dashboard",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "templates/pages/emails",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "templates/pages/feeds",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "templates/pages/import",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "templates/pages/landing",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "templates/pages/popups",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "templates/pages/settings",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "templates/pages/widgets",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "templates/storybook",
+      "coverage": "rolled-up",
+      "context": "templates/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "tests",
+      "coverage": "own",
+      "context": "tests/.agents/project-context.md",
+      "reason": "PHPUnit suite"
+    },
+    {
+      "path": "tests/.agents",
+      "coverage": "rolled-up",
+      "context": "tests/.agents/project-context.md",
+      "reason": "initializer-owned context directory"
+    },
+    {
+      "path": "tests/Controller",
+      "coverage": "rolled-up",
+      "context": "tests/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "tests/Tracking",
+      "coverage": "rolled-up",
+      "context": "tests/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "tests/e2e",
+      "coverage": "own",
+      "context": "tests/e2e/.agents/project-context.md",
+      "reason": "independent npm project, real-surface E2E"
+    },
+    {
+      "path": "tests/e2e/.agents",
+      "coverage": "rolled-up",
+      "context": "tests/e2e/.agents/project-context.md",
+      "reason": "initializer-owned context directory"
+    },
+    {
+      "path": "tests/e2e/node_modules",
+      "coverage": "excluded",
+      "context": null,
+      "reason": "npm dependencies (ignored)"
+    },
+    {
+      "path": "tests/e2e/specs",
+      "coverage": "rolled-up",
+      "context": "tests/e2e/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "translations",
+      "coverage": "rolled-up",
+      "context": ".agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "var",
+      "coverage": "excluded",
+      "context": null,
+      "reason": "runtime cache/logs/uploads (ignored)"
+    },
+    {
+      "path": "vendor",
+      "coverage": "excluded",
+      "context": null,
+      "reason": "Composer dependencies (root-owned, ignored)"
+    }
+  ],
+  "remote_sources": [
+    {
+      "provider": "github",
+      "query": "gh pr list --state all --limit 20",
+      "time": "2026-09-08T13:27:13Z",
+      "result": "0 pull requests",
+      "used_by": [
+        "context/map/git-and-pr-history.md"
+      ]
+    }
+  ],
+  "related_artifacts": [
+    {
+      "path": "context/foundation/prd.md",
+      "generator_or_owner": "10x-dev shaping (Unknown exact skill)",
+      "purpose": "PRD v1 first slice FR-001..FR-008",
+      "scope": [
+        "."
+      ],
+      "artifact_type": "proposal",
+      "authority": "supporting",
+      "source_revision": "d02a3b3",
+      "generated_at": "2026-06-25T00:00:00Z",
+      "freshness": "stale",
+      "content_sha256": "c30ffd910d49936338d06b395ed50143b20839c34c5674b92e5d8ac33542fcd2",
+      "approval_status": "draft",
+      "conflicts": [
+        "baseline says homepage-only; full prototype exists (R3)"
+      ],
+      "referenced_by": [
+        "context/map/INDEX.md",
+        "context/map/documentation-index.md"
+      ],
+      "consumers": [
+        "research",
+        "implementation-planning"
+      ]
+    },
+    {
+      "path": "context/foundation/roadmap.md",
+      "generator_or_owner": "10x-dev roadmap",
+      "purpose": "Slices S-01..S-04",
+      "scope": [
+        "."
+      ],
+      "artifact_type": "proposal",
+      "authority": "supporting",
+      "source_revision": "d02a3b3",
+      "generated_at": "2026-06-25T00:00:00Z",
+      "freshness": "stale",
+      "content_sha256": "ead49bf5dec6e9ef5e05a1b75e213d7c023119f6d2637c18fd2ae2b42e2892d1",
+      "approval_status": "draft",
+      "conflicts": [
+        "R3"
+      ],
+      "referenced_by": [
+        "context/map/INDEX.md",
+        "context/map/documentation-index.md"
+      ],
+      "consumers": [
+        "research",
+        "implementation-planning"
+      ]
+    },
+    {
+      "path": "context/foundation/shape-notes.md",
+      "generator_or_owner": "10x-dev shaping",
+      "purpose": "Decision ledger and seed idea",
+      "scope": [
+        "."
+      ],
+      "artifact_type": "historical-record",
+      "authority": "supporting",
+      "source_revision": "d02a3b3",
+      "generated_at": "2026-06-25T00:00:00Z",
+      "freshness": "stale",
+      "content_sha256": "66703f1905ea85abfb694bf23b72c7505ab6c60bf539b0422c26465e8ccd3bed",
+      "approval_status": "not-applicable",
+      "conflicts": [
+        "R3"
+      ],
+      "referenced_by": [
+        "context/map/INDEX.md",
+        "context/map/documentation-index.md"
+      ],
+      "consumers": [
+        "research"
+      ]
+    },
+    {
+      "path": "context/foundation/stack-assessment.md",
+      "generator_or_owner": "10x-dev stack-assess",
+      "purpose": "Agent-readiness assessment",
+      "scope": [
+        "."
+      ],
+      "artifact_type": "generated-synthesis",
+      "authority": "advisory",
+      "source_revision": "d02a3b3",
+      "generated_at": "2026-06-25T00:00:00Z",
+      "freshness": "stale",
+      "content_sha256": "7595268fe4c5b8bc059ac0f34ed2504a4388edfba3a345bedf6d11ca9e1c0598",
+      "approval_status": "not-applicable",
+      "conflicts": [
+        "test counts outdated"
+      ],
+      "referenced_by": [
+        "context/map/INDEX.md",
+        "context/map/documentation-index.md"
+      ],
+      "consumers": [
+        "review"
+      ]
+    },
+    {
+      "path": "context/foundation/health-check.md",
+      "generator_or_owner": "10x-dev health-check",
+      "purpose": "Dependency/test/CI health",
+      "scope": [
+        "."
+      ],
+      "artifact_type": "generated-synthesis",
+      "authority": "advisory",
+      "source_revision": "d02a3b3",
+      "generated_at": "2026-06-25T00:00:00Z",
+      "freshness": "stale",
+      "content_sha256": "e4fba9fcfdd545757ad87f0a809c5e1ad26e78c1d1cbb0e132faf358e5fe943f",
+      "approval_status": "not-applicable",
+      "conflicts": [
+        "test counts outdated"
+      ],
+      "referenced_by": [
+        "context/map/INDEX.md",
+        "context/map/documentation-index.md"
+      ],
+      "consumers": [
+        "review",
+        "implementation-planning"
+      ]
+    },
+    {
+      "path": ".claude/skills/product-spec/SKILL.md",
+      "generator_or_owner": "project maintainer",
+      "purpose": "Canonical product spec",
+      "scope": [
+        "."
+      ],
+      "artifact_type": "canonical-evidence",
+      "authority": "canonical",
+      "source_revision": null,
+      "generated_at": null,
+      "freshness": "current",
+      "content_sha256": "95aa1e4c41de4600777f008fcd72b5f6b76d2612c8cc9b8b4f6bb42a39512d64",
+      "approval_status": "not-applicable",
+      "conflicts": [
+        "says ignore original Java/Vue stack; user now reconsidering (R1)"
+      ],
+      "referenced_by": [
+        "context/map/INDEX.md",
+        "context/map/documentation-index.md"
+      ],
+      "consumers": [
+        "research",
+        "implementation-planning",
+        "migration-planning",
+        "review",
+        "implementation-orchestrator"
+      ]
+    },
+    {
+      "path": ".ai/cezar/",
+      "generator_or_owner": "Unknown (tool named cezar)",
+      "purpose": "tool run state",
+      "scope": [
+        "."
+      ],
+      "artifact_type": "historical-record",
+      "authority": "unknown",
+      "source_revision": null,
+      "generated_at": null,
+      "freshness": "unverifiable",
+      "content_sha256": null,
+      "approval_status": "unknown",
+      "conflicts": [],
+      "referenced_by": [
+        "context/map/documentation-index.md"
+      ],
+      "consumers": []
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "context/map/INDEX.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "README.md",
+        "CLAUDE.md",
+        "AGENTS.md",
+        "composer.json",
+        "composer.lock",
+        "package.json",
+        "compose.yaml",
+        "compose.override.yaml",
+        "compose.prod.yaml",
+        "Dockerfile",
+        ".github/workflows/docker-build.yml",
+        ".claude/skills/product-spec/SKILL.md"
+      ],
+      "input_fingerprint": "6cc8d4b7ab047ad8127ca356dd97295b5f1f9703909aea1895423428c65e9164",
+      "output_sha256": "ff68211b0d529e5eb3ad9ccc3775603ea29198f6877b6d7d09ce5f9f25f59167",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "context/map/project-overview.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "README.md",
+        "CLAUDE.md",
+        "AGENTS.md",
+        "composer.json",
+        "composer.lock",
+        "package.json",
+        "compose.yaml",
+        "compose.override.yaml",
+        "compose.prod.yaml",
+        "Dockerfile",
+        ".github/workflows/docker-build.yml",
+        ".claude/skills/product-spec/SKILL.md",
+        "src/Controller/.gitignore",
+        "src/Controller/AutomationController.php",
+        "src/Controller/CampaignController.php",
+        "src/Controller/CustomerController.php",
+        "src/Controller/DashboardController.php",
+        "src/Controller/EventIngestionController.php",
+        "src/Controller/EventStreamController.php",
+        "src/Controller/ImportController.php",
+        "... 44 more tracked files under the scope"
+      ],
+      "input_fingerprint": "a8bb8d2a90394a6c0003c0d21acc6489ff4a159bb9d0e71ff83f53861f7867e6",
+      "output_sha256": "7a8400dbbfdc9e21a56e4cfb00c5bc1eeb02e8468cf3642018a5e8b0bfac8891",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "context/map/technology.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "README.md",
+        "CLAUDE.md",
+        "AGENTS.md",
+        "composer.json",
+        "composer.lock",
+        "package.json",
+        "compose.yaml",
+        "compose.override.yaml",
+        "compose.prod.yaml",
+        "Dockerfile",
+        ".github/workflows/docker-build.yml",
+        ".claude/skills/product-spec/SKILL.md",
+        "yarn.lock",
+        "tests/e2e/package.json",
+        "tests/e2e/package-lock.json",
+        "tsconfig.json",
+        "phpstan.neon.dist",
+        "phpunit.dist.xml",
+        ".php-cs-fixer.dist.php",
+        ".env",
+        "... 12 more tracked files under the scope"
+      ],
+      "input_fingerprint": "30ceed26feac6e82f2fb10dfeb0854a8c96b30afc117f496df27cc82b264e1d6",
+      "output_sha256": "1d2347990fbc8f1816f9b338c71667ae09070feb97b5c9f669b184ddaf141da4",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "context/map/architecture-and-flows.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "README.md",
+        "CLAUDE.md",
+        "AGENTS.md",
+        "composer.json",
+        "composer.lock",
+        "package.json",
+        "compose.yaml",
+        "compose.override.yaml",
+        "compose.prod.yaml",
+        "Dockerfile",
+        ".github/workflows/docker-build.yml",
+        ".claude/skills/product-spec/SKILL.md",
+        "src/Controller/.gitignore",
+        "src/Controller/AutomationController.php",
+        "src/Controller/CampaignController.php",
+        "src/Controller/CustomerController.php",
+        "src/Controller/DashboardController.php",
+        "src/Controller/EventIngestionController.php",
+        "src/Controller/EventStreamController.php",
+        "src/Controller/ImportController.php",
+        "... 77 more tracked files under the scope"
+      ],
+      "input_fingerprint": "c2b03267a0d33cdf5d0939907acd27bf367e815a0d6fa987c6cdbb1cf003ab26",
+      "output_sha256": "6b7a4f637e1221bce285bc3ee2dd6f442a2e40554b39ef8c04489a6a5526682d",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "context/map/dependencies.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "README.md",
+        "CLAUDE.md",
+        "AGENTS.md",
+        "composer.json",
+        "composer.lock",
+        "package.json",
+        "compose.yaml",
+        "compose.override.yaml",
+        "compose.prod.yaml",
+        "Dockerfile",
+        ".github/workflows/docker-build.yml",
+        ".claude/skills/product-spec/SKILL.md",
+        "src/Controller/.gitignore",
+        "src/Controller/AutomationController.php",
+        "src/Controller/CampaignController.php",
+        "src/Controller/CustomerController.php",
+        "src/Controller/DashboardController.php",
+        "src/Controller/EventIngestionController.php",
+        "src/Controller/EventStreamController.php",
+        "src/Controller/ImportController.php",
+        "... 71 more tracked files under the scope"
+      ],
+      "input_fingerprint": "43db7105af2d0d4bf79e46f8406e493bad36db9897d207d55beef10052ff3f65",
+      "output_sha256": "774133d9b63bc4949aefce791cf8840db273fdc36857a310fcf04270d648e8bc",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "context/map/documentation-index.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "README.md",
+        "CLAUDE.md",
+        "AGENTS.md",
+        "composer.json",
+        "composer.lock",
+        "package.json",
+        "compose.yaml",
+        "compose.override.yaml",
+        "compose.prod.yaml",
+        "Dockerfile",
+        ".github/workflows/docker-build.yml",
+        ".claude/skills/product-spec/SKILL.md",
+        "context/archive/README.md",
+        "context/changes/README.md",
+        "context/foundation/README.md",
+        "context/foundation/health-check.md",
+        "context/foundation/prd.md",
+        "context/foundation/roadmap.md",
+        "context/foundation/shape-notes.md",
+        "context/foundation/stack-assessment.md",
+        "... 6 more tracked files under the scope"
+      ],
+      "input_fingerprint": "753a41d634c2cfcf0cc2843027121c0dce1437f3ac3d25f994edc74d8e910d33",
+      "output_sha256": "f4412f6e1f77564da3cc2c3dbacb0af087d0c4d8a9f0b328d400ead0097f5085",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "context/map/delivery-and-verification.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "README.md",
+        "CLAUDE.md",
+        "AGENTS.md",
+        "composer.json",
+        "composer.lock",
+        "package.json",
+        "compose.yaml",
+        "compose.override.yaml",
+        "compose.prod.yaml",
+        "Dockerfile",
+        ".github/workflows/docker-build.yml",
+        ".claude/skills/product-spec/SKILL.md",
+        "tests/CacheTest.php",
+        "tests/Controller/PanelPagesTest.php",
+        "tests/Controller/PreferencesControllerTest.php",
+        "tests/Controller/SecurityControllerTest.php",
+        "tests/Tracking/EventIngestionTest.php",
+        "tests/bootstrap.php",
+        "tests/e2e/package-lock.json",
+        "tests/e2e/package.json",
+        "... 13 more tracked files under the scope"
+      ],
+      "input_fingerprint": "3ecf08474aaa2108bc827db6955df54ee8731da4be18595f45c714ba29b787f4",
+      "output_sha256": "8e8d9ba90988d2a4771f80801fa11cfbd2930238f00247fa33bcea8cdded76ae",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "context/map/git-and-pr-history.md",
+      "ownership": "managed-block",
+      "inputs": [
+        ".git/HEAD"
+      ],
+      "input_fingerprint": "43662bc08b262cbc2c428f953d84ea2d6677236c6f9b89d324e210309e556e77",
+      "output_sha256": "caddcc426099ad36f64591c505380613b096bf91ed2006f146dd4dc9e9cad329",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "context/map/risks-and-unknowns.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "README.md",
+        "CLAUDE.md",
+        "AGENTS.md",
+        "composer.json",
+        "composer.lock",
+        "package.json",
+        "compose.yaml",
+        "compose.override.yaml",
+        "compose.prod.yaml",
+        "Dockerfile",
+        ".github/workflows/docker-build.yml",
+        ".claude/skills/product-spec/SKILL.md",
+        "src/Controller/.gitignore",
+        "src/Controller/AutomationController.php",
+        "src/Controller/CampaignController.php",
+        "src/Controller/CustomerController.php",
+        "src/Controller/DashboardController.php",
+        "src/Controller/EventIngestionController.php",
+        "src/Controller/EventStreamController.php",
+        "src/Controller/ImportController.php",
+        "... 44 more tracked files under the scope"
+      ],
+      "input_fingerprint": "a8bb8d2a90394a6c0003c0d21acc6489ff4a159bb9d0e71ff83f53861f7867e6",
+      "output_sha256": "56b43d0f37e5daf3e92f221c25d753f8b8c25eff0bf5f5a2faa53ab60b2c3dce",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "context/map/diagrams/module-dependencies.mmd",
+      "ownership": "managed-block",
+      "inputs": [
+        "src/Controller/.gitignore",
+        "src/Controller/AutomationController.php",
+        "src/Controller/CampaignController.php",
+        "src/Controller/CustomerController.php",
+        "src/Controller/DashboardController.php",
+        "src/Controller/EventIngestionController.php",
+        "src/Controller/EventStreamController.php",
+        "src/Controller/ImportController.php",
+        "src/Controller/LandingController.php",
+        "src/Controller/PreferencesController.php",
+        "src/Controller/ProductFeedController.php",
+        "src/Controller/SecurityController.php",
+        "src/Controller/SettingsController.php",
+        "src/Controller/StorybookController.php",
+        "src/Controller/WidgetController.php",
+        "src/Entity/.gitignore",
+        "src/Kernel.php",
+        "src/Message/Heartbeat.php",
+        "src/MessageHandler/HeartbeatHandler.php",
+        "src/Panel/Content/AutomationCatalog.php",
+        "... 41 more tracked files under the scope"
+      ],
+      "input_fingerprint": "aae3c1c52aa68e14bad7ddb6fa5dffd3d83a0a02ed49eedc2892eec101e6f78a",
+      "output_sha256": "ce778b4f6462edcbd90b0aa97ee7ad802befe6e1c03742b8748fbd5f317ed718",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "context/map/diagrams/primary-runtime-flow.mmd",
+      "ownership": "managed-block",
+      "inputs": [
+        "src/Tracking/EventIngestion.php",
+        "src/Tracking/InvalidEventPayload.php",
+        "src/Tracking/TrackedEvent.php",
+        "assets/controllers/event-stream.ts",
+        "frankenphp/Caddyfile"
+      ],
+      "input_fingerprint": "0617b108606a6afcc4cf99fd6d7eabce0c2744d7ac0010277e298b7ca2a59ebf",
+      "output_sha256": "e6b516460562dc92dc5dc801fcf81b56227211286d96c9502ea8559680c85653",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "context/README.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "context/foundation/README.md"
+      ],
+      "input_fingerprint": "3841ac44dcb45964a976a9a8164144e6e8872a3c1e621019ea1f97d3bdd46698",
+      "output_sha256": "f636537e9678bbe3bc93b004748023932d3eded6f92e6942c08c1919de353617",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": ".agents/project-context.md",
+      "ownership": "managed-block",
+      "inputs": [
+        ".claude/settings.json",
+        ".claude/skills/product-spec/SKILL.md",
+        ".dockerignore",
+        ".editorconfig",
+        ".env",
+        ".env.dev",
+        ".env.example",
+        ".env.prod.docker.example",
+        ".env.test",
+        ".gitattributes",
+        ".github/workflows/docker-build.yml",
+        ".gitignore",
+        ".php-cs-fixer.dist.php",
+        ".pnp.cjs",
+        ".prettierignore",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "Dockerfile",
+        "README.md",
+        "assets/app.ts",
+        "... 261 more tracked files under the scope"
+      ],
+      "input_fingerprint": "f84164a901bdccf837f56a483c9370fdad1375495558a09ff94af96d3cfe9c45",
+      "output_sha256": "15bcd14688f5e55759d994b9b0298260e265e45c16cd11c1ca84d2037f7ef6ad",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "src/.agents/project-context.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "src/Controller/.gitignore",
+        "src/Controller/AutomationController.php",
+        "src/Controller/CampaignController.php",
+        "src/Controller/CustomerController.php",
+        "src/Controller/DashboardController.php",
+        "src/Controller/EventIngestionController.php",
+        "src/Controller/EventStreamController.php",
+        "src/Controller/ImportController.php",
+        "src/Controller/LandingController.php",
+        "src/Controller/PreferencesController.php",
+        "src/Controller/ProductFeedController.php",
+        "src/Controller/SecurityController.php",
+        "src/Controller/SettingsController.php",
+        "src/Controller/StorybookController.php",
+        "src/Controller/WidgetController.php",
+        "src/Entity/.gitignore",
+        "src/Kernel.php",
+        "src/Message/Heartbeat.php",
+        "src/MessageHandler/HeartbeatHandler.php",
+        "src/Panel/Content/AutomationCatalog.php",
+        "... 26 more tracked files under the scope"
+      ],
+      "input_fingerprint": "77525bc889f7208fe77501e9ef07df4b4466cc685b212f0369c12b174c448e4f",
+      "output_sha256": "a1acd0cbf8f3e7dff03241ea96736094def250f07e62c99564688c6bae819cac",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "src/Panel/.agents/project-context.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "src/Panel/Content/AutomationCatalog.php",
+        "src/Panel/Content/CampaignCatalog.php",
+        "src/Panel/Content/CustomerDirectory.php",
+        "src/Panel/Content/DashboardMetrics.php",
+        "src/Panel/Content/EventFeed.php",
+        "src/Panel/Content/ImportWizard.php",
+        "src/Panel/Content/LandingContent.php",
+        "src/Panel/Content/ProductFeedCatalog.php",
+        "src/Panel/Content/SettingsCatalog.php",
+        "src/Panel/Content/WidgetCatalog.php",
+        "src/Panel/EventStreamTopic.php",
+        "src/Panel/Format.php",
+        "src/Panel/ImportUploadStorage.php",
+        "src/Panel/Navigation.php",
+        "src/Panel/PanelContext.php",
+        "src/Panel/PanelIdentity.php",
+        "src/Panel/PanelPreferences.php",
+        "src/Panel/Workspace.php"
+      ],
+      "input_fingerprint": "1388636bed4b90d075c13e7cca1a3b0641def3e7cfefb22769c81e036a249526",
+      "output_sha256": "024f35e51ec977724b583421fbdbc9388fd8beeffe967f369c73d56fc62e7b9e",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "src/Tracking/.agents/project-context.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "src/Tracking/EventIngestion.php",
+        "src/Tracking/InvalidEventPayload.php",
+        "src/Tracking/TrackedEvent.php"
+      ],
+      "input_fingerprint": "8d61e247f95c67e8a260317a0bcc1cab0549a8ed913bfa30c257a8c64b9f5225",
+      "output_sha256": "be5729c4f2fb17459e9ebe78409c5454ef624bb854646011a3a399eb592e7ce0",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "config/.agents/project-context.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "config/bundles.php",
+        "config/packages/asset_mapper.yaml",
+        "config/packages/cache.yaml",
+        "config/packages/doctrine.yaml",
+        "config/packages/doctrine_migrations.yaml",
+        "config/packages/framework.yaml",
+        "config/packages/mercure.yaml",
+        "config/packages/messenger.yaml",
+        "config/packages/routing.yaml",
+        "config/packages/translation.yaml",
+        "config/packages/twig.yaml",
+        "config/preload.php",
+        "config/reference.php",
+        "config/routes.yaml",
+        "config/routes/framework.yaml",
+        "config/services.yaml",
+        "config/storybook.php"
+      ],
+      "input_fingerprint": "d3c3503b40e93649fe05ae36f911d21c1fc070f483babd60c89b16ba7d44c226",
+      "output_sha256": "3c2349661baf59b34bda66d6ad2eb616a3d28797447ca75f1405b53952b1ccd8",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "templates/.agents/project-context.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "templates/base.html.twig",
+        "templates/components/atoms/avatar.html.twig",
+        "templates/components/atoms/bar.html.twig",
+        "templates/components/atoms/button.html.twig",
+        "templates/components/atoms/chip.html.twig",
+        "templates/components/atoms/code-block.html.twig",
+        "templates/components/atoms/dot.html.twig",
+        "templates/components/atoms/field.html.twig",
+        "templates/components/atoms/icon.html.twig",
+        "templates/components/atoms/kbd.html.twig",
+        "templates/components/atoms/logo.html.twig",
+        "templates/components/atoms/sparkline.html.twig",
+        "templates/components/atoms/toggle-row.html.twig",
+        "templates/components/atoms/wordmark.html.twig",
+        "templates/components/molecules/add-slot.html.twig",
+        "templates/components/molecules/callout.html.twig",
+        "templates/components/molecules/card.html.twig",
+        "templates/components/molecules/cond-rule.html.twig",
+        "templates/components/molecules/coupon-code.html.twig",
+        "templates/components/molecules/dns-row.html.twig",
+        "... 112 more tracked files under the scope"
+      ],
+      "input_fingerprint": "b65774c40246f3750eff5aeab8c40acb85ecb2752ff204b18bbcf2a54c625b77",
+      "output_sha256": "73e210bebd1c64cc4d0482333cf848c966291aca7c4f9cb378d1bf6ce5da6791",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "assets/.agents/project-context.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "assets/app.ts",
+        "assets/controllers/cardiogram.ts",
+        "assets/controllers/editor.ts",
+        "assets/controllers/event-stream.ts",
+        "assets/controllers/modal.ts",
+        "assets/controllers/shell.ts",
+        "assets/controllers/upload.ts",
+        "assets/global.d.ts",
+        "assets/js/storybook-controls.js",
+        "assets/styles/01-tokens.css",
+        "assets/styles/02-base.css",
+        "assets/styles/03-components.css",
+        "assets/styles/04-patterns.css",
+        "assets/styles/app.css",
+        "assets/styles/storybook.css"
+      ],
+      "input_fingerprint": "c8b67a6c972052c2d2052f84936335489f7621c75fe1f7b7605805afe532a7c8",
+      "output_sha256": "73629ef095ab58c22911fb219034dff7b744f00f2f4ccdb77713262365a6e201",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "frankenphp/.agents/project-context.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "frankenphp/Caddyfile",
+        "frankenphp/conf.d/10-app.ini",
+        "frankenphp/conf.d/20-app.dev.ini",
+        "frankenphp/conf.d/20-app.prod.ini",
+        "frankenphp/docker-entrypoint.sh"
+      ],
+      "input_fingerprint": "8b69f1b3de796dafd54adce5c6747c25a11d802aa431a128d23d27efdb681d46",
+      "output_sha256": "b30812a1e6f268e640e5b880a1fe1d922a568e86a4ed68a0aed5aaed08b60784",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "tests/.agents/project-context.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "tests/CacheTest.php",
+        "tests/Controller/PanelPagesTest.php",
+        "tests/Controller/PreferencesControllerTest.php",
+        "tests/Controller/SecurityControllerTest.php",
+        "tests/Tracking/EventIngestionTest.php",
+        "tests/bootstrap.php",
+        "tests/e2e/package-lock.json",
+        "tests/e2e/package.json",
+        "tests/e2e/playwright.config.ts",
+        "tests/e2e/specs/automations.spec.ts",
+        "tests/e2e/specs/customers.spec.ts",
+        "tests/e2e/specs/dashboard.spec.ts",
+        "tests/e2e/specs/editors.spec.ts",
+        "tests/e2e/specs/events.spec.ts",
+        "tests/e2e/specs/import.spec.ts",
+        "tests/e2e/specs/lists.spec.ts",
+        "tests/e2e/specs/navigation.spec.ts",
+        "tests/e2e/specs/public.spec.ts",
+        "tests/e2e/specs/settings.spec.ts"
+      ],
+      "input_fingerprint": "41c9f5fff59cfbb6dc20b64b57124fe86e0c20cebd2ad14a58c7f7303162f6ae",
+      "output_sha256": "ce55df25b6fff8613b1fb200da68175dafdc65ae5ca3c86b9835c56bb4033d5e",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "tests/e2e/.agents/project-context.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "tests/e2e/package-lock.json",
+        "tests/e2e/package.json",
+        "tests/e2e/playwright.config.ts",
+        "tests/e2e/specs/automations.spec.ts",
+        "tests/e2e/specs/customers.spec.ts",
+        "tests/e2e/specs/dashboard.spec.ts",
+        "tests/e2e/specs/editors.spec.ts",
+        "tests/e2e/specs/events.spec.ts",
+        "tests/e2e/specs/import.spec.ts",
+        "tests/e2e/specs/lists.spec.ts",
+        "tests/e2e/specs/navigation.spec.ts",
+        "tests/e2e/specs/public.spec.ts",
+        "tests/e2e/specs/settings.spec.ts"
+      ],
+      "input_fingerprint": "25229384e91768d02e73457157a4c854648115eea654ca8a008a973aca9cdf90",
+      "output_sha256": "ce1b61fffa40d572b6c642a32b0fe3dd641d39719031d4a526d87fe24d407b65",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "AGENTS.md",
+      "ownership": "managed-block(router)",
+      "inputs": [],
+      "input_fingerprint": null,
+      "output_sha256": "b125930a712df47c507e16d1419f802273a9b6fae25df51291b9edd25973bd95",
+      "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "CLAUDE.md",
+      "ownership": "managed-block(router)",
+      "inputs": [],
+      "input_fingerprint": null,
+      "output_sha256": "b70f6321a91c64c5d7cf428e65339660c37afc8ef729160c2a1d0b86459411b8",
+      "generated_at": "2026-09-08T13:27:13Z"
+    }
+  ],
+  "verdicts": {
+    "inventory": "complete",
+    "coverage": "complete",
+    "technology_and_documentation": "complete",
+    "architecture_and_dependencies": "complete",
+    "git": "complete",
+    "agent_discovery": "partial",
+    "scaffold": "not-applicable",
+    "tests": "partial",
+    "ci": "partial",
+    "deploy_smoke": "partial",
+    "e2e": "partial",
+    "freshness": "complete",
+    "risks": "partial"
+  },
+  "verdict_details": {
+    "agent_discovery": {
+      "reason": "routers written to AGENTS.md and CLAUDE.md; no fresh Codex/Claude session smoke performed (codex CLI absent on host; Claude smoke requires a new session)",
+      "missing_evidence": [
+        "fresh-session /context confirmation",
+        "Codex instruction-chain smoke"
+      ],
+      "impact": "discovery is very likely (root files, 4.9KB/4.2KB, no claudeMdExcludes) but unproven",
+      "next_action": "open a fresh Claude Code session in the repo and check /context shows CLAUDE.md importing context/map/INDEX.md",
+      "fallback": "root routers + manifest remain the discovery path",
+      "owner": "user"
+    },
+    "scaffold": {
+      "reason": "brownfield project"
+    },
+    "tests": {
+      "reason": "commands discovered, not run: dev stack shares compose project with running prod containers",
+      "missing_evidence": [
+        "current composer test result"
+      ],
+      "impact": "pass state unknown",
+      "next_action": "run docker compose -p kivvi-dev ... up, then composer test",
+      "fallback": "commands recorded as documented",
+      "owner": "user"
+    },
+    "ci": {
+      "reason": "workflow inspected; remote run status not queried",
+      "missing_evidence": [
+        "latest Actions run"
+      ],
+      "impact": "image build status unknown",
+      "next_action": "gh run list --workflow docker-build.yml",
+      "fallback": "configuration-only evidence",
+      "owner": "maintainer"
+    },
+    "deploy_smoke": {
+      "reason": "prod containers observed running (docker compose ps) but no HTTP smoke performed",
+      "missing_evidence": [
+        "HTTP 200 from http://localhost:23456"
+      ],
+      "impact": "health unknown beyond container state",
+      "next_action": "curl -I http://localhost:23456/pl",
+      "fallback": "container state recorded",
+      "owner": "maintainer"
+    },
+    "e2e": {
+      "reason": "not run; needs isolated dev stack and system Chrome",
+      "missing_evidence": [
+        "playwright run result"
+      ],
+      "impact": "primary journeys unverified in this run",
+      "next_action": "cd tests/e2e && npx playwright test with E2E_BASE_URL",
+      "fallback": "static flow trace",
+      "owner": "user"
+    },
+    "risks": {
+      "reason": "R1 (stack decision), R3, R5, R8, R13 need user decisions",
+      "missing_evidence": [
+        "decisions"
+      ],
+      "impact": "planning inputs provisional",
+      "next_action": "resolve R1 via research-spike + migration-planning",
+      "fallback": "risks visible in INDEX",
+      "owner": "user"
+    }
+  },
+  "contradictions": [
+    {
+      "id": "R1",
+      "summary": "CLAUDE.md/AGENTS.md/product-spec mandate Symfony+Twig, no JS frameworks; user proposes Java/Spring Boot + Vue/React",
+      "sources": [
+        "CLAUDE.md",
+        "AGENTS.md",
+        ".claude/skills/product-spec/SKILL.md",
+        "conversation 2026-09-08"
+      ],
+      "state": "Undecided",
+      "owner": "user"
+    },
+    {
+      "id": "R2",
+      "summary": "AGENTS.md Current Shape lists deleted files (HomeController, templates/home, HomeControllerTest)",
+      "sources": [
+        "AGENTS.md",
+        "git ls-files"
+      ],
+      "state": "N/A"
+    },
+    {
+      "id": "R3",
+      "summary": "context/foundation baseline (homepage-only) vs full prototype in bdf120e",
+      "sources": [
+        "context/foundation/prd.md",
+        "context/foundation/roadmap.md",
+        "src/**"
+      ],
+      "state": "Undecided",
+      "owner": "user"
+    },
+    {
+      "id": "R8",
+      "summary": "Issue tracker: GitHub Issues (CLAUDE.md) vs Linear (memory, user)",
+      "sources": [
+        "CLAUDE.md",
+        "memory kivvi-linear-backlog"
+      ],
+      "state": "Undecided",
+      "owner": "user"
+    }
+  ],
+  "open_questions": [
+    "Keep Symfony/Twig or migrate to Java/Spring Boot + Vue/React (SSR?) — R1",
+    "Is the Twig prototype the UI for roadmap S-01..S-04 or throwaway? — R3",
+    "Confirm Linear as the tracker — R8",
+    "Isolate dev compose project name from prod — R5"
+  ],
+  "uncovered_paths": [],
+  "next_actions": [
+    "research-spike on stack migration (Spring Boot LTS, Vue 3 vs React, SSR options) feeding migration-planning",
+    "refresh AGENTS.md Current Shape (manual section)",
+    "add /.ai/ to root .gitignore or confirm tooling",
+    "run composer test, phpstan, typecheck, e2e in an isolated dev stack and refresh verdicts"
+  ]
+}

@@ -2,6 +2,12 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+<!-- BEGIN project-context-initializer:router -->
+## Generated project context
+
+@context/map/INDEX.md
+<!-- END project-context-initializer:router -->
+
 ## What this is
 
 kivvi-click-10x is a from-scratch rebuild of the kivvi-click product on a new stack. It is a

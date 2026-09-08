@@ -1,0 +1,28 @@
+<!-- BEGIN project-context-initializer:artifact -->
+# Risks, contradictions and unknowns
+
+| # | Item | Provenance | Decision state | Impact | Next action | Owner |
+| --- | --- | --- | --- | --- | --- | --- |
+| R1 | **Stack decision under review**: `CLAUDE.md`/`AGENTS.md`/product-spec forbid frontend frameworks and mandate Symfony/PHP; user (2026-09-08) proposes Java/Spring Boot backend + Vue 3 or React frontend over an API, possibly SSR. Original product was Java/Spring + Vue (product-spec). | Contradiction (docs vs user intent) | Undecided | Every artifact and instruction file becomes stale; the whole prototype (Twig + TS, 13k lines) would be rewritten | `research-spike` (SSR vs SPA, Vue vs React, Spring Boot version) then `migration-planning` with an oracle captured from the current e2e suite; update `CLAUDE.md`/`AGENTS.md` after decision | user |
+| R2 | `AGENTS.md` "Current Shape" describes a homepage-only app and files that no longer exist | Observed | N/A | Codex agents get wrong starting facts | Refresh that section (manual edit outside managed block) | maintainer |
+| R3 | `context/foundation/*` baseline (2026-06-25) says only a homepage exists; roadmap S-01..S-04 untouched while a full prototype UI exists | Observed | N/A | Planning from those docs would double-count or mis-sequence work | Decide whether the prototype is the UI for S-01..S-04 or throwaway; refresh roadmap | user |
+| R4 | No domain model, auth, CSRF, authorization; login accepts any e-mail; `/collect` unauthenticated and unrated; Mercure allows anonymous subscribers to any topic | Observed | Accepted risk (docblocks say intentional for prototype) | Production instance at kivvi.click exposes this | Do not put real data behind it; S-01 (auth) and tenant keys on `/collect` before any real tenant | user |
+| R5 | Dev and prod compose stacks share project name `kivvi-click`; prod containers run on this host | Inferred from `docker compose ps` | Undecided | Running the documented dev command could recreate prod containers | Use `COMPOSE_PROJECT_NAME`/`-p` for dev; document in README/CLAUDE.md | maintainer |
+| R6 | Editor drag-and-drop posts to `<endpoint>/blocks`, no such route | Observed | N/A | 404 in browser when dropping a block; e2e does not cover it | Implement or remove | maintainer |
+| R7 | Dedup keyed in `cache.app` (24 h TTL, UNLOGGED table): a cache flush or crash re-admits replayed events; no persistent event store | Observed | N/A | Violates the "idempotent, auditable" product promise once events matter | Persist events with a unique `(account, idempotency_id)` constraint in S-03 | maintainer |
+| R8 | Issue-tracker contradiction: `CLAUDE.md` says GitHub Issues (`#NN`); memory says Linear backlog; user mentions Linear tasks | Contradiction | Undecided | Commit message references and planning inputs differ | Confirm Linear as tracker and update `CLAUDE.md` workflow section | user |
+| R9 | CI builds the image only; no tests/phpstan/typecheck/e2e in CI; image not pushed; no rollback | Observed | Accepted risk (health-check doc) | Regressions reach `main` unnoticed; manual deploy | Add test job when collaboration starts | maintainer |
+| R10 | PL translation file (104 lines) much shorter than EN (250): many Polish strings hard-coded in PHP/Twig | Inferred | N/A | EN toggle incomplete; i18n rule "PL-first with EN translations" partly unmet | Audit hard-coded strings | maintainer |
+| R11 | Tracking script `k.js` and CDN `cdn.kivvi-click.io` referenced in settings, not in repo | Unknown | N/A | FR-003 (custom JS install) has no artifact | Build script in S-03 | maintainer |
+| R12 | Verification not executed in this run (tests, phpstan, typecheck, e2e) | not-run | N/A | Map describes commands, not current pass state | Run `composer test` etc. in a dev stack isolated from prod | maintainer |
+| R13 | `.ai/cezar/` untracked tool state with a secret `launch-key`; generator unknown | Unknown | N/A | Could be committed by accident (`.ai/` is not in root `.gitignore`; only its inner `.gitignore` protects it) | Add `/.ai/` to root `.gitignore` or confirm tooling | user |
+| R14 | Two author identities in history, no `.mailmap` | Inferred | N/A | Blame/ownership stats split | Optional `.mailmap` | maintainer |
+| R15 | `templates/base.html.twig` (Symfony recipe base with jsDelivr hot-reload scripts) is unused by the panel (`layout/base.html.twig` is the real root) | Observed | N/A | Confusing duplicate; external CDN scripts if ever used | Remove or document | maintainer |
+
+## Unmodeled / unknown surfaces
+
+- Observability: no metrics/tracing/error tracking (none observed).
+- External reverse proxy for kivvi.click: config outside repo.
+- Linear backlog content: not queried in this run.
+- E-mail providers, feeds, webhooks, OAuth, billing: UI catalogues only, no integration code.
+<!-- END project-context-initializer:artifact -->

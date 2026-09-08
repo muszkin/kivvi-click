@@ -2,6 +2,12 @@
 
 Guidance for Codex when working in this repository.
 
+<!-- BEGIN project-context-initializer:router -->
+## Generated project context
+
+Before repository-wide research, implementation planning, implementation orchestration, review, or implementation, read `context/map/INDEX.md`. For work in a specific directory, follow its mapping to the nearest `.agents/project-context.md`. Treat generated context as navigation evidence and verify stale or high-risk claims against current code, runtime, and canonical documentation.
+<!-- END project-context-initializer:router -->
+
 ## Product Context
 
 This project is `kivvi-click`, a from-scratch rebuild of the original kivvi-click product.

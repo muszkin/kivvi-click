@@ -1,0 +1,30 @@
+%% Primary runtime flow — event ingestion and live stream (observed in src/Tracking, assets/controllers/event-stream.ts, frankenphp/Caddyfile)
+sequenceDiagram
+  participant Tracker as Tracker / test client
+  participant Caddy as Caddy + FrankenPHP
+  participant App as EventIngestionController / EventIngestion
+  participant PG as Postgres cache_items
+  participant Hub as Mercure hub (Caddy module)
+  participant Panel as Panel browser (event-stream.ts)
+
+  Panel->>Caddy: GET /pl/events (server-rendered rows + data-event-stream-topic)
+  Caddy-->>Panel: HTML (layout/app + organisms/event-stream)
+  Panel->>Hub: EventSource /.well-known/mercure?topic=/accounts/1/events (anonymous)
+  Hub-->>Panel: open -> data-stream-state=live
+
+  Tracker->>Caddy: POST /collect {idempotency_id, type, ...}
+  Caddy->>App: index.php (worker mode)
+  App->>App: TrackedEvent::fromPayload (400 on invalid)
+  App->>PG: getItem event.seen.<xxh128(id)>
+  alt duplicate
+    PG-->>App: hit
+    App-->>Tracker: 200 {"status":"duplicate"}
+  else new
+    PG-->>App: miss
+    App->>PG: save key, TTL 24h
+    App->>App: render components/molecules/event-row.html.twig
+    App->>Hub: publish Update(topic, {"html": row}) with publisher JWT
+    App-->>Tracker: 202 {"status":"accepted"}
+    Hub-->>Panel: SSE message {"html": row}
+    Panel->>Panel: prepend row unless data-paused, cap 80 rows
+  end
