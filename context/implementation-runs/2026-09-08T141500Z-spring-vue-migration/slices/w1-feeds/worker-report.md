@@ -106,3 +106,39 @@ nothing to commit, working tree clean
 ```
 
 Stack torn down (`docker compose -p kivvi-w-feeds -f compose.next.yaml down -v`) and the built image (`kivvi-w-feeds-api`) removed after the last gate run.
+
+## Repair-1
+
+Independent review returned FAIL on two items: **F1** (`warnHtmlMessage: false` in the shared `frontend/src/i18n/index.ts` exceeded the loader-only lease granted to this slice) and **F3** (`npm run format:check` failed on two test files I never ran Prettier against before committing). Base: candidate `81af73fedfc5750d99a665a38bc064695d244279`. Identity guard re-checked first: worktree `/home/muszkin/work/kivvi-click-wt/w1-feeds`, branch `migration/wave-1/feeds`, `HEAD` at `81af73f`, clean tree — confirmed before touching anything.
+
+### Files changed
+
+- **`frontend/src/i18n/index.ts` (R1-A)** — replaced with the orchestrator-authorized canonical shape from `repair-1.md` verbatim (imports/`SUPPORTED_LOCALES`/`initialLocale` kept unchanged, the merge logic switched from mutating the imported `pl`/`en` modules in place to building separate `plMessages`/`enMessages` copies, `warnHtmlMessage: false` retained with its rationale comment as specified). One addition beyond the packet's literal text was unavoidable: `createI18n`'s generic overload resolution needs `messages.pl`/`messages.en` to structurally match `pl.ts`/`en.ts`'s own literal shape to infer the locale/schema type parameters correctly; widening both to `Record<string, unknown>` for the merge (as the canonical shape does) breaks that inference (`vue-tsc` error: `'pl' does not exist in type '{ "en-US": ... }'`, since it falls back to the wrong overload). Fixed with `as unknown as { pl: typeof pl; en: typeof en }` on the `messages` value, exactly the "adjust any type import if `Record<string, unknown>` needs a cast" latitude the packet granted — no other line differs from the canonical text.
+- **`frontend/test/integration/FeedsView.spec.ts`, `frontend/test/unit/KpiGrid.spec.ts` (R1-B)** — `npx prettier --write` on both; the diff is pure re-wrapping (long object literals and long `expect(...)` chains split across lines), no semantic change. Verified by re-running both test files after formatting: same pass counts as before.
+- **R1-C — skipped, reported.** Attempted the fix (new `FeedsViewService.Kpi`/`Source`/`CoverageBar`/`FallbackRule` records plus four mapper methods, so `FeedsController` would only ever reference `FeedsViewService.*` types and never `click.kivvi.fixtures.FeedsFixtures` directly) and measured it before committing: `git diff --stat` on the two touched files came back **48 insertions(+), 15 deletions(-)** — past the packet's 30-line cap for this optional item. Reverted both files with `git checkout --`. The architectural reasoning from the original worker report still holds either way: `FeedsViewService` cannot itself return `web.dto.FeedsResponse` (that would make `application` depend on `web`, and combined with the controller's existing `web → application` call this is a 2-node cycle `ArchitectureTest`'s `topLevelPackagesFormNoCycle` rejects, since the rule's slice pattern treats `web.dto` as part of the `web` slice) — F2 is a real, valid layering-purity observation, just one whose honest fix is bigger than what this repair round budgeted for.
+
+### Gates on the new candidate SHA, in the packet's order (logs under `evidence/repair-1-gates/`)
+
+| Order | Gate | Command | cwd | Exit | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Backend unit | `./mvnw -q test` | `backend/` | 0 | `evidence/repair-1-gates/01-mvnw-test.txt` |
+| 2 | Backend integration | `./mvnw -q verify` | `backend/` | 0 | `evidence/repair-1-gates/02-mvnw-verify.txt` (Testcontainers Postgres 18; `FeedsApiIT`/`ShellApiIT`/`SessionRoundTripIT`) |
+| 3 | Frontend unit | `npm run test -- --run` | `frontend/` | 0 | `evidence/repair-1-gates/03-npm-test.txt` (8 files / 42 tests) |
+| 4 | Frontend integration | `npm run test:integration -- --run` | `frontend/` | 0 | `evidence/repair-1-gates/04-npm-test-integration.txt` (4 files / 17 tests) |
+| 5 | Frontend lint + typecheck + format:check + build | `npm run lint && npm run typecheck && npm run format:check && npm run build` | `frontend/` | 0 | `evidence/repair-1-gates/05-lint-typecheck-format-build.txt` — `format:check`: "All matched files use Prettier code style!" (F3 fixed); lint: 0 errors, the same 2 pre-existing whitespace-preservation warnings on `FeedCard.vue` noted in the original report; build: JS entry gzip 67.32 kB |
+| 6 | Compose stack | `HTTP_PORT=19020 HTTPS_PORT=19021 HTTP3_PORT=19021 docker compose -p kivvi-w-feeds -f compose.next.yaml up -d --build --wait` | repo root | healthy | — |
+| 7 | compare.mjs | `node tools/migration-verify/compare.mjs --journey feeds --base https://localhost:19021 --out .../evidence/repair-1-gates/compare` | repo root | 0 regressions | `evidence/repair-1-gates/06-compare.txt`, `evidence/repair-1-gates/compare/feeds/report.md` (texts/aria parity, both screenshots 0.000% pixel difference, contract `accepted-deviation(DEV-4)`) |
+| 8 | Playwright | `E2E_BASE_URL=https://localhost:19021 npx playwright test lists.spec.ts -g "product feeds"` | `tests/e2e/` | 0 (2/2 passed) | `evidence/repair-1-gates/07-playwright-lists.txt` |
+| 9 | performance.mjs | `node tools/migration-verify/performance.mjs --base https://localhost:19021` | repo root | within budget | `evidence/repair-1-gates/08-performance.txt` (JS gzip 66,578 B / 307,200 B; LCP 156 ms / 2,000 ms; TTI 19 ms / 2,500 ms) |
+| — | Teardown | `docker compose -p kivvi-w-feeds -f compose.next.yaml down -v`, `docker image rm kivvi-w-feeds-api` | repo root | clean | containers/volumes/network removed, image untagged and deleted |
+
+### New candidate SHA and clean worktree
+
+```
+$ git log -1 --format='%H %s'
+a9c8c30cd70c5198427c95ad0c0d97a55e0422b3 fix: repair-1 for w1-feeds — canonical i18n loader, format:check clean
+
+$ git status
+On branch migration/wave-1/feeds
+nothing to commit, working tree clean
+```

@@ -1,0 +1,38 @@
+cmd: npm run lint && npm run typecheck && npm run format:check && npm run build
+
+> kivvi-click-frontend@0.1.0 lint
+> eslint .
+
+
+/home/muszkin/work/kivvi-click-wt/w1-feeds/frontend/src/components/organisms/FeedCard.vue
+  164:26  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  169:26  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+
+✖ 2 problems (0 errors, 2 warnings)
+  0 errors and 2 warnings potentially fixable with the `--fix` option.
+
+
+> kivvi-click-frontend@0.1.0 typecheck
+> vue-tsc --noEmit
+
+
+> kivvi-click-frontend@0.1.0 format:check
+> prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+
+> kivvi-click-frontend@0.1.0 build
+> vue-tsc --noEmit && vite build
+
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 108 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   1.32 kB │ gzip:  0.63 kB
+dist/assets/index-BubHWPzC.css   45.85 kB │ gzip:  8.67 kB
+dist/assets/index-DNJz6P5z.js   188.19 kB │ gzip: 67.32 kB
+
+✓ built in 245ms
+exit:0

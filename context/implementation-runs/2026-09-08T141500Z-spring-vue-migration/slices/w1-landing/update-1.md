@@ -1,0 +1,12 @@
+# Update packet w1-landing / update-1 (rebase onto feature HEAD after feeds integrated)
+
+Feature HEAD now includes the feeds journey: `migration/spring-vue` @ <FEATURE-HEAD>. Your reviewed candidate c8a5a9e84fe354caa13c38ed21f47da5309820d4 conflicts semantically with it on shared files. Do, with HIGH reasoning effort, in /home/muszkin/work/kivvi-click-wt/w1-landing (identity guard first):
+
+1. `git fetch` is not needed (same repository); rebase your branch onto <FEATURE-HEAD>: `git rebase <FEATURE-HEAD>`. Resolve conflicts as follows and nowhere else:
+   - `backend/src/main/java/click/kivvi/domain/Format.java`: take the UNION — keep every method both versions define (feeds added `groupWithSpace` for the Twig `number_format(…, ' ')` cases; yours added whatever landing needed). Both were reviewed as faithful ports of `src/Panel/Format.php`; if the two versions implement the same method differently, keep the feeds (HEAD) implementation and prove yours was equivalent with the landing unit tests. Keep both test classes green.
+   - `frontend/src/i18n/index.ts`: take the HEAD version verbatim (it is the canonical file from common-journey-rules.md: loader into copies + `warnHtmlMessage: false` + the `as unknown as` cast). Your `landingPage` messages file keeps working through the glob.
+   - `frontend/src/router/routes.ts`: keep both component lines (feeds + landing) and both imports.
+   - `tools/migration-verify/deviations.json`: keep your per-journey DEV-11 object (HEAD has the older flat array only if feeds did not touch it — feeds did not).
+   - Anything else conflicting: STOP and report.
+2. After the rebase, the branch must contain exactly your landing commit(s) on top of <FEATURE-HEAD>; then re-run the full gate chain from common-journey-rules on the new candidate SHA (backend test/verify, frontend unit/integration/lint/typecheck/format:check/build, stack `kivvi-w-landing` 19010/19011, `compare.mjs --journey landing` 0 regressions, `npx playwright test public.spec.ts -g "landing"`, performance; also run `compare.mjs --journey feeds` once to prove you did not break feeds on the merged tree), tear down.
+3. Append "## Update-1" to worker-report.md: conflicts and how each was resolved (diff excerpts for Format.java), gate table on the new SHA, new candidate SHA, `git log --oneline <FEATURE-HEAD>..HEAD`, clean git status; return it.
