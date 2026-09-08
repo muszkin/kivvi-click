@@ -6,3 +6,4 @@
 | 2026-09-08T19:50:04Z | w1-scheduler-heartbeat | e778720 | cherry-pick | 9427fdb1d92e4e606e67471638031d1bc0fb73d4 | wave-1 SHA; cohort |
 | 2026-09-08T20:11:29Z | w1-landing repair-1 | 4f74907 | fast-forward | 4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a | wave-1 SHA (round-2 cohort) |
 | 2026-09-08T21:08:32Z | w2-customers | f84ee18, 0cb6baa | fast-forward | 0cb6baa8a71d765b09034b92db2003ee45de34e7 | feature HEAD |
+| 2026-09-08T21:59:21Z | w2-event-stream | fe203ae, 22d7fcb | fast-forward | 22d7fcb6380723728a33fc21fda22a92594a2e88 | wave-2 SHA; cohort |

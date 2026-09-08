@@ -4,7 +4,7 @@
   "state": "SLICES_RUNNING",
   "plan": {
     "path": "/home/muszkin/work/kivvi-click/context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
-    "sha256": "044bb2472c915d86bf0ee65bf675ba390cdac151299ac7447c7202f850c757e4",
+    "sha256": "6b0227260ef4ebfd260ada00e7be6b82649ef5ae2442c5ef3746510da642a587",
     "approved_base_sha": "8d3fc320354604b641b44a3043a070f279e6d491"
   },
   "context": {
@@ -38,7 +38,7 @@
   "feature": {
     "branch": "migration/spring-vue",
     "worktree": "/home/muszkin/work/kivvi-click-wt/integration",
-    "head_sha": "0cb6baa8a71d765b09034b92db2003ee45de34e7"
+    "head_sha": "22d7fcb6380723728a33fc21fda22a92594a2e88"
   },
   "slices": {
     "w0-login": {
@@ -79,12 +79,13 @@
       "integration_commit": "9427fdb1d92e4e606e67471638031d1bc0fb73d4"
     },
     "w2-event-stream": {
-      "state": "REVIEW_PENDING",
+      "state": "INTEGRATED",
       "wave": "wave-2",
       "branch": "migration/wave-2/event-stream",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w2-event-stream",
       "parent_sha": "0cb6baa8a71d765b09034b92db2003ee45de34e7",
-      "head_sha": "22d7fcb6380723728a33fc21fda22a92594a2e88"
+      "head_sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
+      "integration_commit": "22d7fcb6380723728a33fc21fda22a92594a2e88"
     },
     "w2-customers": {
       "state": "FEATURE_HEAD_GREEN",
@@ -368,9 +369,52 @@
         "event-stream",
         "customers"
       ],
-      "head_sha": null,
+      "head_sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
       "kill_reason": null,
-      "verifier_cohort": []
+      "verifier_cohort": [
+        {
+          "dimension": "unit",
+          "status": "RUNNING",
+          "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
+          "evidence": "waves/wave-2/unit.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "integration",
+          "status": "RUNNING",
+          "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
+          "evidence": "waves/wave-2/integration.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "architecture",
+          "status": "RUNNING",
+          "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
+          "evidence": "waves/wave-2/architecture.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "contract",
+          "status": "RUNNING",
+          "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
+          "evidence": "waves/wave-2/contract.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "visual",
+          "status": "RUNNING",
+          "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
+          "evidence": "waves/wave-2/visual.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "e2e",
+          "status": "RUNNING",
+          "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
+          "evidence": "waves/wave-2/e2e.md",
+          "journey_verdicts": []
+        }
+      ]
     },
     {
       "wave_id": "wave-3",
@@ -424,5 +468,5 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-08T21:52:24Z"
+  "updated_at": "2026-09-08T21:59:21Z"
 }

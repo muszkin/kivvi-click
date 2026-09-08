@@ -1,7 +1,7 @@
 {
   "slice_id": "w2-event-stream",
   "logical_owner": "worker-w2-event-stream",
-  "state": "REVIEW_PENDING",
+  "state": "INTEGRATED",
   "state_revision": 2,
   "branch": "migration/wave-2/event-stream",
   "worktree": "/home/muszkin/work/kivvi-click-wt/w2-event-stream",
@@ -36,8 +36,9 @@
       "status": "NOT_APPLICABLE"
     },
     "review": {
-      "status": "RUNNING",
-      "sha": "22d7fcb"
+      "status": "PASS",
+      "sha": "22d7fcb",
+      "evidence": "review.md"
     },
     "e2e": {
       "status": "PASS",
@@ -46,9 +47,9 @@
     }
   },
   "failure": null,
-  "integration_commit": null,
+  "integration_commit": "22d7fcb6380723728a33fc21fda22a92594a2e88",
   "created_at": "2026-09-08T20:20:58Z",
-  "updated_at": "2026-09-08T21:52:24Z",
+  "updated_at": "2026-09-08T21:59:21Z",
   "candidate_lineage": [
     "8d7948c62453ca912fc91f52dc0fe7b88400d153 (pre-review: repair-1 routed)",
     "22d7fcb6380723728a33fc21fda22a92594a2e88 (repair-1 on 0cb6baa)"

@@ -1,0 +1,3 @@
+# Independent review — w2-event-stream candidate 22d7fcb (2026-09-08)
+
+Verdict: **PASS**. /collect contract byte-exact (messages, 202/200/400, validation order); atomic dedup with ON CONFLICT; plain-HTTP internal Mercure publish with JWT and timeouts, claim-before-publish parity, 500 on hub failure like PHP; DEV-3 payload/SPA consistent; events DOM parity; compare.mjs run-id fix minimal; scope within packet + repair authorization. F1 LOW: occurred_at grammar narrower than PHP → recorded as DEV-13 by the orchestrator. F2 LOW: FilterChip/Segmented specs outside the literal test glob (own components).
