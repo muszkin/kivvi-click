@@ -448,3 +448,178 @@ from the debugging session (`kivvi-r1-*`) removed.
   ```
 - `git status --porcelain`: clean.
 - No new dependencies (Maven/npm manifests unchanged — `git diff 0cb6baa..HEAD -- backend/pom.xml frontend/package.json frontend/package-lock.json tools/migration-verify/package.json` is empty).
+
+## Repair-2
+
+Wave-2 cohort repair (unit/architecture/integration FAIL): worked in a **fresh worktree**,
+`/home/muszkin/work/kivvi-click-wt/w2-event-stream-r2`, branch `migration/wave-2/event-stream-repair2`,
+base `22d7fcb6380723728a33fc21fda22a92594a2e88` (repair-1's candidate). Identity guard checked
+before starting and before every commit/gate run. Compose lease: project `kivvi-w2-esr2`, ports
+19100/19101 (distinct from every earlier lease). Disk was tight throughout (5.3-8 GB free at
+various points) — pruned dangling images/build cache once, tore the stack down (`down -v`) and
+removed the built image after every use, never left more than one `kivvi-w2-esr2-api` image on
+disk at a time.
+
+### Files changed
+
+| File | Change |
+| --- | --- |
+| `backend/.../infrastructure/tracking/EventDedupLedger.java` | **new** — the claim-seam interface `EventDedupStore` now implements |
+| `backend/.../infrastructure/tracking/EventDedupStore.java` | `implements EventDedupLedger` |
+| `backend/.../domain/tracking/EventStreamTopic.java` | **new** — the one place `/accounts/%s/events` is composed (ported from `App\Panel\EventStreamTopic`) |
+| `backend/.../application/tracking/EventIngestionService.java` | depends on `EventDedupLedger`, not the concrete store; publishes via `EventStreamTopic.forCurrentAccount()`, not its own literal |
+| `backend/.../application/EventsViewService.java` | `mercureTopic` sourced from `EventStreamTopic.forCurrentAccount()`, not its own literal |
+| `backend/.../infrastructure/mercure/HttpMercurePublisher.java` | extracted package-private `buildRequest(topic, data)` — the no-network test seam |
+| `backend/.../test/.../application/tracking/EventIngestionServiceTest.java` | **new** — B17, B18, icon/tone fallback, blank-field omission |
+| `backend/.../test/.../infrastructure/mercure/HttpMercurePublisherTest.java` | + 2 no-network request-building tests |
+| `backend/.../test/.../architecture/ArchitectureTest.java` | + 2 wave-2 rules (publisher-dependency ArchUnit rule; `/accounts/` literal source scan) |
+| `backend/.../test/click/kivvi/CollectApiIT.java` | + B16, B15 (dedicated), non-JSON body, B18 duplicate-publish-count |
+| `frontend/eslint.config.js` | + `no-restricted-syntax` on `/accounts/` (scoped to `src/`, not `test/`) and `vue/no-restricted-class` on `event-row` (all `.vue` under `src/` except `EventRow.vue`) |
+| `frontend/test/integration/EventsView.spec.ts` | + driven-`FakeEventSource` `describe("B24 ...")`: connecting→live, translated `.event-row.new`, 80-row cap, pause |
+| `tools/migration-verify/compare.mjs` | DEV-4 full-parity body check now runs for `/collect` at any status, not only 200 |
+
+### R2-A — unit tests for B17/B18
+
+Introduced `EventDedupLedger` (mirroring the existing `MercurePublisher` interface pattern) — a
+genuinely missing seam: `EventIngestionService` depended on the concrete, JDBC-backed
+`EventDedupStore` directly, so a Spring-free unit test had no way to fake the dedup decision.
+`EventIngestionServiceTest` now covers B17 (exactly one publish, topic
+`/accounts/1/events`, `type`="Dodanie do koszyka" for `add_to_cart` with icon `cart`/tone
+`accent` from `EventFeed::TYPES`, plus a second case proving a type outside that 8-entry table
+falls back to icon `activity`/tone `""`, plus a third proving blank optional fields are omitted
+from the JSON — not sent as `null` or `""`) and B18 (ingest twice → second returns `false`,
+publisher recorded exactly once). The hand-built `JsonMapper` in this test is configured with
+`NON_NULL` property inclusion to match `application.yml`'s
+`spring.jackson.default-property-inclusion: non_null`, which only applies automatically to the
+Spring-managed bean — without it the test's own mapper would include null fields and the
+omission assertions would (and initially did) fail.
+
+`HttpMercurePublisher` gained a package-private `buildRequest(topic, data)` (previously inlined
+in `publish()`); `HttpMercurePublisherTest` gained two tests calling it directly — one asserting
+URI/method/headers (JWT bearer, decoded and signature-verified against the secret; `Content-Type:
+application/x-www-form-urlencoded`), one asserting the form-encoded body, drained from the
+`HttpRequest.BodyPublisher` via a `Flow.Subscriber` — with no `HttpClient.send()` call, no socket,
+no network at all.
+
+No pure dedup-decision logic exists outside SQL to unit test separately (`EventDedupStore#claim`
+is one atomic upsert; the whole decision — new claim, live duplicate, or expired-and-reclaimed —
+is the SQL statement itself), so that specific sub-bullet is N/A, covered instead by the existing
+`EventDedupStoreIT` (insert/conflict/expiry against real Postgres).
+
+No frontend spec claims a B17/B18 assertion (both are backend-only behaviours: the publish
+decision and payload shape).
+
+### R2-B — compare.mjs: /collect deep body diff
+
+Root cause: `compareHttpEntry`'s deep-body-check block was gated on `oracleEntry.status === 200`
+inherited from the login/preferences cases it was written for first, so DEV-4's full-parity list
+naming `/collect` for *every* status (202/200/400) was never actually honoured for `/collect` —
+only method/path/status/Location were compared, never the body (the four exact Polish error
+messages, `{"status":"accepted"}`, `{"status":"duplicate"}`). Fixed by adding a third branch keyed
+on `oracleEntry.path === "/collect"` (independent of status), reusing the existing
+`comparePrefsBody` JSON-canonicalizing comparison (renamed `compareJsonBodies`, now also
+documented as the mechanism achieving DEV-4's `„`-vs-raw-UTF-8 canonicalization: `JSON.parse`
+decodes both, `JSON.stringify` re-serializes both the same way).
+
+Proved both directions on the live stack (`kivvi-w2-esr2`, ports 19100/19101):
+- **Positive** (`evidence/repair-2-compare/positive/`): `compare.mjs --journey event-stream
+  --dimension contract` → **0 regressions**, with step 5's candidate `http.jsonl` confirmed to
+  carry the real raw-UTF-8 body (`{"error":"Nieznany typ zdarzenia „teleport”."}"`) that the fix
+  now actually diffs against the oracle's `„`-escaped equivalent.
+- **Negative**: temporarily changed `TrackedEvent`'s unknown-type message to `"R2-B DELIBERATE
+  BREAK „" + typeCode + "”."`, rebuilt the image, re-ran the identical command →
+  **1 regression**, exactly at step 5, with the tool printing both bodies
+  (`evidence/repair-2-compare/negative/event-stream/report.md`). Reverted the deliberate break
+  (`git checkout --`, confirmed via `git diff` showing no change), rebuilt again, re-ran →
+  **0 regressions** again (`evidence/repair-2-compare/final/`) — this is the state the final
+  candidate SHA ships.
+- A quick `events.spec.ts` run against the same (correct) rebuild confirmed no e2e regression
+  from the `EventDedupLedger`/`EventStreamTopic` extraction (R2-A/R2-C touched production code,
+  not just tests).
+
+### R2-C — architecture tooling
+
+**ArchUnit** (`ArchitectureTest`): (1) only `click.kivvi.application.tracking..` and
+`click.kivvi.infrastructure.mercure..` may access `MercurePublisher`/`HttpMercurePublisher`
+(`classes().that().haveSimpleName(...).should().onlyBeAccessed().byAnyPackage(...)`); (2) the
+`/accounts/` literal exists only in `domain/tracking/EventStreamTopic.java` — implemented as a
+**plain source scan** (`Files.walk` + a quote-anchored substring check), not a further ArchUnit
+condition: ArchUnit reasons about compiled bytecode class/member dependencies, and a `String`
+constant the compiler folds into every call site is not reliably distinguishable there from one
+held in a single shared field — recorded per the packet's own "record which" ask. Before writing
+the rule, a scan of the repo found **two** real literal occurrences (`EventIngestionService`'s
+`ACCOUNT_TOPIC` and `EventsViewService`'s own separate `MERCURE_TOPIC` copy) — exactly the
+duplication `EventStreamTopic` now eliminates; the Javadoc mention in `MercurePublisher.java`
+(`{@code /accounts/1/events}`, no leading quote) is deliberately excluded by the quote-anchor so
+documentation doesn't trip the rule.
+
+**ESLint** (`frontend/eslint.config.js`): confirmed first (as the packet asked) that
+`EventsView`/`EventStream` already read the topic from the API payload
+(`payload.mercureTopic` → `EventStream`'s `topic` prop → `data-event-stream-topic`) with no
+literal anywhere in `src/` — nothing to fix there, only to enforce. Added the `/accounts/`
+`no-restricted-syntax` selectors scoped to `files: ["src/**/*.{ts,vue}"], ignores:
+["src/format.ts"]` (**not** globally): the Intl-restriction selectors already active everywhere
+had to be duplicated into this scoped block rather than left in the shared one, because ESLint
+flat config *replaces* a rule's value per matching file rather than merging arrays across cascading
+blocks — the account-topic checks could not simply be appended to the existing global array
+without also then applying to `test/**` fixtures, where a literal `"/accounts/1/events"` sample
+value is legitimate test data, not the SPA composing a topic. Added `vue/no-restricted-class:
+["error", "event-row"]` scoped to `files: ["src/**/*.vue"], ignores:
+["src/components/molecules/EventRow.vue"]`.
+
+Proved both rules positive (clean `npm run lint`,
+`evidence/repair-2-lint/positive-proof.txt`) and negative: a throwaway `src/negative-proof-topic.ts`
+(`export const badTopic = "/accounts/1/events";`) and a throwaway second component
+`src/components/molecules/NegativeProofRow.vue` using `class="event-row"` — `npm run lint`
+reported both violations by name (`evidence/repair-2-lint/negative-proof.txt`) — then both files
+were deleted (never staged; `git status` confirmed clean before committing) and lint re-run clean.
+
+### R2-D — integration-level tests
+
+`CollectApiIT` gained: `unknownEventTypeAnswers400` (`@DisplayName("B16 ...")`, real HTTP,
+`teleport` → 400 exact message), `missingIdempotencyIdAnswers400` (`@DisplayName("B15 ...")`,
+promoted from an assertion buried inside the B19 sequence test to its own named real-HTTP case),
+`nonJsonBodyAnswers400` (a JSON string body, `"Oczekiwano obiektu JSON."`), and
+`duplicateIdempotencyIdIsNeverPublishedTwice` (`@DisplayName("B18 ...")`, strengthening B18 at
+the IT level exactly as asked: asserts the stub hub's received-publish count is unchanged after
+the second (200 duplicate) POST, not just that the HTTP response looked right).
+
+`frontend/test/integration/EventsView.spec.ts` gained a second `describe("B24 ...")` block:
+extended the existing (previously undriven) `FakeEventSource` with `emitOpen`/`emitMessage`/
+`emitError`, then mounted the real `EventsView` (with router, exactly like every other test in
+the file) and drove it: `data-stream-state` connecting → live on `emitOpen`; a dispatched DEV-3
+JSON message prepends a `.event-row.new` with the translated type ("Zakup"), the detail marker
+and the customer name; 60 messages cap the row list at 80, dropping the oldest (the newest
+sample, `marker-59`, ends up first); `data-paused="true"` suppresses the prepend without flipping
+`data-stream-state` back off `"live"`.
+
+### Gates on the new candidate SHA
+
+All from `~/work/kivvi-click-wt/w2-event-stream-r2`, logs under `evidence/repair-2-gates/`.
+Per the packet, this is a test-only-plus-interface-extraction change: **compare.mjs and
+Playwright were not required by the gate list** (R2-B's compare.mjs proof above was still run,
+since it *is* R2-B's own deliverable — that evidence lives in `evidence/repair-2-compare/`, not
+`repair-2-gates/`).
+
+| Gate | Command | Exit | Evidence |
+| --- | --- | --- | --- |
+| Backend focused (new tests confirmed present via surefire reports: `EventIngestionServiceTest` 4/4, `HttpMercurePublisherTest` 5/5, `ArchitectureTest` 5/5) | `cd backend && ./mvnw -q test` | 0 | `mvnw-test.txt` |
+| Backend integration + ArchUnit + Spotless (`CollectApiIT` confirmed 6/6 via failsafe report) | `cd backend && ./mvnw -q verify` | 0 | `mvnw-verify.txt` |
+| Frontend unit | `npm run test -- --run` (14 files / 74 tests) | 0 | `frontend-test.txt` |
+| Frontend integration (`EventsView.spec.ts` now 9/9, two `describe("B24 ...")` blocks) | `npm run test:integration -- --run` (8 files / 40 tests) | 0 | `frontend-test-integration.txt` |
+| Lint | `npm run lint` (0 errors, 2 pre-existing warnings in FeedCard.vue, not mine) | 0 | `frontend-lint.txt` |
+| Typecheck | `npm run typecheck` | 0 | `frontend-typecheck.txt` |
+| Format check | `npm run format:check` | 0 (fixed one drifted file with `npm run format` first) | `frontend-format-check.txt` |
+| Build | `npm run build` | 0 | `frontend-build.txt` |
+
+### Final state (Repair-2)
+
+- New final candidate SHA: **`7ba8f0814170a1f9b5731acf3961732f7c719c9d`**
+- `git log --oneline 22d7fcb6380723728a33fc21fda22a92594a2e88..HEAD`:
+  ```
+  7ba8f08 test: repair-2 for w2-event-stream — unit/integration coverage, architecture enforcement (#event-stream)
+  ```
+- `git status --porcelain`: clean.
+- No new dependencies (`git diff 22d7fcb..HEAD -- backend/pom.xml frontend/package.json frontend/package-lock.json tools/migration-verify/package.json` is empty).
+- Stack (`kivvi-w2-esr2`, ports 19100/19101) torn down (`down -v`) and the built image removed
+  after every use; nothing left running or on disk from this repair.
