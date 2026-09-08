@@ -1,0 +1,11 @@
+compare.mjs: replaying journey "customers" against https://localhost:19051 (dimensions: contract,visual)
+locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.table tbody tr').first()[22m
+
+    at runStep (/home/muszkin/work/kivvi-click-wt/w2-customers/tools/migration-verify/compare.mjs:163:35)
+    at async runJourney (/home/muszkin/work/kivvi-click-wt/w2-customers/tools/migration-verify/compare.mjs:306:22)
+    at async file:///home/muszkin/work/kivvi-click-wt/w2-customers/tools/migration-verify/compare.mjs:563:25 {
+  log: [ "  - waiting for locator('.table tbody tr').first()" ],
+  name: 'TimeoutError'
+}

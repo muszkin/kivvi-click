@@ -1,12 +1,12 @@
 {
   "slice_id": "w2-customers",
   "logical_owner": "worker-w2-customers",
-  "state": "CONTEXT_LOADED",
-  "state_revision": 1,
+  "state": "REVIEW_PENDING",
+  "state_revision": 2,
   "branch": "migration/wave-2/customers",
   "worktree": "/home/muszkin/work/kivvi-click-wt/w2-customers",
   "parent_sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
-  "head_sha": null,
+  "head_sha": "0cb6baa8a71d765b09034b92db2003ee45de34e7",
   "packet_path": "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/slices/w2-customers/packet.md",
   "packet_sha256": "afc2df52bb30fb1946f209c95d6202dd4054cba0b9db688b3833e6936d887c51",
   "dependencies": [
@@ -19,9 +19,39 @@
     "resolved": "claude-sonnet-5",
     "reasoning": "high"
   },
-  "gates": {},
+  "gates": {
+    "focused": {
+      "status": "PASS",
+      "sha": "0cb6baa"
+    },
+    "integration": {
+      "status": "PASS",
+      "sha": "0cb6baa"
+    },
+    "static": {
+      "status": "PASS",
+      "sha": "0cb6baa"
+    },
+    "sonar": {
+      "status": "NOT_APPLICABLE"
+    },
+    "review": {
+      "status": "RUNNING",
+      "sha": "0cb6baa"
+    },
+    "e2e": {
+      "status": "PASS",
+      "sha": "0cb6baa",
+      "note": "worker-run"
+    }
+  },
   "failure": null,
   "integration_commit": null,
   "created_at": "2026-09-08T20:20:58Z",
-  "updated_at": "2026-09-08T20:20:58Z"
+  "updated_at": "2026-09-08T21:01:58Z",
+  "candidate_lineage": [
+    "f84ee18",
+    "0cb6baa8a71d765b09034b92db2003ee45de34e7"
+  ],
+  "scope_note": "out-of-list edits: Topbar.vue locale link (route.path) and deviations.json DEV-12 customers:[6] \u2014 flagged to reviewer"
 }

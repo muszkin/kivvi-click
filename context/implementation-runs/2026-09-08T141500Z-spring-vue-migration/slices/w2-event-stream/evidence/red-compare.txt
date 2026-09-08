@@ -1,0 +1,11 @@
+compare.mjs: replaying journey "event-stream" against https://localhost:19041 (dimensions: contract,visual)
+locator.waitFor: Timeout 15000ms exceeded.
+Call log:
+[2m  - waiting for locator('#event-stream').first() to be visible[22m
+
+    at runStep (/home/muszkin/work/kivvi-click-wt/w2-event-stream/tools/migration-verify/compare.mjs:187:8)
+    at async runJourney (/home/muszkin/work/kivvi-click-wt/w2-event-stream/tools/migration-verify/compare.mjs:306:22)
+    at async file:///home/muszkin/work/kivvi-click-wt/w2-event-stream/tools/migration-verify/compare.mjs:563:25 {
+  log: [ "  - waiting for locator('#event-stream').first() to be visible" ],
+  name: 'TimeoutError'
+}

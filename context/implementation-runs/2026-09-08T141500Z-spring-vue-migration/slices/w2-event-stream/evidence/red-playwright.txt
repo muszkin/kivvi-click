@@ -1,0 +1,168 @@
+
+Running 4 tests using 4 workers
+
+  ✘  2 [chrome] › specs/events.spec.ts:35:9 › event stream › a collected event reaches the stream as a rendered row (5.6s)
+  ✘  3 [chrome] › specs/events.spec.ts:19:9 › event stream › offers every event type and every tracked site as a filter (5.6s)
+  ✘  1 [chrome] › specs/events.spec.ts:8:9 › event stream › renders thirty rows with type, detail and site (5.7s)
+  ✘  4 [chrome] › specs/events.spec.ts:68:9 › event stream › a replayed event is not shown twice (5.7s)
+
+
+  1) [chrome] › specs/events.spec.ts:8:9 › event stream › renders thirty rows with type, detail and site 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('#event-stream .event-row')
+    Expected: 30
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('#event-stream .event-row')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      10 |
+      11 |         const rows = page.locator("#event-stream .event-row");
+    > 12 |         await expect(rows).toHaveCount(30);
+         |                            ^
+      13 |
+      14 |         const first = rows.first();
+      15 |         await expect(first.locator(".event-row__type")).not.toBeEmpty();
+        at /home/muszkin/work/kivvi-click-wt/w2-event-stream/tests/e2e/specs/events.spec.ts:12:28
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/events-event-stream-render-d7849-s-with-type-detail-and-site-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/events-event-stream-render-d7849-s-with-type-detail-and-site-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/events-event-stream-render-d7849-s-with-type-detail-and-site-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/events-event-stream-render-d7849-s-with-type-detail-and-site-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chrome] › specs/events.spec.ts:19:9 › event stream › offers every event type and every tracked site as a filter 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.events-toolbar').first().locator('.filter-chip')
+    Expected: 9
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('.events-toolbar').first().locator('.filter-chip')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      24 |         await expect(
+      25 |             page.locator(".events-toolbar").first().locator(".filter-chip"),
+    > 26 |         ).toHaveCount(9);
+         |           ^
+      27 |         await expect(
+      28 |             page.locator(".events-toolbar").nth(1).locator(".filter-chip"),
+      29 |         ).toHaveCount(4);
+        at /home/muszkin/work/kivvi-click-wt/w2-event-stream/tests/e2e/specs/events.spec.ts:26:11
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/events-event-stream-offers-a778a-ry-tracked-site-as-a-filter-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/events-event-stream-offers-a778a-ry-tracked-site-as-a-filter-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/events-event-stream-offers-a778a-ry-tracked-site-as-a-filter-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/events-event-stream-offers-a778a-ry-tracked-site-as-a-filter-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chrome] › specs/events.spec.ts:35:9 › event stream › a collected event reaches the stream as a rendered row 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('#event-stream').locator('.event-row')
+    Expected: 30
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('#event-stream').locator('.event-row')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      39 |         await page.goto("/pl/events");
+      40 |         const stream = page.locator("#event-stream");
+    > 41 |         await expect(stream.locator(".event-row")).toHaveCount(30);
+         |                                                    ^
+      42 |         // Mercure has no replay: publish only once the subscription is open.
+      43 |         await expect(stream).toHaveAttribute("data-stream-state", "live");
+      44 |
+        at /home/muszkin/work/kivvi-click-wt/w2-event-stream/tests/e2e/specs/events.spec.ts:41:52
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/events-event-stream-a-coll-8a9e1-he-stream-as-a-rendered-row-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/events-event-stream-a-coll-8a9e1-he-stream-as-a-rendered-row-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/events-event-stream-a-coll-8a9e1-he-stream-as-a-rendered-row-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/events-event-stream-a-coll-8a9e1-he-stream-as-a-rendered-row-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chrome] › specs/events.spec.ts:68:9 › event stream › a replayed event is not shown twice ─────
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: locator('#event-stream')
+    Expected: "live"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveAttribute" with timeout 5000ms
+      - waiting for locator('#event-stream')
+
+
+      69 |         await page.goto("/pl/events");
+      70 |         const stream = page.locator("#event-stream");
+    > 71 |         await expect(stream).toHaveAttribute("data-stream-state", "live");
+         |                              ^
+      72 |
+      73 |         // The topic is shared, so identify this test's own event by its detail line
+      74 |         // rather than by counting every row that flashed in.
+        at /home/muszkin/work/kivvi-click-wt/w2-event-stream/tests/e2e/specs/events.spec.ts:71:30
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/events-event-stream-a-replayed-event-is-not-shown-twice-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/events-event-stream-a-replayed-event-is-not-shown-twice-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/events-event-stream-a-replayed-event-is-not-shown-twice-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/events-event-stream-a-replayed-event-is-not-shown-twice-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    [chrome] › specs/events.spec.ts:8:9 › event stream › renders thirty rows with type, detail and site 
+    [chrome] › specs/events.spec.ts:19:9 › event stream › offers every event type and every tracked site as a filter 
+    [chrome] › specs/events.spec.ts:35:9 › event stream › a collected event reaches the stream as a rendered row 
+    [chrome] › specs/events.spec.ts:68:9 › event stream › a replayed event is not shown twice ──────

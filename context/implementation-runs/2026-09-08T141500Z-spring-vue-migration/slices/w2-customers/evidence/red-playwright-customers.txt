@@ -1,0 +1,154 @@
+
+Running 4 tests using 4 workers
+
+  ✘  1 [chrome] › specs/customers.spec.ts:7:9 › customers › lists customers with segments and money, and paginates (5.6s)
+  ✘  4 [chrome] › specs/customers.spec.ts:46:9 › customers › the profile shows facts, ML scores and the activity axis (5.6s)
+  ✘  2 [chrome] › specs/customers.spec.ts:66:9 › customers › back link returns to the index (30.1s)
+  ✘  3 [chrome] › specs/customers.spec.ts:29:9 › customers › a row opens the profile it belongs to (30.1s)
+
+
+  1) [chrome] › specs/customers.spec.ts:7:9 › customers › lists customers with segments and money, and paginates 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('.page-sub')
+    Expected substring: "zidentyfikowanych klientów"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('.page-sub')
+
+
+      10 |         await page.goto("/pl/customers");
+      11 |
+    > 12 |         await expect(page.locator(".page-sub")).toContainText(
+         |                                                 ^
+      13 |             "zidentyfikowanych klientów",
+      14 |         );
+      15 |         await expect(page.locator(".table tbody tr")).toHaveCount(24);
+        at /home/muszkin/work/kivvi-click-wt/w2-customers/tests/e2e/specs/customers.spec.ts:12:49
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/customers-customers-lists--d4fba-nts-and-money-and-paginates-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/customers-customers-lists--d4fba-nts-and-money-and-paginates-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/customers-customers-lists--d4fba-nts-and-money-and-paginates-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/customers-customers-lists--d4fba-nts-and-money-and-paginates-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chrome] › specs/customers.spec.ts:29:9 › customers › a row opens the profile it belongs to ───
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.innerText: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.table tbody tr').first().locator('td').first().locator('span').last()
+
+
+      36 |             .locator("span")
+      37 |             .last()
+    > 38 |             .innerText();
+         |              ^
+      39 |
+      40 |         await firstRow.click();
+      41 |
+        at /home/muszkin/work/kivvi-click-wt/w2-customers/tests/e2e/specs/customers.spec.ts:38:14
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/customers-customers-a-row-opens-the-profile-it-belongs-to-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/customers-customers-a-row-opens-the-profile-it-belongs-to-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/customers-customers-a-row-opens-the-profile-it-belongs-to-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/customers-customers-a-row-opens-the-profile-it-belongs-to-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chrome] › specs/customers.spec.ts:46:9 › customers › the profile shows facts, ML scores and the activity axis 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.profile-card .profile-fact')
+    Expected: 7
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('.profile-card .profile-fact')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      49 |         await page.goto("/pl/customers/c_1001");
+      50 |
+    > 51 |         await expect(page.locator(".profile-card .profile-fact")).toHaveCount(
+         |                                                                   ^
+      52 |             7,
+      53 |         );
+      54 |         await expect(page.locator(".profile-card .chip").first()).toHaveText(
+        at /home/muszkin/work/kivvi-click-wt/w2-customers/tests/e2e/specs/customers.spec.ts:51:67
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/customers-customers-the-pr-f7b96-cores-and-the-activity-axis-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/customers-customers-the-pr-f7b96-cores-and-the-activity-axis-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/customers-customers-the-pr-f7b96-cores-and-the-activity-axis-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/customers-customers-the-pr-f7b96-cores-and-the-activity-axis-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chrome] › specs/customers.spec.ts:66:9 › customers › back link returns to the index ──────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.page-head a.btn.ghost').first()
+
+
+      66 |     test("back link returns to the index", async ({ page }) => {
+      67 |         await page.goto("/pl/customers/c_1001");
+    > 68 |         await page.locator(".page-head a.btn.ghost").first().click();
+         |                                                              ^
+      69 |
+      70 |         await expect(page).toHaveURL(/\/pl\/customers$/);
+      71 |     });
+        at /home/muszkin/work/kivvi-click-wt/w2-customers/tests/e2e/specs/customers.spec.ts:68:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/customers-customers-back-link-returns-to-the-index-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/customers-customers-back-link-returns-to-the-index-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/customers-customers-back-link-returns-to-the-index-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/customers-customers-back-link-returns-to-the-index-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    [chrome] › specs/customers.spec.ts:7:9 › customers › lists customers with segments and money, and paginates 
+    [chrome] › specs/customers.spec.ts:29:9 › customers › a row opens the profile it belongs to ────
+    [chrome] › specs/customers.spec.ts:46:9 › customers › the profile shows facts, ML scores and the activity axis 
+    [chrome] › specs/customers.spec.ts:66:9 › customers › back link returns to the index ───────────
