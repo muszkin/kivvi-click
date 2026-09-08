@@ -1,8 +1,8 @@
 {
   "slice_id": "w0-login",
   "logical_owner": "worker-w0-login",
-  "state": "E2E_GREEN_PENDING_REVIEW",
-  "state_revision": 3,
+  "state": "INTEGRATED",
+  "state_revision": 4,
   "branch": "migration/wave-0/login",
   "worktree": "/home/muszkin/work/kivvi-click-wt/w0-login",
   "parent_sha": "8d3fc320354604b641b44a3043a070f279e6d491",
@@ -63,9 +63,9 @@
       "reason": "no sonar config in repo"
     },
     "review": {
-      "status": "RUNNING",
+      "status": "PASS",
       "sha": "cfe7b48",
-      "reason": "fresh independent re-review dispatched"
+      "evidence": "review.md#re-review"
     },
     "e2e": {
       "status": "PASS",
@@ -75,9 +75,9 @@
     }
   },
   "failure": null,
-  "integration_commit": null,
+  "integration_commit": "3b17c07e23354e493edbab572e4090f69d2c0c71",
   "created_at": "2026-09-08T14:11:34Z",
-  "updated_at": "2026-09-08T17:12:32Z",
+  "updated_at": "2026-09-08T17:16:18Z",
   "candidate_lineage": [
     "f4ac025ca10a90ab41733a942000dc93769a273c",
     "cfe7b48bedd871c2132b2d62cd215d135e5e3627"

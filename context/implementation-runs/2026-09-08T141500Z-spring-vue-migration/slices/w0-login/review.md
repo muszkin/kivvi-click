@@ -12,3 +12,7 @@ Verdict: **FAIL**. Reviewer: independent sonnet agent (high effort), detached ch
 Verified by the reviewer: scope (no old-stack files), identity/validation parity incl. Twig `default()` quirk, preferences fallbacks, 404 handling, ArchUnit + ESLint rules, pinned versions, compose (ports, volume path, restart policy, placeholder secrets), compare.mjs is a real pixelmatch diff (step-1 screenshots byte-identical, md5 match).
 
 Routing: repair-1.md → same logical owner. Downstream gates (e2e) marked STALE for f4ac025.
+
+## Re-review — candidate cfe7b48 (fresh independent reviewer, 2026-09-08)
+
+Verdict: **PASS**. F1 resolved (`spring-boot-starter-session-jdbc`; BEFORE/AFTER psql proof, restart survival, strengthened `SessionRoundTripIT` fails at context start without the starter); F4 resolved; whole-surface check for the Boot 4.1 module-split failure mode (Flyway, Actuator, Jackson, Testcontainers) found no further gap; DEV-9 delta 0→1 accepted, not masked. Limitation: reviewer could not re-execute mvnw (JDK 21 in its shell); evidence cross-checked instead — the wave cohort re-executes everything.
