@@ -1,0 +1,28 @@
+cwd: /home/muszkin/work/kivvi-click-wt/verify-wave-0-arch
+wave SHA: 887af4543c5a51255735f1ddfc0d8860d11551c0
+
+=== empty diff vs base 8d3fc320354604b641b44a3043a070f279e6d491 under guarded legacy paths ===
+(exit 0, no output above = empty diff = PASS)
+
+=== tests/**/*.php diff ===
+(no output above = empty diff = PASS)
+
+=== Flyway migrations dir listing ===
+backend/src/main/resources/db/migration/V1__baseline.sql
+
+=== CSS byte-identity (cmp) ===
+IDENTICAL: 01-tokens.css
+IDENTICAL: 02-base.css
+IDENTICAL: 03-components.css
+IDENTICAL: 04-patterns.css
+IDENTICAL: app.css
+
+=== Pinned versions vs plan Technology decisions table ===
+Spring Boot parent: 		<version>4.1.1</version>
+Java: 		<java.version>25</java.version>
+ArchUnit: 		<archunit.version>1.5.0</archunit.version>
+			<version>${archunit.version}</version>
+JUnit resolved: junit-jupiter 6.0.3 (dependency:tree)
+Testcontainers resolved: 2.0.5 (dependency:tree / Testcontainers startup log)
+Maven wrapper: distributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.11/apache-maven-3.9.11-bin.zip
+Frontend deps (package.json): vue, vue-router, pinia, vite, vitest, vue-tsc, vue-i18n, typescript, prettier -- see npm-ci.log and frontend/package.json

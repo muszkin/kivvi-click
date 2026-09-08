@@ -1,6 +1,6 @@
 # Slice packet w1-landing — wave-1, journey J1 "landing"
 
-Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w1-landing · branch `migration/wave-1/landing` · parent SHA 6a53642c9c5ec9c256625854e6670f035e0292be (valid only once wave-0 reaches WAVE_INTEGRATED on this SHA) (feature HEAD after wave-0). **Lease:** compose project `kivvi-w-landing`, HTTP_PORT=19010, HTTPS_PORT=19011. **Model:** sonnet, effort HIGH.
+Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w1-landing · branch `migration/wave-1/landing` · parent SHA 887af4543c5a51255735f1ddfc0d8860d11551c0 (feature HEAD after wave-0). **Lease:** compose project `kivvi-w-landing`, HTTP_PORT=19010, HTTPS_PORT=19011. **Model:** sonnet, effort HIGH.
 
 **Capability:** A visitor can read the public landing page in Polish or English and enter the panel demo.
 **Oracle:** journeys/landing/steps/1..5 (`/pl`, `/en`, `/` (reproduce the recorded status/redirect of step 3 exactly — read step.json/http.jsonl), `/pl` again, click `.hero-cta a` with text "demo" → `/pl/dashboard`). Behaviours: B22 (landing part), B01 (landing row).

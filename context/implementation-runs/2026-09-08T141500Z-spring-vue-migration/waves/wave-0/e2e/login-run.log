@@ -1,0 +1,173 @@
+
+Running 2 tests using 2 workers
+
+  ✓  1 [chrome] › specs/public.spec.ts:42:9 › login › signs in and shows the identity in the sidebar (878ms)
+  ✓  2 [chrome] › specs/public.spec.ts:56:9 › login › the browser blocks a malformed address before it is sent (935ms)
+
+  2 passed (1.6s)
+{
+  "config": {
+    "argv": [
+      "/usr/bin/node",
+      "/home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e/tests/e2e/node_modules/.bin/playwright",
+      "test",
+      "public.spec.ts",
+      "-g",
+      "login",
+      "--reporter=list,json,html",
+      "--output=/home/muszkin/work/kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-0/e2e/test-results-login"
+    ],
+    "configFile": "/home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e/tests/e2e/playwright.config.ts",
+    "rootDir": "/home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e/tests/e2e/specs",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/muszkin/work/kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-0/e2e/test-results-login",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "/home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e/tests/e2e/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ],
+      [
+        "html"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 8,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "public.spec.ts",
+      "file": "public.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "login",
+          "file": "public.spec.ts",
+          "line": 41,
+          "column": 6,
+          "specs": [
+            {
+              "title": "signs in and shows the identity in the sidebar",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome",
+                  "projectName": "chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 878,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-08T18:23:46.287Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "349fc90c6061c792a808-1d7965c665a0eccaf7e6",
+              "file": "public.spec.ts",
+              "line": 42,
+              "column": 9
+            },
+            {
+              "title": "the browser blocks a malformed address before it is sent",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome",
+                  "projectName": "chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 935,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-08T18:23:46.307Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "349fc90c6061c792a808-53eab3095d73106b764d",
+              "file": "public.spec.ts",
+              "line": 56,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-08T18:23:45.864Z",
+    "duration": 1631.185,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
