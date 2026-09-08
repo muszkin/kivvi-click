@@ -1,6 +1,6 @@
 # Slice packet w2-event-stream — wave-2, journey J4 "event-stream"
 
-Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w2-event-stream · branch `migration/wave-2/event-stream` · parent SHA <PARENT-SHA> (feature HEAD after wave-1). **Lease:** compose project `kivvi-w-events`, HTTP_PORT=19040, HTTPS_PORT=19041. **Model:** sonnet, effort HIGH.
+Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w2-event-stream · branch `migration/wave-2/event-stream` · parent SHA 4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a (feature HEAD after wave-1). **Lease:** compose project `kivvi-w-events`, HTTP_PORT=19040, HTTPS_PORT=19041. **Model:** sonnet, effort HIGH.
 
 **Capability:** The store owner can watch tracked events arrive live, filter the log, and a replayed event is never shown twice.
 **Oracle:** journeys/event-stream/steps/1..7 (`/pl/events` with `data-stream-state=live`; `POST /collect` 202 then the row with the marker appears; replay 200; two 400 cases; pause; `?type=purchase&site=aurea&range=24h`). Behaviours: B15–B19, B24, B01 (events row).

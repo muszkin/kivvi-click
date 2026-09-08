@@ -51,7 +51,7 @@
       "integration_commit": "887af4543c5a51255735f1ddfc0d8860d11551c0"
     },
     "w1-landing": {
-      "state": "INTEGRATED",
+      "state": "FEATURE_HEAD_GREEN",
       "wave": "wave-1",
       "branch": "migration/wave-1/landing",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w1-landing",
@@ -69,7 +69,7 @@
       "integration_commit": "6e7a847c5bcda11149585f7007bf3f2f349b0394"
     },
     "w1-scheduler-heartbeat": {
-      "state": "INTEGRATED",
+      "state": "FEATURE_HEAD_GREEN",
       "wave": "wave-1",
       "branch": "migration/wave-1/scheduler-heartbeat",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w1-scheduler-heartbeat",
@@ -77,6 +77,22 @@
       "head_sha": "e778720f721e944583ee1e816e19323bb77dc152",
       "note": "starts when landing or feeds integrates (concurrency cap 2)",
       "integration_commit": "9427fdb1d92e4e606e67471638031d1bc0fb73d4"
+    },
+    "w2-event-stream": {
+      "state": "WORKTREE_READY",
+      "wave": "wave-2",
+      "branch": "migration/wave-2/event-stream",
+      "worktree": "/home/muszkin/work/kivvi-click-wt/w2-event-stream",
+      "parent_sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
+      "head_sha": null
+    },
+    "w2-customers": {
+      "state": "WORKTREE_READY",
+      "wave": "wave-2",
+      "branch": "migration/wave-2/customers",
+      "worktree": "/home/muszkin/work/kivvi-click-wt/w2-customers",
+      "parent_sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
+      "head_sha": null
     }
   },
   "deferred_obligations": [],
@@ -194,7 +210,7 @@
     },
     {
       "wave_id": "wave-1",
-      "state": "WAVE_RUNNING",
+      "state": "WAVE_INTEGRATED",
       "journeys": [
         "landing",
         "feeds",
@@ -205,52 +221,148 @@
       "verifier_cohort": [
         {
           "dimension": "unit",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
           "evidence": "waves/wave-1/unit.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "landing",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "feeds",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "scheduler-heartbeat",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "integration",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
           "evidence": "waves/wave-1/integration.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "landing",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "feeds",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "scheduler-heartbeat",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "architecture",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
           "evidence": "waves/wave-1/architecture.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "landing",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "feeds",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "scheduler-heartbeat",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "contract",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
-          "evidence": "waves/wave-1/contract.md",
-          "journey_verdicts": []
+          "evidence": "waves/wave-1/contract-rerun/ (orchestrator re-ran compare.mjs on the live stack after the verifier lost its files; verifier summary in waves/wave-1/contract.md)",
+          "journey_verdicts": [
+            {
+              "journey": "landing",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "feeds",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "scheduler-heartbeat",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "visual",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
           "evidence": "waves/wave-1/visual.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "landing",
+              "verdict": "accepted-deviation",
+              "deviation_id": "DEV-11"
+            },
+            {
+              "journey": "feeds",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "scheduler-heartbeat",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "e2e",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
           "evidence": "waves/wave-1/e2e.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "landing",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "feeds",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "scheduler-heartbeat",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         }
       ],
       "repair_rounds": 1
     },
     {
       "wave_id": "wave-2",
-      "state": "WAVE_PLANNED",
+      "state": "WAVE_RUNNING",
       "journeys": [
         "event-stream",
         "customers"
@@ -311,5 +423,5 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-08T20:11:29Z"
+  "updated_at": "2026-09-08T20:20:58Z"
 }

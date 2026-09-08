@@ -1,6 +1,6 @@
 # Slice packet w2-customers — wave-2, journey J5 "customers"
 
-Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w2-customers · branch `migration/wave-2/customers` · parent SHA <PARENT-SHA>. **Lease:** compose project `kivvi-w-customers`, HTTP_PORT=19050, HTTPS_PORT=19051. **Model:** sonnet, effort HIGH.
+Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w2-customers · branch `migration/wave-2/customers` · parent SHA 4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a. **Lease:** compose project `kivvi-w-customers`, HTTP_PORT=19050, HTTPS_PORT=19051. **Model:** sonnet, effort HIGH.
 
 **Capability:** The store owner can browse customers, open a 360 profile and return to the list.
 **Oracle:** journeys/customers/steps/1..6 (`/pl/customers`, `?page=2`, back to list, click first row → `/pl/customers/c_…`, back link → list, `/pl/customers/c_9999` → 404). Behaviours: B03, B05, B25, B01 (customers + profile rows).

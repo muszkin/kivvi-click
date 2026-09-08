@@ -1,0 +1,20 @@
+# scheduler-heartbeat static checks (packet-mandated, run directly against the live kivvi-int stack)
+
+$ docker compose -p kivvi-int exec -T database psql -U app -d app -tAc "select name, locked_by is not null, lock_until > locked_at from shedlock"
+heartbeat|t|t
+
+$ docker compose -p kivvi-int logs api | grep -c "Scheduler heartbeat tick\."
+1
+
+$ docker compose -p kivvi-int logs api | grep "Scheduler heartbeat tick\."
+api-1  | 2026-09-08T20:12:39.279Z  INFO 1 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+
+$ curl -sk -i https://localhost:19101/api/v1/pl/landing | head -5
+HTTP/2 200
+alt-svc: h3=":443"; ma=2592000
+content-type: application/json
+date: Tue, 08 Sep 2026 20:14:18 GMT
+permissions-policy: browsing-topics=()
+
+$ curl -sk -o /dev/null -w '%{http_code}\n' https://localhost:19101/api/v1/de/landing
+404

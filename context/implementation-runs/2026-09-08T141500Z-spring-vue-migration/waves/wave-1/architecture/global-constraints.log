@@ -1,0 +1,41 @@
+cwd: /home/muszkin/work/kivvi-click-wt/verify-wave-1-architecture
+=== git diff --quiet vs base 8d3fc320354604b641b44a3043a070f279e6d491 over protected paths ===
+paths: src/ templates/ assets/ translations/ migrations/ tests/**/*.php tests/e2e/specs/ composer.json composer.lock compose.yaml compose.override.yaml compose.prod.yaml Dockerfile frankenphp/ config/ public/
+DIFF_EXIT=0  (0 = empty diff = PASS)
+
+=== full diff --stat vs base (all paths, for context) ===
+ tools/migration-verify/deviations.json             |  106 +
+ tools/migration-verify/package-lock.json           |   37 +
+ tools/migration-verify/package.json                |   11 +
+ tools/migration-verify/performance.mjs             |  115 +
+ 167 files changed, 17730 insertions(+)
+
+=== Flyway migrations present ===
+backend/src/main/resources/db/migration/V1__baseline.sql
+
+=== CSS byte-identical (cmp) frontend/src/styles/*.css vs main-repo assets/styles/*.css ===
+01-tokens.css: IDENTICAL
+02-base.css: IDENTICAL
+03-components.css: IDENTICAL
+04-patterns.css: IDENTICAL
+app.css: IDENTICAL
+
+=== pinned versions (backend pom.xml, frontend package.json) vs plan Technology decisions table ===
+10-		<version>4.1.1</version>
+21:		<java.version>25</java.version>
+24:		<archunit.version>1.5.0</archunit.version>
+143:			<version>${archunit.version}</version>
+94-			<version>7.10.0</version>
+99-			<version>7.10.0</version>
+29:    image: dunglas/mercure:v0.24.2
+        "pinia": "4.0.3",
+        "vue": "3.5.42",
+        "vue-i18n": "11.4.10",
+        "vue-router": "5.3.1"
+        "@vitejs/plugin-vue": "6.0.8",
+        "@vue/test-utils": "2.5.0",
+        "prettier": "3.8.4",
+        "typescript": "6.0.3",
+        "vite": "8.2.2",
+        "vitest": "5.0.0",
+        "vue-tsc": "3.3.11"
