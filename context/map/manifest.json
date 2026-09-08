@@ -4,13 +4,13 @@
   "generator_version": "a26f4ab1f8949c90",
   "manifest_digest": {
     "algorithm": "sha256-rfc8785-with-empty-digest",
-    "value": "62d11e3823fb2cc06fe8d3949bcdd5ae27a429fa388cea060ea7550185e32709"
+    "value": "79d51621f80cfa001d9d51fb9c74e4f2f60e1369a93ee258500b480d4b566981"
   },
   "operation": "refresh",
   "project_classification": "brownfield",
   "scope_kind": "repository",
   "phase": "complete",
-  "generated_at": "2026-09-08T13:58:50Z",
+  "generated_at": "2026-09-08T14:02:47Z",
   "repository_root": ".",
   "scope": [
     "."
@@ -20,9 +20,7 @@
     "revision": "5b806ac74b75d1d521de97f7d3c70b8c431697fb",
     "branch": "main",
     "worktree_status": [
-      " M context/map/INDEX.md",
-      " M context/map/documentation-index.md",
-      " M context/map/risks-and-unknowns.md"
+      "M compose.yaml"
     ],
     "untracked_nonignored_paths": [
       ".ai/cezar/.gitignore",
@@ -33,19 +31,9 @@
     "non_comparable_reasons": [],
     "dirty_tracked_fingerprints": [
       {
-        "path": "context/map/INDEX.md",
+        "path": "compose.yaml",
         "method": "sha256-current-worktree-bytes",
-        "value": "e364337a7e0f74b619f4f85e949868ac7463c4eb379218d05d4dd7c431bf7c8e"
-      },
-      {
-        "path": "context/map/documentation-index.md",
-        "method": "sha256-current-worktree-bytes",
-        "value": "b2f6dbc7df3ad804447a5c5d73c884f8e489282a856dbe4018c57b9f6515f3df"
-      },
-      {
-        "path": "context/map/risks-and-unknowns.md",
-        "method": "sha256-current-worktree-bytes",
-        "value": "2cdf83fc16f1635baa4bb9422817c2a500cb7fb7bcb1862ef3c487fe6f9f75c8"
+        "value": "fc378ffc5bd9de19b8a877170e8773819259e9b9fe5d0a85b9095681d9a0aa07"
       }
     ],
     "inventory_fingerprint": "5194762e2addee6fa0a2d50e3bcd05164218e1b455557520bc439171af7ee9af",
@@ -823,10 +811,10 @@
       "artifact_type": "proposal",
       "authority": "supporting",
       "source_revision": "5b806ac74b75d1d521de97f7d3c70b8c431697fb",
-      "generated_at": "2026-09-08T13:58:50Z",
+      "generated_at": "2026-09-08T14:02:47Z",
       "freshness": "current",
-      "content_sha256": "7c31b67d225b3c22937784cdf656a953cf2ff9eb2f4f0e0fb4a550aab7f2c5e5",
-      "approval_status": "draft",
+      "content_sha256": "33af3600ac7e933b866f9c8ef18c71240355133db68c84de338162e2a99ac78e",
+      "approval_status": "approved",
       "conflicts": [
         "CLAUDE.md/AGENTS.md stack rules remain the old stack until CON-1"
       ],
@@ -882,8 +870,8 @@
         ".claude/skills/product-spec/SKILL.md"
       ],
       "input_fingerprint": "6cc8d4b7ab047ad8127ca356dd97295b5f1f9703909aea1895423428c65e9164",
-      "output_sha256": "e364337a7e0f74b619f4f85e949868ac7463c4eb379218d05d4dd7c431bf7c8e",
-      "generated_at": "2026-09-08T13:58:50Z"
+      "output_sha256": "f7cb587e97c5a14a1da784b12b52fe66dcb6fb0cedfdde62d3df522e5e3386fa",
+      "generated_at": "2026-09-08T14:02:47Z"
     },
     {
       "path": "context/map/project-overview.md",
@@ -1032,8 +1020,8 @@
         "... 6 more tracked files under the scope"
       ],
       "input_fingerprint": "753a41d634c2cfcf0cc2843027121c0dce1437f3ac3d25f994edc74d8e910d33",
-      "output_sha256": "b2f6dbc7df3ad804447a5c5d73c884f8e489282a856dbe4018c57b9f6515f3df",
-      "generated_at": "2026-09-08T13:58:50Z"
+      "output_sha256": "582d87db7f79445aaaf103f183f70561a5ff7dd21bffe2b19fa00431525848c1",
+      "generated_at": "2026-09-08T14:02:47Z"
     },
     {
       "path": "context/map/delivery-and-verification.md",
@@ -1102,8 +1090,8 @@
         "... 44 more tracked files under the scope"
       ],
       "input_fingerprint": "a8bb8d2a90394a6c0003c0d21acc6489ff4a159bb9d0e71ff83f53861f7867e6",
-      "output_sha256": "2cdf83fc16f1635baa4bb9422817c2a500cb7fb7bcb1862ef3c487fe6f9f75c8",
-      "generated_at": "2026-09-08T13:58:50Z"
+      "output_sha256": "c9bdea9fc677c2cb6413826e2ef7d684821ff179cd45ad742537b65f30d5b193",
+      "generated_at": "2026-09-08T14:02:47Z"
     },
     {
       "path": "context/map/diagrams/module-dependencies.mmd",
@@ -1545,12 +1533,12 @@
     },
     {
       "id": "R17",
-      "summary": "Production stack down since 2026-09-07 11:00 UTC (database container stopped, no restart policy)",
+      "summary": "Production stack down since 2026-09-07 11:00 UTC (database container stopped, no restart policy) — repaired 2026-09-08",
       "sources": [
         "docker inspect kivvi-click-database-1",
         "compose.yaml"
       ],
-      "state": "Undecided",
+      "state": "Decided",
       "owner": "user"
     }
   ],
@@ -1566,7 +1554,6 @@
     "add /.ai/ to root .gitignore or confirm tooling",
     "run composer test, phpstan, typecheck, e2e in an isolated dev stack and refresh verdicts",
     "bump Symfony 8.0.x -> 8.1.x (R16) via implementation-planning",
-    "owner approves the migration plan and answers the execution question",
-    "owner decides on restoring old prod (R17) before CUT-1"
+    "operator answers the execution question; run implementation-orchestrator (migration profile)"
   ]
 }

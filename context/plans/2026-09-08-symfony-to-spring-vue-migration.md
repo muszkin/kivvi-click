@@ -1,6 +1,6 @@
 # Symfony/Twig → Spring Boot + Vue 3 SPA Migration Plan
 
-**Status:** ready-for-approval
+**Status:** approved (owner, 2026-09-08; coexistence strategy parallel rewrite confirmed)
 **Date:** 2026-09-08
 **Request:** owner decision of 2026-09-08 ("nie chcę utrzymywać PHP długoterminowo, Java to język, w którym to będzie żyć"; Vue 3 SPA, no SSR), following `context/research/2026-09-08-stack-migration-spring-vue-react.md` (verdict adopt-with-constraints).
 **Plan location:** `context/plans/2026-09-08-symfony-to-spring-vue-migration.md` (tracked by Git; `context/plans/` is a proposed convention beside `context/research/`).
@@ -58,7 +58,7 @@ See `context/map/architecture-and-flows.md`. In one paragraph: FrankenPHP serves
 
 **Coexistence strategy: parallel rewrite** (the new stack grows in `backend/` and `frontend/` beside the old one; the old stack stays the oracle; one cutover at the end).
 
-Challenge to the default (`backend-swap` defaults to strangler at the edge), raised once: strangler needs a shared session across PHP and Java through an edge proxy and a frozen shared schema. Here (1) the PHP session is a PHP-serialized blob in `sessions` that Spring Session cannot read; (2) there is no domain schema to share — only `sessions`, `cache_items`, `messenger_messages`; (3) there are no real users (production was down for a day without anyone noticing) so per-wave production cutover buys nothing; (4) one developer would maintain two live stacks plus proxy rules. Parallel rewrite removes the session-sharing seam and the proxy work; its cost is that nothing ships to production until the last wave. **Decision requested from the operator in the approval question; the plan is written for parallel rewrite.**
+Challenge to the default (`backend-swap` defaults to strangler at the edge), raised once: strangler needs a shared session across PHP and Java through an edge proxy and a frozen shared schema. Here (1) the PHP session is a PHP-serialized blob in `sessions` that Spring Session cannot read; (2) there is no domain schema to share — only `sessions`, `cache_items`, `messenger_messages`; (3) there are no real users (production was down for a day without anyone noticing) so per-wave production cutover buys nothing; (4) one developer would maintain two live stacks plus proxy rules. Parallel rewrite removes the session-sharing seam and the proxy work; its cost is that nothing ships to production until the last wave. **Operator decision 2026-09-08: parallel rewrite confirmed.**
 
 ## Inventory coverage ledger
 
@@ -104,7 +104,7 @@ Every item ends in exactly one row. Full lists live in `context/migration-oracle
 | Item | Provenance | Decision state | Evidence or rationale | Consequence |
 | --- | --- | --- | --- | --- |
 | Migrate to Java/Spring Boot; Vue 3 SPA; no SSR | User-confirmed (2026-09-08) | Decided | research verdict flip condition met | this plan |
-| Parallel rewrite, not strangler | Inferred | Proposed (operator to confirm) | see challenge above | single cutover; nothing in prod until wave-5 |
+| Parallel rewrite, not strangler | User-confirmed (2026-09-08) | Decided | see challenge above | single cutover; nothing in prod until wave-5 |
 | Keep Mercure hub (dunglas/mercure, AGPL-3.0) as a separate container | Observed contract + Inferred | Proposed | browser contract `/.well-known/mercure` stays identical; unmodified AGPL binary used as a network service | one more container; AGPL obligations limited to the unmodified hub |
 | Mercure payload changes from `{html}` to a JSON event | Inferred | Proposed → DEV-3 | the SPA renders rows from data; the only consumer is our own JS | verifier compares event data, not HTML |
 | Same CSS and markup, existing Playwright suite runs unchanged (only `E2E_BASE_URL`) | Inferred | Proposed | `tests/e2e/specs/*` select by class/data attributes; a11y/text oracle ignores classes | e2e suite is the acceptance oracle for every wave |
@@ -115,7 +115,7 @@ Every item ends in exactly one row. Full lists live in `context/migration-oracle
 | Build tool Maven with wrapper | Inferred | Proposed | Spring Initializr default; no daemon; no Gradle on host | `./mvnw` |
 | Java 25 (Temurin) | Observed (Adoptium: most recent LTS 25) | Proposed | Spring Boot 4.1.1 supports 17–26; LTS line | Dockerfile `eclipse-temurin:25-jre` |
 | Prod host stays this machine, port 23456, external proxy unchanged | Observed | Decided (existing) | `README.md` | CUT-1 only swaps the compose stack |
-| Production currently down (database stopped) | Observed | Undecided (owner) | restart count 1499 | CUT-1 entry condition: owner decides whether to restore old prod first; add `restart: unless-stopped` to the new database service |
+| Production was down (database stopped) | Observed | Decided (owner, 2026-09-08): old prod restored, `restart: unless-stopped` added to `database` in `compose.yaml` | restart count 1499; restored 2026-09-08 | CUT-1 entry condition satisfied; the new stack's database service inherits the same policy |
 | Disk: 11 GB free | Observed | Accepted risk needed | JVM images + node_modules per worktree ≈ 1–1.5 GB each | max 2 parallel journeys per wave; kill criterion on disk < 3 GB |
 
 ## Socratic challenge ledger
@@ -511,7 +511,7 @@ DAG: J0 → {J1, J2, J3} → {J4, J5} → {J6, J7, J8} → {J9, J10, J11} → J1
 
 ## Implementation-orchestrator handoff
 
-- **Canonical plan identity:** `context/plans/2026-09-08-symfony-to-spring-vue-migration.md`; SHA-256 recorded in `context/map/manifest.json` (`related_artifacts`); source revision `5b806ac` (product `91f8f85`); approval status: ready-for-approval.
+- **Canonical plan identity:** `context/plans/2026-09-08-symfony-to-spring-vue-migration.md`; SHA-256 recorded in `context/map/manifest.json` (`related_artifacts`); source revision `5b806ac` (product `91f8f85`); approval status: approved (2026-09-08).
 - **Project-context entrypoint:** `context/map/INDEX.md`, `context/map/manifest.json` (freshness complete for `5b806ac`; refresh after this plan is committed).
 - **Oracle:** path above; manifest SHA-256 above; `source_sha` in manifest must equal `5b806ac`.
 - **Execution DAG:** J0 → {J1,J2,J3} → {J4,J5} → {J6,J7,J8} → {J9,J10,J11} → J12; cohorts A–D with cap 2; integration order alphabetical.
@@ -537,7 +537,7 @@ DAG: J0 → {J1, J2, J3} → {J4, J5} → {J6, J7, J8} → {J9, J10, J11} → J1
 
 ### Operator execution decision
 
-**Status:** pending-plan-approval
+**Status:** awaiting-operator
 
 - **Selected profile:** migration (fixed)
 - **Selected orchestration:** —
@@ -546,7 +546,7 @@ DAG: J0 → {J1, J2, J3} → {J4, J5} → {J6, J7, J8} → {J9, J10, J11} → J1
 - **Automatic profile escalation:** not applicable
 - **Challenge raised:** parallel rewrite instead of strangler (see "Migration kind and trigger"); production is down and its database has no restart policy — CUT-1 entry condition; disk headroom caps parallelism at 2.
 - **Operator override:** —
-- **Implementation authorization:** not yet granted
+- **Implementation authorization:** plan approved 2026-09-08; execution envelope pending the operator's answer to the execution question
 
 ## Coverage matrix
 
@@ -570,7 +570,7 @@ DAG: J0 → {J1, J2, J3} → {J4, J5} → {J6, J7, J8} → {J9, J10, J11} → J1
 
 ## Accepted risks
 
-- Production is down (old stack); the plan does not repair it. Owner decides before CUT-1 whether to restore the old stack meanwhile (`docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d database`) and to add `restart: unless-stopped` to the database service. Owner: Piotr Mucha.
+- Production outage (R17) was repaired on 2026-09-08 (database restarted, restart policy added). Residual risk: no monitoring until PIO-112. Owner: Piotr Mucha.
 - Mercure hub is AGPL-3.0; used unmodified as a network service. Owner: Piotr Mucha. Revisit if the hub is ever modified.
 - Node 26 LTS status and Spring Boot OSS support dates are from secondary sources or unknown; verify before CUT-1. Owner: maintainer.
 - Disk headroom 11 GB; parallelism capped at 2; K7. Owner: Piotr Mucha.

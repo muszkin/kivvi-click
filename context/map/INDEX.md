@@ -22,7 +22,7 @@ canonical docs outrank this generated map. Verify stale or high-risk claims befo
 | implementation planning | overview, `technology.md`, `architecture-and-flows.md`, `dependencies.md`, `delivery-and-verification.md`, `git-and-pr-history.md` (hotspots), risks, scoped contexts of touched directories |
 | migration planning (stack change under review, R1) | `../research/2026-09-08-stack-migration-spring-vue-react.md` (verdict), architecture + diagrams, `tests/e2e/.agents/project-context.md` (oracle), `technology.md`, risks R1/R3/R8 |
 | review | architecture, dependencies (contracts table), risks, git co-change, delivery gates, scoped contexts |
-| `implementation-orchestrator` | approved plan: `../plans/2026-09-08-symfony-to-spring-vue-migration.md` (status ready-for-approval; not yet approved), overview, architecture, dependencies, delivery commands, risks, nearest scoped contexts |
+| `implementation-orchestrator` | approved plan: `../plans/2026-09-08-symfony-to-spring-vue-migration.md` (approved 2026-09-08), overview, architecture, dependencies, delivery commands, risks, nearest scoped contexts |
 | implementer | approved plan, scoped context of the directory, dependencies, delivery commands, invariants listed in each scoped context |
 
 ## Domains
@@ -54,7 +54,7 @@ canonical docs outrank this generated map. Verify stale or high-risk claims befo
 
 ## Plans and oracle
 
-- [`../plans/2026-09-08-symfony-to-spring-vue-migration.md`](../plans/2026-09-08-symfony-to-spring-vue-migration.md) — migration plan (ready-for-approval): 6 waves, 13 journeys, deviations DEV-1..11, cutover packets RR-1/CUT-1/CON-1.
+- [`../plans/2026-09-08-symfony-to-spring-vue-migration.md`](../plans/2026-09-08-symfony-to-spring-vue-migration.md) — migration plan (approved 2026-09-08): 6 waves, 13 journeys, deviations DEV-1..11, cutover packets RR-1/CUT-1/CON-1.
 - `../migration-oracle/symfony-to-spring-vue/` — immutable pre-migration oracle captured on `5b806ac` (manifest SHA-256 `4945a8deb19ea342a4aaa2c0ac681dc13f05c121aa387677c30ecf210a90f74f`); do not edit.
 
 ## Canonical project documents
@@ -69,7 +69,7 @@ foundation docs `context/foundation/{prd,roadmap,shape-notes,stack-assessment,he
 - R2 `AGENTS.md` "Current Shape" lists deleted files.
 - R3 Foundation docs describe a homepage-only baseline; a full prototype exists.
 - R5 Dev and prod compose stacks share one project name; prod containers run on this host.
-- **R17 Production is down** since 2026-09-07 11:00 UTC: `kivvi-click-database-1` exited (restart policy `no`), `php` crash-loops (1499 restarts). Owner decision pending.
+- R17 Production was down 2026-09-07 11:00 UTC → 2026-09-08 (database container exited, no restart policy); repaired, policy added. Monitoring still absent (PIO-112).
 - R8 Issue tracker: GitHub Issues (`CLAUDE.md`) vs Linear (memory, user).
 
 ## Freshness rule
