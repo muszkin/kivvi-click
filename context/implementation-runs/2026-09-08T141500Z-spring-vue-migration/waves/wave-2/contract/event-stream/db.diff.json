@@ -1,0 +1,52 @@
+{
+  "oracle": {
+    "before": {
+      "sessions": 4,
+      "cache_items": 5,
+      "messenger_messages": 0,
+      "var/import files": 0
+    },
+    "after": {
+      "sessions": 4,
+      "cache_items": 6,
+      "messenger_messages": 0,
+      "var/import files": 0
+    },
+    "delta": {
+      "sessions": 0,
+      "cache_items": 1,
+      "messenger_messages": 0,
+      "var/import files": 0
+    },
+    "note": "row counts from the seeded oracle database; delta is the journey's persisted side effect"
+  },
+  "candidate": {
+    "before": {
+      "spring_session": 0,
+      "event_dedup": 6,
+      "shedlock": 2
+    },
+    "after": {
+      "spring_session": 0,
+      "event_dedup": 7,
+      "shedlock": 2
+    },
+    "delta": {
+      "spring_session": 0,
+      "event_dedup": 1,
+      "shedlock": 0
+    }
+  },
+  "compare_mjs_db_verdict": [
+    {
+      "table": "sessions",
+      "verdict": "accepted-deviation(DEV-9)",
+      "detail": "oracle delta 0, candidate delta 0 (mapped to spring_session)"
+    },
+    {
+      "table": "cache_items",
+      "verdict": "accepted-deviation(DEV-5)",
+      "detail": "oracle delta 1, candidate delta 1 (mapped to event_dedup+shedlock)"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "journey": "event-stream",
+  "step": 4,
+  "oracle_http": [
+    {
+      "kind": "api",
+      "method": "POST",
+      "path": "/collect",
+      "request": {
+        "json": {
+          "type": "purchase"
+        }
+      },
+      "status": 400,
+      "headers": {
+        "cache-control": "no-cache, private",
+        "content-type": "application/json",
+        "permissions-policy": "browsing-topics=()",
+        "x-robots-tag": "noindex"
+      },
+      "body": "{\"error\":\"Pole \\u201eidempotency_id\\u201d jest wymagane.\"}"
+    }
+  ],
+  "candidate_http": [
+    {
+      "kind": "api",
+      "method": "POST",
+      "path": "/collect",
+      "request": {
+        "json": {
+          "type": "purchase"
+        }
+      },
+      "status": 400,
+      "headers": {
+        "content-type": "application/json",
+        "permissions-policy": "browsing-topics=()",
+        "transfer-encoding": "chunked"
+      },
+      "body": "{\"error\":\"Pole „idempotency_id” jest wymagane.\"}"
+    }
+  ],
+  "compare_mjs_verdict": {
+    "verdict": "accepted-deviation(DEV-4,DEV-5)",
+    "detail": "",
+    "apiBaselineCount": 0
+  }
+}

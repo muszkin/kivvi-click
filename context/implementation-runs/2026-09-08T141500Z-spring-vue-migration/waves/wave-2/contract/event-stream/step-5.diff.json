@@ -1,0 +1,50 @@
+{
+  "journey": "event-stream",
+  "step": 5,
+  "oracle_http": [
+    {
+      "kind": "api",
+      "method": "POST",
+      "path": "/collect",
+      "request": {
+        "json": {
+          "idempotency_id": "oracle-bad-cap4d",
+          "type": "teleport"
+        }
+      },
+      "status": 400,
+      "headers": {
+        "cache-control": "no-cache, private",
+        "content-type": "application/json",
+        "permissions-policy": "browsing-topics=()",
+        "x-robots-tag": "noindex"
+      },
+      "body": "{\"error\":\"Nieznany typ zdarzenia \\u201eteleport\\u201d.\"}"
+    }
+  ],
+  "candidate_http": [
+    {
+      "kind": "api",
+      "method": "POST",
+      "path": "/collect",
+      "request": {
+        "json": {
+          "idempotency_id": "oracle-bad-verc07612d",
+          "type": "teleport"
+        }
+      },
+      "status": 400,
+      "headers": {
+        "content-type": "application/json",
+        "permissions-policy": "browsing-topics=()",
+        "transfer-encoding": "chunked"
+      },
+      "body": "{\"error\":\"Nieznany typ zdarzenia „teleport”.\"}"
+    }
+  ],
+  "compare_mjs_verdict": {
+    "verdict": "accepted-deviation(DEV-4,DEV-5)",
+    "detail": "",
+    "apiBaselineCount": 0
+  }
+}

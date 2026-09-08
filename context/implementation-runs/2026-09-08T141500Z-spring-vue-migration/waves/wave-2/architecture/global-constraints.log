@@ -1,0 +1,15 @@
+Command: git diff --quiet 4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a..b87a701244f5316e1a53bace7a1e41facdffc277 -- src/ templates/ assets/ translations/ migrations/ tests/**/*.php tests/e2e/specs/ composer.json composer.lock compose.yaml compose.override.yaml compose.prod.yaml Dockerfile frankenphp/ config/ public/
+cwd: /home/muszkin/work/kivvi-click-wt/verify-wave-2-architecture
+Exit: 0 (empty diff — no old-stack/protected path touched since wave-1's assembled SHA)
+
+Command: git diff --stat 4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a..b87a701244f5316e1a53bace7a1e41facdffc277
+cwd: /home/muszkin/work/kivvi-click-wt/verify-wave-2-architecture
+Result: 81 files changed, 6177 insertions(+), 23 deletions(-) — all under backend/src, frontend/src, frontend/test, tools/migration-verify/ (deletions are edits to existing wave-1 files, e.g. i18n message additions, EventStream wiring); no old-stack path in the diff.
+
+Command: find backend/src/main/resources/db/migration -type f
+cwd: /home/muszkin/work/kivvi-click-wt/verify-wave-2-architecture
+Result: backend/src/main/resources/db/migration/V1__baseline.sql (only migration; unchanged from wave-1 — event-stream/customers wave added no new Flyway migration, confirming no schema drift outside the reviewed baseline).
+
+Command: git diff 4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a..b87a701244f5316e1a53bace7a1e41facdffc277 -- backend/pom.xml frontend/package.json
+cwd: /home/muszkin/work/kivvi-click-wt/verify-wave-2-architecture
+Exit: 0, empty diff — no dependency/version pin changed since wave-1 (already verified against the plan's Technology decisions table in wave-1/architecture.md).

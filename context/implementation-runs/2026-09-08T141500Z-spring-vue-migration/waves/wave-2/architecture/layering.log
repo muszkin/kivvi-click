@@ -1,0 +1,41 @@
+Command: git diff --name-only 4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a..b87a701244f5316e1a53bace7a1e41facdffc277 -- backend/src/main/java/
+cwd: /home/muszkin/work/kivvi-click-wt/verify-wave-2-architecture
+
+Backend main-source files touched by wave-2 (event-stream, customers), relative to click.kivvi:
+
+application/CustomersViewService.java
+application/EventsViewService.java
+application/tracking/EventIngestionService.java
+domain/tracking/EventStreamTopic.java
+domain/tracking/EventType.java
+domain/tracking/InvalidEventPayload.java
+domain/tracking/TrackedEvent.java
+domain/tracking/TrackedSite.java
+fixtures/AutomationsFixtures.java
+fixtures/CustomersFixtures.java
+fixtures/EventsFixtures.java
+infrastructure/mercure/HttpMercurePublisher.java
+infrastructure/mercure/MercureJwt.java
+infrastructure/mercure/MercurePublisher.java
+infrastructure/mercure/MercurePublishException.java
+infrastructure/tracking/EventDedupCleanupJob.java
+infrastructure/tracking/EventDedupLedger.java
+infrastructure/tracking/EventDedupStore.java
+web/CollectController.java
+web/CustomersController.java
+web/dto/CustomerDetailResponse.java
+web/dto/CustomerListResponse.java
+web/dto/EventCollectResponse.java
+web/dto/EventErrorResponse.java
+web/dto/EventsResponse.java
+web/EventsController.java
+
+Observation: every touched file sits under one of the four existing top-level packages
+(web, application, domain, infrastructure) or fixtures; no new top-level package was
+introduced. This is exactly the shape ArchitectureTest.java's layering rules
+(domainDoesNotDependOnWeb, infrastructureIsOnlyUsedFromApplication,
+topLevelPackagesFormNoCycle) constrain, and the mercure boundary rule further restricts
+infrastructure/mercure/{MercurePublisher,HttpMercurePublisher} to being called only from
+application.tracking (EventIngestionService) and infrastructure.mercure itself — confirmed
+by reading EventIngestionService.java, which is the only application-layer caller of
+MercurePublisher.publish(...) in the diff.

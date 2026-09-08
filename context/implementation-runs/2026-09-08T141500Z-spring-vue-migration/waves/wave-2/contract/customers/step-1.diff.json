@@ -1,0 +1,80 @@
+{
+  "journey": "customers",
+  "step": 1,
+  "oracle_http": [
+    {
+      "kind": "document",
+      "method": "GET",
+      "path": "/pl/customers",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "requestHeaders": {
+        "accept-language": "pl-PL"
+      },
+      "responseHeaders": {
+        "cache-control": "max-age=0, must-revalidate, private",
+        "content-encoding": "zstd",
+        "content-type": "text/html; charset=UTF-8",
+        "expires": "Tue, 08 Sep 2026 13:52:02 GMT",
+        "permissions-policy": "browsing-topics=()",
+        "vary": "Accept-Encoding",
+        "x-robots-tag": "noindex"
+      }
+    }
+  ],
+  "candidate_http": [
+    {
+      "kind": "document",
+      "method": "GET",
+      "path": "/pl/customers",
+      "status": 200,
+      "contentType": "text/html;charset=UTF-8",
+      "requestHeaders": {
+        "accept-language": "pl-PL"
+      },
+      "responseHeaders": {
+        "content-encoding": "zstd",
+        "content-type": "text/html;charset=UTF-8",
+        "permissions-policy": "browsing-topics=()",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "kind": "xhr",
+      "method": "GET",
+      "path": "/api/v1/pl/shell?route=customers",
+      "status": 200,
+      "contentType": "application/json",
+      "requestHeaders": {
+        "accept-language": "pl-PL"
+      },
+      "responseHeaders": {
+        "content-encoding": "zstd",
+        "content-type": "application/json",
+        "permissions-policy": "browsing-topics=()",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "kind": "xhr",
+      "method": "GET",
+      "path": "/api/v1/pl/customers?page=1",
+      "status": 200,
+      "contentType": "application/json",
+      "requestHeaders": {
+        "accept-language": "pl-PL"
+      },
+      "responseHeaders": {
+        "content-encoding": "zstd",
+        "content-type": "application/json",
+        "permissions-policy": "browsing-topics=()",
+        "vary": "Accept-Encoding"
+      }
+    }
+  ],
+  "compare_mjs_verdict": {
+    "verdict": "accepted-deviation(DEV-4)",
+    "detail": "",
+    "apiBaselineCount": 2
+  }
+}

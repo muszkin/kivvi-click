@@ -394,45 +394,111 @@
       "verifier_cohort": [
         {
           "dimension": "unit",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "b87a701244f5316e1a53bace7a1e41facdffc277",
           "evidence": "waves/wave-2/unit.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "event-stream",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "customers",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "integration",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "b87a701244f5316e1a53bace7a1e41facdffc277",
           "evidence": "waves/wave-2/integration.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "event-stream",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "customers",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "architecture",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "b87a701244f5316e1a53bace7a1e41facdffc277",
           "evidence": "waves/wave-2/architecture.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "event-stream",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "customers",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "contract",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "b87a701244f5316e1a53bace7a1e41facdffc277",
           "evidence": "waves/wave-2/contract.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "event-stream",
+              "verdict": "parity",
+              "deviation_id": "DEV-3"
+            },
+            {
+              "journey": "customers",
+              "verdict": "parity",
+              "deviation_id": "DEV-9"
+            }
+          ]
         },
         {
           "dimension": "visual",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "b87a701244f5316e1a53bace7a1e41facdffc277",
           "evidence": "waves/wave-2/visual.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "event-stream",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "customers",
+              "verdict": "parity",
+              "deviation_id": "DEV-12"
+            }
+          ]
         },
         {
           "dimension": "e2e",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "b87a701244f5316e1a53bace7a1e41facdffc277",
           "evidence": "waves/wave-2/e2e.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "event-stream",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "customers",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         }
       ],
       "repair_rounds": 1,
@@ -497,6 +563,6 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-08T22:44:23Z",
+  "updated_at": "2026-09-08T22:53:18Z",
   "feature_head_sha": "b87a701244f5316e1a53bace7a1e41facdffc277"
 }

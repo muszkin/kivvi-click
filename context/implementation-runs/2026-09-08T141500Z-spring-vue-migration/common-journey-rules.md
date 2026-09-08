@@ -37,3 +37,5 @@ Before implementing: bring your stack up from your worktree (`docker compose -p 
 ## Stack build hint
 
 The `api` image builds the whole SPA and jar (several minutes). For fast iteration you may run the backend locally (`./mvnw spring-boot:run` with a dev profile pointing at the compose database) and `npm run dev` — but every gate in §Gates must run against the compose stack built from your candidate SHA.
+
+- Contract verifier isolation (from wave-3): the contract dimension runs ALONE on the shared verification stack (or on its own stack) — other verifiers' `/collect` traffic (performance budgets, e2e) contaminates `db.json` deltas. The orchestrator sequences it after e2e/visual finish.
