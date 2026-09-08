@@ -1,0 +1,3 @@
+# Independent review — w1-landing candidate c8a5a9e (2026-09-08)
+
+Verdict: **PASS**. Reviewer ran backend test/verify and frontend unit (45/45), integration (16/16), lint, typecheck, format:check. Scope exactly the 19 allowed files. Oracle steps 1–5 reproduced (redirect and demo click byte-for-byte per http.jsonl); `Format.java` faithful (U+202F thousands separator, half-away-from-zero); old-stack quirk preserved (landing copy stays Polish under /en, as the oracle shows); DEV-11 per-journey `steps` object authorized by the packet and already handled by compare.mjs; i18n loader merges into copies with a non-colliding `landingPage` key. No trailers, no secrets.
