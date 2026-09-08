@@ -1,0 +1,524 @@
+{
+  "login": {
+    "title": "The store owner can sign in with an e-mail address and see their identity in the panel shell",
+    "spec": "tests/e2e/specs/public.spec.ts (login), tests/Controller/SecurityControllerTest.php",
+    "steps": [
+      {
+        "goto": "/pl/login"
+      },
+      {
+        "fill": "#f-_username",
+        "value": "anna@aureashop.pl"
+      },
+      {
+        "fill": "#f-_password",
+        "value": "haslo-testowe"
+      },
+      {
+        "click": "button[type=\"submit\"]",
+        "waitUrl": "/pl/dashboard"
+      },
+      {
+        "post": "/pl/login",
+        "form": {
+          "_username": "",
+          "_password": ""
+        },
+        "note": "empty e-mail rejected server-side"
+      },
+      {
+        "post": "/pl/login",
+        "form": {
+          "_username": "not-an-email"
+        },
+        "note": "malformed e-mail rejected server-side"
+      },
+      {
+        "post": "/pl/logout",
+        "form": {},
+        "note": "sign-out restores default identity"
+      },
+      {
+        "goto": "/pl/dashboard"
+      }
+    ]
+  },
+  "shell-navigation": {
+    "title": "The store owner can move between every panel section and keep sidebar, theme and locale choices across reloads",
+    "spec": "tests/e2e/specs/navigation.spec.ts, tests/Controller/PanelPagesTest.php, tests/Controller/PreferencesControllerTest.php",
+    "steps": [
+      {
+        "goto": "/pl/dashboard"
+      },
+      {
+        "click": ".nav-item[data-route=\"events\"]",
+        "waitUrl": "/pl/events"
+      },
+      {
+        "click": ".nav-item[data-route=\"customers\"]",
+        "waitUrl": "/pl/customers"
+      },
+      {
+        "click": ".nav-item[data-route=\"automations\"]",
+        "waitUrl": "/pl/automations"
+      },
+      {
+        "click": ".nav-item[data-route=\"campaigns\"]",
+        "waitUrl": "/pl/campaigns"
+      },
+      {
+        "click": ".nav-item[data-route=\"popups\"]",
+        "waitUrl": "/pl/popups"
+      },
+      {
+        "click": ".nav-item[data-route=\"feeds\"]",
+        "waitUrl": "/pl/feeds"
+      },
+      {
+        "click": ".nav-item[data-route=\"import\"]",
+        "waitUrl": "/pl/import"
+      },
+      {
+        "click": ".nav-item[data-route=\"settings\"]",
+        "waitUrl": "/pl/settings"
+      },
+      {
+        "click": ".nav-item[data-route=\"dashboard\"]",
+        "waitUrl": "/pl/dashboard"
+      },
+      {
+        "click": "[data-action=\"toggle-sidebar\"]",
+        "waitAttr": [
+          ".app",
+          "data-sidebar",
+          "collapsed"
+        ]
+      },
+      {
+        "reload": true,
+        "waitAttr": [
+          ".app",
+          "data-sidebar",
+          "collapsed"
+        ]
+      },
+      {
+        "click": "[data-action=\"toggle-sidebar\"]",
+        "waitAttr": [
+          ".app",
+          "data-sidebar",
+          "expanded"
+        ]
+      },
+      {
+        "click": "[data-action=\"set-theme\"]",
+        "waitAttr": [
+          "html",
+          "data-theme",
+          "dark"
+        ]
+      },
+      {
+        "reload": true,
+        "waitAttr": [
+          "html",
+          "data-theme",
+          "dark"
+        ]
+      },
+      {
+        "click": "[data-action=\"set-theme\"]",
+        "waitAttr": [
+          "html",
+          "data-theme",
+          "light"
+        ]
+      },
+      {
+        "goto": "/pl/customers"
+      },
+      {
+        "click": ".tb-btn",
+        "hasText": "PL",
+        "waitUrl": "/en/customers"
+      },
+      {
+        "goto": "/en/dashboard"
+      },
+      {
+        "goto": "/pl/feeds"
+      },
+      {
+        "goto": "/de/dashboard",
+        "expectStatus": 404
+      }
+    ]
+  },
+  "landing": {
+    "title": "A visitor can read the public landing page in Polish or English and enter the panel demo",
+    "spec": "tests/e2e/specs/public.spec.ts (landing), tests/Controller/PanelPagesTest.php (landing)",
+    "steps": [
+      {
+        "goto": "/pl"
+      },
+      {
+        "goto": "/en"
+      },
+      {
+        "goto": "/"
+      },
+      {
+        "goto": "/pl"
+      },
+      {
+        "click": ".hero-cta a",
+        "hasText": "demo",
+        "waitUrl": "/pl/dashboard"
+      }
+    ]
+  },
+  "event-stream": {
+    "title": "The store owner can watch tracked events arrive live, filter the log, and a replayed event is never shown twice",
+    "spec": "tests/e2e/specs/events.spec.ts, tests/Tracking/EventIngestionTest.php",
+    "steps": [
+      {
+        "goto": "/pl/events",
+        "waitAttr": [
+          "#event-stream",
+          "data-stream-state",
+          "live"
+        ]
+      },
+      {
+        "post": "/collect",
+        "json": {
+          "idempotency_id": "oracle-evt-__RUN__",
+          "type": "purchase",
+          "detail": "412,00 PLN · zamówienie ORACLE-__RUN__",
+          "customer_id": "c_1001",
+          "customer_name": "Hania Kowalska",
+          "site": "aureashop.pl"
+        },
+        "expectStatus": 202,
+        "waitText": [
+          "#event-stream .event-row",
+          "ORACLE-__RUN__"
+        ]
+      },
+      {
+        "post": "/collect",
+        "json": {
+          "idempotency_id": "oracle-evt-__RUN__",
+          "type": "purchase",
+          "detail": "412,00 PLN · zamówienie ORACLE-__RUN__",
+          "customer_id": "c_1001",
+          "customer_name": "Hania Kowalska",
+          "site": "aureashop.pl"
+        },
+        "expectStatus": 200,
+        "note": "duplicate idempotency id"
+      },
+      {
+        "post": "/collect",
+        "json": {
+          "type": "purchase"
+        },
+        "expectStatus": 400,
+        "note": "missing idempotency id"
+      },
+      {
+        "post": "/collect",
+        "json": {
+          "idempotency_id": "oracle-bad-__RUN__",
+          "type": "teleport"
+        },
+        "expectStatus": 400,
+        "note": "unknown type"
+      },
+      {
+        "click": "[data-action=\"pause-stream\"]",
+        "waitAttr": [
+          "#event-stream",
+          "data-paused",
+          "true"
+        ]
+      },
+      {
+        "goto": "/pl/events?type=purchase&site=aurea&range=24h"
+      }
+    ]
+  },
+  "dashboard": {
+    "title": "The store owner can see the operational overview and jump from it into a customer profile or a rule",
+    "spec": "tests/e2e/specs/dashboard.spec.ts, tests/Controller/PanelPagesTest.php (dashboard)",
+    "steps": [
+      {
+        "goto": "/pl/dashboard"
+      },
+      {
+        "click": "a.event-row[href*=\"/customers/c_\"]",
+        "waitUrl": "/pl/customers/c_"
+      },
+      {
+        "back": true,
+        "waitUrl": "/pl/dashboard"
+      },
+      {
+        "click": "a.event-row[href*=\"/automations/a\"]",
+        "waitUrl": "/pl/automations/a"
+      }
+    ]
+  },
+  "customers": {
+    "title": "The store owner can browse customers, open a 360 profile and return to the list",
+    "spec": "tests/e2e/specs/customers.spec.ts, tests/Controller/PanelPagesTest.php (customers)",
+    "steps": [
+      {
+        "goto": "/pl/customers"
+      },
+      {
+        "goto": "/pl/customers?page=2"
+      },
+      {
+        "goto": "/pl/customers"
+      },
+      {
+        "click": ".table tbody tr",
+        "waitUrl": "/pl/customers/c_"
+      },
+      {
+        "click": ".page-head a.btn.ghost",
+        "waitUrl": "/pl/customers"
+      },
+      {
+        "goto": "/pl/customers/c_9999",
+        "expectStatus": 404
+      }
+    ]
+  },
+  "automations": {
+    "title": "The store owner can review automation rules and edit one as a list or a diagram with its simulation",
+    "spec": "tests/e2e/specs/automations.spec.ts, tests/Controller/PanelPagesTest.php (automations)",
+    "steps": [
+      {
+        "goto": "/pl/automations"
+      },
+      {
+        "goto": "/pl/automations?status=active"
+      },
+      {
+        "goto": "/pl/automations"
+      },
+      {
+        "click": ".auto-card",
+        "waitUrl": "/pl/automations/a1"
+      },
+      {
+        "click": ".seg [data-action=\"navigate\"]",
+        "hasText": "Diagram",
+        "waitUrl": "view=flow"
+      },
+      {
+        "click": ".seg [data-action=\"navigate\"]",
+        "hasText": "Lista",
+        "waitUrl": "view=list"
+      },
+      {
+        "goto": "/pl/automations/new"
+      }
+    ]
+  },
+  "campaigns-email-editor": {
+    "title": "The store owner can review e-mail campaigns and open the template editor, whose document keeps literal colours in dark mode",
+    "spec": "tests/e2e/specs/lists.spec.ts (campaigns), tests/e2e/specs/editors.spec.ts (email editor)",
+    "steps": [
+      {
+        "goto": "/pl/campaigns"
+      },
+      {
+        "goto": "/pl/campaigns?filter=triggered"
+      },
+      {
+        "goto": "/pl/campaigns"
+      },
+      {
+        "click": ".table tbody tr",
+        "waitUrl": "/pl/emails/k1"
+      },
+      {
+        "click": "[data-action=\"set-theme\"]",
+        "waitAttr": [
+          "html",
+          "data-theme",
+          "dark"
+        ],
+        "evalStyle": [
+          ".ee-doc",
+          "backgroundColor"
+        ]
+      },
+      {
+        "reload": true,
+        "waitAttr": [
+          "html",
+          "data-theme",
+          "dark"
+        ],
+        "note": "data-payload of the theme button is server-rendered; a reload flips it to 'light'"
+      },
+      {
+        "click": "[data-action=\"set-theme\"]",
+        "waitAttr": [
+          "html",
+          "data-theme",
+          "light"
+        ]
+      },
+      {
+        "goto": "/pl/emails/new"
+      }
+    ]
+  },
+  "popups-widget-editor": {
+    "title": "The store owner can preview on-site widgets and compose one for desktop or mobile",
+    "spec": "tests/e2e/specs/lists.spec.ts (widgets), tests/e2e/specs/editors.spec.ts (popup editor)",
+    "steps": [
+      {
+        "goto": "/pl/popups"
+      },
+      {
+        "click": ".auto-card",
+        "hasText": "Pasek darmowej dostawy",
+        "waitUrl": "preview=p2"
+      },
+      {
+        "goto": "/pl/popups/p1"
+      },
+      {
+        "click": ".pw-type",
+        "hasText": "Pasek",
+        "waitUrl": "type=banner"
+      },
+      {
+        "goto": "/pl/popups/p1"
+      },
+      {
+        "click": ".seg [data-action=\"navigate\"]",
+        "hasText": "Mobile",
+        "waitUrl": "device=mobile"
+      },
+      {
+        "goto": "/pl/popups/new"
+      }
+    ]
+  },
+  "feeds": {
+    "title": "The store owner can see product feed sources, sync state and the price-matching diagnostic",
+    "spec": "tests/e2e/specs/lists.spec.ts (product feeds), tests/Controller/PanelPagesTest.php (feeds)",
+    "steps": [
+      {
+        "goto": "/pl/feeds"
+      }
+    ]
+  },
+  "import-wizard": {
+    "title": "The store owner can walk the four-step customer import and upload a file that advances the wizard",
+    "spec": "tests/e2e/specs/import.spec.ts, tests/Controller/PanelPagesTest.php (import)",
+    "steps": [
+      {
+        "goto": "/pl/import/1"
+      },
+      {
+        "goto": "/pl/import/2"
+      },
+      {
+        "goto": "/pl/import/3"
+      },
+      {
+        "goto": "/pl/import/4"
+      },
+      {
+        "goto": "/pl/import/1"
+      },
+      {
+        "click": ".step[data-payload=\"3\"]",
+        "waitUrl": "/pl/import/3"
+      },
+      {
+        "click": "a.btn",
+        "hasText": "← Wstecz",
+        "waitUrl": "/pl/import/2"
+      },
+      {
+        "goto": "/pl/import/1"
+      },
+      {
+        "setFile": ".dropzone input[type=\"file\"]",
+        "name": "klienci-oracle.csv",
+        "content": "email;imie\nhania.k@aurea.pl;Hania\n",
+        "waitUrl": "/pl/import/2"
+      },
+      {
+        "goto": "/pl/import/5",
+        "expectStatus": 404
+      }
+    ]
+  },
+  "settings": {
+    "title": "The store owner can open each of the eight settings tabs at its own URL",
+    "spec": "tests/e2e/specs/settings.spec.ts, tests/Controller/PanelPagesTest.php (settings)",
+    "steps": [
+      {
+        "goto": "/pl/settings/account"
+      },
+      {
+        "click": ".settings-nav a",
+        "hasText": "Śledzone strony",
+        "waitUrl": "/pl/settings/sites"
+      },
+      {
+        "click": ".settings-nav a",
+        "hasText": "Zespół",
+        "waitUrl": "/pl/settings/team"
+      },
+      {
+        "click": ".settings-nav a",
+        "hasText": "Dostawcy email",
+        "waitUrl": "/pl/settings/providers"
+      },
+      {
+        "click": ".settings-nav a",
+        "hasText": "Webhooks i API",
+        "waitUrl": "/pl/settings/api"
+      },
+      {
+        "click": ".settings-nav a",
+        "hasText": "Powiadomienia",
+        "waitUrl": "/pl/settings/notifications"
+      },
+      {
+        "click": ".settings-nav a",
+        "hasText": "Plan i płatności",
+        "waitUrl": "/pl/settings/billing"
+      },
+      {
+        "click": ".settings-nav a",
+        "hasText": "RODO / DPA",
+        "waitUrl": "/pl/settings/gdpr"
+      },
+      {
+        "goto": "/pl/settings"
+      },
+      {
+        "goto": "/pl/settings/nonexistent",
+        "expectStatus": 404
+      }
+    ]
+  },
+  "scheduler-heartbeat": {
+    "title": "The system emits a scheduler heartbeat every hour through the worker and logs it",
+    "spec": "src/Schedule.php, src/MessageHandler/HeartbeatHandler.php (no browser surface)",
+    "static": true,
+    "steps": []
+  }
+}

@@ -1,0 +1,354 @@
+[
+  {
+    "controller": "src/Controller/AutomationController.php",
+    "path": "/{_locale}",
+    "name": "automations",
+    "methods": [
+      "GET"
+    ],
+    "requirements": "'_locale' => 'pl|en'",
+    "action": "index",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/automations.html.twig"
+  },
+  {
+    "controller": "src/Controller/AutomationController.php",
+    "path": "/automations/new",
+    "name": "automation_new",
+    "methods": [
+      "GET"
+    ],
+    "requirements": null,
+    "action": "create",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/automation-editor.html.twig"
+  },
+  {
+    "controller": "src/Controller/AutomationController.php",
+    "path": "/automations/{id}",
+    "name": "automation_edit",
+    "methods": [
+      "GET"
+    ],
+    "requirements": "'id' => 'a\\d+'",
+    "action": "edit",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/automation-editor.html.twig"
+  },
+  {
+    "controller": "src/Controller/CampaignController.php",
+    "path": "/{_locale}",
+    "name": "campaigns",
+    "methods": [
+      "GET"
+    ],
+    "requirements": "'_locale' => 'pl|en'",
+    "action": "index",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/campaigns.html.twig"
+  },
+  {
+    "controller": "src/Controller/CampaignController.php",
+    "path": "/emails/new",
+    "name": "email_new",
+    "methods": [
+      "GET"
+    ],
+    "requirements": null,
+    "action": "create",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/email-editor.html.twig"
+  },
+  {
+    "controller": "src/Controller/CampaignController.php",
+    "path": "/emails/{id}",
+    "name": "email_edit",
+    "methods": [
+      "GET"
+    ],
+    "requirements": "'id' => 'k\\d+'",
+    "action": "edit",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/email-editor.html.twig"
+  },
+  {
+    "controller": "src/Controller/CustomerController.php",
+    "path": "/{_locale}",
+    "name": "customers",
+    "methods": [
+      "GET"
+    ],
+    "requirements": "'_locale' => 'pl|en'",
+    "action": "index",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/customers.html.twig"
+  },
+  {
+    "controller": "src/Controller/CustomerController.php",
+    "path": "/customers/{id}",
+    "name": "customer_show",
+    "methods": [
+      "GET"
+    ],
+    "requirements": "'id' => 'c_\\d+'",
+    "action": "show",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/customer.html.twig"
+  },
+  {
+    "controller": "src/Controller/DashboardController.php",
+    "path": "/{_locale}",
+    "name": "dashboard",
+    "methods": [
+      "GET"
+    ],
+    "requirements": "'_locale' => 'pl|en'",
+    "action": "index",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/dashboard.html.twig"
+  },
+  {
+    "controller": "src/Controller/EventIngestionController.php",
+    "path": "/collect",
+    "name": "collect",
+    "methods": [
+      "POST"
+    ],
+    "requirements": null,
+    "action": "collect",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": null
+  },
+  {
+    "controller": "src/Controller/EventStreamController.php",
+    "path": "/{_locale}",
+    "name": "events",
+    "methods": [
+      "GET"
+    ],
+    "requirements": "'_locale' => 'pl|en'",
+    "action": "index",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/events.html.twig"
+  },
+  {
+    "controller": "src/Controller/ImportController.php",
+    "path": "/{_locale}/import/{step}",
+    "name": "import",
+    "methods": [
+      "GET"
+    ],
+    "requirements": "'_locale' => 'pl|en', 'step' => '[1-4",
+    "action": "wizard",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/import.html.twig"
+  },
+  {
+    "controller": "src/Controller/ImportController.php",
+    "path": "/import/upload",
+    "name": "import_upload",
+    "methods": [
+      "POST"
+    ],
+    "requirements": null,
+    "action": "upload",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": null
+  },
+  {
+    "controller": "src/Controller/LandingController.php",
+    "path": "/{_locale}",
+    "name": "home",
+    "methods": [
+      "GET"
+    ],
+    "requirements": "'_locale' => 'pl|en'",
+    "action": "index",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/landing.html.twig"
+  },
+  {
+    "controller": "src/Controller/LandingController.php",
+    "path": "/demo",
+    "name": "demo",
+    "methods": [
+      "GET"
+    ],
+    "requirements": null,
+    "action": "demo",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": null
+  },
+  {
+    "controller": "src/Controller/PreferencesController.php",
+    "path": "/preferences/preferences",
+    "name": "preferences_theme",
+    "methods": [
+      "POST"
+    ],
+    "requirements": null,
+    "action": "theme",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": null
+  },
+  {
+    "controller": "src/Controller/PreferencesController.php",
+    "path": "/preferences/sidebar",
+    "name": "preferences_sidebar",
+    "methods": [
+      "POST"
+    ],
+    "requirements": null,
+    "action": "sidebar",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": null
+  },
+  {
+    "controller": "src/Controller/ProductFeedController.php",
+    "path": "/{_locale}",
+    "name": "feeds",
+    "methods": [
+      "GET"
+    ],
+    "requirements": "'_locale' => 'pl|en'",
+    "action": "index",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/feeds.html.twig"
+  },
+  {
+    "controller": "src/Controller/SecurityController.php",
+    "path": "/{_locale}",
+    "name": "login",
+    "methods": [
+      "GET",
+      "POST"
+    ],
+    "requirements": "'_locale' => 'pl|en'",
+    "action": "login",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/login.html.twig"
+  },
+  {
+    "controller": "src/Controller/SecurityController.php",
+    "path": "/logout",
+    "name": "logout",
+    "methods": [
+      "POST"
+    ],
+    "requirements": null,
+    "action": "logout",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": null
+  },
+  {
+    "controller": "src/Controller/SettingsController.php",
+    "path": "/{_locale}",
+    "name": "settings",
+    "methods": [
+      "GET"
+    ],
+    "requirements": "'_locale' => 'pl|en'",
+    "action": "index",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/settings.html.twig"
+  },
+  {
+    "controller": "src/Controller/StorybookController.php",
+    "path": "/_storybook",
+    "name": "storybook_",
+    "methods": [
+      "GET"
+    ],
+    "requirements": null,
+    "action": "index",
+    "condition": "env('APP_ENV') in ['dev', 'test']",
+    "auth": "none (no firewall)",
+    "renders": "storybook/index.html.twig"
+  },
+  {
+    "controller": "src/Controller/StorybookController.php",
+    "path": "/{id}",
+    "name": "story",
+    "methods": [
+      "GET"
+    ],
+    "requirements": null,
+    "action": "story",
+    "condition": "env('APP_ENV') in ['dev', 'test']",
+    "auth": "none (no firewall)",
+    "renders": "storybook/story.html.twig"
+  },
+  {
+    "controller": "src/Controller/StorybookController.php",
+    "path": "/{id}/{variant}/frame",
+    "name": "frame",
+    "methods": [
+      "GET"
+    ],
+    "requirements": null,
+    "action": "frame",
+    "condition": "env('APP_ENV') in ['dev', 'test']",
+    "auth": "none (no firewall)",
+    "renders": "storybook/frame.html.twig"
+  },
+  {
+    "controller": "src/Controller/WidgetController.php",
+    "path": "/{_locale}",
+    "name": "popups",
+    "methods": [
+      "GET"
+    ],
+    "requirements": "'_locale' => 'pl|en'",
+    "action": "index",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/popups.html.twig"
+  },
+  {
+    "controller": "src/Controller/WidgetController.php",
+    "path": "/popups/new",
+    "name": "popup_new",
+    "methods": [
+      "GET"
+    ],
+    "requirements": null,
+    "action": "create",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/popup-editor.html.twig"
+  },
+  {
+    "controller": "src/Controller/WidgetController.php",
+    "path": "/popups/{id}",
+    "name": "popup_edit",
+    "methods": [
+      "GET"
+    ],
+    "requirements": "'id' => 'p\\d+'",
+    "action": "edit",
+    "condition": null,
+    "auth": "none (no firewall)",
+    "renders": "pages/popup-editor.html.twig"
+  }
+]

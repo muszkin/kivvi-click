@@ -1,0 +1,83 @@
+{
+  "description": "Reproducible substitution rules applied to visible texts, HTTP bodies and URLs before comparison. Applied in order.",
+  "text_rules": [
+    {
+      "pattern": "\\b\\d{2}:\\d{2}:\\d{2}\\b",
+      "replace": "<HH:MM:SS>",
+      "reason": "event rows show server-clock time of generation"
+    },
+    {
+      "pattern": "ORACLE-[a-z0-9]+|oracle-(evt|bad)-[a-z0-9]+",
+      "replace": "<RUN-ID>",
+      "reason": "per-run identifiers in captured events"
+    },
+    {
+      "pattern": "\\b[0-9a-f]{32}\\.csv\\b",
+      "replace": "<UPLOAD-ID>.csv",
+      "reason": "stored upload names are random"
+    }
+  ],
+  "http_rules": [
+    {
+      "strip_request_headers": [
+        "cookie",
+        "authorization",
+        "traceparent",
+        "x-request-id",
+        "user-agent",
+        "sec-ch-ua",
+        "sec-ch-ua-mobile",
+        "sec-ch-ua-platform",
+        "referer",
+        "origin",
+        "upgrade-insecure-requests",
+        "accept",
+        "accept-encoding",
+        "sec-fetch-site",
+        "sec-fetch-mode",
+        "sec-fetch-dest",
+        "sec-fetch-user",
+        "priority",
+        "cache-control",
+        "pragma"
+      ]
+    },
+    {
+      "strip_response_headers": [
+        "set-cookie",
+        "date",
+        "server",
+        "x-powered-by",
+        "content-length",
+        "etag",
+        "last-modified",
+        "alt-svc",
+        "via"
+      ]
+    },
+    {
+      "sort_query": true
+    },
+    {
+      "ignore_paths": [
+        "^/assets/",
+        "^/\\.well-known/mercure",
+        "^https://fonts\\.",
+        "^/favicon"
+      ]
+    },
+    {
+      "body_patterns_as_text_rules": true
+    }
+  ],
+  "screenshot_masks": [
+    {
+      "selector": "#cg-main, .cardiogram-canvas",
+      "reason": "canvas driven by random events-per-second (DEV-2)"
+    },
+    {
+      "selector": ".event-row__time",
+      "reason": "server clock (DEV-1)"
+    }
+  ]
+}

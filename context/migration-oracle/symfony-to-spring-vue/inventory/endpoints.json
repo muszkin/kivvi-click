@@ -1,0 +1,58 @@
+[
+  {
+    "path": "/collect",
+    "method": "POST",
+    "consumer": "tracker script k.js (planned), e2e",
+    "contract": "JSON {idempotency_id,type,detail?,customer_id?,customer_name?,site?,occurred_at?} -> 202 {status:accepted} | 200 {status:duplicate} | 400 {error}",
+    "preserve": "exact"
+  },
+  {
+    "path": "/preferences/theme",
+    "method": "POST",
+    "consumer": "assets/app.ts",
+    "contract": "JSON {theme} -> 200 {theme}",
+    "preserve": "exact"
+  },
+  {
+    "path": "/preferences/sidebar",
+    "method": "POST",
+    "consumer": "assets/app.ts",
+    "contract": "JSON {state} -> 200 {state}",
+    "preserve": "exact"
+  },
+  {
+    "path": "/import/upload",
+    "method": "POST",
+    "consumer": "assets/controllers/upload.ts",
+    "contract": "multipart file -> 302 to /{locale}/import/2",
+    "preserve": "status+redirect target"
+  },
+  {
+    "path": "/.well-known/mercure?topic=/accounts/{id}/events",
+    "method": "GET (SSE)",
+    "consumer": "assets/controllers/event-stream.ts",
+    "contract": "event data JSON {html} per published event",
+    "preserve": "exact (hub kept)"
+  },
+  {
+    "path": "/{locale}/login",
+    "method": "POST",
+    "consumer": "login form",
+    "contract": "form _username,_password -> 302 dashboard | 200 form with error",
+    "preserve": "behaviour; response shape may become JSON (DEV-4)"
+  },
+  {
+    "path": "/{locale}/logout",
+    "method": "POST",
+    "consumer": "none in UI",
+    "contract": "-> 302 login",
+    "preserve": "behaviour"
+  },
+  {
+    "path": "{editor}/blocks",
+    "method": "POST",
+    "consumer": "assets/controllers/editor.ts",
+    "contract": "no server route exists (404)",
+    "preserve": "Out of scope (R6)"
+  }
+]

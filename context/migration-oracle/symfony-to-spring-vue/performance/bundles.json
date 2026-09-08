@@ -1,0 +1,37 @@
+{
+  "note": "Pre-migration asset baseline. AssetMapper serves each file separately over the importmap; sizes are the uncompressed bytes of the tracked sources (the compiled TypeScript lives in var/typescript inside the container). Lighthouse was not run (no lighthouse binary on the host); LCP/TTI baseline is 'Unknown' and DEV-8 replaces the relative threshold with an absolute budget. Runtime transfer was measured on the DEV image (sensiolabs typescript-bundle dev output with inline source maps, ~1 MB per controller); production compiles with asset-map:compile and is much smaller. Treat runtime_transfer as an upper bound, and sources_bytes (12 files, ~130 kB uncompressed TS+CSS) as the honest baseline.",
+  "measured_at": "2026-09-08",
+  "method": "wc -c on tracked sources at 91f8f85; runtime transfer measured with curl against the oracle stack",
+  "sources_bytes": {
+    "assets/app.ts": 5238,
+    "assets/controllers/cardiogram.ts": 3201,
+    "assets/controllers/editor.ts": 1461,
+    "assets/controllers/event-stream.ts": 2005,
+    "assets/controllers/modal.ts": 1687,
+    "assets/controllers/shell.ts": 489,
+    "assets/controllers/upload.ts": 1309,
+    "assets/styles/01-tokens.css": 3793,
+    "assets/styles/02-base.css": 3012,
+    "assets/styles/03-components.css": 17746,
+    "assets/styles/04-patterns.css": 40950,
+    "assets/styles/app.css": 366
+  },
+  "runtime_transfer": {
+    "/assets/app-krUD03t.js": 6568,
+    "/assets/controllers/cardiogram-5_pmA8b.js": 4880,
+    "/assets/controllers/cardiogram.js": 1049440,
+    "/assets/controllers/editor-qwiB3-B.js": 1882,
+    "/assets/controllers/editor.js": 1099537,
+    "/assets/controllers/event-stream-BqK8kgk.js": 2182,
+    "/assets/controllers/event-stream.js": 1149690,
+    "/assets/controllers/modal-zwrb4mi.js": 1996,
+    "/assets/controllers/modal.js": 143851,
+    "/assets/controllers/shell-dV1aGlz.js": 441,
+    "/assets/controllers/shell.js": 193967,
+    "/assets/controllers/upload-_P2TIoW.js": 1750,
+    "/assets/controllers/upload.js": 244087,
+    "/assets/styles/app-opJw04T.css": 398,
+    "_document_/pl/dashboard_bytes": 38094,
+    "_total_assets_bytes": 3900669
+  }
+}

@@ -1,0 +1,2889 @@
+{
+  "migration": "symfony-to-spring-vue",
+  "source_sha": "5b806ac74b75d1d521de97f7d3c70b8c431697fb",
+  "product_code_sha": "91f8f85302a8084346eb5ce0b0b04d7ac143cd08",
+  "captured_at": "2026-09-08T13:58:50.567Z",
+  "base_url": "https://localhost:18443",
+  "tool_versions": {
+    "browser": "Google Chrome 152.0.7977.82",
+    "runner": "playwright 1.62.1",
+    "node": "v26.8.1",
+    "php_image": "unknown",
+    "postgres": "PostgreSQL 18.6 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit"
+  },
+  "viewports": {
+    "desktop": "1440x900",
+    "mobile": "390x844"
+  },
+  "fixed_browser_time": "2026-09-08T12:00:00Z",
+  "files": [
+    {
+      "path": "architecture/rules-source.md",
+      "sha256": "b700d434e4322916d20949a0ad764fb204a51546bd7c2c82643879fe6f6e78e6"
+    },
+    {
+      "path": "architecture/rules-translated.md",
+      "sha256": "212de35509ea5ac6c0b1d1117d12538d8367c1f2ffa3312c945b020225726e0b"
+    },
+    {
+      "path": "behaviours.json",
+      "sha256": "fa0ed6ac0e2a8933915eced31c36481a24a8b09fcbdbef352a5d8830d7026f95"
+    },
+    {
+      "path": "capture/capture.mjs",
+      "sha256": "6e95cd0c3f49d6d0838f58247ad24646d160d1431fbd7939f39e9730b659b9dc"
+    },
+    {
+      "path": "capture/inventory.mjs",
+      "sha256": "aa245a60591bd9bb12ead3bfb11ebac60fe993bd3989c03f67850f20893804e3"
+    },
+    {
+      "path": "capture/manifest.mjs",
+      "sha256": "84a4832bf6f4e5e8d35631057f01712fcadce667b92307de2c7c179e04f8d150"
+    },
+    {
+      "path": "capture/normalize.json",
+      "sha256": "8d5987d87be5e86696429d15866829cc5a6b4ccbc7cf4c6d464729df31e4dc67"
+    },
+    {
+      "path": "capture/scenarios.json",
+      "sha256": "2d9528f614281401045f45632d8430525e353d5cbb96bd9d013bc696d0022249"
+    },
+    {
+      "path": "inventory/components.json",
+      "sha256": "39d41b8eebdcd32e63ae055ccf645ea69cef30acbbe33c87418d5da9fa31de26"
+    },
+    {
+      "path": "inventory/endpoints.json",
+      "sha256": "29401741ef1fcb0a0bd6b7e0c04b0d78789504014d2cb1180e3a90c671c8ed6d"
+    },
+    {
+      "path": "inventory/flags.json",
+      "sha256": "96c06631f52566eb20915230cdf0998130b750e0e0440e280041b2f82c0cc0f7"
+    },
+    {
+      "path": "inventory/i18n.json",
+      "sha256": "f666da72cbb87a7fc5e33a47a918b9950cd4167a2d3eb8814faf88d53288240b"
+    },
+    {
+      "path": "inventory/routes.json",
+      "sha256": "80626f9b87a14be12c333bbd6c13587eae2e5c1f0982375594e648af9e21b91f"
+    },
+    {
+      "path": "inventory/stores.json",
+      "sha256": "80d18302a6800bb5a98cdd7a289a779a30f266039aa60b35b66b4ac1e01bfd71"
+    },
+    {
+      "path": "inventory/templates.json",
+      "sha256": "45dfcdd1b3e907d4df406076d50d41be13e02740cd683836faed87399deda3f9"
+    },
+    {
+      "path": "journeys/automations/db.json",
+      "sha256": "c6988f0ce532f7a7a94fb0b115a1026d5bc25e363ce171d5af842c98cb38e40d"
+    },
+    {
+      "path": "journeys/automations/scenario.md",
+      "sha256": "9e459cb66b558422ac16f777dec283b7551ac1ebe53b746904b55f049c21fb15"
+    },
+    {
+      "path": "journeys/automations/steps/1/a11y.json",
+      "sha256": "1403ee95f84c81668a1763038bb64483ed37c17159ac19fbab5430c42d9a0464"
+    },
+    {
+      "path": "journeys/automations/steps/1/desktop.png",
+      "sha256": "773d8ce1d54a1e5fc87572071c4e8287864afa9484268ad216ad5b1e71e1dc5c"
+    },
+    {
+      "path": "journeys/automations/steps/1/http.jsonl",
+      "sha256": "1b81d5058a7fca15b22eee15384afd26345cef4f833889f323ac056e48cbff54"
+    },
+    {
+      "path": "journeys/automations/steps/1/mobile.png",
+      "sha256": "cbc7251442ab2eb6adf969f8459f214cbccf83241bf09a35da2ca1079c4c7458"
+    },
+    {
+      "path": "journeys/automations/steps/1/step.json",
+      "sha256": "dffaa9a257a050a247aece578d68fd8181cf4f55346e6836ca3b5f60e852fe6f"
+    },
+    {
+      "path": "journeys/automations/steps/1/texts.json",
+      "sha256": "ca4b8187aba06960116d4ac0723236fdccc2780b15cd98ba2a4c23d29ba8b951"
+    },
+    {
+      "path": "journeys/automations/steps/1/url.txt",
+      "sha256": "731c3966e5dbdbce373ced72fed96d043698a51f8c2ee6c20eeb6d55b15af573"
+    },
+    {
+      "path": "journeys/automations/steps/2/a11y.json",
+      "sha256": "1403ee95f84c81668a1763038bb64483ed37c17159ac19fbab5430c42d9a0464"
+    },
+    {
+      "path": "journeys/automations/steps/2/desktop.png",
+      "sha256": "c59f4f337c0bcbe40011d957c1e3f4ebea3c3cca580ca11a408e96fd4be890f7"
+    },
+    {
+      "path": "journeys/automations/steps/2/http.jsonl",
+      "sha256": "d987c8f46709363f94683cbf80a77c3d159f4d7075a81a6be7707bae956434f0"
+    },
+    {
+      "path": "journeys/automations/steps/2/mobile.png",
+      "sha256": "f48e08181f84d3c71c2b12eb488325968fb4a72a97c208505b6b541924a6a51f"
+    },
+    {
+      "path": "journeys/automations/steps/2/step.json",
+      "sha256": "f110f15569aacf1cc2e1cd1edcbd36bcff51185a0bef974492f1ee29682bf00d"
+    },
+    {
+      "path": "journeys/automations/steps/2/texts.json",
+      "sha256": "ca4b8187aba06960116d4ac0723236fdccc2780b15cd98ba2a4c23d29ba8b951"
+    },
+    {
+      "path": "journeys/automations/steps/2/url.txt",
+      "sha256": "f2008b4807452580d5b0803d112485ab7d3185fb6d29c379d26128936e37b03c"
+    },
+    {
+      "path": "journeys/automations/steps/3/a11y.json",
+      "sha256": "1403ee95f84c81668a1763038bb64483ed37c17159ac19fbab5430c42d9a0464"
+    },
+    {
+      "path": "journeys/automations/steps/3/desktop.png",
+      "sha256": "773d8ce1d54a1e5fc87572071c4e8287864afa9484268ad216ad5b1e71e1dc5c"
+    },
+    {
+      "path": "journeys/automations/steps/3/http.jsonl",
+      "sha256": "5be25a94dd1dd1479b47cd1c98a0b0412b0bbd5a95918ac08d4e13d9c9c8bbac"
+    },
+    {
+      "path": "journeys/automations/steps/3/mobile.png",
+      "sha256": "cbc7251442ab2eb6adf969f8459f214cbccf83241bf09a35da2ca1079c4c7458"
+    },
+    {
+      "path": "journeys/automations/steps/3/step.json",
+      "sha256": "4fa38bc1ac7e0a3c68b26fe28c4bcdd8b0c5f54bcf81907e8ba4e28c28af6850"
+    },
+    {
+      "path": "journeys/automations/steps/3/texts.json",
+      "sha256": "ca4b8187aba06960116d4ac0723236fdccc2780b15cd98ba2a4c23d29ba8b951"
+    },
+    {
+      "path": "journeys/automations/steps/3/url.txt",
+      "sha256": "731c3966e5dbdbce373ced72fed96d043698a51f8c2ee6c20eeb6d55b15af573"
+    },
+    {
+      "path": "journeys/automations/steps/4/a11y.json",
+      "sha256": "d2555ea4579efeccec77aa5983c1c19bc508e27a0e65bcfb26db2861bc611e8d"
+    },
+    {
+      "path": "journeys/automations/steps/4/desktop.png",
+      "sha256": "978bb9595d49e3079aa105962695790b981db6773fd7b2c0164e85d6b9daa14c"
+    },
+    {
+      "path": "journeys/automations/steps/4/http.jsonl",
+      "sha256": "d2d16abdb98f16b4e2a443c856a602318e65e6bcb082acf4fd8e16be22b616d3"
+    },
+    {
+      "path": "journeys/automations/steps/4/mobile.png",
+      "sha256": "1823f44a71a6c7ce4e47910a243912fc4d0bb62314e9a9660eda1bf9d4c1de8d"
+    },
+    {
+      "path": "journeys/automations/steps/4/step.json",
+      "sha256": "9c227e688a7171365cac00b41afede5909c26e0558b577147d38ca36d3fe59f5"
+    },
+    {
+      "path": "journeys/automations/steps/4/texts.json",
+      "sha256": "c5696ee82b6b347d92a45187b91a5e7987002b67521fd0db7fb6570161f393b6"
+    },
+    {
+      "path": "journeys/automations/steps/4/url.txt",
+      "sha256": "539e3526558672fa13d67f6781c88636351f1e59a2352eb4a9e9e81843388a9f"
+    },
+    {
+      "path": "journeys/automations/steps/5/a11y.json",
+      "sha256": "56c29a515c073af318b106126d525235b6639890fc9cef18f10c22f297fc3442"
+    },
+    {
+      "path": "journeys/automations/steps/5/desktop.png",
+      "sha256": "9439ee8b281002650ac5992488b6459e550deab13b5585e77f96d2a972661325"
+    },
+    {
+      "path": "journeys/automations/steps/5/http.jsonl",
+      "sha256": "51a946f68073819ad06d882015ea7d699147e9cda79aaa3b63bbea04248e51c2"
+    },
+    {
+      "path": "journeys/automations/steps/5/mobile.png",
+      "sha256": "a69b3191cb3c47c3e80881013817e25935ed092376ff3799feb01fe4648b074e"
+    },
+    {
+      "path": "journeys/automations/steps/5/step.json",
+      "sha256": "796b8f9c2f2da73517bcff507e6d44f1a1761639df05579576181d71191254da"
+    },
+    {
+      "path": "journeys/automations/steps/5/texts.json",
+      "sha256": "ea50189282cedb85d8ee206978bc507f93c42a2cbb88d328a08337c51ee6f8b5"
+    },
+    {
+      "path": "journeys/automations/steps/5/url.txt",
+      "sha256": "b7a8b306d912826bb85cc2a4e7e655c780bc5aae702b5574a9316c8f5c60e4e4"
+    },
+    {
+      "path": "journeys/automations/steps/6/a11y.json",
+      "sha256": "d2555ea4579efeccec77aa5983c1c19bc508e27a0e65bcfb26db2861bc611e8d"
+    },
+    {
+      "path": "journeys/automations/steps/6/desktop.png",
+      "sha256": "c4b6ce8c8d9b19a22dc0785e4c95526ffa7b61dddca3f708efa04786793492a6"
+    },
+    {
+      "path": "journeys/automations/steps/6/http.jsonl",
+      "sha256": "ac72434afbc8783d70ac9b3d56df59c6b5706ed6033433cc9301fb07ed3c6bd0"
+    },
+    {
+      "path": "journeys/automations/steps/6/mobile.png",
+      "sha256": "1823f44a71a6c7ce4e47910a243912fc4d0bb62314e9a9660eda1bf9d4c1de8d"
+    },
+    {
+      "path": "journeys/automations/steps/6/step.json",
+      "sha256": "d05959e8abed44e262eb490c6b6bfea028c11b85cab6adb38d58738958f2fb06"
+    },
+    {
+      "path": "journeys/automations/steps/6/texts.json",
+      "sha256": "c5696ee82b6b347d92a45187b91a5e7987002b67521fd0db7fb6570161f393b6"
+    },
+    {
+      "path": "journeys/automations/steps/6/url.txt",
+      "sha256": "cb15f083bbae445eb26f4b95808d99608318f5a7d712ae6c7a6bc0a4972c823e"
+    },
+    {
+      "path": "journeys/automations/steps/7/a11y.json",
+      "sha256": "44205d31bf1ca066e5af4878b1fbaafb47b80ec2af45a810bd4e45ec3981fc17"
+    },
+    {
+      "path": "journeys/automations/steps/7/desktop.png",
+      "sha256": "76ad3998329d9b9b66918c83e2b635ddbe7cdd109c7e4e5742c6be0f716e40cc"
+    },
+    {
+      "path": "journeys/automations/steps/7/http.jsonl",
+      "sha256": "ec4d4df6fbfc151de7908300d21bf4263f28be2aea186af08640c2e10a580de7"
+    },
+    {
+      "path": "journeys/automations/steps/7/mobile.png",
+      "sha256": "794a0029d64178c2edad8969740b5826f27f26b793d783a13e79f3b3ba855ac7"
+    },
+    {
+      "path": "journeys/automations/steps/7/step.json",
+      "sha256": "12a3c4c653e06120531435002acc1a400888f75642d2aa43cedba04813dc2665"
+    },
+    {
+      "path": "journeys/automations/steps/7/texts.json",
+      "sha256": "d022066991596ef7849a79bd963cad84066fe63db928fa27a5360d4d7c394ff1"
+    },
+    {
+      "path": "journeys/automations/steps/7/url.txt",
+      "sha256": "55b160f0c3819054df68295ae23df8984a6bf06ebe141c22dbadb961229aec64"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/db.json",
+      "sha256": "d6283f79fba122ff267f1369914a423feb97c6209cc3eda6464f5ff78c2265dc"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/scenario.md",
+      "sha256": "7e33b51170dbc510e464c294648438423ce5ff6db7f4247bd9c08c34c252dfc1"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/1/a11y.json",
+      "sha256": "000f9b5e019833a1eb97fea7870d5c7e4a6ef97efbde8b890e39d4c3718c5599"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/1/desktop.png",
+      "sha256": "62ce39062829239336c0a21526f76645cbf61fd11ab2a5ecb6732d36a1ecc8cc"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/1/http.jsonl",
+      "sha256": "3535e0f98a73cc4ec19dcdef0f1bb9c1a6131ae9a3f4559e05b788e7b8f57266"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/1/mobile.png",
+      "sha256": "28556cca839d902a02ad0e5cbf494b15f18718fc3043ce93833861082b16ae71"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/1/step.json",
+      "sha256": "4889b36e7b442942deef4b28bb215f457b3993572e35187f72db66217c453e6e"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/1/texts.json",
+      "sha256": "f112ba00dbee23e1dfc0673f02ec8e8f8a306c16980b1330051c05a9f1ef48a8"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/1/url.txt",
+      "sha256": "e808efb805a4bfdd30d9912fa8211ebd039dfd119e603560015e409a693d481d"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/2/a11y.json",
+      "sha256": "000f9b5e019833a1eb97fea7870d5c7e4a6ef97efbde8b890e39d4c3718c5599"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/2/desktop.png",
+      "sha256": "47559f9dfc7cfad0c4bee70fe27e66cc79e1a6741ddc517d40b23b496e443b1f"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/2/http.jsonl",
+      "sha256": "635b272015f1528d05f491c3d42f02294aac885b12d0f1c347c0932242c4eae6"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/2/mobile.png",
+      "sha256": "884a1286047b8445f2c7e4686c4ef0bb7203346035b6e2debe6db5fd9182a592"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/2/step.json",
+      "sha256": "01c30dff7af4ba283e2045d29dadf600607017f96874d1445e7c7bb912a7bfc1"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/2/texts.json",
+      "sha256": "f112ba00dbee23e1dfc0673f02ec8e8f8a306c16980b1330051c05a9f1ef48a8"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/2/url.txt",
+      "sha256": "4435ea33d0496696893c0da0ed77b7a7e4e1bc4ada4e4436ddf0edc4741cd564"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/3/a11y.json",
+      "sha256": "000f9b5e019833a1eb97fea7870d5c7e4a6ef97efbde8b890e39d4c3718c5599"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/3/desktop.png",
+      "sha256": "62ce39062829239336c0a21526f76645cbf61fd11ab2a5ecb6732d36a1ecc8cc"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/3/http.jsonl",
+      "sha256": "af605718c6d452f31320b3d1ffd08a3541929268a7fab9cf53c33bb94eb14bf0"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/3/mobile.png",
+      "sha256": "8bc54d74ea0edd4994a1a68b3b00077dc7786c97f4f25ee4c3200e3aa8c055a9"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/3/step.json",
+      "sha256": "0e85f278f3b08d8d8ac276117a251acc5fb87918dd9d96167572b6125ab9bc9b"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/3/texts.json",
+      "sha256": "f112ba00dbee23e1dfc0673f02ec8e8f8a306c16980b1330051c05a9f1ef48a8"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/3/url.txt",
+      "sha256": "e808efb805a4bfdd30d9912fa8211ebd039dfd119e603560015e409a693d481d"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/4/a11y.json",
+      "sha256": "255fe18e75c78f1e4e3b50c322a8b5792fb8cfa2d681c82c153fd49a2603ba18"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/4/desktop.png",
+      "sha256": "074ea01c5f03ffedb7adab4315de66b152235b0c8002b6802d0f8df11c0a2737"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/4/http.jsonl",
+      "sha256": "7a7d61ded655289d5fde20d01ca81458e88861b37a4f3bf871707874ea38beff"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/4/mobile.png",
+      "sha256": "4c907f9b4f77b3422ca523037907af4fce7dff08a27b1e112210af8ae8537c90"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/4/step.json",
+      "sha256": "4972c0d6577ebdda37a7bd1fc6b3ea4e0ae5c8b52dc85ac25b456c4343ef6157"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/4/texts.json",
+      "sha256": "60883fa443a94b708ff576702ea8a3f7e8216d4fa8a89fcbc8153797e13fd865"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/4/url.txt",
+      "sha256": "e7fa24a4f2e8fb02167de87203cd6422b9a48bfe11852fa42cce780c07ce05aa"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/5/a11y.json",
+      "sha256": "255fe18e75c78f1e4e3b50c322a8b5792fb8cfa2d681c82c153fd49a2603ba18"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/5/desktop.png",
+      "sha256": "881cde60200b74350b15ed2ca4fa41014a5214da97311f9f7d961fb053cfca65"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/5/http.jsonl",
+      "sha256": "c2f2e405c56acada17a7aac8b33f938944119f1d35a50fc7ae27eb0a4298b111"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/5/mobile.png",
+      "sha256": "a8655cce85c149f096c2724381c2d8af57be88713e2ab2b9f5c01dbd93ce5c17"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/5/step.json",
+      "sha256": "00305191629ccaa528ef829a0d09105c9a5a19ea9ec876f5bbeb352cab94a4e3"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/5/texts.json",
+      "sha256": "60883fa443a94b708ff576702ea8a3f7e8216d4fa8a89fcbc8153797e13fd865"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/5/url.txt",
+      "sha256": "e7fa24a4f2e8fb02167de87203cd6422b9a48bfe11852fa42cce780c07ce05aa"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/6/a11y.json",
+      "sha256": "255fe18e75c78f1e4e3b50c322a8b5792fb8cfa2d681c82c153fd49a2603ba18"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/6/desktop.png",
+      "sha256": "bf65a3b1c06ed3647ce362aae5a654c06bf7727a76287cc3aac8a82db155aa5b"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/6/http.jsonl",
+      "sha256": "9b03897b1a0760357ee5f960c4380f9920d134cc3fff1724d58a7a2e48216a3b"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/6/mobile.png",
+      "sha256": "95682ec6f6136e6d1211c0021b245fb23ca550376915c234d24287ad4026285e"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/6/step.json",
+      "sha256": "3435c882c6b5bbeec5eb0384705cf086ec900d397a4fd6d884658068b4e3de82"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/6/texts.json",
+      "sha256": "60883fa443a94b708ff576702ea8a3f7e8216d4fa8a89fcbc8153797e13fd865"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/6/url.txt",
+      "sha256": "e7fa24a4f2e8fb02167de87203cd6422b9a48bfe11852fa42cce780c07ce05aa"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/7/a11y.json",
+      "sha256": "255fe18e75c78f1e4e3b50c322a8b5792fb8cfa2d681c82c153fd49a2603ba18"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/7/desktop.png",
+      "sha256": "2b1efdae0397eb28b6bec3c2c9c5f0a31a9521a3b422a5bcbb3bc4b84ef5de1e"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/7/http.jsonl",
+      "sha256": "b4a1e3b5be4b14d3e8e58c4fa4a8e165590c9bc76789685a873ee56474560c2b"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/7/mobile.png",
+      "sha256": "6e3b03e9f77dbfd0e4a10dfc41cf0b6a30bf2f8c9db588af82f3ba2f14ac2ce9"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/7/step.json",
+      "sha256": "ceba4b2b83a4a2621be95891ab02c7c324d619b3ea7a32109a22fbf5a8767450"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/7/texts.json",
+      "sha256": "60883fa443a94b708ff576702ea8a3f7e8216d4fa8a89fcbc8153797e13fd865"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/7/url.txt",
+      "sha256": "e7fa24a4f2e8fb02167de87203cd6422b9a48bfe11852fa42cce780c07ce05aa"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/8/a11y.json",
+      "sha256": "bd2bfc40f995686b33ea7997f826038a9137275bd7b473fe5e5e65427b2408af"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/8/desktop.png",
+      "sha256": "94e14b99d3934bff1520285ead19ee6a71617ed451554baba2b9e5a255c2a463"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/8/http.jsonl",
+      "sha256": "1e893b06bd84513a6b914797c9b8b113c9996e5249e9fe59af8967cb58c789ea"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/8/mobile.png",
+      "sha256": "9da2b2855f0b0e9580854905d375793ffd4d76bc774e2e63006acb06736f95a2"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/8/step.json",
+      "sha256": "e8d225717cb7bed361ed0d913f1dc21b9fea3cec2621e48a0fdc6785ea6e9913"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/8/texts.json",
+      "sha256": "8e601db3e45aa1b8f7e08a640635e5935556064215d78d7b64c79557783c88d8"
+    },
+    {
+      "path": "journeys/campaigns-email-editor/steps/8/url.txt",
+      "sha256": "083d4ccf7c1aa3ade4a19f184d882f661c793d3fc7032e3eab441608a89812f2"
+    },
+    {
+      "path": "journeys/customers/db.json",
+      "sha256": "c6988f0ce532f7a7a94fb0b115a1026d5bc25e363ce171d5af842c98cb38e40d"
+    },
+    {
+      "path": "journeys/customers/scenario.md",
+      "sha256": "bb15d83bed6cb781d9ed21eae3406d57685ebcb7294b630e7192bcb973e4d2f5"
+    },
+    {
+      "path": "journeys/customers/steps/1/a11y.json",
+      "sha256": "b027ca83fb6ec0a5275f49a03860c9dbf9d97dc52c49abecf969f1e41e6f0b66"
+    },
+    {
+      "path": "journeys/customers/steps/1/desktop.png",
+      "sha256": "888bbf336e728a3ac4a31ab3c53b661a0d4a62e8af31617c119d6476d87d4c8a"
+    },
+    {
+      "path": "journeys/customers/steps/1/http.jsonl",
+      "sha256": "72d2eb4829c327b946007e0961a5fe638f0f0e70091a5c276a5315b32036bec6"
+    },
+    {
+      "path": "journeys/customers/steps/1/mobile.png",
+      "sha256": "3748e768522ae2d941a0de031cc38e25fb76a6ff828249fa0a9ff1b3a8d4eb4b"
+    },
+    {
+      "path": "journeys/customers/steps/1/step.json",
+      "sha256": "5af202068eb2cfa6c6a7c7aa7634f3170a7685dde97d63c86afe132c3f770c75"
+    },
+    {
+      "path": "journeys/customers/steps/1/texts.json",
+      "sha256": "f3c98db73a37f3a1633496cfcd0cdd6303315c09974676d59f58b0fa2d6c48f8"
+    },
+    {
+      "path": "journeys/customers/steps/1/url.txt",
+      "sha256": "b37c45bb8077deb491c25b3ac03b00ec3b5404dbdfc2aab5afcc1226578f14ab"
+    },
+    {
+      "path": "journeys/customers/steps/2/a11y.json",
+      "sha256": "5b966e9814e2456bae5e31aa371c9bdf35661a3537f1af983cbdb107172137be"
+    },
+    {
+      "path": "journeys/customers/steps/2/desktop.png",
+      "sha256": "888bbf336e728a3ac4a31ab3c53b661a0d4a62e8af31617c119d6476d87d4c8a"
+    },
+    {
+      "path": "journeys/customers/steps/2/http.jsonl",
+      "sha256": "4e11f437d66457c6f099c565b4905c7af6e8a5e674ef9b1c5b27d29c3dd8ae0a"
+    },
+    {
+      "path": "journeys/customers/steps/2/mobile.png",
+      "sha256": "3748e768522ae2d941a0de031cc38e25fb76a6ff828249fa0a9ff1b3a8d4eb4b"
+    },
+    {
+      "path": "journeys/customers/steps/2/step.json",
+      "sha256": "6c6862661ef7dcd6b5e87285c04392d4db8b3ec90c6c57c79c1994ecc97a8dc2"
+    },
+    {
+      "path": "journeys/customers/steps/2/texts.json",
+      "sha256": "8f9ff01f1614832b8e646f477d04719ee88e564c8726fd2d162c5790b2fceb58"
+    },
+    {
+      "path": "journeys/customers/steps/2/url.txt",
+      "sha256": "661909dee5675be98d48338338eececd2926ebb7f024c5abb6609c37147c2fb2"
+    },
+    {
+      "path": "journeys/customers/steps/3/a11y.json",
+      "sha256": "b027ca83fb6ec0a5275f49a03860c9dbf9d97dc52c49abecf969f1e41e6f0b66"
+    },
+    {
+      "path": "journeys/customers/steps/3/desktop.png",
+      "sha256": "888bbf336e728a3ac4a31ab3c53b661a0d4a62e8af31617c119d6476d87d4c8a"
+    },
+    {
+      "path": "journeys/customers/steps/3/http.jsonl",
+      "sha256": "0ff735320718cfe543d313d6e0eb2eb59df65316ba8c0621fade330218dc4613"
+    },
+    {
+      "path": "journeys/customers/steps/3/mobile.png",
+      "sha256": "3748e768522ae2d941a0de031cc38e25fb76a6ff828249fa0a9ff1b3a8d4eb4b"
+    },
+    {
+      "path": "journeys/customers/steps/3/step.json",
+      "sha256": "bbe76ee25c807365fbe84bfbcbe3b1302d2e0895aa4e3ec83d9035a961905869"
+    },
+    {
+      "path": "journeys/customers/steps/3/texts.json",
+      "sha256": "f3c98db73a37f3a1633496cfcd0cdd6303315c09974676d59f58b0fa2d6c48f8"
+    },
+    {
+      "path": "journeys/customers/steps/3/url.txt",
+      "sha256": "b37c45bb8077deb491c25b3ac03b00ec3b5404dbdfc2aab5afcc1226578f14ab"
+    },
+    {
+      "path": "journeys/customers/steps/4/a11y.json",
+      "sha256": "d2aa92deea8acd845c6776afc5d8c20c92c079737abe30749ce8d1d2ec963e26"
+    },
+    {
+      "path": "journeys/customers/steps/4/desktop.png",
+      "sha256": "393b9baa2df806fe477c3fb15b18402e5f1c05265031e92e01ea6ad571ad3e95"
+    },
+    {
+      "path": "journeys/customers/steps/4/http.jsonl",
+      "sha256": "89362b9c8c9374e3477ba0592a5c2cc6267d2fa0f31549aac6dde88ae8ec736e"
+    },
+    {
+      "path": "journeys/customers/steps/4/mobile.png",
+      "sha256": "449ac4df82da5254d718677f1b3c5f7ecc3e0315e8f538db5ec035c1cab7110d"
+    },
+    {
+      "path": "journeys/customers/steps/4/step.json",
+      "sha256": "48565517c6bcb48e67d3dfdeca5a2c10d7712f2903570d71d09f29bca599f9c9"
+    },
+    {
+      "path": "journeys/customers/steps/4/texts.json",
+      "sha256": "55e38fed38d3aa773dcbef409a068b995a8193852f8c6c437818d1c7491f8fe0"
+    },
+    {
+      "path": "journeys/customers/steps/4/url.txt",
+      "sha256": "dd12547cbb617fb1aa006a9b05f05875de0e112965fedca370453b35f1cd3d6e"
+    },
+    {
+      "path": "journeys/customers/steps/5/a11y.json",
+      "sha256": "b027ca83fb6ec0a5275f49a03860c9dbf9d97dc52c49abecf969f1e41e6f0b66"
+    },
+    {
+      "path": "journeys/customers/steps/5/desktop.png",
+      "sha256": "888bbf336e728a3ac4a31ab3c53b661a0d4a62e8af31617c119d6476d87d4c8a"
+    },
+    {
+      "path": "journeys/customers/steps/5/http.jsonl",
+      "sha256": "ffe0d395d5e6b87d4dfd2c28bcedb4b6b41e46e95c5d213d4bca9fb9f0cfda5f"
+    },
+    {
+      "path": "journeys/customers/steps/5/mobile.png",
+      "sha256": "3748e768522ae2d941a0de031cc38e25fb76a6ff828249fa0a9ff1b3a8d4eb4b"
+    },
+    {
+      "path": "journeys/customers/steps/5/step.json",
+      "sha256": "6c634b5e5b74f29849c1be4e211fc0bbce2f91bb0745ba25be03c488e68f971b"
+    },
+    {
+      "path": "journeys/customers/steps/5/texts.json",
+      "sha256": "f3c98db73a37f3a1633496cfcd0cdd6303315c09974676d59f58b0fa2d6c48f8"
+    },
+    {
+      "path": "journeys/customers/steps/5/url.txt",
+      "sha256": "b37c45bb8077deb491c25b3ac03b00ec3b5404dbdfc2aab5afcc1226578f14ab"
+    },
+    {
+      "path": "journeys/customers/steps/6/a11y.json",
+      "sha256": "6d7e929aa31c3c2896cbb39f59938a8001d82d4be2316e70aee2e75f3c8b0d9e"
+    },
+    {
+      "path": "journeys/customers/steps/6/desktop.png",
+      "sha256": "b79c699453dd5ff2a8f5f6b7fda3eb5973b25c1a116e99e0e0c6f1a3b515797a"
+    },
+    {
+      "path": "journeys/customers/steps/6/http.jsonl",
+      "sha256": "ba8d120c5e1747e42fc5f184d2020f588cd5a40fafbf4b19f32a79fa5702e896"
+    },
+    {
+      "path": "journeys/customers/steps/6/mobile.png",
+      "sha256": "8e91ab36b5861fca5c5419e653067e9075ad9f62c144159c58d30753f057261d"
+    },
+    {
+      "path": "journeys/customers/steps/6/step.json",
+      "sha256": "ad76905ca9825b22e8c8d56074512c1cc13df0a2c0140eadff0f7b15faccace7"
+    },
+    {
+      "path": "journeys/customers/steps/6/texts.json",
+      "sha256": "c6e1afe49cd32f33157f8abf0c3fbcfe01930b72ad9912733a1b695bc6af4ad8"
+    },
+    {
+      "path": "journeys/customers/steps/6/url.txt",
+      "sha256": "945c2002171a3c8a2a567111d5d100192c863fe324386b59576614c88b5ae2b4"
+    },
+    {
+      "path": "journeys/dashboard/db.json",
+      "sha256": "c6988f0ce532f7a7a94fb0b115a1026d5bc25e363ce171d5af842c98cb38e40d"
+    },
+    {
+      "path": "journeys/dashboard/scenario.md",
+      "sha256": "c110e3b593892338d3b2d2495a7d33f78324ebff759a355c6426978fc08ac2dc"
+    },
+    {
+      "path": "journeys/dashboard/steps/1/a11y.json",
+      "sha256": "da4291cadd446b224f3c35f9dd211b3131cbc5cadf6765b0021bff58a0bf847f"
+    },
+    {
+      "path": "journeys/dashboard/steps/1/desktop.png",
+      "sha256": "9a0bacc30f84cd0d800abf11b5191837ef8583419ae1a769119181ab5ed96c0c"
+    },
+    {
+      "path": "journeys/dashboard/steps/1/http.jsonl",
+      "sha256": "e9a16545cc00113c4b27caccf421fa843912cc781854969f8e20631bc42e5f56"
+    },
+    {
+      "path": "journeys/dashboard/steps/1/mobile.png",
+      "sha256": "d691ccc968d28dbd59fb2ff904c5d48ba381fbee2ebd0a88185959fcc77faaba"
+    },
+    {
+      "path": "journeys/dashboard/steps/1/step.json",
+      "sha256": "6cb3f66770848427dd21891e9d57e76ab70dd1f14489133700f2f42eb1863983"
+    },
+    {
+      "path": "journeys/dashboard/steps/1/texts.json",
+      "sha256": "0c996b7645b1b99b6946b55f5c423883c4086a2984ed67d334c591ab1cb2ea36"
+    },
+    {
+      "path": "journeys/dashboard/steps/1/url.txt",
+      "sha256": "11be28fa890a48691ff36eebe3e9906de518f5b2a4fc5df1f5f49cefb89a2f4a"
+    },
+    {
+      "path": "journeys/dashboard/steps/2/a11y.json",
+      "sha256": "d2aa92deea8acd845c6776afc5d8c20c92c079737abe30749ce8d1d2ec963e26"
+    },
+    {
+      "path": "journeys/dashboard/steps/2/desktop.png",
+      "sha256": "393b9baa2df806fe477c3fb15b18402e5f1c05265031e92e01ea6ad571ad3e95"
+    },
+    {
+      "path": "journeys/dashboard/steps/2/http.jsonl",
+      "sha256": "c376de3b55bf0054570a019f130413bcc6e41d66283da2272ed0babdd99751d3"
+    },
+    {
+      "path": "journeys/dashboard/steps/2/mobile.png",
+      "sha256": "449ac4df82da5254d718677f1b3c5f7ecc3e0315e8f538db5ec035c1cab7110d"
+    },
+    {
+      "path": "journeys/dashboard/steps/2/step.json",
+      "sha256": "fea9c3a3b101408a64a1cbb2232d76479906a5566d7d0b82a8c63d5e672c1812"
+    },
+    {
+      "path": "journeys/dashboard/steps/2/texts.json",
+      "sha256": "55e38fed38d3aa773dcbef409a068b995a8193852f8c6c437818d1c7491f8fe0"
+    },
+    {
+      "path": "journeys/dashboard/steps/2/url.txt",
+      "sha256": "dd12547cbb617fb1aa006a9b05f05875de0e112965fedca370453b35f1cd3d6e"
+    },
+    {
+      "path": "journeys/dashboard/steps/3/a11y.json",
+      "sha256": "da4291cadd446b224f3c35f9dd211b3131cbc5cadf6765b0021bff58a0bf847f"
+    },
+    {
+      "path": "journeys/dashboard/steps/3/desktop.png",
+      "sha256": "9a0bacc30f84cd0d800abf11b5191837ef8583419ae1a769119181ab5ed96c0c"
+    },
+    {
+      "path": "journeys/dashboard/steps/3/http.jsonl",
+      "sha256": "d45154be305234e3458d0d970334dc2e6b9920764b687938670e38d22d96824d"
+    },
+    {
+      "path": "journeys/dashboard/steps/3/mobile.png",
+      "sha256": "d691ccc968d28dbd59fb2ff904c5d48ba381fbee2ebd0a88185959fcc77faaba"
+    },
+    {
+      "path": "journeys/dashboard/steps/3/step.json",
+      "sha256": "6b8b93d74fba66473401e84af5d74c3e6a857a324132580054d334e1ad97d7bf"
+    },
+    {
+      "path": "journeys/dashboard/steps/3/texts.json",
+      "sha256": "0c996b7645b1b99b6946b55f5c423883c4086a2984ed67d334c591ab1cb2ea36"
+    },
+    {
+      "path": "journeys/dashboard/steps/3/url.txt",
+      "sha256": "11be28fa890a48691ff36eebe3e9906de518f5b2a4fc5df1f5f49cefb89a2f4a"
+    },
+    {
+      "path": "journeys/dashboard/steps/4/a11y.json",
+      "sha256": "a17b061e21e8b1f927edb2412dec7d08a344a5d425278ca06163c6876a2d055d"
+    },
+    {
+      "path": "journeys/dashboard/steps/4/desktop.png",
+      "sha256": "510a7c3751eff9fcd0dcbcab456ce49e4422ef8640a61a5e6258185d6c4de67f"
+    },
+    {
+      "path": "journeys/dashboard/steps/4/http.jsonl",
+      "sha256": "d7d0a2274222275be1a23fbf61609859da4bf96febfe380338453ec96121a43c"
+    },
+    {
+      "path": "journeys/dashboard/steps/4/mobile.png",
+      "sha256": "e040daf1fcbbf5fd7ce9c277109b1b14359b89b5c0d843af0bb788e648957a1b"
+    },
+    {
+      "path": "journeys/dashboard/steps/4/step.json",
+      "sha256": "36e557551562b4a3f698fcb3732c3315f0889528dc413b3a941916dadc252a95"
+    },
+    {
+      "path": "journeys/dashboard/steps/4/texts.json",
+      "sha256": "d4a9f911ec1a1114f412896e98026513e7c0d3342958b379bf128f40fcd0d2f5"
+    },
+    {
+      "path": "journeys/dashboard/steps/4/url.txt",
+      "sha256": "f6ded88bd6413b845199c755f0a9b69a79e39d50e62cad912a72710a2e96bfa1"
+    },
+    {
+      "path": "journeys/event-stream/db.json",
+      "sha256": "4f5e4cc6832f6f8c4275b1749efe0c5a0dc0efbef999dedb81276475dcf3486b"
+    },
+    {
+      "path": "journeys/event-stream/scenario.md",
+      "sha256": "274c2e24e0b7aed9453a8cae6c68eb3292a4c9f71069068789e6db79eecae7df"
+    },
+    {
+      "path": "journeys/event-stream/steps/1/a11y.json",
+      "sha256": "6983209d2118fec0c6b461e1f64453948ff206a90429dace1e107ebf6ade638d"
+    },
+    {
+      "path": "journeys/event-stream/steps/1/desktop.png",
+      "sha256": "1341127bca5190fc2ec21a597a82ddc3a36a9fcba680afb5154af3ce28d2616f"
+    },
+    {
+      "path": "journeys/event-stream/steps/1/http.jsonl",
+      "sha256": "240dd66fa4e34dc26771de1fdc3db876695b57c91bf9f696e16f47cbdd7fd85e"
+    },
+    {
+      "path": "journeys/event-stream/steps/1/mobile.png",
+      "sha256": "340790a0f5bb054b4d4306ccd0e8dee1a8d880b39a1f13fb549881ef49e1dbb8"
+    },
+    {
+      "path": "journeys/event-stream/steps/1/step.json",
+      "sha256": "47654285604c91ca50af907faa56b779291653fceebbe0282cbb98cdc9b698db"
+    },
+    {
+      "path": "journeys/event-stream/steps/1/texts.json",
+      "sha256": "b41cf102f38a5a9660cdf665b8103b1648f87007bb4ca03187993ec8170ccbd8"
+    },
+    {
+      "path": "journeys/event-stream/steps/1/url.txt",
+      "sha256": "1496bd35a7d63f9b432728fa669411c05dfbd539c617928d274266185fe80543"
+    },
+    {
+      "path": "journeys/event-stream/steps/2/a11y.json",
+      "sha256": "a699578c8fc6907b1a374e1dbc973a5d2381358a8c48eb185f4e526b0d8bf07c"
+    },
+    {
+      "path": "journeys/event-stream/steps/2/desktop.png",
+      "sha256": "09de2bd731988d6f8c2a63a5febaf792a6fc1ccfbb53b1a466f1a1dd88799556"
+    },
+    {
+      "path": "journeys/event-stream/steps/2/http.jsonl",
+      "sha256": "1e8b8012c3ecc02640a2a4a6a513b3280a0babeb7cc1dab6f8635e08866e5e0f"
+    },
+    {
+      "path": "journeys/event-stream/steps/2/mobile.png",
+      "sha256": "340790a0f5bb054b4d4306ccd0e8dee1a8d880b39a1f13fb549881ef49e1dbb8"
+    },
+    {
+      "path": "journeys/event-stream/steps/2/step.json",
+      "sha256": "524ad6740285a5282f933a5970e0b9343bcaeb55250fb8a52350bcb27f41ce94"
+    },
+    {
+      "path": "journeys/event-stream/steps/2/texts.json",
+      "sha256": "f73c4fd30dbdac155406c4cc41813d243dac5409478ee7c1af2bb3c0270d9ac8"
+    },
+    {
+      "path": "journeys/event-stream/steps/2/url.txt",
+      "sha256": "1496bd35a7d63f9b432728fa669411c05dfbd539c617928d274266185fe80543"
+    },
+    {
+      "path": "journeys/event-stream/steps/3/a11y.json",
+      "sha256": "a699578c8fc6907b1a374e1dbc973a5d2381358a8c48eb185f4e526b0d8bf07c"
+    },
+    {
+      "path": "journeys/event-stream/steps/3/desktop.png",
+      "sha256": "09de2bd731988d6f8c2a63a5febaf792a6fc1ccfbb53b1a466f1a1dd88799556"
+    },
+    {
+      "path": "journeys/event-stream/steps/3/http.jsonl",
+      "sha256": "bb47fa5cb2eca8b0282d4bbbce0bd8b346b6d7c167b95f527826ee67b3608602"
+    },
+    {
+      "path": "journeys/event-stream/steps/3/mobile.png",
+      "sha256": "340790a0f5bb054b4d4306ccd0e8dee1a8d880b39a1f13fb549881ef49e1dbb8"
+    },
+    {
+      "path": "journeys/event-stream/steps/3/step.json",
+      "sha256": "bd96df9daf280326da16c43069c51de35c85def0fd166aba5899bd3d03395ecd"
+    },
+    {
+      "path": "journeys/event-stream/steps/3/texts.json",
+      "sha256": "f73c4fd30dbdac155406c4cc41813d243dac5409478ee7c1af2bb3c0270d9ac8"
+    },
+    {
+      "path": "journeys/event-stream/steps/3/url.txt",
+      "sha256": "1496bd35a7d63f9b432728fa669411c05dfbd539c617928d274266185fe80543"
+    },
+    {
+      "path": "journeys/event-stream/steps/4/a11y.json",
+      "sha256": "a699578c8fc6907b1a374e1dbc973a5d2381358a8c48eb185f4e526b0d8bf07c"
+    },
+    {
+      "path": "journeys/event-stream/steps/4/desktop.png",
+      "sha256": "09de2bd731988d6f8c2a63a5febaf792a6fc1ccfbb53b1a466f1a1dd88799556"
+    },
+    {
+      "path": "journeys/event-stream/steps/4/http.jsonl",
+      "sha256": "91d31b21bfc954c6255dc3b628d1551d5d56cbd750b76ab0edc853b78b32be99"
+    },
+    {
+      "path": "journeys/event-stream/steps/4/mobile.png",
+      "sha256": "340790a0f5bb054b4d4306ccd0e8dee1a8d880b39a1f13fb549881ef49e1dbb8"
+    },
+    {
+      "path": "journeys/event-stream/steps/4/step.json",
+      "sha256": "69a29593555854c267d96cee713da61dca9429432cf873ae7d63ce1094308a46"
+    },
+    {
+      "path": "journeys/event-stream/steps/4/texts.json",
+      "sha256": "f73c4fd30dbdac155406c4cc41813d243dac5409478ee7c1af2bb3c0270d9ac8"
+    },
+    {
+      "path": "journeys/event-stream/steps/4/url.txt",
+      "sha256": "1496bd35a7d63f9b432728fa669411c05dfbd539c617928d274266185fe80543"
+    },
+    {
+      "path": "journeys/event-stream/steps/5/a11y.json",
+      "sha256": "a699578c8fc6907b1a374e1dbc973a5d2381358a8c48eb185f4e526b0d8bf07c"
+    },
+    {
+      "path": "journeys/event-stream/steps/5/desktop.png",
+      "sha256": "09de2bd731988d6f8c2a63a5febaf792a6fc1ccfbb53b1a466f1a1dd88799556"
+    },
+    {
+      "path": "journeys/event-stream/steps/5/http.jsonl",
+      "sha256": "91c501acac6c3fdbf60818e89bf189a2a87d185fa64d0d77ad8f38de16712950"
+    },
+    {
+      "path": "journeys/event-stream/steps/5/mobile.png",
+      "sha256": "340790a0f5bb054b4d4306ccd0e8dee1a8d880b39a1f13fb549881ef49e1dbb8"
+    },
+    {
+      "path": "journeys/event-stream/steps/5/step.json",
+      "sha256": "ff3391004db6147d010e23e2d8bea1cd8143d20fa4159e25f0170dfaf498ca44"
+    },
+    {
+      "path": "journeys/event-stream/steps/5/texts.json",
+      "sha256": "f73c4fd30dbdac155406c4cc41813d243dac5409478ee7c1af2bb3c0270d9ac8"
+    },
+    {
+      "path": "journeys/event-stream/steps/5/url.txt",
+      "sha256": "1496bd35a7d63f9b432728fa669411c05dfbd539c617928d274266185fe80543"
+    },
+    {
+      "path": "journeys/event-stream/steps/6/a11y.json",
+      "sha256": "a699578c8fc6907b1a374e1dbc973a5d2381358a8c48eb185f4e526b0d8bf07c"
+    },
+    {
+      "path": "journeys/event-stream/steps/6/desktop.png",
+      "sha256": "9a93239259cca73352546c3fdace33b40a529f476ead6e5e7c23b9f0c2b8a240"
+    },
+    {
+      "path": "journeys/event-stream/steps/6/http.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "journeys/event-stream/steps/6/mobile.png",
+      "sha256": "8573dc3ce43245a68f9d5921a8628e955fa33ed858a84d2118c54061a34f6fdc"
+    },
+    {
+      "path": "journeys/event-stream/steps/6/step.json",
+      "sha256": "ba085b4d1fa478d92fd31ad899349b7400953ba6b6af5e45c72162b247573584"
+    },
+    {
+      "path": "journeys/event-stream/steps/6/texts.json",
+      "sha256": "f73c4fd30dbdac155406c4cc41813d243dac5409478ee7c1af2bb3c0270d9ac8"
+    },
+    {
+      "path": "journeys/event-stream/steps/6/url.txt",
+      "sha256": "1496bd35a7d63f9b432728fa669411c05dfbd539c617928d274266185fe80543"
+    },
+    {
+      "path": "journeys/event-stream/steps/7/a11y.json",
+      "sha256": "45390331b7aaa2e7c6270ebd4a4a5f0131d7b79834d399a86fc82d8b4a3504b1"
+    },
+    {
+      "path": "journeys/event-stream/steps/7/desktop.png",
+      "sha256": "d1cbff06581a67f1ede57d2f8de9514bde60cea3d69188082e90cb90641b7110"
+    },
+    {
+      "path": "journeys/event-stream/steps/7/http.jsonl",
+      "sha256": "2b9b4b4bbb03a28cd543d1c2238b1bf0aef422098f23197fcde446d01da75bc8"
+    },
+    {
+      "path": "journeys/event-stream/steps/7/mobile.png",
+      "sha256": "6c189e13f2014c3c330cd3ab17525cf2b9b9bc9bcd0656a5621cb7b230ae9ea7"
+    },
+    {
+      "path": "journeys/event-stream/steps/7/step.json",
+      "sha256": "871a4145aaeda968b8dc7f1022e86b21ed2a3bb051dd365b6b54c86e40f436ea"
+    },
+    {
+      "path": "journeys/event-stream/steps/7/texts.json",
+      "sha256": "b41cf102f38a5a9660cdf665b8103b1648f87007bb4ca03187993ec8170ccbd8"
+    },
+    {
+      "path": "journeys/event-stream/steps/7/url.txt",
+      "sha256": "bfc4af8bedf735f8f5f746df951a63d057df5f2ec4f044b8bea46a61e5aef007"
+    },
+    {
+      "path": "journeys/feeds/db.json",
+      "sha256": "6d890659bc6e2cfb1569e4cde78117dde9aaa631f5f0dd47a9146d0f8b47a097"
+    },
+    {
+      "path": "journeys/feeds/scenario.md",
+      "sha256": "8b6062afc76b381c370526b3769590d2db1b2523f00063eb0d03ecdc30e18dd6"
+    },
+    {
+      "path": "journeys/feeds/steps/1/a11y.json",
+      "sha256": "c521b8ad32aab82541ae93bbe0104934bbb403cbe360e6f12cc6438a3fdd771d"
+    },
+    {
+      "path": "journeys/feeds/steps/1/desktop.png",
+      "sha256": "8eecd1df05e2ca1a99442cef0867cf021a8fc2fc6c87e2e50c806a69ee3520f9"
+    },
+    {
+      "path": "journeys/feeds/steps/1/http.jsonl",
+      "sha256": "079517420de3c7e4e55f80da255229b0d6b91d0d0a214a3b06b7ac1bae2dbc3b"
+    },
+    {
+      "path": "journeys/feeds/steps/1/mobile.png",
+      "sha256": "53a82c22a2e9998e63d6d035870f81332f5875369ee8ff582ea836b2fb198021"
+    },
+    {
+      "path": "journeys/feeds/steps/1/step.json",
+      "sha256": "c2a5228ac3e036a0ee262ce7aba80c49ec03211a29ee8d8bf41ebe02e74eec49"
+    },
+    {
+      "path": "journeys/feeds/steps/1/texts.json",
+      "sha256": "4b93b8b42dfac17e96aaac4118becde91e36a72b61376320711287a198ac0273"
+    },
+    {
+      "path": "journeys/feeds/steps/1/url.txt",
+      "sha256": "38fe609352c2946a9510d906751fbd4b60bca7a6ac018d789d24cb87cdd06501"
+    },
+    {
+      "path": "journeys/import-wizard/db.json",
+      "sha256": "72065639f84374ebfb5bdf8391b404b12c0bf0420ff33f97838b6008b633208e"
+    },
+    {
+      "path": "journeys/import-wizard/scenario.md",
+      "sha256": "43e0378e2c1114f9980f5f9a76aea31942fbf610295758ec395b9588e3c36642"
+    },
+    {
+      "path": "journeys/import-wizard/steps/1/a11y.json",
+      "sha256": "d9947400142d2710bedef8ef1e02c9d409cdd7b1287826074af8a31c4b5270f7"
+    },
+    {
+      "path": "journeys/import-wizard/steps/1/desktop.png",
+      "sha256": "d1e0241caddc56db4cf5524889f9b788955cb0fa4b74ec361a34fbe87941055f"
+    },
+    {
+      "path": "journeys/import-wizard/steps/1/http.jsonl",
+      "sha256": "7840d112c2d41e3392c339f0cebecdf41c26509aaf010efb828b8c8e0cd1277e"
+    },
+    {
+      "path": "journeys/import-wizard/steps/1/mobile.png",
+      "sha256": "48d95fc11cf94d86326edc4da72800816f84ad663fb28187e3101b1646d9853d"
+    },
+    {
+      "path": "journeys/import-wizard/steps/1/step.json",
+      "sha256": "10bb7438791b8085c3646bb3551898b9fec54d7cb0e4f6d49dfda7d4d2f3e68a"
+    },
+    {
+      "path": "journeys/import-wizard/steps/1/texts.json",
+      "sha256": "9b3db0dd38aac183f9f7d088e8753e7aacdea6b8a6c3ca1f00ef10d9d952b512"
+    },
+    {
+      "path": "journeys/import-wizard/steps/1/url.txt",
+      "sha256": "2736ba4f90a0486544de5f55a1d8da41997fd89307fababcd2b9f1d68fcac551"
+    },
+    {
+      "path": "journeys/import-wizard/steps/10/a11y.json",
+      "sha256": "02d8a6d44c3cfc581d3e4f4439dd5707214f1b10f9deef71aae4fcb958f6ea22"
+    },
+    {
+      "path": "journeys/import-wizard/steps/10/desktop.png",
+      "sha256": "a832530f8c4c98b366f651fe1a47bbf0deae4de735d2f2855245edf4038bc42a"
+    },
+    {
+      "path": "journeys/import-wizard/steps/10/http.jsonl",
+      "sha256": "8a1e554b84ac05092cf60a7f6e287f4a1e7b39818a072a61a59c423a9f5c78d7"
+    },
+    {
+      "path": "journeys/import-wizard/steps/10/mobile.png",
+      "sha256": "21504e7e28071612a02ceb6f049f6bd19aaaf78dd3b5fa9f41bc726811c8b9b6"
+    },
+    {
+      "path": "journeys/import-wizard/steps/10/step.json",
+      "sha256": "9c6dd07892d2e5bc03167471d38efe423c8d9cf3ab28439c338522ad603e6fbe"
+    },
+    {
+      "path": "journeys/import-wizard/steps/10/texts.json",
+      "sha256": "7ac576cb7720a1af92f132ddb09b164711089df3415c97397309f6cb6f5510e1"
+    },
+    {
+      "path": "journeys/import-wizard/steps/10/url.txt",
+      "sha256": "f42170926503d035935faeca172ad51293b3f25f74892a187aa3e675c0762b3a"
+    },
+    {
+      "path": "journeys/import-wizard/steps/2/a11y.json",
+      "sha256": "34a05a9c73f365070e0f2d15fc4b9e1e20c63cbeba8f658ddf071e078e7c52a9"
+    },
+    {
+      "path": "journeys/import-wizard/steps/2/desktop.png",
+      "sha256": "50371843d176af62e8ab9e74ccfa77da5f5a6be2fa985a2b7bfd8b7f8e612915"
+    },
+    {
+      "path": "journeys/import-wizard/steps/2/http.jsonl",
+      "sha256": "59c3527f2d05e7b1c4eec56180da33df3fa06becf9b6d2a12b3b4d5e7eb7d6bf"
+    },
+    {
+      "path": "journeys/import-wizard/steps/2/mobile.png",
+      "sha256": "49ab883377361ccefe3b0c5cdf29797f1160771e634558a6c31a637e35f93b63"
+    },
+    {
+      "path": "journeys/import-wizard/steps/2/step.json",
+      "sha256": "ad9e09795d85773aba04ddd2f8b133220170c180054fa2a59aac8f05ff758af7"
+    },
+    {
+      "path": "journeys/import-wizard/steps/2/texts.json",
+      "sha256": "4984acf4c57e1c79a9c474f54fad7e4b5908e60eaa056cb6ce7f063a3f6757ab"
+    },
+    {
+      "path": "journeys/import-wizard/steps/2/url.txt",
+      "sha256": "f99bd36cfd3766461170bc3544328a26a71c4a72c4754e4876b2323b3893a245"
+    },
+    {
+      "path": "journeys/import-wizard/steps/3/a11y.json",
+      "sha256": "b64fbf4e58c7bf823c54fa838303d4e9b0597bc4ee0c57ac17431fdfbdecdbc2"
+    },
+    {
+      "path": "journeys/import-wizard/steps/3/desktop.png",
+      "sha256": "746c7c57a7532acd45fe5e1a5457810a09fd859acd7480d8c00c373f77f10221"
+    },
+    {
+      "path": "journeys/import-wizard/steps/3/http.jsonl",
+      "sha256": "5febdf525eed7208c9988bc3400104000f7869f9813e30ba1571dc7235bda58c"
+    },
+    {
+      "path": "journeys/import-wizard/steps/3/mobile.png",
+      "sha256": "b2a0d5e29a6eb7f2abf144eef5df9356231aa688e0057aead928c4ffa4e5cc02"
+    },
+    {
+      "path": "journeys/import-wizard/steps/3/step.json",
+      "sha256": "59ca4a74419f94c83bb5d83fd6f00f14d2b799b2e40833530f1fc52eccab7f80"
+    },
+    {
+      "path": "journeys/import-wizard/steps/3/texts.json",
+      "sha256": "da573927d8e75f0b5f7c1f85d9cfa803b63a84e902ad89583b44185c81e23628"
+    },
+    {
+      "path": "journeys/import-wizard/steps/3/url.txt",
+      "sha256": "7cc9a8e777fee9f6f1245036197e19a2f533e542e95416ac08c9ada85fe25a96"
+    },
+    {
+      "path": "journeys/import-wizard/steps/4/a11y.json",
+      "sha256": "a01e80706b9376c6c65660e9ad1ca21280d9b9b6d0ad246c50c73dfc1224a993"
+    },
+    {
+      "path": "journeys/import-wizard/steps/4/desktop.png",
+      "sha256": "a087b66df131baeeb020506b0cce23bff12ba1031ae1e4a88f62d6155ddfab94"
+    },
+    {
+      "path": "journeys/import-wizard/steps/4/http.jsonl",
+      "sha256": "3f41057b3b101b16fe808d5dedcd4d966d57ba733f6ee0e75859ab3266b7f3d0"
+    },
+    {
+      "path": "journeys/import-wizard/steps/4/mobile.png",
+      "sha256": "c3760cebf75e9cb81edfc06878aea4d881745aad5e9dd4963d2a1d11e2b238a7"
+    },
+    {
+      "path": "journeys/import-wizard/steps/4/step.json",
+      "sha256": "b52eb0b90e0bb3990e8258789a1afbed1d5c39f846ad23f8dbca2806a69c525b"
+    },
+    {
+      "path": "journeys/import-wizard/steps/4/texts.json",
+      "sha256": "069b42a053fa62562469d853520757612c7da5c74535be08c673953ea4f36009"
+    },
+    {
+      "path": "journeys/import-wizard/steps/4/url.txt",
+      "sha256": "153b913d2c83e609ea2bcc459e0a9c6fd7c9a844ad43e4076bb36e9e5f454f64"
+    },
+    {
+      "path": "journeys/import-wizard/steps/5/a11y.json",
+      "sha256": "d9947400142d2710bedef8ef1e02c9d409cdd7b1287826074af8a31c4b5270f7"
+    },
+    {
+      "path": "journeys/import-wizard/steps/5/desktop.png",
+      "sha256": "d1e0241caddc56db4cf5524889f9b788955cb0fa4b74ec361a34fbe87941055f"
+    },
+    {
+      "path": "journeys/import-wizard/steps/5/http.jsonl",
+      "sha256": "6a86d9972a6d3a11d0bf14a5a974ad797a301dfeb97de79e27da04b79431a40d"
+    },
+    {
+      "path": "journeys/import-wizard/steps/5/mobile.png",
+      "sha256": "076644733f892c7a88f16fa12bb2340abb5a86971843e9033da6a67acb32b7d6"
+    },
+    {
+      "path": "journeys/import-wizard/steps/5/step.json",
+      "sha256": "8e558d4d331a23fe939081270052a3ab70e4b0643de54d65fcd65848c0ad90e2"
+    },
+    {
+      "path": "journeys/import-wizard/steps/5/texts.json",
+      "sha256": "9b3db0dd38aac183f9f7d088e8753e7aacdea6b8a6c3ca1f00ef10d9d952b512"
+    },
+    {
+      "path": "journeys/import-wizard/steps/5/url.txt",
+      "sha256": "2736ba4f90a0486544de5f55a1d8da41997fd89307fababcd2b9f1d68fcac551"
+    },
+    {
+      "path": "journeys/import-wizard/steps/6/a11y.json",
+      "sha256": "b64fbf4e58c7bf823c54fa838303d4e9b0597bc4ee0c57ac17431fdfbdecdbc2"
+    },
+    {
+      "path": "journeys/import-wizard/steps/6/desktop.png",
+      "sha256": "746c7c57a7532acd45fe5e1a5457810a09fd859acd7480d8c00c373f77f10221"
+    },
+    {
+      "path": "journeys/import-wizard/steps/6/http.jsonl",
+      "sha256": "b37173b5d8f28ed8358e897e76782983c065578025fbe7642c58e7aed2d3c276"
+    },
+    {
+      "path": "journeys/import-wizard/steps/6/mobile.png",
+      "sha256": "53b6705042bd1855395ac5a8f5994443c0d8c01b13a5661dbd9c0449fa93c900"
+    },
+    {
+      "path": "journeys/import-wizard/steps/6/step.json",
+      "sha256": "e40e8cb5eb20a32e0a63db379fdcf2e5552b4bd38e35fc850bd6c77cde6b87a6"
+    },
+    {
+      "path": "journeys/import-wizard/steps/6/texts.json",
+      "sha256": "da573927d8e75f0b5f7c1f85d9cfa803b63a84e902ad89583b44185c81e23628"
+    },
+    {
+      "path": "journeys/import-wizard/steps/6/url.txt",
+      "sha256": "7cc9a8e777fee9f6f1245036197e19a2f533e542e95416ac08c9ada85fe25a96"
+    },
+    {
+      "path": "journeys/import-wizard/steps/7/a11y.json",
+      "sha256": "34a05a9c73f365070e0f2d15fc4b9e1e20c63cbeba8f658ddf071e078e7c52a9"
+    },
+    {
+      "path": "journeys/import-wizard/steps/7/desktop.png",
+      "sha256": "50371843d176af62e8ab9e74ccfa77da5f5a6be2fa985a2b7bfd8b7f8e612915"
+    },
+    {
+      "path": "journeys/import-wizard/steps/7/http.jsonl",
+      "sha256": "0feb7fe0965349a5daecfaeb6fc14e620fd92ba45abf462966ef9738eda5311a"
+    },
+    {
+      "path": "journeys/import-wizard/steps/7/mobile.png",
+      "sha256": "49ab883377361ccefe3b0c5cdf29797f1160771e634558a6c31a637e35f93b63"
+    },
+    {
+      "path": "journeys/import-wizard/steps/7/step.json",
+      "sha256": "1f2197ba1e1745dcae00e921a1e2d5997041f07cb56744f214c468d4d1b930f2"
+    },
+    {
+      "path": "journeys/import-wizard/steps/7/texts.json",
+      "sha256": "4984acf4c57e1c79a9c474f54fad7e4b5908e60eaa056cb6ce7f063a3f6757ab"
+    },
+    {
+      "path": "journeys/import-wizard/steps/7/url.txt",
+      "sha256": "f99bd36cfd3766461170bc3544328a26a71c4a72c4754e4876b2323b3893a245"
+    },
+    {
+      "path": "journeys/import-wizard/steps/8/a11y.json",
+      "sha256": "d9947400142d2710bedef8ef1e02c9d409cdd7b1287826074af8a31c4b5270f7"
+    },
+    {
+      "path": "journeys/import-wizard/steps/8/desktop.png",
+      "sha256": "d1e0241caddc56db4cf5524889f9b788955cb0fa4b74ec361a34fbe87941055f"
+    },
+    {
+      "path": "journeys/import-wizard/steps/8/http.jsonl",
+      "sha256": "ebf01f344763514199aed4e3c3873cc07e0ed610103ea712c62e6c7ec6f10de6"
+    },
+    {
+      "path": "journeys/import-wizard/steps/8/mobile.png",
+      "sha256": "48d95fc11cf94d86326edc4da72800816f84ad663fb28187e3101b1646d9853d"
+    },
+    {
+      "path": "journeys/import-wizard/steps/8/step.json",
+      "sha256": "baa27d84d1c204610d651090dc1e85a4ab9b24485b6f1f4a0815231b8bf602b8"
+    },
+    {
+      "path": "journeys/import-wizard/steps/8/texts.json",
+      "sha256": "9b3db0dd38aac183f9f7d088e8753e7aacdea6b8a6c3ca1f00ef10d9d952b512"
+    },
+    {
+      "path": "journeys/import-wizard/steps/8/url.txt",
+      "sha256": "2736ba4f90a0486544de5f55a1d8da41997fd89307fababcd2b9f1d68fcac551"
+    },
+    {
+      "path": "journeys/import-wizard/steps/9/a11y.json",
+      "sha256": "76f4e2d29b6b013c9f8839aac7f6458d0a0b45c294edcdfcb604a57a3eaf5edd"
+    },
+    {
+      "path": "journeys/import-wizard/steps/9/desktop.png",
+      "sha256": "9132e7fff9299508797c4776d8e7f4f633f977e23346d6a36e2b778674d92fb8"
+    },
+    {
+      "path": "journeys/import-wizard/steps/9/http.jsonl",
+      "sha256": "1e08c681fc95bc42da92f60f8ea2c1bfe33b8393f09b3b8523339c24897e866c"
+    },
+    {
+      "path": "journeys/import-wizard/steps/9/mobile.png",
+      "sha256": "49ab883377361ccefe3b0c5cdf29797f1160771e634558a6c31a637e35f93b63"
+    },
+    {
+      "path": "journeys/import-wizard/steps/9/step.json",
+      "sha256": "dec97648d09c2629f9d3c977ee9bac39cfc6e1efb72f692fbd0e70aa75cebca8"
+    },
+    {
+      "path": "journeys/import-wizard/steps/9/texts.json",
+      "sha256": "7a569e80ea7af963612df2727073195895eefeeb13121c9c36661932a191a20a"
+    },
+    {
+      "path": "journeys/import-wizard/steps/9/url.txt",
+      "sha256": "f99bd36cfd3766461170bc3544328a26a71c4a72c4754e4876b2323b3893a245"
+    },
+    {
+      "path": "journeys/landing/db.json",
+      "sha256": "f72412b5d53de7720591cf4bd292e2ee85d1536c206f8bd40220c0f479de3bea"
+    },
+    {
+      "path": "journeys/landing/scenario.md",
+      "sha256": "7980104f48273fa95952ac032b22f18e8fd6b7f1c80734121f7bb95f3f055c15"
+    },
+    {
+      "path": "journeys/landing/steps/1/a11y.json",
+      "sha256": "6844b30b8c1ddc49bb7ecef8ff8bdedbb41b57e37ce6cef32a7a97d7214ff114"
+    },
+    {
+      "path": "journeys/landing/steps/1/desktop.png",
+      "sha256": "69bab9980906abf28fc0079e9727b6f3e413dbb4464fe89f6505e0cf0b7106b2"
+    },
+    {
+      "path": "journeys/landing/steps/1/http.jsonl",
+      "sha256": "54d04c2770ad62ba51b1320590ce6fa5f41bbe48f1dd823ad333110ab2a2da1c"
+    },
+    {
+      "path": "journeys/landing/steps/1/mobile.png",
+      "sha256": "a71c3d471aca8c7461b32635eb0367c612911dcc462272eb149866af3fa86942"
+    },
+    {
+      "path": "journeys/landing/steps/1/step.json",
+      "sha256": "e13ade6e362f6586bdaa8a24a9593861f08a03ac9d8cb4da15d200bc7b869c55"
+    },
+    {
+      "path": "journeys/landing/steps/1/texts.json",
+      "sha256": "d23216099d8f49cac6324f771a4173d6c92a879d91fca63400adae8c6582e1f0"
+    },
+    {
+      "path": "journeys/landing/steps/1/url.txt",
+      "sha256": "39698a78b32d388ac2d56c4cebf9fad74e40aae941b6948a5ae3b0f133619b62"
+    },
+    {
+      "path": "journeys/landing/steps/2/a11y.json",
+      "sha256": "7aa25e51cff8cdcfff86fc47962ea6c5593ec95a6abf934c3318be474e13dbd8"
+    },
+    {
+      "path": "journeys/landing/steps/2/desktop.png",
+      "sha256": "dee0fb882acf34a1766e188a7d56b8b04b4b4cae05cfabd9e1cbec7fc06b03c5"
+    },
+    {
+      "path": "journeys/landing/steps/2/http.jsonl",
+      "sha256": "86bc6fcb7a03162132288abb0e177271ad634164ac784c1c7143b468ece6589b"
+    },
+    {
+      "path": "journeys/landing/steps/2/mobile.png",
+      "sha256": "e7a7b7f5b9b4c7d96e4ec0314c9954c4176b9e7392d59ec128b9deffc0c15e1a"
+    },
+    {
+      "path": "journeys/landing/steps/2/step.json",
+      "sha256": "9c2b9c766b5c0a406677c5388ccbbbdbe43cc6dd6c1d51540bb94322b0201676"
+    },
+    {
+      "path": "journeys/landing/steps/2/texts.json",
+      "sha256": "fd38d68b4e8923352c3980a0779b505e20fcf093f85385a7a73096ed0ff38f47"
+    },
+    {
+      "path": "journeys/landing/steps/2/url.txt",
+      "sha256": "f9ec0b94e8e3f94922be5c450cebda264cda9a0eba70ade958fb6cf482a30a2b"
+    },
+    {
+      "path": "journeys/landing/steps/3/a11y.json",
+      "sha256": "6844b30b8c1ddc49bb7ecef8ff8bdedbb41b57e37ce6cef32a7a97d7214ff114"
+    },
+    {
+      "path": "journeys/landing/steps/3/desktop.png",
+      "sha256": "69bab9980906abf28fc0079e9727b6f3e413dbb4464fe89f6505e0cf0b7106b2"
+    },
+    {
+      "path": "journeys/landing/steps/3/http.jsonl",
+      "sha256": "e0778629ddf911c949c84ae21db4eb7d4fd4f380b4ef8061395074a2cf02fea8"
+    },
+    {
+      "path": "journeys/landing/steps/3/mobile.png",
+      "sha256": "a71c3d471aca8c7461b32635eb0367c612911dcc462272eb149866af3fa86942"
+    },
+    {
+      "path": "journeys/landing/steps/3/step.json",
+      "sha256": "50905dde01068b4a16f4f57b2cbb6147134abb8caa5f9fcdeb438b497783975b"
+    },
+    {
+      "path": "journeys/landing/steps/3/texts.json",
+      "sha256": "d23216099d8f49cac6324f771a4173d6c92a879d91fca63400adae8c6582e1f0"
+    },
+    {
+      "path": "journeys/landing/steps/3/url.txt",
+      "sha256": "f465c3739385890c221dff1a05e578c6cae0d0430e46996d319db7439f884336"
+    },
+    {
+      "path": "journeys/landing/steps/4/a11y.json",
+      "sha256": "6844b30b8c1ddc49bb7ecef8ff8bdedbb41b57e37ce6cef32a7a97d7214ff114"
+    },
+    {
+      "path": "journeys/landing/steps/4/desktop.png",
+      "sha256": "69bab9980906abf28fc0079e9727b6f3e413dbb4464fe89f6505e0cf0b7106b2"
+    },
+    {
+      "path": "journeys/landing/steps/4/http.jsonl",
+      "sha256": "42fdab061f81b6c26a378711dd077065970bc981285921d31446d439dec28bdc"
+    },
+    {
+      "path": "journeys/landing/steps/4/mobile.png",
+      "sha256": "a71c3d471aca8c7461b32635eb0367c612911dcc462272eb149866af3fa86942"
+    },
+    {
+      "path": "journeys/landing/steps/4/step.json",
+      "sha256": "ef5803caa8c3db17debb0c59d930077c3bb7825ee7ac8bbdb661fbf9d68598e9"
+    },
+    {
+      "path": "journeys/landing/steps/4/texts.json",
+      "sha256": "d23216099d8f49cac6324f771a4173d6c92a879d91fca63400adae8c6582e1f0"
+    },
+    {
+      "path": "journeys/landing/steps/4/url.txt",
+      "sha256": "39698a78b32d388ac2d56c4cebf9fad74e40aae941b6948a5ae3b0f133619b62"
+    },
+    {
+      "path": "journeys/landing/steps/5/a11y.json",
+      "sha256": "da4291cadd446b224f3c35f9dd211b3131cbc5cadf6765b0021bff58a0bf847f"
+    },
+    {
+      "path": "journeys/landing/steps/5/desktop.png",
+      "sha256": "0b139d752ee25993fb20859aaa0e544714207a38074da6b01768fd190652581f"
+    },
+    {
+      "path": "journeys/landing/steps/5/http.jsonl",
+      "sha256": "a7a3f3c4eaa3cb2b3e8c0ed71fb9681f048a18dc31b54ce739eb3244dcf8fc72"
+    },
+    {
+      "path": "journeys/landing/steps/5/mobile.png",
+      "sha256": "d691ccc968d28dbd59fb2ff904c5d48ba381fbee2ebd0a88185959fcc77faaba"
+    },
+    {
+      "path": "journeys/landing/steps/5/step.json",
+      "sha256": "7f14b43f20774588b33336754a2c509092056e47e4523c90220d7f9c2456ef9e"
+    },
+    {
+      "path": "journeys/landing/steps/5/texts.json",
+      "sha256": "0c996b7645b1b99b6946b55f5c423883c4086a2984ed67d334c591ab1cb2ea36"
+    },
+    {
+      "path": "journeys/landing/steps/5/url.txt",
+      "sha256": "11be28fa890a48691ff36eebe3e9906de518f5b2a4fc5df1f5f49cefb89a2f4a"
+    },
+    {
+      "path": "journeys/login/db.json",
+      "sha256": "89ff28a7260d4e225d7819b52e8c5f3f272a3bdba531061bb27eba43e8733dbe"
+    },
+    {
+      "path": "journeys/login/scenario.md",
+      "sha256": "9531ed628d6be2c84a4c4507ce864587d84950ae44a40418fea29951f0275670"
+    },
+    {
+      "path": "journeys/login/steps/1/a11y.json",
+      "sha256": "247d8e4754327c5a9ee34704bdbebfced5689405071f8be812f4e21faf616fc6"
+    },
+    {
+      "path": "journeys/login/steps/1/desktop.png",
+      "sha256": "0088f6ea6d18c589e8fdb82321d3ef228dba5836632e5ec7587a1593e2f86da8"
+    },
+    {
+      "path": "journeys/login/steps/1/http.jsonl",
+      "sha256": "a09f4b1e3245771e85b5546a55e49f8e786a7c3cced44d0d437452fd385e57ab"
+    },
+    {
+      "path": "journeys/login/steps/1/mobile.png",
+      "sha256": "b6568ff1417682ec7039605e580e0d909a28724411d212c6c70cf28444482e2a"
+    },
+    {
+      "path": "journeys/login/steps/1/step.json",
+      "sha256": "14ee5f90e47c7528308aeb5b15bfd4f05c894c65ff5bba55a95274d6087552e9"
+    },
+    {
+      "path": "journeys/login/steps/1/texts.json",
+      "sha256": "4e8afdf552d91e6606882f67aaaa9970044b3834565f8bd71e12b1773be0b073"
+    },
+    {
+      "path": "journeys/login/steps/1/url.txt",
+      "sha256": "5489749e4e77a1ac4632712a0fd9074700899a29c1ee48e4fa76cb776ddb6274"
+    },
+    {
+      "path": "journeys/login/steps/2/a11y.json",
+      "sha256": "9b43e1c190933be16860115db4eb16ac3d5eb3e7558e5ddc9dca4ccbd6917cf1"
+    },
+    {
+      "path": "journeys/login/steps/2/desktop.png",
+      "sha256": "d588b6db28a8bfc69ffdfb3ba4d33584c80ae20d9a0acca4a5be4845e45e6ecd"
+    },
+    {
+      "path": "journeys/login/steps/2/http.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "journeys/login/steps/2/mobile.png",
+      "sha256": "2fb46ecdb400be8b6f22e12242b3f04dec63280e13386ab5932722b8190c821a"
+    },
+    {
+      "path": "journeys/login/steps/2/step.json",
+      "sha256": "e1bb9d109fde3168b30048e9ba7452b68493f4b266af068c6cfeac1c3e98e875"
+    },
+    {
+      "path": "journeys/login/steps/2/texts.json",
+      "sha256": "4e8afdf552d91e6606882f67aaaa9970044b3834565f8bd71e12b1773be0b073"
+    },
+    {
+      "path": "journeys/login/steps/2/url.txt",
+      "sha256": "5489749e4e77a1ac4632712a0fd9074700899a29c1ee48e4fa76cb776ddb6274"
+    },
+    {
+      "path": "journeys/login/steps/3/a11y.json",
+      "sha256": "4d2c17190c4800472ff63a2cde17567e2eff8dff28d18255203be22b2e9905c5"
+    },
+    {
+      "path": "journeys/login/steps/3/desktop.png",
+      "sha256": "4a6c2ff7c96462c86a1ddc07a7251517e6f3eb30f12e2f92b0bbbf88dc011fd7"
+    },
+    {
+      "path": "journeys/login/steps/3/http.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "journeys/login/steps/3/mobile.png",
+      "sha256": "975c4a1b9ad0b085a972c02f235531d6d6af820fbd519d7c5eb5baa51028454b"
+    },
+    {
+      "path": "journeys/login/steps/3/step.json",
+      "sha256": "07e0dfeaf4b11651e9e80033c7985a4c636ec49bcd9e00e4385a2b6737267c97"
+    },
+    {
+      "path": "journeys/login/steps/3/texts.json",
+      "sha256": "4e8afdf552d91e6606882f67aaaa9970044b3834565f8bd71e12b1773be0b073"
+    },
+    {
+      "path": "journeys/login/steps/3/url.txt",
+      "sha256": "5489749e4e77a1ac4632712a0fd9074700899a29c1ee48e4fa76cb776ddb6274"
+    },
+    {
+      "path": "journeys/login/steps/4/a11y.json",
+      "sha256": "bf2bd080b38bdade80995190fa35cc7cb55e6d483c341f0e3194d37600e96d66"
+    },
+    {
+      "path": "journeys/login/steps/4/desktop.png",
+      "sha256": "666249c1607081e4c2dbdf320738fff6c59304ba4ff353271c4b27eaaf943930"
+    },
+    {
+      "path": "journeys/login/steps/4/http.jsonl",
+      "sha256": "1f84d16753ddda25d768aea095bd81d2a1744004188086f61abdb96b6ccbb296"
+    },
+    {
+      "path": "journeys/login/steps/4/mobile.png",
+      "sha256": "72aede171a69cd4f5b5cff7f9c39f5fbca9ac5df64b181bc1b5becc66b96207c"
+    },
+    {
+      "path": "journeys/login/steps/4/step.json",
+      "sha256": "6d3f0013dcdcd2c1ac1135344cbfc9572393df940766ca37c9cf67a449b91fa8"
+    },
+    {
+      "path": "journeys/login/steps/4/texts.json",
+      "sha256": "131d0156176fccada6c3af5d69d87446d234bd0b9843976e65ec7a10145e4acb"
+    },
+    {
+      "path": "journeys/login/steps/4/url.txt",
+      "sha256": "11be28fa890a48691ff36eebe3e9906de518f5b2a4fc5df1f5f49cefb89a2f4a"
+    },
+    {
+      "path": "journeys/login/steps/5/a11y.json",
+      "sha256": "bf2bd080b38bdade80995190fa35cc7cb55e6d483c341f0e3194d37600e96d66"
+    },
+    {
+      "path": "journeys/login/steps/5/desktop.png",
+      "sha256": "666249c1607081e4c2dbdf320738fff6c59304ba4ff353271c4b27eaaf943930"
+    },
+    {
+      "path": "journeys/login/steps/5/http.jsonl",
+      "sha256": "e922a4331721db72427ae1d32d094fb492ff8af930b1e460a7429d6cec0ab048"
+    },
+    {
+      "path": "journeys/login/steps/5/mobile.png",
+      "sha256": "72aede171a69cd4f5b5cff7f9c39f5fbca9ac5df64b181bc1b5becc66b96207c"
+    },
+    {
+      "path": "journeys/login/steps/5/step.json",
+      "sha256": "05124f3c5254e26b763afa3e92f2ea0f56f38182ff8f1f118ad19012ae4a275f"
+    },
+    {
+      "path": "journeys/login/steps/5/texts.json",
+      "sha256": "131d0156176fccada6c3af5d69d87446d234bd0b9843976e65ec7a10145e4acb"
+    },
+    {
+      "path": "journeys/login/steps/5/url.txt",
+      "sha256": "11be28fa890a48691ff36eebe3e9906de518f5b2a4fc5df1f5f49cefb89a2f4a"
+    },
+    {
+      "path": "journeys/login/steps/6/a11y.json",
+      "sha256": "bf2bd080b38bdade80995190fa35cc7cb55e6d483c341f0e3194d37600e96d66"
+    },
+    {
+      "path": "journeys/login/steps/6/desktop.png",
+      "sha256": "666249c1607081e4c2dbdf320738fff6c59304ba4ff353271c4b27eaaf943930"
+    },
+    {
+      "path": "journeys/login/steps/6/http.jsonl",
+      "sha256": "b523239c0c153a8b73b80ea83a61feb7f78490eff49c93e7f1f982e652997ce1"
+    },
+    {
+      "path": "journeys/login/steps/6/mobile.png",
+      "sha256": "72aede171a69cd4f5b5cff7f9c39f5fbca9ac5df64b181bc1b5becc66b96207c"
+    },
+    {
+      "path": "journeys/login/steps/6/step.json",
+      "sha256": "5f4a115c8eb61b163fe7418e1efc141c3ea7073fe93280413ffef3b96fa6515d"
+    },
+    {
+      "path": "journeys/login/steps/6/texts.json",
+      "sha256": "131d0156176fccada6c3af5d69d87446d234bd0b9843976e65ec7a10145e4acb"
+    },
+    {
+      "path": "journeys/login/steps/6/url.txt",
+      "sha256": "11be28fa890a48691ff36eebe3e9906de518f5b2a4fc5df1f5f49cefb89a2f4a"
+    },
+    {
+      "path": "journeys/login/steps/7/a11y.json",
+      "sha256": "bf2bd080b38bdade80995190fa35cc7cb55e6d483c341f0e3194d37600e96d66"
+    },
+    {
+      "path": "journeys/login/steps/7/desktop.png",
+      "sha256": "666249c1607081e4c2dbdf320738fff6c59304ba4ff353271c4b27eaaf943930"
+    },
+    {
+      "path": "journeys/login/steps/7/http.jsonl",
+      "sha256": "07d471ce2fabf38c1ede1373e235447260a2f05d006e8543b3a87e979b4d1e28"
+    },
+    {
+      "path": "journeys/login/steps/7/mobile.png",
+      "sha256": "72aede171a69cd4f5b5cff7f9c39f5fbca9ac5df64b181bc1b5becc66b96207c"
+    },
+    {
+      "path": "journeys/login/steps/7/step.json",
+      "sha256": "8ba09aa3248043aeecb259642eccf76eea82e5442585a4d39445e6df5a369dca"
+    },
+    {
+      "path": "journeys/login/steps/7/texts.json",
+      "sha256": "131d0156176fccada6c3af5d69d87446d234bd0b9843976e65ec7a10145e4acb"
+    },
+    {
+      "path": "journeys/login/steps/7/url.txt",
+      "sha256": "11be28fa890a48691ff36eebe3e9906de518f5b2a4fc5df1f5f49cefb89a2f4a"
+    },
+    {
+      "path": "journeys/login/steps/8/a11y.json",
+      "sha256": "da4291cadd446b224f3c35f9dd211b3131cbc5cadf6765b0021bff58a0bf847f"
+    },
+    {
+      "path": "journeys/login/steps/8/desktop.png",
+      "sha256": "9a0bacc30f84cd0d800abf11b5191837ef8583419ae1a769119181ab5ed96c0c"
+    },
+    {
+      "path": "journeys/login/steps/8/http.jsonl",
+      "sha256": "9d65642ad58a6c454df82f9512ef7065575a7b3593b6d01c10b4456662e17639"
+    },
+    {
+      "path": "journeys/login/steps/8/mobile.png",
+      "sha256": "d691ccc968d28dbd59fb2ff904c5d48ba381fbee2ebd0a88185959fcc77faaba"
+    },
+    {
+      "path": "journeys/login/steps/8/step.json",
+      "sha256": "55ae6c3aa7e2270ff014a2837fb59c43fe403d036c8fc19774234582fce1793c"
+    },
+    {
+      "path": "journeys/login/steps/8/texts.json",
+      "sha256": "0c996b7645b1b99b6946b55f5c423883c4086a2984ed67d334c591ab1cb2ea36"
+    },
+    {
+      "path": "journeys/login/steps/8/url.txt",
+      "sha256": "11be28fa890a48691ff36eebe3e9906de518f5b2a4fc5df1f5f49cefb89a2f4a"
+    },
+    {
+      "path": "journeys/popups-widget-editor/db.json",
+      "sha256": "6d890659bc6e2cfb1569e4cde78117dde9aaa631f5f0dd47a9146d0f8b47a097"
+    },
+    {
+      "path": "journeys/popups-widget-editor/scenario.md",
+      "sha256": "7bd0c615e747bf61575d90acc0f687025edc1c8420afaeea92627a68b6043a1d"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/1/a11y.json",
+      "sha256": "c3780ec38e6fbcb2927a8a4ade777077fc16cb1d7cee3ad284d5d058601222f8"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/1/desktop.png",
+      "sha256": "dd949e4d78ef39ae33a933bc619e3c079a9fd9faedbc1920cf1581fb1b2ad526"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/1/http.jsonl",
+      "sha256": "4d7e993f0d42c1f3b4b666680d4dd05cc06252043e6c0aec8352d710c5892bd9"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/1/mobile.png",
+      "sha256": "88ae51664605d3dea439801c5c4befe9b2949901f0f65cf6fc323eaf111ffb8c"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/1/step.json",
+      "sha256": "d286e1b9812a7b42ae60495dd19dd6a8da459da707b88dd90695cf23f40d580f"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/1/texts.json",
+      "sha256": "1e5cd13229d54eba4bb81276d106441871285b4a70dd44e6b5caff23ab70b852"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/1/url.txt",
+      "sha256": "12fb532302f9f54d50665da1c055f33d65bcd9f49a90375034b74480561b7592"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/2/a11y.json",
+      "sha256": "751da122e121eeedee47b6c31cb8757818d5cea47a69f4321697a731435fa6f9"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/2/desktop.png",
+      "sha256": "c6c8fddc34cfa9e7e41f7aece4dc09038129c4e8ea3accb1e1d261fe711a5717"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/2/http.jsonl",
+      "sha256": "e0b5c8ad49cfa83ae71275cf389f40b9b7ada0e7800afe7f47ffd5157beaa50a"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/2/mobile.png",
+      "sha256": "88ae51664605d3dea439801c5c4befe9b2949901f0f65cf6fc323eaf111ffb8c"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/2/step.json",
+      "sha256": "c4e1cd60058bc9c782b1ca8f4f0d165aeac41c268a1b9f1deeaf1de6af8994a0"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/2/texts.json",
+      "sha256": "82217e2e12bfda7b4a737f8f1112dc6488cfc3cbfb2065ecca66d8686adb8e67"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/2/url.txt",
+      "sha256": "e2a012b80a723353ca0abebf36d37d030082e2d49052ed39a41048a13b15d148"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/3/a11y.json",
+      "sha256": "9bd5baa9ef62b98c8a8a9bafca3f1edbbd2d52ff209209bed1d6048aeac4f95b"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/3/desktop.png",
+      "sha256": "cb915346ba381ca931a33971effb009c33fcd02a0613f0a7ccb2d8b7f80eb2ce"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/3/http.jsonl",
+      "sha256": "4ee99ae47275de5190d92f39bc669d7a27fde76ee27c41ee0118dd43397914a4"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/3/mobile.png",
+      "sha256": "7a037c747eec9ec2ea2b11d3fc0454863b3b4934e74249691c4b629cfe0af5ed"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/3/step.json",
+      "sha256": "ef9e6d585ce7c7dd9c7ad14d4ad3b0286f701abffee9abdfbca6cd7efd8bce43"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/3/texts.json",
+      "sha256": "3bbf4354df4c8d2ebc41d05f007c7c492dbad41d50376ccf5b4868462c16aa85"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/3/url.txt",
+      "sha256": "1cf437fa9030ffd6762e045198044785d748f0f3be4c40a4511d8e3695753ba2"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/4/a11y.json",
+      "sha256": "a04f686d77c646bd80380b8d261fdc9deaa85f5729590702b7d0a3a19a475bdb"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/4/desktop.png",
+      "sha256": "55d350c214ee8b99404eb33a8d9e22c1eb48f663902d00e262cd09ad0096a348"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/4/http.jsonl",
+      "sha256": "f68edf5ba48178aa6f2aebb7a58586af0c066b71de96f8e6ddd1dc0c603536c3"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/4/mobile.png",
+      "sha256": "6ffee8263295b20c2d93f68ef649960dee206d9f691ee62ceab7f648c5652443"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/4/step.json",
+      "sha256": "af362a9921cd7d467b352c0b52982fa573689e7a51e3e1639fe7925d8e83bb04"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/4/texts.json",
+      "sha256": "033c0f255df5db53f34ca4757b09d141a1f28c30a5faa25471e31e4bbd39623f"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/4/url.txt",
+      "sha256": "f84d0954609486abda7afc033dabc77c6273db6c57c39ba3f401f590a271db6c"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/5/a11y.json",
+      "sha256": "9bd5baa9ef62b98c8a8a9bafca3f1edbbd2d52ff209209bed1d6048aeac4f95b"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/5/desktop.png",
+      "sha256": "cb915346ba381ca931a33971effb009c33fcd02a0613f0a7ccb2d8b7f80eb2ce"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/5/http.jsonl",
+      "sha256": "73341e99eed77315b92745d4833ead9b24ee5176c4afdc8bd62d2892831d7f68"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/5/mobile.png",
+      "sha256": "7a037c747eec9ec2ea2b11d3fc0454863b3b4934e74249691c4b629cfe0af5ed"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/5/step.json",
+      "sha256": "3feeb9b46344f9624e701234c281170aad32472bcc1b12f64ca184479452bd44"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/5/texts.json",
+      "sha256": "3bbf4354df4c8d2ebc41d05f007c7c492dbad41d50376ccf5b4868462c16aa85"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/5/url.txt",
+      "sha256": "1cf437fa9030ffd6762e045198044785d748f0f3be4c40a4511d8e3695753ba2"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/6/a11y.json",
+      "sha256": "add9fdc1b964b2459411a6acf760c754425452e81b516bfc745f7abc3df19f47"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/6/desktop.png",
+      "sha256": "158e77b647c02982a3b08db4d7ebc3dc6f2bf9c97a0cea6b048c64e877ed645d"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/6/http.jsonl",
+      "sha256": "14a6ae5a187baad18806f56ad156a9d455ec3b49c4c90771aabba4f6f09a4476"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/6/mobile.png",
+      "sha256": "7a037c747eec9ec2ea2b11d3fc0454863b3b4934e74249691c4b629cfe0af5ed"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/6/step.json",
+      "sha256": "ef39bc7dc20b6fe61ac0bfcdeea275cfcf6ae9f89076af62d0cadecd716fb71c"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/6/texts.json",
+      "sha256": "564414978a2e3586e6b78fef247f0a502d5cb6b1362abcb5d27611110bb84a4c"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/6/url.txt",
+      "sha256": "ba685091dc1ae0dbeb32cdb57cdf954685f6716a83fa9fe4ab1650ea20801c7f"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/7/a11y.json",
+      "sha256": "dec7f5b8a7e8c224341f964ca285aee41a5d327cf7e48687a0785054bec280ae"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/7/desktop.png",
+      "sha256": "eb795b4a646acc176f1d582fd4ba259f4048147c02b2f41099a4223ec99bac50"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/7/http.jsonl",
+      "sha256": "b5a22d0dcb7541f64e707b07373770c11847ea4f8649a497880c20be7225f2d8"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/7/mobile.png",
+      "sha256": "12dac06db643839ebbcec4e537b7b520b86722141a2fbcc97d0fa07d549031b1"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/7/step.json",
+      "sha256": "2adc8b027f311f17dc25221b6965a5c97199b0ec3cc53f306ae61acd7a9077d0"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/7/texts.json",
+      "sha256": "3d7d2bb7b9dcab94650a69719b7125aaa4dfa7a5e97ad874006844bd9dae0ab5"
+    },
+    {
+      "path": "journeys/popups-widget-editor/steps/7/url.txt",
+      "sha256": "c76448c441d9666c247191c3a2bae818f468e3bb8cb166d4d1ad326619815c4b"
+    },
+    {
+      "path": "journeys/scheduler-heartbeat/contract.md",
+      "sha256": "478b04bd83bcfbed110eb4de049510ee6afd3def39ab6b3850e813bf84fff01c"
+    },
+    {
+      "path": "journeys/scheduler-heartbeat/scenario.md",
+      "sha256": "796475a63b018d078cef474dca6f2b445a31057efe610bc48e903c73a354cc1a"
+    },
+    {
+      "path": "journeys/settings/db.json",
+      "sha256": "1bf2e0a2123ec60f6dd5ded75d3f276da1c675f6bef72c3aa653d61ec960a24b"
+    },
+    {
+      "path": "journeys/settings/scenario.md",
+      "sha256": "ef547bc47f8bd7e954abc34fc6567896b6c2470f31b442d00f1c84d4601d1c63"
+    },
+    {
+      "path": "journeys/settings/steps/1/a11y.json",
+      "sha256": "59572da4a01a278831bf226dca8e7a3679459361c25a28bb79e35d60ee722f46"
+    },
+    {
+      "path": "journeys/settings/steps/1/desktop.png",
+      "sha256": "5c58b42548e1bb33ebd289fa862fb2bf4b02e506dcac1741d333feeacb6672fc"
+    },
+    {
+      "path": "journeys/settings/steps/1/http.jsonl",
+      "sha256": "b7d07209b1540a131096639e43c0990fd7df7189d049378421892db12c292803"
+    },
+    {
+      "path": "journeys/settings/steps/1/mobile.png",
+      "sha256": "59694b7097d470e874822afdbd7deafe753b44851a93b408bf422f72ef3530e6"
+    },
+    {
+      "path": "journeys/settings/steps/1/step.json",
+      "sha256": "0eebf113607cf0941709134e461f0211b7addc8327a07f3ed8670eb79209c574"
+    },
+    {
+      "path": "journeys/settings/steps/1/texts.json",
+      "sha256": "91d36fded607f62b1c3ab72a212e04326506909d84cee2e5d63f9619ac75633c"
+    },
+    {
+      "path": "journeys/settings/steps/1/url.txt",
+      "sha256": "47a6f6caa419fb44542015c31777c009801df7d2780f57edf58d255d9aa43ec9"
+    },
+    {
+      "path": "journeys/settings/steps/10/a11y.json",
+      "sha256": "ccf24a7b69ef79450ea1fcc3fd1af15f3877e8cf161c0248f39e490b58edf855"
+    },
+    {
+      "path": "journeys/settings/steps/10/desktop.png",
+      "sha256": "ab798477f2135b8aaad37b74c2df6f457247bf382035eeea2e66a20815e1d8d9"
+    },
+    {
+      "path": "journeys/settings/steps/10/http.jsonl",
+      "sha256": "6e46f97238748223980c660276e790b1d0a15eb54b8838338e49b9f161c8c268"
+    },
+    {
+      "path": "journeys/settings/steps/10/mobile.png",
+      "sha256": "7c170e2a8f739a4051f99abe99cd892e50afe5192228390bda9b6ae20a9b2d5c"
+    },
+    {
+      "path": "journeys/settings/steps/10/step.json",
+      "sha256": "84f668a1b536c5e74742730d20c15c1f86f6800be3331b670020c644db16cd1d"
+    },
+    {
+      "path": "journeys/settings/steps/10/texts.json",
+      "sha256": "6492fdb53eaf9451e1efd4cc062694ba17153c68cb9178b0c7080614b8e09002"
+    },
+    {
+      "path": "journeys/settings/steps/10/url.txt",
+      "sha256": "2899411f5f9886a56367463f912d3d3d5450853ded4e2a5b5dced465c960d82f"
+    },
+    {
+      "path": "journeys/settings/steps/2/a11y.json",
+      "sha256": "f97a5d913f48c49f3117aac1f25b94c7e0a41e3b06d4333ccf21c21abf4a95a2"
+    },
+    {
+      "path": "journeys/settings/steps/2/desktop.png",
+      "sha256": "c5a06ebfbe2fe3a9fdee3586bfc5344611cdddebf8888d77abffd64fec49d2aa"
+    },
+    {
+      "path": "journeys/settings/steps/2/http.jsonl",
+      "sha256": "5244503b378a27b45c7bbfb4074ffa2fac103a5d0ccaa27adb697001b535f587"
+    },
+    {
+      "path": "journeys/settings/steps/2/mobile.png",
+      "sha256": "e7fb0d362f185dec06bd568a142aafc226948ebe052710d181e217601c5c59d9"
+    },
+    {
+      "path": "journeys/settings/steps/2/step.json",
+      "sha256": "bd40ea349edd3c908022828cf5b1064b7172471daf5e62852e50ebfb1d8ce733"
+    },
+    {
+      "path": "journeys/settings/steps/2/texts.json",
+      "sha256": "b80f1cfb64950301c3d6a9533dda5999b11ce1c10e8c63717075abab02d7029f"
+    },
+    {
+      "path": "journeys/settings/steps/2/url.txt",
+      "sha256": "bc5a95c855b1236187afc31d3507b70889bbd64e7e48143e28e0edddaaae7fc7"
+    },
+    {
+      "path": "journeys/settings/steps/3/a11y.json",
+      "sha256": "6fc84b938f6bedfb4be3d88b3d4d296543e8a74316d21b5af665d86fce7a2921"
+    },
+    {
+      "path": "journeys/settings/steps/3/desktop.png",
+      "sha256": "8f099293cc74328b3c17d0123c2b626b64673b924fd31a2f8c7aad3d17215b10"
+    },
+    {
+      "path": "journeys/settings/steps/3/http.jsonl",
+      "sha256": "0b7e08077bfeb5e0b9e8a723238f3043bd9e6456971b2a4432536c2caa6a46b8"
+    },
+    {
+      "path": "journeys/settings/steps/3/mobile.png",
+      "sha256": "42716ccb592b897ad51df3d25374e2806ab1e900788b349d20829b620dc54b1b"
+    },
+    {
+      "path": "journeys/settings/steps/3/step.json",
+      "sha256": "f0abbb6e50fa63ca68f1f67f9a42c70dfe276ebfc447d97fd5ae55c222830a41"
+    },
+    {
+      "path": "journeys/settings/steps/3/texts.json",
+      "sha256": "f2ea4506fee6bdd231c7598163cd5d498d5e1d229208c15c086749b9f223a061"
+    },
+    {
+      "path": "journeys/settings/steps/3/url.txt",
+      "sha256": "8511c9306729a7f91618acfbafa2447e5a9d36744f2729f68ba8e03195cf2c21"
+    },
+    {
+      "path": "journeys/settings/steps/4/a11y.json",
+      "sha256": "f24f37d648a81454580d9d1732c87570d8aa09b4113e27448a5ebf815878f12e"
+    },
+    {
+      "path": "journeys/settings/steps/4/desktop.png",
+      "sha256": "438780833d49f11eadaf8dbbb611dd5e443d1b1e591f3e9a9a1386550179b191"
+    },
+    {
+      "path": "journeys/settings/steps/4/http.jsonl",
+      "sha256": "3df656c22fccd9a999cec9967caca028ca6c1f8e55a62721ea4eaa1719156880"
+    },
+    {
+      "path": "journeys/settings/steps/4/mobile.png",
+      "sha256": "137f1f7d4407a2d7d7fc8b5b3622dd78da1eae524a1cd5b46d04e618171db6ed"
+    },
+    {
+      "path": "journeys/settings/steps/4/step.json",
+      "sha256": "794a55efb7b4d853a6bd8321a6e955e45e57460de814c9128f3b470b456e7fc2"
+    },
+    {
+      "path": "journeys/settings/steps/4/texts.json",
+      "sha256": "cd1bdd37184378a2ed841e0c075fa15e7de6b23cff45a44c71ce6bd2c5a30d7a"
+    },
+    {
+      "path": "journeys/settings/steps/4/url.txt",
+      "sha256": "3629e9f1e4ad422d8a4bdd31306abb078531b4f340dc53b55288917f7cd47300"
+    },
+    {
+      "path": "journeys/settings/steps/5/a11y.json",
+      "sha256": "d951db3e819b57fe79c316916815920adc525f94cc728fd771f2fe139009981a"
+    },
+    {
+      "path": "journeys/settings/steps/5/desktop.png",
+      "sha256": "c4b9aa16adfd398fd147d27826206ffa70beea0d2fbf9c18eb7b7dee8a4c76a1"
+    },
+    {
+      "path": "journeys/settings/steps/5/http.jsonl",
+      "sha256": "16d2954838f44d1d8cb18e77a5729afd647a0e81f246c95c305824f9bfcc794d"
+    },
+    {
+      "path": "journeys/settings/steps/5/mobile.png",
+      "sha256": "4b9febc1c262f7ff7a074c816aa51c6803614ee7754207906cba51fba13e89c2"
+    },
+    {
+      "path": "journeys/settings/steps/5/step.json",
+      "sha256": "8e223665c2701e16c27cb6e49c064c7574b39169be480670ab2d5c9fc208e150"
+    },
+    {
+      "path": "journeys/settings/steps/5/texts.json",
+      "sha256": "f99edf2ea78260fd6ee574fa30c51cc6508714ff75dc893feb7dfa97cae18c1c"
+    },
+    {
+      "path": "journeys/settings/steps/5/url.txt",
+      "sha256": "213d620d25b0113428e668da2fecc9cc0307ef7edf81a3a78da01b1d79ec4d23"
+    },
+    {
+      "path": "journeys/settings/steps/6/a11y.json",
+      "sha256": "3549bef6ad4165998985bc6d0813049c347b276f09d425743a4e8e5087e1d312"
+    },
+    {
+      "path": "journeys/settings/steps/6/desktop.png",
+      "sha256": "9be9f5edda40fb834466a01fc689e476af3f38a72e7512460bd23bf265bef6e3"
+    },
+    {
+      "path": "journeys/settings/steps/6/http.jsonl",
+      "sha256": "7f7c6398be4eff9733ed1f56bba6b294aef61ee5a8417c08bd20b565bbfd5e26"
+    },
+    {
+      "path": "journeys/settings/steps/6/mobile.png",
+      "sha256": "f41299c928af3aff13b1c1ddd77892e2183d2c6334093e908a3b2abe0143e0e3"
+    },
+    {
+      "path": "journeys/settings/steps/6/step.json",
+      "sha256": "9105becdcd92149ca7124d9b93393b20eba72d5f07604c49a93cb6ac7f3b1bb7"
+    },
+    {
+      "path": "journeys/settings/steps/6/texts.json",
+      "sha256": "9b62b8eb8b93f0a2c34bcb77939554a99e4dc338c90072113de804e4335d9728"
+    },
+    {
+      "path": "journeys/settings/steps/6/url.txt",
+      "sha256": "51938651573551f80584e43ebd3ff9e945146eac9771474ec1985e3e8d328cdb"
+    },
+    {
+      "path": "journeys/settings/steps/7/a11y.json",
+      "sha256": "ecff1b38b297d89a92dd2762f4d00d6147545aec9f1de3e952ed2db9476020be"
+    },
+    {
+      "path": "journeys/settings/steps/7/desktop.png",
+      "sha256": "3871c875148117f810f29c4fdf422051af6829057b3e8f270375ed8c7bf57650"
+    },
+    {
+      "path": "journeys/settings/steps/7/http.jsonl",
+      "sha256": "2980349b1c6073e520ca120b0ae8fa30d580e9e934242205413efad42e474c7c"
+    },
+    {
+      "path": "journeys/settings/steps/7/mobile.png",
+      "sha256": "15ee8cbc134b22ce91bcd2d2bf9d16de969818968d55b95a2dbc986ef61ec790"
+    },
+    {
+      "path": "journeys/settings/steps/7/step.json",
+      "sha256": "7c4334ad9466e2ef0fe03f766aa1460dbc0860875e572414d7551a7efe471a09"
+    },
+    {
+      "path": "journeys/settings/steps/7/texts.json",
+      "sha256": "d9eb582ce5fdfb35af0433b29c88a9a05b2ca57eddc907078046e135bc796f99"
+    },
+    {
+      "path": "journeys/settings/steps/7/url.txt",
+      "sha256": "8ba79294c050d27301b0b6b55facf4749978d3c22de4ed92115eb2e43e4b480e"
+    },
+    {
+      "path": "journeys/settings/steps/8/a11y.json",
+      "sha256": "664f032d39746deccaae6fc62d180759983a75e47624ba67119ddbfb1e9e7074"
+    },
+    {
+      "path": "journeys/settings/steps/8/desktop.png",
+      "sha256": "67dea53d66df8da82c46e133ebdaf29505d7a97546a9ce03c0a9d0d7f8c88bd0"
+    },
+    {
+      "path": "journeys/settings/steps/8/http.jsonl",
+      "sha256": "9bd55bbc393eb6c3315ff7f226bead0913ae64572fcb54794754b472cc4696ff"
+    },
+    {
+      "path": "journeys/settings/steps/8/mobile.png",
+      "sha256": "a83d1b17243ea82cd3260c72a315c07d2db198ca9ef919007a1ad908885aa714"
+    },
+    {
+      "path": "journeys/settings/steps/8/step.json",
+      "sha256": "aca61d496db65b02ce425722ac1964428224724243d121c49835b240bf46aeae"
+    },
+    {
+      "path": "journeys/settings/steps/8/texts.json",
+      "sha256": "a7bdbca897754c9a8d0c5eb43740a345fc69e41f31223163a4114ddb5326bf4e"
+    },
+    {
+      "path": "journeys/settings/steps/8/url.txt",
+      "sha256": "db62b7eed8afabae25615bd1336bbab945551041d79733867365f826335c81b2"
+    },
+    {
+      "path": "journeys/settings/steps/9/a11y.json",
+      "sha256": "59572da4a01a278831bf226dca8e7a3679459361c25a28bb79e35d60ee722f46"
+    },
+    {
+      "path": "journeys/settings/steps/9/desktop.png",
+      "sha256": "5c58b42548e1bb33ebd289fa862fb2bf4b02e506dcac1741d333feeacb6672fc"
+    },
+    {
+      "path": "journeys/settings/steps/9/http.jsonl",
+      "sha256": "280ba2e6a8832797393f109d6c61151b736c05c7ca8d6d9512c8539d8589dcc6"
+    },
+    {
+      "path": "journeys/settings/steps/9/mobile.png",
+      "sha256": "d05a8336363a815f3aab56f439631833ecc2cbae23c625dfaa51bda3d007d60f"
+    },
+    {
+      "path": "journeys/settings/steps/9/step.json",
+      "sha256": "55dbc79902f46a5b3332c9ad8baebb92d01b2c2e59bec69f5b2ce6c8a4f66a3b"
+    },
+    {
+      "path": "journeys/settings/steps/9/texts.json",
+      "sha256": "91d36fded607f62b1c3ab72a212e04326506909d84cee2e5d63f9619ac75633c"
+    },
+    {
+      "path": "journeys/settings/steps/9/url.txt",
+      "sha256": "992813ba31a0bf0b537df5c4af26b60945ca4e0e3c615a1d0e2e53f7f358d889"
+    },
+    {
+      "path": "journeys/shell-navigation/db.json",
+      "sha256": "6f28a2827f8bab65d93c1b76630e1081a97382631b6db702286886fd7a8ff09e"
+    },
+    {
+      "path": "journeys/shell-navigation/scenario.md",
+      "sha256": "c9a7f9336d2d2121f38275a8ee20c43f772c6715f9c6f06fab9db08a6096dbce"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/1/a11y.json",
+      "sha256": "da4291cadd446b224f3c35f9dd211b3131cbc5cadf6765b0021bff58a0bf847f"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/1/desktop.png",
+      "sha256": "9a0bacc30f84cd0d800abf11b5191837ef8583419ae1a769119181ab5ed96c0c"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/1/http.jsonl",
+      "sha256": "9c95060e8dab9e7f3c9418469702febc013049cd2780b88a0cb44f1c13112704"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/1/mobile.png",
+      "sha256": "d691ccc968d28dbd59fb2ff904c5d48ba381fbee2ebd0a88185959fcc77faaba"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/1/step.json",
+      "sha256": "6cb3f66770848427dd21891e9d57e76ab70dd1f14489133700f2f42eb1863983"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/1/texts.json",
+      "sha256": "0c996b7645b1b99b6946b55f5c423883c4086a2984ed67d334c591ab1cb2ea36"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/1/url.txt",
+      "sha256": "11be28fa890a48691ff36eebe3e9906de518f5b2a4fc5df1f5f49cefb89a2f4a"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/10/a11y.json",
+      "sha256": "da4291cadd446b224f3c35f9dd211b3131cbc5cadf6765b0021bff58a0bf847f"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/10/desktop.png",
+      "sha256": "9a0bacc30f84cd0d800abf11b5191837ef8583419ae1a769119181ab5ed96c0c"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/10/http.jsonl",
+      "sha256": "c8f3674645062a3ffef6098f79e3bf78e85383e8ecd2df40869c5bba0eb41dc8"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/10/mobile.png",
+      "sha256": "5a45d8b31f187f8da12a6d07f498caa134dce99cad28d21f9d819d97323417c3"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/10/step.json",
+      "sha256": "92097cd0e4c9c54932b55ca2b6b6254accc1e8c1e9f2c6859d1968d598df99c7"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/10/texts.json",
+      "sha256": "0c996b7645b1b99b6946b55f5c423883c4086a2984ed67d334c591ab1cb2ea36"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/10/url.txt",
+      "sha256": "11be28fa890a48691ff36eebe3e9906de518f5b2a4fc5df1f5f49cefb89a2f4a"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/11/a11y.json",
+      "sha256": "2f642b3c1f0dc23d352370297971082307bb0a30dfd301e3a2260eb0a26fd3b1"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/11/desktop.png",
+      "sha256": "4ca7330d1368e79c5340b78c480caa4ccbd2bbc0804efc8b19b7c6fa64a75f79"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/11/http.jsonl",
+      "sha256": "e5f19d2eb8be73f916fe13115fe615170d7835200e658dc196ee25458fb909fc"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/11/mobile.png",
+      "sha256": "b697e4fc387f7c5a98f3a9019be7d6d20bb5ada9a1660dab0b2aba339090780d"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/11/step.json",
+      "sha256": "4f5ab549b82d7e91d75b5ff687be409921f6acda924ea720bbd0a6d655e6a8ca"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/11/texts.json",
+      "sha256": "1ffe8a33a3ffb17fd7fe8605d0f6677d7f64979d38607a43849d5441f991a405"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/11/url.txt",
+      "sha256": "11be28fa890a48691ff36eebe3e9906de518f5b2a4fc5df1f5f49cefb89a2f4a"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/12/a11y.json",
+      "sha256": "2f642b3c1f0dc23d352370297971082307bb0a30dfd301e3a2260eb0a26fd3b1"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/12/desktop.png",
+      "sha256": "4ca7330d1368e79c5340b78c480caa4ccbd2bbc0804efc8b19b7c6fa64a75f79"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/12/http.jsonl",
+      "sha256": "d14568c813b4edbd0674c2a2ba772940588c2ab7e50d6a1bc075f1c11b0db3dd"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/12/mobile.png",
+      "sha256": "b697e4fc387f7c5a98f3a9019be7d6d20bb5ada9a1660dab0b2aba339090780d"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/12/step.json",
+      "sha256": "9e1569c178a6097fa8026b4cb935290dab895ef778431aa1c198164147339e34"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/12/texts.json",
+      "sha256": "1ffe8a33a3ffb17fd7fe8605d0f6677d7f64979d38607a43849d5441f991a405"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/12/url.txt",
+      "sha256": "11be28fa890a48691ff36eebe3e9906de518f5b2a4fc5df1f5f49cefb89a2f4a"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/13/a11y.json",
+      "sha256": "da4291cadd446b224f3c35f9dd211b3131cbc5cadf6765b0021bff58a0bf847f"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/13/desktop.png",
+      "sha256": "9a0bacc30f84cd0d800abf11b5191837ef8583419ae1a769119181ab5ed96c0c"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/13/http.jsonl",
+      "sha256": "ac6fd4cef66906afdd45eca39349ae92f51cb85d3e8f17fbb9e5605551ddfc0d"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/13/mobile.png",
+      "sha256": "d691ccc968d28dbd59fb2ff904c5d48ba381fbee2ebd0a88185959fcc77faaba"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/13/step.json",
+      "sha256": "d0ca4201cc5a20abb8b0ebc414a69a3d59285629d5bcf9bd549304700b3a9098"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/13/texts.json",
+      "sha256": "0c996b7645b1b99b6946b55f5c423883c4086a2984ed67d334c591ab1cb2ea36"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/13/url.txt",
+      "sha256": "11be28fa890a48691ff36eebe3e9906de518f5b2a4fc5df1f5f49cefb89a2f4a"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/14/a11y.json",
+      "sha256": "da4291cadd446b224f3c35f9dd211b3131cbc5cadf6765b0021bff58a0bf847f"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/14/desktop.png",
+      "sha256": "cb2740407bede7f3bc7260a2098068cba059569543efe39b1353fc7680eb02fc"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/14/http.jsonl",
+      "sha256": "40b77289f05fa43a8147c56aa48e6ca6eba95237adf25ea1221e02131c557442"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/14/mobile.png",
+      "sha256": "9ea980eb19a789bda8a99230d7af9da96cebb4763246545b04a7570b6cc42ad3"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/14/step.json",
+      "sha256": "273f732f117bb9c2fb89d26eb03e7b36c6e1e25b760194e5d9763764068c2674"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/14/texts.json",
+      "sha256": "0c996b7645b1b99b6946b55f5c423883c4086a2984ed67d334c591ab1cb2ea36"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/14/url.txt",
+      "sha256": "11be28fa890a48691ff36eebe3e9906de518f5b2a4fc5df1f5f49cefb89a2f4a"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/15/a11y.json",
+      "sha256": "da4291cadd446b224f3c35f9dd211b3131cbc5cadf6765b0021bff58a0bf847f"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/15/desktop.png",
+      "sha256": "6691e451f884e76efcd38490297936e474850fe1fbd96b6ff7820e83bfb92d28"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/15/http.jsonl",
+      "sha256": "1f297136c9b7583804b4a8182bbf8fd95e8de4120845c7921c5b10c73262984b"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/15/mobile.png",
+      "sha256": "48a956e09e93deffec8f479edb56281f2d1126437e951b8e17d3e48ce41cf5ca"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/15/step.json",
+      "sha256": "00f375f2be109271a78f9a8c35d1acc1517f73d84ebf0912a574374a94dfcc5f"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/15/texts.json",
+      "sha256": "0c996b7645b1b99b6946b55f5c423883c4086a2984ed67d334c591ab1cb2ea36"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/15/url.txt",
+      "sha256": "11be28fa890a48691ff36eebe3e9906de518f5b2a4fc5df1f5f49cefb89a2f4a"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/16/a11y.json",
+      "sha256": "da4291cadd446b224f3c35f9dd211b3131cbc5cadf6765b0021bff58a0bf847f"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/16/desktop.png",
+      "sha256": "ff8d19e58b2e54e999cb869b6b1751ff2ef833201583e3d5f35a0e233052ff87"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/16/http.jsonl",
+      "sha256": "030b2920e71d7230a34477319fca9b4d9934682f05c5ab4a3f91afdcd600f7ed"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/16/mobile.png",
+      "sha256": "6871c0742ddca1431736b0af9137241318b38be410399171d875c2dbbad8ebfe"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/16/step.json",
+      "sha256": "32116ab6433cf189c4ce35d0fb29339057379cd968cf04ceb5feec9ccbee0aac"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/16/texts.json",
+      "sha256": "0c996b7645b1b99b6946b55f5c423883c4086a2984ed67d334c591ab1cb2ea36"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/16/url.txt",
+      "sha256": "11be28fa890a48691ff36eebe3e9906de518f5b2a4fc5df1f5f49cefb89a2f4a"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/17/a11y.json",
+      "sha256": "b027ca83fb6ec0a5275f49a03860c9dbf9d97dc52c49abecf969f1e41e6f0b66"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/17/desktop.png",
+      "sha256": "888bbf336e728a3ac4a31ab3c53b661a0d4a62e8af31617c119d6476d87d4c8a"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/17/http.jsonl",
+      "sha256": "b72110a55bc44060bc7d85b357b8c4e578116e40017fa6a7a810861e67c64b32"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/17/mobile.png",
+      "sha256": "3748e768522ae2d941a0de031cc38e25fb76a6ff828249fa0a9ff1b3a8d4eb4b"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/17/step.json",
+      "sha256": "00af5dea312aec07815d09daaad0f083a9cdcb135564bd92c8283a74859cd02b"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/17/texts.json",
+      "sha256": "f3c98db73a37f3a1633496cfcd0cdd6303315c09974676d59f58b0fa2d6c48f8"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/17/url.txt",
+      "sha256": "b37c45bb8077deb491c25b3ac03b00ec3b5404dbdfc2aab5afcc1226578f14ab"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/18/a11y.json",
+      "sha256": "437a9d6f1604599bfb10c3200f737f8dffc642d203054a1219252a1ecc5110ab"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/18/desktop.png",
+      "sha256": "3303be826a9434eb47796a6edac7840a30078045279f1d5cb6845472b763cca6"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/18/http.jsonl",
+      "sha256": "3db1303338c02fa37f7c9742d9d58da6cb3d12e32bde3bcd4453d2151530a6e1"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/18/mobile.png",
+      "sha256": "62e01239f5efc6603d9bda789d326af073823f141f59af13aa985d0a35797d1f"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/18/step.json",
+      "sha256": "3baf628c9ce58cc9ca6e2863fa0a6cab5b776ededf71342e5178e495802c7e71"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/18/texts.json",
+      "sha256": "a2734661e7f422b57b134f8995704a80a1a3e91783075fdedd3ce8e885429beb"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/18/url.txt",
+      "sha256": "8807f6a493f426b984d9ffbd2926be1c122088966583a0df2867e962acba77da"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/19/a11y.json",
+      "sha256": "f83a42fb17495ffec058faaa95f1d043f95a9847025b9a4766b5acdc1d916206"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/19/desktop.png",
+      "sha256": "c7a7165d8ec7971b4dac06b86ef2278a7867f8ebd2d15b8183e838466697fc4e"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/19/http.jsonl",
+      "sha256": "13450f8022bedaf895e9c5e273052210385dc91507c80b0ce6fd5481faa9705a"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/19/mobile.png",
+      "sha256": "63536d391b7ed638e377dbae21d1b27d492b6b5982c71883b37bb0b69ea14986"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/19/step.json",
+      "sha256": "f68c2613311c899d98409c8be164046181e59a59d28cd881dee0c21706caf70d"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/19/texts.json",
+      "sha256": "405cdddf246fece8a3a8125cae018463698f9468fdd78aa9509ffd6945c510cc"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/19/url.txt",
+      "sha256": "09aeba81bdbbccc27a292d00c6e072fc05f30b0c4c44d0af1f92272ecea4840d"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/2/a11y.json",
+      "sha256": "6983209d2118fec0c6b461e1f64453948ff206a90429dace1e107ebf6ade638d"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/2/desktop.png",
+      "sha256": "1341127bca5190fc2ec21a597a82ddc3a36a9fcba680afb5154af3ce28d2616f"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/2/http.jsonl",
+      "sha256": "17af10a1e0b22afebd2be8ef78be056b2e8af62c0efb3931b266826f8dc04102"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/2/mobile.png",
+      "sha256": "340790a0f5bb054b4d4306ccd0e8dee1a8d880b39a1f13fb549881ef49e1dbb8"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/2/step.json",
+      "sha256": "8ce713198ed88f99d3f63418a7d45b93d9e773ee6e8f875bdbaa27d9770e55c1"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/2/texts.json",
+      "sha256": "b41cf102f38a5a9660cdf665b8103b1648f87007bb4ca03187993ec8170ccbd8"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/2/url.txt",
+      "sha256": "1496bd35a7d63f9b432728fa669411c05dfbd539c617928d274266185fe80543"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/20/a11y.json",
+      "sha256": "c521b8ad32aab82541ae93bbe0104934bbb403cbe360e6f12cc6438a3fdd771d"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/20/desktop.png",
+      "sha256": "8eecd1df05e2ca1a99442cef0867cf021a8fc2fc6c87e2e50c806a69ee3520f9"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/20/http.jsonl",
+      "sha256": "ceed5b77c38fa423cd523fb3061161c80c13624f61fe391333b2402aded54cbb"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/20/mobile.png",
+      "sha256": "53a82c22a2e9998e63d6d035870f81332f5875369ee8ff582ea836b2fb198021"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/20/step.json",
+      "sha256": "ee5b5287a149bd98cac8d1be58d0f1b5fc6fbaf5a7ee4c838b05a9febecd4f8d"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/20/texts.json",
+      "sha256": "4b93b8b42dfac17e96aaac4118becde91e36a72b61376320711287a198ac0273"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/20/url.txt",
+      "sha256": "38fe609352c2946a9510d906751fbd4b60bca7a6ac018d789d24cb87cdd06501"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/21/a11y.json",
+      "sha256": "20b409450aebc99dc9d6213b2a08e4f1df3e32d6fd9c68a04198e191b6b0de24"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/21/desktop.png",
+      "sha256": "55179f7c72aa12d108a9300e2873a59f4f13036b283bb609e24bfa7ce91b3ba9"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/21/http.jsonl",
+      "sha256": "2cd83016666e42392e4ee5f6d45c579239e00542bec5e4bce6b4572ae628fecd"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/21/mobile.png",
+      "sha256": "1f3d1fd49bb3e0617ed4850caa41015058051adae3216ab89d59d929f8dc9c17"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/21/step.json",
+      "sha256": "fd47c651848a0679a90cc8850c1ff8d148cf465e8c4b62ade2c7f9cfa7acbaf8"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/21/texts.json",
+      "sha256": "3d9de0a12474761e7bb55243fabfb1f222dbd294c3f28a4bb3ad1ac4fef91183"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/21/url.txt",
+      "sha256": "b7d6e0a5edb80ec93a58d037bd1da9abd359abc0f4885b91f8519e10c2b4041a"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/3/a11y.json",
+      "sha256": "b027ca83fb6ec0a5275f49a03860c9dbf9d97dc52c49abecf969f1e41e6f0b66"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/3/desktop.png",
+      "sha256": "888bbf336e728a3ac4a31ab3c53b661a0d4a62e8af31617c119d6476d87d4c8a"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/3/http.jsonl",
+      "sha256": "9ec7d2eddbbe21847a81cee2b21cf2250a43bd809c4d86dcb22287b779882c63"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/3/mobile.png",
+      "sha256": "3748e768522ae2d941a0de031cc38e25fb76a6ff828249fa0a9ff1b3a8d4eb4b"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/3/step.json",
+      "sha256": "32eb534e0f78ee453945a17ceda28eda0e66e6ab208f5a873a8b3dae43c9e9af"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/3/texts.json",
+      "sha256": "f3c98db73a37f3a1633496cfcd0cdd6303315c09974676d59f58b0fa2d6c48f8"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/3/url.txt",
+      "sha256": "b37c45bb8077deb491c25b3ac03b00ec3b5404dbdfc2aab5afcc1226578f14ab"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/4/a11y.json",
+      "sha256": "1403ee95f84c81668a1763038bb64483ed37c17159ac19fbab5430c42d9a0464"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/4/desktop.png",
+      "sha256": "773d8ce1d54a1e5fc87572071c4e8287864afa9484268ad216ad5b1e71e1dc5c"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/4/http.jsonl",
+      "sha256": "3eae41742d868047477bb97733dd02c3894e6e215da7a71a8334915b7fe336c1"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/4/mobile.png",
+      "sha256": "cbc7251442ab2eb6adf969f8459f214cbccf83241bf09a35da2ca1079c4c7458"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/4/step.json",
+      "sha256": "40bb5923d715413e17fed91b123027dc89082443a99f8efe006d834f8c292b09"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/4/texts.json",
+      "sha256": "ca4b8187aba06960116d4ac0723236fdccc2780b15cd98ba2a4c23d29ba8b951"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/4/url.txt",
+      "sha256": "731c3966e5dbdbce373ced72fed96d043698a51f8c2ee6c20eeb6d55b15af573"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/5/a11y.json",
+      "sha256": "000f9b5e019833a1eb97fea7870d5c7e4a6ef97efbde8b890e39d4c3718c5599"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/5/desktop.png",
+      "sha256": "62ce39062829239336c0a21526f76645cbf61fd11ab2a5ecb6732d36a1ecc8cc"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/5/http.jsonl",
+      "sha256": "a71df9561b40f09801764f04c0a3611e379671a8877a632f1d480b7c68ab4522"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/5/mobile.png",
+      "sha256": "28556cca839d902a02ad0e5cbf494b15f18718fc3043ce93833861082b16ae71"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/5/step.json",
+      "sha256": "197e4d8d0a1212159f71d70aed65f2df2b07557594dd4fe2c4e29bbe8ea625b5"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/5/texts.json",
+      "sha256": "f112ba00dbee23e1dfc0673f02ec8e8f8a306c16980b1330051c05a9f1ef48a8"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/5/url.txt",
+      "sha256": "e808efb805a4bfdd30d9912fa8211ebd039dfd119e603560015e409a693d481d"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/6/a11y.json",
+      "sha256": "c3780ec38e6fbcb2927a8a4ade777077fc16cb1d7cee3ad284d5d058601222f8"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/6/desktop.png",
+      "sha256": "dd949e4d78ef39ae33a933bc619e3c079a9fd9faedbc1920cf1581fb1b2ad526"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/6/http.jsonl",
+      "sha256": "0be15bc03ddf8bd2a86b8dde9ffe7805a7e6a180ce49bfbcfa9c40dca069e018"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/6/mobile.png",
+      "sha256": "88ae51664605d3dea439801c5c4befe9b2949901f0f65cf6fc323eaf111ffb8c"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/6/step.json",
+      "sha256": "7fd5c86f4d445ae15075cea770c5f73a7a5c9063d0bc66bba57f8f76265d5cec"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/6/texts.json",
+      "sha256": "1e5cd13229d54eba4bb81276d106441871285b4a70dd44e6b5caff23ab70b852"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/6/url.txt",
+      "sha256": "12fb532302f9f54d50665da1c055f33d65bcd9f49a90375034b74480561b7592"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/7/a11y.json",
+      "sha256": "c521b8ad32aab82541ae93bbe0104934bbb403cbe360e6f12cc6438a3fdd771d"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/7/desktop.png",
+      "sha256": "8eecd1df05e2ca1a99442cef0867cf021a8fc2fc6c87e2e50c806a69ee3520f9"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/7/http.jsonl",
+      "sha256": "f89a37cfdb32185ecd4e8f05b08a2b1e30c656f7e3878cc0a55125c8c6cb5c83"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/7/mobile.png",
+      "sha256": "53a82c22a2e9998e63d6d035870f81332f5875369ee8ff582ea836b2fb198021"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/7/step.json",
+      "sha256": "29ac48e0a4f743f464f269006f4557c6ea63db547e8f865f6dafb10c791178e0"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/7/texts.json",
+      "sha256": "4b93b8b42dfac17e96aaac4118becde91e36a72b61376320711287a198ac0273"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/7/url.txt",
+      "sha256": "38fe609352c2946a9510d906751fbd4b60bca7a6ac018d789d24cb87cdd06501"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/8/a11y.json",
+      "sha256": "d9947400142d2710bedef8ef1e02c9d409cdd7b1287826074af8a31c4b5270f7"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/8/desktop.png",
+      "sha256": "d1e0241caddc56db4cf5524889f9b788955cb0fa4b74ec361a34fbe87941055f"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/8/http.jsonl",
+      "sha256": "ee23342046b2e940de9494ad9347c47ff0f9c7af12f60cc11e9ea55659d89a47"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/8/mobile.png",
+      "sha256": "48d95fc11cf94d86326edc4da72800816f84ad663fb28187e3101b1646d9853d"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/8/step.json",
+      "sha256": "3c13ef6a8401734dcaf7c0aacddd8a42f411bb7d5884afe13f5c0af2b7901c51"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/8/texts.json",
+      "sha256": "9b3db0dd38aac183f9f7d088e8753e7aacdea6b8a6c3ca1f00ef10d9d952b512"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/8/url.txt",
+      "sha256": "c0740856d6762c53b40a9987e400b6ea03ce83164070d70ea3ef7b4769b5c66d"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/9/a11y.json",
+      "sha256": "59572da4a01a278831bf226dca8e7a3679459361c25a28bb79e35d60ee722f46"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/9/desktop.png",
+      "sha256": "5c58b42548e1bb33ebd289fa862fb2bf4b02e506dcac1741d333feeacb6672fc"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/9/http.jsonl",
+      "sha256": "4111c7b0b9102b88835eb8379615155439c04e7d116b786d619bb4f7f34da635"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/9/mobile.png",
+      "sha256": "59694b7097d470e874822afdbd7deafe753b44851a93b408bf422f72ef3530e6"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/9/step.json",
+      "sha256": "a7a7f5677af865136c3643ce790aee99013328518835098cbc07d2f61d566ecd"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/9/texts.json",
+      "sha256": "91d36fded607f62b1c3ab72a212e04326506909d84cee2e5d63f9619ac75633c"
+    },
+    {
+      "path": "journeys/shell-navigation/steps/9/url.txt",
+      "sha256": "992813ba31a0bf0b537df5c4af26b60945ca4e0e3c615a1d0e2e53f7f358d889"
+    },
+    {
+      "path": "performance/bundles.json",
+      "sha256": "3c3d4f2e31aabc5c7e854585175b03270e038df5acc54de9ce1c484f14c99008"
+    }
+  ],
+  "journeys": [
+    {
+      "id": "login",
+      "steps": 8,
+      "status": "complete"
+    },
+    {
+      "id": "shell-navigation",
+      "steps": 21,
+      "status": "complete"
+    },
+    {
+      "id": "landing",
+      "steps": 5,
+      "status": "complete"
+    },
+    {
+      "id": "event-stream",
+      "steps": 7,
+      "status": "complete"
+    },
+    {
+      "id": "dashboard",
+      "steps": 4,
+      "status": "complete"
+    },
+    {
+      "id": "customers",
+      "steps": 6,
+      "status": "complete"
+    },
+    {
+      "id": "automations",
+      "steps": 7,
+      "status": "complete"
+    },
+    {
+      "id": "campaigns-email-editor",
+      "steps": 8,
+      "status": "complete"
+    },
+    {
+      "id": "popups-widget-editor",
+      "steps": 7,
+      "status": "complete"
+    },
+    {
+      "id": "feeds",
+      "steps": 1,
+      "status": "complete"
+    },
+    {
+      "id": "import-wizard",
+      "steps": 10,
+      "status": "complete"
+    },
+    {
+      "id": "settings",
+      "steps": 10,
+      "status": "complete"
+    },
+    {
+      "id": "scheduler-heartbeat",
+      "steps": 0,
+      "status": "complete",
+      "static": true
+    }
+  ]
+}

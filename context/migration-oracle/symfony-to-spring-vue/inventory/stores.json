@@ -1,0 +1,36 @@
+[
+  {
+    "store": "session (Postgres `sessions`)",
+    "keys": [
+      "panel.identity",
+      "panel.theme",
+      "panel.sidebar",
+      "import.file_name",
+      "import.file_path"
+    ],
+    "owner": "src/Panel/PanelIdentity.php, PanelPreferences.php, ImportUploadStorage.php"
+  },
+  {
+    "store": "cache.app (Postgres `cache_items`, UNLOGGED)",
+    "keys": [
+      "event.seen.<xxh128(idempotency_id)> TTL 86400",
+      "scheduler state"
+    ],
+    "owner": "src/Tracking/EventIngestion.php, src/Schedule.php"
+  },
+  {
+    "store": "messenger (Postgres `messenger_messages`)",
+    "keys": [
+      "async",
+      "failed"
+    ],
+    "owner": "config/packages/messenger.yaml"
+  },
+  {
+    "store": "filesystem var/import",
+    "keys": [
+      "<32hex>.<ext>"
+    ],
+    "owner": "src/Panel/ImportUploadStorage.php"
+  }
+]
