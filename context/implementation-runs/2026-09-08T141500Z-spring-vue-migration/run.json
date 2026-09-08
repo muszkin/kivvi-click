@@ -79,7 +79,7 @@
       "integration_commit": "9427fdb1d92e4e606e67471638031d1bc0fb73d4"
     },
     "w2-event-stream": {
-      "state": "IMPLEMENTED",
+      "state": "FEATURE_HEAD_GREEN",
       "wave": "wave-2",
       "branch": "migration/wave-2/event-stream",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w2-event-stream",
@@ -91,7 +91,10 @@
         "worktree": "/home/muszkin/work/kivvi-click-wt/w2-event-stream-r2",
         "branch": "migration/wave-2/event-stream-repair2",
         "base_sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
-        "candidate_sha": "7ba8f0814170a1f9b5731acf3961732f7c719c9d"
+        "candidate_sha": "7ba8f0814170a1f9b5731acf3961732f7c719c9d",
+        "review": "slices/w2-event-stream/review-repair-2.md",
+        "review_verdict": "PASS",
+        "integrated_sha": "b87a701244f5316e1a53bace7a1e41facdffc277"
       }
     },
     "w2-customers": {
@@ -386,116 +389,50 @@
         "event-stream",
         "customers"
       ],
-      "head_sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
+      "head_sha": "b87a701244f5316e1a53bace7a1e41facdffc277",
       "kill_reason": null,
       "verifier_cohort": [
         {
           "dimension": "unit",
-          "status": "FAIL",
-          "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
-          "evidence": "waves/wave-2/round-1/unit.md",
-          "journey_verdicts": [
-            {
-              "journey": "event-stream",
-              "verdict": "regression",
-              "deviation_id": null
-            },
-            {
-              "journey": "customers",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "b87a701244f5316e1a53bace7a1e41facdffc277",
+          "evidence": "waves/wave-2/unit.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "integration",
-          "status": "FAIL",
-          "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
-          "evidence": "waves/wave-2/round-1/integration.md",
-          "journey_verdicts": [
-            {
-              "journey": "event-stream",
-              "verdict": "regression",
-              "deviation_id": null
-            },
-            {
-              "journey": "customers",
-              "verdict": "regression",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "b87a701244f5316e1a53bace7a1e41facdffc277",
+          "evidence": "waves/wave-2/integration.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "architecture",
-          "status": "FAIL",
-          "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
-          "evidence": "waves/wave-2/round-1/architecture.md",
-          "journey_verdicts": [
-            {
-              "journey": "event-stream",
-              "verdict": "regression",
-              "deviation_id": null
-            },
-            {
-              "journey": "customers",
-              "verdict": "regression",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "b87a701244f5316e1a53bace7a1e41facdffc277",
+          "evidence": "waves/wave-2/architecture.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "contract",
-          "status": "PASS",
-          "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
-          "evidence": "waves/wave-2/round-1/contract.md",
-          "journey_verdicts": [
-            {
-              "journey": "event-stream",
-              "verdict": "accepted-deviation",
-              "deviation_id": "DEV-3"
-            },
-            {
-              "journey": "customers",
-              "verdict": "accepted-deviation",
-              "deviation_id": "DEV-4"
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "b87a701244f5316e1a53bace7a1e41facdffc277",
+          "evidence": "waves/wave-2/contract.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "visual",
-          "status": "PASS",
-          "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
-          "evidence": "waves/wave-2/round-1/visual.md",
-          "journey_verdicts": [
-            {
-              "journey": "event-stream",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "customers",
-              "verdict": "parity",
-              "deviation_id": "DEV-12"
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "b87a701244f5316e1a53bace7a1e41facdffc277",
+          "evidence": "waves/wave-2/visual.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "e2e",
-          "status": "PASS",
-          "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
-          "evidence": "waves/wave-2/round-1/e2e.md",
-          "journey_verdicts": [
-            {
-              "journey": "event-stream",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "customers",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "b87a701244f5316e1a53bace7a1e41facdffc277",
+          "evidence": "waves/wave-2/e2e.md",
+          "journey_verdicts": []
         }
       ],
       "repair_rounds": 1,
@@ -560,6 +497,6 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-08T22:36:22Z",
-  "feature_head_sha": "91ae8db8874955980788e45cfaf930932821a4a9"
+  "updated_at": "2026-09-08T22:44:23Z",
+  "feature_head_sha": "b87a701244f5316e1a53bace7a1e41facdffc277"
 }
