@@ -1,8 +1,8 @@
 {
   "slice_id": "w0-login",
   "logical_owner": "worker-w0-login",
-  "state": "REVIEW_PENDING",
-  "state_revision": 5,
+  "state": "INTEGRATED",
+  "state_revision": 6,
   "branch": "migration/wave-0/login",
   "worktree": "/home/muszkin/work/kivvi-click-wt/w0-login",
   "parent_sha": "8d3fc320354604b641b44a3043a070f279e6d491",
@@ -61,8 +61,9 @@
       "status": "NOT_APPLICABLE"
     },
     "review": {
-      "status": "RUNNING",
-      "sha": "2d2b5a8"
+      "status": "PASS",
+      "sha": "2d2b5a8",
+      "evidence": "review.md"
     },
     "e2e": {
       "status": "PASS",
@@ -71,9 +72,9 @@
     }
   },
   "failure": null,
-  "integration_commit": null,
+  "integration_commit": "6a53642c9c5ec9c256625854e6670f035e0292be",
   "created_at": "2026-09-08T14:11:34Z",
-  "updated_at": "2026-09-08T17:49:36Z",
+  "updated_at": "2026-09-08T17:54:53Z",
   "candidate_lineage": [
     "f4ac025ca10a90ab41733a942000dc93769a273c",
     "cfe7b48bedd871c2132b2d62cd215d135e5e3627",

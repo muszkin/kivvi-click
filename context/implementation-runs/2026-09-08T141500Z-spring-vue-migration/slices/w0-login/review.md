@@ -16,3 +16,7 @@ Routing: repair-1.md → same logical owner. Downstream gates (e2e) marked STALE
 ## Re-review — candidate cfe7b48 (fresh independent reviewer, 2026-09-08)
 
 Verdict: **PASS**. F1 resolved (`spring-boot-starter-session-jdbc`; BEFORE/AFTER psql proof, restart survival, strengthened `SessionRoundTripIT` fails at context start without the starter); F4 resolved; whole-surface check for the Boot 4.1 module-split failure mode (Flyway, Actuator, Jackson, Testcontainers) found no further gap; DEV-9 delta 0→1 accepted, not masked. Limitation: reviewer could not re-execute mvnw (JDK 21 in its shell); evidence cross-checked instead — the wave cohort re-executes everything.
+
+## Review — candidate 2d2b5a8 (repair-2, fresh independent reviewer)
+
+Verdict: **PASS**. R2-A/B/C resolved with reproducible evidence (reviewer ran clean `./mvnw -q test`/`verify`, frontend unit/integration/lint/typecheck; 66 backend tests, ShellApiIT 5/5, SessionRoundTripIT 4/4, FailOnWarnLogExtension registered globally via META-INF/services + autodetection). Scope clean, no trailers.
