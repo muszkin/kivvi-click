@@ -2,7 +2,7 @@
 
 Read-only verifier. You receive no worker claims. Inspect the assembled wave SHA from your own detached checkout and return one verdict per journey with evidence paths.
 
-- Wave SHA: 6a53642c9c5ec9c256625854e6670f035e0292be · Journeys: login · Checkout: /home/muszkin/work/kivvi-click-wt/verify-wave-0-visual (detached at 6a53642c9c5ec9c256625854e6670f035e0292bethe wave SHA; do not edit).
+- Wave SHA: 887af4543c5a51255735f1ddfc0d8860d11551c0 · Journeys: login · Checkout: /home/muszkin/work/kivvi-click-wt/verify-wave-0-visual (detached at 887af4543c5a51255735f1ddfc0d8860d11551c0the wave SHA; do not edit).
 - Oracle: /home/muszkin/work/kivvi-click/context/migration-oracle/symfony-to-spring-vue (manifest sha256 4945a8deb19ea342a4aaa2c0ac681dc13f05c121aa387677c30ecf210a90f74f). Deviation table: plan section "Accepted deviations" (DEV-1..DEV-12) and tools/migration-verify/deviations.json.
 - Verifier contract (plan section "Verifier contract"): thresholds and commands for your dimension.
 - Running stack for this SHA (if your dimension needs one): https://localhost:19101 (compose project kivvi-int, edge http 19100), compose project kivvi-int, started by the orchestrator; do not start or stop stacks yourself.
@@ -16,6 +16,6 @@ Return: dimension status PASS | FAIL | NOT_APPLICABLE bound to the wave SHA; per
 
 Java 25: `export JAVA_HOME=/home/muszkin/.cache/kivvi-toolchains/jdk-25; export PATH=$JAVA_HOME/bin:$PATH` before any `./mvnw`. Node 26 on host; run `npm ci` inside `frontend/` (and `tools/migration-verify/` if needed) of YOUR checkout only. Never touch other checkouts, the main repo, or the oracle. Build outputs stay in your checkout.
 
-## Round 2
+## Round 3
 
-This is the second cohort round for wave-0 (round-1 on 3b17c07 failed unit/integration/architecture; the repair 2d2b5a8 was cherry-picked as 6a53642). Round-1 evidence is archived under `round-1/` — do not overwrite it; write your evidence to the paths named above (they are fresh for this round).
+This is the third cohort round for wave-0 (round-1 on 3b17c07 and round-2 on 6a53642 failed on unit/integration coverage; repairs cherry-picked as 6a53642 and 887af45). Round-1/round-2 evidence is archived under `round-1/` and `round-2/` — do not overwrite it; write your evidence to the paths named above (they are fresh for this round).
