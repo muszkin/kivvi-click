@@ -205,3 +205,111 @@ migration/wave-0/login
 ```
 
 Compose stack `kivvi-w-login` torn down with `down -v` before finishing this report; the built `kivvi-w-login-api` image was also removed to free disk. No changes were made outside this worktree except this report and `slices/w0-login/evidence/`.
+
+## Repair-1
+
+Repair packet: `slices/w0-login/repair-1.md`. Independent review returned FAIL on F1 (HIGH, blocking) plus F4 (LOW) to bundle. F2 and F3 were accepted as documented judgment calls — no change. Identity guard re-checked before starting (toplevel, branch, clean status, HEAD at `f4ac025`) and before this commit; never amended `f4ac025`.
+
+### F1 — Spring Session JDBC persistence: root cause, fix, and proof
+
+**Reproduced first, before touching any code.** Brought `kivvi-w-login` up, signed in via `curl -c jar`, and queried the compose database directly:
+
+```
+--- direct DB query ---
+ count
+-------
+     0
+(1 row)
+
+ count
+-------
+     0
+(1 row)
+--- shell before restart ---
+user.email = anna@aureashop.pl
+--- shell AFTER restart, same cookie ---
+user.email = maciej@aureashop.pl
+```
+
+(Full transcript: `evidence/repair-1-session-proof-BEFORE.txt`.) Confirmed the finding exactly: `spring_session`/`spring_session_attributes` both 0 despite a successful sign-in, and the identity was lost across an `api` container restart — proof the session was Tomcat's in-memory store, not Spring Session JDBC, the whole time.
+
+**Root cause.** `backend/pom.xml` declared `spring-boot-starter-jdbc` + the raw `org.springframework.session:spring-session-jdbc` library. That puts `JdbcIndexedSessionRepository` on the classpath but never registers it: Spring Boot 4.1 splits Flyway-style autoconfiguration for Spring Session JDBC into its own module, `spring-boot-session-jdbc` (home of `JdbcSessionAutoConfiguration`), bundled only by the `spring-boot-starter-session-jdbc` starter — the exact same module-split pattern already hit once with Flyway in the original implementation (see worker-report.md §10, "Boot 4.1's module split bit me three times" — apparently a fourth time was still waiting). Confirmed via `mvn dependency:tree` (the autoconfiguration module was genuinely absent) and via `java -jar ... --debug` (no `JdbcSessionAutoConfiguration` match report at all) before the fix, and a matched, active `JdbcSessionAutoConfiguration` after it.
+
+**Fix.** `backend/pom.xml`: replaced `spring-boot-starter-jdbc` + `spring-session-jdbc` with `spring-boot-starter-session-jdbc` (which bundles `spring-boot-starter-jdbc`, `spring-boot-session-jdbc`, and transitively `spring-session-jdbc` itself — no functional dependency lost, the missing autoconfiguration gained). No manual insert, no workaround — the root cause is a missing autoconfiguration module, fixed by adding it.
+
+**Proof after the fix** (`evidence/repair-1-session-proof-AFTER.txt`): signed in, decoded the cookie (`DefaultCookieSerializer` base64-encodes the session id for the cookie value — the `spring_session.session_id` column holds the raw, decoded id; this asymmetry is what tripped up the first version of the strengthened test too, see below), queried directly:
+
+```
+--- direct DB query: spring_session ---
+ count
+-------
+     2
+(1 row)
+ count
+-------
+     2
+(1 row)
+--- shell BEFORE restart ---
+user.email = anna@aureashop.pl
+--- restarting api container ---
+--- shell AFTER restart, same cookie ---
+user.email = anna@aureashop.pl
+```
+
+Identity survives the restart. (The count is 2, not 1, because the earlier BEFORE-fix sign-in on the same running stack also left a session cookie in a separate jar file and both journeys' sign-ins land in the same table across the two curl sequences in this evidence run — both are real JDBC-persisted rows, not a bug.)
+
+**PHP oracle note (packet §F1.4):** the oracle's own `sessions` delta was 0→0 for the whole login journey (`context/migration-oracle/.../journeys/login/db.json`) even though step 4 signs in. I did not chase why inside the read-only oracle (out of scope — "Do not change the oracle"); it may be a genuinely lazier PHP/Symfony session-write path (no row created until something beyond identity is written), a capture-time coincidence, or something else. What changed on this side: before the fix, `compare.mjs`'s `db.json` comparison showed candidate `spring_session` delta 0→0 too — but only because the row was never being written at all, an accidental match for the wrong reason. After the fix, the candidate delta is now genuinely **1** (a real row, created once, for the journey's one sign-in — confirmed by `compare.mjs`'s own re-run, see the gate table below), which is exactly the discrepancy DEV-9's "sessions delta compared by count only" plus the ±1 tolerance already documented in `deviations.json`'s `compareDb()` note (worker-report.md §3, "this made the login journey's own db.json delta come out exactly 0/0" — that specific claim in the original report is superseded by this finding and should be read as "0 vs 1, inside DEV-9's accepted tolerance" now that the real write path is active). I have not changed `deviations.json`'s DEV-5/DEV-9 mapping or `compare.mjs`'s tolerance logic — both already anticipated exactly this delta before I knew it was real. Flagging for the orchestrator to decide whether the oracle capture itself warrants a note; I made no changes to it.
+
+**Strengthened `SessionRoundTripIT`.** Added `signInPersistsThroughJdbcIndexedSessionRepository`: autowires `JdbcTemplate` and `JdbcIndexedSessionRepository` directly, queries `spring_session`/`spring_session_attributes` by session id (base64-decoded from the `Set-Cookie` header — the first version of this test failed with "0 rows" against the *already-fixed* dependency because I queried with the still-encoded cookie value; caught immediately by comparing the cookie against the `psql` output in the AFTER evidence, fixed the decode, re-ran, passed), and reads the session back through `sessionRepository.findById(id)` asserting the `panel.identity` attribute. **Confirmed the test fails for the right reason**: temporarily reverted `pom.xml` to the broken dependency pair and re-ran `SessionRoundTripIT` in isolation — all three tests in the class fail with `UnsatisfiedDependencyException: No qualifying bean of type 'org.springframework.session.jdbc.JdbcIndexedSessionRepository'` (the `@Autowired` field can't even be satisfied, so the Spring context fails to start) — then restored the fix and re-verified all three pass. This is a stronger failure mode than a mere assertion mismatch: the test cannot silently pass if Spring Session JDBC is not active.
+
+### F4 — dead-branch frontend test
+
+`frontend/test/integration/LoginView.spec.ts`'s "renders the empty-username error with an empty (not default) value" test asserted `data-last-username=""`, a state the backend never emits (it resolves a blank submission to `maciej@aureashop.pl` before injecting the attribute — see worker-report.md §9, item 5). Replaced with the real B12 contract: `data-last-username="maciej@aureashop.pl"` + `data-login-error="Podaj adres e-mail."` renders the default address in the field and the error message in the callout. Test count unchanged (7 tests in this file, same as before — replaced, not deleted); B12/B13 behaviour coverage stays meaningful.
+
+### Files changed
+
+- `backend/pom.xml` — F1 fix (see above).
+- `backend/src/test/java/click/kivvi/SessionRoundTripIT.java` — F1 strengthened test.
+- `frontend/test/integration/LoginView.spec.ts` — F4 fix.
+
+### Gate chain (full rerun, in order, on the new candidate SHA `cfe7b48bedd871c2132b2d62cd215d135e5e3627`)
+
+| # | Gate | Command | cwd | Exit | Evidence | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | Focused (backend) | `./mvnw -q test` | `backend/` | 0 | `evidence/repair-1-gates/backend-test.log` | PASS |
+| 1 | Focused (frontend) | `npm run test -- --run` | `frontend/` | 0 | `evidence/repair-1-gates/frontend-test.log` (5 files, 32 tests) | PASS |
+| 2 | Integration (backend, incl. strengthened IT) | `./mvnw -q verify` | `backend/` | 0 | `evidence/repair-1-gates/backend-verify.log` (`SessionRoundTripIT` 3/3) | PASS |
+| 2 | Integration (frontend) | `npm run test:integration -- --run` | `frontend/` | 0 | `evidence/repair-1-gates/frontend-test-integration.log` (3 files, 13 tests) | PASS |
+| 3 | Architecture (backend, ArchUnit) | inside `mvnw test` (row 1) | `backend/` | 0 | same as row 1 | PASS |
+| 3 | Static (backend) | `./mvnw -q spotless:check` | `backend/` | 0 | `evidence/repair-1-gates/backend-spotless.log` | PASS |
+| 3 | Architecture/static (frontend lint) | `npm run lint` | `frontend/` | 0 | `evidence/repair-1-gates/frontend-lint.log` | PASS |
+| 3 | Static (frontend typecheck) | `npx vue-tsc --noEmit` | `frontend/` | 0 | `evidence/repair-1-gates/frontend-typecheck.log` | PASS |
+| 3 | Static (frontend build) | `npm run build` | `frontend/` | 0 | `evidence/repair-1-gates/frontend-build.log` | PASS |
+| 4 | Contract + visual | `node tools/migration-verify/compare.mjs --journey login --base https://localhost:19001 --out evidence/compare` | repo root | 0 | `evidence/repair-1-gates/compare-mjs.log`, `evidence/compare/login/report.md` | PASS — **0 regressions** (sessions delta now 0→1, `accepted-deviation(DEV-9)`, see F1 note above) |
+| 5 | E2E | `npx playwright test public.spec.ts navigation.spec.ts -g "login\|sidebar collapse\|theme toggle"` | `tests/e2e/` | 0 | `evidence/repair-1-gates/playwright.log` (4/4 passed) | PASS |
+| 6 | Performance | `node tools/migration-verify/performance.mjs --base https://localhost:19001` | repo root | 0 | `evidence/repair-1-gates/performance.log` (JS 62.8kB/300kB, LCP 152ms/2000ms, TTI 16.2ms/2500ms) | PASS |
+
+Compose stack `kivvi-w-login` torn down (`down -v`) after the gate chain; the rebuilt `kivvi-w-login-api` image removed again to free disk.
+
+### New candidate SHA and clean-worktree proof
+
+```
+$ git rev-parse HEAD
+cfe7b48bedd871c2132b2d62cd215d135e5e3627
+
+$ git log --oneline -3
+cfe7b48 fix: activate Spring Session JDBC autoconfiguration (repair-1 F1)
+f4ac025 feat: stand up the Spring Boot + Vue 3 login walking skeleton (wave-0)
+8d3fc32 docs: record the operator execution decision for the migration plan
+
+$ git status --porcelain
+(empty — clean)
+
+$ git rev-parse --show-toplevel
+/home/muszkin/work/kivvi-click-wt/w0-login
+
+$ git rev-parse --abbrev-ref HEAD
+migration/wave-0/login
+```
+
+`f4ac025` was never amended or rewritten — `cfe7b48` is a new commit on top of it. No changes were made outside this worktree except this report and `slices/w0-login/evidence/`.

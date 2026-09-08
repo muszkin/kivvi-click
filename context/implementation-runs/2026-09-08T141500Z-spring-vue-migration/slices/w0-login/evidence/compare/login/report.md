@@ -50,7 +50,7 @@ Base: https://localhost:19001
 | 8 | visual.aria | accepted-deviation(DEV-11) |  |
 | 8 | visual.screenshotDesktop | accepted-deviation(DEV-11) | 0.000% pixels differ (0/1296000) |
 | 8 | visual.screenshotMobile | accepted-deviation(DEV-11) | 0.000% pixels differ (0/329160) |
-| db | sessions | accepted-deviation(DEV-9) | oracle delta 0, candidate delta 0 (mapped to spring_session) |
+| db | sessions | accepted-deviation(DEV-9) | oracle delta 0, candidate delta 1 (mapped to spring_session) |
 | db | cache_items | accepted-deviation(DEV-5) | oracle delta 0, candidate delta 0 (mapped to event_dedup+shedlock) |
 
 **Regressions: 0**
