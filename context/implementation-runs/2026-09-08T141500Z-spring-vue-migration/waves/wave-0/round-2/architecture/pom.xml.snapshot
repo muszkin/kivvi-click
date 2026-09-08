@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>4.1.1</version>
+		<relativePath/>
+	</parent>
+
+	<groupId>click.kivvi</groupId>
+	<artifactId>kivvi-click</artifactId>
+	<version>0.1.0-w0-login</version>
+	<name>kivvi-click</name>
+	<description>Spring Boot API behind the kivvi-click Vue 3 SPA (wave-0 walking skeleton: login and the panel shell).</description>
+
+	<properties>
+		<java.version>25</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<archunit.version>1.5.0</archunit.version>
+		<spotless-maven-plugin.version>3.10.2</spotless-maven-plugin.version>
+		<google-java-format.version>1.36.1</google-java-format.version>
+	</properties>
+
+	<dependencies>
+		<!-- Web: Spring MVC on Tomcat, Jackson 3 for JSON. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- Actuator: /actuator/health, kept off the Mercure edge (see backend/README.md). -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<!--
+		    Repair-1 (F1): plain spring-session-jdbc + spring-boot-starter-jdbc puts
+		    JdbcIndexedSessionRepository on the classpath but never registers it — Boot 4
+		    splits Flyway-style autoconfiguration (JdbcSessionAutoConfiguration, the bean
+		    that actually wires the JDBC-backed SessionRepositoryFilter) into its own
+		    spring-boot-session-jdbc module, bundled by this starter. Without it,
+		    request.getSession(...) silently falls back to Tomcat's in-memory session:
+		    functionally indistinguishable in a single request/response cycle, zero rows
+		    ever written to spring_session, identity lost on every container restart —
+		    exactly what evidence/repair-1-session-proof-BEFORE.txt shows. wave-0 has no
+		    JPA entities, so this (not spring-boot-starter-data-jpa) is the only
+		    JDBC-flavoured starter this module needs.
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-session-jdbc</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!--
+		    Boot 4 splits Flyway's autoconfiguration out of the plain flyway-core
+		    dependency into its own module (spring-boot-flyway); without this starter
+		    Flyway is on the classpath but FlywayAutoConfiguration never runs, so
+		    migrations never execute.
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-flyway</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-database-postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Test -->
+		<!--
+		    Boot 4's modular test support splits WebMvcTest and TestRestTemplate out of the
+		    plain starter-test into their own artifacts; spring-boot-starter-webmvc-test
+		    bundles exactly those two (plus starter-test) without dragging in spring-security
+		    test support, which this app has no dependency on.
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webmvc-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!--
+		    TestRestTemplateTestAutoConfiguration (pulled in by @AutoConfigureTestRestTemplate,
+		    used by SessionRoundTripIT) reflects over RestTemplateBuilder at bean-definition
+		    time even when the bean method is never selected, so the plain class must be on the
+		    classpath — spring-boot-starter-webmvc-test does not pull it in on its own.
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-restclient</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-testcontainers</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>testcontainers-junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>testcontainers-postgresql</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.tngtech.archunit</groupId>
+			<artifactId>archunit-junit5</artifactId>
+			<version>${archunit.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- Testcontainers-backed *IT tests run only on `verify` (integration gate), never on
+			     plain `test` (focused gate) — standard Surefire/Failsafe naming split. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+			</plugin>
+
+			<!-- Compile-time boundary: every warning is an error, matching the source
+			     stack's PHPStan level-5 static-typing gate (architecture/rules-translated.md). -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<compilerArgs>
+						<arg>-Xlint:all</arg>
+						<arg>-Werror</arg>
+					</compilerArgs>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>${spotless-maven-plugin.version}</version>
+				<configuration>
+					<java>
+						<googleJavaFormat>
+							<version>${google-java-format.version}</version>
+						</googleJavaFormat>
+						<removeUnusedImports/>
+						<importOrder/>
+					</java>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

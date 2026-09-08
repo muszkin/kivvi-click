@@ -1,0 +1,121 @@
+
+Running 5 tests using 5 workers
+
+  ✓  5 [chrome] › specs/public.spec.ts:56:9 › login › the browser blocks a malformed address before it is sent (946ms)
+  ✓  4 [chrome] › specs/public.spec.ts:42:9 › login › signs in and shows the identity in the sidebar (934ms)
+  ✘  2 [chrome] › specs/public.spec.ts:7:9 › landing › hero, preview frame, features, steps and pricing (5.7s)
+  ✘  3 [chrome] › specs/public.spec.ts:33:9 › landing › English landing keeps the same structure (5.7s)
+  ✘  1 [chrome] › specs/public.spec.ts:23:9 › landing › the demo button lands in the panel (30.1s)
+
+
+  1) [chrome] › specs/public.spec.ts:7:9 › landing › hero, preview frame, features, steps and pricing 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('.hero h1')
+    Expected substring: "Widzisz"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('.hero h1')
+
+
+      10 |         await page.goto("/pl");
+      11 |
+    > 12 |         await expect(page.locator(".hero h1")).toContainText("Widzisz");
+         |                                                ^
+      13 |         await expect(page.locator(".hero-cta a")).toHaveCount(2);
+      14 |         await expect(page.locator(".hero-preview .kpi")).toHaveCount(4);
+      15 |         // The marketing preview renders the traffic shape server-side, not as the live canvas.
+        at /home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e/tests/e2e/specs/public.spec.ts:12:48
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-0/e2e/public-full/test-results/public-landing-hero-preview-frame-features-steps-and-pricing-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-0/e2e/public-full/test-results/public-landing-hero-preview-frame-features-steps-and-pricing-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-0/e2e/public-full/test-results/public-landing-hero-preview-frame-features-steps-and-pricing-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../../kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-0/e2e/public-full/test-results/public-landing-hero-preview-frame-features-steps-and-pricing-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chrome] › specs/public.spec.ts:23:9 › landing › the demo button lands in the panel ───────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.hero-cta a').filter({ hasText: 'demo' })
+
+
+      23 |     test("the demo button lands in the panel", async ({ page }) => {
+      24 |         await page.goto("/pl");
+    > 25 |         await page.locator(".hero-cta a", { hasText: "demo" }).click();
+         |                                                                ^
+      26 |
+      27 |         await expect(page).toHaveURL(/\/pl\/dashboard/);
+      28 |         await expect(page.locator(".page-title")).toContainText(
+        at /home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e/tests/e2e/specs/public.spec.ts:25:64
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-0/e2e/public-full/test-results/public-landing-the-demo-button-lands-in-the-panel-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-0/e2e/public-full/test-results/public-landing-the-demo-button-lands-in-the-panel-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-0/e2e/public-full/test-results/public-landing-the-demo-button-lands-in-the-panel-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../../kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-0/e2e/public-full/test-results/public-landing-the-demo-button-lands-in-the-panel-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chrome] › specs/public.spec.ts:33:9 › landing › English landing keeps the same structure ─────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('.hero h1')
+    Expected substring: "See"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('.hero h1')
+
+
+      34 |         await page.goto("/en");
+      35 |
+    > 36 |         await expect(page.locator(".hero h1")).toContainText("See");
+         |                                                ^
+      37 |         await expect(page.locator("#features .feat")).toHaveCount(6);
+      38 |     });
+      39 | });
+        at /home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e/tests/e2e/specs/public.spec.ts:36:48
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../../kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-0/e2e/public-full/test-results/public-landing-English-landing-keeps-the-same-structure-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-0/e2e/public-full/test-results/public-landing-English-landing-keeps-the-same-structure-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-0/e2e/public-full/test-results/public-landing-English-landing-keeps-the-same-structure-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../../kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/waves/wave-0/e2e/public-full/test-results/public-landing-English-landing-keeps-the-same-structure-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [chrome] › specs/public.spec.ts:7:9 › landing › hero, preview frame, features, steps and pricing 
+    [chrome] › specs/public.spec.ts:23:9 › landing › the demo button lands in the panel ────────────
+    [chrome] › specs/public.spec.ts:33:9 › landing › English landing keeps the same structure ──────
+  2 passed (30.8s)

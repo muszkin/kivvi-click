@@ -1,0 +1,4 @@
+# Auto-registers FailOnWarnLogExtension (via META-INF/services) for every test in this
+# module, without needing @ExtendWith on each class — a future test cannot opt out of the
+# fail-on-warning policy (architecture/rules-translated.md row 3) by omission.
+junit.jupiter.extensions.autodetection.enabled=true

@@ -1,0 +1,10 @@
+cwd=/home/muszkin/work/kivvi-click-wt/verify-wave-0-arch/backend
+JAVA_HOME=/home/muszkin/.cache/kivvi-toolchains/jdk-25
+mvnw -q test -Dtest=ArchitectureTest -> exit 0 (3 tests, 0 failures)
+mvnw -q spotless:check -> exit 0
+mvnw -q clean compile test-compile -> exit 0 (proves -Xlint:all -Werror gate compiles clean)
+
+cwd=/home/muszkin/work/kivvi-click-wt/verify-wave-0-arch/frontend
+npm ci -> exit 0
+npm run lint -> exit 0
+npm run typecheck -> exit 0

@@ -1,0 +1,64 @@
+import js from "@eslint/js";
+import eslintPluginVue from "eslint-plugin-vue";
+import globals from "globals";
+import tseslint from "typescript-eslint";
+
+export default tseslint.config(
+    { ignores: ["dist/**", "coverage/**", "node_modules/**"] },
+    js.configs.recommended,
+    ...tseslint.configs.recommended,
+    ...eslintPluginVue.configs["flat/recommended"],
+    {
+        languageOptions: {
+            ecmaVersion: "latest",
+            sourceType: "module",
+            globals: { ...globals.browser, ...globals.node },
+            parserOptions: {
+                parser: tseslint.parser,
+            },
+        },
+        rules: {
+            // Formatting decisions belong to Panel\Format on the old stack, format.ts on this
+            // one — mirrors architecture/rules-translated.md's wave-1 row (introduced early
+            // since the rule is cheap to enforce from wave-0 on).
+            "no-restricted-imports": [
+                "error",
+                {
+                    patterns: [
+                        {
+                            group: ["*Intl*"],
+                            message:
+                                "Format numbers/money through src/format.ts, not Intl.NumberFormat directly.",
+                        },
+                    ],
+                },
+            ],
+            "vue/multi-word-component-names": "off",
+            "vue/require-default-prop": "off",
+            // v-html is used only for developer-authored, fixed strings (i18n copy, the two
+            // literal server-validated login error messages) — never for reflected user input.
+            "vue/no-v-html": "off",
+            // Formatting is Prettier's job (yarn format convention on the old stack, no ESLint
+            // config file there either); eslint-plugin-vue's "recommended" preset bundles pure
+            // layout rules (attribute wrapping, self-closing tags, indentation) that fight
+            // Prettier's own opinions on the same markup.
+            "vue/max-attributes-per-line": "off",
+            "vue/html-self-closing": "off",
+            "vue/singleline-html-element-content-newline": "off",
+            "vue/html-closing-bracket-newline": "off",
+            "vue/html-indent": "off",
+            "vue/html-closing-bracket-spacing": "off",
+            "vue/attributes-order": "off",
+        },
+    },
+    {
+        files: ["src/format.ts"],
+        rules: { "no-restricted-imports": "off" },
+    },
+    {
+        files: ["test/**/*.ts"],
+        languageOptions: {
+            globals: { ...globals.browser, ...globals.node, ...globals.es2021 },
+        },
+    },
+);

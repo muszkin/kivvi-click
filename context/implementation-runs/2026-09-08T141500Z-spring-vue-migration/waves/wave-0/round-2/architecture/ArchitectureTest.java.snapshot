@@ -1,0 +1,65 @@
+package click.kivvi.architecture;
+
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
+
+import com.tngtech.archunit.core.domain.JavaClasses;
+import com.tngtech.archunit.core.importer.ClassFileImporter;
+import com.tngtech.archunit.core.importer.ImportOption;
+import com.tngtech.archunit.lang.ArchRule;
+import com.tngtech.archunit.library.dependencies.SlicesRuleDefinition;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+/**
+ * Layering rules for the wave-0 rows of {@code architecture/rules-translated.md}: {@code web} may
+ * not be reached from {@code domain}, {@code infrastructure} may only be used from {@code
+ * application}, and the four top-level packages form no cycle.
+ */
+class ArchitectureTest {
+
+  private static JavaClasses classes;
+
+  @BeforeAll
+  static void importClasses() {
+    classes =
+        new ClassFileImporter()
+            .withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS)
+            .importPackages("click.kivvi");
+  }
+
+  @Test
+  @DisplayName("domain never depends on web")
+  void domainDoesNotDependOnWeb() {
+    ArchRule rule =
+        noClasses()
+            .that()
+            .resideInAPackage("..domain..")
+            .should()
+            .dependOnClassesThat()
+            .resideInAPackage("..web..");
+    rule.check(classes);
+  }
+
+  @Test
+  @DisplayName("infrastructure is only used from application")
+  void infrastructureIsOnlyUsedFromApplication() {
+    ArchRule rule =
+        classes()
+            .that()
+            .resideInAPackage("..infrastructure..")
+            .should()
+            .onlyBeAccessed()
+            .byAnyPackage("..infrastructure..", "..application..");
+    rule.check(classes);
+  }
+
+  @Test
+  @DisplayName("web, application, domain and infrastructure form no package cycle")
+  void topLevelPackagesFormNoCycle() {
+    ArchRule rule =
+        SlicesRuleDefinition.slices().matching("click.kivvi.(*)..").should().beFreeOfCycles();
+    rule.check(classes);
+  }
+}

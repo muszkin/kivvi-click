@@ -1,0 +1,51 @@
+# Commands run — verifier-e2e, wave-0 round 2 (SHA 6a53642c9c5ec9c256625854e6670f035e0292be)
+
+1. cwd=/home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e
+   git rev-parse HEAD
+   -> 6a53642c9c5ec9c256625854e6670f035e0292be
+   exit=0
+
+2. cwd=/home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e
+   curl -k -o /dev/null -w "%{http_code}" https://localhost:19101 --max-time 10
+   -> 200
+   exit=0
+
+3. cwd=/home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e/tests/e2e
+   npm ci
+   log: e2e/npm-ci-e2e.log
+   exit=0
+
+4. cwd=/home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e/tests/e2e
+   E2E_BASE_URL=https://localhost:19101 npx playwright test public.spec.ts -g "login"
+   log: e2e/targeted-login/run.log ; artifacts: e2e/targeted-login/test-results/
+   exit=0 (2 passed: "signs in and shows the identity in the sidebar", "the browser blocks a malformed address before it is sent")
+
+5. cwd=/home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e/tests/e2e
+   E2E_BASE_URL=https://localhost:19101 npx playwright test navigation.spec.ts -g "sidebar collapse|theme toggle"
+   log: e2e/targeted-navigation/run.log ; artifacts: e2e/targeted-navigation/test-results/
+   exit=0 (2 passed: "sidebar collapse survives a reload", "theme toggle survives a reload")
+
+6. cwd=/home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e/tests/e2e
+   E2E_BASE_URL=https://localhost:19101 npx playwright test public.spec.ts
+   log: e2e/public-full/run.log ; artifacts: e2e/public-full/test-results/
+   exit=1 (2 passed in "login" describe block; 3 failed, all in "landing" describe block — out-of-wave, landing ships in wave-1)
+
+7. cwd=/home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e/tools/migration-verify
+   npm ci
+   log: e2e/performance/npm-ci-migration-verify.log
+   exit=0
+
+8. cwd=/home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e/frontend
+   npm ci
+   log: e2e/performance/npm-ci-frontend.log
+   exit=0
+
+9. cwd=/home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e/frontend
+   npm run build
+   log: e2e/performance/frontend-build.log
+   exit=0 (dist/assets/index-*.js 175.13 kB / gzip 63.48 kB; dist/assets/index-*.css 45.85 kB / gzip 8.67 kB)
+
+10. cwd=/home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e
+    node tools/migration-verify/performance.mjs --base https://localhost:19101
+    log: e2e/performance/performance-run.log
+    exit=0
