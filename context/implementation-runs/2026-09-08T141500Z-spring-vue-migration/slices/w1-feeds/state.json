@@ -1,7 +1,7 @@
 {
   "slice_id": "w1-feeds",
   "logical_owner": "worker-w1-feeds",
-  "state": "REVIEW_PENDING",
+  "state": "IMPLEMENTED",
   "state_revision": 2,
   "branch": "migration/wave-1/feeds",
   "worktree": "/home/muszkin/work/kivvi-click-wt/w1-feeds",
@@ -35,19 +35,23 @@
       "status": "NOT_APPLICABLE"
     },
     "review": {
-      "status": "RUNNING",
-      "sha": "81af73f"
+      "status": "FAIL",
+      "sha": "81af73f",
+      "evidence": "review.md"
     },
     "e2e": {
-      "status": "PASS",
-      "sha": "81af73f",
-      "note": "worker-run; cohort re-verifies"
+      "status": "STALE",
+      "sha": "81af73f"
     }
   },
-  "failure": null,
+  "failure": {
+    "classification": "introduced-by-slice (scope + formatting)",
+    "attempt": 1,
+    "packet": "repair-1.md"
+  },
   "integration_commit": null,
   "created_at": "2026-09-08T18:30:50Z",
-  "updated_at": "2026-09-08T19:08:09Z",
+  "updated_at": "2026-09-08T19:16:39Z",
   "candidate_lineage": [
     "81af73fedfc5750d99a665a38bc064695d244279"
   ],

@@ -1,0 +1,5 @@
+# Independent review — w1-feeds candidate 81af73f (2026-09-08)
+
+Verdict: **FAIL**. F1 MEDIUM (scope): `frontend/src/i18n/index.ts` gained `warnHtmlMessage: false` beyond the loader-only lease — justified (static developer-authored v-html strings, fail-on-warning policy would break tests, no XSS path) but not flagged. F2 LOW: `web.FeedsController` imports `fixtures.*` types via `FeedsViewService.Payload` re-exports (ArchUnit does not forbid it). F3 LOW: `npm run format:check` fails on `test/integration/FeedsView.spec.ts` and `test/unit/KpiGrid.spec.ts`. Everything else verified: Format fidelity (U+202F vs ASCII space per Twig), oracle parity 0.000 %, first-owner components faithful, tests substantive, scope otherwise exact, no trailers.
+
+Orchestrator ruling: `warnHtmlMessage: false` is authorized as a cross-cutting change and becomes part of the canonical i18n loader (common-journey-rules.md updated). Repair-1: adopt the canonical `index.ts` text, prettier the two test files, optionally decouple the DTO mapping from `fixtures.*` (F2) if it is a small change.
