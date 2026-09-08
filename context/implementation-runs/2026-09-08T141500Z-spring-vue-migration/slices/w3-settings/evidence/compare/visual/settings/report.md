@@ -6,7 +6,7 @@ Base: https://localhost:19071
 | --- | --- | --- | --- |
 | 1 | visual.url | parity |  |
 | 1 | visual.texts | parity |  |
-| 1 | visual.aria | regression | a11y trees differ |
+| 1 | visual.aria | parity |  |
 | 1 | visual.screenshotDesktop | parity | 0.000% pixels differ (0/1296000) |
 | 1 | visual.screenshotMobile | parity | 0.000% pixels differ (0/329160) |
 | 2 | visual.url | parity |  |
@@ -25,9 +25,9 @@ Base: https://localhost:19071
 | 4 | visual.screenshotDesktop | parity | 0.000% pixels differ (0/1296000) |
 | 4 | visual.screenshotMobile | parity | 0.000% pixels differ (0/329160) |
 | 5 | visual.url | parity |  |
-| 5 | visual.texts | regression | text arrays differ |
+| 5 | visual.texts | parity |  |
 | 5 | visual.aria | parity |  |
-| 5 | visual.screenshotDesktop | regression | 7.434% pixels differ (96351/1296000) |
+| 5 | visual.screenshotDesktop | regression | 7.431% pixels differ (96300/1296000) |
 | 5 | visual.screenshotMobile | parity | 0.000% pixels differ (0/329160) |
 | 6 | visual.url | parity |  |
 | 6 | visual.texts | parity |  |
@@ -51,4 +51,4 @@ Base: https://localhost:19071
 | 9 | visual.screenshotMobile | parity | 0.000% pixels differ (0/329160) |
 | 10 | visual | accepted-deviation(DEV-12) | 404 document — visual/a11y/text skipped |
 
-**Regressions: 3**
+**Regressions: 1**
