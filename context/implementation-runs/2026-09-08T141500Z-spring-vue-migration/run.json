@@ -4,7 +4,7 @@
   "state": "SLICES_RUNNING",
   "plan": {
     "path": "/home/muszkin/work/kivvi-click/context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
-    "sha256": "84b664562fd00c1de6a2263ee2b32fa48da93d88f989f4aac8d60b46fbd4c017",
+    "sha256": "5751c9055c5afd403cc949a586ccda544a92d6200c155735880a4a179681020f",
     "approved_base_sha": "8d3fc320354604b641b44a3043a070f279e6d491"
   },
   "context": {
@@ -85,47 +85,84 @@
       "verifier_cohort": [
         {
           "dimension": "unit",
-          "status": "RUNNING",
+          "status": "FAIL",
           "sha": "3b17c07e23354e493edbab572e4090f69d2c0c71",
           "evidence": "waves/wave-0/unit.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "login",
+              "verdict": "regression",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "integration",
-          "status": "RUNNING",
+          "status": "FAIL",
           "sha": "3b17c07e23354e493edbab572e4090f69d2c0c71",
           "evidence": "waves/wave-0/integration.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "login",
+              "verdict": "regression",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "architecture",
-          "status": "RUNNING",
+          "status": "FAIL",
           "sha": "3b17c07e23354e493edbab572e4090f69d2c0c71",
           "evidence": "waves/wave-0/architecture.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "login",
+              "verdict": "regression",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "contract",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "3b17c07e23354e493edbab572e4090f69d2c0c71",
           "evidence": "waves/wave-0/contract.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "login",
+              "verdict": "accepted-deviation",
+              "deviation_id": "DEV-4"
+            }
+          ]
         },
         {
           "dimension": "visual",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "3b17c07e23354e493edbab572e4090f69d2c0c71",
           "evidence": "waves/wave-0/visual.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "login",
+              "verdict": "accepted-deviation",
+              "deviation_id": "DEV-11"
+            }
+          ]
         },
         {
           "dimension": "e2e",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "3b17c07e23354e493edbab572e4090f69d2c0c71",
           "evidence": "waves/wave-0/e2e.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "login",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         }
-      ]
+      ],
+      "repair_rounds": 1
     },
     {
       "wave_id": "wave-1",
@@ -202,5 +239,5 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-08T17:18:16Z"
+  "updated_at": "2026-09-08T17:24:27Z"
 }

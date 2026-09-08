@@ -1,0 +1,22 @@
+Verifier: e2e, wave-0
+Checkout: /home/muszkin/work/kivvi-click-wt/verify-wave-0-e2e (HEAD confirmed == 3b17c07e23354e493edbab572e4090f69d2c0c71)
+Stack: https://localhost:19101 (compose project kivvi-int) — not started/stopped by this verifier.
+
+1. `git rev-parse HEAD` — cwd repo root of checkout — output 3b17c07e23354e493edbab572e4090f69d2c0c71 (matches packet's Wave SHA) — exit 0
+2. `npm ci` — cwd tests/e2e — exit 0 (3 packages)
+3. `npm ci` — cwd frontend — exit 0 (259 packages)
+4. `npm run build` — cwd frontend — exit 0 (dist/assets/index-*.js 175.13 kB raw / 63.48 kB gzip, dist/assets/index-*.css 45.85 kB raw / 8.67 kB gzip) — needed because performance.mjs measures frontend/dist/assets; build output stays in this checkout only.
+5. LITERAL packet command, run first and unmodified:
+   `E2E_BASE_URL=https://localhost:19101 npx playwright test public.spec.ts -g "login" navigation.spec.ts -g "sidebar collapse|theme toggle"`
+   — cwd tests/e2e — exit 0 — but only 2 tests ran, both from navigation.spec.ts ("sidebar collapse survives a reload", "theme toggle survives a reload").
+   FINDING: Playwright's CLI (commander) accepts a single -g/--grep option; when given twice, only the LAST one is kept and applied across ALL file args on the command line. So this single invocation silently drops the "login" filter — 0 tests were selected from public.spec.ts. This is a test-runner CLI quirk, not a change to any spec file. See run-literal-command.log.
+   Corrective action (still unchanged specs, only the CLI invocation split in two so both intended filters actually execute):
+6. `E2E_BASE_URL=https://localhost:19101 npx playwright test public.spec.ts -g "login" --reporter=list,html` — cwd tests/e2e — exit 0 — 2/2 passed (see targeted-login/run.log, targeted-login/playwright-report/).
+7. `E2E_BASE_URL=https://localhost:19101 npx playwright test navigation.spec.ts -g "sidebar collapse|theme toggle" --reporter=list,html` — cwd tests/e2e — exit 0 — 2/2 passed (see targeted-navigation/run.log, targeted-navigation/playwright-report/).
+8. `E2E_BASE_URL=https://localhost:19101 npx playwright test public.spec.ts --reporter=list,html` (full file, unchanged) — cwd tests/e2e — exit 1 — 2 passed (login describe block), 3 failed (landing describe block) — see public-full/run.log, public-full/playwright-report/, public-full/test-results/.
+9. `npm ci` — cwd tools/migration-verify — exit 0 (2 packages)
+10. `node tools/migration-verify/performance.mjs --base https://localhost:19101` — cwd repo root of checkout — exit 0 — all measured budgets pass, collectP95Millis skipped (DEV-8: /collect introduced wave-2) — see performance/performance.log.
+
+All test runs executed headless (no `--headed` flag; playwright.config.ts sets no explicit headless:false; host has no display) via the system Chrome channel (`channel: "chrome"`, /usr/bin/google-chrome) — no browser download was needed, `npx playwright install` was not run.
+
+Checkout left clean: `git status --short` and `git diff --stat` both empty after all runs (frontend/dist, node_modules, playwright-report, test-results are untracked/gitignored build/test output).

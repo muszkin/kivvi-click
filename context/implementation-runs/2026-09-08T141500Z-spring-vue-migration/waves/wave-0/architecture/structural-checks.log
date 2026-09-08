@@ -1,0 +1,67 @@
+cwd: /home/muszkin/work/kivvi-click-wt/verify-wave-0-arch/backend
+command: find . -path "*/db/migration/*" -not -path "*/target/*"
+output:
+./src/main/resources/db/migration/V1__baseline.sql
+finding: Flyway contains only V1__baseline.sql. PASS.
+
+cwd: /home/muszkin/work/kivvi-click-wt/verify-wave-0-arch/backend
+command: grep spring-boot-starter-parent version in pom.xml
+output: 4.1.1
+plan Technology decisions row "Backend framework": Spring Boot 4.1.1 -> MATCH
+
+pom.xml properties: java.version=25, archunit.version=1.5.0
+plan rows: Java runtime Temurin 25 -> MATCH (JDK on PATH: Temurin-25.0.4.1+1, see backend-archunit.log)
+plan row "Architecture tests": ArchUnit 1.5.0 -> MATCH (archunit-junit5 version ${archunit.version}=1.5.0)
+
+cwd: /home/muszkin/work/kivvi-click-wt/verify-wave-0-arch/frontend
+command: grep versions in package.json (dependencies/devDependencies)
+output:
+  vue: 3.5.42            plan: Vue 3.5.42                    MATCH
+  vue-router: 5.3.1       plan: vue-router 5.3.1              MATCH
+  pinia: 4.0.3            plan: Pinia 4.0.3                   MATCH
+  vite: 8.2.2             plan: Vite 8.2.2                    MATCH
+  @vitejs/plugin-vue: 6.0.8  plan: 6.0.8                       MATCH
+  vitest: 5.0.0           plan: Vitest 5.0.0                  MATCH
+  @vue/test-utils: 2.5.0  plan: 2.5.0                          MATCH
+  vue-tsc: 3.3.11         plan: 3.3.11                          MATCH
+  vue-i18n: 11.4.10       plan: 11.4.10                         MATCH
+  typescript: 6.0.3       plan: TypeScript 6.0.3                MATCH
+  prettier: 3.8.4         plan: Prettier 3.8.4                  MATCH
+finding: all pinned versions in backend/pom.xml and frontend/package.json match the plan's
+"Technology decisions" table (context/plans/2026-09-08-symfony-to-spring-vue-migration.md lines
+193-212). PASS.
+
+--- Rule-by-rule tooling search (rules-translated.md, Wave = wave-0) ---
+
+Row "Static typing gate (PHPStan 5)":
+  backend/pom.xml lines 146-153: maven-compiler-plugin compilerArgs -Xlint:all -Werror. FOUND.
+  frontend/package.json "typecheck": "vue-tsc --noEmit"; tsconfig.json "strict": true,
+  "noUncheckedIndexedAccess": true, "noImplicitOverride": true, "noImplicitReturns": true. FOUND.
+  Ran: npm run typecheck -> exit 0 (frontend-typecheck.log).
+  Verdict: rule enforced, tooling present. PASS.
+
+Row "Formatting @Symfony":
+  backend/pom.xml lines 155-168: spotless-maven-plugin + googleJavaFormat 1.36.1. FOUND.
+  Ran: ./mvnw -q spotless:check -> exit 0 (backend-spotless.log).
+  frontend/package.json "format": "prettier --write .", prettier 3.8.4 devDependency. FOUND
+  (existing config per plan; no frontend/.prettierrc, uses Prettier defaults - consistent with
+  "Prettier on SPA (existing config)" wording, root repo also has no .prettierrc).
+  Verdict: rule enforced, tooling present. PASS.
+
+Row "Test policy fail-on-warning":
+  Searched backend/src (main+test) and backend/pom.xml for: Logback ListAppender, any
+  ch.qos.logback import, any @ExtendWith usage, any junit-platform.properties or
+  junit.jupiter.execution.parallel system property, any logback-test.xml. NONE FOUND.
+  grep -rn "Appender|logback|WARN" backend/src --include=*.java --include=*.xml -> no matches
+  outside target/.
+  grep -rn "@ExtendWith" backend/src/test -> no matches.
+  find . -iname "junit-platform.properties" -not -path "*/target/*" -> no matches.
+  Searched frontend/ for a custom Vitest reporter or onUnhandledError/setupFiles config beyond
+  the vitest.config block already read (vite.config.ts "test": { environment: jsdom, globals:
+  true } - no onUnhandledError/dangerouslyIgnoreUnhandledErrors override, no setupFiles). NONE
+  FOUND beyond Vitest 5's own default behaviour.
+  Verdict: the target rule specifically requires "logging at WARN treated as failure via
+  Logback test appender assertion" (rules-translated.md row 3, Tooling column). No such
+  appender/assertion exists anywhere in backend/src. No deviation entry in the plan's "Accepted
+  deviations" table (DEV-1..DEV-12) covers this rule. FAIL per migration-waves.md architecture
+  row: "a rule has no equivalent and no deviation record".

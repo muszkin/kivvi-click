@@ -27,7 +27,7 @@ Name tests after `behaviours.json` ids for your journey (JUnit `@DisplayName("Bn
 3. ArchUnit (inside mvnw test) + `npm run lint` + `npm run typecheck`
 4. `cd backend && ./mvnw -q spotless:check`; `cd frontend && npm run build`
 5. `node tools/migration-verify/compare.mjs --journey <your-journey> --base https://localhost:<https-port> --out <run-dir>/slices/<id>/evidence/compare` → 0 regressions
-6. `cd tests/e2e && E2E_BASE_URL=https://localhost:<https-port> npx playwright test <your specs>` green, specs unchanged (K8 otherwise: stop and report)
+6. `cd tests/e2e && E2E_BASE_URL=https://localhost:<https-port> npx playwright test <your specs>` green, specs unchanged (K8 otherwise: stop and report). Playwright keeps only the LAST `-g` flag on the command line: run one invocation per filter (or per spec file without `-g`) and keep each log — never one combined command with several `-g`.
 7. `node tools/migration-verify/performance.mjs --base https://localhost:<https-port>` within budget
 Sonar: NOT_APPLICABLE (no config). List introduced dependencies with version + license; grep your diff for secrets.
 

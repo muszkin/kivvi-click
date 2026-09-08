@@ -424,7 +424,7 @@ Common to every packet (not repeated below):
 | DEV-9 | login, shell-navigation (session) | contract | session cookie name `SESSION` instead of `PHPSESSID`; sessions not migrated at cutover | Spring Session default; no real users | ignore `Set-Cookie` name; sessions delta compared by count only | Piotr Mucha | cutover |
 | DEV-10 | (none — `/_storybook` Out of scope) | — | recorded for completeness: storybook not reproduced | dev tooling | — | Piotr Mucha | n/a |
 | DEV-12 | shell-navigation step 21, customers step 6, settings step 10, import-wizard step 10 (404 documents) | visual | the 404 error page body (Symfony default error page today) is not reproduced; only the 404 status and the presence of a document are compared | error page appearance is framework chrome, not product UI | skip visual/a11y/text comparison on steps whose oracle `step.json` records `documentStatus: 404`; contract still requires status 404 | Piotr Mucha | contract stage (a designed 404 page is Linear PIO-77) |
-| DEV-11 | login steps 4 and 8 | visual | dashboard page body not implemented until wave-4 | walking skeleton lands on the dashboard | mask `.main-scroll` region on these two steps | Piotr Mucha | wave-4 `WAVE_INTEGRATED` (dashboard) |
+| DEV-11 | login steps 4–8 (the page stays on the dashboard during the out-of-band POST steps 5–7; landing step 5) | visual | dashboard page body not implemented until wave-4 | walking skeleton lands on the dashboard | mask `.main-scroll` region on these steps | Piotr Mucha | wave-4 `WAVE_INTEGRATED` (dashboard) |
 
 ## Kill criteria
 

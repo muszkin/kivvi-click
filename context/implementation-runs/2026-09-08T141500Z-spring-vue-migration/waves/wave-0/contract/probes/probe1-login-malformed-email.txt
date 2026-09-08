@@ -1,0 +1,11 @@
+=== Probe 1: POST /pl/login malformed email ===
+HTTP/2 200 
+alt-svc: h3=":443"; ma=2592000
+content-type: text/html;charset=UTF-8
+date: Tue, 08 Sep 2026 17:19:42 GMT
+permissions-policy: browsing-topics=()
+via: 1.1 Caddy
+content-length: 1387
+
+--- body grep for error attr ---
+data-login-error="To nie wygląda na poprawny adres e-mail."
