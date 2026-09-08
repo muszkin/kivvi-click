@@ -537,16 +537,16 @@ DAG: J0 → {J1, J2, J3} → {J4, J5} → {J6, J7, J8} → {J9, J10, J11} → J1
 
 ### Operator execution decision
 
-**Status:** awaiting-operator
+**Status:** confirmed (operator, 2026-09-08)
 
 - **Selected profile:** migration (fixed)
-- **Selected orchestration:** —
-- **Terminal outcome:** —
-- **Selected worker/reviewer model policy:** —
+- **Selected orchestration:** fire-and-forget
+- **Terminal outcome:** local-green — the assembled `migration/spring-vue` branch passes the final all-journey cohort and the combined gate chain; `CUTOVER_READY` recorded. The operator additionally asked for the new stack to run on the same port (23456) at the end for personal verification: that is packet CUT-1 and is executed only after `CUTOVER_READY` and one explicit confirmation; the old stack stays available for rollback.
+- **Selected worker/reviewer model policy:** daily-coding tier (Claude Code `sonnet` alias resolved by the host) for worker and reviewer, **reasoning effort high** (operator override of the medium default)
 - **Automatic profile escalation:** not applicable
 - **Challenge raised:** parallel rewrite instead of strangler (see "Migration kind and trigger"); production is down and its database has no restart policy — CUT-1 entry condition; disk headroom caps parallelism at 2.
-- **Operator override:** —
-- **Implementation authorization:** plan approved 2026-09-08; execution envelope pending the operator's answer to the execution question
+- **Operator override:** reasoning effort high for worker and reviewer (cost accepted); CUT-1 pre-signalled as desired end state (still separately confirmed)
+- **Implementation authorization:** granted 2026-09-08 for local implementation in isolated worktrees and local compose stacks on the port pool; no push, no PR, no production action inside the envelope; RR-1/CUT-1/CON-1 need their own confirmation
 
 ## Coverage matrix
 
