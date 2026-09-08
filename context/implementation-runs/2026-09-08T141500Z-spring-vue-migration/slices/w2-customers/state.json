@@ -1,7 +1,7 @@
 {
   "slice_id": "w2-customers",
   "logical_owner": "worker-w2-customers",
-  "state": "REVIEW_PENDING",
+  "state": "INTEGRATED",
   "state_revision": 2,
   "branch": "migration/wave-2/customers",
   "worktree": "/home/muszkin/work/kivvi-click-wt/w2-customers",
@@ -36,8 +36,9 @@
       "status": "NOT_APPLICABLE"
     },
     "review": {
-      "status": "RUNNING",
-      "sha": "0cb6baa"
+      "status": "PASS",
+      "sha": "0cb6baa",
+      "evidence": "review.md"
     },
     "e2e": {
       "status": "PASS",
@@ -46,9 +47,9 @@
     }
   },
   "failure": null,
-  "integration_commit": null,
+  "integration_commit": "0cb6baa8a71d765b09034b92db2003ee45de34e7",
   "created_at": "2026-09-08T20:20:58Z",
-  "updated_at": "2026-09-08T21:01:58Z",
+  "updated_at": "2026-09-08T21:08:32Z",
   "candidate_lineage": [
     "f84ee18",
     "0cb6baa8a71d765b09034b92db2003ee45de34e7"

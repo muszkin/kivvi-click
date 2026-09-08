@@ -1,0 +1,83 @@
+{
+  "journey": "event-stream",
+  "base": "https://localhost:19041",
+  "steps": [
+    {
+      "index": 1,
+      "dimensions": {
+        "contract": {
+          "verdict": "accepted-deviation(DEV-4,DEV-5)",
+          "detail": "",
+          "apiBaselineCount": 2
+        }
+      }
+    },
+    {
+      "index": 2,
+      "dimensions": {
+        "contract": {
+          "verdict": "accepted-deviation(DEV-3,DEV-4,DEV-5)",
+          "detail": "",
+          "apiBaselineCount": 0
+        }
+      }
+    },
+    {
+      "index": 3,
+      "dimensions": {
+        "contract": {
+          "verdict": "accepted-deviation(DEV-3,DEV-4,DEV-5)",
+          "detail": "",
+          "apiBaselineCount": 0
+        }
+      }
+    },
+    {
+      "index": 4,
+      "dimensions": {
+        "contract": {
+          "verdict": "accepted-deviation(DEV-4,DEV-5)",
+          "detail": "",
+          "apiBaselineCount": 0
+        }
+      }
+    },
+    {
+      "index": 5,
+      "dimensions": {
+        "contract": {
+          "verdict": "accepted-deviation(DEV-4,DEV-5)",
+          "detail": "",
+          "apiBaselineCount": 0
+        }
+      }
+    },
+    {
+      "index": 6,
+      "dimensions": {}
+    },
+    {
+      "index": 7,
+      "dimensions": {
+        "contract": {
+          "verdict": "accepted-deviation(DEV-4,DEV-5)",
+          "detail": "",
+          "apiBaselineCount": 2
+        }
+      }
+    }
+  ],
+  "regressions": 0,
+  "db": [
+    {
+      "table": "sessions",
+      "verdict": "accepted-deviation(DEV-9)",
+      "detail": "oracle delta 0, candidate delta 0 (mapped to spring_session)"
+    },
+    {
+      "table": "cache_items",
+      "verdict": "accepted-deviation(DEV-5)",
+      "detail": "oracle delta 1, candidate delta 1 (mapped to event_dedup+shedlock)"
+    }
+  ]
+}
