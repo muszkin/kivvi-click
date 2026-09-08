@@ -20,7 +20,7 @@ canonical docs outrank this generated map. Verify stale or high-risk claims befo
 | --- | --- |
 | research | `project-overview.md`, `documentation-index.md` (incl. related 10x foundation docs), relevant scoped context, `risks-and-unknowns.md` |
 | implementation planning | overview, `technology.md`, `architecture-and-flows.md`, `dependencies.md`, `delivery-and-verification.md`, `git-and-pr-history.md` (hotspots), risks, scoped contexts of touched directories |
-| migration planning (stack change under review, R1) | architecture + diagrams, `tests/e2e/.agents/project-context.md` (oracle), `technology.md`, risks R1/R3/R8 |
+| migration planning (stack change under review, R1) | `../research/2026-09-08-stack-migration-spring-vue-react.md` (verdict), architecture + diagrams, `tests/e2e/.agents/project-context.md` (oracle), `technology.md`, risks R1/R3/R8 |
 | review | architecture, dependencies (contracts table), risks, git co-change, delivery gates, scoped contexts |
 | `implementation-orchestrator` | approved plan (none registered yet), overview, architecture, dependencies, delivery commands, risks, nearest scoped contexts |
 | implementer | approved plan, scoped context of the directory, dependencies, delivery commands, invariants listed in each scoped context |
@@ -47,6 +47,10 @@ canonical docs outrank this generated map. Verify stale or high-risk claims befo
 - [`git-and-pr-history.md`](git-and-pr-history.md) · [`risks-and-unknowns.md`](risks-and-unknowns.md)
 - Diagrams: [`diagrams/module-dependencies.mmd`](diagrams/module-dependencies.mmd), [`diagrams/primary-runtime-flow.mmd`](diagrams/primary-runtime-flow.mmd) (Mermaid source, rendering not run)
 - Manifest: [`manifest.json`](manifest.json) — rolled-up and excluded directories, fingerprints, verdicts.
+
+## Research artifacts
+
+- [`../research/2026-09-08-stack-migration-spring-vue-react.md`](../research/2026-09-08-stack-migration-spring-vue-react.md) — research-spike verdict on R1 (Spring Boot + Vue/React migration): **reject now**, flip condition recorded; also finds Symfony 8.0 unmaintained since 2026-07-31.
 
 ## Canonical project documents
 

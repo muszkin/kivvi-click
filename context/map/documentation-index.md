@@ -34,6 +34,7 @@ was not opened: binary, contents stated to live in `assets/`, `templates/`, `con
 | `context/foundation/{stack-assessment,health-check}.md` | 10x-dev stack-assess / health-check | generated synthesis | stale (test counts, CI unchanged) | review, delivery planning |
 | `context/changes/`, `context/archive/` | 10x-dev conventions | convention folders, empty | current | implementation-orchestrator (change folders would land here under 10x flow) |
 | `.ai/cezar/` (untracked, own `.gitignore`) | "cezar" tool state: `runs.json` (`[]`), `runs/`, `launch-key` (secret) | tool state | unknown generator; excluded, not read beyond structure | none |
+| `context/research/2026-09-08-stack-migration-spring-vue-react.md` | research-spike skill (this pipeline) | generated synthesis / research verdict | current (2026-09-08), ready-for-approval, verdict reject-now with flip condition | implementation-planning (Symfony 8.1 bump, P0 tasks), migration-planning (only if flipped) |
 | `context/implementation-runs/**` | — | — | absent | — |
 | `.claude/skills/product-spec/SKILL.md` | project maintainer | canonical product evidence | current | everything |
 <!-- END project-context-initializer:artifact -->

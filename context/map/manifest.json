@@ -4,66 +4,47 @@
   "generator_version": "a26f4ab1f8949c90",
   "manifest_digest": {
     "algorithm": "sha256-rfc8785-with-empty-digest",
-    "value": "7e6068303a37f2772d67da48b2683dd77075eb52a7d5a7365fbf4f9bb2165895"
+    "value": "0f56386225bbad806e282ab99c8b67ab9fff52610948cf66a5d8862ce7594dbd"
   },
-  "operation": "initialize",
+  "operation": "refresh",
   "project_classification": "brownfield",
   "scope_kind": "repository",
   "phase": "complete",
-  "generated_at": "2026-09-08T13:27:13Z",
+  "generated_at": "2026-09-08T13:34:12Z",
   "repository_root": ".",
   "scope": [
     "."
   ],
   "source_snapshot": {
     "basis": "HEAD+worktree",
-    "revision": "91f8f85302a8084346eb5ce0b0b04d7ac143cd08",
+    "revision": "f58d62c4a4147750737b09c4b470654d5614955d",
     "branch": "main",
     "worktree_status": [
-      "M AGENTS.md",
-      "M CLAUDE.md"
+      " M context/map/INDEX.md",
+      " M context/map/documentation-index.md",
+      " M context/map/risks-and-unknowns.md"
     ],
     "untracked_nonignored_paths": [
-      ".agents/project-context.md",
       ".ai/cezar/.gitignore",
-      "assets/.agents/project-context.md",
-      "config/.agents/project-context.md",
-      "context/README.md",
-      "context/map/INDEX.md",
-      "context/map/architecture-and-flows.md",
-      "context/map/delivery-and-verification.md",
-      "context/map/dependencies.md",
-      "context/map/diagrams/module-dependencies.mmd",
-      "context/map/diagrams/primary-runtime-flow.mmd",
-      "context/map/documentation-index.md",
-      "context/map/git-and-pr-history.md",
-      "context/map/project-overview.md",
-      "context/map/risks-and-unknowns.md",
-      "context/map/technology.md",
-      "frankenphp/.agents/project-context.md",
-      "src/.agents/project-context.md",
-      "src/Panel/.agents/project-context.md",
-      "src/Tracking/.agents/project-context.md",
-      "templates/.agents/project-context.md",
-      "tests/.agents/project-context.md",
-      "tests/e2e/.agents/project-context.md",
-      "context/map/**",
-      ".agents/**",
-      "*/.agents/**",
-      "context/README.md"
+      "context/research/**"
     ],
     "comparability": "comparable",
     "non_comparable_reasons": [],
     "dirty_tracked_fingerprints": [
       {
-        "path": "AGENTS.md",
+        "path": "context/map/INDEX.md",
         "method": "sha256-current-worktree-bytes",
-        "value": "b125930a712df47c507e16d1419f802273a9b6fae25df51291b9edd25973bd95"
+        "value": "3107c23180e49950aaf6fa977d068f923105e19e684fd02606832922a5ee1075"
       },
       {
-        "path": "CLAUDE.md",
+        "path": "context/map/documentation-index.md",
         "method": "sha256-current-worktree-bytes",
-        "value": "b70f6321a91c64c5d7cf428e65339660c37afc8ef729160c2a1d0b86459411b8"
+        "value": "4853fd25ae6208419ee638f4dbaad7e50af5658c69123df161c80227b1f464d5"
+      },
+      {
+        "path": "context/map/risks-and-unknowns.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "e2c39b1271dc1ffb34845416ef110f9848c921bc6ec1016f6a90cb717b72c0ee"
       }
     ],
     "inventory_fingerprint": "5194762e2addee6fa0a2d50e3bcd05164218e1b455557520bc439171af7ee9af",
@@ -303,6 +284,12 @@
       "coverage": "rolled-up",
       "context": ".agents/project-context.md",
       "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "context/research",
+      "coverage": "rolled-up",
+      "context": ".agents/project-context.md",
+      "reason": "research artifacts (federated in related_artifacts)"
     },
     {
       "path": "frankenphp",
@@ -787,6 +774,33 @@
         "context/map/documentation-index.md"
       ],
       "consumers": []
+    },
+    {
+      "path": "context/research/2026-09-08-stack-migration-spring-vue-react.md",
+      "generator_or_owner": "research-spike",
+      "purpose": "Verdict on R1: migrate to Spring Boot + Vue/React?",
+      "scope": [
+        "."
+      ],
+      "artifact_type": "generated-synthesis",
+      "authority": "advisory",
+      "source_revision": "f58d62c4a4147750737b09c4b470654d5614955d",
+      "generated_at": "2026-09-08T13:34:12Z",
+      "freshness": "current",
+      "content_sha256": "61a3c2099342ed3379793d76da7cd73e1b5175013bca4011966e35656e6a2c73",
+      "approval_status": "draft",
+      "conflicts": [
+        "R1 remains Undecided until the owner answers the flip condition"
+      ],
+      "referenced_by": [
+        "context/map/INDEX.md",
+        "context/map/documentation-index.md",
+        "context/map/risks-and-unknowns.md"
+      ],
+      "consumers": [
+        "implementation-planning",
+        "migration-planning"
+      ]
     }
   ],
   "artifacts": [
@@ -808,8 +822,8 @@
         ".claude/skills/product-spec/SKILL.md"
       ],
       "input_fingerprint": "6cc8d4b7ab047ad8127ca356dd97295b5f1f9703909aea1895423428c65e9164",
-      "output_sha256": "ff68211b0d529e5eb3ad9ccc3775603ea29198f6877b6d7d09ce5f9f25f59167",
-      "generated_at": "2026-09-08T13:27:13Z"
+      "output_sha256": "3107c23180e49950aaf6fa977d068f923105e19e684fd02606832922a5ee1075",
+      "generated_at": "2026-09-08T13:34:12Z"
     },
     {
       "path": "context/map/project-overview.md",
@@ -958,8 +972,8 @@
         "... 6 more tracked files under the scope"
       ],
       "input_fingerprint": "753a41d634c2cfcf0cc2843027121c0dce1437f3ac3d25f994edc74d8e910d33",
-      "output_sha256": "f4412f6e1f77564da3cc2c3dbacb0af087d0c4d8a9f0b328d400ead0097f5085",
-      "generated_at": "2026-09-08T13:27:13Z"
+      "output_sha256": "4853fd25ae6208419ee638f4dbaad7e50af5658c69123df161c80227b1f464d5",
+      "generated_at": "2026-09-08T13:34:12Z"
     },
     {
       "path": "context/map/delivery-and-verification.md",
@@ -1028,8 +1042,8 @@
         "... 44 more tracked files under the scope"
       ],
       "input_fingerprint": "a8bb8d2a90394a6c0003c0d21acc6489ff4a159bb9d0e71ff83f53861f7867e6",
-      "output_sha256": "56b43d0f37e5daf3e92f221c25d753f8b8c25eff0bf5f5a2faa53ab60b2c3dce",
-      "generated_at": "2026-09-08T13:27:13Z"
+      "output_sha256": "e2c39b1271dc1ffb34845416ef110f9848c921bc6ec1016f6a90cb717b72c0ee",
+      "generated_at": "2026-09-08T13:34:12Z"
     },
     {
       "path": "context/map/diagrams/module-dependencies.mmd",
@@ -1471,16 +1485,17 @@
     }
   ],
   "open_questions": [
-    "Keep Symfony/Twig or migrate to Java/Spring Boot + Vue/React (SSR?) — R1",
+    "Keep Symfony/Twig or migrate to Java/Spring Boot + Vue/React — research verdict: reject now; owner to confirm/deny the flip condition (R1)",
     "Is the Twig prototype the UI for roadmap S-01..S-04 or throwaway? — R3",
     "Confirm Linear as the tracker — R8",
     "Isolate dev compose project name from prod — R5"
   ],
   "uncovered_paths": [],
   "next_actions": [
-    "research-spike on stack migration (Spring Boot LTS, Vue 3 vs React, SSR options) feeding migration-planning",
     "refresh AGENTS.md Current Shape (manual section)",
     "add /.ai/ to root .gitignore or confirm tooling",
-    "run composer test, phpstan, typecheck, e2e in an isolated dev stack and refresh verdicts"
+    "run composer test, phpstan, typecheck, e2e in an isolated dev stack and refresh verdicts",
+    "owner answers the flip condition in context/research/2026-09-08-stack-migration-spring-vue-react.md (R1)",
+    "bump Symfony 8.0.x -> 8.1.x (R16) via implementation-planning"
   ]
 }
