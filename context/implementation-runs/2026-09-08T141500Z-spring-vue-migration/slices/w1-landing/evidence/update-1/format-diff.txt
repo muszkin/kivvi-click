@@ -1,0 +1,128 @@
+--- /tmp/mine-format.java	2026-09-08 19:33:56.324164345 +0000
++++ backend/src/main/java/click/kivvi/domain/Format.java	2026-09-08 19:30:32.164241766 +0000
+@@ -1,21 +1,31 @@
+ package click.kivvi.domain;
+ 
++import java.math.BigDecimal;
++import java.math.RoundingMode;
+ import java.time.Instant;
++import java.time.temporal.ChronoUnit;
+ 
+ /**
+- * Polish-locale number, money and relative-time formatting, ported from {@code Format.php}. Values
+- * reach the SPA pre-formatted: the frontend never formats a number itself (see the ESLint {@code
+- * no-restricted-imports} boundary rule for {@code Intl.NumberFormat}).
++ * Polish-locale number, money and relative-time formatting — ported from {@code
++ * src/Panel/Format.php}.
++ *
++ * <p>Values reach the SPA pre-formatted: a template (Twig, once) or a component (Vue, now) is
++ * markup, not a place to decide how many decimals a conversion rate has.
+  */
+ public final class Format {
+ 
+-  // The narrow no-break space PHP's number_format grouping used, not an ordinary space.
++  // U+202F NARROW NO-BREAK SPACE — matches Format.php's THOUSANDS_SEPARATOR exactly. A
++  // plain ASCII space is a deliberately different, separate convention used elsewhere in
++  // the old stack (Twig's own number_format filter, ported verbatim in
++  // FeedsViewService's groupWithSpace) — the two are not interchangeable and both are
++  // reproduced verbatim.
+   private static final char THOUSANDS_SEPARATOR = ' ';
+ 
+   private Format() {}
+ 
+   public static String number(double value) {
+-    return formatNumber(value, 0);
++    BigDecimal rounded = BigDecimal.valueOf(value).setScale(0, RoundingMode.HALF_UP);
++    return group(rounded.toBigInteger().toString());
+   }
+ 
+   public static String money(double value) {
+@@ -27,11 +37,15 @@
+   }
+ 
+   public static String percent(double value, int decimals) {
+-    return formatNumber(value, decimals) + "%";
++    BigDecimal rounded = BigDecimal.valueOf(value).setScale(decimals, RoundingMode.HALF_UP);
++    String[] parts = rounded.toPlainString().split("\\.", 2);
++    String wholePart = group(parts[0]);
++    String formatted = parts.length > 1 ? wholePart + ',' + parts[1] : wholePart;
++    return formatted + "%";
+   }
+ 
+   public static String initials(String name) {
+-    String trimmed = name.trim();
++    String trimmed = name.strip();
+     if (trimmed.isEmpty()) {
+       return "";
+     }
+@@ -39,15 +53,14 @@
+     StringBuilder initials = new StringBuilder();
+     for (int i = 0; i < Math.min(2, parts.length); i++) {
+       if (!parts[i].isEmpty()) {
+-        initials.append(Character.toUpperCase(parts[i].charAt(0)));
++        initials.appendCodePoint(Character.toUpperCase(parts[i].codePointAt(0)));
+       }
+     }
+     return initials.toString();
+   }
+ 
+-  /** Mirrors {@code Format::timeAgo()}'s five Polish relative-time buckets. */
+   public static String timeAgo(Instant moment, Instant now) {
+-    long seconds = Math.max(0, now.getEpochSecond() - moment.getEpochSecond());
++    long seconds = Math.max(0, ChronoUnit.SECONDS.between(moment, now));
+     if (seconds < 60) {
+       return "teraz";
+     }
+@@ -64,43 +77,19 @@
+   }
+ 
+   /**
+-   * Groups the integer part with {@link #THOUSANDS_SEPARATOR} and, for {@code decimals > 0},
+-   * appends a comma-separated fraction — mirrors PHP's {@code number_format($value, $decimals, ',',
+-   * " ")}. Rounding is half-away-from-zero at the requested precision, computed on the absolute
+-   * value so {@code Math.round}'s half-up behaviour is safe for negative inputs too.
++   * Groups a plain (possibly negative) integer string into thousands with {@link
++   * #THOUSANDS_SEPARATOR}.
+    */
+-  private static String formatNumber(double value, int decimals) {
+-    boolean negative = value < 0;
+-    double factor = Math.pow(10, decimals);
+-    long scaled = Math.round(Math.abs(value) * factor);
+-    String digits = Long.toString(scaled);
+-    while (digits.length() <= decimals) {
+-      digits = "0" + digits;
+-    }
+-    String integerPart = decimals == 0 ? digits : digits.substring(0, digits.length() - decimals);
+-    String fractionPart = decimals == 0 ? "" : digits.substring(digits.length() - decimals);
+-
+-    StringBuilder result = new StringBuilder();
+-    if (negative) {
+-      result.append('-');
+-    }
+-    result.append(groupThousands(integerPart));
+-    if (decimals > 0) {
+-      result.append(',').append(fractionPart);
+-    }
+-    return result.toString();
+-  }
+-
+-  private static String groupThousands(String digits) {
++  private static String group(String digits) {
++    boolean negative = digits.startsWith("-");
++    String magnitude = negative ? digits.substring(1) : digits;
+     StringBuilder grouped = new StringBuilder();
+-    int count = 0;
+-    for (int i = digits.length() - 1; i >= 0; i--) {
+-      grouped.append(digits.charAt(i));
+-      count++;
+-      if (count % 3 == 0 && i != 0) {
++    for (int i = 0; i < magnitude.length(); i++) {
++      if (i > 0 && (magnitude.length() - i) % 3 == 0) {
+         grouped.append(THOUSANDS_SEPARATOR);
+       }
++      grouped.append(magnitude.charAt(i));
+     }
+-    return grouped.reverse().toString();
++    return (negative ? "-" : "") + grouped;
+   }
+ }

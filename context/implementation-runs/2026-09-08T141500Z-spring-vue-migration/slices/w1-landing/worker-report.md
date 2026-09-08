@@ -126,3 +126,120 @@ migration/wave-1/landing
 ```
 
 Compose stack torn down (`docker compose -p kivvi-w-landing -f compose.next.yaml down -v`) and the built image (`kivvi-w-landing-api`) removed before writing this report.
+
+## Update-1
+
+Rebased the reviewed candidate `c8a5a9e84fe354caa13c38ed21f47da5309820d4` onto `migration/spring-vue`'s new
+feature HEAD `6e7a847c5bcda11149585f7007bf3f2f349b0394` (feeds journey + its repair-1, "canonical i18n loader,
+format:check clean") per `update-1.md`.
+
+### Identity guard (re-checked before starting)
+
+`git rev-parse --show-toplevel` → `/home/muszkin/work/kivvi-click-wt/w1-landing` ✓; `git branch --show-current`
+→ `migration/wave-1/landing` ✓; `git status --porcelain` → clean ✓; `git merge-base c8a5a9e 6e7a847` →
+`887af4543c5a51255735f1ddfc0d8860d11551c0` (confirms both branches share the same wave-0 root, so the
+rebase target is a genuine fast-forward-of-history situation, not an unrelated tree).
+
+### `git rebase 6e7a847c5bcda11149585f7007bf3f2f349b0394`
+
+Exactly the three conflicts update-1.md predicted, nothing else:
+
+- `backend/src/main/java/click/kivvi/domain/Format.java` — add/add conflict.
+- `frontend/src/i18n/index.ts` — content conflict.
+- `frontend/src/router/routes.ts` — content conflict.
+
+`tools/migration-verify/deviations.json` auto-merged cleanly (feeds never touched it, confirmed by
+`git diff 887af45 6e7a847 -- tools/migration-verify/deviations.json` being empty before starting) — the
+per-journey DEV-11 object (`{"login": [...], "landing": [5]}`) survived untouched.
+
+### Conflict resolution
+
+**Format.java** — inspected both versions method-by-method before resolving. Every method the two
+implement has the *same signature* in both (`number`, `money`, `percent(double)`,
+`percent(double,int)`, `initials`, `timeAgo`) — feeds' version implements each one differently
+(`BigDecimal`+`RoundingMode.HALF_UP`+a `group()` helper vs. my `Math.round`+a
+`formatNumber`/`groupThousands` pair) but there is no method present in one and absent from the
+other, so the "union" is the feeds (HEAD) file verbatim — copied via `git show
+6e7a847...:...Format.java > ...Format.java` (byte-for-byet, not retyped, to guarantee the U+202F
+narrow-no-break-space literal survived — a first retype attempt silently produced a plain ASCII
+space instead, caught by re-diffing against the git blob before moving on). Representative diff
+(mine → HEAD, full diff in `evidence/update-1/format-diff.txt`):
+
+```diff
+   public static String number(double value) {
+-    return formatNumber(value, 0);
++    BigDecimal rounded = BigDecimal.valueOf(value).setScale(0, RoundingMode.HALF_UP);
++    return group(rounded.toBigInteger().toString());
+   }
+```
+
+Proved equivalence with the landing tests rather than by inspection alone: `./mvnw -q
+-Dtest=LandingFixturesTest,LandingControllerTest test` (exit 0) — `LandingFixturesTest`'s
+`previewTilesArePreFormatted` asserts `Format.number(8410)` = `"8 410"` and
+`Format.number(94200)` = `"94 200"` against the feeds implementation and still passes. Both
+test classes (landing's and feeds') green in the same `./mvnw -q test`/`verify` run — see gate
+table below.
+
+**i18n/index.ts** — took HEAD verbatim (`git show 6e7a847...:...index.ts > ...index.ts`,
+diffed byte-identical against the blob). It already carries the exact loader
+common-journey-rules.md specifies, plus `warnHtmlMessage: false` set globally in the
+`createI18n` call — the centralized fix I could not make myself in the original candidate
+(restricted to "loader lines only"; I muted it locally in `landing.spec.ts` instead, see the
+original report's "Two notable findings"). `landing.pl.ts`/`landing.en.ts` need no change: the
+glob picks them up exactly as before.
+
+**routes.ts** — one conflict, at the import block (both my `LandingView` import and feeds'
+`FeedsView` import were inserted at the same line, right after `EmptyPageView`). Resolved to
+keep both, alphabetized: `EmptyPageView`, `FeedsView`, `LandingView`, `LoginView`. The two
+`component:` swaps (feeds' `feeds` route, mine on `home`) sit on non-adjacent lines and had
+already auto-merged correctly before I even opened the file — verified by grep for conflict
+markers (`<<<<<<<`/`=======`/`>>>>>>>`) returning nothing after the import-line fix.
+
+No other conflicts encountered — nothing to stop and report on.
+
+### Post-rebase state
+
+```
+$ git log --oneline 6e7a847c5bcda11149585f7007bf3f2f349b0394..HEAD
+0e84986 feat: add public landing page
+$ git merge-base --is-ancestor 6e7a847c5bcda11149585f7007bf3f2f349b0394 HEAD && echo ok
+ok
+```
+
+Exactly my one landing commit on top of `6e7a847`, as required.
+
+### Gate table (new candidate SHA `0e8498663ac0517c9c80a3baa69cea33d076f0a4`)
+
+| # | Gate | Command | cwd | Exit | Evidence | Status |
+|---|------|---------|-----|------|----------|--------|
+| 1a | Backend focused | `./mvnw -q test` | `backend/` | 0 | console | PASS |
+| 1b | Format equivalence proof | `./mvnw -q -Dtest=LandingFixturesTest,LandingControllerTest test` | `backend/` | 0 | `evidence/update-1/landing-tests.txt` | PASS |
+| 2a | Backend integration | `./mvnw -q verify` (Testcontainers Postgres 18) | `backend/` | 0 | console | PASS |
+| 1c | Frontend unit | `npm run test -- --run` | `frontend/` | 0 | console; 9 files / 51 tests | PASS |
+| 2b | Frontend integration | `npm run test:integration -- --run` | `frontend/` | 0 | console; 5 files / 20 tests | PASS |
+| 3a | ArchUnit | inside `./mvnw test` | `backend/` | 0 | same as 1a | PASS |
+| 3b | ESLint | `npm run lint` | `frontend/` | 0 | console; 0 errors, 2 warnings (pre-existing, in feeds' `FeedCard.vue`, not mine) | PASS |
+| 3c | vue-tsc | `npm run typecheck` | `frontend/` | 0 | console | PASS |
+| 4a | Spotless | `./mvnw -q spotless:check` | `backend/` | 0 | console | PASS |
+| 4b | Prettier | `npm run format:check` | `frontend/` | 0 | console | PASS |
+| 4c | Vite build | `npm run build` | `frontend/` | 0 | dist 69.75 kB gzip JS | PASS |
+| 5a | Contract+visual (landing) | `VERIFY_COMPOSE="docker compose -p kivvi-w-landing -f compose.next.yaml" node tools/migration-verify/compare.mjs --journey landing --base https://localhost:19011 --out evidence/update-1/compare-landing` | repo root | 0 | `evidence/update-1/compare-landing/landing/report.md` | PASS — 0 regressions |
+| 5b | Contract+visual (feeds, merged-tree guard) | same, `--journey feeds --out evidence/update-1/compare-feeds` | repo root | 0 | `evidence/update-1/compare-feeds/feeds/report.md` | PASS — 0 regressions |
+| 6 | E2E | `E2E_BASE_URL=https://localhost:19011 npx playwright test public.spec.ts -g "landing"` | `tests/e2e/` | 0 | `evidence/update-1/e2e-landing.txt` | PASS — 3/3 |
+| 7 | Performance | `node tools/migration-verify/performance.mjs --base https://localhost:19011` | repo root | 0 | `evidence/update-1/performance.txt` — JS 69,006 B / 307,200 B, LCP 160 ms / 2000 ms, TTI 16.6 ms / 2500 ms | PASS |
+
+Stack: compose project `kivvi-w-landing`, HTTP 19010 / HTTPS 19011, built fresh from the rebased tree.
+Torn down (`down -v`) and the image (`kivvi-w-landing-api`) removed after the gate run.
+
+### Final candidate SHA and clean worktree (post-rebase)
+
+```
+$ git rev-parse HEAD
+0e8498663ac0517c9c80a3baa69cea33d076f0a4
+$ git status --porcelain
+(empty)
+$ git branch --show-current
+migration/wave-1/landing
+$ git log --oneline 6e7a847c5bcda11149585f7007bf3f2f349b0394..HEAD
+0e84986 feat: add public landing page
+```
