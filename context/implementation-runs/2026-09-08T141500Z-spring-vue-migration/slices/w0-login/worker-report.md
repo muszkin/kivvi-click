@@ -313,3 +313,178 @@ migration/wave-0/login
 ```
 
 `f4ac025` was never amended or rewritten — `cfe7b48` is a new commit on top of it. No changes were made outside this worktree except this report and `slices/w0-login/evidence/`.
+
+## Repair-2
+
+Identity guard first, every time (worktree `/home/muszkin/work/kivvi-click-wt/w0-login`, branch
+`migration/wave-0/login`, starting `HEAD` `cfe7b48bedd871c2132b2d62cd215d135e5e3627`, clean
+`git status --porcelain`). The wave-0 verifier cohort failed unit, integration and architecture
+(contract, visual, e2e passed) — three findings, addressed without touching markup, CSS, routes,
+compose or the edge.
+
+### R2-A — `./mvnw test`/`verify` failed on a clean checkout (unit FAIL)
+
+`LoginControllerTest` and `SpaDocumentControllerTest` both build an `IndexHtmlTemplate`, which
+reads `classpath:static/index.html` — a file that exists only after the frontend build is copied
+into `backend/src/main/resources/static`. On a fresh clone (no frontend build), `./mvnw test`
+failed with 27 errors.
+
+Added a test-scoped SPA document fixture at `backend/src/test/resources/static/index.html`:
+minimal but structurally real (same `<html lang="pl">` anchor `SpaDocument` injects attributes
+into, a real `<title>`, a mount point — no built assets, since no test asserts on them). Maven's
+test classpath puts `target/test-classes` ahead of `target/classes`, so this file shadows the
+real one whenever both are present, including in a local dev checkout that already ran
+`npm run build`. Production packaging (`backend/Dockerfile`) is unaffected — it never runs from
+`target/test-classes` — and `IndexHtmlTemplate` still fails application startup fast if the real
+built file is missing there. The frontend-maven-plugin alternative (binding the frontend build
+into the Maven lifecycle) was considered and rejected: it would make every backend-only test run
+pay for a full `npm ci && npm run build`, and would tie backend unit tests to frontend build
+health for no benefit these tests actually need. Documented in `backend/README.md`'s "Test"
+section.
+
+**Proof**: `git clean -xdf backend/src/main/resources/static frontend/dist` (only those two build
+output directories), then `./mvnw -q clean test` and `./mvnw -q verify`, both green —
+`evidence/repair-2-gates/gate-01-mvn-test.log`, `evidence/repair-2-gates/gate-02-mvn-verify.log`.
+
+### R2-B — missing integration-level tests (integration FAIL)
+
+Added `backend/src/test/java/click/kivvi/ShellApiIT.java` — full Spring context, real HTTP layer
+(`TestRestTemplate`), Testcontainers Postgres 18:
+
+- **B04**: `GET /api/v1/en/shell` returns the English navigation labels (`Dashboard`,
+  `Event stream`, `Customers`, `Rules`, `Email campaigns`, `Popups & widgets`, `Product feeds`,
+  `Customer import`, `Settings`) and `locale: "en"`; `GET /api/v1/pl/shell` returns the Polish
+  labels and `locale: "pl"`.
+- **B07**: `GET /de/dashboard` and `GET /pl/nonexistent` both 404 through the real HTTP layer
+  (unlike a `@WebMvcTest` slice, this actually boots routing end to end).
+- **Direct `ShellController` coverage**: the dashboard route's full payload — every nav group's
+  label/route/href/badge, `currentSection`, `crumb`, `workspace` (name/meta/mark), and the default
+  `user` identity — asserted against the oracle's exact values from
+  `journeys/login/steps/8/a11y.json` (`aureashop.pl` / `Plan Pro · 3 strony` / `AS`; `Maciej
+  Kowalczyk` / `maciej@aureashop.pl`; crumb `Pulpit`), not guessed ones.
+
+`SessionRoundTripIT`'s single test labeled `B08/B10` only ever exercised the theme preference —
+it overclaimed sidebar (B10) coverage it did not have. Split it: renamed to
+`B08 a stored theme preference survives a second request via the JDBC session` (unchanged
+behaviour, honest label), and added
+`sidebarPreferenceRoundTripsThroughShellAndSpaDocument` (`B10`): `POST /preferences/sidebar
+{"state":"collapsed"}`, then `GET /api/v1/pl/shell` → `sidebar: "collapsed"`, **and**
+`GET /pl/dashboard` → the SPA document body contains `data-sidebar="collapsed"` — the round trip
+the finding asked for, through both places the sidebar state is rendered.
+
+Every value asserted in `ShellApiIT` was cross-checked against `ShellController`,
+`ShellViewService`, `NavigationCatalog`, `ShellFixtures`, `SessionIdentityStore`,
+`SessionPreferencesStore`, `Theme`/`SidebarState` and `messages_{pl,en}.properties` before
+writing the test, so the assertions encode the oracle's values, not an accidental read-back of
+whatever the code already returns.
+
+### R2-C — the "fail-on-warning" test policy had no tooling (architecture FAIL)
+
+`architecture/rules-translated.md` row 3 (wave-0) — the analogue of PHPUnit's `failOnWarning`/
+`failOnNotice`, restricted to first-party code the same way PHPUnit restricted it to `src`.
+
+**Backend** — `click.kivvi.testsupport.FailOnWarnLogExtension`: attaches a Logback
+`ListAppender` to the `click.kivvi` logger for the duration of each test and fails it if
+anything ≥ `WARN` was logged by a `click.kivvi.*` logger, or if `System.err` received output that
+isn't already-known JVM/agent/library noise (`sun.misc.Unsafe`, Mockito's self-attach notice,
+the dynamic-agent-loading warnings, byte-buddy-agent — all observed in this project's own test
+runs, none from first-party code). Registered for every test through JUnit 6's extension
+auto-detection (`src/test/resources/META-INF/services/org.junit.jupiter.api.extension.Extension`
++ `junit.jupiter.extensions.autodetection.enabled=true` in `junit-platform.properties`) rather
+than `@ExtendWith` on individual classes, so a future test cannot opt out by omission — a base
+class was considered and rejected for the same reason (a future test could simply not extend
+it). The detection logic is exposed as pure static methods (`warningVerdict`/`stderrVerdict`) so
+`FailOnWarnLogExtensionTest` can exercise it directly against synthetic log events, rather than
+needing a permanently-failing test in the suite to prove the policy works. Additionally proved
+against a real `LOG.warn(...)` call: temporarily added a throwaway test with a deliberate warning
+under the live extension, confirmed it failed with
+`AssertionError: click.kivvi.* logged at WARN or above during ...`, then deleted it and
+re-confirmed a clean 66-test pass.
+
+**Frontend** — `frontend/test/setup.ts` (wired in via `vite.config.ts`'s `test.setupFiles`):
+`console.warn`/`console.error` are wrapped to fail the current test, but only when the call's
+stack trace touches a frame under `src/**` and not `node_modules` — restricted to first-party
+code, mirroring the backend's logger-name restriction, since a JS stack trace has no logger-name
+equivalent. This distinction is load-bearing, not decorative: the very first run against the
+existing suite failed `routes.spec.ts`'s B07 test (`does not match /de/dashboard`) on
+vue-router's own `[VUE_ROUTER_R0004] No match found` diagnostic — correct, expected router
+behaviour for a test deliberately triggering a no-match, not a first-party bug, and the
+unfiltered version would have wrongly failed it. Any Vue runtime warning
+(`config.global.config.warnHandler`, wired globally through `@vue/test-utils`' shared `config`
+object so every `mount()` picks it up without per-test wiring) fails a test **unconditionally**,
+regardless of origin — a Vue warning is always a first-party bug in how a component is built or
+used, never third-party diagnostic noise. `test.dangerouslyIgnoreUnhandledErrors` stays `false`
+(the default; nothing referenced it before this change).
+
+**Proof**: a throwaway `src/_throwawayPolicyProbe.ts` (`console.warn(...)`) plus a throwaway spec
+proved all three behaviours in one run — a `src/**`-origin `console.warn` failed its test, an
+unfiltered `console.warn` called directly from the test file itself did **not** fail its test,
+and mounting a component with a missing required prop failed its test via the Vue warnHandler —
+then both throwaway files were deleted and the full suite re-run clean (32 unit + 13 integration
+tests). Documented in `frontend/README.md`'s "Test" section.
+
+### Files changed
+
+- `backend/src/test/resources/static/index.html` — new, R2-A fixture.
+- `backend/README.md` — R2-A and R2-C documentation.
+- `backend/src/test/java/click/kivvi/ShellApiIT.java` — new, R2-B.
+- `backend/src/test/java/click/kivvi/SessionRoundTripIT.java` — R2-B (honest B08/B10 split + new
+  sidebar round trip).
+- `backend/src/test/java/click/kivvi/testsupport/FailOnWarnLogExtension.java`,
+  `FailOnWarnLogExtensionTest.java` — new, R2-C backend.
+- `backend/src/test/resources/junit-platform.properties`,
+  `backend/src/test/resources/META-INF/services/org.junit.jupiter.api.extension.Extension` — new,
+  R2-C backend wiring.
+- `frontend/test/setup.ts` — new, R2-C frontend.
+- `frontend/vite.config.ts` — wires `setupFiles`, pins `dangerouslyIgnoreUnhandledErrors: false`.
+- `frontend/README.md` — R2-C documentation.
+
+### Gate chain (full rerun, in order, on the new candidate SHA `2d2b5a8d25a73bf291394d8b5d9cbcff200f940f`)
+
+| # | Gate | Command | cwd | Exit | Evidence | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | `./mvnw -q test` (clean, no `static/`) | `git clean -xdf backend/src/main/resources/static frontend/dist` then `./mvnw -q clean test` | `backend/` | 0 | `evidence/repair-2-gates/gate-01-mvn-test.log` | PASS |
+| 2 | `./mvnw -q verify` | `./mvnw -q verify` | `backend/` | 0 | `evidence/repair-2-gates/gate-02-mvn-verify.log` (`SessionRoundTripIT` 4/4, `ShellApiIT` 5/5) | PASS |
+| 3 | Focused (frontend) | `npm run test -- --run` | `frontend/` | 0 | `evidence/repair-2-gates/gate-03-frontend-test.log` (5 files, 32 tests) | PASS |
+| 4 | Integration (frontend) | `npm run test:integration -- --run` | `frontend/` | 0 | `evidence/repair-2-gates/gate-04-frontend-test-integration.log` (3 files, 13 tests) | PASS |
+| 5 | Architecture (backend, ArchUnit) | `./mvnw -q -Dtest=ArchitectureTest test` (confirmed separately; also runs inside rows 1–2) | `backend/` | 0 | inline confirmation, see gate-01/02 | PASS |
+| 5 | Static (backend, spotless) | `./mvnw -q spotless:check` | `backend/` | 0 | `evidence/repair-2-gates/gate-05-backend-spotless.log` (first run caught formatting violations in the new R2-B/R2-C files, fixed with `spotless:apply`, rows 1–2 rerun after) | PASS |
+| 6 | Static (frontend) | `npm run lint && npm run typecheck && npm run build` | `frontend/` | 0 | `evidence/repair-2-gates/gate-06-frontend-static.log` | PASS |
+| 7 | Compose stack up | `HTTP_PORT=19000 HTTPS_PORT=19001 HTTP3_PORT=19001 MERCURE_PUBLISHER_JWT_KEY=w-login-publisher MERCURE_SUBSCRIBER_JWT_KEY=w-login-subscriber MERCURE_JWT_SECRET=w-login-subscriber docker compose -p kivvi-w-login -f compose.next.yaml up -d --build --wait` | repo root | 0 | `evidence/repair-2-gates/gate-07-compose-up.log` (all three containers Healthy) | PASS |
+| 8 | Contract + visual | `node tools/migration-verify/compare.mjs --journey login --base https://localhost:19001 --out evidence/compare` | repo root | 0 | `evidence/repair-2-gates/gate-08-compare-mjs.log`, `evidence/compare/login/report.md` | PASS — **0 regressions** |
+| 9 | E2E — login | `npx playwright test public.spec.ts -g "login"` | `tests/e2e/` | 0 | `evidence/repair-2-gates/gate-09a-playwright-login.log` (2/2 passed) | PASS |
+| 9 | E2E — navigation prefs | `npx playwright test navigation.spec.ts -g "sidebar collapse\|theme toggle"` | `tests/e2e/` | 0 | `evidence/repair-2-gates/gate-09b-playwright-navigation.log` (2/2 passed) | PASS |
+| 10 | Performance | `node tools/migration-verify/performance.mjs --base https://localhost:19001` | repo root | 0 | `evidence/repair-2-gates/gate-10-performance.log` (JS 61.3kB/300kB, LCP 160ms/2000ms, TTI 14.7ms/2500ms) | PASS |
+
+Ran as two separate Playwright invocations, not a combined `-g` regex, per this packet's explicit
+correction — Playwright only honours the *last* `-g` flag when it appears more than once on one
+invocation.
+
+Compose stack `kivvi-w-login` torn down (`down -v`) after the gate chain
+(`evidence/repair-2-gates/gate-11-teardown.log`); the rebuilt `kivvi-w-login-api` image removed
+again to free disk.
+
+### New candidate SHA and clean-worktree proof
+
+```
+$ git rev-parse HEAD
+2d2b5a8d25a73bf291394d8b5d9cbcff200f940f
+
+$ git log --oneline -4
+2d2b5a8 fix: honest integration coverage, fail-on-warning policy, buildable test suite (repair-2)
+cfe7b48 fix: activate Spring Session JDBC autoconfiguration (repair-1 F1)
+f4ac025 feat: stand up the Spring Boot + Vue 3 login walking skeleton (wave-0)
+8d3fc32 docs: record the operator execution decision for the migration plan
+
+$ git status --porcelain
+(empty — clean)
+
+$ git rev-parse --show-toplevel
+/home/muszkin/work/kivvi-click-wt/w0-login
+
+$ git rev-parse --abbrev-ref HEAD
+migration/wave-0/login
+```
+
+`cfe7b48` was never amended or rewritten — `2d2b5a8` is a new commit on top of it. No changes
+were made outside this worktree except this report and `slices/w0-login/evidence/`.

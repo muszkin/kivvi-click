@@ -1,12 +1,12 @@
 {
   "slice_id": "w0-login",
   "logical_owner": "worker-w0-login",
-  "state": "INTEGRATED",
-  "state_revision": 4,
+  "state": "REVIEW_PENDING",
+  "state_revision": 5,
   "branch": "migration/wave-0/login",
   "worktree": "/home/muszkin/work/kivvi-click-wt/w0-login",
   "parent_sha": "8d3fc320354604b641b44a3043a070f279e6d491",
-  "head_sha": "cfe7b48bedd871c2132b2d62cd215d135e5e3627",
+  "head_sha": "2d2b5a8d25a73bf291394d8b5d9cbcff200f940f",
   "packet_path": "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/slices/w0-login/packet.md",
   "packet_sha256": "1ec7cf935c0ab0283eb395cfab83a3e64ccea1a893c7b495e1bc8d760404f989",
   "dependencies": [],
@@ -46,40 +46,37 @@
   "gates": {
     "focused": {
       "status": "PASS",
-      "sha": "cfe7b48",
-      "evidence": "evidence/repair-1-gates/"
+      "sha": "2d2b5a8",
+      "evidence": "evidence/repair-2-gates/"
     },
     "integration": {
       "status": "PASS",
-      "sha": "cfe7b48",
-      "evidence": "evidence/repair-1-gates/"
+      "sha": "2d2b5a8"
     },
     "static": {
       "status": "PASS",
-      "sha": "cfe7b48"
+      "sha": "2d2b5a8"
     },
     "sonar": {
-      "status": "NOT_APPLICABLE",
-      "reason": "no sonar config in repo"
+      "status": "NOT_APPLICABLE"
     },
     "review": {
-      "status": "PASS",
-      "sha": "cfe7b48",
-      "evidence": "review.md#re-review"
+      "status": "RUNNING",
+      "sha": "2d2b5a8"
     },
     "e2e": {
       "status": "PASS",
-      "sha": "cfe7b48",
-      "evidence": "evidence/repair-1-gates/",
-      "note": "worker-run; orchestrator will re-run e2e in the wave cohort"
+      "sha": "2d2b5a8",
+      "note": "worker-run; cohort re-verifies"
     }
   },
   "failure": null,
-  "integration_commit": "3b17c07e23354e493edbab572e4090f69d2c0c71",
+  "integration_commit": null,
   "created_at": "2026-09-08T14:11:34Z",
-  "updated_at": "2026-09-08T17:16:18Z",
+  "updated_at": "2026-09-08T17:49:36Z",
   "candidate_lineage": [
     "f4ac025ca10a90ab41733a942000dc93769a273c",
-    "cfe7b48bedd871c2132b2d62cd215d135e5e3627"
+    "cfe7b48bedd871c2132b2d62cd215d135e5e3627",
+    "2d2b5a8d25a73bf291394d8b5d9cbcff200f940f"
   ]
 }
