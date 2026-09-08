@@ -1,0 +1,18 @@
+5:19:33:09.311 [main] INFO click.kivvi.infrastructure.scheduling.HeartbeatJob -- Scheduler heartbeat tick.
+93:19:33:17.049 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT]: HeartbeatSchedulerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+94:19:33:17.160 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT
+95:19:33:17.215 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT]: HeartbeatSchedulerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+96:19:33:17.220 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT
+107:2026-09-08T19:33:17.496Z  INFO 68630 --- [kivvi-click] [           main] c.k.i.scheduling.HeartbeatSchedulerIT    : Starting HeartbeatSchedulerIT using Java 25.0.4.1 with PID 68630 (started by muszkin in /home/muszkin/work/kivvi-click-wt/w1-scheduler-heartbeat/backend)
+108:2026-09-08T19:33:17.498Z  INFO 68630 --- [kivvi-click] [           main] c.k.i.scheduling.HeartbeatSchedulerIT    : No active profile set, falling back to 1 default profile: "default"
+126:2026-09-08T19:33:20.199Z  INFO 68630 --- [kivvi-click] [           main] c.k.i.scheduling.HeartbeatSchedulerIT    : Started HeartbeatSchedulerIT in 2.933 seconds (process running for 6.578)
+127:2026-09-08T19:33:20.214Z  INFO 68630 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+129:[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 16.61 s <<< FAILURE! -- in click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT
+130:[ERROR] click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT.schedulerTicksOnceAndLockBlocksASecondAttempt -- Time elapsed: 10.53 s <<< ERROR!
+131:org.awaitility.core.ConditionTimeoutException: 
+132:Assertion condition defined as a Lambda expression in click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT 
+140:	at click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT.schedulerTicksOnceAndLockBlocksASecondAttempt(HeartbeatSchedulerIT.java:84)
+144:	at click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT.lambda$schedulerTicksOnceAndLockBlocksASecondAttempt$0(HeartbeatSchedulerIT.java:84)
+184:2026-09-08T19:33:33.627Z  INFO 68630 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+226:2026-09-08T19:33:36.003Z  INFO 68630 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+231:[ERROR]   HeartbeatSchedulerIT.schedulerTicksOnceAndLockBlocksASecondAttempt:84 » ConditionTimeout Assertion condition defined as a Lambda expression in click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT 

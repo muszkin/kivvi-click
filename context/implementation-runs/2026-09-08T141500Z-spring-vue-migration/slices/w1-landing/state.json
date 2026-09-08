@@ -1,7 +1,7 @@
 {
   "slice_id": "w1-landing",
   "logical_owner": "worker-w1-landing",
-  "state": "REVIEW_PENDING",
+  "state": "INTEGRATED",
   "state_revision": 2,
   "branch": "migration/wave-1/landing",
   "worktree": "/home/muszkin/work/kivvi-click-wt/w1-landing",
@@ -35,8 +35,9 @@
       "status": "NOT_APPLICABLE"
     },
     "review": {
-      "status": "RUNNING",
-      "sha": "0e84986"
+      "status": "PASS",
+      "sha": "0e84986",
+      "evidence": "review.md"
     },
     "e2e": {
       "status": "PASS",
@@ -45,9 +46,9 @@
     }
   },
   "failure": null,
-  "integration_commit": null,
+  "integration_commit": "0e8498663ac0517c9c80a3baa69cea33d076f0a4",
   "created_at": "2026-09-08T18:30:50Z",
-  "updated_at": "2026-09-08T19:35:45Z",
+  "updated_at": "2026-09-08T19:40:41Z",
   "candidate_lineage": [
     "c8a5a9e84fe354caa13c38ed21f47da5309820d4",
     "0e8498663ac0517c9c80a3baa69cea33d076f0a4 (rebased onto 6e7a847)"
