@@ -392,10 +392,21 @@
         },
         {
           "dimension": "integration",
-          "status": "RUNNING",
+          "status": "FAIL",
           "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
           "evidence": "waves/wave-2/integration.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "event-stream",
+              "verdict": "regression",
+              "deviation_id": null
+            },
+            {
+              "journey": "customers",
+              "verdict": "regression",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "architecture",
@@ -512,5 +523,5 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-08T22:07:02Z"
+  "updated_at": "2026-09-08T22:07:55Z"
 }
