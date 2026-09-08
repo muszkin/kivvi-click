@@ -1,12 +1,12 @@
 {
   "slice_id": "w0-login",
   "logical_owner": "worker-w0-login",
-  "state": "CONTEXT_LOADED",
-  "state_revision": 1,
+  "state": "IMPLEMENTED",
+  "state_revision": 2,
   "branch": "migration/wave-0/login",
   "worktree": "/home/muszkin/work/kivvi-click-wt/w0-login",
   "parent_sha": "8d3fc320354604b641b44a3043a070f279e6d491",
-  "head_sha": null,
+  "head_sha": "f4ac025ca10a90ab41733a942000dc93769a273c",
   "packet_path": "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/slices/w0-login/packet.md",
   "packet_sha256": "1ec7cf935c0ab0283eb395cfab83a3e64ccea1a893c7b495e1bc8d760404f989",
   "dependencies": [],
@@ -43,9 +43,43 @@
     "resolved": "claude-sonnet-5",
     "reasoning": "high"
   },
-  "gates": {},
-  "failure": null,
+  "gates": {
+    "focused": {
+      "status": "PASS",
+      "sha": "f4ac025",
+      "evidence": "evidence/gates/"
+    },
+    "integration": {
+      "status": "PASS",
+      "sha": "f4ac025",
+      "evidence": "evidence/gates/backend-verify.log"
+    },
+    "static": {
+      "status": "PASS",
+      "sha": "f4ac025"
+    },
+    "sonar": {
+      "status": "NOT_APPLICABLE",
+      "reason": "no sonar config in repo"
+    },
+    "review": {
+      "status": "FAIL",
+      "sha": "f4ac025",
+      "evidence": "review.md",
+      "reason": "F1 HIGH: session persistence unproven"
+    },
+    "e2e": {
+      "status": "STALE",
+      "sha": "f4ac025",
+      "reason": "review FAIL invalidates downstream"
+    }
+  },
+  "failure": {
+    "classification": "introduced-by-slice (unproven invariant)",
+    "attempt": 1,
+    "packet": "repair-1.md"
+  },
   "integration_commit": null,
   "created_at": "2026-09-08T14:11:34Z",
-  "updated_at": "2026-09-08T14:11:34Z"
+  "updated_at": "2026-09-08T15:44:55Z"
 }
