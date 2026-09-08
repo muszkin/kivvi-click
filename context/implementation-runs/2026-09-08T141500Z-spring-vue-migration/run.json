@@ -38,17 +38,17 @@
   "feature": {
     "branch": "migration/spring-vue",
     "worktree": "/home/muszkin/work/kivvi-click-wt/integration",
-    "head_sha": "6a53642c9c5ec9c256625854e6670f035e0292be"
+    "head_sha": "887af4543c5a51255735f1ddfc0d8860d11551c0"
   },
   "slices": {
     "w0-login": {
-      "state": "REVIEW_PENDING",
+      "state": "INTEGRATED",
       "wave": "wave-0",
       "branch": "migration/wave-0/login",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w0-login",
       "parent_sha": "8d3fc320354604b641b44a3043a070f279e6d491",
       "head_sha": "dae1d7323ac6b6725ddf284a45588d1720adafec",
-      "integration_commit": "6a53642c9c5ec9c256625854e6670f035e0292be"
+      "integration_commit": "887af4543c5a51255735f1ddfc0d8860d11551c0"
     }
   },
   "deferred_obligations": [],
@@ -80,86 +80,50 @@
       "journeys": [
         "login"
       ],
-      "head_sha": "6a53642c9c5ec9c256625854e6670f035e0292be",
+      "head_sha": "887af4543c5a51255735f1ddfc0d8860d11551c0",
       "kill_reason": null,
       "verifier_cohort": [
         {
           "dimension": "unit",
-          "status": "FAIL",
-          "sha": "6a53642c9c5ec9c256625854e6670f035e0292be",
+          "status": "RUNNING",
+          "sha": "887af4543c5a51255735f1ddfc0d8860d11551c0",
           "evidence": "waves/wave-0/unit.md",
-          "journey_verdicts": [
-            {
-              "journey": "login",
-              "verdict": "regression",
-              "deviation_id": null
-            }
-          ]
+          "journey_verdicts": []
         },
         {
           "dimension": "integration",
-          "status": "FAIL",
-          "sha": "6a53642c9c5ec9c256625854e6670f035e0292be",
+          "status": "RUNNING",
+          "sha": "887af4543c5a51255735f1ddfc0d8860d11551c0",
           "evidence": "waves/wave-0/integration.md",
-          "journey_verdicts": [
-            {
-              "journey": "login",
-              "verdict": "regression",
-              "deviation_id": null
-            }
-          ]
+          "journey_verdicts": []
         },
         {
           "dimension": "architecture",
-          "status": "PASS",
-          "sha": "6a53642c9c5ec9c256625854e6670f035e0292be",
+          "status": "RUNNING",
+          "sha": "887af4543c5a51255735f1ddfc0d8860d11551c0",
           "evidence": "waves/wave-0/architecture.md",
-          "journey_verdicts": [
-            {
-              "journey": "login",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "journey_verdicts": []
         },
         {
           "dimension": "contract",
-          "status": "PASS",
-          "sha": "6a53642c9c5ec9c256625854e6670f035e0292be",
+          "status": "RUNNING",
+          "sha": "887af4543c5a51255735f1ddfc0d8860d11551c0",
           "evidence": "waves/wave-0/contract.md",
-          "journey_verdicts": [
-            {
-              "journey": "login",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "journey_verdicts": []
         },
         {
           "dimension": "visual",
-          "status": "PASS",
-          "sha": "6a53642c9c5ec9c256625854e6670f035e0292be",
+          "status": "RUNNING",
+          "sha": "887af4543c5a51255735f1ddfc0d8860d11551c0",
           "evidence": "waves/wave-0/visual.md",
-          "journey_verdicts": [
-            {
-              "journey": "login",
-              "verdict": "accepted-deviation",
-              "deviation_id": "DEV-11"
-            }
-          ]
+          "journey_verdicts": []
         },
         {
           "dimension": "e2e",
-          "status": "PASS",
-          "sha": "6a53642c9c5ec9c256625854e6670f035e0292be",
+          "status": "RUNNING",
+          "sha": "887af4543c5a51255735f1ddfc0d8860d11551c0",
           "evidence": "waves/wave-0/e2e.md",
-          "journey_verdicts": [
-            {
-              "journey": "login",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "journey_verdicts": []
         }
       ],
       "repair_rounds": 2
@@ -239,5 +203,5 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-08T18:17:25Z"
+  "updated_at": "2026-09-08T18:21:07Z"
 }

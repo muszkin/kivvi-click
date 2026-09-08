@@ -20,3 +20,7 @@ Verdict: **PASS**. F1 resolved (`spring-boot-starter-session-jdbc`; BEFORE/AFTER
 ## Review — candidate 2d2b5a8 (repair-2, fresh independent reviewer)
 
 Verdict: **PASS**. R2-A/B/C resolved with reproducible evidence (reviewer ran clean `./mvnw -q test`/`verify`, frontend unit/integration/lint/typecheck; 66 backend tests, ShellApiIT 5/5, SessionRoundTripIT 4/4, FailOnWarnLogExtension registered globally via META-INF/services + autodetection). Scope clean, no trailers.
+
+## Review — candidate dae1d73 (repair-3/3b, fresh independent reviewer)
+
+Verdict: **PASS**. B12/B13 IT via TestRestTemplate + Testcontainers with exact PL messages and no-identity guard; B22 unit test reachable by `npm run test`; `required` correctly absent on both stacks (verified against `field.html.twig` and oracle a11y); spotless binding proven to fail the build on a probe; `.prettierignore` proven load-bearing; all five CSS files byte-identical; scope clean.
