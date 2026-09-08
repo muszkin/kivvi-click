@@ -4,20 +4,20 @@
   "generator_version": "a26f4ab1f8949c90",
   "manifest_digest": {
     "algorithm": "sha256-rfc8785-with-empty-digest",
-    "value": "0f56386225bbad806e282ab99c8b67ab9fff52610948cf66a5d8862ce7594dbd"
+    "value": "66d222477d19f03a9ab14685624ebd12328d0883f7de75c40c98fe6968dc201e"
   },
   "operation": "refresh",
   "project_classification": "brownfield",
   "scope_kind": "repository",
   "phase": "complete",
-  "generated_at": "2026-09-08T13:34:12Z",
+  "generated_at": "2026-09-08T13:37:32Z",
   "repository_root": ".",
   "scope": [
     "."
   ],
   "source_snapshot": {
     "basis": "HEAD+worktree",
-    "revision": "f58d62c4a4147750737b09c4b470654d5614955d",
+    "revision": "eb740e5273de098e40724b7e19630f6a5a672be0",
     "branch": "main",
     "worktree_status": [
       " M context/map/INDEX.md",
@@ -787,11 +787,9 @@
       "source_revision": "f58d62c4a4147750737b09c4b470654d5614955d",
       "generated_at": "2026-09-08T13:34:12Z",
       "freshness": "current",
-      "content_sha256": "61a3c2099342ed3379793d76da7cd73e1b5175013bca4011966e35656e6a2c73",
-      "approval_status": "draft",
-      "conflicts": [
-        "R1 remains Undecided until the owner answers the flip condition"
-      ],
+      "content_sha256": "c2f97c54766192b24f61e0eb44dc21d06e6b49e7d9570644ed10218bcdf6be1c",
+      "approval_status": "approved",
+      "conflicts": [],
       "referenced_by": [
         "context/map/INDEX.md",
         "context/map/documentation-index.md",
@@ -822,8 +820,8 @@
         ".claude/skills/product-spec/SKILL.md"
       ],
       "input_fingerprint": "6cc8d4b7ab047ad8127ca356dd97295b5f1f9703909aea1895423428c65e9164",
-      "output_sha256": "3107c23180e49950aaf6fa977d068f923105e19e684fd02606832922a5ee1075",
-      "generated_at": "2026-09-08T13:34:12Z"
+      "output_sha256": "901c84c57bcff0aeb7627d140637efc89b7752eed732ca8a7ec8105d8a0e6096",
+      "generated_at": "2026-09-08T13:37:32Z"
     },
     {
       "path": "context/map/project-overview.md",
@@ -1042,8 +1040,8 @@
         "... 44 more tracked files under the scope"
       ],
       "input_fingerprint": "a8bb8d2a90394a6c0003c0d21acc6489ff4a159bb9d0e71ff83f53861f7867e6",
-      "output_sha256": "e2c39b1271dc1ffb34845416ef110f9848c921bc6ec1016f6a90cb717b72c0ee",
-      "generated_at": "2026-09-08T13:34:12Z"
+      "output_sha256": "c265971910d8998f18594d99639c56cdebd3684c8dcd5290c1ba0b0ed9ff9623",
+      "generated_at": "2026-09-08T13:37:32Z"
     },
     {
       "path": "context/map/diagrams/module-dependencies.mmd",
@@ -1443,14 +1441,14 @@
   "contradictions": [
     {
       "id": "R1",
-      "summary": "CLAUDE.md/AGENTS.md/product-spec mandate Symfony+Twig, no JS frameworks; user proposes Java/Spring Boot + Vue/React",
+      "summary": "CLAUDE.md/AGENTS.md/product-spec mandate Symfony+Twig, no JS frameworks; user proposes Java/Spring Boot + Vue/React — DECIDED 2026-09-08: Spring Boot + Vue 3 SPA, no SSR (owner: long-term Java maintenance)",
       "sources": [
         "CLAUDE.md",
         "AGENTS.md",
         ".claude/skills/product-spec/SKILL.md",
         "conversation 2026-09-08"
       ],
-      "state": "Undecided",
+      "state": "Decided",
       "owner": "user"
     },
     {
@@ -1485,7 +1483,7 @@
     }
   ],
   "open_questions": [
-    "Keep Symfony/Twig or migrate to Java/Spring Boot + Vue/React — research verdict: reject now; owner to confirm/deny the flip condition (R1)",
+    "R1 decided 2026-09-08: migrate to Spring Boot + Vue 3 SPA; migration-planning pending",
     "Is the Twig prototype the UI for roadmap S-01..S-04 or throwaway? — R3",
     "Confirm Linear as the tracker — R8",
     "Isolate dev compose project name from prod — R5"

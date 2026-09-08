@@ -60,7 +60,7 @@ foundation docs `context/foundation/{prd,roadmap,shape-notes,stack-assessment,he
 
 ## Unresolved contradictions (details in `risks-and-unknowns.md`)
 
-- R1 Stack: docs mandate Symfony/Twig/no-frameworks; user is weighing Java/Spring Boot + Vue/React — **Undecided, owner: user**.
+- R1 Stack: **Decided 2026-09-08** — migrate to Spring Boot + Vue 3 SPA (no SSR); `CLAUDE.md`/`AGENTS.md` stack rules are stale until `migration-planning` rewrites them.
 - R2 `AGENTS.md` "Current Shape" lists deleted files.
 - R3 Foundation docs describe a homepage-only baseline; a full prototype exists.
 - R5 Dev and prod compose stacks share one project name; prod containers are running on this host.

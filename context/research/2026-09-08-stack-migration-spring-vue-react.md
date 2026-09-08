@@ -1,6 +1,6 @@
 # Research: Should kivvi-click migrate from Symfony 8 / Twig to Spring Boot + Vue 3 or React (SSR or SPA)?
 
-**Status:** ready-for-approval
+**Status:** decided — flip condition confirmed by the owner on 2026-09-08 ("nie chcę utrzymywać PHP długoterminowo, Java to język, w którym to będzie żyć"; Vue 3 SPA, no SSR). Effective verdict: **adopt-with-constraints (b)**. Sections below are kept as written for re-evaluation.
 **Date:** 2026-09-08
 **Decision unblocked:** whether the 46 Linear tasks (PIO-70…PIO-115) are executed on the current Symfony stack or after a platform migration; whether `CLAUDE.md`/`AGENTS.md` stack rules stay in force (risk R1 in `context/map/risks-and-unknowns.md`).
 **Decision owner:** Piotr Mucha (sole maintainer).
@@ -126,7 +126,7 @@ If the owner confirms one of: (1) "I will not maintain PHP long-term; Java is th
 
 | Unknown | Impact if wrong | How it would be closed | Owner |
 | --- | --- | --- | --- |
-| Owner's real driver for migrating (language commitment, hiring, partner) | Flips the verdict to adopt (b) | One explicit statement from the owner | Piotr Mucha |
+| ~~Owner's real driver for migrating~~ — closed 2026-09-08: long-term maintenance in Java (User-confirmed); Vue 3 SPA, no SSR (User-confirmed) | — | — | Piotr Mucha |
 | Spring Boot OSS support windows (secondary source only) | Upgrade cadence estimate off by months | Read spring.io/projects/spring-boot#support in a browser | maintainer |
 | Java LTS/ support dates (Oracle page blocked) | Wrong JDK pin | Read openjdk.org / Oracle roadmap | maintainer |
 | Nuxt Node.js minimum | Only matters under (b) with SSR | nuxt.com installation docs | maintainer |
