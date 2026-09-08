@@ -1,12 +1,12 @@
 {
   "slice_id": "w1-landing",
   "logical_owner": "worker-w1-landing",
-  "state": "IMPLEMENTED",
+  "state": "REVIEW_PENDING",
   "state_revision": 2,
   "branch": "migration/wave-1/landing",
   "worktree": "/home/muszkin/work/kivvi-click-wt/w1-landing",
-  "parent_sha": "6e7a847c5bcda11149585f7007bf3f2f349b0394",
-  "head_sha": "0e8498663ac0517c9c80a3baa69cea33d076f0a4",
+  "parent_sha": "9427fdb1d92e4e606e67471638031d1bc0fb73d4",
+  "head_sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
   "packet_path": "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/slices/w1-landing/packet.md",
   "packet_sha256": "6e213b958d8c3061522c9970a0d887a0cb1e0f75ed4f1db905af5c799b3629da",
   "dependencies": [
@@ -35,9 +35,8 @@
       "status": "NOT_APPLICABLE"
     },
     "review": {
-      "status": "PASS",
-      "sha": "0e84986",
-      "evidence": "review.md"
+      "status": "RUNNING",
+      "sha": "4f74907"
     },
     "e2e": {
       "status": "PASS",
@@ -45,17 +44,14 @@
       "note": "worker-run"
     }
   },
-  "failure": {
-    "classification": "introduced-by-slice (integration coverage gap)",
-    "attempt": 1,
-    "packet": "repair-1.md"
-  },
+  "failure": null,
   "integration_commit": "0e8498663ac0517c9c80a3baa69cea33d076f0a4",
   "created_at": "2026-09-08T18:30:50Z",
-  "updated_at": "2026-09-08T19:59:37Z",
+  "updated_at": "2026-09-08T20:05:39Z",
   "candidate_lineage": [
     "c8a5a9e84fe354caa13c38ed21f47da5309820d4",
-    "0e8498663ac0517c9c80a3baa69cea33d076f0a4 (rebased onto 6e7a847)"
+    "0e8498663ac0517c9c80a3baa69cea33d076f0a4 (rebased onto 6e7a847)",
+    "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a (repair-1 on wave SHA 9427fdb)"
   ],
   "scope_note": "Format.java and i18n/index.ts differ from the feeds candidate \u2014 expected mechanical/semantic conflict at integration; landing integrates after feeds (alphabetical) via an owner update packet"
 }

@@ -243,3 +243,112 @@ migration/wave-1/landing
 $ git log --oneline 6e7a847c5bcda11149585f7007bf3f2f349b0394..HEAD
 0e84986 feat: add public landing page
 ```
+
+## Repair-1
+
+Repair for the wave-1 verifier cohort: integration FAILed because `GET /api/v1/{locale}/landing`
+had only `@WebMvcTest`-slice coverage, and architecture noted the "Intl only in `format.ts`" rule
+had no enforcing lint (`no-restricted-imports` cannot catch a bare global reference — no `import`
+statement is involved). Test-only change per `repair-1.md`.
+
+### Identity guard (re-checked before starting)
+
+`git rev-parse --show-toplevel` → `/home/muszkin/work/kivvi-click-wt/w1-landing` ✓;
+`git branch --show-current` → `migration/wave-1/landing` ✓; `git status --porcelain` → clean ✓.
+
+### Rebase onto the wave SHA
+
+`git rebase 9427fdb1d92e4e606e67471638031d1bc0fb73d4` — **conflict-free**, exactly as the packet
+predicted: my rebased candidate `0e8498663ac0517c9c80a3baa69cea33d076f0a4` was already an ancestor
+of `9427fdb` (`git merge-base --is-ancestor 0e84986 9427fdb` confirmed this *before* rebasing), so
+the rebase left the branch with **zero commits of its own** — `HEAD` landed exactly on `9427fdb`
+(`feat: add ShedLock-backed scheduler heartbeat (wave-1)`), with my `feat: add public landing page`
+commit already present in that history at `0e84986`. The repair commit below was created fresh on
+top of `9427fdb`, never by amending.
+
+### R1-A — `LandingApiIT`
+
+Added `backend/src/test/java/click/kivvi/LandingApiIT.java`, modelled on `FeedsApiIT`
+(`@Testcontainers` + `@SpringBootTest(webEnvironment = RANDOM_PORT)` + `@ServiceConnection`
+Postgres 18 + `TestRestTemplate`, same package/style as `FeedsApiIT`/`ShellApiIT`). Four tests:
+
+- `landingPayloadMatchesTheOracleThroughTheRealHttpLayer` (**B01**) — `GET /api/v1/pl/landing` →
+  200; `features` size 6, `steps` size 3, `plans` size 2 with `plans[1]` = Pro/`featured=true`,
+  `trustPoints` size 3, `previewTiles` size 4 containing `"8 410"` and `"94 200"` (the narrow
+  no-break-space-grouped values — copied via literal string, then re-verified byte-for-byte with
+  a Python check against U+202F, the same trap hit twice already in this slice's Format.java
+  history), `previewSeries` non-empty.
+- `englishRouteReturnsTheSamePolishCopyThroughTheRealHttpLayer` (**B22**) — `GET
+  /api/v1/en/landing` → 200 with the *same Polish copy* as `/pl` (feature title, plan CTA) —
+  deliberate, citing `journeys/landing/steps/2/texts.json` (the oracle's own English capture,
+  whose feature/step/plan text stays Polish): the old stack's `LandingContent` never ran these
+  arrays through the translator either.
+- `unsupportedLocaleIsNotFoundThroughTheRealHttpLayer` (**B07**) — `GET /api/v1/de/landing` → 404.
+- `demoRedirectsToDashboardThroughTheRealHttpLayer` (**B22**) — `GET /pl/demo` via
+  `restTemplate.withRedirects(HttpRedirects.DONT_FOLLOW)` (the same pattern
+  `SessionRoundTripIT` already uses) → 302, `Location: /pl/dashboard`.
+
+All 4 pass: `backend/target/failsafe-reports/click.kivvi.LandingApiIT.txt` — "Tests run: 4,
+Failures: 0, Errors: 0, Skipped: 0".
+
+### R1-B — Intl-formatting lint rule
+
+Added to `frontend/eslint.config.js`, alongside the existing (now-proven-insufficient-alone)
+`no-restricted-imports`:
+
+- `no-restricted-globals`: bans the bare `Intl` identifier — catches `Intl.NumberFormat(...)`
+  with no import needed, which `no-restricted-imports` structurally cannot see.
+- `no-restricted-syntax`, three selectors: `MemberExpression[object.name='Intl']` (`Intl.`
+  member access), `CallExpression[...][callee.property.name='toLocaleString']`
+  (`.toLocaleString(`), `CallExpression[...][callee.property.name='toFixed']` (`.toFixed(`).
+- All three carry the message `"numbers are formatted server-side (domain/Format.java); see
+  rules-translated.md"`.
+- Extended the existing `files: ["src/format.ts"]` override block to also turn off
+  `no-restricted-globals`/`no-restricted-syntax` there (that module still doesn't exist — not
+  created by this repair, per the packet's "test-only change" scope; the override is inert until
+  some later slice adds the file).
+
+**Proof — positive** (`evidence/repair-1-gates/eslint-positive-proof.txt`): `npm run lint` on the
+real tree → exit 0, same 2 pre-existing warnings in feeds' `FeedCard.vue` as before this repair,
+0 errors.
+
+**Proof — negative** (`evidence/repair-1-gates/eslint-intl-negative-proof.txt`): added a throwaway
+`frontend/src/throwaway-intl-check.ts` with three violations (`new Intl.NumberFormat(...)`,
+`value.toLocaleString(...)`, `value.toFixed(2)`), ran `npm run lint` → **exit 1**, 4 errors (the
+`Intl.NumberFormat` reference trips both `no-restricted-globals` *and*
+`no-restricted-syntax`'s member-access selector; each of the other two calls trips its own
+selector) — then deleted the file (`git status --porcelain` showed it as the only untracked
+change, confirming a clean revert) before re-running the positive proof above.
+
+### Gates on the new candidate SHA (`evidence/repair-1-gates/`)
+
+| # | Gate | Command | cwd | Exit | Evidence | Status |
+|---|------|---------|-----|------|----------|--------|
+| 1 | Backend focused | `./mvnw -q test` | `backend/` | 0 | `mvnw-test.txt` | PASS (LandingApiIT correctly skipped by Surefire — `*IT.java` is Failsafe's job) |
+| 2 | Backend integration | `./mvnw -q verify` (Testcontainers Postgres 18) | `backend/` | 0 | `mvnw-verify.txt`, `backend/target/failsafe-reports/click.kivvi.LandingApiIT.txt` | PASS — first run caught a Spotless formatting nit in the new file, fixed with `spotless:apply`, re-verified clean before the final run recorded here |
+| 3 | Frontend unit | `npm run test -- --run` | `frontend/` | 0 | `npm-test.txt` — 9 files / 51 tests | PASS |
+| 4 | Frontend integration | `npm run test:integration -- --run` | `frontend/` | 0 | `npm-test-integration.txt` — 5 files / 20 tests | PASS |
+| 5 | Lint + typecheck + format:check + build | `npm run lint && npm run typecheck && npm run format:check && npm run build` | `frontend/` | 0 | `npm-lint-typecheck-format-build.txt` — 0 errors/2 pre-existing warnings, typecheck clean, Prettier clean, dist 69.75 kB gzip JS | PASS |
+
+**compare.mjs / Playwright: skipped**, as authorized — this is a test-only repair (no
+production/view code changed; `Format.java`, `LandingController`, `LandingView`, `LandingView.vue`
+etc. are byte-identical to the already-verified `0e84986` candidate). The wave cohort's own
+verifier run re-covers the contract/visual/E2E dimensions.
+
+### New candidate SHA and clean worktree
+
+```
+$ git rev-parse HEAD
+4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a
+$ git status --porcelain
+(empty)
+$ git branch --show-current
+migration/wave-1/landing
+$ git log --oneline 9427fdb1d92e4e606e67471638031d1bc0fb73d4..HEAD
+4f74907 test: real-HTTP landing coverage and lint-enforced Intl ban (repair-1)
+```
+
+Files changed: `backend/src/test/java/click/kivvi/LandingApiIT.java` (new, 4 tests),
+`frontend/eslint.config.js` (2 new rule entries + extended `src/format.ts` override). No
+production code touched; no compose stack brought up for this repair (not required — test-only
+change, gates run against the built Maven/Vite artifacts directly).

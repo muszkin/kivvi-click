@@ -1,0 +1,19 @@
+
+> kivvi-click-frontend@0.1.0 lint
+> eslint .
+
+
+/home/muszkin/work/kivvi-click-wt/w1-landing/frontend/src/components/organisms/FeedCard.vue
+  164:26  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  169:26  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+
+/home/muszkin/work/kivvi-click-wt/w1-landing/frontend/src/throwaway-intl-check.ts
+   2:16  error  Unexpected use of 'Intl'. numbers are formatted server-side (domain/Format.java); see rules-translated.md  no-restricted-globals
+   2:16  error  numbers are formatted server-side (domain/Format.java); see rules-translated.md                            no-restricted-syntax
+   6:12  error  numbers are formatted server-side (domain/Format.java); see rules-translated.md                            no-restricted-syntax
+  10:12  error  numbers are formatted server-side (domain/Format.java); see rules-translated.md                            no-restricted-syntax
+
+✖ 6 problems (4 errors, 2 warnings)
+  0 errors and 2 warnings potentially fixable with the `--fix` option.
+
+exit=1
