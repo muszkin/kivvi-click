@@ -632,3 +632,116 @@ migration/wave-0/login
 
 `2d2b5a8` was never amended or rewritten — `4e0bf5c` is a new commit on top of it. No changes
 were made outside this worktree except this report and `slices/w0-login/evidence/`.
+
+## Repair-3b
+
+Identity guard first (worktree `/home/muszkin/work/kivvi-click-wt/w0-login`, branch
+`migration/wave-0/login`, starting `HEAD` `4e0bf5ca6ab163dae4da000783078fdc1f786139`, clean
+`git status --porcelain`). Same repair round, caught before independent review: repair-3's
+`prettier --write` fix for R3-C's two newly-surfaced `format:check` violations rewrote
+`frontend/src/styles/04-patterns.css`'s `grid-template-columns` line-wrap, breaking a global
+constraint neither repair-3's own tests nor its gate chain checks —
+`common-journey-rules.md`: "CSS is byte-identical to `assets/styles/*.css` and complete for
+every page — never edit CSS."
+
+### 1 — restore byte-identity, prove it with `cmp`
+
+Restored `frontend/src/styles/04-patterns.css` from the read-only source
+(`/home/muszkin/work/kivvi-click/assets/styles/04-patterns.css`) with a plain `cp`. `cmp` on all
+five CSS files present in `frontend/src/styles/` (`storybook.css` is not part of this slice —
+only the source directory has it):
+
+```
+$ cmp /home/muszkin/work/kivvi-click/assets/styles/01-tokens.css frontend/src/styles/01-tokens.css && echo IDENTICAL
+IDENTICAL
+$ cmp /home/muszkin/work/kivvi-click/assets/styles/02-base.css frontend/src/styles/02-base.css && echo IDENTICAL
+IDENTICAL
+$ cmp /home/muszkin/work/kivvi-click/assets/styles/03-components.css frontend/src/styles/03-components.css && echo IDENTICAL
+IDENTICAL
+$ cmp /home/muszkin/work/kivvi-click/assets/styles/04-patterns.css frontend/src/styles/04-patterns.css && echo IDENTICAL
+IDENTICAL
+$ cmp /home/muszkin/work/kivvi-click/assets/styles/app.css frontend/src/styles/app.css && echo IDENTICAL
+IDENTICAL
+```
+
+Full `cmp -l` output (empty per file — zero byte differences) in
+`evidence/repair-3b-gates/gate-00-css-cmp-proof.log`. Re-checked again after the full gate chain
+ran (build, lint, format:check, etc.) to make sure nothing downstream touched these files a
+second time — still all five `IDENTICAL`.
+
+### 2 — exclude the verbatim CSS from Prettier; keep or revert `index.html`
+
+Added `src/styles/` to `frontend/.prettierignore` (already existed, previously only listing
+`dist/`, `coverage/`, `node_modules/`), with a comment naming the constraint and pointing at this
+report's `cmp` proof. Verified the exclusion is doing real work, not incidental: with
+`--ignore-path /dev/null` (bypassing `.prettierignore`), `prettier --check
+src/styles/04-patterns.css` fails (exit 1, flags the file) against the now-restored,
+non-Prettier-styled verbatim content — confirming that without the new ignore rule this file
+would be flagged again the moment anyone ran `format:check`. With `.prettierignore` in place,
+`npm run format:check` passes clean.
+
+`frontend/index.html`'s whitespace-only reformat (2-space → 4-space, from the same repair-3 fix)
+was kept, not reverted, after checking both conditions the packet named:
+
+- **Not covered by the byte-identical CSS rule** — `common-journey-rules.md`'s "never edit CSS"
+  clause names `assets/styles/*.css` specifically; `index.html` is a Vite-authored SPA bootstrap
+  file with no equivalent in the old (Twig/PHP) stack at all, so there is no byte-identity
+  requirement over it in the first place.
+- **Served document and oracle unaffected, confirmed empirically, not just reasoned** — built
+  `dist/index.html` from both the pre-reformat (2-space) and post-reformat (4-space) source via
+  `vite build`, then diffed the two built outputs directly. The only difference is indentation
+  whitespace inside `<head>`/`<body>`; every tag, attribute, and content string is identical and
+  in the same order (`vite build` does not normalize source whitespace, so the diff carries
+  through, but it stays whitespace-only end to end). Browsers ignore such whitespace outside
+  `<pre>`/`white-space: pre`, so the parsed DOM — and therefore any text, aria, or pixel
+  comparison against the oracle — is unaffected; `SpaDocument.inject()` on the backend also only
+  ever matches and replaces the `<html ...>` opening tag itself via regex, which is byte-identical
+  in both versions. No revert needed.
+
+### 3 — gate chain rerun
+
+Re-ran the repair-3 gate chain on the restored code (logs into `evidence/repair-3b-gates/`):
+
+| # | Gate | Command | cwd | Exit | Evidence | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | `./mvnw -q test` (clean, no `static/`) | `git clean -xdf backend/src/main/resources/static frontend/dist` then `./mvnw -q clean test` | `backend/` | 0 | `evidence/repair-3b-gates/gate-01-mvn-test.log` | PASS |
+| 2 | `./mvnw -q verify` | `./mvnw -q verify` | `backend/` | 0 | `evidence/repair-3b-gates/gate-02-mvn-verify.log` | PASS |
+| 3 | `npm run test -- --run` | | `frontend/` | 0 | `evidence/repair-3b-gates/gate-03-frontend-test.log` (6 files, 36 tests) | PASS |
+| 4 | `npm run test:integration -- --run` | | `frontend/` | 0 | `evidence/repair-3b-gates/gate-04-frontend-test-integration.log` (3 files, 13 tests) | PASS |
+| 5 | `npm run lint && npm run typecheck && npm run format:check && npm run build` | | `frontend/` | 0 | `evidence/repair-3b-gates/gate-05-frontend-static.log` | PASS |
+
+`compare.mjs`/Playwright/`performance.mjs` were not part of this repair's gate-chain instruction
+(only the `mvnw`/`npm` commands above were listed) and were not run.
+
+### Files changed
+
+- `frontend/src/styles/04-patterns.css` — restored to the exact bytes of
+  `/home/muszkin/work/kivvi-click/assets/styles/04-patterns.css`.
+- `frontend/.prettierignore` — added `src/styles/`.
+
+### New candidate SHA and clean-worktree proof
+
+```
+$ git rev-parse HEAD
+dae1d7323ac6b6725ddf284a45588d1720adafec
+
+$ git log --oneline -6
+dae1d73 fix: restore verbatim design-system CSS broken by prettier --write (repair-3b)
+4e0bf5c test: honest B12/B13/B14 integration coverage, B22 unit coverage, bind format checks (repair-3)
+2d2b5a8 fix: honest integration coverage, fail-on-warning policy, buildable test suite (repair-2)
+cfe7b48 fix: activate Spring Session JDBC autoconfiguration (repair-1 F1)
+f4ac025 feat: stand up the Spring Boot + Vue 3 login walking skeleton (wave-0)
+8d3fc32 docs: record the operator execution decision for the migration plan
+
+$ git status --porcelain
+(empty — clean)
+
+$ git rev-parse --show-toplevel
+/home/muszkin/work/kivvi-click-wt/w0-login
+
+$ git rev-parse --abbrev-ref HEAD
+migration/wave-0/login
+```
+
+`4e0bf5c` was never amended or rewritten — `dae1d73` is a new commit on top of it. No changes
+were made outside this worktree except this report and `slices/w0-login/evidence/`.

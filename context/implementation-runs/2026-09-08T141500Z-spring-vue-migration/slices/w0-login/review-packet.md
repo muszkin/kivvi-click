@@ -4,9 +4,9 @@ Read-only. You did not implement this candidate. Do not edit code. Report findin
 
 - Plan: /home/muszkin/work/kivvi-click/context/plans/2026-09-08-symfony-to-spring-vue-migration.md (sha256 84b664562fd00c1de6a2263ee2b32fa48da93d88f989f4aac8d60b46fbd4c017); journey packet section: J0 — login (wave-0 walking skeleton).
 - Slice packet: /home/muszkin/work/kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/slices/w0-login/packet.md (sha256 1ec7cf935c0ab028…).
-- Base SHA: 8d3fc320354604b641b44a3043a070f279e6d491 · Head SHA: 2d2b5a8d25a73bf291394d8b5d9cbcff200f940f. Verify both with `git rev-parse` in the review checkout before reading the diff.
-- Review checkout (detached, read-only): /home/muszkin/work/kivvi-click-wt/review-w0-login — created by the orchestrator with `git worktree add --detach <path> 2d2b5a8d25a73bf291394d8b5d9cbcff200f940f`.
-- Diff: `git diff 8d3fc320354604b641b44a3043a070f279e6d491...2d2b5a8d25a73bf291394d8b5d9cbcff200f940f` (also `git diff --stat`).
+- Base SHA: 8d3fc320354604b641b44a3043a070f279e6d491 · Head SHA: dae1d7323ac6b6725ddf284a45588d1720adafec. Verify both with `git rev-parse` in the review checkout before reading the diff.
+- Review checkout (detached, read-only): /home/muszkin/work/kivvi-click-wt/review-w0-login — created by the orchestrator with `git worktree add --detach <path> dae1d7323ac6b6725ddf284a45588d1720adafec`.
+- Diff: `git diff 8d3fc320354604b641b44a3043a070f279e6d491...dae1d7323ac6b6725ddf284a45588d1720adafec` (also `git diff --stat`).
 - Worker report and gate evidence: /home/muszkin/work/kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/slices/w0-login/worker-report.md, evidence/.
 - Context: context/map/INDEX.md, architecture-and-flows.md, nearest .agents/project-context.md; oracle journey dir; deviations table; rules-translated.md.
 - Preserved behaviours: zero-change rule; old stack untouched; specs untouched; no secrets; pinned versions.

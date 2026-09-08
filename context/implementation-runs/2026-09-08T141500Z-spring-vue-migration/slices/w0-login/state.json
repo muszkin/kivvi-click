@@ -1,12 +1,12 @@
 {
   "slice_id": "w0-login",
   "logical_owner": "worker-w0-login",
-  "state": "INTEGRATED",
-  "state_revision": 6,
+  "state": "REVIEW_PENDING",
+  "state_revision": 7,
   "branch": "migration/wave-0/login",
   "worktree": "/home/muszkin/work/kivvi-click-wt/w0-login",
   "parent_sha": "8d3fc320354604b641b44a3043a070f279e6d491",
-  "head_sha": "2d2b5a8d25a73bf291394d8b5d9cbcff200f940f",
+  "head_sha": "dae1d7323ac6b6725ddf284a45588d1720adafec",
   "packet_path": "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/slices/w0-login/packet.md",
   "packet_sha256": "1ec7cf935c0ab0283eb395cfab83a3e64ccea1a893c7b495e1bc8d760404f989",
   "dependencies": [],
@@ -46,39 +46,39 @@
   "gates": {
     "focused": {
       "status": "PASS",
-      "sha": "2d2b5a8",
-      "evidence": "evidence/repair-2-gates/"
+      "sha": "dae1d73",
+      "evidence": "evidence/repair-3b-gates/"
     },
     "integration": {
       "status": "PASS",
-      "sha": "2d2b5a8"
+      "sha": "dae1d73"
     },
     "static": {
       "status": "PASS",
-      "sha": "2d2b5a8"
+      "sha": "dae1d73"
     },
     "sonar": {
       "status": "NOT_APPLICABLE"
     },
     "review": {
-      "status": "PASS",
-      "sha": "2d2b5a8",
-      "evidence": "review.md"
+      "status": "RUNNING",
+      "sha": "dae1d73"
     },
     "e2e": {
-      "status": "PASS",
-      "sha": "2d2b5a8",
-      "note": "worker-run; cohort re-verifies"
+      "status": "NOT_RUN",
+      "sha": "dae1d73",
+      "note": "test-only repair; cohort re-runs"
     }
   },
   "failure": null,
-  "integration_commit": "6a53642c9c5ec9c256625854e6670f035e0292be",
+  "integration_commit": null,
   "created_at": "2026-09-08T14:11:34Z",
-  "updated_at": "2026-09-08T18:13:35Z",
+  "updated_at": "2026-09-08T18:17:25Z",
   "candidate_lineage": [
     "f4ac025ca10a90ab41733a942000dc93769a273c",
     "cfe7b48bedd871c2132b2d62cd215d135e5e3627",
     "2d2b5a8d25a73bf291394d8b5d9cbcff200f940f",
-    "4e0bf5ca6ab163dae4da000783078fdc1f786139 (rejected pre-review: CSS byte identity)"
+    "4e0bf5ca6ab163dae4da000783078fdc1f786139 (rejected pre-review: CSS byte identity)",
+    "dae1d7323ac6b6725ddf284a45588d1720adafec"
   ]
 }
