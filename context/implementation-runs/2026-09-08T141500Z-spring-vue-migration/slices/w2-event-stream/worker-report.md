@@ -274,3 +274,177 @@ depend on it, per parallel-safety — the two are independent today).
 - `git status --porcelain`: clean (verified after the commit, see §1).
 - Stack torn down (`docker compose -p kivvi-w-events -f compose.next.yaml down -v`), image
   `kivvi-w-events-api` removed.
+
+Superseded by Repair-1 below (new final candidate SHA `22d7fcb6380723728a33fc21fda22a92594a2e88`).
+
+## Repair-1
+
+Orchestrator preflight repair, addressing three items in
+`context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/slices/w2-event-stream/repair-1.md`.
+Identity guard re-checked before starting and before every commit/gate run (worktree, branch,
+clean-except-intentional status) — all passed throughout.
+
+### R1-A — rebase onto 0cb6baa8a71d765b09034b92db2003ee45de34e7 (customers integrated)
+
+`git rebase 0cb6baa8a71d765b09034b92db2003ee45de34e7`. Two conflicts, both exactly as
+predicted, both resolved as instructed:
+
+- **`frontend/src/components/organisms/Topbar.vue`** — both sides carried the identical
+  functional fix (`route.fullPath` → `route.path`), differing only in the comment's wording.
+  Took HEAD's (0cb6baa's) version verbatim: `git checkout --ours` during the rebase (note:
+  mid-rebase, "ours" is the new base being rebased onto, "theirs" is the commit being
+  replayed — the reverse of a normal merge — confirmed by diffing the result against
+  `git show 0cb6baa:...Topbar.vue`, byte-identical).
+- **`frontend/src/composables/useIntents.ts`** — a pure union conflict: customers' branch added
+  `go-customer`/`go-page`/`set-segment` intents right after the shared `navigate` intent; this
+  slice's branch added `pause-stream` at the same location. Kept both blocks, customers' three
+  first then `pause-stream` (arbitrary order, no interaction between them).
+- `frontend/src/router/routes.ts` and `tools/migration-verify/deviations.json` auto-merged
+  cleanly (different lines).
+- No other conflicts; nothing else needed a STOP.
+
+Result: `git log --oneline 0cb6baa..HEAD` (immediately post-rebase, before repair commits) showed
+one commit, `fe203ae` (the rebased original delivery). `npm run typecheck` confirmed the merge
+compiled clean before moving to R1-B/C.
+
+### R1-B — Mercure publisher: plain HTTP, no raw socket, no SNI
+
+Replaced `HttpMercurePublisher`'s hand-rolled `Socket`/`SSLSocket` client with a standard
+`java.net.http.HttpClient` (`HTTP_1_1` pinned — this call never benefits from HTTP/2 multiplexing,
+and pinning removes any h2c-upgrade negotiation from the picture; 5s connect/request timeouts; JWT
+bearer; form-encoded `topic`/`data`). A failed publish still propagates as an uncaught
+`MercurePublishException` — `CollectController` catches only `InvalidEventPayload`, matching the
+old stack exactly (`HubInterface::publish` throwing turns an accepted `/collect` call into a 500
+there too, since `EventIngestionController` never caught anything else either — read from
+`src/Tracking/EventIngestion.php`/`EventIngestionController.php` before writing this).
+
+**Compose changes** (reproducing the old stack's own `php:80` trick, verified empirically at
+every step before writing any Java):
+
+- `compose.next.yaml`'s `mercure` service: `SERVER_NAME: ${SERVER_NAME:-localhost}, mercure:80`
+  — a second, explicit-port site address alongside the public auto-HTTPS one. Verified directly
+  against a standalone `dunglas/mercure:v0.24.2` container with this exact env var: Caddy logs
+  two server blocks (`srv0` on 443 with auto-HTTPS, `srv1` on port 80 only, "no automatic HTTPS
+  will be applied to this server") and a plain-HTTP POST with a valid JWT to `mercure:80` gets a
+  real 200 from the hub (`urn:uuid:...`), not a redirect.
+- `compose.next.prod.yaml`: no change needed, and said so in a comment — its existing bare
+  `SERVER_NAME: ${SERVER_NAME:-:80}` already matches any Host on port 80 without a redirect
+  (verified the same way: a plain-HTTP GET with `Host: mercure` got a real Mercure hub response,
+  "Missing topic parameter", 400 — not a redirect).
+- `compose.next.yaml`'s `api` service: `MERCURE_URL: ${MERCURE_INTERNAL_URL:-http://mercure/.well-known/mercure}`.
+
+**A second, independent bug found and fixed while proving this end to end** (this is the actual
+story of why R1-B took multiple iterations — recorded in full because the first two hypotheses
+were wrong and a reviewer re-deriving this should not have to repeat the dead ends):
+
+1. First attempt used `MERCURE_URL: ${MERCURE_URL:-http://mercure/.well-known/mercure}` (reusing
+   the same variable name as the packet's literal instruction). `/collect` returned 500 on every
+   attempt (`events.spec.ts`: 2/4 failing, both POST tests), with `HttpMercurePublisher` throwing
+   `MercurePublishException: Mercure hub responded with HTTP 405`.
+2. Hypothesis 1 (wrong): `java.net.http.HttpClient`'s default `HTTP_2` version attempts an h2c
+   cleartext upgrade (`Connection: Upgrade, HTTP2-Settings` headers), which might confuse Caddy
+   or a pooled-connection reuse. Pinned `.version(HTTP_1_1)`. Rebuilt, retested: **still 405**,
+   deterministically, even for a single isolated test run. Standalone JVM programs (sequential,
+   concurrent, pooled, one-shot) hitting the real hub from inside the same compose network never
+   reproduced a 405 no matter how many iterations — proving the client code itself was not the
+   cause.
+3. Root cause, found by inspecting the actual failing request path directly: `docker compose exec
+   api env | grep -i mercure` showed `MERCURE_URL=https://example.com/.well-known/mercure` —
+   not my compose default at all. The repo-root `.env` (Symfony Flex's own file, git-tracked,
+   read by `docker compose` automatically regardless of `-f`) already defines
+   `MERCURE_URL=https://example.com/.well-known/mercure` (a never-customized Flex placeholder).
+   `${MERCURE_URL:-default}` only substitutes the default when the variable is unset or *empty*
+   — `.env` already gives it a real value, so that value won by Compose's own variable
+   precedence, and the api container was publishing to the real `https://example.com`, which
+   answers a POST with a real 405 (confirmed directly: `curl -X POST https://example.com/.well-known/mercure`
+   → 405). The old stack's own `compose.yaml` already avoids this exact trap — it never reads
+   bare `MERCURE_URL` for its substitution, only `${CADDY_MERCURE_URL:-http://php/.well-known/mercure}`,
+   a distinctly-prefixed variable `.env` never defines. Reproduced the same pattern:
+   `MERCURE_INTERNAL_URL` (a name absent from `.env`) as the substitution source, `MERCURE_URL`
+   as the container's own env var name (unchanged, so `application.yml`'s
+   `${MERCURE_URL:http://mercure/.well-known/mercure}` still reads what it always read — that
+   layer was never the problem).
+4. Rebuilt once more: `docker compose exec api env | grep -i mercure` now shows
+   `MERCURE_URL=http://mercure/.well-known/mercure`. `events.spec.ts` 4/4 passed, and passed
+   again on two further consecutive runs (3/3 total, `evidence/repair-1-gates/playwright-events-run{1,2,3}.txt`)
+   — K6 confidence met. `HttpMercurePublisher`'s Javadoc/comment for the `HTTP_1_1` pin was
+   rewritten afterward to stop claiming it fixed the 405 (it didn't — the `.env` collision did);
+   it is kept as a reasonable, harmless simplification (no h2c negotiation for a single-POST
+   internal call), not as a bug fix.
+
+Related, not fixed (out of scope for this repair, flagged for awareness): `compose.next.yaml`'s
+`api.environment.TRUSTED_PROXIES` has the exact same `.env`-shadowing shape
+(`.env` sets `TRUSTED_PROXIES=private_ranges`, silently overriding the dev default
+`0.0.0.0/0`) — currently harmless only because no Spring config actually consumes a
+`TRUSTED_PROXIES`-sourced property yet (`grep` across `backend/src/main` found no reference at
+all). Will bite whoever wires it up next the same way `MERCURE_URL` just did.
+
+`HttpMercurePublisherTest` and `CollectApiIT` needed only the removal of the now-nonexistent
+`internal-sni`/third-constructor-arg wiring — both already used a plain-HTTP local stub hub
+(`com.sun.net.httpserver.HttpServer`), so no other change was needed there.
+
+### R1-C — compare.mjs: per-viewport randomized run id
+
+`tools/migration-verify/compare.mjs` hardcoded `sub()`'s substitution to the literal `"verify"`
+for every invocation and every viewport pass. Mirrored `capture.mjs` exactly: a module-level
+`RUN_ID` computed once (`VERIFY_RUN_ID` env override, then `ORACLE_RUN_ID` for parity with
+`capture.mjs`'s own override, then `Date.now().toString(36)`), and a mutable `runId` reassigned
+inside `runJourney` to `RUN_ID + ("d"|"m")` per viewport, which `sub()` closes over. Diff is
+11 lines (see the commit) — no other function needed to change; the oracle's own
+`normalize.json` text-rule pattern (`oracle-(evt|bad)-[a-z0-9]+` → `<RUN-ID>`) already matches
+any lowercase-alphanumeric suffix, so no oracle-side change was needed either (and none was made
+— read-only, confirmed via `git status` on that directory throughout).
+
+Proved with the real tool, unmodified after this fix, against the live `kivvi-w-events` stack
+(`event_dedup` cleared before each run to keep the contract dimension's own step 2/3 status
+codes honest — `oracle-evt-<run>` is still a 24h-TTL dedup key, now merely a fresh one per
+invocation instead of always colliding with itself):
+
+| Journey | Dimensions | Regressions | Evidence |
+| --- | --- | --- | --- |
+| event-stream | all (contract+visual, both viewports) | **0** | `evidence/repair-1-compare/event-stream/event-stream/report.md` |
+| login | all | **0** | `evidence/repair-1-compare/login/login/report.md` |
+| landing | all | **0** | `evidence/repair-1-compare/landing/landing/report.md` |
+| feeds | all | **0** | `evidence/repair-1-compare/feeds/feeds/report.md` |
+| customers | all | **0** | `evidence/repair-1-compare/customers/customers/report.md` |
+
+event-stream's report now includes every step (1-7) across `visual.url`/`texts`/`aria`/
+`screenshotDesktop`/`screenshotMobile` and `contract`, plus the `db` delta check
+(`cache_items` oracle delta 1 = candidate delta 1, mapped to `event_dedup`+`shedlock`) — the
+mobile-pass timeout from the original worker report's §7 is gone; the desktop and mobile passes
+now publish under different idempotency ids (`oracle-evt-<run>d` / `oracle-evt-<run>m`) and each
+gets its own fresh 202 and its own rendered row.
+
+### Gates on the new candidate SHA
+
+All from `~/work/kivvi-click-wt/w2-event-stream`, in the packet's order, logs under
+`evidence/repair-1-gates/`:
+
+| Gate | Command | Exit | Evidence |
+| --- | --- | --- | --- |
+| Backend focused | `cd backend && ./mvnw -q test` | 0 | `mvnw-test.txt` |
+| Backend integration + ArchUnit + Spotless | `cd backend && ./mvnw -q verify` | 0 | `mvnw-verify.txt` |
+| Frontend unit | `cd frontend && npm run test -- --run` (14 files / 74 tests) | 0 | `frontend-test.txt` |
+| Frontend integration | `cd frontend && npm run test:integration -- --run` (8 files / 36 tests) | 0 | `frontend-test-integration.txt` |
+| Lint | `npm run lint` (0 errors, 2 pre-existing warnings in FeedCard.vue, not mine) | 0 | `frontend-lint.txt` |
+| Typecheck | `npm run typecheck` | 0 | `frontend-typecheck.txt` |
+| Format check | `npm run format:check` (initially 12 unformatted files — this slice had never run `npm run format`; fixed with `npm run format`, re-verified clean) | 0 | `frontend-format-check.txt` |
+| Build | `npm run build` | 0 | `frontend-build.txt` |
+| compare.mjs (R1-C, all journeys) | see table above | 0 each | `repair-1-compare/*/*/report.md` |
+| E2E events (K6 confidence) | `npx playwright test events.spec.ts`, 3 consecutive runs | 0/0/0 (12/12 tests) | `playwright-events-run{1,2,3}.txt` |
+| E2E customers (rebase proof) | `npx playwright test customers.spec.ts` | 0 (4/4) | `playwright-customers.txt` |
+| Performance | `node tools/migration-verify/performance.mjs --base https://localhost:19041` | 0 — all 4 budgets pass, `/collect` p95 **5.96 ms** (was 48 ms with the raw-socket client; budget 500 ms) | `performance.txt` |
+
+Stack torn down (`down -v`), image `kivvi-w-events-api` removed, diagnostic containers/networks
+from the debugging session (`kivvi-r1-*`) removed.
+
+### Final state (Repair-1)
+
+- New final candidate SHA: **`22d7fcb6380723728a33fc21fda22a92594a2e88`**
+- `git log --oneline 0cb6baa8a71d765b09034b92db2003ee45de34e7..HEAD`:
+  ```
+  22d7fcb fix: repair-1 for w2-event-stream — plain-HTTP Mercure publish, compare.mjs run id (#event-stream)
+  fe203ae feat: add live event stream with Mercure-backed collection (#event-stream)
+  ```
+- `git status --porcelain`: clean.
+- No new dependencies (Maven/npm manifests unchanged — `git diff 0cb6baa..HEAD -- backend/pom.xml frontend/package.json frontend/package-lock.json tools/migration-verify/package.json` is empty).
