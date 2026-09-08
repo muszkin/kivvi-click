@@ -79,22 +79,34 @@
       "integration_commit": "9427fdb1d92e4e606e67471638031d1bc0fb73d4"
     },
     "w2-event-stream": {
-      "state": "INTEGRATED",
+      "state": "IMPLEMENTED",
       "wave": "wave-2",
       "branch": "migration/wave-2/event-stream",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w2-event-stream",
       "parent_sha": "0cb6baa8a71d765b09034b92db2003ee45de34e7",
       "head_sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
-      "integration_commit": "22d7fcb6380723728a33fc21fda22a92594a2e88"
+      "integration_commit": "22d7fcb6380723728a33fc21fda22a92594a2e88",
+      "repair": {
+        "packet": "slices/w2-event-stream/repair-2.md",
+        "worktree": "/home/muszkin/work/kivvi-click-wt/w2-event-stream-r2",
+        "branch": "migration/wave-2/event-stream-repair2",
+        "base_sha": "22d7fcb6380723728a33fc21fda22a92594a2e88"
+      }
     },
     "w2-customers": {
-      "state": "FEATURE_HEAD_GREEN",
+      "state": "IMPLEMENTED",
       "wave": "wave-2",
       "branch": "migration/wave-2/customers",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w2-customers",
       "parent_sha": "4f74907ec64cb55ed8b1654f0ebda0ffab0d3f8a",
       "head_sha": "0cb6baa8a71d765b09034b92db2003ee45de34e7",
-      "integration_commit": "0cb6baa8a71d765b09034b92db2003ee45de34e7"
+      "integration_commit": "0cb6baa8a71d765b09034b92db2003ee45de34e7",
+      "repair": {
+        "packet": "slices/w2-customers/repair-1.md",
+        "worktree": "/home/muszkin/work/kivvi-click-wt/w2-customers-r1",
+        "branch": "migration/wave-2/customers-repair1",
+        "base_sha": "22d7fcb6380723728a33fc21fda22a92594a2e88"
+      }
     }
   },
   "deferred_obligations": [],
@@ -376,7 +388,7 @@
           "dimension": "unit",
           "status": "FAIL",
           "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
-          "evidence": "waves/wave-2/unit.md",
+          "evidence": "waves/wave-2/round-1/unit.md",
           "journey_verdicts": [
             {
               "journey": "event-stream",
@@ -394,7 +406,7 @@
           "dimension": "integration",
           "status": "FAIL",
           "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
-          "evidence": "waves/wave-2/integration.md",
+          "evidence": "waves/wave-2/round-1/integration.md",
           "journey_verdicts": [
             {
               "journey": "event-stream",
@@ -412,7 +424,7 @@
           "dimension": "architecture",
           "status": "FAIL",
           "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
-          "evidence": "waves/wave-2/architecture.md",
+          "evidence": "waves/wave-2/round-1/architecture.md",
           "journey_verdicts": [
             {
               "journey": "event-stream",
@@ -430,7 +442,7 @@
           "dimension": "contract",
           "status": "PASS",
           "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
-          "evidence": "waves/wave-2/contract.md",
+          "evidence": "waves/wave-2/round-1/contract.md",
           "journey_verdicts": [
             {
               "journey": "event-stream",
@@ -448,7 +460,7 @@
           "dimension": "visual",
           "status": "PASS",
           "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
-          "evidence": "waves/wave-2/visual.md",
+          "evidence": "waves/wave-2/round-1/visual.md",
           "journey_verdicts": [
             {
               "journey": "event-stream",
@@ -466,7 +478,7 @@
           "dimension": "e2e",
           "status": "PASS",
           "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
-          "evidence": "waves/wave-2/e2e.md",
+          "evidence": "waves/wave-2/round-1/e2e.md",
           "journey_verdicts": [
             {
               "journey": "event-stream",
@@ -479,6 +491,15 @@
               "deviation_id": null
             }
           ]
+        }
+      ],
+      "repair_rounds": 1,
+      "cohort_history": [
+        {
+          "round": 1,
+          "sha": "22d7fcb6380723728a33fc21fda22a92594a2e88",
+          "result": "FAIL",
+          "evidence": "waves/wave-2/round-1/"
         }
       ]
     },
@@ -534,5 +555,5 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-08T22:11:10Z"
+  "updated_at": "2026-09-08T22:12:12Z"
 }
