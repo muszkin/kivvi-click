@@ -566,3 +566,88 @@ flakiness itself is not silently hidden.
 removed. Disk: 7.2 GB free at finish.
 
 **Final SHA: `2060c070acded674ba513fa21cd93ebe21283e3a`**
+
+## Repair-3
+
+Packet: `repair-3.md`, executed R-C first per the coordinator's override (repair-2's fix had
+regressed), then R-A and R-B. Worktree `/home/muszkin/work/kivvi-click-wt/w3-campaigns-email-editor-r3`,
+branch `migration/wave-3/campaigns-email-editor-repair3`, base `32a68311594e611aaa8eaa0803bc72bba7d735a9`.
+
+### R-C — root cause of the visual FAIL (step 6 mobile, 5.286%)
+
+The follow-up round's `isReloadNavigation()` gated the reload-scroll fallback on
+`performance.getEntriesByType("navigation")[0].type === "reload"`. That check passed in every
+live, unfrozen-clock probe I ran during the follow-up — which is why it looked correct at the
+time — but `compare.mjs`/`capture.mjs` call `page.clock.setFixedTime(...)` on every run (needed
+elsewhere, e.g. DEV-1's `.event-row__time`). Under a frozen clock,
+`performance.getEntriesByType("navigation")` returns a **permanently empty array**, confirmed by
+polling it for 900ms after a real `page.reload()` — not a late value, an unpopulated one. The
+legacy `performance.navigation.type` is equally unusable (Chromium keeps the object shell but
+drops its data under a frozen clock). Neither Performance Timing API works in the environment this
+fix is actually verified against, so the reload gate silently never fired, and `scrollBehavior`
+fell through to `{left:0, top:0}` on every reload — reproducing the exact regression reported.
+
+Fix: replaced the Performance-Timing gate with a `history.state` marker
+(`isReloadOfAnAlreadyVisitedEntry()` in `frontend/src/router/scrollRestoration.ts`). It is not
+clock-dependent. Verified empirically: a value written to `history.state` at a normal point in the
+page lifecycle (not during `pagehide`) survives a `page.reload()`; a fresh top-level `goto()` to
+the same URL gets vue-router's own brand-new state object with no trace of the marker. The check
+runs unconditionally as the first step of `scrollBehavior` (not only inside the fallback branch),
+so an entry first resolved via `popstate` (which never reaches the fallback branch) still gets
+marked, and a later plain reload of that same entry is still recognised correctly. Diff
+`2060c07..32a6831` for `router/`, `App.vue`, `Topbar.vue` confirmed the integrated settings
+commits touched none of the scroll-restoration code path (hypothesis 4 ruled out).
+
+### R-A — B01 traceability at integration level
+
+`backend/src/test/java/click/kivvi/CampaignsApiIT.java`: added the missing document-route test for
+`/pl/emails/new` (previously only its `/api/v1/...` JSON counterpart was covered), relabelled
+`/pl/campaigns` and `/pl/emails/k1` to combined `B01/B27`/`B01/B28` `@DisplayName`s following
+`AutomationsApiIT`'s exact convention, and added the `<html` body-marker assertion to the
+`/pl/campaigns` case (matching `AutomationsApiIT`'s index-page test). Frontend: labelled one
+integration test per document row with `B01` — `CampaignsView.spec.ts` ("B01/B27 renders 4 KPI
+tiles..."), `EmailEditorView.spec.ts` ("B01/B28 renders the back link, title..." for `/emails/k1`
+and "B01/B28 the "new" route shows..." for `/emails/new`).
+
+### R-B — shell integration test for scroll restoration wiring
+
+Added `frontend/test/integration/ScrollRestoration.spec.ts`: builds the real app router
+(`@/router`), reads `router.options.scrollBehavior` (the actual option vue-router will call, not
+just the standalone helper), and drives it the way vue-router itself does
+(`scrollBehavior(to, from, savedPosition)`) against a real, resolved route from an actual
+`router.push()`. Asserts a fake `savedPosition` resolves only once a fake layout signature
+stabilises (14 rAF calls — same 2-changes-then-12-stable shape as the unit suite) and a plain push
+resolves `{left:0, top:0}`. 3 tests, all passing.
+
+### Gate table (candidate SHA `fca55fc`, logs under `evidence/repair-3-gates/`)
+
+| # | Command | cwd | Exit | Result | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| 1 | `npm run test -- --run` | `frontend/` | 0 | 126 tests, 21 files | `01-npm-test.log` |
+| 2 | `npm run test:integration -- --run` | `frontend/` | 0 | 86 tests, 15 files (incl. new `ScrollRestoration.spec.ts`) | `02-npm-test-integration.log` |
+| 3 | `npm run lint` | `frontend/` | 0 | 0 errors, 6 pre-existing warnings (not mine: `HookRow.vue`, `FeedCard.vue`, `ApiTab.vue`) | `03-npm-lint.log` |
+| 4 | `npm run typecheck` | `frontend/` | 0 | clean | `04-npm-typecheck.log` |
+| 5 | `npm run format:check` | `frontend/` | 0 | clean (ran `prettier --write` on `ScrollRestoration.spec.ts` first, a carry-over formatting gap from R-B) | `05-npm-format-check.log` |
+| 6 | `./mvnw -q test` | `backend/` | 0 | 225 tests, 0 failures (`JAVA_HOME` set to the Corretto 25 install at `~/.jdks/`; host default `java` is 21, which fails `<java.version>25</java.version>`) | `06-mvnw-test.log` |
+| 7 | `./mvnw -q verify` | `backend/` | 0 | 225 unit + 59 IT, 0 failures; `CampaignsApiIT` now 8 tests (was 7) | `07-mvnw-verify.log` |
+| 8 (R-C required) | `compare.mjs --journey login --dimension visual` | worktree root | 0 | 0 regressions | `08-compare-visual-login.txt` |
+| 9 (R-C required) | `compare.mjs --journey customers --dimension visual` | worktree root | 0 | 0 regressions | `09-compare-visual-customers.txt` |
+| 10 (R-C required) | `compare.mjs --journey campaigns-email-editor --dimension visual` | worktree root | 0 | 0 regressions, all 8 steps incl. step 6 mobile (was 5.286%, now 0.000%) | `10-compare-visual-campaigns.txt` |
+| 11 (R-C required) | `npx playwright test editors.spec.ts -g "email editor" --project=chrome` | `tests/e2e/` | 0 | 2 passed | `11-playwright-editors.txt` |
+| 12 (R-C required) | `npx playwright test navigation.spec.ts --project=chrome --workers=1` | `tests/e2e/` | 1 | 12 passed / 2 failed — `popups` and `import` sidebar entries render `EmptyPageView` (no `.page-title`); confirmed via `routes.ts` these routes are wired to the placeholder component, unrelated to and untouched by this repair's diff (which only touches `scrollRestoration.ts` and test files); the same gap was recorded in the follow-up round's gate 8 ("3 failed (expected: settings/popups/import)") — pre-existing, out of scope for this slice | `12-playwright-navigation.txt` |
+
+Earlier reproduction/verification evidence for R-C's root cause: `evidence/repair-3/` (probe outputs
+`00`–`06`, `reproduce-visual/campaigns-email-editor/report.md` showing the 5.286% regression
+reproduced at the pre-fix state, `verify-visual-campaigns/campaigns-email-editor/report.md`
+showing 0.000% / 0 regressions after the fix).
+
+`git status --porcelain` is empty. Stack torn down (`down -v`), `kivvi-w-campaigns-api` image
+removed. Disk: 6.9 GB free at finish.
+
+```
+$ git log --oneline 32a6831..HEAD
+fca55fc test: label B01 campaigns-email-editor coverage at integration level (#campaigns-email-editor)
+79a2224 fix: detect reload via history-state marker, not clock-dependent Navigation Timing (#campaigns-email-editor)
+```
+
+**New candidate SHA: `fca55fc`**
