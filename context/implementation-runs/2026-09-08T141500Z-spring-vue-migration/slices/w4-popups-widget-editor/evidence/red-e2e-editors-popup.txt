@@ -1,0 +1,159 @@
+
+Running 4 tests using 4 workers
+
+  ✘  4 [chrome] › specs/editors.spec.ts:82:9 › popup editor › switching device changes the viewport readout (5.6s)
+  ✘  2 [chrome] › specs/editors.spec.ts:53:9 › popup editor › previews the widget on a mock storefront (5.6s)
+  ✘  1 [chrome] › specs/editors.spec.ts:100:9 › popup editor › the inspector carries triggers, audience and the position grid (5.6s)
+  ✘  3 [chrome] › specs/editors.spec.ts:71:9 › popup editor › switching widget type reshapes the preview (30.1s)
+
+
+  1) [chrome] › specs/editors.spec.ts:53:9 › popup editor › previews the widget on a mock storefront 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: locator('.pw-stage')
+    Expected: "modal"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveAttribute" with timeout 5000ms
+      - waiting for locator('.pw-stage')
+
+
+      54 |         await page.goto("/pl/popups/p1");
+      55 |
+    > 56 |         await expect(page.locator(".pw-stage")).toHaveAttribute(
+         |                                                 ^
+      57 |             "data-type",
+      58 |             "modal",
+      59 |         );
+        at /home/muszkin/work/kivvi-click-wt/w4-popups/tests/e2e/specs/editors.spec.ts:56:49
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/editors-popup-editor-previ-f2766-widget-on-a-mock-storefront-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/editors-popup-editor-previ-f2766-widget-on-a-mock-storefront-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/editors-popup-editor-previ-f2766-widget-on-a-mock-storefront-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/editors-popup-editor-previ-f2766-widget-on-a-mock-storefront-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chrome] › specs/editors.spec.ts:71:9 › popup editor › switching widget type reshapes the preview 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.pw-type').filter({ hasText: 'Pasek' })
+
+
+      71 |     test("switching widget type reshapes the preview", async ({ page }) => {
+      72 |         await page.goto("/pl/popups/p1");
+    > 73 |         await page.locator(".pw-type", { hasText: "Pasek" }).click();
+         |                                                              ^
+      74 |
+      75 |         await expect(page).toHaveURL(/type=banner/);
+      76 |         await expect(page.locator(".pw.pw--banner")).toBeVisible();
+        at /home/muszkin/work/kivvi-click-wt/w4-popups/tests/e2e/specs/editors.spec.ts:73:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/editors-popup-editor-switc-f590a-t-type-reshapes-the-preview-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/editors-popup-editor-switc-f590a-t-type-reshapes-the-preview-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/editors-popup-editor-switc-f590a-t-type-reshapes-the-preview-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/editors-popup-editor-switc-f590a-t-type-reshapes-the-preview-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chrome] › specs/editors.spec.ts:82:9 › popup editor › switching device changes the viewport readout 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: locator('.chip.mono').nth(1)
+    Expected: "1440 × 900"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveText" with timeout 5000ms
+      - waiting for locator('.chip.mono').nth(1)
+
+
+      82 |     test("switching device changes the viewport readout", async ({ page }) => {
+      83 |         await page.goto("/pl/popups/p1");
+    > 84 |         await expect(page.locator(".chip.mono").nth(1)).toHaveText(
+         |                                                         ^
+      85 |             "1440 × 900",
+      86 |         );
+      87 |
+        at /home/muszkin/work/kivvi-click-wt/w4-popups/tests/e2e/specs/editors.spec.ts:84:57
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/editors-popup-editor-switc-6962b-hanges-the-viewport-readout-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/editors-popup-editor-switc-6962b-hanges-the-viewport-readout-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/editors-popup-editor-switc-6962b-hanges-the-viewport-readout-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/editors-popup-editor-switc-6962b-hanges-the-viewport-readout-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chrome] › specs/editors.spec.ts:100:9 › popup editor › the inspector carries triggers, audience and the position grid 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.email-right').locator('.trig-row')
+    Expected: 3
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('.email-right').locator('.trig-row')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      104 |         const inspector = page.locator(".email-right");
+      105 |
+    > 106 |         await expect(inspector.locator(".trig-row")).toHaveCount(3);
+          |                                                      ^
+      107 |         await expect(inspector.locator(".pos-grid .pos-cell")).toHaveCount(9);
+      108 |         await expect(
+      109 |             inspector.locator('.pos-cell[aria-checked="true"]'),
+        at /home/muszkin/work/kivvi-click-wt/w4-popups/tests/e2e/specs/editors.spec.ts:106:54
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/editors-popup-editor-the-i-b550a-ience-and-the-position-grid-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/editors-popup-editor-the-i-b550a-ience-and-the-position-grid-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/editors-popup-editor-the-i-b550a-ience-and-the-position-grid-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/editors-popup-editor-the-i-b550a-ience-and-the-position-grid-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    [chrome] › specs/editors.spec.ts:53:9 › popup editor › previews the widget on a mock storefront 
+    [chrome] › specs/editors.spec.ts:71:9 › popup editor › switching widget type reshapes the preview 
+    [chrome] › specs/editors.spec.ts:82:9 › popup editor › switching device changes the viewport readout 
+    [chrome] › specs/editors.spec.ts:100:9 › popup editor › the inspector carries triggers, audience and the position grid 

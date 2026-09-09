@@ -1,0 +1,13 @@
+compare.mjs: replaying journey "popups-widget-editor" against https://localhost:19111 (dimensions: contract)
+locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.auto-card').filter({ hasText: 'Pasek darmowej dostawy' }).first()[22m
+
+    at runStep (/home/muszkin/work/kivvi-click-wt/w4-popups/tools/migration-verify/compare.mjs:172:35)
+    at async runJourney (/home/muszkin/work/kivvi-click-wt/w4-popups/tools/migration-verify/compare.mjs:332:22)
+    at async file:///home/muszkin/work/kivvi-click-wt/w4-popups/tools/migration-verify/compare.mjs:600:25 {
+  log: [
+    "  - waiting for locator('.auto-card').filter({ hasText: 'Pasek darmowej dostawy' }).first()"
+  ],
+  name: 'TimeoutError'
+}

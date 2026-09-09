@@ -1,0 +1,81 @@
+
+Running 2 tests using 2 workers
+
+  ✘  2 [chrome] › specs/lists.spec.ts:24:9 › widgets › list with a live preview of the selected widget (5.7s)
+  ✘  1 [chrome] › specs/lists.spec.ts:39:9 › widgets › selecting another widget updates the preview (30.1s)
+
+
+  1) [chrome] › specs/lists.spec.ts:24:9 › widgets › list with a live preview of the selected widget 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.auto-card')
+    Expected: 5
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('.auto-card')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      27 |         await page.goto("/pl/popups");
+      28 |
+    > 29 |         await expect(page.locator(".auto-card")).toHaveCount(5);
+         |                                                  ^
+      30 |         await expect(page.locator(".pw-stage")).toHaveAttribute(
+      31 |             "data-type",
+      32 |             "modal",
+        at /home/muszkin/work/kivvi-click-wt/w4-popups/tests/e2e/specs/lists.spec.ts:29:50
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/lists-widgets-list-with-a--00fd3-view-of-the-selected-widget-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/lists-widgets-list-with-a--00fd3-view-of-the-selected-widget-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/lists-widgets-list-with-a--00fd3-view-of-the-selected-widget-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/lists-widgets-list-with-a--00fd3-view-of-the-selected-widget-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chrome] › specs/lists.spec.ts:39:9 › widgets › selecting another widget updates the preview ──
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.auto-card').filter({ hasText: 'Pasek darmowej dostawy' })
+
+
+      41 |         await page
+      42 |             .locator(".auto-card", { hasText: "Pasek darmowej dostawy" })
+    > 43 |             .click();
+         |              ^
+      44 |
+      45 |         await expect(page).toHaveURL(/preview=p2/);
+      46 |         await expect(page.locator(".pw-stage")).toHaveAttribute(
+        at /home/muszkin/work/kivvi-click-wt/w4-popups/tests/e2e/specs/lists.spec.ts:43:14
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/lists-widgets-selecting-another-widget-updates-the-preview-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/lists-widgets-selecting-another-widget-updates-the-preview-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/lists-widgets-selecting-another-widget-updates-the-preview-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/lists-widgets-selecting-another-widget-updates-the-preview-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chrome] › specs/lists.spec.ts:24:9 › widgets › list with a live preview of the selected widget 
+    [chrome] › specs/lists.spec.ts:39:9 › widgets › selecting another widget updates the preview ───

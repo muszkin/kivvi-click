@@ -1,0 +1,239 @@
+
+Running 6 tests using 6 workers
+
+  ✘  4 [chrome] › specs/import.spec.ts:57:9 › customer import › step 4 summarises the run and flags invalid rows (5.7s)
+  ✘  1 [chrome] › specs/import.spec.ts:10:9 › customer import › step 1 offers the dropzone, the template and the API (5.8s)
+  ✘  6 [chrome] › specs/import.spec.ts:25:9 › customer import › step 2 maps every column with a confidence read-out (5.8s)
+  ✘  2 [chrome] › specs/import.spec.ts:44:9 › customer import › step 3 asks for a dedup strategy and GDPR consent (5.9s)
+  ✘  3 [chrome] › specs/import.spec.ts:70:9 › customer import › the stepper walks forward and back (30.1s)
+  ✘  5 [chrome] › specs/import.spec.ts:81:9 › customer import › uploading a file advances to the mapping step (30.1s)
+
+
+  1) [chrome] › specs/import.spec.ts:10:9 › customer import › step 1 offers the dropzone, the template and the API 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.stepper .step')
+    Expected: 4
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('.stepper .step')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      13 |         await page.goto("/pl/import/1");
+      14 |
+    > 15 |         await expect(page.locator(".stepper .step")).toHaveCount(4);
+         |                                                      ^
+      16 |         await expect(
+      17 |             page.locator('.step[data-state="cur"] .step__title'),
+      18 |         ).toHaveText("Plik");
+        at /home/muszkin/work/kivvi-click-wt/w4-import/tests/e2e/specs/import.spec.ts:15:54
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/import-customer-import-ste-80309-ne-the-template-and-the-API-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/import-customer-import-ste-80309-ne-the-template-and-the-API-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/import-customer-import-ste-80309-ne-the-template-and-the-API-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/import-customer-import-ste-80309-ne-the-template-and-the-API-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chrome] › specs/import.spec.ts:25:9 › customer import › step 2 maps every column with a confidence read-out 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.map-table .map-row:not(.map-row--head)')
+    Expected: 11
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('.map-table .map-row:not(.map-row--head)')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      30 |         await expect(
+      31 |             page.locator(".map-table .map-row:not(.map-row--head)"),
+    > 32 |         ).toHaveCount(11);
+         |           ^
+      33 |         await expect(page.locator(".auto-detect")).toContainText(
+      34 |             "rozpoznał 10 z 11 kolumn",
+      35 |         );
+        at /home/muszkin/work/kivvi-click-wt/w4-import/tests/e2e/specs/import.spec.ts:32:11
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/import-customer-import-ste-79fb2--with-a-confidence-read-out-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/import-customer-import-ste-79fb2--with-a-confidence-read-out-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/import-customer-import-ste-79fb2--with-a-confidence-read-out-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/import-customer-import-ste-79fb2--with-a-confidence-read-out-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chrome] › specs/import.spec.ts:44:9 › customer import › step 3 asks for a dedup strategy and GDPR consent 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('input[name="dedup"]')
+    Expected: 4
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('input[name="dedup"]')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      47 |         await page.goto("/pl/import/3");
+      48 |
+    > 49 |         await expect(page.locator('input[name="dedup"]')).toHaveCount(4);
+         |                                                           ^
+      50 |         await expect(page.locator('input[name="dedup"]').first()).toBeChecked();
+      51 |         await expect(page.locator(".cond-rule")).toHaveCount(2);
+      52 |         await expect(page.locator(".rules-grid")).toContainText(
+        at /home/muszkin/work/kivvi-click-wt/w4-import/tests/e2e/specs/import.spec.ts:49:59
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/import-customer-import-ste-01bd1-p-strategy-and-GDPR-consent-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/import-customer-import-ste-01bd1-p-strategy-and-GDPR-consent-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/import-customer-import-ste-01bd1-p-strategy-and-GDPR-consent-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/import-customer-import-ste-01bd1-p-strategy-and-GDPR-consent-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chrome] › specs/import.spec.ts:57:9 › customer import › step 4 summarises the run and flags invalid rows 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.kpi-grid .kpi')
+    Expected: 4
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('.kpi-grid .kpi')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      60 |         await page.goto("/pl/import/4");
+      61 |
+    > 62 |         await expect(page.locator(".kpi-grid .kpi")).toHaveCount(4);
+         |                                                      ^
+      63 |         await expect(page.locator(".table tbody tr")).toHaveCount(6);
+      64 |         await expect(page.locator(".table tbody tr .chip.bad")).toHaveCount(1);
+      65 |         await expect(page.locator('[data-action="run-import"]')).toContainText(
+        at /home/muszkin/work/kivvi-click-wt/w4-import/tests/e2e/specs/import.spec.ts:62:54
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/import-customer-import-ste-4604e--run-and-flags-invalid-rows-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/import-customer-import-ste-4604e--run-and-flags-invalid-rows-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/import-customer-import-ste-4604e--run-and-flags-invalid-rows-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/import-customer-import-ste-4604e--run-and-flags-invalid-rows-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [chrome] › specs/import.spec.ts:70:9 › customer import › the stepper walks forward and back ───
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.step[data-payload="3"]')
+
+
+      71 |         await page.goto("/pl/import/1");
+      72 |
+    > 73 |         await page.locator('.step[data-payload="3"]').click();
+         |                                                       ^
+      74 |         await expect(page).toHaveURL(/\/pl\/import\/3/);
+      75 |         await expect(page.locator('.step[data-state="done"]')).toHaveCount(2);
+      76 |
+        at /home/muszkin/work/kivvi-click-wt/w4-import/tests/e2e/specs/import.spec.ts:73:55
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/import-customer-import-the-stepper-walks-forward-and-back-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/import-customer-import-the-stepper-walks-forward-and-back-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/import-customer-import-the-stepper-walks-forward-and-back-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/import-customer-import-the-stepper-walks-forward-and-back-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [chrome] › specs/import.spec.ts:81:9 › customer import › uploading a file advances to the mapping step 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.setInputFiles: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.dropzone input[type="file"]')
+
+
+      85 |
+      86 |         await page.goto("/pl/import/1");
+    > 87 |         await page.locator('.dropzone input[type="file"]').setInputFiles(file);
+         |         ^
+      88 |
+      89 |         await page.waitForURL(/\/pl\/import\/2/);
+      90 |         await expect(page.locator(".file-pill")).toContainText(
+        at /home/muszkin/work/kivvi-click-wt/w4-import/tests/e2e/specs/import.spec.ts:87:9
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/import-customer-import-upl-69ade-dvances-to-the-mapping-step-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/import-customer-import-upl-69ade-dvances-to-the-mapping-step-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/import-customer-import-upl-69ade-dvances-to-the-mapping-step-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/import-customer-import-upl-69ade-dvances-to-the-mapping-step-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6 failed
+    [chrome] › specs/import.spec.ts:10:9 › customer import › step 1 offers the dropzone, the template and the API 
+    [chrome] › specs/import.spec.ts:25:9 › customer import › step 2 maps every column with a confidence read-out 
+    [chrome] › specs/import.spec.ts:44:9 › customer import › step 3 asks for a dedup strategy and GDPR consent 
+    [chrome] › specs/import.spec.ts:57:9 › customer import › step 4 summarises the run and flags invalid rows 
+    [chrome] › specs/import.spec.ts:70:9 › customer import › the stepper walks forward and back ────
+    [chrome] › specs/import.spec.ts:81:9 › customer import › uploading a file advances to the mapping step 
+exit code: 1
