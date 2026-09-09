@@ -14,7 +14,7 @@ Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kiv
 
 - Known flake to close (wave-3 observation, campaigns follow-up + settings repair-1): `useIntents.ts` `set-theme`/sidebar preference handlers are fire-and-forget `fetch` POSTs; `navigation.spec.ts` "sidebar collapse/theme toggle survives a reload" occasionally reloads before the POST lands. Reproduce the old `assets/controllers/shell.ts` ordering (check whether it awaited the POST or updated the DOM first and posted after) and make the SPA deterministic without changing the observable order of DOM updates; prove with 5 consecutive `navigation.spec.ts --workers=1` runs.
 
-- Deferred medium from campaigns review-repair-3:   reads  without the file's try/catch convention — add the guard + a unit test (and keep the doc comment honest about ).
+- Deferred medium from campaigns review-repair-3: `frontend/src/router/scrollRestoration.ts` `isReloadOfAnAlreadyVisitedEntry()` reads `history.state` without the file's try/catch convention — add the guard + a unit test (and keep the doc comment honest about `router.replace()`).
 
 ## Out of scope
 Any page body change (owned by the journey that produced it) — if a page body diverges from its oracle, report it as a gap for that journey; do not fix it here.

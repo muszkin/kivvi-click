@@ -22,4 +22,4 @@ Round 1 for wave-3. Earlier-wave journeys (login, landing, feeds, event-stream, 
 
 ## Round 2 note
 
-Cohort round 2 after repairs (round-1 evidence archived under waves/wave-3/round-1/ — do not read it; verify afresh). Repairs since round 1: B01-labelled real-HTTP ITs and frontend integration tests for settings and campaigns/email-editor rows;  and  integration tests; reload detection via a history.state marker (compare.mjs freezes the page clock, so Navigation Timing is empty under the verifier).
+Cohort round 2 after repairs (round-1 evidence archived under waves/wave-3/round-1/ — do not read it; verify afresh). Repairs since round 1: B01-labelled real-HTTP ITs and frontend integration tests for settings and campaigns/email-editor rows; `LocaleToggle.spec.ts` and `ScrollRestoration.spec.ts` integration tests; reload detection via a history.state marker (compare.mjs freezes the page clock, so Navigation Timing is empty under the verifier).
