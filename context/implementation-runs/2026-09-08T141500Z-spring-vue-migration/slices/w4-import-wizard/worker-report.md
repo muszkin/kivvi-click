@@ -364,3 +364,72 @@ ls` filtered on `kivvi-w-import` all empty at handoff.
 Report and evidence were written directly to the main checkout
 (`/home/muszkin/work/kivvi-click/context/implementation-runs/…`), never committed on the
 `migration/wave-4/import-wizard` branch.
+
+## Follow-up
+
+Addresses the independent review (`review.md`, verdict **PASS with two LOW findings**) on top of
+`9a9aeaa`. Both findings fixed; no other changes.
+
+**New candidate SHA: `a1c2f83`**
+
+```
+a1c2f83 fix: store an empty upload like the old stack; prove traversal end to end (#import-wizard)
+9a9aeaa fix: follow the upload redirect with a full navigation like the old stack (#import-wizard)
+6ed54e9 test: label the B01 import document-render cases explicitly (#import-wizard)
+e053255 fix: accept the upload step's router-handled redirect in the contract verifier (#import-wizard)
+ca8dd0a feat: implement the four-step import wizard and file upload (#import-wizard)
+```
+
+`git status --porcelain` empty in the worktree. Single new commit
+`fix: store an empty upload like the old stack; prove traversal end to end (#import-wizard)` on
+top of `a1c2f83`'s parent (`9a9aeaa`), Conventional Commits, English, no trailers. No stack was
+needed for this follow-up (no visual/contract/e2e-affecting change), per the coordinator's message;
+none was brought up.
+
+### Finding 1 — empty-file parity (LOW)
+
+`ImportUploadController.java` rejected a present-but-0-byte `file` part with 404
+(`file == null || file.isEmpty()`); the old stack's `ImportController::upload()` only checks
+`!$file instanceof UploadedFile` (the field entirely absent) and never inspects size — a 0-byte
+upload was stored and redirected exactly like any other. Fixed: the check is now `file == null`
+only. Also removed a since-stale line from the class Javadoc (left over from repair-1) that still
+described the SPA following the redirect "into a router navigation" — corrected to describe the
+full document navigation repair-1 actually restored.
+
+Added `ImportApiIT.emptyFileIsStoredAndRedirectsLikeTheOldStack` (real HTTP, real Postgres): posts
+a `file` part with empty content, asserts 302 to `/pl/import/2` (not 404), that exactly one new
+`<32 hex>.csv` file appears in the configured upload directory, and that its size is 0 bytes. The
+existing `missingFilePartIsNotFound` (a request with no `file` part at all) is unchanged and still
+asserts 404 — the two cases are now distinguished exactly like the old stack distinguishes them.
+
+### Finding 2 — end-to-end path-traversal proof (LOW)
+
+The traversal control was previously proven only at the `ImportUploadStorage` unit level
+(`ImportUploadStorageTest`, a directly-constructed `MockMultipartFile`, no real HTTP/servlet
+parsing involved). Added `ImportApiIT.pathTraversalOriginalNameNeverEscapesTheUploadDirectoryOverHttp`:
+POSTs a real multipart request through the actual Tomcat servlet container with the client
+filename `../../x.sh`, and asserts:
+- the response is a normal 302 to `/pl/import/2` (the traversal attempt does not change the
+  wire contract — it is neutralised, not rejected, exactly like the old stack);
+- exactly one new file appears, named `<32 hex>.sh`, **directly inside** the configured
+  `uploadDirectory` (a JUnit `@TempDir`);
+- the **parent** directory of `uploadDirectory` has exactly the same set of entries before and
+  after the request — i.e., nothing was written anywhere outside `uploadDirectory` itself.
+
+Both new tests snapshot the directory's file-name set before acting and diff it afterward (rather
+than assuming an empty/ordered starting state), since `@TempDir static Path uploadDirectory` is
+shared across every test method in the class and JUnit does not guarantee method execution order.
+
+### Gate table (candidate SHA `a1c2f83`)
+
+| # | Command | cwd | Exit | Evidence |
+| --- | --- | --- | --- | --- |
+| 1 | `./mvnw -q test` | `backend` | 0 (266, unchanged — the new tests are in an `*IT.java` file, surefire-excluded by name) | `evidence/followup-gates/mvn-test.txt` |
+| 2 | `./mvnw -q verify` | `backend` | 0 (343 = 341 + 2 new: `ImportApiIT` now 8 tests, `ImportUploadControllerTest` unaffected at 2) | `evidence/followup-gates/mvn-verify.txt` |
+| 3 | `./mvnw -q spotless:check` | `backend` | 0 (ran `spotless:apply` once first — the two new Javadoc blocks needed re-wrapping) | `evidence/followup-gates/mvn-spotless.txt` |
+| 4 | `npm run lint` | `frontend` | 0 (no frontend files touched by this follow-up) | `evidence/followup-gates/npm-lint.txt` |
+
+Sonar: not applicable. Introduced dependencies: none. Secrets grep on the diff: none found. Docker:
+none built or torn down for this follow-up (not needed — no visual/contract/e2e-affecting change,
+confirmed by the coordinator's own message). Report/evidence written only to the main checkout,
+never committed on the `migration/wave-4/import-wizard` branch.
