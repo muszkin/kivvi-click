@@ -188,15 +188,19 @@
       }
     },
     "w3-shell-preferences": {
-      "state": "IMPLEMENTED",
+      "state": "FEATURE_HEAD_GREEN",
       "wave": "wave-3",
       "branch": "migration/wave-3/shell-preferences",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w3-shell-preferences",
       "parent_sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4",
       "head_sha": "60296f16250c6ebd25f7b4435c795268772fb6be",
-      "integration_commit": null,
+      "integration_commit": "60296f16250c6ebd25f7b4435c795268772fb6be",
       "kind": "repair-slice",
-      "packet": "slices/w3-shell-preferences/packet.md"
+      "packet": "slices/w3-shell-preferences/packet.md",
+      "review": {
+        "path": "slices/w3-shell-preferences/review.md",
+        "verdict": "PASS"
+      }
     }
   },
   "deferred_obligations": [],
@@ -607,146 +611,50 @@
         "settings",
         "campaigns-email-editor"
       ],
-      "head_sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4",
+      "head_sha": "60296f16250c6ebd25f7b4435c795268772fb6be",
       "kill_reason": null,
       "verifier_cohort": [
         {
           "dimension": "unit",
-          "status": "PASS",
-          "sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4",
-          "evidence": "waves/wave-3/round-2/unit.md",
-          "journey_verdicts": [
-            {
-              "journey": "automations",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "settings",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "campaigns-email-editor",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "60296f16250c6ebd25f7b4435c795268772fb6be",
+          "evidence": "waves/wave-3/unit.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "integration",
-          "status": "PASS",
-          "sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4",
-          "evidence": "waves/wave-3/round-2/integration.md",
-          "journey_verdicts": [
-            {
-              "journey": "automations",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "settings",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "campaigns-email-editor",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "60296f16250c6ebd25f7b4435c795268772fb6be",
+          "evidence": "waves/wave-3/integration.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "architecture",
-          "status": "PASS",
-          "sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4",
-          "evidence": "waves/wave-3/round-2/architecture.md",
-          "journey_verdicts": [
-            {
-              "journey": "automations",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "settings",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "campaigns-email-editor",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "60296f16250c6ebd25f7b4435c795268772fb6be",
+          "evidence": "waves/wave-3/architecture.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "contract",
-          "status": "NOT_RUN",
-          "sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4",
-          "evidence": "waves/wave-3/round-2/contract.md",
-          "journey_verdicts": [
-            {
-              "journey": "automations",
-              "verdict": "pending",
-              "deviation_id": null
-            },
-            {
-              "journey": "settings",
-              "verdict": "pending",
-              "deviation_id": null
-            },
-            {
-              "journey": "campaigns-email-editor",
-              "verdict": "pending",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "60296f16250c6ebd25f7b4435c795268772fb6be",
+          "evidence": "waves/wave-3/contract.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "visual",
-          "status": "PASS",
-          "sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4",
-          "evidence": "waves/wave-3/round-2/visual.md",
-          "journey_verdicts": [
-            {
-              "journey": "automations",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "settings",
-              "verdict": "parity",
-              "deviation_id": "DEV-12"
-            },
-            {
-              "journey": "campaigns-email-editor",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "60296f16250c6ebd25f7b4435c795268772fb6be",
+          "evidence": "waves/wave-3/visual.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "e2e",
-          "status": "FAIL",
-          "sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4",
-          "evidence": "waves/wave-3/round-2/e2e.md",
-          "journey_verdicts": [
-            {
-              "journey": "automations",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "settings",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "campaigns-email-editor",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "60296f16250c6ebd25f7b4435c795268772fb6be",
+          "evidence": "waves/wave-3/e2e.md",
+          "journey_verdicts": []
         }
       ],
       "repair_rounds": 2,
@@ -805,6 +713,6 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T03:43:22Z",
-  "feature_head_sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4"
+  "updated_at": "2026-09-09T03:48:23Z",
+  "feature_head_sha": "60296f16250c6ebd25f7b4435c795268772fb6be"
 }
