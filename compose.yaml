@@ -1,5 +1,5 @@
 ---
-# The next stack: Spring Boot API + Vue 3 SPA behind the Mercure hub as the edge. Postgres
+# Application stack: Spring Boot API + Vue 3 SPA behind the Mercure hub as the edge. Postgres
 # is the only other backing service — see CLAUDE.md's Architecture decisions. Dev/verification
 # shape; compose.prod.yaml layers the production overrides on top.
 services:
@@ -15,26 +15,9 @@ services:
       MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_PUBLISHER_JWT_KEY:-!ChangeThisMercureHubJWTSecretKey!}
       MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_SUBSCRIBER_JWT_KEY:-!ChangeThisMercureHubJWTSecretKey!}
       MERCURE_JWT_SECRET: ${MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
-      # Internal publish endpoint, reached over the private compose network only — mirrors
-      # the old stack's own MERCURE_URL (compose.yaml: http://php/.well-known/mercure).
-      # Plain HTTP works here because the mercure service's SERVER_NAME below adds a second,
-      # explicit `mercure:80` site address (same trick as the old stack's `php:80`): Caddy
-      # only enables automatic HTTPS (and the HTTP->HTTPS redirect) for a site address with no
-      # explicit port, so the `mercure:80` address is served as plain HTTP with no redirect.
-      #
-      # Substitution source is MERCURE_INTERNAL_URL, not MERCURE_URL: the repo-root `.env`
-      # (Symfony Flex's own file, read by both compose.yaml and this file since Compose loads
-      # it automatically regardless of which -f is used) already sets a real, non-empty
-      # `MERCURE_URL=https://example.com/.well-known/mercure` — Symfony's own never-customized
-      # placeholder default. `${MERCURE_URL:-...}` only falls back to the default when the
-      # variable is unset or empty, so it would silently take that value instead — found by
-      # running the full stack and seeing every publish 405 (example.com's real answer to a
-      # POST) instead of reaching this compose network at all. compose.yaml (old stack) avoids
-      # this exact trap the same way: its own `MERCURE_URL:` line reads from
-      # `${CADDY_MERCURE_URL:-http://php/.well-known/mercure}`, a distinctly-named substitution
-      # variable, not the `.env`-shadowed `MERCURE_URL` directly. The container's own env var
-      # is still named MERCURE_URL (application.yml's `${MERCURE_URL:...}` reads that from the
-      # container's environment, a separate layer `.env` never reaches).
+      # Publish over the private Compose network. MERCURE_INTERNAL_URL configures the
+      # endpoint injected as MERCURE_URL into the API container.
+      # The explicit mercure:80 site below serves plain HTTP without an HTTPS redirect.
       MERCURE_URL: ${MERCURE_INTERNAL_URL:-http://mercure/.well-known/mercure}
     depends_on:
       database:
@@ -49,11 +32,8 @@ services:
     image: dunglas/mercure:v0.24.2
     restart: unless-stopped
     environment:
-      # A second, explicit-port site address (`mercure:80`) alongside the public
-      # auto-HTTPS one — mirrors compose.yaml's `SERVER_NAME: ${SERVER_NAME:-localhost}, php:80`
-      # on the old stack: it gives the api container a plain-HTTP internal address to publish
-      # to (MERCURE_URL above) without touching mercure/Caddyfile, which already parametrizes
-      # its site address entirely through this variable.
+      # The public address uses automatic HTTPS; mercure:80 accepts internal HTTP
+      # publishes from the API without a redirect.
       SERVER_NAME: ${SERVER_NAME:-localhost}, mercure:80
       MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_PUBLISHER_JWT_KEY:-!ChangeThisMercureHubJWTSecretKey!}
       MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_SUBSCRIBER_JWT_KEY:-!ChangeThisMercureHubJWTSecretKey!}
@@ -94,7 +74,7 @@ services:
       # Postgres 18+ images keep the cluster in a versioned subdirectory of
       # /var/lib/postgresql; mounting .../data directly makes the entrypoint abort.
       - database_data:/var/lib/postgresql:rw
-    # No fixed host port: Compose assigns a random one (per the wave-0 resource lease),
+    # No fixed host port: Compose assigns a random one,
     # discoverable with `docker compose -p <project> port database 5432`.
     ports:
       - target: 5432

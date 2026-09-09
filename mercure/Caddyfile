@@ -1,8 +1,6 @@
-# Mercure hub as the stack's edge: Caddy (bundled in dunglas/mercure) terminates TLS,
-# serves the hub at /.well-known/mercure* itself, and reverse-proxies everything else to
-# the Spring Boot `api` service — mirrors frankenphp/Caddyfile's shape (same log filter,
-# same anonymous+subscriptions hub config), with the reverse proxy target swapped in place
-# of FrankenPHP's own embedded PHP worker.
+# Mercure hub as the public edge: serves /.well-known/mercure* and reverse-proxies
+# application requests to Spring Boot. TLS is automatic in dev; production terminates
+# TLS at the upstream proxy and configures this edge to serve plain HTTP.
 
 {
 	{$GLOBAL_OPTIONS}

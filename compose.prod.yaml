@@ -1,20 +1,8 @@
 ---
-# Production overlay for the next stack (Spring Boot API + Vue 3 SPA + Mercure edge). Not
-# deployed by this slice — CUT-1 is a separate, explicitly authorized packet — but the
-# shape is delivered now so later waves build on it unchanged.
-#
-# Volume isolation: every volume below carries an explicit `name:` ending in `_next` (never
-# just the default `<project>_<key>` auto-naming) so it can NEVER resolve to the same Docker
-# volume as the old prod stack's `compose.prod.yaml` (`database_data_prod`, `caddy_data_prod`,
-# `caddy_config_prod`), even when both stacks run under the identical Compose project name
-# `kivvi-click` at CUT-1 — see README.md's "Next stack" runbook section. The new stack always
-# starts against an EMPTY `kivvi-next_database_data` volume: Flyway applies only the baseline
-# migration (`V1__baseline.sql`) to a fresh cluster, there is no data import from the old
-# stack's `database_data_prod`. This is intentional, not a gap — sessions (`spring_session`
-# vs. the old stack's Postgres-backed `sessions` table) are short-lived and expire on their
-# own, and `var/import` uploads are per-wizard temp files with no cross-request identity of
-# their own (see DEV-9 in the plan's Accepted deviations table). Old-stack state is simply
-# abandoned at cutover, never migrated.
+# Production overlay for Spring Boot + Vue 3 SPA behind the Mercure edge.
+# See README.md's Production operations for deployment commands.
+# Existing production volumes retain their explicit kivvi-next_* names. Keep these names
+# stable: changing them would attach empty volumes instead of the live production data.
 services:
   api:
     image: ${IMAGES_PREFIX:-}kivvi-click-api
@@ -32,8 +20,7 @@ services:
       MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_JWT_SECRET}
       MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_JWT_SECRET}
       MERCURE_JWT_SECRET: ${MERCURE_JWT_SECRET}
-      # No TRUSTED_PROXIES here (unlike the old stack's Symfony TRUSTED_PROXIES): this app's
-      # server.forward-headers-strategy is `native` (application.yml) with no explicit
+      # This app's server.forward-headers-strategy is `native` (application.yml) with no explicit
       # server.tomcat.remoteip.internal-proxies override, so Tomcat's own built-in
       # private-range regex applies — it already matches every RFC1918 range the compose
       # bridge network can hand out. `api` publishes no host port (see compose.yaml): the
@@ -64,9 +51,7 @@ services:
         published: ${HTTP_PORT:-23456}
         protocol: tcp
 
-  # Its own cluster: production never shares a database (or a password) with a dev stack
-  # that might run from the same host — and, with the explicit `name:` below, never with the
-  # OLD prod stack's `database_data_prod` volume either, even under the same project name.
+  # Production uses a dedicated cluster and explicit volume names, separate from dev.
   database:
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -75,10 +60,8 @@ services:
     ports: !reset []
 
 volumes:
-  # Explicit `name:` bypasses Compose's `<project>_<key>` auto-prefixing entirely, so these
-  # resolve to the literal names below regardless of `-p`/COMPOSE_PROJECT_NAME — guaranteed
-  # never to collide with the old stack's `kivvi-click_database_data_prod` /
-  # `kivvi-click_caddy_data_prod` / `kivvi-click_caddy_config_prod` at CUT-1.
+  # Literal production volume names are independent of -p/COMPOSE_PROJECT_NAME.
+  # Development must use the base compose.yaml without this production overlay.
   database_data_next:
     name: kivvi-next_database_data
   mercure_data_next:

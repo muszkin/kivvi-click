@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "f=$(jq -r '.tool_response.filePath // .tool_input.file_path // empty'); case \"$f\" in *.php) [ -x vendor/bin/php-cs-fixer ] && vendor/bin/php-cs-fixer fix \"$f\" ;; *.ts) [ -x node_modules/.bin/prettier ] && node_modules/.bin/prettier --write \"$f\" ;; esac 2>/dev/null || true",
+            "command": "f=$(jq -r '.tool_response.filePath // .tool_response.file_path // .tool_input.file_path // empty'); [ -n \"$f\" ] || exit 0; cd \"${CLAUDE_PROJECT_DIR:-.}\" || exit 0; f=$(realpath -m -- \"$f\"); case \"$f\" in \"$PWD\"/backend/*.java) (cd backend && ./mvnw -q spotless:apply -DspotlessFiles=\"$f\") ;; \"$PWD\"/frontend/*.ts|\"$PWD\"/frontend/*.vue|\"$PWD\"/frontend/*.css|\"$PWD\"/frontend/*.json|\"$PWD\"/frontend/*.md) (cd frontend && [ -x node_modules/.bin/prettier ] && node_modules/.bin/prettier --write \"$f\") ;; esac 2>/dev/null || true",
             "statusMessage": "Formatting edited file..."
           }
         ]

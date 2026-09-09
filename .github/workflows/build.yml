@@ -23,7 +23,7 @@ on:
 
 jobs:
   backend:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, home]
     steps:
       - uses: actions/checkout@v5
 
@@ -54,7 +54,7 @@ jobs:
         run: ./mvnw -B -q verify
 
   frontend:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, home]
     steps:
       - uses: actions/checkout@v5
 
@@ -95,7 +95,7 @@ jobs:
   # both build `api` from this same Dockerfile. Build-only, no push: this job exists purely
   # to catch a broken COPY/stage reference before it reaches a runbook.
   backend-image:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, home]
     steps:
       - uses: actions/checkout@v5
 

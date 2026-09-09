@@ -163,9 +163,10 @@ Do not use Jira keys or `CORE-123`-style scopes.
 The `.claude` directory is part of the project context:
 
 - `.claude/skills/product-spec/SKILL.md` is the authoritative product/domain spec.
-- `.claude/settings.json` runs a post-edit formatting hook. It still only matches `*.php` and
-  `*.ts` file extensions from the old stack — that hook is stale for this stack (Java/Vue) and
-  due its own fix; don't rely on it to format `.java` or `.vue` files.
+- `.claude/settings.json` runs a post-edit formatting hook for backend Java (Spotless,
+  requires `JAVA_HOME` pointing to JDK 25) and frontend TS/Vue/CSS/JSON/Markdown (Prettier,
+  requires `npm ci` in `frontend`). Prettier runs from `frontend` to respect its config and
+  `.prettierignore`, including the preserved design-system CSS.
 
 Codex does not automatically run those Claude hooks, so format edited backend and frontend
 files explicitly when making changes (`./mvnw spotless:apply`, `npm run format`).
