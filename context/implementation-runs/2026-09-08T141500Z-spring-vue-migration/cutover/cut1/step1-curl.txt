@@ -1,0 +1,60 @@
+=== /pl ===
+HTTP/2 200 
+date: Wed, 09 Sep 2026 14:19:46 GMT
+content-type: text/html;charset=UTF-8
+permissions-policy: browsing-topics=()
+vary: Accept-Encoding
+via: 1.1 Caddy
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=AGNP6%2FJ6qfp9R62qbZEJfgttzrvd7z6sdQoI2w1U9Ip9pBPCj%2BerCZLTlgQ424SBQY1agg6xzQ%2F8q2OXxTtFRCB%2BCM1%2BJQ1PKi1tRqN%2BDzfw8Y9g%2FMRx6%2BNNfzmwBo2iYSuU9CHSDOeK%2Fw%3D%3D"}]}
+server: cloudflare
+cf-ray: a386d46e787d1282-WAW
+alt-svc: h3=":443"; ma=86400
+
+
+=== /pl/dashboard ===
+HTTP/2 200 
+date: Wed, 09 Sep 2026 14:19:46 GMT
+content-type: text/html;charset=UTF-8
+permissions-policy: browsing-topics=()
+vary: Accept-Encoding
+via: 1.1 Caddy
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=ZuESOQQi0vGQ1TLxoaXQtZJAT44PbosgEthkqmCVPluJuU%2FnZ4ntpWU7%2F42xGbzqEtSGVnTZpx61BTz34h3uUvaXaK%2FbjczgylNl%2BN7CNhEEDoiwmGsEGJHUnSHN%2BlGBVNmflTQgCclt2Q%3D%3D"}]}
+server: cloudflare
+cf-ray: a386d46f0f316368-WAW
+alt-svc: h3=":443"; ma=86400
+
+
+=== /api/v1/pl/shell ===
+HTTP/2 200 
+date: Wed, 09 Sep 2026 14:19:46 GMT
+content-type: application/json
+content-length: 20
+permissions-policy: browsing-topics=()
+vary: Accept-Encoding
+via: 1.1 Caddy
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=k7dj7NnCKmL%2BYip25wSfQQi7OMLhSU62AfFQ4%2B4nkfPzjKaLDf1R26mcPHcva6zlmSdktyBIcM%2Bld4Xu8PNIRdS0NZr8OiqHBlwy7HrgF0LGjXQgzGmEAxerX2SzkQyISm4YQyoigzqZ7Q%3D%3D"}]}
+server: cloudflare
+cf-ray: a386d46f9a166338-WAW
+alt-svc: h3=":443"; ma=86400
+
+
+=== /de/dashboard (expect 404) ===
+HTTP/2 404 
+date: Wed, 09 Sep 2026 14:19:46 GMT
+content-type: application/json
+permissions-policy: browsing-topics=()
+via: 1.1 Caddy
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=ahEc3E3lY5eEDzNMSlbd2PpKg01HBGNfpnlkKehtdtA0lM6UPZB%2FsPU3thlECYQ2on3%2Fn%2BYteYU7Qwo5ERBE3P5bKLvfIRT4vOcZDFazSW6uhuYkduw33w1NSng1ddnigbzUG4fUbn%2BPsQ%3D%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a386d4701dac4d3f-WAW
+alt-svc: h3=":443"; ma=86400
+
+

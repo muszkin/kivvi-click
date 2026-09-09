@@ -1,0 +1,33 @@
+=== POST https://kivvi.click/pl/login  _username=nie-adres (malformed) ===
+HTTP/2 200 
+date: Wed, 09 Sep 2026 14:20:14 GMT
+content-type: text/html;charset=UTF-8
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+permissions-policy: browsing-topics=()
+vary: Accept-Encoding
+via: 1.1 Caddy
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=SHvJCwsnCP3Tmt4KnW9kYtPdInQdNA%2B%2BStCVFn6rUdDfKP3V%2FX%2BOvLusDjwTMRlxCgyewcbwRySHMkMLUOLffkF1pVNyTTQcKoqgn0CUaBVQ%2BHH2t9FJMuSIvEtpKDJBnHTa7dxIc32uyg%3D%3D"}]}
+server: cloudflare
+cf-ray: a386d51d5f318851-WAW
+alt-svc: h3=":443"; ma=86400
+
+
+=== body grep for expected PL message ===
+To nie wygląda na poprawny adres e-mail.
+
+=== also check valid-looking login for comparison (redirect + cookie flags) ===
+HTTP/2 302 
+date: Wed, 09 Sep 2026 14:20:14 GMT
+content-length: 0
+location: /pl/dashboard
+permissions-policy: browsing-topics=()
+set-cookie: SESSION=NGU5M2RjNTUtZTU4Ny00ZGYxLWI4ZGQtYWNmMGZmOTM1NTUx; Path=/; Secure; HttpOnly; SameSite=Lax
+via: 1.1 Caddy
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=NEmweNc%2FDHUeYXFlo5vLJfOqkI2Ut5fMnP4B%2FVOGgVad2mGHiVMHwO3IZhXqI4QUYPPzr%2FrmEzBMlnW%2FrYy4N%2FUqsB4jitrjBTxzVBi5rsOctDZ%2FuIXmeyDccCBwSLkvG90F8HdP6gP5BQ%3D%3D"}]}
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+server: cloudflare
+cf-ray: a386d51dea4f0dab-WAW
+alt-svc: h3=":443"; ma=86400
+

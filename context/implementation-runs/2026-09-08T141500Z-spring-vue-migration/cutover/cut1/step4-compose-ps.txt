@@ -1,0 +1,6 @@
+time="2026-09-09T14:22:27Z" level=warning msg="The \"POSTGRES_PASSWORD\" variable is not set. Defaulting to a blank string."
+time="2026-09-09T14:22:27Z" level=warning msg="The \"POSTGRES_PASSWORD\" variable is not set. Defaulting to a blank string."
+NAME                     IMAGE                     COMMAND                  SERVICE    CREATED         STATUS                   PORTS
+kivvi-click-api-1        kivvi-click-api           "java -jar /app/app.…"   api        4 minutes ago   Up 3 minutes (healthy)   8080/tcp
+kivvi-click-database-1   postgres:18-alpine        "docker-entrypoint.s…"   database   4 minutes ago   Up 4 minutes (healthy)   5432/tcp
+kivvi-click-mercure-1    dunglas/mercure:v0.24.2   "caddy run --config …"   mercure    4 minutes ago   Up 3 minutes (healthy)   443/tcp, 2019/tcp, 443/udp, 0.0.0.0:23456->80/tcp, [::]:23456->80/tcp

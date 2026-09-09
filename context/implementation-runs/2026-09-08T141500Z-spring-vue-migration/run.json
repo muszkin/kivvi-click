@@ -1173,7 +1173,7 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T14:19:23Z",
+  "updated_at": "2026-09-09T14:24:48Z",
   "feature_head_sha": "92052947a6238ecf4ee177f4e72493122315ce32",
   "final_cohort": {
     "sha": "dae169614a52532c130bd34435994d6a914165c0",
@@ -1302,7 +1302,8 @@
       ],
       "data": "production data volume kivvi-click_database_data_prod never mounted by the new stack; untouched",
       "live_since": "2026-09-09T14:18:42Z",
-      "old_stack": "down (containers removed, images and kivvi-click_*_prod volumes kept for rollback: `docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --wait` from /home/muszkin/work/kivvi-click after `docker compose -p kivvi-click -f compose.next.yaml -f compose.next.prod.yaml down` in the integration worktree)"
+      "old_stack": "down (containers removed, images and kivvi-click_*_prod volumes kept for rollback: `docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --wait` from /home/muszkin/work/kivvi-click after `docker compose -p kivvi-click -f compose.next.yaml -f compose.next.prod.yaml down` in the integration worktree)",
+      "public_e2e": "PASS 66/66 via https://kivvi.click; budgets 4/4; 0 5xx; cookies Secure/HttpOnly/SameSite=Lax; relative Location"
     }
   }
 }
