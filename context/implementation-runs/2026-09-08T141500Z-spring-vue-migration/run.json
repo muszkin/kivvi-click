@@ -859,24 +859,72 @@
       "verifier_cohort": [
         {
           "dimension": "unit",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
           "evidence": "waves/wave-4/round-1/unit.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "popups-widget-editor",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "import-wizard",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "dashboard",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "integration",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
           "evidence": "waves/wave-4/round-1/integration.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "popups-widget-editor",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "import-wizard",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "dashboard",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "architecture",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
           "evidence": "waves/wave-4/round-1/architecture.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "popups-widget-editor",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "import-wizard",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "dashboard",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "contract",
@@ -887,10 +935,26 @@
         },
         {
           "dimension": "visual",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
           "evidence": "waves/wave-4/round-1/visual.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "popups-widget-editor",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "import-wizard",
+              "verdict": "parity",
+              "deviation_id": "DEV-12"
+            },
+            {
+              "journey": "dashboard",
+              "verdict": "parity",
+              "deviation_id": "DEV-2"
+            }
+          ]
         },
         {
           "dimension": "e2e",
@@ -939,6 +1003,6 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T07:34:34Z",
+  "updated_at": "2026-09-09T07:52:29Z",
   "feature_head_sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d"
 }

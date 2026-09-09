@@ -1,0 +1,39 @@
+
+ RUN  v5.0.0 /home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/frontend
+
+ ✓ test/unit/importComponents.spec.ts > B31 Stepper marks the current step and the ones already passed > step 1 (todo/todo/todo from step 1) marks nothing done, step 1 current 27ms
+ ✓ test/unit/importComponents.spec.ts > B31 Stepper marks the current step and the ones already passed > current step 3 marks steps 1-2 done, step 3 current, step 4 todo — matches the oracle's own step-6 assertion (2 done items after jumping to step 3) 8ms
+ ✓ test/unit/importComponents.spec.ts > B31 Stepper marks the current step and the ones already passed > every step carries data-action=set-import-step and its own number as data-payload, for the e2e .step[data-payload="3"] selector 4ms
+ ✓ test/unit/importComponents.spec.ts > B31 Stepper marks the current step and the ones already passed > a done step's number is replaced by a check icon, matching stepper.html.twig 7ms
+ ✓ test/unit/importComponents.spec.ts > B31 Dropzone posts the file and follows a redirected response with a full navigation, exactly like assets/controllers/upload.ts > follows fetch's "redirected" response with window.location.href = r.url — a real document navigation, not router.push (repair-1) 9ms
+ ✓ test/unit/importComponents.spec.ts > B31 Dropzone posts the file and follows a redirected response with a full navigation, exactly like assets/controllers/upload.ts > does not navigate when the upload response was not redirected 9ms
+ ✓ test/unit/importComponents.spec.ts > B31 Dropzone posts the file and follows a redirected response with a full navigation, exactly like assets/controllers/upload.ts > a drag over the dropzone sets data-dragging, cleared again on drag leave 5ms
+ ✓ test/unit/Cardiogram.spec.ts > Cardiogram > B23 renders the canvas with role=img and the title as its accessible name 119ms
+ ✓ test/unit/Cardiogram.spec.ts > Cardiogram > B23 draws once on mount 7ms
+ ✓ test/unit/Cardiogram.spec.ts > Cardiogram > B23 redraws when <html data-theme> mutates, without reconnecting anything 14ms
+ ✓ test/unit/Cardiogram.spec.ts > Cardiogram > B23 redraws once a second 9ms
+ ✓ test/unit/Cardiogram.spec.ts > Cardiogram > renders one range button per entry, data-active reflecting the active one 8ms
+ ✓ test/unit/Cardiogram.spec.ts > Cardiogram > renders the legend entries, label and value side by side 5ms
+ ✓ test/unit/Cardiogram.spec.ts > Cardiogram > does not render the ranges row or the legend when neither is given 4ms
+ ✓ test/unit/widgetComponents.spec.ts > B29 PopupStage > carries data-type and data-device, and renders the shop mock plus the slotted widget 40ms
+ ✓ test/unit/widgetComponents.spec.ts > B29 PopupStage > defaults device to desktop when omitted 5ms
+ ✓ test/unit/widgetComponents.spec.ts > B29 ShopMock > renders the static, aria-hidden storefront backdrop 5ms
+ ✓ test/unit/widgetComponents.spec.ts > B29 PopupWidget > renders the modal shape with title, body and CTA form 12ms
+ ✓ test/unit/widgetComponents.spec.ts > B29 PopupWidget > renders the banner shape as a kicker/title row plus an inline CTA, no form 9ms
+ ✓ test/unit/widgetComponents.spec.ts > B29 PopupWidget > renders the toast shape as a dot plus title/body, no form 4ms
+ ✓ test/unit/widgetComponents.spec.ts > B29 PopupWidget > omits the body paragraph for slide-in even when a body string is given 2ms
+ ✓ test/unit/widgetComponents.spec.ts > B29 PopupWidget > omits the email input when no placeholder is given 2ms
+ ✓ test/unit/widgetComponents.spec.ts > B29 PositionGrid > renders 9 cells with the centre one checked by default 4ms
+ ✓ test/unit/widgetComponents.spec.ts > B29 PositionGrid > marks a different cell as checked when selected is overridden 3ms
+ ✓ test/unit/widgetComponents.spec.ts > B29 SwatchGrid > renders one swatch per colour with the first pressed by default 35ms
+ ✓ test/unit/widgetComponents.spec.ts > B29 TriggerRow > renders the qualitative trigger with a note and no numeric input 5ms
+ ✓ test/unit/widgetComponents.spec.ts > B29 TriggerRow > renders a numeric trigger with its value input and unit 4ms
+ ✓ test/unit/widgetComponents.spec.ts > B29 TriggerRow > always renders the remove-trigger button 3ms
+ ✓ test/unit/widgetComponents.spec.ts > B29 AddSlot > renders the icon, label and data-action 2ms
+ ✓ test/unit/widgetComponents.spec.ts > B29 PwTypeList > renders one real link per type, marking the active one 4ms
+
+ Test Files  3 passed (3)
+      Tests  30 passed (30)
+   Start at  07:37:36
+   Duration  1.14s (environment 58%, transform 19%, tests 14%, setup 5%, import 3%, worker 1%)
+
