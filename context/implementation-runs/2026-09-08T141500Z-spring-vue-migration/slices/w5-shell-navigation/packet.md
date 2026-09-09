@@ -12,6 +12,8 @@ Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kiv
 - Frontend: `test/integration/ShellNavigation.spec.ts` — real router through every route in `routes.ts`, asserting active nav item, crumb, `aria-current`, and that the shell store persists sidebar/theme across a simulated reload (store re-hydration from the API payload).
 - Tests: e2e `navigation.spec.ts` (whole file, all 14 tests green — from this wave on none of the section routes is an `EmptyPageView`), `public.spec.ts` regression guard; compare.mjs contract+visual for `shell-navigation` (21 steps, 0 regressions; DEV-4, DEV-12 step 21) and, as guards, for `login` and `dashboard`.
 
+- Known flake to close (wave-3 observation, campaigns follow-up + settings repair-1): `useIntents.ts` `set-theme`/sidebar preference handlers are fire-and-forget `fetch` POSTs; `navigation.spec.ts` "sidebar collapse/theme toggle survives a reload" occasionally reloads before the POST lands. Reproduce the old `assets/controllers/shell.ts` ordering (check whether it awaited the POST or updated the DOM first and posted after) and make the SPA deterministic without changing the observable order of DOM updates; prove with 5 consecutive `navigation.spec.ts --workers=1` runs.
+
 ## Out of scope
 Any page body change (owned by the journey that produced it) — if a page body diverges from its oracle, report it as a gap for that journey; do not fix it here.
 
