@@ -1,0 +1,49 @@
+# Frontend vitest test/unit describe()/it() blocks carrying a Bnn label
+# Extracted via: grep -rnE '(describe|it|test)\(\s*["'\''`]B[0-9]{2}' frontend/test/unit --include='*.ts'
+
+frontend/test/unit/AppShell.spec.ts:38:describe("B21 only .main-scroll scrolls — the app shell's structural invariant", () => {
+frontend/test/unit/automationsComponents.spec.ts:108:describe("B26 FlowCanvas", () => {
+frontend/test/unit/automationsComponents.spec.ts:139:describe("B26 RulePipeline", () => {
+frontend/test/unit/automationsComponents.spec.ts:157:describe("B26 AutoCard", () => {
+frontend/test/unit/campaignsComponents.spec.ts:19:describe("B28 BlockLibrary", () => {
+frontend/test/unit/campaignsComponents.spec.ts:33:describe("B28 CouponCode", () => {
+frontend/test/unit/Cardiogram.spec.ts:50:    it("B23 renders the canvas with role=img and the title as its accessible name", () => {
+frontend/test/unit/Cardiogram.spec.ts:62:    it("B23 draws once on mount", () => {
+frontend/test/unit/Cardiogram.spec.ts:68:    it("B23 redraws when <html data-theme> mutates, without reconnecting anything", async () => {
+frontend/test/unit/Cardiogram.spec.ts:83:    it("B23 redraws once a second", () => {
+frontend/test/unit/customersComponents.spec.ts:11:describe("B25 Table", () => {
+frontend/test/unit/customersComponents.spec.ts:44:    it("B25 carries the row intent as data-action/data-payload and a pointer cursor, index-matched to rowActions", () => {
+frontend/test/unit/customersComponents.spec.ts:65:describe("B25 Pagination", () => {
+frontend/test/unit/emailDocument.spec.ts:23:describe("B28 EmailDocument keeps a literal white background regardless of theme", () => {
+frontend/test/unit/EventRow.spec.ts:18:    it("B24 renders time, icon tone, type, detail, customer and site", () => {
+frontend/test/unit/EventStream.spec.ts:105:    it("B24 prepends a row from an SSE message and flags it 'new'", async () => {
+frontend/test/unit/EventStream.spec.ts:78:    it("B24 renders the initial 30 server-provided rows and subscribes to the given topic", () => {
+frontend/test/unit/EventStream.spec.ts:95:    it("B24 flips data-stream-state to 'live' once the subscription opens", () => {
+frontend/test/unit/FeedCard.spec.ts:19:    it("B30 renders the failing feed's HTTP 503 error strip", () => {
+frontend/test/unit/FeedCard.spec.ts:40:    it("B30 a synced feed carries no error strip and shows the mapped percentage", () => {
+frontend/test/unit/FeedCard.spec.ts:47:    it("B30 a syncing feed shows a live info chip", () => {
+frontend/test/unit/FilterChip.spec.ts:6:    it("B24 renders the label, data-active, data-action and data-payload", () => {
+frontend/test/unit/highlight.spec.ts:45:describe("B32 highlight() reproduces CodeHighlightExtension::highlight() byte-for-byte", () => {
+frontend/test/unit/i18n.spec.ts:13:describe("B04 the English catalogue translates every Polish navigation and page-head key", () => {
+frontend/test/unit/importComponents.spec.ts:13:describe("B31 Stepper marks the current step and the ones already passed", () => {
+frontend/test/unit/importComponents.spec.ts:63:describe("B31 Dropzone posts the file and follows a redirected response with a full navigation, exactly like assets/controllers/upload.ts", () => {
+frontend/test/unit/landing.spec.ts:88:describe("B22 the landing page structure (unit)", () => {
+frontend/test/unit/localeHref.spec.ts:8:describe("B32/repair-1 buildLocaleHref — generic Symfony-style default-param omission", () => {
+frontend/test/unit/LoginView.spec.ts:24:describe("B22 the login form matches the browser-validated, server-rendered contract (unit)", () => {
+frontend/test/unit/routes.spec.ts:37:describe("B07 an unsupported locale prefix is unknown to the router", () => {
+frontend/test/unit/routes.spec.ts:7:describe("B01 every panel/public route in the table resolves", () => {
+frontend/test/unit/Segmented.spec.ts:13:    it("B24 renders one tab per option with role=tablist/tab and aria-selected", () => {
+frontend/test/unit/settingsComponents.spec.ts:117:describe("B32 CodeBlock", () => {
+frontend/test/unit/settingsComponents.spec.ts:51:describe("B32 ToggleRow", () => {
+frontend/test/unit/settingsComponents.spec.ts:79:describe("B32 DnsRow", () => {
+frontend/test/unit/settingsComponents.spec.ts:94:describe("B32 HookRow", () => {
+frontend/test/unit/settingsComponents.spec.ts:9:describe("B32 SettingsNav", () => {
+frontend/test/unit/Topbar.spec.ts:31:describe("B02 the breadcrumb names the current section", () => {
+frontend/test/unit/widgetComponents.spec.ts:134:describe("B29 PositionGrid", () => {
+frontend/test/unit/widgetComponents.spec.ts:13:describe("B29 PopupStage", () => {
+frontend/test/unit/widgetComponents.spec.ts:162:describe("B29 SwatchGrid", () => {
+frontend/test/unit/widgetComponents.spec.ts:189:describe("B29 TriggerRow", () => {
+frontend/test/unit/widgetComponents.spec.ts:225:describe("B29 AddSlot", () => {
+frontend/test/unit/widgetComponents.spec.ts:238:describe("B29 PwTypeList", () => {
+frontend/test/unit/widgetComponents.spec.ts:38:describe("B29 ShopMock", () => {
+frontend/test/unit/widgetComponents.spec.ts:50:describe("B29 PopupWidget", () => {

@@ -23,3 +23,8 @@ This is the all-journey cohort on the assembled feature SHA (plan: "final all-jo
 ## Round 2 note
 
 Round 2 after the shell-navigation label repair (test-only: B02/B03/B21 unit tests). Round-1 evidence archived under waves/final/round-1/ — do not read it.
+
+
+## Note for the contract verifier (FINAL round 2)
+
+`tools/migration-verify/deviations.json` on the final SHA carries DEV-1..DEV-12 only; the plan also lists DEV-13 (`/collect` `occurred_at` grammar). Confirm explicitly whether every `/collect` case in the event-stream oracle (incl. any `occurred_at` variants) matches byte-for-byte WITHOUT a DEV-13 mask; if a mask would be needed, that is a FAIL (no unrecorded deviation), if not, state that DEV-13 is unused and can be retired.
