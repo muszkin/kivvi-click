@@ -1,41 +1,109 @@
 {
   "schema_version": 1,
   "generator": "project-context-initializer",
-  "generator_version": "2026-09-09-refresh-post-CON1",
+  "generator_version": "2026-09-09-refresh-R22-R23",
   "manifest_digest": {
     "algorithm": "sha256-rfc8785-with-empty-digest",
-    "value": "f5ec93af5687052521e9e75270d034eadede225e2e6e08a116eb4d6f31471279"
+    "value": "639ab10730e082a34996ef5daac5641f7a75a5cb5350e5f3008c601599e46505"
   },
   "operation": "refresh",
   "project_classification": "brownfield",
   "scope_kind": "repository",
   "phase": "complete",
-  "generated_at": "2026-09-09T16:30:00Z",
+  "generated_at": "2026-09-09T16:57:49.171370+00:00",
   "repository_root": ".",
   "scope": [
     "."
   ],
   "source_snapshot": {
     "basis": "HEAD+worktree",
-    "revision": "fe9c3fe06b919302d322994438a8fbb177c8b2a0",
+    "revision": "de073eee2e9a0c516734ae4bb9afe70b0e6d194a",
     "branch": "main",
-    "worktree_status": [],
+    "worktree_status": [
+      " M .agents/project-context.md",
+      " M context/map/INDEX.md",
+      " M context/map/architecture-and-flows.md",
+      " M context/map/delivery-and-verification.md",
+      " M context/map/documentation-index.md",
+      " M context/map/git-and-pr-history.md",
+      " M context/map/manifest.json",
+      " M context/map/risks-and-unknowns.md",
+      " M context/map/technology.md",
+      " M mercure/.agents/project-context.md",
+      "?? .agents/skills/",
+      "?? .ai/",
+      "?? .codex/"
+    ],
     "untracked_nonignored_paths": [
       {
         "path": ".ai/",
-        "status": "untracked, not gitignored, secret-bearing (launch-key); excluded, not read"
+        "status": "pre-existing local tool state, excluded from delivery; contents not inventoried"
+      },
+      {
+        "path": ".agents/skills/",
+        "status": "pre-existing local tool state, excluded from delivery; contents not inventoried"
+      },
+      {
+        "path": ".codex/",
+        "status": "pre-existing local tool state, excluded from delivery; contents not inventoried"
       }
     ],
     "comparability": "comparable",
     "non_comparable_reasons": [],
-    "dirty_tracked_fingerprints": [],
-    "inventory_fingerprint": "e37231c7b361e01ca2534459c803dc6e4a515deab86b59cc40e6614e9486c65b",
-    "fingerprint_method": "sha256 over the sorted list of `git ls-files -s` (mode, blob-sha, path) tuples for the clean tracked worktree; untracked non-ignored paths recorded separately by path/status only (no secret content hashed)"
+    "dirty_tracked_fingerprints": [
+      {
+        "path": ".agents/project-context.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "8aaf0e8566fd5c7f41f24bd0d085aa1795157d2954f5bac359c579f1ed45e1af"
+      },
+      {
+        "path": "context/map/INDEX.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "a3754e6130231f5f103df85d1679472f9e665d3dfff8b4945f5662c7a5f3e7b5"
+      },
+      {
+        "path": "context/map/architecture-and-flows.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "acad4aff7af1d4a079b9da8497e9598a005c6e529330c64cde8a32597c94122b"
+      },
+      {
+        "path": "context/map/delivery-and-verification.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "0802364f0cc0345389a4bf0eff65916d41e5aa1b3d011507b022d79812d535a8"
+      },
+      {
+        "path": "context/map/documentation-index.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "ed4e8ef6d81d818606e01287700af5a6f9f44d27970523483be42e719ad2e338"
+      },
+      {
+        "path": "context/map/git-and-pr-history.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "8bf1b483f6017ba6bbca79ee064627ad182d2ec6aaeb6ab29aac90c867aafb00"
+      },
+      {
+        "path": "context/map/risks-and-unknowns.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "4c0dbdc7163f05ce56659d9e4868137b4a8b2fe2eda6012472546255d9409f1c"
+      },
+      {
+        "path": "context/map/technology.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "22de82baa416b3b9f766accff409d8e94d52a744c9498a84e6122c3191be0f5c"
+      },
+      {
+        "path": "mercure/.agents/project-context.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "99f3d553d9d59e2fa1bdec45ab4ac63c62145283a131d32cdfd032c54f45463c"
+      }
+    ],
+    "inventory_fingerprint": "8146709887ec84d28b94668b43427532310ebe89d1c823f6b309510f040f5d5f",
+    "fingerprint_method": "sha256 of sorted tracked [path,sha256-current-bytes] records; env values excluded except public examples; manifest represented by self-digest marker. Untracked tool roots recorded by metadata only."
   },
   "git_history": {
     "available": true,
     "shallow": false,
-    "commit_window": "full history, 179 commits, 2026-05-21..2026-09-09 (168 commits since the prior map's baseline 91f8f85)",
+    "commit_window": "full history through de073eee2e9a0c516734ae4bb9afe70b0e6d194a, 186 commits; retained hotspot window through fe9c3fe with follow-up delta documented",
     "pr_provider": "github.com (gh CLI, authenticated read-only)",
     "pr_window": "gh pr list --repo muszkin/kivvi-click --state all --limit 20, queried 2026-09-09: 0 results"
   },
@@ -107,6 +175,14 @@
     {
       "path": "context/implementation-runs",
       "reason": "generated execution evidence (hundreds of files), federated via related_artifacts and cited directly where material, not traversed directory-by-directory"
+    },
+    {
+      "path": ".agents/skills",
+      "reason": "pre-existing untracked local tool configuration; outside this delivery"
+    },
+    {
+      "path": ".codex",
+      "reason": "pre-existing untracked local tool configuration; outside this delivery"
     }
   ],
   "unreadable_paths": [],
@@ -454,6 +530,16 @@
       "path": "vendor",
       "coverage": "excluded",
       "reason": "gitignored leftover build artifact from the deleted PHP stack, root-owned on disk, not regenerated by this stack"
+    },
+    {
+      "path": ".agents/skills",
+      "coverage": "excluded",
+      "reason": "pre-existing local tool configuration; not modified"
+    },
+    {
+      "path": ".codex",
+      "coverage": "excluded",
+      "reason": "pre-existing local tool configuration; not modified"
     }
   ],
   "remote_sources": [
@@ -469,7 +555,7 @@
       "repo": "muszkin/kivvi-click",
       "query": "gh api repos/muszkin/kivvi-click --jq '.default_branch,.pushed_at'",
       "queried_at": "2026-09-09T16:22:00Z",
-      "result": "default_branch=main, pushed_at=2026-09-09T08:53:48Z (predates the 168 local commits — local main not yet pushed)"
+      "result": "Historical query superseded: migration pushed at c696ef6, formatting repair pushed at de073ee; current CI linked in delivery-and-verification.md"
     }
   ],
   "related_artifacts": [
@@ -485,7 +571,7 @@
       "source_revision": null,
       "generated_at": "2026-06-25T00:00:00Z",
       "freshness": "stale",
-      "content_sha256": "b3f94163335a2db7c2f043a1d1107efb94955956",
+      "content_sha256": "c30ffd910d49936338d06b395ed50143b20839c34c5674b92e5d8ac33542fcd2",
       "approval_status": "draft",
       "conflicts": [
         "describes a homepage-only baseline; a full panel prototype exists"
@@ -511,7 +597,7 @@
       "source_revision": null,
       "generated_at": "2026-06-25T00:00:00Z",
       "freshness": "stale",
-      "content_sha256": "a5fec738a4933b8a052b759a80d7083e3abf74d5",
+      "content_sha256": "ead49bf5dec6e9ef5e05a1b75e213d7c023119f6d2637c18fd2ae2b42e2892d1",
       "approval_status": "draft",
       "conflicts": [
         "slices formally unimplemented while a full prototype exists"
@@ -536,7 +622,7 @@
       "source_revision": null,
       "generated_at": "2026-06-25T00:00:00Z",
       "freshness": "stale",
-      "content_sha256": "37e05cabfacdf1948d3c2fc4cdaefad7ef009216",
+      "content_sha256": "66703f1905ea85abfb694bf23b72c7505ab6c60bf539b0422c26465e8ccd3bed",
       "approval_status": "not-applicable",
       "conflicts": [],
       "referenced_by": [
@@ -558,7 +644,7 @@
       "source_revision": null,
       "generated_at": "2026-06-25T00:00:00Z",
       "freshness": "stale",
-      "content_sha256": "b01ff3df855ba595e3e274dac6f2ebd7233b02b4",
+      "content_sha256": "7595268fe4c5b8bc059ac0f34ed2504a4388edfba3a345bedf6d11ca9e1c0598",
       "approval_status": "not-applicable",
       "conflicts": [
         "describes a stack that no longer exists"
@@ -580,7 +666,7 @@
       "source_revision": null,
       "generated_at": "2026-06-25T00:00:00Z",
       "freshness": "stale",
-      "content_sha256": "788cd912ce1fb1f52836c1e513761d6a8870749a",
+      "content_sha256": "e4fba9fcfdd545757ad87f0a809c5e1ad26e78c1d1cbb0e132faf358e5fe943f",
       "approval_status": "not-applicable",
       "conflicts": [
         "describes a stack that no longer exists"
@@ -602,7 +688,7 @@
       "source_revision": null,
       "generated_at": "2026-09-08T00:00:00Z",
       "freshness": "current",
-      "content_sha256": "c16758c1ad461888b353390d7ac536cb48274131",
+      "content_sha256": "c2f97c54766192b24f61e0eb44dc21d06e6b49e7d9570644ed10218bcdf6be1c",
       "approval_status": "not-applicable",
       "conflicts": [],
       "referenced_by": [
@@ -625,7 +711,7 @@
       "source_revision": null,
       "generated_at": "2026-09-08T00:00:00Z",
       "freshness": "current",
-      "content_sha256": "8f991de95742450db2235a75970ab27ce9e35eab",
+      "content_sha256": "87b5bf2e4b833be6cd4fa4077e23bb5561b37c285c9e9540f585926abea73285",
       "approval_status": "approved",
       "conflicts": [],
       "referenced_by": [
@@ -712,7 +798,7 @@
       "source_revision": "4539828",
       "generated_at": "2026-09-09T16:07:00Z",
       "freshness": "current",
-      "content_sha256": "e5ee2201411c9c82e442953678bf76114d3d0db4",
+      "content_sha256": "2477d32c9af7329564a4c3349242bb2cc2f7a3c6ec64d3c572cba12ebbd486f5",
       "approval_status": "not-applicable",
       "conflicts": [],
       "referenced_by": [
@@ -741,7 +827,7 @@
       "source_revision": null,
       "generated_at": "2026-09-09T00:00:00Z",
       "freshness": "current",
-      "content_sha256": "4cbe1070ae2aea5c3cf0b49064a976b86d575ede",
+      "content_sha256": "0a1451b20fe4e02fcea0d6722ebcac7268b9f6a1dd63fecb8619123330664498",
       "approval_status": "approved",
       "conflicts": [],
       "referenced_by": [
@@ -768,7 +854,7 @@
       "source_revision": null,
       "generated_at": "2026-09-09T00:00:00Z",
       "freshness": "current",
-      "content_sha256": "a502fddf0ef212207cb93104a016c5b91dd6b7d7",
+      "content_sha256": "88865aed3b5e6223a89e301a9a5a7b0bc91a202fcd9fdce1d4609405d1bfe8bb",
       "approval_status": "approved",
       "conflicts": [],
       "referenced_by": [
@@ -817,9 +903,10 @@
         "docs/adr/0001-serialize-requests-per-session-like-php.md",
         "docs/adr/0002-spa-reload-scroll-restoration-via-router-scrollbehavior.md"
       ],
-      "input_fingerprint": "2afdd88e436aba43b21ff25ec9de6672fbf93c88de0db0d77e65801026ebd8d3",
-      "output_sha256": "3ac19a263456c34af5b43dda31b9d5bece0acd41d1a6278f676bc70b370e025b",
-      "generated_at": "2026-09-09T16:30:00Z"
+      "input_fingerprint": "1bc6247ff48aa20041a8b29ed6deb16b6e8e04f5dedc3bcf3ae1de09c7ea4e16",
+      "output_sha256": "a3754e6130231f5f103df85d1679472f9e665d3dfff8b4945f5662c7a5f3e7b5",
+      "generated_at": "2026-09-09T16:57:49.171370+00:00",
+      "input_fingerprint_method": "sha256 of sorted JSON [path,sha256-current-bytes] records"
     },
     {
       "path": "context/map/project-overview.md",
@@ -829,9 +916,10 @@
         ".claude/skills/product-spec/SKILL.md",
         "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/closeout.md"
       ],
-      "input_fingerprint": "1899d34be0bbad59e0317109cd925dde1151ec72c435e281c6d40d9e6e4b2ac3",
+      "input_fingerprint": "027230bbe91b9b615edd8dc43cc0a344da92ac354e310cd326f89fa1184ae10b",
       "output_sha256": "e2e8bc4ef1400ee7c417e5ee24744dc914a45703e1736ba9f6f8e38207eaec65",
-      "generated_at": "2026-09-09T16:30:00Z"
+      "generated_at": "2026-09-09T16:57:49.171370+00:00",
+      "input_fingerprint_method": "sha256 of sorted JSON [path,sha256-current-bytes] records"
     },
     {
       "path": "context/map/technology.md",
@@ -845,9 +933,10 @@
         ".github/workflows/build.yml",
         ".env.prod.docker.example"
       ],
-      "input_fingerprint": "c65f6f2640273e9ffa130b735b649f4652b4d5187f3e7f56259e9bfdcfdeafaf",
-      "output_sha256": "dfea7e242478e61f30d45737d80cdb0937ed3b949c3b3231ffb704b3c26f504f",
-      "generated_at": "2026-09-09T16:30:00Z"
+      "input_fingerprint": "688a570080864b1c5f12f25cea6817f7eb70a33081af01685d50abb6cb856e9b",
+      "output_sha256": "22de82baa416b3b9f766accff409d8e94d52a744c9498a84e6122c3191be0f5c",
+      "generated_at": "2026-09-09T16:57:49.171370+00:00",
+      "input_fingerprint_method": "sha256 of sorted JSON [path,sha256-current-bytes] records"
     },
     {
       "path": "context/map/architecture-and-flows.md",
@@ -861,9 +950,10 @@
         "docs/adr/0001-serialize-requests-per-session-like-php.md",
         "docs/adr/0002-spa-reload-scroll-restoration-via-router-scrollbehavior.md"
       ],
-      "input_fingerprint": "6637c0cee397dbc5831ba3ace848f855367e6f9dc5a4dcacc380c2f603d2a67a",
-      "output_sha256": "394cf0314e2250d9e79c3acabff6c4fc08a395e24fc410d6f7ffcbc8b7e57ef1",
-      "generated_at": "2026-09-09T16:30:00Z"
+      "input_fingerprint": "296c64166193454d3e0704b68415739bdf98e153914a86234cf5c1663ba44629",
+      "output_sha256": "acad4aff7af1d4a079b9da8497e9598a005c6e529330c64cde8a32597c94122b",
+      "generated_at": "2026-09-09T16:57:49.171370+00:00",
+      "input_fingerprint_method": "sha256 of sorted JSON [path,sha256-current-bytes] records"
     },
     {
       "path": "context/map/dependencies.md",
@@ -876,9 +966,10 @@
         "mercure/Caddyfile",
         ".github/workflows/build.yml"
       ],
-      "input_fingerprint": "d679af319e2f3403aa071f21a3f3c1c705759348cc74f28b229b8d483c7c9efb",
+      "input_fingerprint": "165bcf74f648c7fc65f10ab8da352e4507f36ea9c6b5c03c7ba2525cea907fa7",
       "output_sha256": "e9485da829272f47ce96c3714a21b7f511be2b81081ba9e0a439ea1e90e027cf",
-      "generated_at": "2026-09-09T16:30:00Z"
+      "generated_at": "2026-09-09T16:57:49.171370+00:00",
+      "input_fingerprint_method": "sha256 of sorted JSON [path,sha256-current-bytes] records"
     },
     {
       "path": "context/map/documentation-index.md",
@@ -895,9 +986,10 @@
         "compose.prod.yaml",
         "mercure/Caddyfile"
       ],
-      "input_fingerprint": "ea2244af3642ee702ad131693c81f814be850cda3bb1f6a3f5e0f81aa1e2ef81",
-      "output_sha256": "0fa4ef46f35434a48df264f1b9583cbbc8451132bc7666b13424cb450a9517df",
-      "generated_at": "2026-09-09T16:30:00Z"
+      "input_fingerprint": "a8ca1895206609112eeccce2f4f13923f749a5c70aef55a082f53219341c06c6",
+      "output_sha256": "ed4e8ef6d81d818606e01287700af5a6f9f44d27970523483be42e719ad2e338",
+      "generated_at": "2026-09-09T16:57:49.171370+00:00",
+      "input_fingerprint_method": "sha256 of sorted JSON [path,sha256-current-bytes] records"
     },
     {
       "path": "context/map/delivery-and-verification.md",
@@ -908,17 +1000,19 @@
         ".github/workflows/build.yml",
         "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/cutover/con1-e2e.md"
       ],
-      "input_fingerprint": "3e039688a90eaeb7989fc3b0c0f6a3519c3a3a9554cc2ae5d52f4cb785177972",
-      "output_sha256": "c63557cfe5de556748274ac9e24372275a41ebef4120f4dbce7019eb956e1741",
-      "generated_at": "2026-09-09T16:30:00Z"
+      "input_fingerprint": "9e95ab8dbbeb4109855f704e30d76d88a28d766c9dcf1eb36cb1bae36a1addc7",
+      "output_sha256": "0802364f0cc0345389a4bf0eff65916d41e5aa1b3d011507b022d79812d535a8",
+      "generated_at": "2026-09-09T16:57:49.171370+00:00",
+      "input_fingerprint_method": "sha256 of sorted JSON [path,sha256-current-bytes] records"
     },
     {
       "path": "context/map/git-and-pr-history.md",
       "ownership": "managed-block",
       "inputs": [],
-      "input_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "output_sha256": "2884f58fa6cc80ab2f212c293bc40ebda500360f3011979078785bcca139ebbc",
-      "generated_at": "2026-09-09T16:30:00Z"
+      "input_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "output_sha256": "8bf1b483f6017ba6bbca79ee064627ad182d2ec6aaeb6ab29aac90c867aafb00",
+      "generated_at": "2026-09-09T16:57:49.171370+00:00",
+      "input_fingerprint_method": "sha256 of sorted JSON [path,sha256-current-bytes] records"
     },
     {
       "path": "context/map/risks-and-unknowns.md",
@@ -931,9 +1025,10 @@
         "mercure/Caddyfile",
         "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/closeout.md"
       ],
-      "input_fingerprint": "90cca492c2b97b2bef7efd153fa5566e807e91cc2f04a5bf594627907d18abbb",
-      "output_sha256": "026fb8ffa251157ab35cb7d583de1fbe92da8d2a5564e2810b5fd5a00c332de6",
-      "generated_at": "2026-09-09T16:30:00Z"
+      "input_fingerprint": "0ed60d231ddcb4a32151b7edf4b1ca26016f62877056ccb4fb4f3a3dc1150c6b",
+      "output_sha256": "4c0dbdc7163f05ce56659d9e4868137b4a8b2fe2eda6012472546255d9409f1c",
+      "generated_at": "2026-09-09T16:57:49.171370+00:00",
+      "input_fingerprint_method": "sha256 of sorted JSON [path,sha256-current-bytes] records"
     },
     {
       "path": "context/map/diagrams/module-dependencies.mmd",
@@ -943,9 +1038,10 @@
         "frontend/package.json",
         "mercure/Caddyfile"
       ],
-      "input_fingerprint": "cba1c59a2e4660a259e947e230043d11c45fd6165d199678e567058bde5dcdb8",
+      "input_fingerprint": "aaa0a0af48b1f9cb4dbb88867374d5b09273e53cd3e62d2560386f99c9095a7e",
       "output_sha256": "ab89b838176409c7e2cd42a44c930bf3e9f3c5cb4557d0e954505cdfbf6e5cf4",
-      "generated_at": "2026-09-09T16:30:00Z"
+      "generated_at": "2026-09-09T16:57:49.171370+00:00",
+      "input_fingerprint_method": "sha256 of sorted JSON [path,sha256-current-bytes] records"
     },
     {
       "path": "context/map/diagrams/primary-runtime-flow.mmd",
@@ -954,9 +1050,10 @@
         "backend/pom.xml",
         "mercure/Caddyfile"
       ],
-      "input_fingerprint": "4dd6c8607fd5b3fd768fa2ee0121d6e4266b2afdeb3c1de9098f255a5da06f4e",
+      "input_fingerprint": "a5d3806ce36c2cec0fc830ce8e039b1eb245bc456d7e1984183cd7af26b5b015",
       "output_sha256": "ce0005f660aaa45eb7ed05fac69850a55ab594d0f0a3eacab83470b1554d86e9",
-      "generated_at": "2026-09-09T16:30:00Z"
+      "generated_at": "2026-09-09T16:57:49.171370+00:00",
+      "input_fingerprint_method": "sha256 of sorted JSON [path,sha256-current-bytes] records"
     },
     {
       "path": ".agents/project-context.md",
@@ -968,9 +1065,10 @@
         "compose.yaml",
         "compose.prod.yaml"
       ],
-      "input_fingerprint": "17f6b13612899043ee6e184e44dd8942eee81ed8ea4fa62b52b1f4a75dc73c70",
-      "output_sha256": "a0cbce8bc684ed72582b820877e71fbf8f5f32ba1f6ff1383d57db0dc783177f",
-      "generated_at": "2026-09-09T16:30:00Z"
+      "input_fingerprint": "ce8062c5a0e5da19862484adea09b1b821cd79b1c9fd4b84772323494fcf3b3d",
+      "output_sha256": "8aaf0e8566fd5c7f41f24bd0d085aa1795157d2954f5bac359c579f1ed45e1af",
+      "generated_at": "2026-09-09T16:57:49.171370+00:00",
+      "input_fingerprint_method": "sha256 of sorted JSON [path,sha256-current-bytes] records"
     },
     {
       "path": "backend/.agents/project-context.md",
@@ -980,9 +1078,10 @@
         "backend/README.md",
         "docs/adr/0001-serialize-requests-per-session-like-php.md"
       ],
-      "input_fingerprint": "12502338e14c06501766706bc7b4a7badb298c7ca5cf4071f03b2a91804208b2",
+      "input_fingerprint": "765d6510b35a5210236183eb41a6c3b1d455a8493fb86744c390adcb3105b2e4",
       "output_sha256": "f50ea337a110b831f32bd3910e58da82d437213e6fda7fb03ae0492a6f4248cf",
-      "generated_at": "2026-09-09T16:30:00Z"
+      "generated_at": "2026-09-09T16:57:49.171370+00:00",
+      "input_fingerprint_method": "sha256 of sorted JSON [path,sha256-current-bytes] records"
     },
     {
       "path": "frontend/.agents/project-context.md",
@@ -993,9 +1092,10 @@
         "frontend/README.md",
         "docs/adr/0002-spa-reload-scroll-restoration-via-router-scrollbehavior.md"
       ],
-      "input_fingerprint": "0eb02f9249813359c60907b494407791ea0e59997f78575e97ee2509018a4847",
-      "output_sha256": "90e7a98be17d456d2efd62950ba34f59389050472e3c83f2fd9d264f0f049555",
-      "generated_at": "2026-09-09T16:30:00Z"
+      "input_fingerprint": "6da98de2424908e413f9061b26c948904bdd06a4b9f0db8353e67f470d883a37",
+      "output_sha256": "af5b2fdf2c8133614e93978b3512568d8519fd5f0fac52d026149e3e66b55740",
+      "generated_at": "2026-09-09T16:57:49.171370+00:00",
+      "input_fingerprint_method": "sha256 of sorted JSON [path,sha256-current-bytes] records"
     },
     {
       "path": "mercure/.agents/project-context.md",
@@ -1005,9 +1105,10 @@
         "compose.yaml",
         "compose.prod.yaml"
       ],
-      "input_fingerprint": "562b7ad45b7c2d3054537b30bb6f69a0ad77ef64c81e3dbb85b279f9365d54bb",
-      "output_sha256": "d0ba3bcc9fe583bc4564648b219b4acbd2fd55431815d807bf56c8e130f8d933",
-      "generated_at": "2026-09-09T16:30:00Z"
+      "input_fingerprint": "3c28f22c8d2d4c156ea1884157e7c57849d259d5d281d71f9cf85ce121af389d",
+      "output_sha256": "99f3d553d9d59e2fa1bdec45ab4ac63c62145283a131d32cdfd032c54f45463c",
+      "generated_at": "2026-09-09T16:57:49.171370+00:00",
+      "input_fingerprint_method": "sha256 of sorted JSON [path,sha256-current-bytes] records"
     },
     {
       "path": "tools/migration-verify/.agents/project-context.md",
@@ -1017,9 +1118,10 @@
         "tools/migration-verify/budget.json",
         "tools/migration-verify/deviations.json"
       ],
-      "input_fingerprint": "fd6a3cae197f1bf680185dbb6d2629eccf0f53f682a7976b115cc0fa4af1ef5f",
+      "input_fingerprint": "9321546d52cfa45c3840657593b1b0c342e18f11ae53564541b8f0f21eb9e598",
       "output_sha256": "969593e8e7aa53416c84f52be98a36be2b34c9836bff882dd2824cdfe2b869ed",
-      "generated_at": "2026-09-09T16:30:00Z"
+      "generated_at": "2026-09-09T16:57:49.171370+00:00",
+      "input_fingerprint_method": "sha256 of sorted JSON [path,sha256-current-bytes] records"
     },
     {
       "path": "tests/e2e/.agents/project-context.md",
@@ -1028,9 +1130,10 @@
         "tests/e2e/package.json",
         "tests/e2e/playwright.config.ts"
       ],
-      "input_fingerprint": "bc67dde0d54ba4f27cd2a63563b40a75f2b854a7ce44e61c28fe18be7a395fab",
+      "input_fingerprint": "63ee671db3461604d6b564adddd0f680b937f0de8b2a1af6bfc55001940a3b6c",
       "output_sha256": "e50896f8c657a802d6a80df5c949d7aaf0377f3ea8389e6b6738dfc59a3cb26f",
-      "generated_at": "2026-09-09T16:30:00Z"
+      "generated_at": "2026-09-09T16:57:49.171370+00:00",
+      "input_fingerprint_method": "sha256 of sorted JSON [path,sha256-current-bytes] records"
     }
   ],
   "verdicts": {
@@ -1041,8 +1144,8 @@
     "git": "partial",
     "agent_discovery": "partial",
     "scaffold": "not-applicable",
-    "tests": "partial",
-    "ci": "partial",
+    "tests": "complete",
+    "ci": "complete",
     "deploy_smoke": "partial",
     "e2e": "partial",
     "freshness": "complete",
@@ -1050,13 +1153,12 @@
   },
   "verdict_details": {
     "git": {
-      "reason": "gh CLI queried and returned 0 PRs (confirmed, not just unavailable); local main is 168 commits ahead of and 1 behind origin/main, so remote history does not reflect local reality",
+      "reason": "Migration and cleanup pushed; remote history merged. No PR review history exists.",
       "missing_evidence": [
-        "any PR/review history to analyze (none exists)",
-        "remote validation of the 168 unpushed local commits"
+        "independent PR review evidence"
       ],
       "impact": "co-change/hotspot analysis is entirely local-history-based; no independent review signal exists to cross-check",
-      "next_action": "push local main to origin if/when the operator wants remote history and CI to reflect the current state",
+      "next_action": "No push obligation remains; future changes may use PR review.",
       "fallback": "local git log analysis (see git-and-pr-history.md)",
       "owner": "Piotr Mucha"
     },
@@ -1071,24 +1173,11 @@
       "owner": "Unknown"
     },
     "tests": {
-      "reason": "this refresh did not execute tests itself (read-only mandate); a separate verification session (cutover/con1-e2e.md, 2026-09-09T16:04-16:07Z) already ran the e2e suite and performance budgets against production and is cited as evidence, but backend/frontend unit+integration suites were last actually executed by the migration's own final gates (pre-cutover, on SHA 9205294), not re-run after CON-1's code changes to AGENTS.md/CLAUDE.md/README.md (which do not touch backend/frontend source, so no regression is expected, but this is inferred, not verified)",
-      "missing_evidence": [
-        "a ./mvnw verify and frontend gate run on the current HEAD fe9c3fe"
-      ],
-      "impact": "low-to-moderate: CON-1's commits only touched docs/CI-config, not backend/frontend source, so a regression is unlikely, but unverified",
-      "next_action": "run `./mvnw -q verify` (backend) and the frontend gate sequence on current HEAD",
-      "fallback": "cite the final-gates evidence pre-cutover plus the post-CON-1 e2e/performance run",
-      "owner": "maintainer"
+      "reason": "Full backend verify and frontend typecheck/lint/format/unit/integration/build passed in CI 34379637919 on de073ee. One backend RED-proof test intentionally disabled; 12 existing frontend lint warnings are non-blocking."
     },
     "ci": {
-      "reason": "workflow file inspected in full; gh run list was not queried in this refresh",
-      "missing_evidence": [
-        "current GitHub Actions run status for HEAD"
-      ],
-      "impact": "cannot confirm the workflow actually ran green for the CON-1 commits (they were also never pushed to origin, so CI would not have triggered on them at all)",
-      "next_action": "push to origin and/or query `gh run list` after pushing",
-      "fallback": "workflow file content verified current and correct for this stack",
-      "owner": "Piotr Mucha"
+      "reason": "Build run 34379637919 on de073eee2e9a0c516734ae4bb9afe70b0e6d194a completed SUCCESS: backend, frontend, backend-image all PASS.",
+      "url": "https://github.com/muszkin/kivvi-click/actions/runs/34379637919"
     },
     "deploy_smoke": {
       "reason": "production was inspected read-only (`docker ps`) and found healthy; no deploy action was taken by this refresh",
@@ -1111,10 +1200,9 @@
       "owner": "maintainer"
     },
     "risks": {
-      "reason": "R8 (issue tracker) and R5 (compose project-name collision) remain genuinely undecided/unresolved; several other risks were newly closed by this refresh (R2,R6,R7,R9,R15,R16,R18,R19) but two new risks were opened (R22, R23) from evidence found during this refresh",
+      "reason": "R22/R23 resolved; R8 issue tracker and documented R5 project-name collision remain.",
       "missing_evidence": [
-        "operator decision on R8 (Linear vs GitHub Issues)",
-        "operator decision on R22 (fix or accept the stale format hook)"
+        "operator decision on R8 (Linear vs GitHub Issues)"
       ],
       "impact": "documentation-accuracy and workflow-consistency gaps, not functional risks",
       "next_action": "see risks-and-unknowns.md next-action column per row",
@@ -1123,20 +1211,25 @@
     }
   },
   "contradictions": [
-    "R8: CLAUDE.md/AGENTS.md say GitHub Issues; the migration's own closeout ledger and commit 8047d3e say Linear re-pointing was done",
-    "R23: several canonical config files (.env.prod.docker.example, compose.yaml, compose.prod.yaml, mercure/Caddyfile) still contain prose describing a since-deleted old stack or a since-completed 'not yet deployed' state"
+    "R8: CLAUDE.md/AGENTS.md say GitHub Issues; the migration's own closeout ledger and commit 8047d3e say Linear re-pointing was done"
   ],
   "open_questions": [
-    "Should local main be pushed to origin (currently 168 ahead, 1 behind)?",
-    "Is Linear or GitHub Issues the actual issue tracker going forward (R8)?",
-    "Should .claude/settings.json's format hook be extended to *.java/*.vue, or is explicit spotless:apply/npm run format the accepted permanent workflow (R22)?"
+    "Is Linear or GitHub Issues the actual issue tracker going forward (R8)?"
   ],
   "uncovered_paths": [],
   "next_actions": [
-    "Push local main to origin if the operator wants remote history/CI to reflect current state",
-    "Resolve R8 (issue tracker) explicitly",
-    "Re-run ./mvnw verify and the frontend gate sequence on current HEAD if a stronger same-SHA test signal is wanted beyond the pre-cutover final gates + post-CON-1 e2e/performance evidence",
-    "Consider a follow-up edit pass on the stale 'old stack'/'both stacks' comments named in R23 (out of scope for this refresh, which does not edit product config)"
+    "Resolve R8 (issue tracker) explicitly"
   ],
-  "coverage_granularity_note": "A rolled-up directory entry covers its entire subtree (e.g. \"backend/src/main/java\" covers every backend/src/main/java/click/kivvi/** subpackage). Deep, uniform package/component leaves are not each given a separate manifest line, consistent with the reconnaissance reference's \"roll small structural leaves into their parent\" rule and this repository's own prior manifests. Verified: every directory on disk has either a direct entry or a covered ancestor (checked programmatically during this refresh)."
+  "coverage_granularity_note": "A rolled-up directory entry covers its entire subtree (e.g. \"backend/src/main/java\" covers every backend/src/main/java/click/kivvi/** subpackage). Deep, uniform package/component leaves are not each given a separate manifest line, consistent with the reconnaissance reference's \"roll small structural leaves into their parent\" rule and this repository's own prior manifests. Verified: every directory on disk has either a direct entry or a covered ancestor (checked programmatically during this refresh).",
+  "refresh_scope": {
+    "changed_boundaries": [
+      "root configuration and instructions",
+      "CI",
+      "Mercure comments",
+      "frontend generated context formatting",
+      "backend Javadoc formatting"
+    ],
+    "retained": "Application behavior, dependencies, routes and architecture unchanged; historical test/production observations retain timestamps.",
+    "validated_prior_manifest_digest": "f5ec93af5687052521e9e75270d034eadede225e2e6e08a116eb4d6f31471279"
+  }
 }

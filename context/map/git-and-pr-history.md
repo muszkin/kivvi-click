@@ -3,17 +3,14 @@
 
 ## Window
 
-- Repository: `origin git@github.com:muszkin/kivvi-click.git`, branch `main`, HEAD
-  `fe9c3fe06b919302d322994438a8fbb177c8b2a0`.
-- Full history, not shallow: 179 commits total, 2026-05-21 → 2026-09-09. No tags.
-- **Local `main` is 168 commits ahead of `origin/main` and 1 behind** (`git status
-  --branch`/`git log HEAD..origin/main` → one commit, `3cf3dda "format"`, exists only on the
-  remote). The entire migration — plan, run ledger, squash merge, cutover, CON-1 — has been
-  committed locally but **not pushed**. See risk note below.
-- Working tree: clean tracked files; untracked `.ai/` (excluded, contains a secret) only.
-- Author since `91f8f85`: `Piotr Mucha <muszkin@gmail.com>` for all 168 commits (single
-  contributor for this whole window; two earlier author identities from the May 2026 scaffold
-  are unchanged from the prior refresh, no `.mailmap`).
+- Repository: `origin git@github.com:muszkin/kivvi-click.git`, branch `main`, HEAD `de073eee2e9a0c516734ae4bb9afe70b0e6d194a`.
+- Full history, not shallow: 186 commits as of this refresh. No tags.
+- Migration and R22/R23 cleanup pushed to `origin/main` at `c696ef6` on 2026-09-09.
+- Remote commits `3cf3dda` and `ed8f7d5` integrated with a merge: deleted PHP files stay
+  deleted, and the self-hosted runner choice is carried into the current `build.yml`.
+- Untracked local tool state: `.ai/`, `.agents/skills/`, `.codex/`; excluded from this delivery.
+- Historical counts below retain their original window through `fe9c3fe`; they are not
+  current cumulative hotspot counts. Follow-up changes are hook/config/docs only.
 
 ## Commits (window since the prior map's baseline `91f8f85`, 168 commits — grouped, not
 itemized; full detail in `git log`)
@@ -84,10 +81,8 @@ verified by this refresh (Linear was not queried).
 
 Provider: GitHub via `gh` (already authenticated, read-only). `gh pr list --state all --limit
 20` (queried 2026-09-09, this refresh): **0 pull requests**, same as the prior refresh — every
-commit above, including the entire migration, landed as direct commits to local `main`, and
-local `main` itself has not been pushed to `origin` (1 commit behind, 168 ahead — see Window).
-No branch protection or review signals available; `origin/main`'s own tip (`3cf3dda`, "format")
-was never fetched into a local branch review. Issue tracking per `CLAUDE.md`/`AGENTS.md` is
+commit above, including the entire migration, landed as direct commits to `main`. The
+migration and cleanup are now pushed. No independent PR review signal exists. Issue tracking per `CLAUDE.md`/`AGENTS.md` is
 GitHub Issues, but the closeout ledger and user memory both reference a Linear backlog — see R8
 in `risks-and-unknowns.md`, unresolved.
 

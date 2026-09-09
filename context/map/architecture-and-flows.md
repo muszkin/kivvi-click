@@ -137,9 +137,7 @@ monitoring gap tracked as R17/PIO-112 in `risks-and-unknowns.md`.
   directory only): `mercure` publishes plain HTTP on `${HTTP_PORT:-23456}` only; TLS terminates
   at an external reverse proxy for `https://kivvi.click`; `database` uses its own named volumes
   (`kivvi-next_database_data`, `kivvi-next_mercure_data`, `kivvi-next_mercure_config` —
-  `compose.prod.yaml` explicit `name:` overrides; the `_next` naming and the comments explaining
-  it as isolation from a now-deleted old-stack `*_prod` volume set are pre-cutover leftovers, see
-  R23). Observed running and healthy 2026-09-09T16:20Z (`docker ps`): `kivvi-click-api-1`,
+  `compose.prod.yaml` explicit `name:` overrides; these live volume names must stay stable). Observed running and healthy 2026-09-09T16:20Z (`docker ps`): `kivvi-click-api-1`,
   `kivvi-click-mercure-1` (both started ~13:57-16:02Z, i.e. redeployed after the CON-1 code
   commits), `kivvi-click-database-1` (continuously up since the CUT-1 cutover, 14:18:25Z).
 - No per-journey worktree leasing is needed for routine work now that the migration run has
@@ -167,9 +165,7 @@ radius:
 ## Contradictions
 
 See `risks-and-unknowns.md` — in particular R20 (fixtures-as-Java-classes drift from the plan,
-accepted), R21 (host resource contention observed during verification, historical), R22
-(stale format-hook file-extension matcher), R23 (stale "old stack"/"both stacks" comments left
-in `compose.yaml`, `compose.prod.yaml`, `mercure/Caddyfile`, `.env.prod.docker.example`), plus
-the carried-over R3/R5/R8/R17. R2 and R18 were specific to the now-deleted Symfony/FrankenPHP
+accepted), R21 (host resource contention observed during verification, historical), plus
+the carried-over R3/R5/R8/R17. R22/R23 were resolved in `c846294`. R2 and R18 were specific to the now-deleted Symfony/FrankenPHP
 stack and are resolved/moot; R2's underlying instruction files were rewritten by CON-1.
 <!-- END project-context-initializer:artifact -->

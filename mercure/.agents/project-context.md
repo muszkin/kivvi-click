@@ -5,7 +5,7 @@
 | --- | --- |
 | Path | `mercure/` |
 | Scope | Mercure hub configuration — the stack's public edge |
-| Source revision | `fe9c3fe06b919302d322994438a8fbb177c8b2a0` on `main` |
+| Source revision | `de073eee2e9a0c516734ae4bb9afe70b0e6d194a` on `main` |
 | Refreshed | 2026-09-09 |
 | Coverage role | `own` (single file, no children) |
 
@@ -21,9 +21,7 @@ hub itself at `/.well-known/mercure*`, and reverse-proxies everything else to th
 `api` service (`../backend/`). This is now the **only** public entry point for the application —
 the migration that introduced this container has completed cutover; there is no longer a
 parallel FrankenPHP-based edge to compare against (that container/Caddyfile was deleted by the
-migration's CON-1 cleanup, though the file header comment in `Caddyfile` itself still says it
-"mirrors `frankenphp/Caddyfile`'s shape" — a harmless but stale cross-reference, see R23 in
-`../context/map/risks-and-unknowns.md`).
+migration's CON-1 cleanup). R23 corrected the file header; Caddy directives are unchanged.
 
 ## Invariants (do not break)
 
@@ -81,8 +79,8 @@ over its access-log window).
   to publish only plain HTTP on `${HTTP_PORT:-23456}` and drops the https/http3 entries — TLS
   terminates at the external `kivvi.click` proxy. Container name `kivvi-click-mercure-1`,
   observed healthy (`docker ps`, 2026-09-09T16:20Z).
-- This is the **only** container with a published host port in either compose file — `api` and
-  `database` are reachable only over the internal compose network.
+- In production this is the **only** container with a published host port. Dev also publishes
+  PostgreSQL on a random host port; `api` stays internal in both environments.
 
 ## Evidence paths
 

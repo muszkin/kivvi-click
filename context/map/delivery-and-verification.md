@@ -3,10 +3,33 @@
 
 Labels: `documented` (in README/CLAUDE/AGENTS), `derived` (from config), `verified` (executed —
 either by a prior verification session, cited by evidence path, or Observed as executed by the
-migration run itself), `failed`, `not-run`. **This context refresh executed nothing itself**
-except read-only inspection (`git log`/`git status`, `docker ps`, `gh pr list`, file reads) —
-per its own mandate it does not run tests/CI/e2e. Every "verified" row below cites a specific
-evidence path from a prior session, not this refresh.
+migration run itself), `failed`, `not-run`. Historical evidence below retains its original
+revision/time. The post-migration follow-up added fresh local and GitHub Actions verification.
+
+## R22/R23 follow-up (2026-09-09)
+
+- `c846294`: Java/frontend hook corrected; Compose/Caddy comments and production template
+  cleaned. Real formatter probes passed for relative and absolute Java/Vue paths, protected
+  CSS stayed byte-identical, empty tool payload was a no-op. JDK 25 and installed frontend
+  dependencies are prerequisites (`AGENTS.md`).
+- Compose dev/prod normalized JSON matched the prior configuration using identical env input;
+  Caddy non-comment directives matched exactly. No production deployment was performed.
+- `c696ef6`: remote history integrated and migration pushed to `origin/main`; the remote
+  runner choice `[self-hosted, home]` is preserved for all three jobs in `build.yml`.
+- First CI run `34379318052` exposed formatting violations after migration: frontend generated
+  context Markdown and one Java Javadoc paragraph. Local gates reproduced both. `de073ee`
+  formats those files; application logic is unchanged.
+- Local frontend: typecheck PASS, lint PASS (12 existing warnings), Prettier PASS after the
+  Markdown repair, unit 169/169 PASS, integration 152/152 PASS, production build PASS.
+- Local backend: unit 299/299 PASS, integration 141 PASS and one deliberately disabled RED
+  proof; zero test failures/errors. Initial verify failed on Javadoc formatting; subsequent
+  Spotless apply/check PASS. Full verify passed in CI for `de073ee`.
+- Follow-up [Build run 34379637919](https://github.com/muszkin/kivvi-click/actions/runs/34379637919)
+  on `de073eee2e9a0c516734ae4bb9afe70b0e6d194a`: **backend PASS, frontend PASS,
+  backend-image PASS; overall SUCCESS**. This includes the full backend `mvnw verify`,
+  frontend typecheck/lint/format/unit/integration/build, and the actual Docker image build.
+- Self-hosted runners provision automatically: the repository runner list was temporarily
+  empty while jobs queued, then jobs started. An empty list alone is not an outage signal.
 
 ## Environments
 

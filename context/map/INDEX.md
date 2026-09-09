@@ -7,14 +7,17 @@
 | Scope | whole repository (`scope_kind: repository`) |
 | Operation | refresh |
 | Classification | brownfield (design-complete UI prototype + real event-ingestion flow; no domain entities yet) |
-| Source | `fe9c3fe06b919302d322994438a8fbb177c8b2a0` on `main`, clean tracked tree; untracked `.ai/` excluded |
-| Generated | 2026-09-08T13:17Z (initial) · refreshed 2026-09-09T16:20Z (this run, post-cutover/CON-1) |
-| Coverage / freshness | inventory complete, coverage complete, freshness complete; this refresh did **not** run tests/CI itself — see `delivery-and-verification.md` and manifest verdicts for what a prior verification session already proved green |
+| Source | `de073eee2e9a0c516734ae4bb9afe70b0e6d194a` on `main`; affected-scope refresh after R22/R23 and successful push; local tool state excluded |
+| Generated | 2026-09-08T13:17Z (initial) · refreshed 2026-09-09 (post-cutover/CON-1 and R22/R23 follow-up) |
+| Coverage / freshness | inventory complete, coverage complete, freshness complete; the follow-up ran local checks and observed CI — see `delivery-and-verification.md` and manifest verdicts for what a prior verification session already proved green |
 
 **Precedence:** current user instructions, `CLAUDE.md`/`AGENTS.md`, code, runtime behaviour and
 canonical docs outrank this generated map. Verify stale or high-risk claims before acting.
 
 ## What changed since the last map
+
+Follow-up: R22/R23 closed, remote commits integrated preserving old-stack deletions, and
+`main` pushed at `c696ef6`. All three CI jobs use `[self-hosted, home]` and passed for `de073ee` (run `34379637919`); see delivery evidence.
 
 The prior map (source `dae1696` on `migration/spring-vue`) described **two coexisting stacks**
 mid-migration. Since then: the migration reached `CUTOVER_READY`, `RR-1` (rollback rehearsal) and
@@ -84,8 +87,8 @@ federated `context/plans|research|migration-oracle|implementation-runs/**` evide
 - R8 Issue tracker: GitHub Issues (`CLAUDE.md`) vs Linear (memory, closeout ledger mentions re-pointing PIO-70..115) — `CLAUDE.md` still says GitHub Issues; contradiction not resolved by this refresh.
 - R12 This refresh did not itself run tests/CI/e2e; it relies on the migration run's own recorded evidence and the separately-run `cutover/con1-e2e.md` verification (2026-09-09T16:04-16:07Z).
 - R17 Production was down 2026-09-07 11:00 UTC → 2026-09-08 (database container exited, no restart policy); repaired, `restart: unless-stopped` added. Monitoring still absent (PIO-112).
-- R22 (new) `.claude/settings.json`'s post-edit format hook still matches only `*.php`/`*.ts` — stale for this Java/Vue stack (also noted in `AGENTS.md` itself).
-- R23 (new) `.env.prod.docker.example` and `compose.yaml`/`compose.prod.yaml`/`mercure/Caddyfile` still carry comments describing the old stack ("both stacks", "old stack only", "mirrors frankenphp/Caddyfile") that no longer apply now that only one stack exists.
+- R22 **resolved** in `c846294`: Java/Vue hook verified, including preservation of ignored design-system CSS.
+- R23 **resolved** in `c846294`: current-stack config comments and env template; Compose/Caddy runtime configuration unchanged.
 
 ## Freshness rule
 

@@ -79,17 +79,9 @@ affect the build.
 `compose.yaml`, `compose.prod.yaml`, `backend/src/main/resources/application.yml` (names only,
 not read): `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, `SPRING_DATASOURCE_PASSWORD`,
 `MERCURE_PUBLISHER_JWT_KEY`, `MERCURE_SUBSCRIBER_JWT_KEY`, `MERCURE_JWT_SECRET`, `MERCURE_URL` /
-`MERCURE_INTERNAL_URL` (a deliberately distinct substitution-variable name — `compose.yaml`'s own
-comment explains it avoids the repo-root `.env`'s pre-existing `MERCURE_URL` shadowing the
-internal publish URL with a public placeholder), `SERVER_NAME`, `HTTP_PORT`/`HTTPS_PORT`/
-`HTTP3_PORT`, `POSTGRES_DB`/`POSTGRES_USER`/`POSTGRES_PASSWORD`, `IMAGES_PREFIX`, `APP_ENV`,
-`APP_SECRET`.
-
-`.env.prod.docker.example` (prod-only) additionally declares `DEFAULT_URI`,
-`CADDY_MERCURE_PUBLIC_URL`, `CADDY_MERCURE_JWT_SECRET`, `POSTGRES_VERSION` — **these are leftover
-old-stack keys** (Symfony's absolute-URL generator, FrankenPHP's Caddy Mercure vars); they are
-dead configuration for this stack now that the old stack is gone. See R23 in
-`risks-and-unknowns.md`.
+`MERCURE_INTERNAL_URL` (injected into the API container as `MERCURE_URL`), `SERVER_NAME`,
+`HTTP_PORT`/`HTTPS_PORT`/`HTTP3_PORT`, `POSTGRES_DB`/`POSTGRES_USER`/`POSTGRES_PASSWORD`,
+`IMAGES_PREFIX`. The production template uses only current keys; R23 removed unused keys.
 
 Secret-bearing files present locally and ignored, not read: `.env.local`, `.env.prod.docker`,
 `.ai/cezar/launch-key`.

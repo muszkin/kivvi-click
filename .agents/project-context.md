@@ -1,7 +1,7 @@
 <!-- BEGIN project-context-initializer:context -->
 # Context: repository root (`.`)
 
-Source `fe9c3fe06b919302d322994438a8fbb177c8b2a0` (main), refreshed 2026-09-09. Index:
+Source `de073eee2e9a0c516734ae4bb9afe70b0e6d194a` (main), refreshed 2026-09-09. Index:
 `context/map/INDEX.md`, manifest: `context/map/manifest.json`. Coverage: `own`.
 
 ## Purpose
@@ -17,8 +17,7 @@ cleanup step (commits `7287390`, `25329ac`) and no longer exists on disk.
 
 - Instructions: `CLAUDE.md` (Claude Code), `AGENTS.md` (Codex) — both rewritten for the current
   stack by CON-1 (`fe9c3fe`, 2026-09-09); `.claude/skills/product-spec/SKILL.md` (product
-  truth); `.claude/settings.json` (format-on-edit hook — stale matcher, still `*.php`/`*.ts`
-  only, see R22).
+  truth); `.claude/settings.json` (Java Spotless and frontend Prettier hook; R22 resolved).
 - Decision records: `docs/adr/0001-serialize-requests-per-session-like-php.md`,
   `docs/adr/0002-spa-reload-scroll-restoration-via-router-scrollbehavior.md`.
 - Runtime: `compose.yaml` (dev/verification shape: `api`, `mercure`, `database`),
@@ -26,7 +25,7 @@ cleanup step (commits `7287390`, `25329ac`) and no longer exists on disk.
 - Quality: `.editorconfig`. Backend and frontend each own their own lint/format/test config —
   see their scoped contexts.
 - Env: `.env`/`.env.example` (tracked dev defaults), `.env.local` (ignored, host port overrides);
-  `.env.prod.docker.example` (tracked template, still carries some old-stack-only keys — R23),
+  `.env.prod.docker.example` (tracked current-stack template; R23 resolved),
   `.env.prod.docker` (ignored, real production secrets, never read).
 - CI: `.github/workflows/build.yml` — single workflow, three jobs (`backend`, `frontend`,
   `backend-image`).
@@ -76,8 +75,7 @@ directory only.
 Dev/prod compose project-name collision hazard (R5), issue-tracker contradiction — GitHub Issues
 per `CLAUDE.md` vs Linear in practice (R8), this refresh did not itself run tests/CI/e2e (R12),
 `.ai/` not ignored at root with a secret inside (R13), production monitoring still absent
-(R17/PIO-112), stale format-hook matcher (R22), stale "old stack"/"both stacks" comments left in
-several config files (R23), local `main` not pushed to `origin` (168 ahead, 1 behind). Full list
+(R17/PIO-112). R22/R23 are resolved; migration and fixes pushed at `c696ef6`. Full list
 in `context/map/risks-and-unknowns.md`.
 
 ## Child contexts
