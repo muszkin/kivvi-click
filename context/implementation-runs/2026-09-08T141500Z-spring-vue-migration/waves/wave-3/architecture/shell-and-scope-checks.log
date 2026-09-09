@@ -1,0 +1,147 @@
+=== Shell files touched this wave: imports ===
+-- frontend/src/router/scrollRestoration.ts --
+1:import type { RouterScrollBehavior } from "vue-router";
+-- frontend/src/router/localeHref.ts --
+1:import type { Router, RouteLocationNormalizedLoaded } from "vue-router";
+-- frontend/src/router/index.ts --
+import { createRouter, createWebHistory } from "vue-router";
+import { routes } from "./routes";
+import { scrollBehavior } from "./scrollRestoration";
+
+export const router = createRouter({
+    history: createWebHistory(),
+    routes,
+    // Hydration-aware equivalent of the browser's own reload/back-forward scroll restoration —
+    // see scrollRestoration.ts's own doc comment for how vue-router wires this in (it manages
+    // history.scrollRestoration and the popstate/pagehide listeners itself once this is set).
+    scrollBehavior,
+});
+-- frontend/src/stores/shell.ts --
+1:import { defineStore } from "pinia";
+-- frontend/src/components/organisms/Topbar.vue --
+2:import { computed } from "vue";
+3:import { useI18n } from "vue-i18n";
+4:import { useRoute, useRouter } from "vue-router";
+5:import Icon from "@/components/atoms/Icon.vue";
+6:import Kbd from "@/components/atoms/Kbd.vue";
+7:import { buildLocaleHref } from "@/router/localeHref";
+
+=== new backend package click.kivvi.infrastructure.session: layering placement ===
+backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java
+backend/src/main/java/click/kivvi/infrastructure/session/SessionLockRegistry.java
+backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationConfig.java
+-- grep for imports of infrastructure.session from domain/ or application/ (should be empty) --
+(none = clean)
+-- grep for who imports the three session classes anywhere in main sources (should be only the package itself) --
+backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationConfig.java
+backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java
+backend/src/main/java/click/kivvi/infrastructure/session/SessionLockRegistry.java
+
+=== top-level backend packages under click.kivvi (slices for the no-cycle rule) ===
+backend/src/main/java/click/kivvi
+backend/src/main/java/click/kivvi/infrastructure
+backend/src/main/java/click/kivvi/domain
+backend/src/main/java/click/kivvi/fixtures
+backend/src/main/java/click/kivvi/application
+backend/src/main/java/click/kivvi/web
+
+=== cross-journey import check: wave-3 views only import shared atoms/molecules/organisms or their own journey's components ===
+-- frontend/src/views/AutomationEditorView.vue --
+11:import { computed, onMounted, ref } from "vue";
+12:import { useI18n } from "vue-i18n";
+13:import { useRoute } from "vue-router";
+14:import Button from "@/components/atoms/Button.vue";
+15:import Card from "@/components/molecules/Card.vue";
+16:import Segmented, {
+18:} from "@/components/molecules/Segmented.vue";
+19:import SimulationCard, {
+21:} from "@/components/molecules/SimulationCard.vue";
+22:import Tabs, { type TabItem } from "@/components/molecules/Tabs.vue";
+23:import FlowCanvas, {
+26:} from "@/components/organisms/FlowCanvas.vue";
+27:import RulePipeline, {
+29:} from "@/components/organisms/RulePipeline.vue";
+-- frontend/src/views/AutomationsView.vue --
+9:import { computed, onMounted, ref } from "vue";
+10:import { useI18n } from "vue-i18n";
+11:import { useRoute } from "vue-router";
+12:import Button from "@/components/atoms/Button.vue";
+13:import FilterChip from "@/components/molecules/FilterChip.vue";
+14:import AutoCard, {
+17:} from "@/components/organisms/AutoCard.vue";
+18:import PageHead from "@/components/organisms/PageHead.vue";
+-- frontend/src/views/CampaignsView.vue --
+8:import { computed, onMounted, ref, watch } from "vue";
+9:import { useI18n } from "vue-i18n";
+10:import { useRoute } from "vue-router";
+11:import Button from "@/components/atoms/Button.vue";
+12:import Chip from "@/components/atoms/Chip.vue";
+13:import Icon from "@/components/atoms/Icon.vue";
+14:import Card from "@/components/molecules/Card.vue";
+15:import FilterChip from "@/components/molecules/FilterChip.vue";
+16:import Table, { type TableRowAction } from "@/components/molecules/Table.vue";
+17:import KpiGrid, { type KpiTileData } from "@/components/organisms/KpiGrid.vue";
+18:import PageHead from "@/components/organisms/PageHead.vue";
+-- frontend/src/views/EmailEditorView.vue --
+14:import { computed, onMounted, ref, watch } from "vue";
+15:import { useI18n } from "vue-i18n";
+16:import { useRoute } from "vue-router";
+17:import Button from "@/components/atoms/Button.vue";
+18:import BlockLibrary, {
+20:} from "@/components/organisms/BlockLibrary.vue";
+21:import EditorShell from "@/components/organisms/EditorShell.vue";
+22:import EmailDocument, {
+24:} from "@/components/organisms/EmailDocument.vue";
+25:import EmailEnvelope from "@/components/organisms/EmailEnvelope.vue";
+26:import EmailInspector, {
+28:} from "@/components/organisms/EmailInspector.vue";
+29:import EmailVariables, {
+31:} from "@/components/organisms/EmailVariables.vue";
+-- frontend/src/views/SettingsView.vue --
+13:import { computed, onMounted, ref } from "vue";
+14:import { useI18n } from "vue-i18n";
+15:import { useRoute } from "vue-router";
+16:import AccountTab from "@/components/settings/AccountTab.vue";
+17:import ApiTab from "@/components/settings/ApiTab.vue";
+18:import BillingTab from "@/components/settings/BillingTab.vue";
+19:import GdprTab from "@/components/settings/GdprTab.vue";
+20:import NotificationsTab from "@/components/settings/NotificationsTab.vue";
+21:import ProvidersTab from "@/components/settings/ProvidersTab.vue";
+22:import SitesTab from "@/components/settings/SitesTab.vue";
+23:import TeamTab from "@/components/settings/TeamTab.vue";
+24:import type { SettingsData } from "@/components/settings/types";
+25:import SettingsNav, {
+27:} from "@/components/organisms/SettingsNav.vue";
+28:import PageHead from "@/components/organisms/PageHead.vue";
+
+=== journey-owned components' importers (outside test/) — none should be imported by another journey's view/component ===
+-- importers of AutoCard --
+frontend/src/views/AutomationsView.vue
+frontend/src/components/organisms/AutoCard.vue
+-- importers of FlowCanvas --
+frontend/src/views/AutomationEditorView.vue
+frontend/src/components/organisms/FlowCanvas.vue
+-- importers of RulePipeline --
+frontend/src/components/organisms/RulePipeline.vue
+frontend/src/views/AutomationEditorView.vue
+-- importers of EditorShell --
+frontend/src/views/EmailEditorView.vue
+frontend/src/components/organisms/EditorShell.vue
+frontend/src/components/organisms/BlockLibrary.vue
+-- importers of EmailDocument --
+frontend/src/views/EmailEditorView.vue
+frontend/src/components/molecules/CouponCode.vue
+frontend/src/components/organisms/EmailDocument.vue
+-- importers of EmailEnvelope --
+frontend/src/views/EmailEditorView.vue
+-- importers of EmailInspector --
+frontend/src/views/EmailEditorView.vue
+-- importers of EmailVariables --
+frontend/src/views/EmailEditorView.vue
+-- importers of BlockLibrary --
+frontend/src/views/EmailEditorView.vue
+frontend/src/composables/useEditorDrag.ts
+frontend/src/components/organisms/BlockLibrary.vue
+-- importers of SettingsNav --
+frontend/src/components/organisms/SettingsNav.vue
+frontend/src/views/SettingsView.vue

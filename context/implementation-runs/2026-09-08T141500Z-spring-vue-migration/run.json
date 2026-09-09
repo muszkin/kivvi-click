@@ -627,10 +627,26 @@
       "verifier_cohort": [
         {
           "dimension": "unit",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "11d3cc49fdc15e6e696c9a6f175d8953caec8a2e",
           "evidence": "waves/wave-3/unit.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "automations",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "settings",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "campaigns-email-editor",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "integration",
@@ -655,17 +671,49 @@
         },
         {
           "dimension": "visual",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "11d3cc49fdc15e6e696c9a6f175d8953caec8a2e",
           "evidence": "waves/wave-3/visual.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "automations",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "settings",
+              "verdict": "parity",
+              "deviation_id": "DEV-12"
+            },
+            {
+              "journey": "campaigns-email-editor",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "e2e",
-          "status": "RUNNING",
+          "status": "INCONCLUSIVE",
           "sha": "11d3cc49fdc15e6e696c9a6f175d8953caec8a2e",
           "evidence": "waves/wave-3/e2e.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "automations",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "settings",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "campaigns-email-editor",
+              "verdict": "pending",
+              "deviation_id": null
+            }
+          ]
         }
       ],
       "repair_rounds": 3,
@@ -730,6 +778,6 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T04:52:17Z",
+  "updated_at": "2026-09-09T05:00:35Z",
   "feature_head_sha": "11d3cc49fdc15e6e696c9a6f175d8953caec8a2e"
 }

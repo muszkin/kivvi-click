@@ -1,0 +1,33 @@
+=== cwd: /home/muszkin/work/kivvi-click-wt/verify-wave-3-architecture/frontend ===
+=== command: npm run lint (with 3 throwaway negative probes: Intl usage, .event-row class outside EventRow.vue, stray /accounts/ literal) ===
+
+> kivvi-click-frontend@0.1.0 lint
+> eslint .
+
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-3-architecture/frontend/src/components/molecules/HookRow.vue
+  45:22  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  46:19  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-3-architecture/frontend/src/components/organisms/FeedCard.vue
+  164:26  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  169:26  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-3-architecture/frontend/src/components/settings/ApiTab.vue
+  78:34  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  80:31  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-3-architecture/frontend/src/probe/ProbeEventRow.vue
+  2:16  error  'event-row' class is not allowed  vue/no-restricted-class
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-3-architecture/frontend/src/probe/probeIntl.ts
+  3:16  error  Unexpected use of 'Intl'. numbers are formatted server-side (domain/Format.java); see rules-translated.md  no-restricted-globals
+  3:16  error  numbers are formatted server-side (domain/Format.java); see rules-translated.md                            no-restricted-syntax
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-3-architecture/frontend/src/probe/probeMercureTopic.ts
+  2:28  error  Mercure topics are built server-side only (domain/tracking/EventStreamTopic.java); read the topic from the API payload instead of composing it here  no-restricted-syntax
+
+✖ 10 problems (4 errors, 6 warnings)
+  0 errors and 6 warnings potentially fixable with the `--fix` option.
+
+=== exit: 1 ===

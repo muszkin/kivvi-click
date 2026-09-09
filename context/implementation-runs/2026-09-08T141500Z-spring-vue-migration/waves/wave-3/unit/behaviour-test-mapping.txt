@@ -1,0 +1,82 @@
+Behaviour -> named-test mapping, restricted to files exercised by the unit command
+(backend/src/test/java/**/*Test.java via Surefire; frontend/test/unit/**/*.spec.ts via vitest run test/unit).
+
+=== B01 ===
+backend/src/test/java/click/kivvi/web/SpaDocumentControllerTest.java:27:  @DisplayName("B01 every panel/public URL renders 200 and carries the SPA document")
+backend/src/test/java/click/kivvi/domain/RouteTableTest.java:11:  @DisplayName("B01 every panel/public URL in the route table is known")
+frontend/test/unit/routes.spec.ts:7:describe("B01 every panel/public route in the table resolves", () => {
+
+=== B06 ===
+backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java:28:  @DisplayName("B06 isKnownTab is true for every seeded tab and false for anything else")
+backend/src/test/java/click/kivvi/web/SettingsControllerTest.java:74:  @DisplayName("B06 GET /api/v1/pl/settings/nonexistent is not found")
+backend/src/test/java/click/kivvi/web/SettingsControllerTest.java:94:  @DisplayName("B06/DEV-12 GET /pl/settings/nonexistent is a 404 document, not the 200 SPA shell")
+backend/src/test/java/click/kivvi/application/SettingsViewServiceTest.java:60:  @DisplayName("B06 an unknown tab throws, mirroring SettingsController's 404")
+
+=== B26 ===
+backend/src/test/java/click/kivvi/fixtures/AutomationsFixturesTest.java:12:  @DisplayName("B26 six seeded automations, in the oracle's own order")
+backend/src/test/java/click/kivvi/fixtures/AutomationsFixturesTest.java:30:  @DisplayName("B26 header(\"a1\") is the seeded identity with its status label suffixed")
+backend/src/test/java/click/kivvi/fixtures/AutomationsFixturesTest.java:42:  @DisplayName("B26 header(\"new\") falls back to a generic draft header")
+backend/src/test/java/click/kivvi/fixtures/AutomationsFixturesTest.java:55:      "B26 header of a shape-valid but unseeded id (e.g. a99) also falls back — AutomationCatalog "
+backend/src/test/java/click/kivvi/fixtures/AutomationsFixturesTest.java:66:  @DisplayName("B26 the rule pipeline has 3 steps, KIEDY/JEŚLI/WTEDY, 3 blocks each")
+backend/src/test/java/click/kivvi/fixtures/AutomationsFixturesTest.java:77:  @DisplayName("B26 the flow graph has 6 nodes and 5 edges")
+backend/src/test/java/click/kivvi/fixtures/AutomationsFixturesTest.java:84:  @DisplayName("B26 the simulation has 3 read-outs: matching, passing, estimated revenue")
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java:14:  @DisplayName("B26 4 status filters, plain-space-grouped counts 6/4/1/1, 'all' active by default")
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java:33:  @DisplayName("B26 ?status=active marks only the 'Aktywne' chip active")
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java:44:      "B26 an unrecognised status marks no chip active — same ternary as AutomationController")
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java:55:      "B26 the status filter never actually filters — always 6 cards regardless of ?status=")
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java:63:  @DisplayName("B26 the first card matches the oracle: title, chips, three metrics")
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java:89:  @DisplayName("B26 a zero-conversion automation renders '—' for conversion and revenue, muted")
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java:101:  @DisplayName("B26 editor(\"a1\", null) resolves to the list view by default")
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java:115:  @DisplayName("B26 editor(\"a1\", \"flow\") resolves to the flow view; any other value stays list")
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java:124:      "B26 editor(\"new\", ...) carries the same fixed rule content as a seeded automation")
+backend/src/test/java/click/kivvi/web/AutomationsControllerTest.java:26:  @DisplayName("B26 GET /api/v1/pl/automations returns 6 cards and 4 filters")
+backend/src/test/java/click/kivvi/web/AutomationsControllerTest.java:41:  @DisplayName("B26 ?status=active marks the 'Aktywne' filter active, without filtering the cards")
+backend/src/test/java/click/kivvi/web/AutomationsControllerTest.java:52:      "B26 GET /api/v1/pl/automations/a1 returns the editor shape: header, 3 steps, 6 nodes, 5 edges")
+backend/src/test/java/click/kivvi/web/AutomationsControllerTest.java:68:  @DisplayName("B26 GET /api/v1/pl/automations/a1?view=flow reports the flow view")
+backend/src/test/java/click/kivvi/web/AutomationsControllerTest.java:76:  @DisplayName("B26 GET /api/v1/pl/automations/new returns the generic draft header")
+backend/src/test/java/click/kivvi/web/AutomationsControllerTest.java:87:  @DisplayName("B26 GET /api/v1/pl/automations/xyz (not \"new\" or a\\d+) is not found")
+frontend/test/unit/automationsComponents.spec.ts:108:describe("B26 FlowCanvas", () => {
+frontend/test/unit/automationsComponents.spec.ts:139:describe("B26 RulePipeline", () => {
+frontend/test/unit/automationsComponents.spec.ts:157:describe("B26 AutoCard", () => {
+
+=== B27 ===
+backend/src/test/java/click/kivvi/web/CampaignsControllerTest.java:28:  @DisplayName("B27 GET /api/v1/pl/campaigns returns 4 KPIs, 4 filters, 8 columns and 5 rows")
+backend/src/test/java/click/kivvi/web/CampaignsControllerTest.java:42:  @DisplayName("B27 ?filter=trigger marks the \"Wyzwalane\" chip active and no other")
+backend/src/test/java/click/kivvi/application/CampaignsViewServiceTest.java:17:      "B27 the four campaign KPIs match the oracle, narrow-space-grouped and money-formatted")
+backend/src/test/java/click/kivvi/application/CampaignsViewServiceTest.java:37:      "B27 four filters are offered; only the requested one is active, others fall back to \"all\"")
+backend/src/test/java/click/kivvi/application/CampaignsViewServiceTest.java:58:  @DisplayName("B27 the filter never changes which 5 rows come back — only which chip is active")
+backend/src/test/java/click/kivvi/application/CampaignsViewServiceTest.java:71:      "B27 the 5 rows match the oracle: names, type/status chips, and \"—\" for the two unsent campaigns")
+
+=== B28 ===
+backend/src/test/java/click/kivvi/application/CampaignsViewServiceTest.java:107:  @DisplayName("B28 GET .../emails/k1 resolves a known template's name, meta and subject")
+backend/src/test/java/click/kivvi/application/CampaignsViewServiceTest.java:128:      "B28 an id with no seeded campaign (including \"new\") falls back to the blank draft shape")
+backend/src/test/java/click/kivvi/application/CampaignsViewServiceTest.java:145:      "B28 the editor payload always carries 10 blocks, 5 variables, 5 sections and the same selected block")
+backend/src/test/java/click/kivvi/web/CampaignsControllerTest.java:59:      "B28 GET /api/v1/pl/emails/k1 returns the known template plus 10 blocks/5 variables/5 sections")
+backend/src/test/java/click/kivvi/web/CampaignsControllerTest.java:72:  @DisplayName("B28 GET /api/v1/pl/emails/new returns the blank draft shape")
+backend/src/test/java/click/kivvi/web/CampaignsControllerTest.java:83:      "B28/DEV-7 GET /api/v1/pl/emails/{id} 404s for an id shape outside \"new\"/\"k\\d+\"")
+frontend/test/unit/campaignsComponents.spec.ts:19:describe("B28 BlockLibrary", () => {
+frontend/test/unit/campaignsComponents.spec.ts:33:describe("B28 CouponCode", () => {
+frontend/test/unit/emailDocument.spec.ts:23:describe("B28 EmailDocument keeps a literal white background regardless of theme", () => {
+
+=== B32 ===
+backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java:12:  @DisplayName("B32 eight settings tabs, in the oracle's exact order")
+backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java:36:  @DisplayName("B32 the default tab is \"account\"")
+backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java:42:  @DisplayName("B32 three tracked sites, event counts narrow-space-grouped")
+backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java:53:  @DisplayName("B32 four DNS records, three verified and one warning (BIMI)")
+backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java:62:  @DisplayName("B32 three webhooks, the Slack one failing with HTTP 410")
+backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java:71:      "B32 the notification matrix has 8 rows and exactly 15 of its 24 checkboxes are checked")
+backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java:83:  @DisplayName("B32 the tracker snippet is the raw, unhighlighted source")
+backend/src/test/java/click/kivvi/application/SettingsViewServiceTest.java:17:  @DisplayName("B32 the \"account\" tab is marked active and carries the account subtitle")
+backend/src/test/java/click/kivvi/application/SettingsViewServiceTest.java:32:      "B32 the account tab's own nav link omits the default tab's URL segment, every other tab "
+backend/src/test/java/click/kivvi/application/SettingsViewServiceTest.java:51:  @DisplayName("B32 hrefs carry the requested locale prefix")
+backend/src/test/java/click/kivvi/web/SettingsControllerTest.java:39:      "B32 GET /api/v1/pl/settings/account returns the full catalogue: 8 tabs, account active, "
+backend/src/test/java/click/kivvi/web/SettingsControllerTest.java:64:  @DisplayName("B32 GET /api/v1/pl/settings/sites marks the \"sites\" tab active")
+backend/src/test/java/click/kivvi/web/SettingsControllerTest.java:86:  @DisplayName("B32 GET /pl/settings/account renders the SPA document for a known tab")
+frontend/test/unit/localeHref.spec.ts:8:describe("B32/repair-1 buildLocaleHref — generic Symfony-style default-param omission", () => {
+frontend/test/unit/settingsComponents.spec.ts:9:describe("B32 SettingsNav", () => {
+frontend/test/unit/settingsComponents.spec.ts:51:describe("B32 ToggleRow", () => {
+frontend/test/unit/settingsComponents.spec.ts:79:describe("B32 DnsRow", () => {
+frontend/test/unit/settingsComponents.spec.ts:94:describe("B32 HookRow", () => {
+frontend/test/unit/settingsComponents.spec.ts:117:describe("B32 CodeBlock", () => {
+frontend/test/unit/highlight.spec.ts:45:describe("B32 highlight() reproduces CodeHighlightExtension::highlight() byte-for-byte", () => {
+
