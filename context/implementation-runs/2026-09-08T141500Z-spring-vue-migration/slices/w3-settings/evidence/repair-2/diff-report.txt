@@ -1,0 +1,379 @@
+# R2-A DOM diff: old stack vs candidate — /pl/settings/api, api-keys table
+
+old table rect:       {"x":521,"y":228.8125,"width":890,"height":275}
+candidate table rect: {"x":521,"y":228.8125,"width":890,"height":185}
+old card rect:        {"x":520,"y":170.8125,"width":892,"height":334}
+candidate card rect:  {"x":520,"y":170.8125,"width":892,"height":244}
+old mainScroll rect:  {"x":248,"y":56,"width":1192,"height":844}
+candidate mainScroll: {"x":248,"y":56,"width":1192,"height":844}
+old page rect:        {"x":248,"y":56,"width":1192,"height":1105.09375}
+candidate page rect:  {"x":248,"y":56,"width":1192,"height":1015.09375}
+old documentElement.clientWidth: 1440 (innerWidth 1440)
+candidate documentElement.clientWidth: 1440 (innerWidth 1440)
+
+Total nodes: old=74 candidate=74
+
+## Structural diffs (tagName/className mismatch or missing node): 22
+  table>tbody[1]>tr[0]>td[2]>span[0]: old=SPAN.chip  mono candidate=SPAN.chip mono
+  table>tbody[1]>tr[0]>td[2]>span[1]: old=SPAN.chip  mono candidate=SPAN.chip mono
+  table>tbody[1]>tr[0]>td[5]>button[0]>svg[0]: old=svg.[object Object] candidate=svg.[object Object]
+  table>tbody[1]>tr[0]>td[5]>button[0]>svg[0]>rect[0]: old=rect.[object Object] candidate=rect.[object Object]
+  table>tbody[1]>tr[0]>td[5]>button[0]>svg[0]>path[1]: old=path.[object Object] candidate=path.[object Object]
+  table>tbody[1]>tr[0]>td[5]>button[1]>svg[0]: old=svg.[object Object] candidate=svg.[object Object]
+  table>tbody[1]>tr[0]>td[5]>button[1]>svg[0]>polyline[0]: old=polyline.[object Object] candidate=polyline.[object Object]
+  table>tbody[1]>tr[0]>td[5]>button[1]>svg[0]>path[1]: old=path.[object Object] candidate=path.[object Object]
+  table>tbody[1]>tr[1]>td[2]>span[0]: old=SPAN.chip  mono candidate=SPAN.chip mono
+  table>tbody[1]>tr[1]>td[5]>button[0]>svg[0]: old=svg.[object Object] candidate=svg.[object Object]
+  table>tbody[1]>tr[1]>td[5]>button[0]>svg[0]>rect[0]: old=rect.[object Object] candidate=rect.[object Object]
+  table>tbody[1]>tr[1]>td[5]>button[0]>svg[0]>path[1]: old=path.[object Object] candidate=path.[object Object]
+  table>tbody[1]>tr[1]>td[5]>button[1]>svg[0]: old=svg.[object Object] candidate=svg.[object Object]
+  table>tbody[1]>tr[1]>td[5]>button[1]>svg[0]>polyline[0]: old=polyline.[object Object] candidate=polyline.[object Object]
+  table>tbody[1]>tr[1]>td[5]>button[1]>svg[0]>path[1]: old=path.[object Object] candidate=path.[object Object]
+  table>tbody[1]>tr[2]>td[2]>span[0]: old=SPAN.chip  mono candidate=SPAN.chip mono
+  table>tbody[1]>tr[2]>td[5]>button[0]>svg[0]: old=svg.[object Object] candidate=svg.[object Object]
+  table>tbody[1]>tr[2]>td[5]>button[0]>svg[0]>rect[0]: old=rect.[object Object] candidate=rect.[object Object]
+  table>tbody[1]>tr[2]>td[5]>button[0]>svg[0]>path[1]: old=path.[object Object] candidate=path.[object Object]
+  table>tbody[1]>tr[2]>td[5]>button[1]>svg[0]: old=svg.[object Object] candidate=svg.[object Object]
+  table>tbody[1]>tr[2]>td[5]>button[1]>svg[0]>polyline[0]: old=polyline.[object Object] candidate=polyline.[object Object]
+  table>tbody[1]>tr[2]>td[5]>button[1]>svg[0]>path[1]: old=path.[object Object] candidate=path.[object Object]
+
+## Text node diffs: 17
+  table:
+    old:       ["\"\\n  \"","\"\\n  \"","\"\\n\""]
+    candidate: []
+  table>thead[0]:
+    old:       ["\"\\n    \"","\"\\n  \""]
+    candidate: []
+  table>thead[0]>tr[0]:
+    old:       ["\"    \""]
+    candidate: []
+  table>tbody[1]:
+    old:       ["\"    \"","\"    \"","\"    \"","\"  \""]
+    candidate: []
+  table>tbody[1]>tr[0]:
+    old:       ["\"    \""]
+    candidate: []
+  table>tbody[1]>tr[0]>td[2]:
+    old:       ["\"\\n\"","\"\\n\""]
+    candidate: ["\" \""]
+  table>tbody[1]>tr[0]>td[2]>span[0]:
+    old:       ["\"  events:write\\n\""]
+    candidate: ["\" events:write\""]
+  table>tbody[1]>tr[0]>td[2]>span[1]:
+    old:       ["\"  customers:read\\n\""]
+    candidate: ["\" customers:read\""]
+  table>tbody[1]>tr[0]>td[5]:
+    old:       ["\"\\n\"","\"\\n\""]
+    candidate: []
+  table>tbody[1]>tr[1]:
+    old:       ["\"    \""]
+    candidate: []
+  table>tbody[1]>tr[1]>td[2]:
+    old:       ["\"\\n\""]
+    candidate: []
+  table>tbody[1]>tr[1]>td[2]>span[0]:
+    old:       ["\"  events:write\\n\""]
+    candidate: ["\" events:write\""]
+  table>tbody[1]>tr[1]>td[5]:
+    old:       ["\"\\n\"","\"\\n\""]
+    candidate: []
+  table>tbody[1]>tr[2]:
+    old:       ["\"    \""]
+    candidate: []
+  table>tbody[1]>tr[2]>td[2]:
+    old:       ["\"\\n\""]
+    candidate: []
+  table>tbody[1]>tr[2]>td[2]>span[0]:
+    old:       ["\"  *\\n\""]
+    candidate: ["\" *\""]
+  table>tbody[1]>tr[2]>td[5]:
+    old:       ["\"\\n\"","\"\\n\""]
+    candidate: []
+
+## Computed style diffs: 24
+  table>thead[0]>tr[0]>th[0] [width]: old="158.672px" candidate="159.422px"
+  table>thead[0]>tr[0]>th[1] [width]: old="158.875px" candidate="159.266px"
+  table>thead[0]>tr[0]>th[2] [width]: old="245.797px" candidate="246.906px"
+  table>thead[0]>tr[0]>th[3] [width]: old="103.859px" candidate="103.969px"
+  table>thead[0]>tr[0]>th[4] [width]: old="127.812px" candidate="128.312px"
+  table>thead[0]>tr[0]>th[5] [width]: old="94.9844px" candidate="92.125px"
+  table>tbody[1]>tr[0]>td[0] [width]: old="158.672px" candidate="159.422px"
+  table>tbody[1]>tr[0]>td[1] [width]: old="158.875px" candidate="159.266px"
+  table>tbody[1]>tr[0]>td[2] [width]: old="245.797px" candidate="246.906px"
+  table>tbody[1]>tr[0]>td[3] [width]: old="103.859px" candidate="103.969px"
+  table>tbody[1]>tr[0]>td[4] [width]: old="127.812px" candidate="128.312px"
+  table>tbody[1]>tr[0]>td[5] [width]: old="94.9844px" candidate="92.125px"
+  table>tbody[1]>tr[1]>td[0] [width]: old="158.672px" candidate="159.422px"
+  table>tbody[1]>tr[1]>td[1] [width]: old="158.875px" candidate="159.266px"
+  table>tbody[1]>tr[1]>td[2] [width]: old="245.797px" candidate="246.906px"
+  table>tbody[1]>tr[1]>td[3] [width]: old="103.859px" candidate="103.969px"
+  table>tbody[1]>tr[1]>td[4] [width]: old="127.812px" candidate="128.312px"
+  table>tbody[1]>tr[1]>td[5] [width]: old="94.9844px" candidate="92.125px"
+  table>tbody[1]>tr[2]>td[0] [width]: old="158.672px" candidate="159.422px"
+  table>tbody[1]>tr[2]>td[1] [width]: old="158.875px" candidate="159.266px"
+  table>tbody[1]>tr[2]>td[2] [width]: old="245.797px" candidate="246.906px"
+  table>tbody[1]>tr[2]>td[3] [width]: old="103.859px" candidate="103.969px"
+  table>tbody[1]>tr[2]>td[4] [width]: old="127.812px" candidate="128.312px"
+  table>tbody[1]>tr[2]>td[5] [width]: old="94.9844px" candidate="92.125px"
+
+## Rect diffs (width or x differs by >0.05px), in DOM order (first = likely root cause): 65
+  table>thead[0]>tr[0]>th[0]
+    old:       x=521.0000 width=158.6719 height=53.5000
+    candidate: x=521.0000 width=159.4219 height=37.0000
+    Δwidth=-0.7500 Δx=0.0000
+  table>thead[0]>tr[0]>th[1]
+    old:       x=679.6719 width=158.8750 height=53.5000
+    candidate: x=680.4219 width=159.2656 height=37.0000
+    Δwidth=-0.3906 Δx=-0.7500
+  table>thead[0]>tr[0]>th[2]
+    old:       x=838.5469 width=245.7969 height=53.5000
+    candidate: x=839.6875 width=246.9063 height=37.0000
+    Δwidth=-1.1094 Δx=-1.1406
+  table>thead[0]>tr[0]>th[3]
+    old:       x=1084.3438 width=103.8594 height=53.5000
+    candidate: x=1086.5938 width=103.9688 height=37.0000
+    Δwidth=-0.1094 Δx=-2.2500
+  table>thead[0]>tr[0]>th[4]
+    old:       x=1188.2031 width=127.8125 height=53.5000
+    candidate: x=1190.5625 width=128.3125 height=37.0000
+    Δwidth=-0.5000 Δx=-2.3594
+  table>thead[0]>tr[0]>th[5]
+    old:       x=1316.0156 width=94.9844 height=53.5000
+    candidate: x=1318.8750 width=92.1250 height=37.0000
+    Δwidth=2.8594 Δx=-2.8594
+  table>tbody[1]>tr[0]>td[0]
+    old:       x=521.0000 width=158.6719 height=74.0000
+    candidate: x=521.0000 width=159.4219 height=49.5000
+    Δwidth=-0.7500 Δx=0.0000
+  table>tbody[1]>tr[0]>td[0]>span[0]
+    old:       x=535.0000 width=75.7813 height=36.5000
+    candidate: x=535.0000 width=131.2656 height=17.0000
+    Δwidth=-55.4844 Δx=0.0000
+  table>tbody[1]>tr[0]>td[1]
+    old:       x=679.6719 width=158.8750 height=74.0000
+    candidate: x=680.4219 width=159.2656 height=49.5000
+    Δwidth=-0.3906 Δx=-0.7500
+  table>tbody[1]>tr[0]>td[1]>span[0]
+    old:       x=693.6719 width=103.5156 height=34.5000
+    candidate: x=694.4219 width=131.1094 height=15.0000
+    Δwidth=-27.5938 Δx=-0.7500
+  table>tbody[1]>tr[0]>td[1]>span[0]>span[0]
+    old:       x=693.6719 width=103.5156 height=34.5000
+    candidate: x=791.0313 width=34.5000 height=15.0000
+    Δwidth=69.0156 Δx=-97.3594
+  table>tbody[1]>tr[0]>td[2]
+    old:       x=838.5469 width=245.7969 height=74.0000
+    candidate: x=839.6875 width=246.9063 height=49.5000
+    Δwidth=-1.1094 Δx=-1.1406
+  table>tbody[1]>tr[0]>td[2]>span[0]
+    old:       x=852.5469 width=100.8125 height=22.0938
+    candidate: x=853.6875 width=100.8125 height=22.0938
+    Δwidth=0.0000 Δx=-1.1406
+  table>tbody[1]>tr[0]>td[2]>span[1]
+    old:       x=852.5469 width=114.6094 height=22.0938
+    candidate: x=957.7500 width=114.6094 height=22.0938
+    Δwidth=0.0000 Δx=-105.2031
+  table>tbody[1]>tr[0]>td[3]
+    old:       x=1084.3438 width=103.8594 height=74.0000
+    candidate: x=1086.5938 width=103.9688 height=49.5000
+    Δwidth=-0.1094 Δx=-2.2500
+  table>tbody[1]>tr[0]>td[3]>span[0]
+    old:       x=1098.3438 width=67.0625 height=17.0000
+    candidate: x=1100.5938 width=67.0625 height=17.0000
+    Δwidth=0.0000 Δx=-2.2500
+  table>tbody[1]>tr[0]>td[4]
+    old:       x=1188.2031 width=127.8125 height=74.0000
+    candidate: x=1190.5625 width=128.3125 height=49.5000
+    Δwidth=-0.5000 Δx=-2.3594
+  table>tbody[1]>tr[0]>td[4]>span[0]
+    old:       x=1202.2031 width=64.7500 height=17.0000
+    candidate: x=1204.5625 width=64.7500 height=17.0000
+    Δwidth=0.0000 Δx=-2.3594
+  table>tbody[1]>tr[0]>td[5]
+    old:       x=1316.0156 width=94.9844 height=74.0000
+    candidate: x=1318.8750 width=92.1250 height=49.5000
+    Δwidth=2.8594 Δx=-2.8594
+  table>tbody[1]>tr[0]>td[5]>button[0]
+    old:       x=1330.0156 width=32.0000 height=24.0000
+    candidate: x=1332.8750 width=32.0000 height=24.0000
+    Δwidth=0.0000 Δx=-2.8594
+  table>tbody[1]>tr[0]>td[5]>button[0]>svg[0]
+    old:       x=1339.0156 width=14.0000 height=14.0000
+    candidate: x=1341.8750 width=14.0000 height=14.0000
+    Δwidth=0.0000 Δx=-2.8594
+  table>tbody[1]>tr[0]>td[5]>button[0]>svg[0]>rect[0]
+    old:       x=1344.2656 width=7.5834 height=7.5833
+    candidate: x=1347.1250 width=7.5834 height=7.5833
+    Δwidth=0.0000 Δx=-2.8594
+  table>tbody[1]>tr[0]>td[5]>button[0]>svg[0]>path[1]
+    old:       x=1340.1823 width=7.5834 height=7.5833
+    candidate: x=1343.0416 width=7.5834 height=7.5833
+    Δwidth=0.0000 Δx=-2.8594
+  table>tbody[1]>tr[0]>td[5]>button[1]
+    old:       x=1330.0156 width=32.0000 height=24.0000
+    candidate: x=1364.8750 width=32.0000 height=24.0000
+    Δwidth=0.0000 Δx=-34.8594
+  table>tbody[1]>tr[0]>td[5]>button[1]>svg[0]
+    old:       x=1339.0156 width=14.0000 height=14.0000
+    candidate: x=1373.8750 width=14.0000 height=14.0000
+    Δwidth=0.0000 Δx=-34.8594
+  table>tbody[1]>tr[0]>td[5]>button[1]>svg[0]>polyline[0]
+    old:       x=1340.7656 width=10.5000 height=0.0000
+    candidate: x=1375.6250 width=10.5000 height=0.0000
+    Δwidth=0.0000 Δx=-34.8594
+  table>tbody[1]>tr[0]>td[5]>button[1]>svg[0]>path[1]
+    old:       x=1341.9323 width=8.1667 height=11.6667
+    candidate: x=1376.7916 width=8.1667 height=11.6667
+    Δwidth=0.0000 Δx=-34.8594
+  table>tbody[1]>tr[1]>td[0]
+    old:       x=521.0000 width=158.6719 height=74.0000
+    candidate: x=521.0000 width=159.4219 height=49.5000
+    Δwidth=-0.7500 Δx=0.0000
+  table>tbody[1]>tr[1]>td[1]
+    old:       x=679.6719 width=158.8750 height=74.0000
+    candidate: x=680.4219 width=159.2656 height=49.5000
+    Δwidth=-0.3906 Δx=-0.7500
+  table>tbody[1]>tr[1]>td[1]>span[0]
+    old:       x=693.6719 width=103.5156 height=34.5000
+    candidate: x=694.4219 width=131.1094 height=15.0000
+    Δwidth=-27.5938 Δx=-0.7500
+  table>tbody[1]>tr[1]>td[1]>span[0]>span[0]
+    old:       x=693.6719 width=103.5156 height=34.5000
+    candidate: x=791.0313 width=34.5000 height=15.0000
+    Δwidth=69.0156 Δx=-97.3594
+  table>tbody[1]>tr[1]>td[2]
+    old:       x=838.5469 width=245.7969 height=74.0000
+    candidate: x=839.6875 width=246.9063 height=49.5000
+    Δwidth=-1.1094 Δx=-1.1406
+  table>tbody[1]>tr[1]>td[2]>span[0]
+    old:       x=852.5469 width=100.8125 height=22.0938
+    candidate: x=853.6875 width=100.8125 height=22.0938
+    Δwidth=0.0000 Δx=-1.1406
+  table>tbody[1]>tr[1]>td[3]
+    old:       x=1084.3438 width=103.8594 height=74.0000
+    candidate: x=1086.5938 width=103.9688 height=49.5000
+    Δwidth=-0.1094 Δx=-2.2500
+  table>tbody[1]>tr[1]>td[3]>span[0]
+    old:       x=1098.3438 width=67.0625 height=17.0000
+    candidate: x=1100.5938 width=67.0625 height=17.0000
+    Δwidth=0.0000 Δx=-2.2500
+  table>tbody[1]>tr[1]>td[4]
+    old:       x=1188.2031 width=127.8125 height=74.0000
+    candidate: x=1190.5625 width=128.3125 height=49.5000
+    Δwidth=-0.5000 Δx=-2.3594
+  table>tbody[1]>tr[1]>td[4]>span[0]
+    old:       x=1202.2031 width=29.3281 height=17.0000
+    candidate: x=1204.5625 width=29.3281 height=17.0000
+    Δwidth=0.0000 Δx=-2.3594
+  table>tbody[1]>tr[1]>td[5]
+    old:       x=1316.0156 width=94.9844 height=74.0000
+    candidate: x=1318.8750 width=92.1250 height=49.5000
+    Δwidth=2.8594 Δx=-2.8594
+  table>tbody[1]>tr[1]>td[5]>button[0]
+    old:       x=1330.0156 width=32.0000 height=24.0000
+    candidate: x=1332.8750 width=32.0000 height=24.0000
+    Δwidth=0.0000 Δx=-2.8594
+  table>tbody[1]>tr[1]>td[5]>button[0]>svg[0]
+    old:       x=1339.0156 width=14.0000 height=14.0000
+    candidate: x=1341.8750 width=14.0000 height=14.0000
+    Δwidth=0.0000 Δx=-2.8594
+  table>tbody[1]>tr[1]>td[5]>button[0]>svg[0]>rect[0]
+    old:       x=1344.2656 width=7.5834 height=7.5833
+    candidate: x=1347.1250 width=7.5834 height=7.5833
+    Δwidth=0.0000 Δx=-2.8594
+  table>tbody[1]>tr[1]>td[5]>button[0]>svg[0]>path[1]
+    old:       x=1340.1823 width=7.5834 height=7.5833
+    candidate: x=1343.0416 width=7.5834 height=7.5833
+    Δwidth=0.0000 Δx=-2.8594
+  table>tbody[1]>tr[1]>td[5]>button[1]
+    old:       x=1330.0156 width=32.0000 height=24.0000
+    candidate: x=1364.8750 width=32.0000 height=24.0000
+    Δwidth=0.0000 Δx=-34.8594
+  table>tbody[1]>tr[1]>td[5]>button[1]>svg[0]
+    old:       x=1339.0156 width=14.0000 height=14.0000
+    candidate: x=1373.8750 width=14.0000 height=14.0000
+    Δwidth=0.0000 Δx=-34.8594
+  table>tbody[1]>tr[1]>td[5]>button[1]>svg[0]>polyline[0]
+    old:       x=1340.7656 width=10.5000 height=0.0000
+    candidate: x=1375.6250 width=10.5000 height=0.0000
+    Δwidth=0.0000 Δx=-34.8594
+  table>tbody[1]>tr[1]>td[5]>button[1]>svg[0]>path[1]
+    old:       x=1341.9323 width=8.1667 height=11.6667
+    candidate: x=1376.7916 width=8.1667 height=11.6667
+    Δwidth=0.0000 Δx=-34.8594
+  table>tbody[1]>tr[2]>td[0]
+    old:       x=521.0000 width=158.6719 height=73.5000
+    candidate: x=521.0000 width=159.4219 height=49.0000
+    Δwidth=-0.7500 Δx=0.0000
+  table>tbody[1]>tr[2]>td[1]
+    old:       x=679.6719 width=158.8750 height=73.5000
+    candidate: x=680.4219 width=159.2656 height=49.0000
+    Δwidth=-0.3906 Δx=-0.7500
+  table>tbody[1]>tr[2]>td[1]>span[0]
+    old:       x=693.6719 width=103.5156 height=34.5000
+    candidate: x=694.4219 width=131.1094 height=15.0000
+    Δwidth=-27.5938 Δx=-0.7500
+  table>tbody[1]>tr[2]>td[1]>span[0]>span[0]
+    old:       x=693.6719 width=103.5156 height=34.5000
+    candidate: x=791.0313 width=34.5000 height=15.0000
+    Δwidth=69.0156 Δx=-97.3594
+  table>tbody[1]>tr[2]>td[2]
+    old:       x=838.5469 width=245.7969 height=73.5000
+    candidate: x=839.6875 width=246.9063 height=49.0000
+    Δwidth=-1.1094 Δx=-1.1406
+  table>tbody[1]>tr[2]>td[2]>span[0]
+    old:       x=852.5469 width=24.9063 height=22.0938
+    candidate: x=853.6875 width=24.9063 height=22.0938
+    Δwidth=0.0000 Δx=-1.1406
+  table>tbody[1]>tr[2]>td[3]
+    old:       x=1084.3438 width=103.8594 height=73.5000
+    candidate: x=1086.5938 width=103.9688 height=49.0000
+    Δwidth=-0.1094 Δx=-2.2500
+  table>tbody[1]>tr[2]>td[3]>span[0]
+    old:       x=1098.3438 width=75.8750 height=17.0000
+    candidate: x=1100.5938 width=75.8750 height=17.0000
+    Δwidth=0.0000 Δx=-2.2500
+  table>tbody[1]>tr[2]>td[4]
+    old:       x=1188.2031 width=127.8125 height=73.5000
+    candidate: x=1190.5625 width=128.3125 height=49.0000
+    Δwidth=-0.5000 Δx=-2.3594
+  table>tbody[1]>tr[2]>td[4]>span[0]
+    old:       x=1202.2031 width=44.2500 height=17.0000
+    candidate: x=1204.5625 width=44.2500 height=17.0000
+    Δwidth=0.0000 Δx=-2.3594
+  table>tbody[1]>tr[2]>td[5]
+    old:       x=1316.0156 width=94.9844 height=73.5000
+    candidate: x=1318.8750 width=92.1250 height=49.0000
+    Δwidth=2.8594 Δx=-2.8594
+  table>tbody[1]>tr[2]>td[5]>button[0]
+    old:       x=1330.0156 width=32.0000 height=24.0000
+    candidate: x=1332.8750 width=32.0000 height=24.0000
+    Δwidth=0.0000 Δx=-2.8594
+  table>tbody[1]>tr[2]>td[5]>button[0]>svg[0]
+    old:       x=1339.0156 width=14.0000 height=14.0000
+    candidate: x=1341.8750 width=14.0000 height=14.0000
+    Δwidth=0.0000 Δx=-2.8594
+  table>tbody[1]>tr[2]>td[5]>button[0]>svg[0]>rect[0]
+    old:       x=1344.2656 width=7.5834 height=7.5833
+    candidate: x=1347.1250 width=7.5834 height=7.5833
+    Δwidth=0.0000 Δx=-2.8594
+  table>tbody[1]>tr[2]>td[5]>button[0]>svg[0]>path[1]
+    old:       x=1340.1823 width=7.5834 height=7.5833
+    candidate: x=1343.0416 width=7.5834 height=7.5833
+    Δwidth=0.0000 Δx=-2.8594
+  table>tbody[1]>tr[2]>td[5]>button[1]
+    old:       x=1330.0156 width=32.0000 height=24.0000
+    candidate: x=1364.8750 width=32.0000 height=24.0000
+    Δwidth=0.0000 Δx=-34.8594
+  table>tbody[1]>tr[2]>td[5]>button[1]>svg[0]
+    old:       x=1339.0156 width=14.0000 height=14.0000
+    candidate: x=1373.8750 width=14.0000 height=14.0000
+    Δwidth=0.0000 Δx=-34.8594
+  table>tbody[1]>tr[2]>td[5]>button[1]>svg[0]>polyline[0]
+    old:       x=1340.7656 width=10.5000 height=0.0000
+    candidate: x=1375.6250 width=10.5000 height=0.0000
+    Δwidth=0.0000 Δx=-34.8594
+  table>tbody[1]>tr[2]>td[5]>button[1]>svg[0]>path[1]
+    old:       x=1341.9323 width=8.1667 height=11.6667
+    candidate: x=1376.7916 width=8.1667 height=11.6667
+    Δwidth=0.0000 Δx=-34.8594
