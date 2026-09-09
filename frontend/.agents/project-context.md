@@ -1,13 +1,14 @@
 <!-- BEGIN project-context-initializer:context -->
+
 # `frontend/` — project context
 
-| Field | Value |
-| --- | --- |
-| Path | `frontend/` |
-| Scope | Vue 3 SPA for kivvi-click, post-migration (single stack) |
-| Source revision | `fe9c3fe06b919302d322994438a8fbb177c8b2a0` on `main` |
-| Refreshed | 2026-09-09 |
-| Coverage role | `own` (rolled up: `src/components/{atoms,molecules,organisms,import,settings}`, `src/{layouts,views,router,stores,i18n,composables,lib,styles}`, `test/{unit,integration}` — structural leaves under this boundary) |
+| Field           | Value                                                                                                                                                                                                               |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Path            | `frontend/`                                                                                                                                                                                                         |
+| Scope           | Vue 3 SPA for kivvi-click, post-migration (single stack)                                                                                                                                                            |
+| Source revision | `fe9c3fe06b919302d322994438a8fbb177c8b2a0` on `main`                                                                                                                                                                |
+| Refreshed       | 2026-09-09                                                                                                                                                                                                          |
+| Coverage role   | `own` (rolled up: `src/components/{atoms,molecules,organisms,import,settings}`, `src/{layouts,views,router,stores,i18n,composables,lib,styles}`, `test/{unit,integration}` — structural leaves under this boundary) |
 
 Provenance labels: **Observed** (cited file), **Inferred** (named inference), **Unknown**.
 Precedence: current user instructions, `CLAUDE.md`/`AGENTS.md`, code and runtime behaviour
@@ -52,7 +53,7 @@ test/
 - **Whitespace text nodes between adjacent atoms:** the original Twig compiled includes ended
   with a trailing newline, so two adjacent components inside a plain (non-flex/gap) container
   can carry a visible whitespace text node between them that Vue's default `whitespace:
-  'condense'` would otherwise strip. Where the parent isn't flex/gap, a literal `{{ " " }}`
+'condense'` would otherwise strip. Where the parent isn't flex/gap, a literal `{{ " " }}`
   between adjacent atom/molecule components may be load-bearing — a whole-row visual diff with
   identical text is a missing-whitespace bug until proven otherwise.
 - **Navigation is always a real document request**, never `router.push`/`router.replace` —
@@ -131,7 +132,7 @@ test/
   `CustomerDetailSidebarSection.spec.ts` — mount real components with router + Pinia.
 - Real-surface acceptance: `../tests/e2e/specs/*.spec.ts` — last run against **production**
   2026-09-09T16:04-16:07Z, 66/66 PASS (`../context/implementation-runs/
-  2026-09-08T141500Z-spring-vue-migration/cutover/con1-e2e.md`); `events.spec.ts` and any spec
+2026-09-08T141500Z-spring-vue-migration/cutover/con1-e2e.md`); `events.spec.ts` and any spec
   asserting exact row counts on the shared Mercure topic runs with `--workers=1`.
 - Last known-good unit/integration result (final gates, pre-cutover): 169 unit / 152 integration.
   Not re-run by this context refresh — see R12 in `../context/map/risks-and-unknowns.md`.
@@ -153,4 +154,5 @@ host since 2026-09-09T14:18:42Z).
 `../context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/{closeout.md,
 common-journey-rules.md,cutover/con1-e2e.md}`,
 `../context/migration-oracle/symfony-to-spring-vue/`.
+
 <!-- END project-context-initializer:context -->
