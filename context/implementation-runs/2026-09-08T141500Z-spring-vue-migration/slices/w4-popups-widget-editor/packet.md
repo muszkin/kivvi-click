@@ -1,6 +1,6 @@
 # Slice packet w4-popups-widget-editor — wave-4, journey J9 "popups-widget-editor"
 
-Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w4-popups · branch `migration/wave-4/popups-widget-editor` · parent SHA <PARENT-SHA>. **Lease:** compose project `kivvi-w-popups`, HTTP_PORT=19110, HTTPS_PORT=19111. **Model:** sonnet, effort HIGH.
+Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w4-popups · branch `migration/wave-4/popups-widget-editor` · parent SHA 11d3cc49fdc15e6e696c9a6f175d8953caec8a2e. **Lease:** compose project `kivvi-w-popups`, HTTP_PORT=19110, HTTPS_PORT=19111. **Model:** sonnet, effort HIGH.
 
 **Capability:** The store owner can preview on-site widgets and compose one for desktop or mobile.
 **Oracle:** journeys/popups-widget-editor/steps/1..7 (`/pl/popups`, `?preview=p2`, `/pl/popups/p1`, `?type=banner`, `?device=mobile`, inspector, `/pl/popups/new`). Behaviours: B29, B01 (popups rows).

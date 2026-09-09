@@ -1,6 +1,6 @@
 # Slice packet w4-dashboard — wave-4, journey J11 "dashboard"
 
-Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w4-dashboard · branch `migration/wave-4/dashboard` · parent SHA <PARENT-SHA>. **Lease:** compose project `kivvi-w-dashboard`, HTTP_PORT=19130, HTTPS_PORT=19131. **Model:** sonnet, effort HIGH.
+Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w4-dashboard · branch `migration/wave-4/dashboard` · parent SHA 11d3cc49fdc15e6e696c9a6f175d8953caec8a2e. **Lease:** compose project `kivvi-w-dashboard`, HTTP_PORT=19130, HTTPS_PORT=19131. **Model:** sonnet, effort HIGH.
 
 **Capability:** The store owner can see the operational overview and jump from it into a customer profile or a rule.
 **Oracle:** journeys/dashboard/steps/1..4. Behaviours: B23, B01 (dashboard row), and closing DEV-11 (login steps 4 and 8 become unmasked — re-run `compare.mjs --journey login` with the DEV-11 mask removed for those steps and prove parity, then edit `tools/migration-verify/deviations.json` accordingly).

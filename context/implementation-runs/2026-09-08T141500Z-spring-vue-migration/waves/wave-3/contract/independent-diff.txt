@@ -1,0 +1,80 @@
+Independent contract-dimension verification — wave-3, round 4
+Wave SHA: 11d3cc49fdc15e6e696c9a6f175d8953caec8a2e
+Verifier: contract (read-only, ran alone on the shared stack per orchestrator sequencing)
+
+This note records manual checks performed IN ADDITION TO trusting compare.mjs's own verdict —
+compare.mjs's report.json/report.md for each journey is the primary evidence; this file is the
+independent cross-check.
+
+1) db.json deltas — hand-computed from before/after row counts in each journey's db.json,
+   mapped per DEV-5 (sessions -> spring_session; cache_items -> event_dedup + shedlock;
+   messenger_messages -> no counterpart, ignored), and diffed against the oracle's own
+   context/migration-oracle/symfony-to-spring-vue/journeys/<journey>/db.json deltas:
+
+   journey                  oracle sessions/cache_items -> candidate spring_session/(event_dedup+shedlock)
+   automations               0 / 0                        -> 0 / 0                    exact match
+   settings                  0 / 0                        -> 0 / 0                    exact match
+   campaigns-email-editor    1 / 0                        -> 1 / 0                    exact match
+   login                     0 / 0                        -> 1 / 0                    sessions off by 1,
+                                                                                        within DEV-9's declared
+                                                                                        tolerance (Spring Session
+                                                                                        persists eagerly on
+                                                                                        sign-in); cache exact
+   event-stream               0 / 1                        -> 0 / 1                    exact match
+   shell-navigation           1 / 0                        -> 1 / 0                    exact match
+
+   "before" spring_session/event_dedup/shedlock counts chain sequentially across the six runs
+   (38 -> 38 -> 39 -> 40 -> 40 -> 41 for spring_session; 104 -> 104 -> 104 -> 104 -> 105 -> 105
+   for event_dedup), confirming no concurrent writer touched the database while this dimension
+   ran alone, per the packet's "contract dimension runs ALONE on the shared stack" note.
+
+2) Full-parity body diffs — spot-checked by hand against the oracle's http.jsonl (not just
+   compare.mjs's empty "detail" field):
+   - shell-navigation step 11 candidate POST /preferences/sidebar body {"state":"collapsed"}
+     == oracle body {"state":"collapsed"}; step 14 POST /preferences/theme body {"theme":"dark"}
+     == oracle {"theme":"dark"}. Both immediately followed by a reload (steps 12, 15) that
+     returned 200 for GET /pl/dashboard in both oracle and candidate — no 503, no status
+     change introduced by SessionRequestSerializationFilter.
+   - login step 4 POST /pl/login body form _username=anna@aureashop.pl -> 302 Location
+     /pl/dashboard, matches oracle. Steps 5/6 (invalid credentials) 200 with
+     data-login-error/data-last-username values extracted and matching oracle's Polish error
+     strings ("Podaj adres e-mail." / "To nie wygląda na poprawny adres e-mail."). Step 7
+     POST /pl/logout -> 302 Location /pl/login, matches oracle (compare.mjs does not deep-diff
+     the logout redirect HTML body — only status+location — which is unchanged tool behaviour,
+     not something this round touched).
+   - event-stream steps 2-4 POST /collect bodies {"status":"accepted"} (202),
+     {"status":"duplicate"} (200), and the two 400 validation-error bodies all match the
+     oracle's recorded bodies exactly (compareJsonBodies, canonicalized).
+
+3) DEV-7 (campaigns-email-editor: no POST …/blocks) — grepped every candidate
+   steps/*/http.jsonl for "blocks": zero matches across all 8 steps. apiBaselineCount per step
+   (0 or 2) confirms the only extra calls beyond the oracle's document/api set are
+   /api/v1/* baseline reads, never a /blocks POST.
+
+4) DEV-12 (settings step 10 = 404 document) — candidate GET /pl/settings/nonexistent ->
+   404, method/path/status match the oracle's step.json (documentStatus 404) exactly; only the
+   HTML title differs ("404" vs the Symfony error title), which is the visual dimension's
+   concern (already masked there), not contract's.
+
+5) 503 sweep — grepped every candidate steps/*/http.jsonl across all six journeys for a 503
+   status: zero occurrences (status codes seen: 200, 202, 302, 400, 404 only). The
+   SessionRequestSerializationFilter's 30s lock-acquisition timeout was never hit.
+
+6) SessionRequestSerializationFilter source review (not a diff — the file is new in this
+   round, no prior version to diff against) —
+   backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java:
+   resolveSessionId() reads the SESSION cookie directly off HttpServletRequest#getCookies();
+   when absent (doFilterInternal's `if (sessionId == null) { chain.doFilter(...); return; }`)
+   the request passes straight through with no lock acquired and no delay applied. /collect is
+   never sent with a SESSION cookie in any of the journeys replayed here (automations,
+   settings, campaigns-email-editor, login, event-stream, shell-navigation none of which
+   authenticate before calling /collect — event-stream's three /collect calls are the only
+   ones in scope, issued from a fresh, unauthenticated browser context) — confirmed unlocked
+   per the filter's own logic; matches "0 regressions" and "no 503" in the event-stream
+   recording. Test-only delay hook (kivvi.testing.preferences-theme-post-delay-ms) confirmed
+   unset in backend/src/main/resources/ and compose.next.yaml — defaults to 0, no artificial
+   delay was active on the kivvi-int stack used for this replay.
+
+Commands (see contract.md for the full table with cwd/exit codes). No compare.mjs invocation
+threw or timed out; every run listed in contract.md is a single, first-try run — no retries
+were necessary.

@@ -1,6 +1,6 @@
 # Slice packet w4-import-wizard — wave-4, journey J10 "import-wizard"
 
-Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w4-import · branch `migration/wave-4/import-wizard` · parent SHA <PARENT-SHA>. **Lease:** compose project `kivvi-w-import`, HTTP_PORT=19120, HTTPS_PORT=19121. **Model:** sonnet, effort HIGH.
+Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w4-import · branch `migration/wave-4/import-wizard` · parent SHA 11d3cc49fdc15e6e696c9a6f175d8953caec8a2e. **Lease:** compose project `kivvi-w-import`, HTTP_PORT=19120, HTTPS_PORT=19121. **Model:** sonnet, effort HIGH.
 
 **Capability:** The store owner can walk the four-step customer import and upload a file that advances the wizard.
 **Oracle:** journeys/import-wizard/steps/1..10 (steps 1–4 at `/pl/import/{1..4}`, stepper forward/back, the upload step recorded with `http.jsonl` showing `POST /import/upload` → 302 `/pl/import/2`, `db.json` delta, `/pl/import/5`/`/pl/import/nonexistent` → 404). Behaviours: B31, B01 (import rows).
