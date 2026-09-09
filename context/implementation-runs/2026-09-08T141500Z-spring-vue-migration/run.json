@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "run_id": "2026-09-08T141500Z-spring-vue-migration",
-  "state": "CUTOVER_READY",
+  "state": "PRODUCTION_DEPLOYED",
   "plan": {
     "path": "/home/muszkin/work/kivvi-click/context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
     "sha256": "a21ced0ab66ee010f2ed7eaa00291eb8957fc851607b3ff6c07b19c84ef146ed",
@@ -1173,7 +1173,7 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T14:17:33Z",
+  "updated_at": "2026-09-09T14:19:23Z",
   "feature_head_sha": "92052947a6238ecf4ee177f4e72493122315ce32",
   "final_cohort": {
     "sha": "dae169614a52532c130bd34435994d6a914165c0",
@@ -1279,7 +1279,7 @@
       "note": "MERCURE_JWT_SECRET generated and appended to .env.prod.docker (value never displayed)"
     },
     "cut1": {
-      "state": "ROLLED_BACK",
+      "state": "LIVE_OBSERVING",
       "attempts": [
         {
           "at": "2026-09-09T14:08:42Z",
@@ -1292,9 +1292,17 @@
           "result": "FAIL",
           "cause": "api crash-looped: Flyway \"Found non-empty schema public but no schema history table\" \u2014 during attempt 1 the still-running Symfony php/worker connected to the recreated `database` container (fresh kivvi-next volume) and auto-created their tables (messenger/cache/session auto_setup); the volume kept them; automatic rollback",
           "outage": "14:13:53\u201314:16:10Z"
+        },
+        {
+          "at": "2026-09-09T14:18:14Z",
+          "result": "PASS",
+          "detail": "kivvi-next_* volumes dropped (only Symfony auto-tables, 0 prod rows); old stack down from the prod directory; new stack up as project kivvi-click; healthy at +5s; public https://kivvi.click 200 (dashboard, api), /de/dashboard 404",
+          "outage": "14:18:14\u201314:18:42Z (28 s)"
         }
       ],
-      "data": "production data volume kivvi-click_database_data_prod never mounted by the new stack; untouched"
+      "data": "production data volume kivvi-click_database_data_prod never mounted by the new stack; untouched",
+      "live_since": "2026-09-09T14:18:42Z",
+      "old_stack": "down (containers removed, images and kivvi-click_*_prod volumes kept for rollback: `docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --wait` from /home/muszkin/work/kivvi-click after `docker compose -p kivvi-click -f compose.next.yaml -f compose.next.prod.yaml down` in the integration worktree)"
     }
   }
 }
