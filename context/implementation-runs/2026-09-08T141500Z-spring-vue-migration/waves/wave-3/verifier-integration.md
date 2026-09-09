@@ -1,8 +1,8 @@
-# Verifier packet — wave wave-3 (round 1), dimension integration
+# Verifier packet — wave wave-3 (round 2), dimension integration
 
 Read-only verifier. You receive no worker claims. Inspect the assembled wave SHA from your own detached checkout and return one verdict per journey with evidence paths.
 
-- Wave SHA: 32a68311594e611aaa8eaa0803bc72bba7d735a9 · Journeys: automations, settings, campaigns-email-editor · Checkout: /home/muszkin/work/kivvi-click-wt/verify-wave-3-integration (detached at the wave SHA; do not edit).
+- Wave SHA: c74e3b8e9ed6763204fa193bf66b891d35ef7fe4 · Journeys: automations, settings, campaigns-email-editor · Checkout: /home/muszkin/work/kivvi-click-wt/verify-wave-3-integration (detached at the wave SHA; do not edit).
 - Oracle: /home/muszkin/work/kivvi-click/context/migration-oracle/symfony-to-spring-vue (manifest sha256 4945a8deb19ea342a4aaa2c0ac681dc13f05c121aa387677c30ecf210a90f74f). Deviation table: plan section "Accepted deviations" (DEV-1..DEV-12) and tools/migration-verify/deviations.json.
 - Verifier contract (plan section "Verifier contract"): thresholds and commands for your dimension.
 - Running stack for this SHA (if your dimension needs one): https://localhost:19101 (compose project kivvi-int, edge http 19100), compose project kivvi-int, started by the orchestrator; do not start or stop stacks yourself.
@@ -19,3 +19,7 @@ Java 25: `export JAVA_HOME=/home/muszkin/.cache/kivvi-toolchains/jdk-25; export 
 ## Wave-3 note
 
 Round 1 for wave-3. Earlier-wave journeys (login, landing, feeds, event-stream, customers, scheduler-heartbeat) are regression guards only. Shell changes landed in this wave and MUST be covered by your regression guard where your dimension applies: (1) vue-router `scrollBehavior` + reload scroll restoration (`frontend/src/router/scrollRestoration.ts`, `router/index.ts`), (2) generic locale toggle via `route.meta.defaultParams` (`frontend/src/router/localeHref.ts`, `Topbar.vue`). e2e: `events.spec.ts` and `navigation.spec.ts` run with `--workers=1`; in `navigation.spec.ts` exactly the popups/import sidebar tests are expected to fail (wave-4 routes are still `EmptyPageView`) — any other failure is a regression. Contract dimension runs ALONE on the shared stack (the orchestrator sequences it after e2e/visual); `/collect` traffic from other verifiers contaminates `db.json` deltas.
+
+## Round 2 note
+
+Cohort round 2 after repairs (round-1 evidence archived under waves/wave-3/round-1/ — do not read it; verify afresh). Repairs since round 1: B01-labelled real-HTTP ITs and frontend integration tests for settings and campaigns/email-editor rows;  and  integration tests; reload detection via a history.state marker (compare.mjs freezes the page clock, so Navigation Timing is empty under the verifier).

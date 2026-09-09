@@ -158,7 +158,7 @@
       }
     },
     "w3-campaigns-email-editor": {
-      "state": "IMPLEMENTED",
+      "state": "FEATURE_HEAD_GREEN",
       "wave": "wave-3",
       "branch": "migration/wave-3/campaigns-email-editor",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w3-campaigns-email-editor",
@@ -176,7 +176,10 @@
         "worktree": "/home/muszkin/work/kivvi-click-wt/w3-campaigns-email-editor-r3",
         "branch": "migration/wave-3/campaigns-email-editor-repair3",
         "base_sha": "32a68311594e611aaa8eaa0803bc72bba7d735a9",
-        "candidate_sha": "fca55fc7ffe503e67de2e65f3b969442ee4f0a20"
+        "candidate_sha": "fca55fc7ffe503e67de2e65f3b969442ee4f0a20",
+        "review": "slices/w3-campaigns-email-editor/review-repair-3.md",
+        "review_verdict": "PASS",
+        "integrated_sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4"
       },
       "rebase": {
         "packet": "slices/w3-campaigns-email-editor/rebase-1.md",
@@ -593,146 +596,50 @@
         "settings",
         "campaigns-email-editor"
       ],
-      "head_sha": "32a68311594e611aaa8eaa0803bc72bba7d735a9",
+      "head_sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4",
       "kill_reason": null,
       "verifier_cohort": [
         {
           "dimension": "unit",
-          "status": "PASS",
-          "sha": "32a68311594e611aaa8eaa0803bc72bba7d735a9",
-          "evidence": "waves/wave-3/round-1/unit.md",
-          "journey_verdicts": [
-            {
-              "journey": "automations",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "settings",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "campaigns-email-editor",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4",
+          "evidence": "waves/wave-3/unit.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "integration",
-          "status": "FAIL",
-          "sha": "32a68311594e611aaa8eaa0803bc72bba7d735a9",
-          "evidence": "waves/wave-3/round-1/integration.md",
-          "journey_verdicts": [
-            {
-              "journey": "automations",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "settings",
-              "verdict": "regression",
-              "deviation_id": null
-            },
-            {
-              "journey": "campaigns-email-editor",
-              "verdict": "regression",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4",
+          "evidence": "waves/wave-3/integration.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "architecture",
-          "status": "PASS",
-          "sha": "32a68311594e611aaa8eaa0803bc72bba7d735a9",
-          "evidence": "waves/wave-3/round-1/architecture.md",
-          "journey_verdicts": [
-            {
-              "journey": "automations",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "settings",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "campaigns-email-editor",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4",
+          "evidence": "waves/wave-3/architecture.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "contract",
-          "status": "PASS",
-          "sha": "32a68311594e611aaa8eaa0803bc72bba7d735a9",
-          "evidence": "waves/wave-3/round-1/contract.md",
-          "journey_verdicts": [
-            {
-              "journey": "automations",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "settings",
-              "verdict": "parity",
-              "deviation_id": "DEV-12"
-            },
-            {
-              "journey": "campaigns-email-editor",
-              "verdict": "parity",
-              "deviation_id": "DEV-7"
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4",
+          "evidence": "waves/wave-3/contract.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "visual",
-          "status": "FAIL",
-          "sha": "32a68311594e611aaa8eaa0803bc72bba7d735a9",
-          "evidence": "waves/wave-3/round-1/visual.md",
-          "journey_verdicts": [
-            {
-              "journey": "automations",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "settings",
-              "verdict": "parity",
-              "deviation_id": "DEV-12"
-            },
-            {
-              "journey": "campaigns-email-editor",
-              "verdict": "regression",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4",
+          "evidence": "waves/wave-3/visual.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "e2e",
-          "status": "PASS",
-          "sha": "32a68311594e611aaa8eaa0803bc72bba7d735a9",
-          "evidence": "waves/wave-3/round-1/e2e.md",
-          "journey_verdicts": [
-            {
-              "journey": "automations",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "settings",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "campaigns-email-editor",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4",
+          "evidence": "waves/wave-3/e2e.md",
+          "journey_verdicts": []
         }
       ],
       "repair_rounds": 1,
@@ -785,6 +692,6 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T02:57:45Z",
-  "feature_head_sha": "2eb457a78115b234fedb8b586762907030649478"
+  "updated_at": "2026-09-09T03:11:01Z",
+  "feature_head_sha": "c74e3b8e9ed6763204fa193bf66b891d35ef7fe4"
 }
