@@ -254,13 +254,17 @@
       }
     },
     "w4-dashboard": {
-      "state": "IMPLEMENTED",
+      "state": "FEATURE_HEAD_GREEN",
       "wave": "wave-4",
       "branch": "migration/wave-4/dashboard",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w4-dashboard",
       "parent_sha": "11d3cc49fdc15e6e696c9a6f175d8953caec8a2e",
       "head_sha": "ba33a685eaf43ec237f94365cf5fbed26841a549",
-      "integration_commit": null
+      "integration_commit": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
+      "review": {
+        "path": "slices/w4-dashboard/review.md",
+        "verdict": "PASS"
+      }
     }
   },
   "deferred_obligations": [],
@@ -850,48 +854,48 @@
         "import-wizard",
         "dashboard"
       ],
-      "head_sha": null,
+      "head_sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
       "kill_reason": null,
       "verifier_cohort": [
         {
           "dimension": "unit",
-          "status": "PENDING",
-          "sha": null,
+          "status": "RUNNING",
+          "sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
           "evidence": "waves/wave-4/unit.md",
           "journey_verdicts": []
         },
         {
           "dimension": "integration",
-          "status": "PENDING",
-          "sha": null,
+          "status": "RUNNING",
+          "sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
           "evidence": "waves/wave-4/integration.md",
           "journey_verdicts": []
         },
         {
           "dimension": "architecture",
-          "status": "PENDING",
-          "sha": null,
+          "status": "RUNNING",
+          "sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
           "evidence": "waves/wave-4/architecture.md",
           "journey_verdicts": []
         },
         {
           "dimension": "contract",
-          "status": "PENDING",
-          "sha": null,
+          "status": "RUNNING",
+          "sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
           "evidence": "waves/wave-4/contract.md",
           "journey_verdicts": []
         },
         {
           "dimension": "visual",
-          "status": "PENDING",
-          "sha": null,
+          "status": "RUNNING",
+          "sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
           "evidence": "waves/wave-4/visual.md",
           "journey_verdicts": []
         },
         {
           "dimension": "e2e",
-          "status": "PENDING",
-          "sha": null,
+          "status": "RUNNING",
+          "sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
           "evidence": "waves/wave-4/e2e.md",
           "journey_verdicts": []
         }
@@ -926,6 +930,6 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T06:55:09Z",
-  "feature_head_sha": "a8fb5f69cff892908cc8ffabde45386de4346918"
+  "updated_at": "2026-09-09T07:08:09Z",
+  "feature_head_sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18"
 }
