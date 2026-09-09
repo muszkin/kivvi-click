@@ -16,7 +16,7 @@ Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kiv
 
 - Deferred medium from campaigns review-repair-3: `frontend/src/router/scrollRestoration.ts` `isReloadOfAnAlreadyVisitedEntry()` reads `history.state` without the file's try/catch convention — add the guard + a unit test (and keep the doc comment honest about `router.replace()`).
 
-- Fix the old-stack citations in  and : the preference POST pattern lives in , not .
+- Fix the old-stack citations in `frontend/src/stores/shell.ts` and `frontend/test/unit/useIntents.spec.ts`: the preference POST pattern lives in `assets/app.ts`, not `assets/controllers/shell.ts`.
 
 ## Out of scope
 Any page body change (owned by the journey that produced it) — if a page body diverges from its oracle, report it as a gap for that journey; do not fix it here.
