@@ -1,0 +1,37 @@
+
+> kivvi-click-frontend@0.1.0 test
+> vitest run test/unit --run test/unit/archProbeLiveWarn.spec.ts
+
+
+ RUN  v5.0.0 /home/muszkin/work/kivvi-click-wt/verify-wave-3-architecture/frontend
+
+ ❯ test/unit/archProbeLiveWarn.spec.ts (1 test | 1 failed) 17ms
+   ❯ arch probe live warn (1)
+     × mounting Icon without its required prop should raise a Vue warning and fail 15ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/unit/archProbeLiveWarn.spec.ts > arch probe live warn > mounting Icon without its required prop should raise a Vue warning and fail
+Error: Test policy: console.warn/console.error/Vue warning logged during the test (fail-on-warning, architecture/rules-translated.md row 3):
+Vue warning: Missing required prop: "name"at <Icon>
+at <VTUROOT>
+ ❯ test/setup.ts:78:11
+     76|     const detail = captured.join("\n");
+     77|     captured = [];
+     78|     throw new Error(
+       |           ^
+     79|         "Test policy: console.warn/console.error/Vue warning logged du…
+     80|             "(fail-on-warning, architecture/rules-translated.md row 3)…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 22 passed (23)
+      Tests  1 failed | 128 passed (129)
+   Start at  04:00:32
+   Duration  2.85s (environment 64%, transform 18%, tests 10%, setup 5%, import 3%, worker 1%)
+
+Environment  jsdom was created 23 times · 21.14s total, 64% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+
