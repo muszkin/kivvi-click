@@ -879,10 +879,26 @@
         },
         {
           "dimension": "integration",
-          "status": "RUNNING",
+          "status": "FAIL",
           "sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
           "evidence": "waves/wave-4/integration.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "popups-widget-editor",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "import-wizard",
+              "verdict": "regression",
+              "deviation_id": null
+            },
+            {
+              "journey": "dashboard",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "architecture",
@@ -975,6 +991,6 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T07:20:14Z",
+  "updated_at": "2026-09-09T07:20:49Z",
   "feature_head_sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18"
 }
