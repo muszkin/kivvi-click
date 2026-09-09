@@ -1,8 +1,8 @@
-# Verifier packet — wave FINAL (all journeys, round 1), dimension visual
+# Verifier packet — wave FINAL (all journeys, round 2), dimension visual
 
 Read-only verifier. You receive no worker claims. Inspect the assembled wave SHA from your own detached checkout and return one verdict per journey with evidence paths.
 
-- Wave SHA: 7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194 · Journeys: ALL 13 — login, landing, feeds, scheduler-heartbeat, event-stream, customers, automations, settings, campaigns-email-editor, popups-widget-editor, import-wizard, dashboard, shell-navigation · Checkout: /home/muszkin/work/kivvi-click-wt/verify-final-visual (detached at the wave SHA; do not edit).
+- Wave SHA: dae169614a52532c130bd34435994d6a914165c0 · Journeys: ALL 13 — login, landing, feeds, scheduler-heartbeat, event-stream, customers, automations, settings, campaigns-email-editor, popups-widget-editor, import-wizard, dashboard, shell-navigation · Checkout: /home/muszkin/work/kivvi-click-wt/verify-final-visual (detached at the wave SHA; do not edit).
 - Oracle: /home/muszkin/work/kivvi-click/context/migration-oracle/symfony-to-spring-vue (manifest sha256 4945a8deb19ea342a4aaa2c0ac681dc13f05c121aa387677c30ecf210a90f74f). Deviation table: plan section "Accepted deviations" (DEV-1..DEV-12) and tools/migration-verify/deviations.json.
 - Verifier contract (plan section "Verifier contract"): thresholds and commands for your dimension.
 - Running stack for this SHA (if your dimension needs one): https://localhost:19101 (compose project kivvi-int, edge http 19100), compose project kivvi-int, started by the orchestrator; do not start or stop stacks yourself.
@@ -19,3 +19,7 @@ Java 25: `export JAVA_HOME=/home/muszkin/.cache/kivvi-toolchains/jdk-25; export 
 ## FINAL cohort note
 
 This is the all-journey cohort on the assembled feature SHA (plan: "final all-journey verifier cohort" before FEATURE_LOCAL_GREEN). No regression guards — every journey is in scope and gets its own verdict. Sequencing: unit/integration/architecture/visual in parallel; e2e ALONE afterwards (the whole tests/e2e suite headless, one invocation per `-g`, `--workers=1` for events/dashboard/navigation); contract ALONE last (every journey incl. scheduler-heartbeat's db.json shedlock delta). Any FAIL returns the affected journey to repair from the feature HEAD. Disk is tight: delete node_modules/target in your checkout afterwards.
+
+## Round 2 note
+
+Round 2 after the shell-navigation label repair (test-only: B02/B03/B21 unit tests). Round-1 evidence archived under waves/final/round-1/ — do not read it.
