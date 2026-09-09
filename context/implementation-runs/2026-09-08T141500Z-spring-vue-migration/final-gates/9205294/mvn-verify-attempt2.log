@@ -1,0 +1,1370 @@
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/home/muszkin/.m2/wrapper/dists/apache-maven-3.9.11/a2d47e15/lib/guice-5.1.0-classes.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
+WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< click.kivvi:kivvi-click >-----------------------
+[INFO] Building kivvi-click 0.1.0-w0-login
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ kivvi-click ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 3 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ kivvi-click ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 98 source files with javac [debug parameters release 25] to target/classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ kivvi-click ---
+[INFO] Copying 3 resources from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ kivvi-click ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 68 source files with javac [debug parameters release 25] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ kivvi-click ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running click.kivvi.infrastructure.importing.ImportUploadStorageTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.173 s -- in click.kivvi.infrastructure.importing.ImportUploadStorageTest
+[INFO] Running click.kivvi.infrastructure.session.SessionRequestSerializationFilterTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.324 s -- in click.kivvi.infrastructure.session.SessionRequestSerializationFilterTest
+[INFO] Running click.kivvi.infrastructure.session.SessionLockRegistryTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.111 s -- in click.kivvi.infrastructure.session.SessionLockRegistryTest
+[INFO] Running click.kivvi.infrastructure.mercure.HttpMercurePublisherTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.177 s -- in click.kivvi.infrastructure.mercure.HttpMercurePublisherTest
+[INFO] Running click.kivvi.infrastructure.scheduling.HeartbeatTriggerTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 s -- in click.kivvi.infrastructure.scheduling.HeartbeatTriggerTest
+[INFO] Running click.kivvi.infrastructure.scheduling.HeartbeatJobTest
+13:15:27.154 [main] INFO click.kivvi.infrastructure.scheduling.HeartbeatJob -- Scheduler heartbeat tick.
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s -- in click.kivvi.infrastructure.scheduling.HeartbeatJobTest
+[INFO] Running click.kivvi.infrastructure.tracking.EventDedupCleanupJobTest
+13:15:27.160 [main] INFO click.kivvi.infrastructure.tracking.EventDedupCleanupJob -- Event dedup cleanup removed 3 expired row(s).
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in click.kivvi.infrastructure.tracking.EventDedupCleanupJobTest
+[INFO] Running click.kivvi.domain.RouteTableTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s -- in click.kivvi.domain.RouteTableTest
+[INFO] Running click.kivvi.domain.EmailValidationTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in click.kivvi.domain.EmailValidationTest
+[INFO] Running click.kivvi.domain.tracking.TrackedEventTest
+[INFO] Tests run: 21, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.061 s -- in click.kivvi.domain.tracking.TrackedEventTest
+[INFO] Running click.kivvi.domain.tracking.TrackedSiteTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 s -- in click.kivvi.domain.tracking.TrackedSiteTest
+[INFO] Running click.kivvi.domain.tracking.EventTypeTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s -- in click.kivvi.domain.tracking.EventTypeTest
+[INFO] Running click.kivvi.domain.SpaDocumentTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s -- in click.kivvi.domain.SpaDocumentTest
+[INFO] Running click.kivvi.domain.IdentityTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in click.kivvi.domain.IdentityTest
+[INFO] Running click.kivvi.fixtures.SettingsFixturesTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.023 s -- in click.kivvi.fixtures.SettingsFixturesTest
+[INFO] Running click.kivvi.fixtures.CustomersFixturesTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.010 s -- in click.kivvi.fixtures.CustomersFixturesTest
+[INFO] Running click.kivvi.fixtures.LandingFixturesTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.010 s -- in click.kivvi.fixtures.LandingFixturesTest
+[INFO] Running click.kivvi.fixtures.AutomationsFixturesTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s -- in click.kivvi.fixtures.AutomationsFixturesTest
+[INFO] Running click.kivvi.testsupport.FailOnWarnLogExtensionTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 s -- in click.kivvi.testsupport.FailOnWarnLogExtensionTest
+[INFO] Running click.kivvi.architecture.ArchitectureTest
+13:15:27.331 [main] INFO com.tngtech.archunit.core.PluginLoader -- Detected Java version 25.0.4.1
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.863 s -- in click.kivvi.architecture.ArchitectureTest
+[INFO] Running click.kivvi.application.AutomationsViewServiceTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 s -- in click.kivvi.application.AutomationsViewServiceTest
+[INFO] Running click.kivvi.application.LoginServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s -- in click.kivvi.application.LoginServiceTest
+[INFO] Running click.kivvi.application.PreferencesServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s -- in click.kivvi.application.PreferencesServiceTest
+[INFO] Running click.kivvi.application.EventsViewServiceTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.020 s -- in click.kivvi.application.EventsViewServiceTest
+[INFO] Running click.kivvi.application.SettingsViewServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s -- in click.kivvi.application.SettingsViewServiceTest
+[INFO] Running click.kivvi.application.ShellViewServiceTest
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.110 s -- in click.kivvi.application.ShellViewServiceTest
+[INFO] Running click.kivvi.application.CampaignsViewServiceTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.018 s -- in click.kivvi.application.CampaignsViewServiceTest
+[INFO] Running click.kivvi.application.ImportViewServiceTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s -- in click.kivvi.application.ImportViewServiceTest
+[INFO] Running click.kivvi.application.FeedsViewServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s -- in click.kivvi.application.FeedsViewServiceTest
+[INFO] Running click.kivvi.application.WidgetViewServiceTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s -- in click.kivvi.application.WidgetViewServiceTest
+[INFO] Running click.kivvi.application.CustomersViewServiceTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 s -- in click.kivvi.application.CustomersViewServiceTest
+[INFO] Running click.kivvi.application.tracking.EventIngestionServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.162 s -- in click.kivvi.application.tracking.EventIngestionServiceTest
+[INFO] Running click.kivvi.application.DashboardViewServiceTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.018 s -- in click.kivvi.application.DashboardViewServiceTest
+[INFO] Running click.kivvi.web.SettingsControllerTest
+13:15:29.655 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.web.SettingsControllerTest]: SettingsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:15:29.788 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.SettingsControllerTest
+13:15:29.790 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.web.SettingsControllerTest]: SettingsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:15:29.798 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.SettingsControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:30.114Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.SettingsControllerTest   : Starting SettingsControllerTest using Java 25.0.4.1 with PID 2186526 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:30.115Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.SettingsControllerTest   : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:30.595Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:30.768Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T13:15:30.768Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T13:15:30.770Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2026-09-09T13:15:30.792Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.SettingsControllerTest   : Started SettingsControllerTest in 0.959 seconds (process running for 5.251)
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.752 s -- in click.kivvi.web.SettingsControllerTest
+[INFO] Running click.kivvi.web.CampaignsControllerTest
+2026-09-09T13:15:31.362Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.CampaignsControllerTest]: CampaignsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:31.371Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.CampaignsControllerTest
+2026-09-09T13:15:31.371Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.CampaignsControllerTest]: CampaignsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:31.377Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.CampaignsControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:31.404Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.CampaignsControllerTest      : Starting CampaignsControllerTest using Java 25.0.4.1 with PID 2186526 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:31.404Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.CampaignsControllerTest      : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:31.539Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:31.574Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T13:15:31.574Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T13:15:31.575Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-09T13:15:31.596Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.CampaignsControllerTest      : Started CampaignsControllerTest in 0.215 seconds (process running for 6.055)
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.302 s -- in click.kivvi.web.CampaignsControllerTest
+[INFO] Running click.kivvi.web.CollectControllerTest
+2026-09-09T13:15:31.670Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.CollectControllerTest
+2026-09-09T13:15:31.676Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.CollectControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:31.699Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.CollectControllerTest    : Starting CollectControllerTest using Java 25.0.4.1 with PID 2186526 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:31.699Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.CollectControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:31.869Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:31.891Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T13:15:31.892Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T13:15:31.892Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-09-09T13:15:31.898Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.CollectControllerTest    : Started CollectControllerTest in 0.218 seconds (process running for 6.357)
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.312 s -- in click.kivvi.web.CollectControllerTest
+[INFO] Running click.kivvi.web.AutomationsControllerTest
+2026-09-09T13:15:31.977Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.AutomationsControllerTest]: AutomationsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:31.982Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.AutomationsControllerTest
+2026-09-09T13:15:31.982Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.AutomationsControllerTest]: AutomationsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:31.986Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.AutomationsControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:32.011Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.AutomationsControllerTest    : Starting AutomationsControllerTest using Java 25.0.4.1 with PID 2186526 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:32.012Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.AutomationsControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:32.118Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:32.149Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T13:15:32.149Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T13:15:32.149Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-09-09T13:15:32.153Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.AutomationsControllerTest    : Started AutomationsControllerTest in 0.164 seconds (process running for 6.612)
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.237 s -- in click.kivvi.web.AutomationsControllerTest
+[INFO] Running click.kivvi.web.FeedsControllerTest
+2026-09-09T13:15:32.214Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.FeedsControllerTest]: FeedsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:32.219Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.FeedsControllerTest
+2026-09-09T13:15:32.220Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.FeedsControllerTest]: FeedsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:32.224Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.FeedsControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:32.244Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.FeedsControllerTest      : Starting FeedsControllerTest using Java 25.0.4.1 with PID 2186526 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:32.244Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.FeedsControllerTest      : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:32.354Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:32.385Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T13:15:32.385Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T13:15:32.386Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-09T13:15:32.391Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.FeedsControllerTest      : Started FeedsControllerTest in 0.165 seconds (process running for 6.85)
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.198 s -- in click.kivvi.web.FeedsControllerTest
+[INFO] Running click.kivvi.web.WidgetControllerTest
+2026-09-09T13:15:32.413Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.WidgetControllerTest]: WidgetControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:32.420Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.WidgetControllerTest
+2026-09-09T13:15:32.421Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.WidgetControllerTest]: WidgetControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:32.426Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.WidgetControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:32.445Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.WidgetControllerTest     : Starting WidgetControllerTest using Java 25.0.4.1 with PID 2186526 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:32.446Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.WidgetControllerTest     : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:32.532Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:32.553Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T13:15:32.553Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T13:15:32.553Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-09-09T13:15:32.556Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.WidgetControllerTest     : Started WidgetControllerTest in 0.127 seconds (process running for 7.015)
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.190 s -- in click.kivvi.web.WidgetControllerTest
+[INFO] Running click.kivvi.web.LoginControllerTest
+2026-09-09T13:15:32.603Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.LoginControllerTest]: LoginControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:32.607Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.LoginControllerTest
+2026-09-09T13:15:32.608Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.LoginControllerTest]: LoginControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:32.611Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.LoginControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:32.624Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.LoginControllerTest      : Starting LoginControllerTest using Java 25.0.4.1 with PID 2186526 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:32.624Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.LoginControllerTest      : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:32.696Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:32.720Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T13:15:32.720Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T13:15:32.721Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-09T13:15:32.724Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.LoginControllerTest      : Started LoginControllerTest in 0.111 seconds (process running for 7.184)
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.145 s -- in click.kivvi.web.LoginControllerTest
+[INFO] Running click.kivvi.web.ImportUploadControllerTest
+2026-09-09T13:15:32.749Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.ImportUploadControllerTest]: ImportUploadControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:32.756Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.ImportUploadControllerTest
+2026-09-09T13:15:32.756Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.ImportUploadControllerTest]: ImportUploadControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:32.760Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.ImportUploadControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:32.776Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.ImportUploadControllerTest   : Starting ImportUploadControllerTest using Java 25.0.4.1 with PID 2186526 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:32.776Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.ImportUploadControllerTest   : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:32.848Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:32.868Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T13:15:32.869Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T13:15:32.869Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-09-09T13:15:32.872Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.ImportUploadControllerTest   : Started ImportUploadControllerTest in 0.11 seconds (process running for 7.331)
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.138 s -- in click.kivvi.web.ImportUploadControllerTest
+[INFO] Running click.kivvi.web.LoginControllerForwardedHeaderTest
+2026-09-09T13:15:32.888Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.LoginControllerForwardedHeaderTest]: LoginControllerForwardedHeaderTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:32.892Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.LoginControllerForwardedHeaderTest
+2026-09-09T13:15:32.892Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.LoginControllerForwardedHeaderTest]: LoginControllerForwardedHeaderTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:32.895Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.LoginControllerForwardedHeaderTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 s -- in click.kivvi.web.LoginControllerForwardedHeaderTest
+[INFO] Running click.kivvi.web.ImportControllerTest
+2026-09-09T13:15:32.905Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.ImportControllerTest]: ImportControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:32.909Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.ImportControllerTest
+2026-09-09T13:15:32.909Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.ImportControllerTest]: ImportControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:32.913Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.ImportControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:32.927Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.ImportControllerTest     : Starting ImportControllerTest using Java 25.0.4.1 with PID 2186526 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:32.927Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.ImportControllerTest     : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:32.996Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:33.016Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T13:15:33.016Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T13:15:33.017Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-09T13:15:33.020Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.ImportControllerTest     : Started ImportControllerTest in 0.105 seconds (process running for 7.479)
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.160 s -- in click.kivvi.web.ImportControllerTest
+[INFO] Running click.kivvi.web.CustomersControllerTest
+2026-09-09T13:15:33.065Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.CustomersControllerTest]: CustomersControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:33.070Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.CustomersControllerTest
+2026-09-09T13:15:33.070Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.CustomersControllerTest]: CustomersControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:33.074Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.CustomersControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:33.086Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.CustomersControllerTest      : Starting CustomersControllerTest using Java 25.0.4.1 with PID 2186526 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:33.086Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.CustomersControllerTest      : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:33.151Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:33.178Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T13:15:33.179Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T13:15:33.179Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-09-09T13:15:33.182Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.CustomersControllerTest      : Started CustomersControllerTest in 0.107 seconds (process running for 7.641)
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.170 s -- in click.kivvi.web.CustomersControllerTest
+[INFO] Running click.kivvi.web.LandingControllerTest
+2026-09-09T13:15:33.237Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.LandingControllerTest]: LandingControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:33.241Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.LandingControllerTest
+2026-09-09T13:15:33.242Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.LandingControllerTest]: LandingControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:33.245Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.LandingControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:33.259Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.LandingControllerTest    : Starting LandingControllerTest using Java 25.0.4.1 with PID 2186526 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:33.259Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.LandingControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:33.322Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:33.342Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T13:15:33.342Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T13:15:33.343Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-09-09T13:15:33.346Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.LandingControllerTest    : Started LandingControllerTest in 0.098 seconds (process running for 7.805)
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.129 s -- in click.kivvi.web.LandingControllerTest
+[INFO] Running click.kivvi.web.EventsControllerTest
+2026-09-09T13:15:33.366Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.EventsControllerTest]: EventsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:33.370Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.EventsControllerTest
+2026-09-09T13:15:33.370Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.EventsControllerTest]: EventsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:33.373Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.EventsControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:33.385Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.EventsControllerTest     : Starting EventsControllerTest using Java 25.0.4.1 with PID 2186526 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:33.386Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.EventsControllerTest     : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:33.446Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:33.463Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T13:15:33.464Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T13:15:33.464Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-09-09T13:15:33.466Z  INFO 2186526 --- [kivvi-click] [           main] click.kivvi.web.EventsControllerTest     : Started EventsControllerTest in 0.091 seconds (process running for 7.926)
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.120 s -- in click.kivvi.web.EventsControllerTest
+[INFO] Running click.kivvi.web.DashboardControllerTest
+2026-09-09T13:15:33.486Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.DashboardControllerTest]: DashboardControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:33.490Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.DashboardControllerTest
+2026-09-09T13:15:33.490Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.DashboardControllerTest]: DashboardControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:33.493Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.DashboardControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:33.506Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.DashboardControllerTest      : Starting DashboardControllerTest using Java 25.0.4.1 with PID 2186526 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:33.506Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.DashboardControllerTest      : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:33.570Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:33.588Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T13:15:33.588Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T13:15:33.589Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-09T13:15:33.591Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.DashboardControllerTest      : Started DashboardControllerTest in 0.097 seconds (process running for 8.05)
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.128 s -- in click.kivvi.web.DashboardControllerTest
+[INFO] Running click.kivvi.web.SpaDocumentControllerTest
+2026-09-09T13:15:33.616Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.SpaDocumentControllerTest]: SpaDocumentControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:33.619Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.SpaDocumentControllerTest
+2026-09-09T13:15:33.620Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.SpaDocumentControllerTest]: SpaDocumentControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:33.623Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.SpaDocumentControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:33.634Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.SpaDocumentControllerTest    : Starting SpaDocumentControllerTest using Java 25.0.4.1 with PID 2186526 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:33.635Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.SpaDocumentControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:33.695Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:33.711Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T13:15:33.712Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T13:15:33.712Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-09-09T13:15:33.715Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.SpaDocumentControllerTest    : Started SpaDocumentControllerTest in 0.09 seconds (process running for 8.174)
+[INFO] Tests run: 23, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.182 s -- in click.kivvi.web.SpaDocumentControllerTest
+[INFO] Running click.kivvi.web.PreferencesControllerTest
+2026-09-09T13:15:33.798Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.PreferencesControllerTest]: PreferencesControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:33.802Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.PreferencesControllerTest
+2026-09-09T13:15:33.802Z  INFO 2186526 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.PreferencesControllerTest]: PreferencesControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:33.805Z  INFO 2186526 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.PreferencesControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:33.815Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.PreferencesControllerTest    : Starting PreferencesControllerTest using Java 25.0.4.1 with PID 2186526 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:33.816Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.PreferencesControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:33.884Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:33.894Z  INFO 2186526 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T13:15:33.894Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T13:15:33.894Z  INFO 2186526 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-09-09T13:15:33.896Z  INFO 2186526 --- [kivvi-click] [           main] c.kivvi.web.PreferencesControllerTest    : Started PreferencesControllerTest in 0.089 seconds (process running for 8.356)
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.112 s -- in click.kivvi.web.PreferencesControllerTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 299, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.5.1:jar (default-jar) @ kivvi-click ---
+[INFO] Building jar: /home/muszkin/work/kivvi-click-wt/integration/backend/target/kivvi-click-0.1.0-w0-login.jar
+[INFO] 
+[INFO] --- spring-boot:4.1.1:repackage (repackage) @ kivvi-click ---
+[INFO] Replacing main artifact /home/muszkin/work/kivvi-click-wt/integration/backend/target/kivvi-click-0.1.0-w0-login.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /home/muszkin/work/kivvi-click-wt/integration/backend/target/kivvi-click-0.1.0-w0-login.jar.original
+[INFO] 
+[INFO] --- failsafe:3.5.6:integration-test (default) @ kivvi-click ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running click.kivvi.ShellPagesIT
+13:15:35.681 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+13:15:35.685 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+13:15:35.706 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+13:15:35.829 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.UnixSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+13:15:36.154 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+13:15:36.155 [main] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+13:15:36.167 [main] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 29.8.0
+  API Version: 1.56
+  Operating System: Ubuntu 24.04.4 LTS
+  Total Memory: 128182 MB
+13:15:36.199 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Creating container for image: testcontainers/ryuk:0.14.0
+13:15:36.203 [main] INFO org.testcontainers.utility.RegistryAuthLocator -- Failure when attempting to lookup auth config. Please ignore if you don't have images in an authenticated registry. Details: (dockerImageName: testcontainers/ryuk:0.14.0, configFile: /home/muszkin/.docker/config.json, configEnv: DOCKER_AUTH_CONFIG). Falling back to docker-java default behaviour. Exception message: Status 404: No config supplied. Checked in order: /home/muszkin/.docker/config.json (file not found), DOCKER_AUTH_CONFIG (not set)
+13:15:36.276 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 is starting: 6390373d042b4f7a347d49ee73559881c3c6a82b53fd36383a369a43c0daace3
+13:15:36.539 [main] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 started in PT0.340388585S
+13:15:36.543 [main] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+13:15:36.543 [main] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+13:15:36.544 [main] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+13:15:36.544 [main] INFO tc.postgres:18-alpine -- Creating container for image: postgres:18-alpine
+13:15:36.561 [main] INFO tc.postgres:18-alpine -- Container postgres:18-alpine is starting: 832607415e3af10b3d702fc2b9c69bab7cb4aa033b1e2acc1e131be24ea9b4de
+13:15:37.936 [main] INFO tc.postgres:18-alpine -- Container postgres:18-alpine started in PT1.391741207S
+13:15:37.937 [main] INFO tc.postgres:18-alpine -- Container is started (JDBC URL: jdbc:postgresql://localhost:32777/test?loggerLevel=OFF)
+13:15:38.005 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.ShellPagesIT]: ShellPagesIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:15:38.106 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.ShellPagesIT
+13:15:38.153 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.ShellPagesIT]: ShellPagesIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:15:38.158 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.ShellPagesIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:38.415Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.ShellPagesIT                 : Starting ShellPagesIT using Java 25.0.4.1 with PID 2187554 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:38.417Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.ShellPagesIT                 : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:39.609Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-09-09T13:15:39.622Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T13:15:39.622Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-09T13:15:39.655Z  INFO 2187554 --- [kivvi-click] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1220 ms
+2026-09-09T13:15:40.087Z  INFO 2187554 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32777/test?loggerLevel=OFF (PostgreSQL 18.6)
+2026-09-09T13:15:40.129Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-09T13:15:40.131Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.012s)
+2026-09-09T13:15:40.145Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-09T13:15:40.196Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-09T13:15:40.208Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - baseline"
+2026-09-09T13:15:40.247Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.028s)
+2026-09-09T13:15:40.441Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:40.969Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-09T13:15:40.989Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7c55e559
+2026-09-09T13:15:40.991Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-09T13:15:41.038Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T13:15:41.102Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 35319 (http) with context path '/'
+2026-09-09T13:15:41.128Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.ShellPagesIT                 : Started ShellPagesIT in 2.933 seconds (process running for 6.232)
+2026-09-09T13:15:41.149Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+2026-09-09T13:15:41.161Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-09-09T13:15:41.779Z  INFO 2187554 --- [kivvi-click] [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-09T13:15:41.779Z  INFO 2187554 --- [kivvi-click] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-09T13:15:41.780Z  INFO 2187554 --- [kivvi-click] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 52, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.988 s -- in click.kivvi.ShellPagesIT
+[INFO] Running click.kivvi.SessionRequestSerializationRedProofIT
+[WARNING] Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0 s -- in click.kivvi.SessionRequestSerializationRedProofIT
+[INFO] Running click.kivvi.CampaignsApiIT
+2026-09-09T13:15:42.648Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Creating container for image: postgres:18-alpine
+2026-09-09T13:15:42.667Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine is starting: d523d9c46c99f952a022520606275cb96546de023502e7ee5ca1965b5cc3885f
+2026-09-09T13:15:44.042Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine started in PT1.393964209S
+2026-09-09T13:15:44.042Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32778/test?loggerLevel=OFF)
+2026-09-09T13:15:44.043Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.CampaignsApiIT]: CampaignsApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:44.047Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.CampaignsApiIT
+2026-09-09T13:15:44.048Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.CampaignsApiIT]: CampaignsApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:44.050Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.CampaignsApiIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:44.071Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.CampaignsApiIT               : Starting CampaignsApiIT using Java 25.0.4.1 with PID 2187554 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:44.071Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.CampaignsApiIT               : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:44.340Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-09-09T13:15:44.341Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T13:15:44.342Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-09T13:15:44.352Z  INFO 2187554 --- [kivvi-click] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 279 ms
+2026-09-09T13:15:44.497Z  INFO 2187554 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32778/test?loggerLevel=OFF (PostgreSQL 18.6)
+2026-09-09T13:15:44.512Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-09T13:15:44.513Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.003s)
+2026-09-09T13:15:44.519Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-09T13:15:44.542Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-09T13:15:44.546Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - baseline"
+2026-09-09T13:15:44.565Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.015s)
+2026-09-09T13:15:44.612Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:44.699Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-09-09T13:15:44.708Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@ced7e4a
+2026-09-09T13:15:44.708Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-09-09T13:15:44.714Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T13:15:44.724Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 32811 (http) with context path '/'
+2026-09-09T13:15:44.733Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.CampaignsApiIT               : Started CampaignsApiIT in 0.679 seconds (process running for 9.836)
+2026-09-09T13:15:44.735Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+2026-09-09T13:15:44.742Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+2026-09-09T13:15:44.742Z  INFO 2187554 --- [kivvi-click] [o-auto-2-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-09T13:15:44.742Z  INFO 2187554 --- [kivvi-click] [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-09T13:15:44.744Z  INFO 2187554 --- [kivvi-click] [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.392 s -- in click.kivvi.CampaignsApiIT
+[INFO] Running click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT
+2026-09-09T13:15:45.041Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Creating container for image: postgres:18-alpine
+2026-09-09T13:15:45.057Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine is starting: 6d7165778fc7aa77761c950a7cd45b46b574aed10cfc5c7be446f502eda76d8d
+2026-09-09T13:15:46.417Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine started in PT1.375767792S
+2026-09-09T13:15:46.417Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32779/test?loggerLevel=OFF)
+2026-09-09T13:15:46.420Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT]: HeartbeatSchedulerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:46.435Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:46.454Z  INFO 2187554 --- [kivvi-click] [           main] c.k.i.scheduling.HeartbeatSchedulerIT    : Starting HeartbeatSchedulerIT using Java 25.0.4.1 with PID 2187554 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:46.454Z  INFO 2187554 --- [kivvi-click] [           main] c.k.i.scheduling.HeartbeatSchedulerIT    : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:46.657Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-09-09T13:15:46.657Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T13:15:46.658Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-09T13:15:46.665Z  INFO 2187554 --- [kivvi-click] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 210 ms
+2026-09-09T13:15:46.754Z  INFO 2187554 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32779/test?loggerLevel=OFF (PostgreSQL 18.6)
+2026-09-09T13:15:46.767Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-09T13:15:46.768Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.002s)
+2026-09-09T13:15:46.776Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-09T13:15:46.796Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-09T13:15:46.799Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - baseline"
+2026-09-09T13:15:46.818Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.015s)
+2026-09-09T13:15:46.855Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:46.913Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-09-09T13:15:46.919Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@69c00140
+2026-09-09T13:15:46.920Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-09-09T13:15:46.924Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T13:15:46.935Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 36515 (http) with context path '/'
+2026-09-09T13:15:46.942Z  INFO 2187554 --- [kivvi-click] [           main] c.k.i.scheduling.HeartbeatSchedulerIT    : Started HeartbeatSchedulerIT in 0.504 seconds (process running for 12.045)
+2026-09-09T13:15:46.944Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+2026-09-09T13:15:46.947Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.225 s -- in click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT
+[INFO] Running click.kivvi.infrastructure.tracking.EventDedupStoreIT
+2026-09-09T13:15:47.268Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Creating container for image: postgres:18-alpine
+2026-09-09T13:15:47.292Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine is starting: 46d3b793dc09f2e140a9f04a7995d389ad55347f6e97eee42566fbc211f12dbd
+2026-09-09T13:15:48.773Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine started in PT1.505355178S
+2026-09-09T13:15:48.774Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32780/test?loggerLevel=OFF)
+2026-09-09T13:15:48.774Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.infrastructure.tracking.EventDedupStoreIT]: EventDedupStoreIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:48.785Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.infrastructure.tracking.EventDedupStoreIT
+2026-09-09T13:15:48.786Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.infrastructure.tracking.EventDedupStoreIT]: EventDedupStoreIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:48.788Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.infrastructure.tracking.EventDedupStoreIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:48.809Z  INFO 2187554 --- [kivvi-click] [           main] c.k.i.tracking.EventDedupStoreIT         : Starting EventDedupStoreIT using Java 25.0.4.1 with PID 2187554 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:48.809Z  INFO 2187554 --- [kivvi-click] [           main] c.k.i.tracking.EventDedupStoreIT         : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:49.075Z  INFO 2187554 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32780/test?loggerLevel=OFF (PostgreSQL 18.6)
+2026-09-09T13:15:49.089Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-09T13:15:49.090Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.003s)
+2026-09-09T13:15:49.099Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-09T13:15:49.124Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-09T13:15:49.128Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - baseline"
+2026-09-09T13:15:49.151Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.019s)
+2026-09-09T13:15:49.200Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:49.290Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2026-09-09T13:15:49.297Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection org.postgresql.jdbc.PgConnection@56d3e4a9
+2026-09-09T13:15:49.297Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2026-09-09T13:15:49.312Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T13:15:49.323Z  INFO 2187554 --- [kivvi-click] [           main] c.k.i.tracking.EventDedupStoreIT         : Started EventDedupStoreIT in 0.531 seconds (process running for 14.427)
+2026-09-09T13:15:49.325Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+2026-09-09T13:15:49.328Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.267 s -- in click.kivvi.infrastructure.tracking.EventDedupStoreIT
+[INFO] Running click.kivvi.LandingApiIT
+2026-09-09T13:15:49.535Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Creating container for image: postgres:18-alpine
+2026-09-09T13:15:49.550Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine is starting: 42015db59a5b2c30b5a60d98abeaea60d6844a34fffd6e45f9ac5a84c8717dc5
+2026-09-09T13:15:50.920Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine started in PT1.384479668S
+2026-09-09T13:15:50.920Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32781/test?loggerLevel=OFF)
+2026-09-09T13:15:50.921Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.LandingApiIT]: LandingApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:50.925Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.LandingApiIT
+2026-09-09T13:15:50.925Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.LandingApiIT]: LandingApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:50.928Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.LandingApiIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:50.944Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.LandingApiIT                 : Starting LandingApiIT using Java 25.0.4.1 with PID 2187554 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:50.945Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.LandingApiIT                 : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:51.116Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-09-09T13:15:51.116Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T13:15:51.116Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-09T13:15:51.122Z  INFO 2187554 --- [kivvi-click] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 176 ms
+2026-09-09T13:15:51.201Z  INFO 2187554 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32781/test?loggerLevel=OFF (PostgreSQL 18.6)
+2026-09-09T13:15:51.212Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-09T13:15:51.213Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.002s)
+2026-09-09T13:15:51.219Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-09T13:15:51.240Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-09T13:15:51.242Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - baseline"
+2026-09-09T13:15:51.260Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.015s)
+2026-09-09T13:15:51.289Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:51.344Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2026-09-09T13:15:51.351Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection org.postgresql.jdbc.PgConnection@fd10007
+2026-09-09T13:15:51.352Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2026-09-09T13:15:51.356Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T13:15:51.364Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 39757 (http) with context path '/'
+2026-09-09T13:15:51.369Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.LandingApiIT                 : Started LandingApiIT in 0.439 seconds (process running for 16.472)
+2026-09-09T13:15:51.371Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+2026-09-09T13:15:51.374Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+2026-09-09T13:15:51.376Z  INFO 2187554 --- [kivvi-click] [o-auto-4-exec-1] o.a.c.c.C.[Tomcat-3].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-09T13:15:51.376Z  INFO 2187554 --- [kivvi-click] [o-auto-4-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-09T13:15:51.377Z  INFO 2187554 --- [kivvi-click] [o-auto-4-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.068 s -- in click.kivvi.LandingApiIT
+[INFO] Running click.kivvi.SettingsApiIT
+2026-09-09T13:15:51.605Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Creating container for image: postgres:18-alpine
+2026-09-09T13:15:51.619Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine is starting: cb5123653ac9f6c17f61077eca10f859bfb04a95485e5325a1cb09c82ed0551a
+2026-09-09T13:15:52.997Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine started in PT1.392370984S
+2026-09-09T13:15:52.997Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32782/test?loggerLevel=OFF)
+2026-09-09T13:15:52.998Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.SettingsApiIT]: SettingsApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:53.001Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.SettingsApiIT
+2026-09-09T13:15:53.001Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.SettingsApiIT]: SettingsApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:53.003Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.SettingsApiIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:53.017Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.SettingsApiIT                : Starting SettingsApiIT using Java 25.0.4.1 with PID 2187554 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:53.017Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.SettingsApiIT                : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:53.174Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-09-09T13:15:53.175Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T13:15:53.175Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-09T13:15:53.182Z  INFO 2187554 --- [kivvi-click] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 163 ms
+2026-09-09T13:15:53.250Z  INFO 2187554 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32782/test?loggerLevel=OFF (PostgreSQL 18.6)
+2026-09-09T13:15:53.260Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-09T13:15:53.260Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.002s)
+2026-09-09T13:15:53.266Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-09T13:15:53.288Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-09T13:15:53.290Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - baseline"
+2026-09-09T13:15:53.310Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.016s)
+2026-09-09T13:15:53.343Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:53.405Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
+2026-09-09T13:15:53.413Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-6 - Added connection org.postgresql.jdbc.PgConnection@5910aa2e
+2026-09-09T13:15:53.413Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Start completed.
+2026-09-09T13:15:53.418Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T13:15:53.428Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 34031 (http) with context path '/'
+2026-09-09T13:15:53.435Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.SettingsApiIT                : Started SettingsApiIT in 0.43 seconds (process running for 18.538)
+2026-09-09T13:15:53.437Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+2026-09-09T13:15:53.442Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+2026-09-09T13:15:53.442Z  INFO 2187554 --- [kivvi-click] [o-auto-5-exec-1] o.a.c.c.C.[Tomcat-4].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-09T13:15:53.442Z  INFO 2187554 --- [kivvi-click] [o-auto-5-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-09T13:15:53.444Z  INFO 2187554 --- [kivvi-click] [o-auto-5-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.231 s -- in click.kivvi.SettingsApiIT
+[INFO] Running click.kivvi.DashboardApiIT
+2026-09-09T13:15:53.836Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Creating container for image: postgres:18-alpine
+2026-09-09T13:15:53.857Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine is starting: e256502b1e312f8b348af29bd37f7286717eab13d918166015596f1cc2f384f1
+2026-09-09T13:15:55.289Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine started in PT1.452234574S
+2026-09-09T13:15:55.289Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32783/test?loggerLevel=OFF)
+2026-09-09T13:15:55.290Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.DashboardApiIT]: DashboardApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:55.293Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.DashboardApiIT
+2026-09-09T13:15:55.293Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.DashboardApiIT]: DashboardApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:55.295Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.DashboardApiIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:55.308Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.DashboardApiIT               : Starting DashboardApiIT using Java 25.0.4.1 with PID 2187554 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:55.308Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.DashboardApiIT               : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:55.459Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-09-09T13:15:55.460Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T13:15:55.460Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-09T13:15:55.468Z  INFO 2187554 --- [kivvi-click] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 159 ms
+2026-09-09T13:15:55.539Z  INFO 2187554 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32783/test?loggerLevel=OFF (PostgreSQL 18.6)
+2026-09-09T13:15:55.550Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-09T13:15:55.550Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.002s)
+2026-09-09T13:15:55.557Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-09T13:15:55.575Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-09T13:15:55.578Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - baseline"
+2026-09-09T13:15:55.594Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.013s)
+2026-09-09T13:15:55.622Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:55.674Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Starting...
+2026-09-09T13:15:55.681Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-7 - Added connection org.postgresql.jdbc.PgConnection@384edc3b
+2026-09-09T13:15:55.682Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Start completed.
+2026-09-09T13:15:55.686Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T13:15:55.703Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 43769 (http) with context path '/'
+2026-09-09T13:15:55.708Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.DashboardApiIT               : Started DashboardApiIT in 0.411 seconds (process running for 20.811)
+2026-09-09T13:15:55.709Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+2026-09-09T13:15:55.712Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+2026-09-09T13:15:55.712Z  INFO 2187554 --- [kivvi-click] [o-auto-6-exec-1] o.a.c.c.C.[Tomcat-5].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-09T13:15:55.712Z  INFO 2187554 --- [kivvi-click] [o-auto-6-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-09T13:15:55.713Z  INFO 2187554 --- [kivvi-click] [o-auto-6-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.101 s -- in click.kivvi.DashboardApiIT
+[INFO] Running click.kivvi.CollectApiIT
+2026-09-09T13:15:55.943Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Creating container for image: postgres:18-alpine
+2026-09-09T13:15:55.957Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine is starting: 7abee96ccbc34e75a9984d386d0a326312bf41ae2edd65b4d05e8b3565525525
+2026-09-09T13:15:57.318Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine started in PT1.374468832S
+2026-09-09T13:15:57.318Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32784/test?loggerLevel=OFF)
+2026-09-09T13:15:57.319Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.CollectApiIT]: CollectApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:57.322Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.CollectApiIT
+2026-09-09T13:15:57.322Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.CollectApiIT]: CollectApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:57.324Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.CollectApiIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:57.336Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.CollectApiIT                 : Starting CollectApiIT using Java 25.0.4.1 with PID 2187554 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:57.336Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.CollectApiIT                 : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:57.455Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-09-09T13:15:57.456Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T13:15:57.456Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-09T13:15:57.462Z  INFO 2187554 --- [kivvi-click] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 125 ms
+2026-09-09T13:15:57.534Z  INFO 2187554 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32784/test?loggerLevel=OFF (PostgreSQL 18.6)
+2026-09-09T13:15:57.544Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-09T13:15:57.545Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.002s)
+2026-09-09T13:15:57.551Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-09T13:15:57.573Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-09T13:15:57.575Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - baseline"
+2026-09-09T13:15:57.593Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.015s)
+2026-09-09T13:15:57.617Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:57.662Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Starting...
+2026-09-09T13:15:57.670Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-8 - Added connection org.postgresql.jdbc.PgConnection@14cb5250
+2026-09-09T13:15:57.671Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Start completed.
+2026-09-09T13:15:57.676Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T13:15:57.683Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 44723 (http) with context path '/'
+2026-09-09T13:15:57.688Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.CollectApiIT                 : Started CollectApiIT in 0.363 seconds (process running for 22.792)
+2026-09-09T13:15:57.690Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+2026-09-09T13:15:57.693Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+2026-09-09T13:15:57.699Z  INFO 2187554 --- [kivvi-click] [o-auto-7-exec-1] o.a.c.c.C.[Tomcat-6].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-09T13:15:57.699Z  INFO 2187554 --- [kivvi-click] [o-auto-7-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-09T13:15:57.700Z  INFO 2187554 --- [kivvi-click] [o-auto-7-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.034 s -- in click.kivvi.CollectApiIT
+[INFO] Running click.kivvi.CustomersApiIT
+2026-09-09T13:15:57.974Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Creating container for image: postgres:18-alpine
+2026-09-09T13:15:57.988Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine is starting: c204902900498acc8c25d67225ab843d031f7828e3a413d3bbe44bcbe2f6f618
+2026-09-09T13:15:59.380Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine started in PT1.406690786S
+2026-09-09T13:15:59.381Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32785/test?loggerLevel=OFF)
+2026-09-09T13:15:59.381Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.CustomersApiIT]: CustomersApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:59.384Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.CustomersApiIT
+2026-09-09T13:15:59.384Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.CustomersApiIT]: CustomersApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:15:59.386Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.CustomersApiIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:15:59.397Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.CustomersApiIT               : Starting CustomersApiIT using Java 25.0.4.1 with PID 2187554 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:15:59.397Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.CustomersApiIT               : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:15:59.511Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-09-09T13:15:59.511Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T13:15:59.512Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-09T13:15:59.517Z  INFO 2187554 --- [kivvi-click] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 119 ms
+2026-09-09T13:15:59.596Z  INFO 2187554 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32785/test?loggerLevel=OFF (PostgreSQL 18.6)
+2026-09-09T13:15:59.607Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-09T13:15:59.607Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.002s)
+2026-09-09T13:15:59.614Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-09T13:15:59.634Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-09T13:15:59.637Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - baseline"
+2026-09-09T13:15:59.658Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.016s)
+2026-09-09T13:15:59.690Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:15:59.749Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Starting...
+2026-09-09T13:15:59.757Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-9 - Added connection org.postgresql.jdbc.PgConnection@51d84d7f
+2026-09-09T13:15:59.757Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Start completed.
+2026-09-09T13:15:59.762Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T13:15:59.772Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 39653 (http) with context path '/'
+2026-09-09T13:15:59.778Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.CustomersApiIT               : Started CustomersApiIT in 0.39 seconds (process running for 24.882)
+2026-09-09T13:15:59.781Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+2026-09-09T13:15:59.785Z  INFO 2187554 --- [kivvi-click] [o-auto-8-exec-1] o.a.c.c.C.[Tomcat-7].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-09T13:15:59.786Z  INFO 2187554 --- [kivvi-click] [o-auto-8-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-09T13:15:59.786Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+2026-09-09T13:15:59.787Z  INFO 2187554 --- [kivvi-click] [o-auto-8-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-09-09T13:16:00.002Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-8 - Failed to validate connection org.postgresql.jdbc.PgConnection@14cb5250 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.003Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-5 - Failed to validate connection org.postgresql.jdbc.PgConnection@fd10007 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.004Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-8 - Failed to validate connection org.postgresql.jdbc.PgConnection@122b78ef (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.004Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-3 - Failed to validate connection org.postgresql.jdbc.PgConnection@69c00140 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.002Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-4 - Failed to validate connection org.postgresql.jdbc.PgConnection@56d3e4a9 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.005Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-7 - Failed to validate connection org.postgresql.jdbc.PgConnection@384edc3b (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.001Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-6 - Failed to validate connection org.postgresql.jdbc.PgConnection@5910aa2e (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.005Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-3 - Failed to validate connection org.postgresql.jdbc.PgConnection@75959339 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.002Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@7c55e559 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.006Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-4 - Failed to validate connection org.postgresql.jdbc.PgConnection@e698f86 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.007Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-3 - Failed to validate connection org.postgresql.jdbc.PgConnection@309713ef (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.007Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@7d3b78e9 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.007Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@3839f92a (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.007Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@57897a6f (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.007Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-6 - Failed to validate connection org.postgresql.jdbc.PgConnection@3f0604b5 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.007Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@94b87f4 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.008Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-6 - Failed to validate connection org.postgresql.jdbc.PgConnection@7a048d31 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.008Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-2 - Failed to validate connection org.postgresql.jdbc.PgConnection@ced7e4a (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.008Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-6 - Failed to validate connection org.postgresql.jdbc.PgConnection@3cc245f3 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.008Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-2 - Failed to validate connection org.postgresql.jdbc.PgConnection@2436459b (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.008Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-6 - Failed to validate connection org.postgresql.jdbc.PgConnection@4b3494b6 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.002Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.ProxyConnection   : HikariPool-9 - Connection org.postgresql.jdbc.PgConnection@51d84d7f marked as broken because of SQLSTATE(08006), ErrorCode(0)
+
+org.postgresql.util.PSQLException: An I/O error occurred while sending to the backend.
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:474) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:533) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:449) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:197) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.jdbc.PgPreparedStatement.executeUpdate(PgPreparedStatement.java:158) ~[postgresql-42.7.13.jar:42.7.13]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java) ~[HikariCP-7.0.2.jar:na]
+	at org.springframework.jdbc.core.JdbcTemplate.lambda$update$0(JdbcTemplate.java:971) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:670) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:966) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1010) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1020) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.session.jdbc.JdbcIndexedSessionRepository.lambda$cleanUpExpiredSessions$0(JdbcIndexedSessionRepository.java:650) ~[spring-session-jdbc-4.1.1.jar:4.1.1]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137) ~[spring-tx-7.0.9.jar:7.0.9]
+	at org.springframework.session.jdbc.JdbcIndexedSessionRepository.cleanUpExpiredSessions(JdbcIndexedSessionRepository.java:649) ~[spring-session-jdbc-4.1.1.jar:4.1.1]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-7.0.9.jar:7.0.9]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:94) ~[spring-context-7.0.9.jar:7.0.9]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:309) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+Caused by: java.io.EOFException
+	at org.postgresql.core.PGStream.receiveChar(PGStream.java:482) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2383) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:446) ~[postgresql-42.7.13.jar:42.7.13]
+	... 22 common frames omitted
+
+2026-09-09T13:16:00.010Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@1a665c4e (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.010Z ERROR 2187554 --- [kivvi-click] [pring-session-1] o.s.t.support.TransactionTemplate        : Application exception overridden by rollback exception
+
+org.springframework.dao.DataAccessResourceFailureException: PreparedStatementCallback; SQL [DELETE FROM SPRING_SESSION
+WHERE EXPIRY_TIME < ?
+]; An I/O error occurred while sending to the backend.
+	at org.springframework.jdbc.support.SQLStateSQLExceptionTranslator.doTranslate(SQLStateSQLExceptionTranslator.java:152) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:102) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:111) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:111) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.jdbc.core.JdbcTemplate.translateException(JdbcTemplate.java:1549) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:689) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:966) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1010) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1020) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.session.jdbc.JdbcIndexedSessionRepository.lambda$cleanUpExpiredSessions$0(JdbcIndexedSessionRepository.java:650) ~[spring-session-jdbc-4.1.1.jar:4.1.1]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137) ~[spring-tx-7.0.9.jar:7.0.9]
+	at org.springframework.session.jdbc.JdbcIndexedSessionRepository.cleanUpExpiredSessions(JdbcIndexedSessionRepository.java:649) ~[spring-session-jdbc-4.1.1.jar:4.1.1]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-7.0.9.jar:7.0.9]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:94) ~[spring-context-7.0.9.jar:7.0.9]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:309) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+Caused by: org.postgresql.util.PSQLException: An I/O error occurred while sending to the backend.
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:474) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:533) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:449) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:197) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.jdbc.PgPreparedStatement.executeUpdate(PgPreparedStatement.java:158) ~[postgresql-42.7.13.jar:42.7.13]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java) ~[HikariCP-7.0.2.jar:na]
+	at org.springframework.jdbc.core.JdbcTemplate.lambda$update$0(JdbcTemplate.java:971) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:670) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	... 14 common frames omitted
+Caused by: java.io.EOFException
+	at org.postgresql.core.PGStream.receiveChar(PGStream.java:482) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2383) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:446) ~[postgresql-42.7.13.jar:42.7.13]
+	... 22 common frames omitted
+
+2026-09-09T13:16:00.011Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@3fcca47 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.011Z ERROR 2187554 --- [kivvi-click] [pring-session-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+org.springframework.transaction.TransactionSystemException: JDBC rollback failed
+	at org.springframework.jdbc.datasource.DataSourceTransactionManager.translateException(DataSourceTransactionManager.java:477) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.jdbc.support.JdbcTransactionManager.translateException(JdbcTransactionManager.java:184) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.jdbc.datasource.DataSourceTransactionManager.doRollback(DataSourceTransactionManager.java:361) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.processRollback(AbstractPlatformTransactionManager.java:896) ~[spring-tx-7.0.9.jar:7.0.9]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.rollback(AbstractPlatformTransactionManager.java:865) ~[spring-tx-7.0.9.jar:7.0.9]
+	at org.springframework.transaction.support.TransactionTemplate.rollbackOnException(TransactionTemplate.java:165) ~[spring-tx-7.0.9.jar:7.0.9]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:141) ~[spring-tx-7.0.9.jar:7.0.9]
+	at org.springframework.session.jdbc.JdbcIndexedSessionRepository.cleanUpExpiredSessions(JdbcIndexedSessionRepository.java:649) ~[spring-session-jdbc-4.1.1.jar:4.1.1]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-7.0.9.jar:7.0.9]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:94) ~[spring-context-7.0.9.jar:7.0.9]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:309) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+Caused by: java.sql.SQLException: Connection is closed
+	at com.zaxxer.hikari.pool.ProxyConnection$ClosedConnection.lambda$getClosedConnection$0(ProxyConnection.java:559) ~[HikariCP-7.0.2.jar:na]
+	at jdk.proxy3/jdk.proxy3.$Proxy146.rollback(Unknown Source) ~[na:na]
+	at com.zaxxer.hikari.pool.ProxyConnection.rollback(ProxyConnection.java:386) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyConnection.rollback(HikariProxyConnection.java) ~[HikariCP-7.0.2.jar:na]
+	at org.springframework.jdbc.datasource.DataSourceTransactionManager.doRollback(DataSourceTransactionManager.java:358) ~[spring-jdbc-7.0.9.jar:7.0.9]
+	... 13 common frames omitted
+
+2026-09-09T13:16:00.013Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@1ac85804 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.013Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@3dfbfed (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-09-09T13:16:00.014Z  WARN 2187554 --- [kivvi-click] [pring-session-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@2bf307f4 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.119 s -- in click.kivvi.CustomersApiIT
+[INFO] Running click.kivvi.ImportApiIT
+2026-09-09T13:16:00.097Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Creating container for image: postgres:18-alpine
+2026-09-09T13:16:00.122Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine is starting: 5d816084af12936a7cc20c8ec631d769683b80d827671fab95d5f20209d89e9f
+2026-09-09T13:16:01.560Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine started in PT1.46323435S
+2026-09-09T13:16:01.560Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32787/test?loggerLevel=OFF)
+2026-09-09T13:16:01.561Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.ImportApiIT]: ImportApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:16:01.564Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.ImportApiIT
+2026-09-09T13:16:01.564Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.ImportApiIT]: ImportApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:16:01.566Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.ImportApiIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:16:01.576Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.ImportApiIT                  : Starting ImportApiIT using Java 25.0.4.1 with PID 2187554 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:16:01.576Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.ImportApiIT                  : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:16:01.685Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-09-09T13:16:01.686Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T13:16:01.686Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-09T13:16:01.691Z  INFO 2187554 --- [kivvi-click] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 114 ms
+2026-09-09T13:16:01.748Z  INFO 2187554 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32787/test?loggerLevel=OFF (PostgreSQL 18.6)
+2026-09-09T13:16:01.759Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-09T13:16:01.759Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.002s)
+2026-09-09T13:16:01.765Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-09T13:16:01.784Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-09T13:16:01.786Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - baseline"
+2026-09-09T13:16:01.802Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.013s)
+2026-09-09T13:16:01.822Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:16:01.855Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Starting...
+2026-09-09T13:16:01.861Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-10 - Added connection org.postgresql.jdbc.PgConnection@6ea5e1fd
+2026-09-09T13:16:01.861Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Start completed.
+2026-09-09T13:16:01.864Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T13:16:01.870Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 41521 (http) with context path '/'
+2026-09-09T13:16:01.875Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.ImportApiIT                  : Started ImportApiIT in 0.307 seconds (process running for 26.978)
+2026-09-09T13:16:01.876Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+2026-09-09T13:16:01.879Z  INFO 2187554 --- [kivvi-click] [o-auto-9-exec-1] o.a.c.c.C.[Tomcat-8].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-09T13:16:01.879Z  INFO 2187554 --- [kivvi-click] [o-auto-9-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-09T13:16:01.879Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+2026-09-09T13:16:01.880Z  INFO 2187554 --- [kivvi-click] [o-auto-9-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.112 s -- in click.kivvi.ImportApiIT
+[INFO] Running click.kivvi.WidgetApiIT
+2026-09-09T13:16:02.206Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Creating container for image: postgres:18-alpine
+2026-09-09T13:16:02.219Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine is starting: d7881a614dba75a070b54a4e60340b6e31f247a6b89786f9a28c5f1aa1141e38
+2026-09-09T13:16:03.605Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine started in PT1.399517788S
+2026-09-09T13:16:03.606Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32788/test?loggerLevel=OFF)
+2026-09-09T13:16:03.606Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.WidgetApiIT]: WidgetApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:16:03.609Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.WidgetApiIT
+2026-09-09T13:16:03.609Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.WidgetApiIT]: WidgetApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:16:03.611Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.WidgetApiIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:16:03.622Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.WidgetApiIT                  : Starting WidgetApiIT using Java 25.0.4.1 with PID 2187554 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:16:03.622Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.WidgetApiIT                  : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:16:03.745Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-09-09T13:16:03.746Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T13:16:03.746Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-09T13:16:03.752Z  INFO 2187554 --- [kivvi-click] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 130 ms
+2026-09-09T13:16:03.822Z  INFO 2187554 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32788/test?loggerLevel=OFF (PostgreSQL 18.6)
+2026-09-09T13:16:03.832Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-09T13:16:03.832Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.002s)
+2026-09-09T13:16:03.839Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-09T13:16:03.862Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-09T13:16:03.864Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - baseline"
+2026-09-09T13:16:03.884Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.016s)
+2026-09-09T13:16:03.908Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:16:03.949Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Starting...
+2026-09-09T13:16:03.956Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-11 - Added connection org.postgresql.jdbc.PgConnection@613da64b
+2026-09-09T13:16:03.956Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Start completed.
+2026-09-09T13:16:03.960Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T13:16:03.966Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 45753 (http) with context path '/'
+2026-09-09T13:16:03.971Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.WidgetApiIT                  : Started WidgetApiIT in 0.358 seconds (process running for 29.074)
+2026-09-09T13:16:03.972Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+2026-09-09T13:16:03.975Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+2026-09-09T13:16:03.975Z  INFO 2187554 --- [kivvi-click] [-auto-10-exec-1] o.a.c.c.C.[Tomcat-9].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-09T13:16:03.975Z  INFO 2187554 --- [kivvi-click] [-auto-10-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-09T13:16:03.977Z  INFO 2187554 --- [kivvi-click] [-auto-10-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.044 s -- in click.kivvi.WidgetApiIT
+[INFO] Running click.kivvi.FeedsApiIT
+2026-09-09T13:16:04.250Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Creating container for image: postgres:18-alpine
+2026-09-09T13:16:04.264Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine is starting: 90c3c20d8cac3cfde309acf21f52204f378800b1ded63c3bcf36fa83f7d21de1
+2026-09-09T13:16:05.649Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine started in PT1.398980523S
+2026-09-09T13:16:05.649Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32789/test?loggerLevel=OFF)
+2026-09-09T13:16:05.650Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.FeedsApiIT]: FeedsApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:16:05.653Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.FeedsApiIT
+2026-09-09T13:16:05.653Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.FeedsApiIT]: FeedsApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:16:05.655Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.FeedsApiIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:16:05.666Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.FeedsApiIT                   : Starting FeedsApiIT using Java 25.0.4.1 with PID 2187554 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:16:05.666Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.FeedsApiIT                   : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:16:05.775Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-09-09T13:16:05.776Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T13:16:05.776Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-09T13:16:05.781Z  INFO 2187554 --- [kivvi-click] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 114 ms
+2026-09-09T13:16:05.841Z  INFO 2187554 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32789/test?loggerLevel=OFF (PostgreSQL 18.6)
+2026-09-09T13:16:05.851Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-09T13:16:05.852Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.002s)
+2026-09-09T13:16:05.858Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-09T13:16:05.879Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-09T13:16:05.881Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - baseline"
+2026-09-09T13:16:05.899Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.015s)
+2026-09-09T13:16:05.926Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:16:05.971Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Starting...
+2026-09-09T13:16:05.978Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-12 - Added connection org.postgresql.jdbc.PgConnection@2c9d7ede
+2026-09-09T13:16:05.979Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Start completed.
+2026-09-09T13:16:05.983Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T13:16:05.989Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 45421 (http) with context path '/'
+2026-09-09T13:16:05.994Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.FeedsApiIT                   : Started FeedsApiIT in 0.337 seconds (process running for 31.098)
+2026-09-09T13:16:05.996Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+2026-09-09T13:16:05.999Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+2026-09-09T13:16:06.000Z  INFO 2187554 --- [kivvi-click] [-auto-11-exec-1] o.a.c.c.C.[Tomcat-10].[localhost].[/]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-09T13:16:06.000Z  INFO 2187554 --- [kivvi-click] [-auto-11-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-09T13:16:06.001Z  INFO 2187554 --- [kivvi-click] [-auto-11-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.993 s -- in click.kivvi.FeedsApiIT
+[INFO] Running click.kivvi.SessionRoundTripIT
+2026-09-09T13:16:06.244Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Creating container for image: postgres:18-alpine
+2026-09-09T13:16:06.267Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine is starting: d81811446cf7daa482866d996a6650b82c59375515d5cc9b061d230830206372
+2026-09-09T13:16:07.757Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine started in PT1.512723441S
+2026-09-09T13:16:07.757Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32790/test?loggerLevel=OFF)
+2026-09-09T13:16:07.757Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.SessionRoundTripIT]: SessionRoundTripIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:16:07.760Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.SessionRoundTripIT
+2026-09-09T13:16:07.760Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.SessionRoundTripIT]: SessionRoundTripIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:16:07.761Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.SessionRoundTripIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:16:07.770Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.SessionRoundTripIT           : Starting SessionRoundTripIT using Java 25.0.4.1 with PID 2187554 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:16:07.771Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.SessionRoundTripIT           : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:16:07.898Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-09-09T13:16:07.898Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T13:16:07.899Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-09T13:16:07.904Z  INFO 2187554 --- [kivvi-click] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 133 ms
+2026-09-09T13:16:07.974Z  INFO 2187554 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32790/test?loggerLevel=OFF (PostgreSQL 18.6)
+2026-09-09T13:16:07.987Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-09T13:16:07.987Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.002s)
+2026-09-09T13:16:07.994Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-09T13:16:08.016Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-09T13:16:08.018Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - baseline"
+2026-09-09T13:16:08.039Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.017s)
+2026-09-09T13:16:08.060Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:16:08.097Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Starting...
+2026-09-09T13:16:08.104Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-13 - Added connection org.postgresql.jdbc.PgConnection@5f901447
+2026-09-09T13:16:08.104Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-13 - Start completed.
+2026-09-09T13:16:08.107Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T13:16:08.113Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 33807 (http) with context path '/'
+2026-09-09T13:16:08.118Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.SessionRoundTripIT           : Started SessionRoundTripIT in 0.355 seconds (process running for 33.222)
+2026-09-09T13:16:08.120Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+2026-09-09T13:16:08.123Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+2026-09-09T13:16:08.124Z  INFO 2187554 --- [kivvi-click] [-auto-12-exec-1] o.a.c.c.C.[Tomcat-11].[localhost].[/]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-09T13:16:08.124Z  INFO 2187554 --- [kivvi-click] [-auto-12-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-09T13:16:08.124Z  INFO 2187554 --- [kivvi-click] [-auto-12-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.154 s -- in click.kivvi.SessionRoundTripIT
+[INFO] Running click.kivvi.ShellApiIT
+2026-09-09T13:16:08.398Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Creating container for image: postgres:18-alpine
+2026-09-09T13:16:08.412Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine is starting: 94647127252d26a03977b1f7ecce664020878b98d23ab1c3ef641fa67a494ed8
+2026-09-09T13:16:09.783Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine started in PT1.384875538S
+2026-09-09T13:16:09.783Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32791/test?loggerLevel=OFF)
+2026-09-09T13:16:09.784Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.ShellApiIT]: ShellApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:16:09.786Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.ShellApiIT
+2026-09-09T13:16:09.787Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.ShellApiIT]: ShellApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:16:09.788Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.ShellApiIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:16:09.798Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.ShellApiIT                   : Starting ShellApiIT using Java 25.0.4.1 with PID 2187554 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:16:09.798Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.ShellApiIT                   : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:16:09.905Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-09-09T13:16:09.905Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T13:16:09.905Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-09T13:16:09.910Z  INFO 2187554 --- [kivvi-click] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 111 ms
+2026-09-09T13:16:09.974Z  INFO 2187554 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32791/test?loggerLevel=OFF (PostgreSQL 18.6)
+2026-09-09T13:16:09.983Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-09T13:16:09.984Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.001s)
+2026-09-09T13:16:09.989Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-09T13:16:10.009Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-09T13:16:10.011Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - baseline"
+2026-09-09T13:16:10.028Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.014s)
+2026-09-09T13:16:10.051Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:16:10.087Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-14 - Starting...
+2026-09-09T13:16:10.093Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-14 - Added connection org.postgresql.jdbc.PgConnection@499c0aed
+2026-09-09T13:16:10.093Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-14 - Start completed.
+2026-09-09T13:16:10.096Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T13:16:10.102Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 40021 (http) with context path '/'
+2026-09-09T13:16:10.107Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.ShellApiIT                   : Started ShellApiIT in 0.317 seconds (process running for 35.211)
+2026-09-09T13:16:10.109Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+2026-09-09T13:16:10.111Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+2026-09-09T13:16:10.111Z  INFO 2187554 --- [kivvi-click] [-auto-13-exec-1] o.a.c.c.C.[Tomcat-12].[localhost].[/]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-09T13:16:10.111Z  INFO 2187554 --- [kivvi-click] [-auto-13-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-09T13:16:10.112Z  INFO 2187554 --- [kivvi-click] [-auto-13-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.940 s -- in click.kivvi.ShellApiIT
+[INFO] Running click.kivvi.AutomationsApiIT
+2026-09-09T13:16:10.339Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Creating container for image: postgres:18-alpine
+2026-09-09T13:16:10.353Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine is starting: c4c96eac5c02796b7396299e1c9e4b5f1c88e79b8604eb761de1218f1e3dbd5b
+2026-09-09T13:16:11.737Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine started in PT1.398625349S
+2026-09-09T13:16:11.737Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32792/test?loggerLevel=OFF)
+2026-09-09T13:16:11.738Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.AutomationsApiIT]: AutomationsApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:16:11.740Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.AutomationsApiIT
+2026-09-09T13:16:11.741Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.AutomationsApiIT]: AutomationsApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:16:11.743Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.AutomationsApiIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:16:11.752Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.AutomationsApiIT             : Starting AutomationsApiIT using Java 25.0.4.1 with PID 2187554 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:16:11.752Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.AutomationsApiIT             : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:16:11.844Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-09-09T13:16:11.844Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T13:16:11.844Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-09T13:16:11.849Z  INFO 2187554 --- [kivvi-click] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 96 ms
+2026-09-09T13:16:11.899Z  INFO 2187554 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32792/test?loggerLevel=OFF (PostgreSQL 18.6)
+2026-09-09T13:16:11.909Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-09T13:16:11.909Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.001s)
+2026-09-09T13:16:11.914Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-09T13:16:11.937Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-09T13:16:11.940Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - baseline"
+2026-09-09T13:16:11.959Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.016s)
+2026-09-09T13:16:11.981Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:16:12.015Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-15 - Starting...
+2026-09-09T13:16:12.021Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-15 - Added connection org.postgresql.jdbc.PgConnection@109ef880
+2026-09-09T13:16:12.021Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-15 - Start completed.
+2026-09-09T13:16:12.024Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T13:16:12.030Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 39543 (http) with context path '/'
+2026-09-09T13:16:12.035Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.AutomationsApiIT             : Started AutomationsApiIT in 0.291 seconds (process running for 37.139)
+2026-09-09T13:16:12.037Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+2026-09-09T13:16:12.039Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+2026-09-09T13:16:12.040Z  INFO 2187554 --- [kivvi-click] [-auto-14-exec-1] o.a.c.c.C.[Tomcat-13].[localhost].[/]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-09T13:16:12.040Z  INFO 2187554 --- [kivvi-click] [-auto-14-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-09T13:16:12.040Z  INFO 2187554 --- [kivvi-click] [-auto-14-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.952 s -- in click.kivvi.AutomationsApiIT
+[INFO] Running click.kivvi.EventsApiIT
+2026-09-09T13:16:12.291Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Creating container for image: postgres:18-alpine
+2026-09-09T13:16:12.307Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine is starting: 894790e960dda3741397c5d689b156a09aa079aef69a07517c6e7c58ce02bfc5
+2026-09-09T13:16:13.807Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine started in PT1.516656437S
+2026-09-09T13:16:13.808Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32793/test?loggerLevel=OFF)
+2026-09-09T13:16:13.808Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.EventsApiIT]: EventsApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:16:13.811Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.EventsApiIT
+2026-09-09T13:16:13.811Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.EventsApiIT]: EventsApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:16:13.813Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.EventsApiIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:16:13.821Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.EventsApiIT                  : Starting EventsApiIT using Java 25.0.4.1 with PID 2187554 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:16:13.821Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.EventsApiIT                  : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:16:13.931Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-09-09T13:16:13.932Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T13:16:13.932Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-09T13:16:13.937Z  INFO 2187554 --- [kivvi-click] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 115 ms
+2026-09-09T13:16:14.004Z  INFO 2187554 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32793/test?loggerLevel=OFF (PostgreSQL 18.6)
+2026-09-09T13:16:14.015Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-09T13:16:14.016Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.002s)
+2026-09-09T13:16:14.023Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-09T13:16:14.043Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-09T13:16:14.045Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - baseline"
+2026-09-09T13:16:14.062Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.014s)
+2026-09-09T13:16:14.083Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:16:14.116Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-16 - Starting...
+2026-09-09T13:16:14.123Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-16 - Added connection org.postgresql.jdbc.PgConnection@72aa2bb4
+2026-09-09T13:16:14.123Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-16 - Start completed.
+2026-09-09T13:16:14.129Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T13:16:14.137Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 45711 (http) with context path '/'
+2026-09-09T13:16:14.142Z  INFO 2187554 --- [kivvi-click] [           main] click.kivvi.EventsApiIT                  : Started EventsApiIT in 0.328 seconds (process running for 39.245)
+2026-09-09T13:16:14.144Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+2026-09-09T13:16:14.147Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+2026-09-09T13:16:14.147Z  INFO 2187554 --- [kivvi-click] [-auto-15-exec-1] o.a.c.c.C.[Tomcat-14].[localhost].[/]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-09T13:16:14.147Z  INFO 2187554 --- [kivvi-click] [-auto-15-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-09T13:16:14.147Z  INFO 2187554 --- [kivvi-click] [-auto-15-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.070 s -- in click.kivvi.EventsApiIT
+[INFO] Running click.kivvi.SessionRequestSerializationIT
+2026-09-09T13:16:14.361Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Creating container for image: postgres:18-alpine
+2026-09-09T13:16:14.375Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine is starting: cb0e7a29c5f913dbc83ad20b2de74009c1bb6035ea0ffcbe88467ed53a904399
+2026-09-09T13:16:15.767Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container postgres:18-alpine started in PT1.405839727S
+2026-09-09T13:16:15.767Z  INFO 2187554 --- [kivvi-click] [           main] tc.postgres:18-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:32794/test?loggerLevel=OFF)
+2026-09-09T13:16:15.768Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.SessionRequestSerializationIT]: SessionRequestSerializationIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:16:15.771Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.SessionRequestSerializationIT
+2026-09-09T13:16:15.771Z  INFO 2187554 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.SessionRequestSerializationIT]: SessionRequestSerializationIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T13:16:15.773Z  INFO 2187554 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.SessionRequestSerializationIT
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T13:16:15.783Z  INFO 2187554 --- [kivvi-click] [           main] c.kivvi.SessionRequestSerializationIT    : Starting SessionRequestSerializationIT using Java 25.0.4.1 with PID 2187554 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T13:16:15.783Z  INFO 2187554 --- [kivvi-click] [           main] c.kivvi.SessionRequestSerializationIT    : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T13:16:15.882Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-09-09T13:16:15.882Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T13:16:15.882Z  INFO 2187554 --- [kivvi-click] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-09T13:16:15.887Z  INFO 2187554 --- [kivvi-click] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 104 ms
+2026-09-09T13:16:15.947Z  INFO 2187554 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:32794/test?loggerLevel=OFF (PostgreSQL 18.6)
+2026-09-09T13:16:15.955Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-09T13:16:15.955Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.001s)
+2026-09-09T13:16:15.961Z  INFO 2187554 --- [kivvi-click] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-09T13:16:15.980Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-09T13:16:15.981Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - baseline"
+2026-09-09T13:16:15.997Z  INFO 2187554 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.013s)
+2026-09-09T13:16:16.017Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T13:16:16.051Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-17 - Starting...
+2026-09-09T13:16:16.058Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-17 - Added connection org.postgresql.jdbc.PgConnection@6a50fc81
+2026-09-09T13:16:16.058Z  INFO 2187554 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-17 - Start completed.
+2026-09-09T13:16:16.061Z  INFO 2187554 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T13:16:16.067Z  INFO 2187554 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 42919 (http) with context path '/'
+2026-09-09T13:16:16.073Z  INFO 2187554 --- [kivvi-click] [           main] c.kivvi.SessionRequestSerializationIT    : Started SessionRequestSerializationIT in 0.298 seconds (process running for 41.176)
+2026-09-09T13:16:16.074Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.scheduling.HeartbeatJob            : Scheduler heartbeat tick.
+2026-09-09T13:16:16.077Z  INFO 2187554 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+2026-09-09T13:16:16.077Z  INFO 2187554 --- [kivvi-click] [-auto-16-exec-1] o.a.c.c.C.[Tomcat-15].[localhost].[/]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-09T13:16:16.077Z  INFO 2187554 --- [kivvi-click] [-auto-16-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-09T13:16:16.078Z  INFO 2187554 --- [kivvi-click] [-auto-16-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.319 s -- in click.kivvi.SessionRequestSerializationIT
