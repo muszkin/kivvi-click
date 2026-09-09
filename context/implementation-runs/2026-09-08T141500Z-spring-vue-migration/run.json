@@ -1067,10 +1067,16 @@
         },
         {
           "dimension": "integration",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "dae169614a52532c130bd34435994d6a914165c0",
           "evidence": "waves/final/integration.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "shell-navigation",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "architecture",
@@ -1127,7 +1133,7 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T10:30:32Z",
+  "updated_at": "2026-09-09T10:34:17Z",
   "feature_head_sha": "dae169614a52532c130bd34435994d6a914165c0",
   "final_cohort": {
     "sha": "dae169614a52532c130bd34435994d6a914165c0",
