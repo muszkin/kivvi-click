@@ -1,0 +1,55 @@
+
+Running 14 tests using 1 worker
+
+  ✓   1 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "dashboard" opens its page (802ms)
+  ✓   2 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "events" opens its page (973ms)
+  ✓   3 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "customers" opens its page (977ms)
+  ✓   4 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "automations" opens its page (831ms)
+  ✓   5 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "campaigns" opens its page (1.2s)
+  ✘   6 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "popups" opens its page (30.1s)
+  ✓   7 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "feeds" opens its page (901ms)
+  ✓   8 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "import" opens its page (1.2s)
+  ✓   9 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "settings" opens its page (1.1s)
+  ✓  10 [chrome] › specs/navigation.spec.ts:46:9 › app shell › only .main-scroll scrolls, never the window (604ms)
+  ✓  11 [chrome] › specs/navigation.spec.ts:63:9 › app shell › sidebar collapse survives a reload (1.0s)
+  ✓  12 [chrome] › specs/navigation.spec.ts:89:9 › app shell › theme toggle survives a reload (876ms)
+  ✓  13 [chrome] › specs/navigation.spec.ts:115:9 › app shell › locale switch keeps the current page (736ms)
+  ✓  14 [chrome] › specs/navigation.spec.ts:125:9 › app shell › breadcrumb names the current section (683ms)
+
+
+  1) [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "popups" opens its page ─
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.nav-item[data-route="popups"]')
+
+
+      30 |             await page
+      31 |                 .locator(`.nav-item[data-route="${section.route}"]`)
+    > 32 |                 .click();
+         |                  ^
+      33 |
+      34 |             await expect(page).toHaveURL(
+      35 |                 new RegExp(`${section.url.replace(/\//g, "\\/")}`),
+        at /home/muszkin/work/kivvi-click-wt/verify-wave-4-e2e/tests/e2e/specs/navigation.spec.ts:32:18
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/navigation-app-shell-sidebar-entry-popups-opens-its-page-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/navigation-app-shell-sidebar-entry-popups-opens-its-page-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/navigation-app-shell-sidebar-entry-popups-opens-its-page-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/navigation-app-shell-sidebar-entry-popups-opens-its-page-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "popups" opens its page ──
+  13 passed (43.8s)
+EXIT_CODE_4: 0

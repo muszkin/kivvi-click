@@ -1,6 +1,6 @@
 # Slice packet w5-shell-navigation — wave-5, journey J12 "shell-navigation" (single, verification-heavy)
 
-Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w5-shell · branch `migration/wave-5/shell-navigation` · parent SHA <PARENT-SHA> (feature HEAD after wave-4). **Lease:** compose project `kivvi-w-shell`, HTTP_PORT=19140, HTTPS_PORT=19141. **Model:** sonnet, effort HIGH.
+Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kivvi-click-wt/w5-shell · branch `migration/wave-5/shell-navigation` · parent SHA 60445ebac139bcf1179b397c997600073a356e95 (feature HEAD after wave-4). **Lease:** compose project `kivvi-w-shell`, HTTP_PORT=19140, HTTPS_PORT=19141. **Model:** sonnet, effort HIGH.
 
 **Capability:** The store owner can move between every panel section and keep sidebar, theme and locale choices across reloads.
 **Oracle:** journeys/shell-navigation/steps/1..21 (every sidebar entry opens its page; only `.main-scroll` scrolls; sidebar collapse, theme toggle and locale switch survive a reload; breadcrumb names the section; step 21 is a DEV-12 404 document). Behaviours: B01 (ALL rows), B02, B21.

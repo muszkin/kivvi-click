@@ -265,6 +265,15 @@
         "path": "slices/w4-dashboard/review.md",
         "verdict": "PASS"
       }
+    },
+    "w5-shell-navigation": {
+      "state": "PLANNED",
+      "wave": "wave-5",
+      "branch": "migration/wave-5/shell-navigation",
+      "worktree": "/home/muszkin/work/kivvi-click-wt/w5-shell",
+      "parent_sha": "60445ebac139bcf1179b397c997600073a356e95",
+      "head_sha": null,
+      "integration_commit": null
     }
   },
   "deferred_obligations": [],
@@ -848,7 +857,7 @@
     },
     {
       "wave_id": "wave-4",
-      "state": "WAVE_RUNNING",
+      "state": "WAVE_INTEGRATED",
       "journeys": [
         "popups-widget-editor",
         "import-wizard",
@@ -928,10 +937,26 @@
         },
         {
           "dimension": "contract",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "60445ebac139bcf1179b397c997600073a356e95",
           "evidence": "waves/wave-4/contract.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "popups-widget-editor",
+              "verdict": "parity",
+              "deviation_id": "DEV-7"
+            },
+            {
+              "journey": "import-wizard",
+              "verdict": "parity",
+              "deviation_id": "DEV-5"
+            },
+            {
+              "journey": "dashboard",
+              "verdict": "parity",
+              "deviation_id": "DEV-3"
+            }
+          ]
         },
         {
           "dimension": "visual",
@@ -958,10 +983,26 @@
         },
         {
           "dimension": "e2e",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "60445ebac139bcf1179b397c997600073a356e95",
           "evidence": "waves/wave-4/e2e.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "popups-widget-editor",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "import-wizard",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "dashboard",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         }
       ],
       "repair_rounds": 2,
@@ -979,6 +1020,12 @@
           "result": "FAIL",
           "evidence": "waves/wave-4/round-2/",
           "note": "contract not run in round 2 (round-1 contract PASS on fe37fad is stale)"
+        },
+        {
+          "round": 3,
+          "sha": "60445ebac139bcf1179b397c997600073a356e95",
+          "result": "PASS",
+          "evidence": "waves/wave-4/"
         }
       ]
     },
@@ -1010,6 +1057,6 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T08:52:33Z",
+  "updated_at": "2026-09-09T09:14:43Z",
   "feature_head_sha": "60445ebac139bcf1179b397c997600073a356e95"
 }
