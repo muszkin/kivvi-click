@@ -18,6 +18,8 @@ Read `../../common-journey-rules.md` first. **Worktree:** /home/muszkin/work/kiv
 
 - Fix the old-stack citations in `frontend/src/stores/shell.ts` and `frontend/test/unit/useIntents.spec.ts`: the preference POST pattern lives in `assets/app.ts`, not `assets/controllers/shell.ts`.
 
+- Parity nit (review-repair-2 of shell-preferences): the old stack sets `data-sidebar` only on `.app`; the new `SpaDocument` also stamps it on `<html>` (and `stores/shell.ts` now syncs it). Remove the `<html>` stamp and the sync if nothing depends on them, or prove the old stack also had it; verify with `compare.mjs --journey shell-navigation --dimension visual`.
+
 ## Out of scope
 Any page body change (owned by the journey that produced it) — if a page body diverges from its oracle, report it as a gap for that journey; do not fix it here.
 

@@ -22,3 +22,4 @@
 | 2026-09-09T06:49:45Z | w4-import-wizard repair-2 | fast-forward | e7a16e0 → a8fb5f6 | gates: green (integration/feature-head-a8fb5f6/) |
 | 2026-09-09T07:08:09Z | w4-dashboard | cherry-pick ba33a68 | a8fb5f6 → fe37fad | feature-head green; wave-4 SHA |
 | 2026-09-09T07:34:34Z | w4-import-wizard repair-3 | fast-forward | fe37fad → 71d884d | gates green; wave-4 round-2 SHA |
+| 2026-09-09T08:39:52Z | w3-shell-preferences repair-2 | fast-forward | 71d884d → 60445eb | gates green; wave-4 round-3 SHA |

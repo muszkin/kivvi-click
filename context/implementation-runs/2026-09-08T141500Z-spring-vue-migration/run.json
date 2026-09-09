@@ -188,7 +188,7 @@
       }
     },
     "w3-shell-preferences": {
-      "state": "IMPLEMENTED",
+      "state": "FEATURE_HEAD_GREEN",
       "wave": "wave-3",
       "branch": "migration/wave-3/shell-preferences",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w3-shell-preferences",
@@ -207,7 +207,10 @@
         "worktree": "/home/muszkin/work/kivvi-click-wt/w3-shell-preferences-r2",
         "branch": "migration/wave-4/shell-preferences-repair2",
         "base_sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
-        "candidate_sha": "60445ebac139bcf1179b397c997600073a356e95"
+        "candidate_sha": "60445ebac139bcf1179b397c997600073a356e95",
+        "review": "slices/w3-shell-preferences/review-repair-2.md",
+        "review_verdict": "PASS",
+        "integrated_sha": "60445ebac139bcf1179b397c997600073a356e95"
       }
     },
     "w4-popups-widget-editor": {
@@ -851,130 +854,50 @@
         "import-wizard",
         "dashboard"
       ],
-      "head_sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
+      "head_sha": "60445ebac139bcf1179b397c997600073a356e95",
       "kill_reason": null,
       "verifier_cohort": [
         {
           "dimension": "unit",
-          "status": "PASS",
-          "sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
-          "evidence": "waves/wave-4/round-2/unit.md",
-          "journey_verdicts": [
-            {
-              "journey": "popups-widget-editor",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "import-wizard",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "dashboard",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "60445ebac139bcf1179b397c997600073a356e95",
+          "evidence": "waves/wave-4/unit.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "integration",
-          "status": "PASS",
-          "sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
-          "evidence": "waves/wave-4/round-2/integration.md",
-          "journey_verdicts": [
-            {
-              "journey": "popups-widget-editor",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "import-wizard",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "dashboard",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "60445ebac139bcf1179b397c997600073a356e95",
+          "evidence": "waves/wave-4/integration.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "architecture",
-          "status": "PASS",
-          "sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
-          "evidence": "waves/wave-4/round-2/architecture.md",
-          "journey_verdicts": [
-            {
-              "journey": "popups-widget-editor",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "import-wizard",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "dashboard",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "60445ebac139bcf1179b397c997600073a356e95",
+          "evidence": "waves/wave-4/architecture.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "contract",
           "status": "RUNNING",
-          "sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
-          "evidence": "waves/wave-4/round-2/contract.md",
+          "sha": "60445ebac139bcf1179b397c997600073a356e95",
+          "evidence": "waves/wave-4/contract.md",
           "journey_verdicts": []
         },
         {
           "dimension": "visual",
-          "status": "PASS",
-          "sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
-          "evidence": "waves/wave-4/round-2/visual.md",
-          "journey_verdicts": [
-            {
-              "journey": "popups-widget-editor",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "import-wizard",
-              "verdict": "parity",
-              "deviation_id": "DEV-12"
-            },
-            {
-              "journey": "dashboard",
-              "verdict": "parity",
-              "deviation_id": "DEV-2"
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "60445ebac139bcf1179b397c997600073a356e95",
+          "evidence": "waves/wave-4/visual.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "e2e",
-          "status": "FAIL",
-          "sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
-          "evidence": "waves/wave-4/round-2/e2e.md",
-          "journey_verdicts": [
-            {
-              "journey": "popups-widget-editor",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "import-wizard",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "dashboard",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "60445ebac139bcf1179b397c997600073a356e95",
+          "evidence": "waves/wave-4/e2e.md",
+          "journey_verdicts": []
         }
       ],
       "repair_rounds": 2,
@@ -1023,6 +946,6 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T08:30:51Z",
-  "feature_head_sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d"
+  "updated_at": "2026-09-09T08:39:52Z",
+  "feature_head_sha": "60445ebac139bcf1179b397c997600073a356e95"
 }
