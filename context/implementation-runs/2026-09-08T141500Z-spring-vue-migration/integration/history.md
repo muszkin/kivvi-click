@@ -13,3 +13,4 @@
 | 2026-09-08T23:56:27Z | w3-automations | fast-forward | b87a701 → 2ca5f07 | feature-head green (`integration/feature-head-2ca5f07/`) |
 | 2026-09-09T02:21:31Z | w3-campaigns-email-editor | fast-forward | 2ca5f07 → 2060c07 | — |
 | 2026-09-09T02:21:31Z | w3-settings | cherry-pick ×3 | 2060c07 → 32a6831 | feature-head green (`integration/feature-head-32a6831/`); wave-3 SHA |
+| 2026-09-09T02:50:02Z | w3-settings repair-3 | cherry-pick 0a337f9 | 32a6831 → 2eb457a | feature-head green (`integration/feature-head-2eb457a/`) |
