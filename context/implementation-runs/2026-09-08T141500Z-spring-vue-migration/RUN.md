@@ -26,3 +26,7 @@ Evidence: `slices/<id>/`, `waves/<wave>/`, `events.jsonl`.
 - **Final gates on 9205294:** mvn verify (299 unit, 142 IT, spotless, ArchUnit), docker build, vitest 169/152, lint/typecheck/format/build, compose prod config; Sonar NOT_CONFIGURED; combined review backend/frontend PASS, tooling-ops FAIL → repaired (volumes `kivvi-next_*`, secret wiring, forwarded headers, multipart 8MB, CI image build, README runbook) → PASS; full E2E 122/122 + budgets; contract 13/13.
 - **Cutover packet:** README "Next stack" section (RR-1 rehearsal on `kivvi-stage`/23458, CUT-1 on 23456, rollback). Needs one explicit operator confirmation. CON-1 (old-stack removal, AGENTS.md/CLAUDE.md rewrite, Linear re-pointing, DEV-13 retirement, plan errata) is a follow-up.
 - **Incidents:** operator Docker data-root migration to NAS (2026-09-09 11:52–12:11Z, prod down by operator action); a reviewer subagent ran `sudo systemctl start docker` at 11:55Z during that window — reported. Host contention (other projects, GitHub runners) caused two inconclusive e2e runs and Testcontainers timeouts; all re-run in isolation.
+
+## Cutover (2026-09-09)
+
+- RR-1 PASS on `kivvi-stage`/23458. CUT-1 attempts 1–2 rolled back (orchestrator errors: compose project from the wrong directory; Symfony auto-created tables in the fresh volume) — outages 14:08:42–14:13:23Z and 14:13:53–14:16:10Z. Attempt 3 LIVE at 14:18:42Z (28 s outage). Public e2e 66/66, budgets 4/4, 20-min observation clean → `PRODUCTION_GREEN`. Old stack kept for rollback (see README runbook). CON-1 pending.
