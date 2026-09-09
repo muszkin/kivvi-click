@@ -1045,7 +1045,7 @@
     },
     {
       "wave_id": "wave-5",
-      "state": "WAVE_RUNNING",
+      "state": "WAVE_INTEGRATED",
       "journeys": [
         "shell-navigation"
       ],
@@ -1093,10 +1093,16 @@
         },
         {
           "dimension": "contract",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "dae169614a52532c130bd34435994d6a914165c0",
           "evidence": "waves/final/contract.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "shell-navigation",
+              "verdict": "parity",
+              "deviation_id": "DEV-9"
+            }
+          ]
         },
         {
           "dimension": "visual",
@@ -1125,7 +1131,15 @@
           ]
         }
       ],
-      "repair_rounds": 0
+      "repair_rounds": 0,
+      "cohort_history": [
+        {
+          "round": "FINAL-2",
+          "sha": "dae169614a52532c130bd34435994d6a914165c0",
+          "result": "PASS",
+          "evidence": "waves/final/"
+        }
+      ]
     }
   ],
   "integration_pr": null,
@@ -1145,11 +1159,11 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T11:42:47Z",
+  "updated_at": "2026-09-09T11:51:21Z",
   "feature_head_sha": "dae169614a52532c130bd34435994d6a914165c0",
   "final_cohort": {
     "sha": "dae169614a52532c130bd34435994d6a914165c0",
-    "state": "RUNNING",
+    "state": "PASS",
     "evidence": "waves/final/",
     "note": "serves as the wave-5 cohort too (superset)",
     "history": [
@@ -1160,12 +1174,24 @@
         "evidence": "waves/final/round-1/",
         "note": "unit FAIL (B02/B03/B21 labels); architecture PASS; other dims not run"
       }
-    ]
+    ],
+    "verdicts": {
+      "unit": "PASS",
+      "integration": "PASS",
+      "architecture": "PASS",
+      "contract": "PASS",
+      "visual": "PASS",
+      "e2e": "PASS"
+    }
   },
   "open_obligations": [
     {
       "id": "OBL-fixtures-drift",
       "text": "plan decision ledger described fixtures as JSON resources; implemented as Java classes under click.kivvi.fixtures (architecture FINAL finding) \u2014 record in the plan/context refresh, no code change"
+    },
+    {
+      "id": "OBL-DEV-13-retire",
+      "text": "DEV-13 (/collect occurred_at grammar) is unused: no oracle step or spec sends occurred_at; retire it from the plan in the closeout"
     }
   ]
 }
