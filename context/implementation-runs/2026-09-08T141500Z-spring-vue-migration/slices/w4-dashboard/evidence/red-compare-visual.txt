@@ -1,0 +1,14 @@
+compare.mjs: replaying journey "dashboard" against https://localhost:19131 (dimensions: visual)
+locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('a.event-row[href*="/customers/c_"]').first()[22m
+
+    at runStep (/home/muszkin/work/kivvi-click-wt/w4-dashboard/tools/migration-verify/compare.mjs:172:35)
+    at async runJourney (/home/muszkin/work/kivvi-click-wt/w4-dashboard/tools/migration-verify/compare.mjs:332:22)
+    at async file:///home/muszkin/work/kivvi-click-wt/w4-dashboard/tools/migration-verify/compare.mjs:600:25 {
+  log: [
+    `  - waiting for locator('a.event-row[href*="/customers/c_"]').first()`
+  ],
+  name: 'TimeoutError'
+}
+visual exit=1

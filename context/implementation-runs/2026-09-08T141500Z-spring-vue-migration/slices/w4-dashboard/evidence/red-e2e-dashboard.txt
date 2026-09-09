@@ -1,0 +1,230 @@
+
+Running 6 tests using 1 worker
+
+  ✘  1 [chrome] › specs/dashboard.spec.ts:12:9 › dashboard › shows the four operational KPIs (5.4s)
+  ✘  2 [chrome] › specs/dashboard.spec.ts:21:9 › dashboard › draws the cardiogram canvas and redraws it after a theme change (5.4s)
+  ✘  3 [chrome] › specs/dashboard.spec.ts:41:9 › dashboard › server-renders the first page of the live stream (5.4s)
+  ✘  4 [chrome] › specs/dashboard.spec.ts:56:9 › dashboard › recently seen customers link to their profile (30.1s)
+  ✘  5 [chrome] › specs/dashboard.spec.ts:71:9 › dashboard › best-performing automations open the rule editor (30.1s)
+  ✘  6 [chrome] › specs/dashboard.spec.ts:83:9 › dashboard › pausing the stream toggles its state (30.1s)
+
+
+  1) [chrome] › specs/dashboard.spec.ts:12:9 › dashboard › shows the four operational KPIs ─────────
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.kpi-grid .kpi-label')
+    Expected: 4
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('.kpi-grid .kpi-label')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      13 |         const labels = page.locator(".kpi-grid .kpi-label");
+      14 |
+    > 15 |         await expect(labels).toHaveCount(4);
+         |                              ^
+      16 |         await expect(labels.nth(0)).toHaveText("Zdarzeń ostatnia minuta");
+      17 |         await expect(labels.nth(3)).toHaveText("Przypisany przychód (24h)");
+      18 |         await expect(page.locator(".kpi-spark svg").first()).toBeVisible();
+        at /home/muszkin/work/kivvi-click-wt/w4-dashboard/tests/e2e/specs/dashboard.spec.ts:15:30
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/dashboard-dashboard-shows-the-four-operational-KPIs-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/dashboard-dashboard-shows-the-four-operational-KPIs-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/dashboard-dashboard-shows-the-four-operational-KPIs-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/dashboard-dashboard-shows-the-four-operational-KPIs-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chrome] › specs/dashboard.spec.ts:21:9 › dashboard › draws the cardiogram canvas and redraws it after a theme change 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('#cg-main')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('#cg-main')
+
+
+      23 |     }) => {
+      24 |         const canvas = page.locator("#cg-main");
+    > 25 |         await expect(canvas).toBeVisible();
+         |                              ^
+      26 |         await expect(canvas).toHaveAttribute("role", "img");
+      27 |
+      28 |         const pixelsBefore = await canvas.evaluate(
+        at /home/muszkin/work/kivvi-click-wt/w4-dashboard/tests/e2e/specs/dashboard.spec.ts:25:30
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/dashboard-dashboard-draws--e2ba0-aws-it-after-a-theme-change-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/dashboard-dashboard-draws--e2ba0-aws-it-after-a-theme-change-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/dashboard-dashboard-draws--e2ba0-aws-it-after-a-theme-change-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/dashboard-dashboard-draws--e2ba0-aws-it-after-a-theme-change-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chrome] › specs/dashboard.spec.ts:41:9 › dashboard › server-renders the first page of the live stream 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('#event-stream .event-row')
+    Expected: 10
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('#event-stream .event-row')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      44 |         const rows = page.locator("#event-stream .event-row");
+      45 |
+    > 46 |         await expect(rows).toHaveCount(10);
+         |                            ^
+      47 |         await expect(rows.first().locator(".event-row__time")).toHaveText(
+      48 |             /\d{2}:\d{2}:\d{2}/,
+      49 |         );
+        at /home/muszkin/work/kivvi-click-wt/w4-dashboard/tests/e2e/specs/dashboard.spec.ts:46:28
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/dashboard-dashboard-server-0d714-rst-page-of-the-live-stream-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/dashboard-dashboard-server-0d714-rst-page-of-the-live-stream-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/dashboard-dashboard-server-0d714-rst-page-of-the-live-stream-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/dashboard-dashboard-server-0d714-rst-page-of-the-live-stream-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chrome] › specs/dashboard.spec.ts:56:9 › dashboard › recently seen customers link to their profile 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.innerText: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('a.event-row[href*="/customers/c_"]').first().locator('div > div').first()
+
+
+      61 |             .locator("div > div")
+      62 |             .first()
+    > 63 |             .innerText();
+         |              ^
+      64 |
+      65 |         await firstCustomer.click();
+      66 |
+        at /home/muszkin/work/kivvi-click-wt/w4-dashboard/tests/e2e/specs/dashboard.spec.ts:63:14
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/dashboard-dashboard-recent-f4f52-omers-link-to-their-profile-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/dashboard-dashboard-recent-f4f52-omers-link-to-their-profile-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/dashboard-dashboard-recent-f4f52-omers-link-to-their-profile-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/dashboard-dashboard-recent-f4f52-omers-link-to-their-profile-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [chrome] › specs/dashboard.spec.ts:71:9 › dashboard › best-performing automations open the rule editor 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('a.event-row[href*="/automations/a"]').first()
+
+
+      75 |             .locator('a.event-row[href*="/automations/a"]')
+      76 |             .first()
+    > 77 |             .click();
+         |              ^
+      78 |
+      79 |         await expect(page).toHaveURL(/\/pl\/automations\/a\d/);
+      80 |         await expect(page.locator(".rb-pipeline")).toBeVisible();
+        at /home/muszkin/work/kivvi-click-wt/w4-dashboard/tests/e2e/specs/dashboard.spec.ts:77:14
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/dashboard-dashboard-best-p-b6ac2-ations-open-the-rule-editor-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/dashboard-dashboard-best-p-b6ac2-ations-open-the-rule-editor-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/dashboard-dashboard-best-p-b6ac2-ations-open-the-rule-editor-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/dashboard-dashboard-best-p-b6ac2-ations-open-the-rule-editor-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [chrome] › specs/dashboard.spec.ts:83:9 › dashboard › pausing the stream toggles its state ────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('[data-action="pause-stream"]').first()
+
+
+      83 |     test("pausing the stream toggles its state", async ({ page }) => {
+      84 |         const pause = page.locator('[data-action="pause-stream"]').first();
+    > 85 |         await pause.click();
+         |                     ^
+      86 |
+      87 |         await expect(page.locator("#event-stream")).toHaveAttribute(
+      88 |             "data-paused",
+        at /home/muszkin/work/kivvi-click-wt/w4-dashboard/tests/e2e/specs/dashboard.spec.ts:85:21
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/dashboard-dashboard-pausing-the-stream-toggles-its-state-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/dashboard-dashboard-pausing-the-stream-toggles-its-state-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/dashboard-dashboard-pausing-the-stream-toggles-its-state-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/dashboard-dashboard-pausing-the-stream-toggles-its-state-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6 failed
+    [chrome] › specs/dashboard.spec.ts:12:9 › dashboard › shows the four operational KPIs ──────────
+    [chrome] › specs/dashboard.spec.ts:21:9 › dashboard › draws the cardiogram canvas and redraws it after a theme change 
+    [chrome] › specs/dashboard.spec.ts:41:9 › dashboard › server-renders the first page of the live stream 
+    [chrome] › specs/dashboard.spec.ts:56:9 › dashboard › recently seen customers link to their profile 
+    [chrome] › specs/dashboard.spec.ts:71:9 › dashboard › best-performing automations open the rule editor 
+    [chrome] › specs/dashboard.spec.ts:83:9 › dashboard › pausing the stream toggles its state ─────
+exit=1

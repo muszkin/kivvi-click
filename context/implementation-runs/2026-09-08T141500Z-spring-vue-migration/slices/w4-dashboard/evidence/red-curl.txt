@@ -1,0 +1,6 @@
+=== RED evidence: parent SHA 11d3cc49fdc15e6e696c9a6f175d8953caec8a2e (pre-implementation) ===
+--- curl /pl/dashboard ---
+status=200
+--- curl /api/v1/pl/dashboard (expect 404: no DashboardController yet) ---
+{"timestamp":"2026-09-09T06:50:17.967Z","status":404,"error":"Not Found","path":"/api/v1/pl/dashboard"}
+status=404
