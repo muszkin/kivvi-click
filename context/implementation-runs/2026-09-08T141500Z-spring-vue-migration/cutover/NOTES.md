@@ -1,0 +1,1 @@
+- 2026-09-09T13:58:37Z RR-1: kivvi-stage on 23458 from 9205294; explicit volume names kivvi-next_* are project-independent — never run kivvi-stage again after CUT-1 without renaming volumes.
