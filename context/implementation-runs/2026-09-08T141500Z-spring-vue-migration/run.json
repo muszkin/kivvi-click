@@ -267,13 +267,17 @@
       }
     },
     "w5-shell-navigation": {
-      "state": "IMPLEMENTED",
+      "state": "FEATURE_HEAD_GREEN",
       "wave": "wave-5",
       "branch": "migration/wave-5/shell-navigation",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w5-shell",
       "parent_sha": "60445ebac139bcf1179b397c997600073a356e95",
       "head_sha": "7e6a66a",
-      "integration_commit": null
+      "integration_commit": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194",
+      "review": {
+        "path": "slices/w5-shell-navigation/review.md",
+        "verdict": "PASS"
+      }
     }
   },
   "deferred_obligations": [],
@@ -1035,49 +1039,49 @@
       "journeys": [
         "shell-navigation"
       ],
-      "head_sha": null,
+      "head_sha": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194",
       "kill_reason": null,
       "verifier_cohort": [
         {
           "dimension": "unit",
-          "status": "PENDING",
-          "sha": null,
-          "evidence": "waves/wave-5/unit.md",
+          "status": "RUNNING",
+          "sha": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194",
+          "evidence": "waves/final/unit.md",
           "journey_verdicts": []
         },
         {
           "dimension": "integration",
-          "status": "PENDING",
-          "sha": null,
-          "evidence": "waves/wave-5/integration.md",
+          "status": "RUNNING",
+          "sha": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194",
+          "evidence": "waves/final/integration.md",
           "journey_verdicts": []
         },
         {
           "dimension": "architecture",
-          "status": "PENDING",
-          "sha": null,
-          "evidence": "waves/wave-5/architecture.md",
+          "status": "RUNNING",
+          "sha": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194",
+          "evidence": "waves/final/architecture.md",
           "journey_verdicts": []
         },
         {
           "dimension": "contract",
-          "status": "PENDING",
-          "sha": null,
-          "evidence": "waves/wave-5/contract.md",
+          "status": "RUNNING",
+          "sha": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194",
+          "evidence": "waves/final/contract.md",
           "journey_verdicts": []
         },
         {
           "dimension": "visual",
-          "status": "PENDING",
-          "sha": null,
-          "evidence": "waves/wave-5/visual.md",
+          "status": "RUNNING",
+          "sha": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194",
+          "evidence": "waves/final/visual.md",
           "journey_verdicts": []
         },
         {
           "dimension": "e2e",
-          "status": "PENDING",
-          "sha": null,
-          "evidence": "waves/wave-5/e2e.md",
+          "status": "RUNNING",
+          "sha": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194",
+          "evidence": "waves/final/e2e.md",
           "journey_verdicts": []
         }
       ],
@@ -1101,6 +1105,12 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T09:45:34Z",
-  "feature_head_sha": "60445ebac139bcf1179b397c997600073a356e95"
+  "updated_at": "2026-09-09T09:56:40Z",
+  "feature_head_sha": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194",
+  "final_cohort": {
+    "sha": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194",
+    "state": "RUNNING",
+    "evidence": "waves/final/",
+    "note": "serves as the wave-5 cohort too (superset)"
+  }
 }
