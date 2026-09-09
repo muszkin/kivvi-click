@@ -1,0 +1,47 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 [chrome] › specs/lists.spec.ts:8:9 › campaigns › KPI strip, filters and the performance table (5.7s)
+
+
+  1) [chrome] › specs/lists.spec.ts:8:9 › campaigns › KPI strip, filters and the performance table ─
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.kpi-grid .kpi')
+    Expected: 4
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" with timeout 5000ms
+      - waiting for locator('.kpi-grid .kpi')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+       9 |         await page.goto("/pl/campaigns");
+      10 |
+    > 11 |         await expect(page.locator(".kpi-grid .kpi")).toHaveCount(4);
+         |                                                      ^
+      12 |         await expect(page.locator(".filter-chip")).toHaveCount(4);
+      13 |         await expect(page.locator(".table tbody tr")).toHaveCount(5);
+      14 |         await expect(page.locator(".table tbody tr").first()).toContainText(
+        at /home/muszkin/work/kivvi-click-wt/w3-campaigns-email-editor/tests/e2e/specs/lists.spec.ts:11:54
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/lists-campaigns-KPI-strip-filters-and-the-performance-table-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/lists-campaigns-KPI-strip-filters-and-the-performance-table-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/lists-campaigns-KPI-strip-filters-and-the-performance-table-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/lists-campaigns-KPI-strip-filters-and-the-performance-table-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chrome] › specs/lists.spec.ts:8:9 › campaigns › KPI strip, filters and the performance table ──

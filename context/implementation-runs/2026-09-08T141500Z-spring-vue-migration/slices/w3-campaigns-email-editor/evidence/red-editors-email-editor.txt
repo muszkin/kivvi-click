@@ -1,0 +1,74 @@
+
+Running 2 tests using 2 workers
+
+  ✘  1 [chrome] › specs/editors.spec.ts:7:9 › email editor › shows library, envelope, document and inspector (30.1s)
+  ✘  2 [chrome] › specs/editors.spec.ts:34:9 › email editor › the document keeps literal colours so mail clients never render it dark (30.1s)
+
+
+  1) [chrome] › specs/editors.spec.ts:7:9 › email editor › shows library, envelope, document and inspector 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.table tbody tr').first()
+
+
+       9 |     }) => {
+      10 |         await page.goto("/pl/campaigns");
+    > 11 |         await page.locator(".table tbody tr").first().click();
+         |                                                       ^
+      12 |
+      13 |         await expect(page).toHaveURL(/\/pl\/emails\/k1/);
+      14 |         await expect(page.locator(".ee-block-lib button")).toHaveCount(10);
+        at /home/muszkin/work/kivvi-click-wt/w3-campaigns-email-editor/tests/e2e/specs/editors.spec.ts:11:55
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/editors-email-editor-shows-321be-lope-document-and-inspector-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/editors-email-editor-shows-321be-lope-document-and-inspector-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/editors-email-editor-shows-321be-lope-document-and-inspector-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/editors-email-editor-shows-321be-lope-document-and-inspector-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chrome] › specs/editors.spec.ts:34:9 › email editor › the document keeps literal colours so mail clients never render it dark 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.evaluate: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('.ee-doc')
+
+
+      44 |         const background = await page
+      45 |             .locator(".ee-doc")
+    > 46 |             .evaluate((el) => getComputedStyle(el).backgroundColor);
+         |              ^
+      47 |
+      48 |         expect(background).toBe("rgb(255, 255, 255)");
+      49 |     });
+        at /home/muszkin/work/kivvi-click-wt/w3-campaigns-email-editor/tests/e2e/specs/editors.spec.ts:46:14
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/editors-email-editor-the-d-0aebb-lients-never-render-it-dark-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/editors-email-editor-the-d-0aebb-lients-never-render-it-dark-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/editors-email-editor-the-d-0aebb-lients-never-render-it-dark-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/editors-email-editor-the-d-0aebb-lients-never-render-it-dark-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chrome] › specs/editors.spec.ts:7:9 › email editor › shows library, envelope, document and inspector 
+    [chrome] › specs/editors.spec.ts:34:9 › email editor › the document keeps literal colours so mail clients never render it dark 
