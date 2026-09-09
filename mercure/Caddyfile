@@ -1,0 +1,47 @@
+# Mercure hub as the stack's edge: Caddy (bundled in dunglas/mercure) terminates TLS,
+# serves the hub at /.well-known/mercure* itself, and reverse-proxies everything else to
+# the Spring Boot `api` service — mirrors frankenphp/Caddyfile's shape (same log filter,
+# same anonymous+subscriptions hub config), with the reverse proxy target swapped in place
+# of FrankenPHP's own embedded PHP worker.
+
+{
+	{$GLOBAL_OPTIONS}
+}
+
+{$CADDY_EXTRA_CONFIG}
+
+{$SERVER_NAME:localhost} {
+	log {
+		# Redact the authorization query parameter that can be set by Mercure
+		format filter {
+			request>uri query {
+				replace authorization REDACTED
+			}
+		}
+	}
+
+	encode zstd gzip
+
+	mercure {
+		# Publisher JWT key
+		publisher_jwt {env.MERCURE_PUBLISHER_JWT_KEY} {env.MERCURE_PUBLISHER_JWT_ALG}
+		# Subscriber JWT key
+		subscriber_jwt {env.MERCURE_SUBSCRIBER_JWT_KEY} {env.MERCURE_SUBSCRIBER_JWT_ALG}
+		# Allow anonymous subscribers (double-check that it's what you want)
+		anonymous
+		# Enable the subscription API (double-check that it's what you want)
+		subscriptions
+		# Extra directives
+		{$MERCURE_EXTRA_DIRECTIVES}
+	}
+
+	{$CADDY_SERVER_EXTRA_DIRECTIVES}
+
+	header ?Permissions-Policy "browsing-topics=()"
+
+	# Actuator stays internal-only: the edge is the only publicly reachable surface, and
+	# health checks that need it (this compose file's own) hit the api container directly.
+	respond /actuator/* 404
+
+	reverse_proxy api:8080
+}

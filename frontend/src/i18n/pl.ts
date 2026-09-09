@@ -1,0 +1,64 @@
+/**
+ * Polish message catalogue — the default locale. Values are ported verbatim from
+ * translations/messages.pl.yaml and the inline Polish strings in the ported Twig
+ * templates (the old stack's convention: untranslated Polish text IS the message id).
+ */
+export default {
+    brand: {
+        name: "Kivvi-click",
+    },
+    nav: {
+        main: "Główne",
+        automate: "Automatyzacja",
+        data: "Dane",
+        config: "Konfiguracja",
+        dashboard: "Pulpit",
+        events: "Strumień zdarzeń",
+        customers: "Klienci",
+        automations: "Reguły",
+        campaigns: "Kampanie email",
+        popups: "Popupy i widgety",
+        feeds: "Feedy produktów",
+        import: "Import klientów",
+        settings: "Ustawienia",
+    },
+    common: {
+        search: "Szukaj zdarzeń, klientów, reguł…",
+        email: "Email",
+        password: "Hasło",
+        or: "lub",
+        continueWithGoogle: "Kontynuuj z Google",
+        status: "Status",
+        documentation: "Dokumentacja",
+        marketingAutomation: "MARKETING AUTOMATION",
+        changeLanguage: "Zmień język",
+        theme: "Motyw",
+        notifications: "Powiadomienia",
+        collapseSidebar: "Zwiń panel boczny",
+        search_kbd: "⌘K",
+    },
+    auth: {
+        headline:
+            'Widzisz.<br><span style="color: var(--accent);">Decydujesz.</span><br><span style="color: var(--brown);">Działasz</span> w czasie rzeczywistym.',
+        lead: "Śledź zachowanie odwiedzających i automatycznie uruchamiaj e-maile, popupy, kupony i rekomendacje w odpowiednim momencie ścieżki zakupowej.",
+        welcomeBack: "Wróć do Kivvi",
+        loginSub: "Zaloguj się do panelu zarządzania automatyzacjami.",
+        signIn: "Zaloguj się →",
+        noAccount: "Nie masz jeszcze konta?",
+        registerCta: "Załóż w 2 minuty →",
+    },
+    dashboard: {
+        title: "Co dzieje się teraz",
+        sub: "Strumień zdarzeń z Twoich stron, na żywo, oraz wpływ uruchomionych automatyzacji.",
+    },
+    landing: {
+        features: "Funkcje",
+        how: "Jak to działa",
+        pricing: "Cennik",
+        blog: "Blog",
+        login: "Logowanie",
+        register: "Załóż konto →",
+        terms: "Regulamin",
+        privacy: "Prywatność",
+    },
+};

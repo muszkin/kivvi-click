@@ -1,0 +1,87 @@
+---
+# Production overlay for the next stack (Spring Boot API + Vue 3 SPA + Mercure edge). Not
+# deployed by this slice — CUT-1 is a separate, explicitly authorized packet — but the
+# shape is delivered now so later waves build on it unchanged.
+#
+# Volume isolation: every volume below carries an explicit `name:` ending in `_next` (never
+# just the default `<project>_<key>` auto-naming) so it can NEVER resolve to the same Docker
+# volume as the old prod stack's `compose.prod.yaml` (`database_data_prod`, `caddy_data_prod`,
+# `caddy_config_prod`), even when both stacks run under the identical Compose project name
+# `kivvi-click` at CUT-1 — see README.md's "Next stack" runbook section. The new stack always
+# starts against an EMPTY `kivvi-next_database_data` volume: Flyway applies only the baseline
+# migration (`V1__baseline.sql`) to a fresh cluster, there is no data import from the old
+# stack's `database_data_prod`. This is intentional, not a gap — sessions (`spring_session`
+# vs. the old stack's Postgres-backed `sessions` table) are short-lived and expire on their
+# own, and `var/import` uploads are per-wizard temp files with no cross-request identity of
+# their own (see DEV-9 in the plan's Accepted deviations table). Old-stack state is simply
+# abandoned at cutover, never migrated.
+services:
+  api:
+    image: ${IMAGES_PREFIX:-}kivvi-click-api
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      # Derived from the same POSTGRES_* keys the `database` service below uses — one
+      # documented secret (POSTGRES_PASSWORD), not a second, independently-named one that an
+      # operator could set for `database` and forget for `api` (or vice versa).
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      # All three Mercure JWT env var names the api/mercure containers read are derived from
+      # the one documented secret MERCURE_JWT_SECRET (.env.prod.docker(.example)) — no default,
+      # unlike the dev-only placeholder in compose.next.yaml.
+      MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_JWT_SECRET}
+      MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_JWT_SECRET}
+      MERCURE_JWT_SECRET: ${MERCURE_JWT_SECRET}
+      # No TRUSTED_PROXIES here (unlike the old stack's Symfony TRUSTED_PROXIES): this app's
+      # server.forward-headers-strategy is `native` (application.yml) with no explicit
+      # server.tomcat.remoteip.internal-proxies override, so Tomcat's own built-in
+      # private-range regex applies — it already matches every RFC1918 range the compose
+      # bridge network can hand out. `api` publishes no host port (see compose.next.yaml): the
+      # `mercure` edge is the only path in, so there is no CIDR an operator could usefully
+      # narrow this to. See application.yml's `server.forward-headers-strategy` comment.
+
+  mercure:
+    environment:
+      # TLS is terminated by the reverse proxy in front of this stack, so Caddy serves
+      # plain HTTP on the published port and the public address is configured, not derived.
+      # This bare `:80` (no hostname) already matches any Host header on port 80 without an
+      # HTTPS redirect — verified empirically — so the api container's internal
+      # MERCURE_URL=http://mercure/.well-known/mercure (base compose.next.yaml, inherited
+      # here unchanged) needs no `mercure:80`-style second address the way the dev overlay's
+      # SERVER_NAME does.
+      SERVER_NAME: ${SERVER_NAME:-:80}
+      MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_JWT_SECRET}
+      MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_JWT_SECRET}
+    volumes:
+      - mercure_data_next:/data
+      - mercure_config_next:/config
+    # Compose merges "ports" entries by target port rather than replacing the list, so the
+    # base stack's https/http3 entries must be dropped explicitly: TLS terminates at the
+    # external proxy in front of this host, this edge only needs the plain HTTP port.
+    ports: !override
+      - name: http
+        target: 80
+        published: ${HTTP_PORT:-23456}
+        protocol: tcp
+
+  # Its own cluster: production never shares a database (or a password) with a dev stack
+  # that might run from the same host — and, with the explicit `name:` below, never with the
+  # OLD prod stack's `database_data_prod` volume either, even under the same project name.
+  database:
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - database_data_next:/var/lib/postgresql:rw
+    ports: !reset []
+
+volumes:
+  # Explicit `name:` bypasses Compose's `<project>_<key>` auto-prefixing entirely, so these
+  # resolve to the literal names below regardless of `-p`/COMPOSE_PROJECT_NAME — guaranteed
+  # never to collide with the old stack's `kivvi-click_database_data_prod` /
+  # `kivvi-click_caddy_data_prod` / `kivvi-click_caddy_config_prod` at CUT-1.
+  database_data_next:
+    name: kivvi-next_database_data
+  mercure_data_next:
+    name: kivvi-next_mercure_data
+  mercure_config_next:
+    name: kivvi-next_mercure_config

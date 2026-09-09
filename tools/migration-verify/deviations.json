@@ -1,0 +1,109 @@
+{
+  "description": "Mechanical encoding of the plan's Accepted deviations table (context/plans/2026-09-08-symfony-to-spring-vue-migration.md § Accepted deviations) for compare.mjs. Each entry names the journeys/steps it applies to, the dimension(s) it changes and exactly how — either 'already handled by capture/normalize.json' (screenshot masks / text rules the oracle capture itself already applies, so the candidate side just needs the same masks) or a rule compare.mjs implements directly.",
+  "deviations": [
+    {
+      "id": "DEV-1",
+      "journeys": ["event-stream", "dashboard"],
+      "steps": "all",
+      "dimension": "visual",
+      "mechanism": "normalize.json screenshot_masks '.event-row__time' + text_rules HH:MM:SS pattern",
+      "note": "Not exercised by the login journey (no event rows rendered there)."
+    },
+    {
+      "id": "DEV-2",
+      "journeys": ["dashboard", "login"],
+      "steps": { "login": [4, 8] },
+      "dimension": "visual",
+      "mechanism": "normalize.json screenshot_masks '#cg-main, .cardiogram-canvas'",
+      "note": "Superseded on login steps 4/8 by DEV-11 (whole .main-scroll masked) while DEV-11 is active."
+    },
+    {
+      "id": "DEV-3",
+      "journeys": ["event-stream"],
+      "steps": [2, 3],
+      "dimension": "contract",
+      "mechanism": "not-diffed-by-compare.mjs",
+      "note": "The /collect request/response bodies for steps 2-3 are already full parity under DEV-4 (unchanged '{\"status\":\"accepted\"}' / '{\"status\":\"duplicate\"}'). What DEV-3 actually changes — the Mercure hub publish payload switching from the old stack's server-rendered HTML row ({\"html\": \"<div class=...>...\"}) to a JSON event object ({\"event\": {time,type,typeIcon,tone,detail,customerId?,customerName?,siteName?,siteColor?}}) — travels over the SSE connection at /.well-known/mercure, which capture/normalize.json's own ignore_paths ('^/\\\\.well-known/mercure') excludes from every http.jsonl recording, oracle and candidate alike. compare.mjs has nothing to diff for it mechanically. Verified instead by: the oracle scenario's own step-2 assertion (waitText on '#event-stream .event-row' containing the marker — proves the SSE-delivered row rendered correctly regardless of wire shape), backend/src/test/java/click/kivvi/CollectApiIT.java's 'DEV-3 the accepted event is published to the hub as JSON, not server-rendered HTML' test (asserts the published form body's data= param decodes to the JSON shape above, and does not contain 'event-row' or '<div'), and frontend/test/unit/EventStream.spec.ts (renders EventRow.vue from that JSON via useEventStream.ts, not by injecting an HTML string)."
+    },
+    {
+      "id": "DEV-4",
+      "journeys": ["*"],
+      "steps": "all",
+      "dimension": "contract",
+      "mechanism": "http-compare-rule",
+      "rule": {
+        "documentKind": "method+path+status(+location-if-302)",
+        "fullParity": ["/collect", "/preferences/theme", "/preferences/sidebar", "/import/upload", "/{locale}/login", "/{locale}/logout"],
+        "apiBaseline": "^/api/v1/"
+      }
+    },
+    {
+      "id": "DEV-5",
+      "journeys": ["event-stream", "scheduler-heartbeat", "login", "import-wizard"],
+      "steps": "all",
+      "dimension": "contract",
+      "mechanism": "db-table-mapping",
+      "mapping": {
+        "sessions": ["spring_session"],
+        "cache_items": ["event_dedup", "shedlock"],
+        "messenger_messages": [],
+        "var/import files": ["var/import files"]
+      },
+      "note": "messenger_messages has no counterpart and is always 0 in the oracle; ignored, not compared. \"var/import files\" (import-wizard only) is a filesystem count inside the api container, not a Postgres table — compare.mjs's dbCounts() computes it the same way for every journey (harmless: the other three journeys never write there, so their delta is 0 = 0 against an oracle db.json that has no such key either, since compareDb() defaults a missing oracle-side key to 0)."
+    },
+    {
+      "id": "DEV-6",
+      "journeys": ["scheduler-heartbeat"],
+      "dimension": "contract",
+      "mechanism": "not applicable to login; recorded for completeness only"
+    },
+    {
+      "id": "DEV-7",
+      "journeys": ["campaigns-email-editor", "popups-widget-editor"],
+      "dimension": "contract",
+      "mechanism": "not applicable to login; recorded for completeness only"
+    },
+    {
+      "id": "DEV-8",
+      "journeys": ["*"],
+      "dimension": "performance",
+      "mechanism": "budget.json absolute thresholds (performance.mjs)"
+    },
+    {
+      "id": "DEV-9",
+      "journeys": ["login", "shell-navigation"],
+      "steps": "all",
+      "dimension": "contract",
+      "mechanism": "session-cookie-name-ignored",
+      "rule": {
+        "ignoreSetCookieName": true,
+        "sessionsDeltaComparedByCountOnly": true
+      }
+    },
+    {
+      "id": "DEV-10",
+      "journeys": [],
+      "dimension": "none",
+      "mechanism": "storybook not reproduced; out of scope, recorded for completeness only"
+    },
+    {
+      "id": "DEV-11",
+      "journeys": ["landing"],
+      "steps": { "landing": [5] },
+      "dimension": "visual",
+      "mechanism": "mask-selector",
+      "selector": ".main-scroll",
+      "appliesTo": ["screenshot", "aria", "texts"],
+      "note": "Expired for the login journey at wave-4 WAVE_INTEGRATED (dashboard, per the plan's Accepted deviations table): the w4-dashboard journey gave DashboardView.vue its real body, so login steps 4 and 8 (the page stays on the dashboard during the out-of-band POST steps 5-7) now compare exactly, with only DEV-2's already-unconditional canvas mask (normalize.json screenshot_masks '#cg-main, .cardiogram-canvas') and DEV-1's '.event-row__time' mask still active there — both apply globally through the oracle's own capture/normalize.json regardless of this file, so no login-specific row was needed for either once DEV-11 itself no longer covers login. 'journeys'/'steps' above dropped 'login' and its five step numbers accordingly; the mechanism, selector and reasoning below are otherwise unchanged for the still-active landing case. Interpreted the same way as DEV-12's explicit 'skip visual/a11y/text': the visual dimension bundles screenshot+aria+texts, so a visual-dimension mask applies to all three, not the pixel image alone. Screenshot: a fixed pixel rectangle derived from the design tokens (sidebar width + topbar height), applied identically to both oracle and candidate images, since there is no live oracle page to re-locate the selector on. Aria/texts: the candidate is captured with the '.main-scroll' subtree removed from the DOM before calling ariaSnapshot()/innerText() (mirroring what an empty dashboard body renders in this slice), then compared as a PREFIX of the oracle's recorded aria/texts — sidebar and topbar render before main in DOM order. w1-landing packet's 'Out of scope' bullet extends the same reasoning to the landing journey's own step 5 (its '.hero-cta a' demo click also lands on /pl/dashboard, whose body is the identical still-empty wave-1 placeholder at the time landing was built): 'steps is now a per-journey object (was a flat array covering only login's 4-8) so landing's single step 5 doesn't inherit login's unrelated step numbers 4/6/7/8, which don't exist in the landing scenario (landing has only steps 1-5; see journeys/landing/scenario.md).' landing's own step 5 is out of scope for the w4-dashboard journey (packet's parallel-safety obligations authorize only the login expiry here) and stays masked until whichever journey owns landing's own DEV-11 closure retires it."
+    },
+    {
+      "id": "DEV-12",
+      "journeys": ["shell-navigation", "customers", "settings", "import-wizard"],
+      "steps": { "shell-navigation": [21], "customers": [6], "settings": [10], "import-wizard": [10] },
+      "dimension": "visual",
+      "mechanism": "skip-on-404",
+      "rule": { "skipWhen": "oracle step.json documentStatus === 404", "skips": ["screenshot", "aria", "texts"] },
+      "note": "compare.mjs's devAppliesToStep() requires an explicit per-journey entry in `steps` even though `journeys` already lists the journey (an object-shaped `steps` is looked up by journey id, unlike the flat-array/\"all\" shapes) — customers journey step 6 (GET /pl/customers/c_9999) is the oracle's 404 step per journeys/customers/steps/6/step.json (documentStatus 404); its screenshot/aria/texts are the old stack's Symfony dev-mode exception page, which the new stack's minimal 404 document can never match and isn't meant to. settings journey step 10 (GET /pl/settings/nonexistent) is the same case for the settings journey, added by the w3-settings worker (journeys/settings/steps/10/step.json records documentStatus 404); the mechanism already existed, only the per-journey step list was missing settings — the packet's own 'Deviations in scope' bullet names DEV-12 for exactly this step. import-wizard journey step 10 (GET /pl/import/5, journeys/import-wizard/steps/10/step.json records documentStatus 404) is the same case again, added by the w4-import-wizard worker; the w4 packet's own 'Deviations in scope' bullet names DEV-12 '(404 documents)' for exactly this step. Reconciliation (w5-ops-cutover, final-review-tooling-ops.md finding #5): the plan's own 'Accepted deviations' table (context/plans/2026-09-08-symfony-to-spring-vue-migration.md § Accepted deviations) now carries a DEV-12 row ('shell-navigation step 21, customers step 6, settings step 10, import-wizard step 10 (404 documents)'), so this file and the plan's canonical table agree on DEV-12's existence and scope; no mechanism or scope change here. DEV-13 (occurred_at parsing grammar) is intentionally absent from this file: the plan's own DEV-13 row describes a contract-verifier tolerance with no client and no oracle step exercising it today, so there is nothing for compare.mjs to encode yet."
+    }
+  ]
+}

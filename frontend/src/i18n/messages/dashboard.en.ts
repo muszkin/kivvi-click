@@ -1,0 +1,25 @@
+/** English half of dashboard.pl.ts — see that file's class comment for the source mapping. */
+export default {
+    dashboard: {
+        title: "What's happening now",
+        sub: "Real-time event stream from your sites and the impact of your live automations.",
+        liveFeed: "Live feed",
+        liveFeedSub: "all sites",
+        cardiogram: "Event pulse",
+        cardiogramSub: "events / second",
+        topRules: "Best-performing automations",
+        topRulesSub: "by conversion in the last 7 days",
+        recentCustomers: "Recently seen",
+        live: "live",
+        newAutomation: "New automation",
+        export: "Export",
+        pause: "Pause",
+        fullLog: "Full log",
+        allCustomers: "All",
+        allAutomations: "All",
+        orders: "orders",
+        runs: "runs",
+        conversion: "conversion",
+        revenue: "revenue",
+    },
+};

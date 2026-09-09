@@ -1,0 +1,83 @@
+import { config } from "@vue/test-utils";
+import { afterEach, beforeEach } from "vitest";
+
+/**
+ * Repair-2 (R2-C): the frontend analogue of the backend's fail-on-warning test policy
+ * (architecture/rules-translated.md row 3, "Test policy fail-on-warning" — restricted to
+ * first-party code the same way PHPUnit's failOnWarning/failOnNotice was restricted to `src`).
+ * A console.warn/console.error call or a Vue runtime warning raised while a test runs is a real
+ * bug — a missing prop, a broken watcher, a component mounted without the plugin it needs — and
+ * must fail the test instead of scrolling past in the log. See frontend/README.md "Test" section.
+ *
+ * Unhandled errors/rejections are covered for free: Vitest already fails a test when one occurs,
+ * as long as `test.dangerouslyIgnoreUnhandledErrors` stays false in vite.config.ts (the default).
+ */
+
+let captured: string[] = [];
+
+const originalWarn = console.warn.bind(console);
+const originalError = console.error.bind(console);
+
+// Restricted to first-party code, the same way the backend's FailOnWarnLogExtension is
+// restricted to click.kivvi.* loggers: a call stack that never touches this app's own src/**
+// means the console.warn/console.error call is a third-party library's own diagnostic output
+// for something the test deliberately triggered (e.g. vue-router logging "no match found" for
+// B07's unsupported-locale-prefix test, which is the expected, correct behaviour, not a bug) —
+// not a signal that first-party code did something wrong.
+function originatesFromFirstPartySource(stack: string | undefined): boolean {
+    if (!stack) {
+        return false;
+    }
+    return stack
+        .split("\n")
+        .some(
+            (line) => !line.includes("/node_modules/") && /\/src\//.test(line),
+        );
+}
+
+console.warn = (...args: unknown[]) => {
+    if (originatesFromFirstPartySource(new Error("console.warn").stack)) {
+        captured.push(`console.warn: ${args.map(String).join(" ")}`);
+    }
+    originalWarn(...args);
+};
+
+console.error = (...args: unknown[]) => {
+    if (originatesFromFirstPartySource(new Error("console.error").stack)) {
+        captured.push(`console.error: ${args.map(String).join(" ")}`);
+    }
+    originalError(...args);
+};
+
+// Unconditional, unlike console.warn/error above: a Vue runtime warning (missing prop, no
+// active instance, duplicate key, …) is always a first-party bug in how a component is built
+// or used — never third-party diagnostic noise — so it counts as a failure regardless of
+// which stack frame triggered it. Vue's default warnHandler already funnels through
+// console.warn, but every mount() also gets this handler explicitly so a warning is still
+// caught from an app instance created directly (createApp(...).mount(...)) rather than
+// through @vue/test-utils' mount(), and a future test cannot silently opt a component out of
+// the policy by passing its own `global.config.warnHandler`.
+config.global.config.warnHandler = (
+    message: string,
+    _instance,
+    trace: string,
+) => {
+    captured.push(`Vue warning: ${message}${trace}`);
+};
+
+beforeEach(() => {
+    captured = [];
+});
+
+afterEach(() => {
+    if (captured.length === 0) {
+        return;
+    }
+    const detail = captured.join("\n");
+    captured = [];
+    throw new Error(
+        "Test policy: console.warn/console.error/Vue warning logged during the test " +
+            "(fail-on-warning, architecture/rules-translated.md row 3):\n" +
+            detail,
+    );
+});

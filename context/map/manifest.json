@@ -4,32 +4,86 @@
   "generator_version": "a26f4ab1f8949c90",
   "manifest_digest": {
     "algorithm": "sha256-rfc8785-with-empty-digest",
-    "value": "cb614665efa56cab9c026a14a34b8c0332c3286d960a06d495bf76d333c44856"
+    "value": "ebe0892a2349875a6a310abf705e7a674acd154094fedff55c2e67aceb02de32"
   },
   "operation": "refresh",
   "project_classification": "brownfield",
   "scope_kind": "repository",
   "phase": "complete",
-  "generated_at": "2026-09-08T14:06:12Z",
+  "generated_at": "2026-09-09T12:05:00Z",
   "repository_root": ".",
   "scope": [
     "."
   ],
   "source_snapshot": {
     "basis": "HEAD+worktree",
-    "revision": "5b806ac74b75d1d521de97f7d3c70b8c431697fb",
-    "branch": "main",
-    "worktree_status": [],
+    "revision": "dae169614a52532c130bd34435994d6a914165c0",
+    "branch": "migration/spring-vue",
+    "worktree_status": [
+      "M context/map/INDEX.md",
+      "M context/map/architecture-and-flows.md",
+      "M context/map/delivery-and-verification.md",
+      "M context/map/dependencies.md",
+      "M context/map/project-overview.md",
+      "M context/map/risks-and-unknowns.md",
+      "M context/map/technology.md",
+      "?? backend/.agents/project-context.md",
+      "?? frontend/.agents/project-context.md",
+      "?? mercure/.agents/project-context.md",
+      "?? tools/migration-verify/.agents/project-context.md",
+      "?? context/map/diagrams/next-stack-event-flow.mmd",
+      "?? context/map/diagrams/next-stack-module-dependencies.mmd",
+      "(context/map/manifest.json itself is being written by this refresh; excluded from its own inventory fingerprint, see fingerprint_method)"
+    ],
     "untracked_nonignored_paths": [
-      ".ai/cezar/.gitignore",
-      "context/plans/**",
-      "context/migration-oracle/**"
+      "backend/.agents/project-context.md",
+      "context/map/diagrams/next-stack-event-flow.mmd",
+      "context/map/diagrams/next-stack-module-dependencies.mmd",
+      "frontend/.agents/project-context.md",
+      "mercure/.agents/project-context.md",
+      "tools/migration-verify/.agents/project-context.md"
     ],
     "comparability": "comparable",
     "non_comparable_reasons": [],
-    "dirty_tracked_fingerprints": [],
-    "inventory_fingerprint": "5194762e2addee6fa0a2d50e3bcd05164218e1b455557520bc439171af7ee9af",
-    "fingerprint_method": "sha256 over sorted lines '<path>\\tblob:<git blob id>' for clean tracked files, '<path>\\tworktree:<sha256 of current bytes>' for dirty tracked files (AGENTS.md, CLAUDE.md modified by the router write), '<path>\\tuntracked-path-only' for untracked paths inside excluded .ai/ (not content-hashed: excluded tool state). Secret-bearing ignored files (.env.local, .env.prod.docker, .ai/cezar/launch-key) are not part of the inventory."
+    "dirty_tracked_fingerprints": [
+      {
+        "path": "context/map/INDEX.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "6e3b1beb7616d953017693ebe5679656eaecf2c9a251b484420f0a8530955c7d"
+      },
+      {
+        "path": "context/map/architecture-and-flows.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "172f72f622e5ecaf3db1df5d74cdddfd6273ec412a347a3554f3ecb014b8e3d7"
+      },
+      {
+        "path": "context/map/delivery-and-verification.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "5e9cc7450921f5e004dc3e1c25829fdf5ba26b728c040fa826f2e89c9c0dcce0"
+      },
+      {
+        "path": "context/map/dependencies.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "434492a2f07eb9c9eee8b9cc3960e7cdb5b851129379fcd8f41026376d93e403"
+      },
+      {
+        "path": "context/map/project-overview.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "55319bc1ea61b2aa6a7d33e6fcc7b1a72832d1fe16b6c72e730f835160128fda"
+      },
+      {
+        "path": "context/map/risks-and-unknowns.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "70b5edca9a2c3aaf15489c2bb2a5a12c9596e6703f2ceaf94ab6fe6b2a5f354d"
+      },
+      {
+        "path": "context/map/technology.md",
+        "method": "sha256-current-worktree-bytes",
+        "value": "f4cef26b65a5a58ebad01a3a35f9bcfce6c023138246c45b956978d42966b33c"
+      }
+    ],
+    "inventory_fingerprint": "6e942668e2b9e3e279c5e51591b8c13a494880a5e9932e34960f22ed1283a92e",
+    "fingerprint_method": "sha256 over sorted lines '<path>\\tblob:<git blob id>' for clean tracked files, '<path>\\tworktree:<sha256 of current bytes>' for dirty tracked files (the seven context/map/*.md central artifacts this refresh edited), '<path>\\tuntracked:<sha256 of current bytes>' for safe new untracked files (the four new .agents/project-context.md scoped contexts and two new next-stack diagrams), computed over the full repository inventory excluding the standard exclusion list below and excluding context/map/manifest.json itself (its own content is written after this value is computed). No secret-bearing or oversized input was part of this refresh's changed set."
   },
   "git_history": {
     "available": true,
@@ -94,6 +148,34 @@
     {
       "path": "assets/vendor",
       "reason": "generated, ignored (absent)"
+    },
+    {
+      "path": "backend/target",
+      "reason": "Maven build output (ignored)"
+    },
+    {
+      "path": "backend/src/main/resources/static",
+      "reason": "SPA build copied in at image-build time only (ignored, absent in source control)"
+    },
+    {
+      "path": "frontend/node_modules",
+      "reason": "npm dependencies (ignored)"
+    },
+    {
+      "path": "frontend/dist",
+      "reason": "Vite build output (ignored)"
+    },
+    {
+      "path": "frontend/coverage",
+      "reason": "test coverage output (ignored)"
+    },
+    {
+      "path": "tools/migration-verify/node_modules",
+      "reason": "npm dependencies (ignored)"
+    },
+    {
+      "path": "tools/migration-verify/.out",
+      "reason": "compare.mjs/performance.mjs evidence output (ignored)"
     }
   ],
   "unreadable_paths": [],
@@ -201,6 +283,54 @@
       "reason": "structural leaf described by owning ancestor"
     },
     {
+      "path": "backend",
+      "coverage": "own",
+      "context": "backend/.agents/project-context.md",
+      "reason": "next-stack Spring Boot API"
+    },
+    {
+      "path": "backend/.agents",
+      "coverage": "rolled-up",
+      "context": "backend/.agents/project-context.md",
+      "reason": "initializer-owned context directory"
+    },
+    {
+      "path": "backend/.mvn",
+      "coverage": "rolled-up",
+      "context": "backend/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "backend/src/main/java",
+      "coverage": "rolled-up",
+      "context": "backend/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "backend/src/main/resources",
+      "coverage": "rolled-up",
+      "context": "backend/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "backend/src/test/java",
+      "coverage": "rolled-up",
+      "context": "backend/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "backend/src/test/resources",
+      "coverage": "rolled-up",
+      "context": "backend/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "backend/target",
+      "coverage": "excluded",
+      "context": null,
+      "reason": "Maven build output (ignored)"
+    },
+    {
       "path": "bin",
       "coverage": "rolled-up",
       "context": ".agents/project-context.md",
@@ -301,6 +431,108 @@
       "coverage": "rolled-up",
       "context": "frankenphp/.agents/project-context.md",
       "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "frontend",
+      "coverage": "own",
+      "context": "frontend/.agents/project-context.md",
+      "reason": "next-stack Vue 3 SPA"
+    },
+    {
+      "path": "frontend/.agents",
+      "coverage": "rolled-up",
+      "context": "frontend/.agents/project-context.md",
+      "reason": "initializer-owned context directory"
+    },
+    {
+      "path": "frontend/dist",
+      "coverage": "excluded",
+      "context": null,
+      "reason": "Vite build output (ignored)"
+    },
+    {
+      "path": "frontend/node_modules",
+      "coverage": "excluded",
+      "context": null,
+      "reason": "npm dependencies (ignored)"
+    },
+    {
+      "path": "frontend/src",
+      "coverage": "rolled-up",
+      "context": "frontend/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "frontend/src/components",
+      "coverage": "rolled-up",
+      "context": "frontend/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "frontend/src/composables",
+      "coverage": "rolled-up",
+      "context": "frontend/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "frontend/src/i18n",
+      "coverage": "rolled-up",
+      "context": "frontend/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "frontend/src/layouts",
+      "coverage": "rolled-up",
+      "context": "frontend/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "frontend/src/lib",
+      "coverage": "rolled-up",
+      "context": "frontend/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "frontend/src/router",
+      "coverage": "rolled-up",
+      "context": "frontend/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "frontend/src/stores",
+      "coverage": "rolled-up",
+      "context": "frontend/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "frontend/src/styles",
+      "coverage": "rolled-up",
+      "context": "frontend/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "frontend/src/views",
+      "coverage": "rolled-up",
+      "context": "frontend/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "frontend/test",
+      "coverage": "rolled-up",
+      "context": "frontend/.agents/project-context.md",
+      "reason": "structural leaf described by owning ancestor"
+    },
+    {
+      "path": "mercure",
+      "coverage": "own",
+      "context": "mercure/.agents/project-context.md",
+      "reason": "next-stack Mercure edge configuration"
+    },
+    {
+      "path": "mercure/.agents",
+      "coverage": "rolled-up",
+      "context": "mercure/.agents/project-context.md",
+      "reason": "initializer-owned context directory"
     },
     {
       "path": "migrations",
@@ -561,6 +793,30 @@
       "reason": "structural leaf described by owning ancestor"
     },
     {
+      "path": "tools",
+      "coverage": "rolled-up",
+      "context": "tools/migration-verify/.agents/project-context.md",
+      "reason": "structural leaf described by owning descendant (single child directory)"
+    },
+    {
+      "path": "tools/migration-verify",
+      "coverage": "own",
+      "context": "tools/migration-verify/.agents/project-context.md",
+      "reason": "next-stack six-dimension verifier tooling"
+    },
+    {
+      "path": "tools/migration-verify/.agents",
+      "coverage": "rolled-up",
+      "context": "tools/migration-verify/.agents/project-context.md",
+      "reason": "initializer-owned context directory"
+    },
+    {
+      "path": "tools/migration-verify/node_modules",
+      "coverage": "excluded",
+      "context": null,
+      "reason": "npm dependencies (ignored)"
+    },
+    {
       "path": "translations",
       "coverage": "rolled-up",
       "context": ".agents/project-context.md",
@@ -805,14 +1061,18 @@
       "source_revision": "5b806ac74b75d1d521de97f7d3c70b8c431697fb",
       "generated_at": "2026-09-08T14:06:12Z",
       "freshness": "current",
-      "content_sha256": "a21ced0ab66ee010f2ed7eaa00291eb8957fc851607b3ff6c07b19c84ef146ed",
+      "content_sha256": "3bfddc087494e7dde656e8a58cfc63c1ac74dfefa461275d3adc7777ddd5da0a",
       "approval_status": "approved",
       "conflicts": [
         "CLAUDE.md/AGENTS.md stack rules remain the old stack until CON-1"
       ],
       "referenced_by": [
         "context/map/INDEX.md",
-        "context/map/documentation-index.md"
+        "context/map/documentation-index.md",
+        "backend/.agents/project-context.md",
+        "frontend/.agents/project-context.md",
+        "tools/migration-verify/.agents/project-context.md",
+        "mercure/.agents/project-context.md"
       ],
       "consumers": [
         "implementation-orchestrator",
@@ -836,11 +1096,96 @@
       "conflicts": [],
       "referenced_by": [
         "context/map/INDEX.md",
-        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md"
+        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
+        "backend/.agents/project-context.md",
+        "frontend/.agents/project-context.md",
+        "tools/migration-verify/.agents/project-context.md"
       ],
       "consumers": [
         "implementation-orchestrator"
       ]
+    },
+    {
+      "path": "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/common-journey-rules.md",
+      "generator_or_owner": "implementation-orchestrator (migration profile run)",
+      "purpose": "Cross-journey invariants for waves 1-5 (session-lock parity, ShedLock heartbeat, frozen-clock verifier behaviour, whitespace text nodes, event-row governance, disk/cohort-sequencing operational notes) — federated as invariants into backend/frontend/tools/migration-verify scoped contexts by this refresh",
+      "scope": [
+        "backend/",
+        "frontend/",
+        "tools/migration-verify/"
+      ],
+      "artifact_type": "canonical-evidence",
+      "authority": "canonical",
+      "source_revision": null,
+      "generated_at": null,
+      "freshness": "current",
+      "content_sha256": "36525143d623c966bbc64566e2d3100db68e9e653c531da9ea1403f5d16fce5d",
+      "approval_status": "not-applicable",
+      "conflicts": [
+        "lives outside this worktree, at /home/muszkin/work/kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/ (main checkout) — not tracked by Git (run ledgers are explicitly never committed to any branch per the run's own rule)"
+      ],
+      "referenced_by": [
+        "context/map/INDEX.md",
+        "backend/.agents/project-context.md",
+        "frontend/.agents/project-context.md",
+        "tools/migration-verify/.agents/project-context.md"
+      ],
+      "consumers": [
+        "implementation-orchestrator",
+        "review"
+      ]
+    },
+    {
+      "path": "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/run.json",
+      "generator_or_owner": "implementation-orchestrator (migration profile run)",
+      "purpose": "Machine-readable live run state: feature_head_sha, per-slice states, final all-journey cohort dimension results",
+      "scope": [
+        "."
+      ],
+      "artifact_type": "canonical-evidence",
+      "authority": "canonical",
+      "source_revision": null,
+      "generated_at": "2026-09-09T11:42:47Z",
+      "freshness": "current",
+      "content_sha256": "59831575961c9dbea523f7442b972ce1741d773ef451834b878dd9586b122a77",
+      "approval_status": "not-applicable",
+      "conflicts": [
+        "lives outside this worktree, at /home/muszkin/work/kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/ (main checkout) — not tracked by Git",
+        "RUN.md (sibling file) is stale relative to this file — read run.json, not RUN.md, for current state"
+      ],
+      "referenced_by": [
+        "context/map/INDEX.md",
+        "context/map/project-overview.md",
+        "context/map/delivery-and-verification.md",
+        "context/map/risks-and-unknowns.md"
+      ],
+      "consumers": [
+        "implementation-orchestrator",
+        "review",
+        "task-closeout"
+      ]
+    },
+    {
+      "path": "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/RUN.md",
+      "generator_or_owner": "implementation-orchestrator (migration profile run)",
+      "purpose": "Human-readable run summary (narrative)",
+      "scope": [
+        "."
+      ],
+      "artifact_type": "historical-record",
+      "authority": "advisory",
+      "source_revision": null,
+      "generated_at": null,
+      "freshness": "stale",
+      "content_sha256": "d4bedcc342f70461c0c2ad783f7da0edc1dc6aafd566932caf563bbbc17f50c4",
+      "approval_status": "not-applicable",
+      "conflicts": [
+        "last updated at wave-2; run.json (sibling) is the current source of truth for run state"
+      ],
+      "referenced_by": [
+        "context/map/INDEX.md"
+      ],
+      "consumers": []
     }
   ],
   "artifacts": [
@@ -859,11 +1204,42 @@
         "compose.prod.yaml",
         "Dockerfile",
         ".github/workflows/docker-build.yml",
-        ".claude/skills/product-spec/SKILL.md"
+        ".claude/skills/product-spec/SKILL.md",
+        "backend/pom.xml",
+        "backend/src/main/java/click/kivvi/KivviApplication.java",
+        "backend/src/main/resources/application.yml",
+        "backend/src/main/resources/db/migration/V1__baseline.sql",
+        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
+        "backend/src/main/java/click/kivvi/web/CollectController.java",
+        "backend/src/main/java/click/kivvi/domain/RouteTable.java",
+        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
+        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java",
+        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatJob.java",
+        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
+        "frontend/package.json",
+        "frontend/eslint.config.js",
+        "frontend/src/router/routes.ts",
+        "frontend/src/router/index.ts",
+        "frontend/src/router/scrollRestoration.ts",
+        "frontend/src/router/meta.d.ts",
+        "frontend/src/router/localeHref.ts",
+        "frontend/src/stores/shell.ts",
+        "frontend/src/i18n/index.ts",
+        "frontend/src/composables/useIntents.ts",
+        "mercure/Caddyfile",
+        "tools/migration-verify/compare.mjs",
+        "tools/migration-verify/performance.mjs",
+        "tools/migration-verify/deviations.json",
+        "tools/migration-verify/budget.json",
+        "compose.next.yaml",
+        "compose.next.prod.yaml",
+        ".github/workflows/next-build.yml",
+        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
+        "... plus the four new .agents/project-context.md scoped contexts and two new next-stack diagrams (see this manifest's own artifacts[] entries)"
       ],
-      "input_fingerprint": "6cc8d4b7ab047ad8127ca356dd97295b5f1f9703909aea1895423428c65e9164",
-      "output_sha256": "f7cb587e97c5a14a1da784b12b52fe66dcb6fb0cedfdde62d3df522e5e3386fa",
-      "generated_at": "2026-09-08T14:02:47Z"
+      "input_fingerprint": "e06987cbdcd7b01756b5616d95934819eacde5f5e58090fb283208cce18c3557",
+      "output_sha256": "6e3b1beb7616d953017693ebe5679656eaecf2c9a251b484420f0a8530955c7d",
+      "generated_at": "2026-09-09T12:05:00Z"
     },
     {
       "path": "context/map/project-overview.md",
@@ -889,11 +1265,41 @@
         "src/Controller/EventIngestionController.php",
         "src/Controller/EventStreamController.php",
         "src/Controller/ImportController.php",
-        "... 44 more tracked files under the scope"
+        "backend/pom.xml",
+        "backend/src/main/java/click/kivvi/KivviApplication.java",
+        "backend/src/main/resources/application.yml",
+        "backend/src/main/resources/db/migration/V1__baseline.sql",
+        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
+        "backend/src/main/java/click/kivvi/web/CollectController.java",
+        "backend/src/main/java/click/kivvi/domain/RouteTable.java",
+        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
+        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java",
+        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatJob.java",
+        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
+        "frontend/package.json",
+        "frontend/eslint.config.js",
+        "frontend/src/router/routes.ts",
+        "frontend/src/router/index.ts",
+        "frontend/src/router/scrollRestoration.ts",
+        "frontend/src/router/meta.d.ts",
+        "frontend/src/router/localeHref.ts",
+        "frontend/src/stores/shell.ts",
+        "frontend/src/i18n/index.ts",
+        "frontend/src/composables/useIntents.ts",
+        "mercure/Caddyfile",
+        "tools/migration-verify/compare.mjs",
+        "tools/migration-verify/performance.mjs",
+        "tools/migration-verify/deviations.json",
+        "tools/migration-verify/budget.json",
+        "compose.next.yaml",
+        "compose.next.prod.yaml",
+        ".github/workflows/next-build.yml",
+        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
+        "... 44 more old-stack tracked files under the scope (unchanged from the prior refresh), plus the next-stack files listed above"
       ],
-      "input_fingerprint": "a8bb8d2a90394a6c0003c0d21acc6489ff4a159bb9d0e71ff83f53861f7867e6",
-      "output_sha256": "7a8400dbbfdc9e21a56e4cfb00c5bc1eeb02e8468cf3642018a5e8b0bfac8891",
-      "generated_at": "2026-09-08T13:27:13Z"
+      "input_fingerprint": "c61029072e099adc7c22b21ca5639b4ceb2e26a8cd31cad5fe2b9741df225136",
+      "output_sha256": "55319bc1ea61b2aa6a7d33e6fcc7b1a72832d1fe16b6c72e730f835160128fda",
+      "generated_at": "2026-09-09T12:05:00Z"
     },
     {
       "path": "context/map/technology.md",
@@ -919,11 +1325,41 @@
         "phpunit.dist.xml",
         ".php-cs-fixer.dist.php",
         ".env",
-        "... 12 more tracked files under the scope"
+        "backend/pom.xml",
+        "backend/src/main/java/click/kivvi/KivviApplication.java",
+        "backend/src/main/resources/application.yml",
+        "backend/src/main/resources/db/migration/V1__baseline.sql",
+        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
+        "backend/src/main/java/click/kivvi/web/CollectController.java",
+        "backend/src/main/java/click/kivvi/domain/RouteTable.java",
+        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
+        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java",
+        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatJob.java",
+        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
+        "frontend/package.json",
+        "frontend/eslint.config.js",
+        "frontend/src/router/routes.ts",
+        "frontend/src/router/index.ts",
+        "frontend/src/router/scrollRestoration.ts",
+        "frontend/src/router/meta.d.ts",
+        "frontend/src/router/localeHref.ts",
+        "frontend/src/stores/shell.ts",
+        "frontend/src/i18n/index.ts",
+        "frontend/src/composables/useIntents.ts",
+        "mercure/Caddyfile",
+        "tools/migration-verify/compare.mjs",
+        "tools/migration-verify/performance.mjs",
+        "tools/migration-verify/deviations.json",
+        "tools/migration-verify/budget.json",
+        "compose.next.yaml",
+        "compose.next.prod.yaml",
+        ".github/workflows/next-build.yml",
+        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
+        "... 12 more old-stack tracked files under the scope (unchanged), plus the next-stack files listed above"
       ],
-      "input_fingerprint": "30ceed26feac6e82f2fb10dfeb0854a8c96b30afc117f496df27cc82b264e1d6",
-      "output_sha256": "1d2347990fbc8f1816f9b338c71667ae09070feb97b5c9f669b184ddaf141da4",
-      "generated_at": "2026-09-08T13:27:13Z"
+      "input_fingerprint": "aaf338416157cba7e5df52597236dc2824bdfd483df93237bc9cc193684daab0",
+      "output_sha256": "f4cef26b65a5a58ebad01a3a35f9bcfce6c023138246c45b956978d42966b33c",
+      "generated_at": "2026-09-09T12:05:00Z"
     },
     {
       "path": "context/map/architecture-and-flows.md",
@@ -949,11 +1385,41 @@
         "src/Controller/EventIngestionController.php",
         "src/Controller/EventStreamController.php",
         "src/Controller/ImportController.php",
-        "... 77 more tracked files under the scope"
+        "backend/pom.xml",
+        "backend/src/main/java/click/kivvi/KivviApplication.java",
+        "backend/src/main/resources/application.yml",
+        "backend/src/main/resources/db/migration/V1__baseline.sql",
+        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
+        "backend/src/main/java/click/kivvi/web/CollectController.java",
+        "backend/src/main/java/click/kivvi/domain/RouteTable.java",
+        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
+        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java",
+        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatJob.java",
+        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
+        "frontend/package.json",
+        "frontend/eslint.config.js",
+        "frontend/src/router/routes.ts",
+        "frontend/src/router/index.ts",
+        "frontend/src/router/scrollRestoration.ts",
+        "frontend/src/router/meta.d.ts",
+        "frontend/src/router/localeHref.ts",
+        "frontend/src/stores/shell.ts",
+        "frontend/src/i18n/index.ts",
+        "frontend/src/composables/useIntents.ts",
+        "mercure/Caddyfile",
+        "tools/migration-verify/compare.mjs",
+        "tools/migration-verify/performance.mjs",
+        "tools/migration-verify/deviations.json",
+        "tools/migration-verify/budget.json",
+        "compose.next.yaml",
+        "compose.next.prod.yaml",
+        ".github/workflows/next-build.yml",
+        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
+        "... 77 more old-stack tracked files under the scope (unchanged), plus the next-stack files listed above"
       ],
-      "input_fingerprint": "c2b03267a0d33cdf5d0939907acd27bf367e815a0d6fa987c6cdbb1cf003ab26",
-      "output_sha256": "6b7a4f637e1221bce285bc3ee2dd6f442a2e40554b39ef8c04489a6a5526682d",
-      "generated_at": "2026-09-08T13:27:13Z"
+      "input_fingerprint": "c61029072e099adc7c22b21ca5639b4ceb2e26a8cd31cad5fe2b9741df225136",
+      "output_sha256": "172f72f622e5ecaf3db1df5d74cdddfd6273ec412a347a3554f3ecb014b8e3d7",
+      "generated_at": "2026-09-09T12:05:00Z"
     },
     {
       "path": "context/map/dependencies.md",
@@ -979,11 +1445,41 @@
         "src/Controller/EventIngestionController.php",
         "src/Controller/EventStreamController.php",
         "src/Controller/ImportController.php",
-        "... 71 more tracked files under the scope"
+        "backend/pom.xml",
+        "backend/src/main/java/click/kivvi/KivviApplication.java",
+        "backend/src/main/resources/application.yml",
+        "backend/src/main/resources/db/migration/V1__baseline.sql",
+        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
+        "backend/src/main/java/click/kivvi/web/CollectController.java",
+        "backend/src/main/java/click/kivvi/domain/RouteTable.java",
+        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
+        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java",
+        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatJob.java",
+        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
+        "frontend/package.json",
+        "frontend/eslint.config.js",
+        "frontend/src/router/routes.ts",
+        "frontend/src/router/index.ts",
+        "frontend/src/router/scrollRestoration.ts",
+        "frontend/src/router/meta.d.ts",
+        "frontend/src/router/localeHref.ts",
+        "frontend/src/stores/shell.ts",
+        "frontend/src/i18n/index.ts",
+        "frontend/src/composables/useIntents.ts",
+        "mercure/Caddyfile",
+        "tools/migration-verify/compare.mjs",
+        "tools/migration-verify/performance.mjs",
+        "tools/migration-verify/deviations.json",
+        "tools/migration-verify/budget.json",
+        "compose.next.yaml",
+        "compose.next.prod.yaml",
+        ".github/workflows/next-build.yml",
+        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
+        "... 71 more old-stack tracked files under the scope (unchanged), plus the next-stack files listed above"
       ],
-      "input_fingerprint": "43db7105af2d0d4bf79e46f8406e493bad36db9897d207d55beef10052ff3f65",
-      "output_sha256": "774133d9b63bc4949aefce791cf8840db273fdc36857a310fcf04270d648e8bc",
-      "generated_at": "2026-09-08T13:27:13Z"
+      "input_fingerprint": "c61029072e099adc7c22b21ca5639b4ceb2e26a8cd31cad5fe2b9741df225136",
+      "output_sha256": "434492a2f07eb9c9eee8b9cc3960e7cdb5b851129379fcd8f41026376d93e403",
+      "generated_at": "2026-09-09T12:05:00Z"
     },
     {
       "path": "context/map/documentation-index.md",
@@ -1039,11 +1535,41 @@
         "tests/bootstrap.php",
         "tests/e2e/package-lock.json",
         "tests/e2e/package.json",
-        "... 13 more tracked files under the scope"
+        "backend/pom.xml",
+        "backend/src/main/java/click/kivvi/KivviApplication.java",
+        "backend/src/main/resources/application.yml",
+        "backend/src/main/resources/db/migration/V1__baseline.sql",
+        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
+        "backend/src/main/java/click/kivvi/web/CollectController.java",
+        "backend/src/main/java/click/kivvi/domain/RouteTable.java",
+        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
+        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java",
+        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatJob.java",
+        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
+        "frontend/package.json",
+        "frontend/eslint.config.js",
+        "frontend/src/router/routes.ts",
+        "frontend/src/router/index.ts",
+        "frontend/src/router/scrollRestoration.ts",
+        "frontend/src/router/meta.d.ts",
+        "frontend/src/router/localeHref.ts",
+        "frontend/src/stores/shell.ts",
+        "frontend/src/i18n/index.ts",
+        "frontend/src/composables/useIntents.ts",
+        "mercure/Caddyfile",
+        "tools/migration-verify/compare.mjs",
+        "tools/migration-verify/performance.mjs",
+        "tools/migration-verify/deviations.json",
+        "tools/migration-verify/budget.json",
+        "compose.next.yaml",
+        "compose.next.prod.yaml",
+        ".github/workflows/next-build.yml",
+        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
+        "... 13 more old-stack tracked files under the scope (unchanged), plus the next-stack files listed above"
       ],
-      "input_fingerprint": "3ecf08474aaa2108bc827db6955df54ee8731da4be18595f45c714ba29b787f4",
-      "output_sha256": "8e8d9ba90988d2a4771f80801fa11cfbd2930238f00247fa33bcea8cdded76ae",
-      "generated_at": "2026-09-08T13:27:13Z"
+      "input_fingerprint": "61cfa82c04e6b76e9cded0d572233e9d0cbcd3700756f884360ffe81e5997aed",
+      "output_sha256": "5e9cc7450921f5e004dc3e1c25829fdf5ba26b728c040fa826f2e89c9c0dcce0",
+      "generated_at": "2026-09-09T12:05:00Z"
     },
     {
       "path": "context/map/git-and-pr-history.md",
@@ -1079,11 +1605,41 @@
         "src/Controller/EventIngestionController.php",
         "src/Controller/EventStreamController.php",
         "src/Controller/ImportController.php",
-        "... 44 more tracked files under the scope"
+        "backend/pom.xml",
+        "backend/src/main/java/click/kivvi/KivviApplication.java",
+        "backend/src/main/resources/application.yml",
+        "backend/src/main/resources/db/migration/V1__baseline.sql",
+        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
+        "backend/src/main/java/click/kivvi/web/CollectController.java",
+        "backend/src/main/java/click/kivvi/domain/RouteTable.java",
+        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
+        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java",
+        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatJob.java",
+        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
+        "frontend/package.json",
+        "frontend/eslint.config.js",
+        "frontend/src/router/routes.ts",
+        "frontend/src/router/index.ts",
+        "frontend/src/router/scrollRestoration.ts",
+        "frontend/src/router/meta.d.ts",
+        "frontend/src/router/localeHref.ts",
+        "frontend/src/stores/shell.ts",
+        "frontend/src/i18n/index.ts",
+        "frontend/src/composables/useIntents.ts",
+        "mercure/Caddyfile",
+        "tools/migration-verify/compare.mjs",
+        "tools/migration-verify/performance.mjs",
+        "tools/migration-verify/deviations.json",
+        "tools/migration-verify/budget.json",
+        "compose.next.yaml",
+        "compose.next.prod.yaml",
+        ".github/workflows/next-build.yml",
+        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
+        "... 44 more old-stack tracked files under the scope (unchanged), plus the next-stack files listed above"
       ],
-      "input_fingerprint": "a8bb8d2a90394a6c0003c0d21acc6489ff4a159bb9d0e71ff83f53861f7867e6",
-      "output_sha256": "527c46a1ebdd20acba2f481b7828f012df47fc50605894378c48a2b60f958e7c",
-      "generated_at": "2026-09-08T14:03:58Z"
+      "input_fingerprint": "c61029072e099adc7c22b21ca5639b4ceb2e26a8cd31cad5fe2b9741df225136",
+      "output_sha256": "70b5edca9a2c3aaf15489c2bb2a5a12c9596e6703f2ceaf94ab6fe6b2a5f354d",
+      "generated_at": "2026-09-09T12:05:00Z"
     },
     {
       "path": "context/map/diagrams/module-dependencies.mmd",
@@ -1397,6 +1953,116 @@
       "input_fingerprint": null,
       "output_sha256": "b70f6321a91c64c5d7cf428e65339660c37afc8ef729160c2a1d0b86459411b8",
       "generated_at": "2026-09-08T13:27:13Z"
+    },
+    {
+      "path": "backend/.agents/project-context.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "backend/pom.xml",
+        "backend/src/main/java/click/kivvi/KivviApplication.java",
+        "backend/src/main/resources/application.yml",
+        "backend/src/main/resources/db/migration/V1__baseline.sql",
+        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
+        "backend/src/main/java/click/kivvi/domain/RouteTable.java",
+        "backend/src/main/java/click/kivvi/web/CollectController.java",
+        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
+        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java",
+        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationConfig.java",
+        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatJob.java",
+        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatTrigger.java",
+        "backend/src/main/java/click/kivvi/infrastructure/config/SchedulingConfig.java",
+        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
+        "backend/Dockerfile",
+        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
+        "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/common-journey-rules.md"
+      ],
+      "input_fingerprint": "580f972e61cf3491e89fbd0f34332114011b4b479423ff0de85f602c21a872bc",
+      "output_sha256": "39e9671381752a2d55eae344e697628327371ea24c5cc7ce2c33831a5de83ae2",
+      "generated_at": "2026-09-09T12:05:00Z"
+    },
+    {
+      "path": "frontend/.agents/project-context.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "frontend/package.json",
+        "frontend/eslint.config.js",
+        "frontend/src/router/routes.ts",
+        "frontend/src/router/index.ts",
+        "frontend/src/router/scrollRestoration.ts",
+        "frontend/src/router/meta.d.ts",
+        "frontend/src/router/localeHref.ts",
+        "frontend/src/stores/shell.ts",
+        "frontend/src/i18n/index.ts",
+        "frontend/src/composables/useIntents.ts",
+        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
+        "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/common-journey-rules.md"
+      ],
+      "input_fingerprint": "5533596431e2ef8304d9d1cc462497c8565054a825a29b9542a40fc374d9f3ff",
+      "output_sha256": "0ef4859fcbbf628a2fd4844815a6cc4dff84c92b5148ed8afb22ff7b14fdc636",
+      "generated_at": "2026-09-09T12:05:00Z"
+    },
+    {
+      "path": "tools/migration-verify/.agents/project-context.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "tools/migration-verify/compare.mjs",
+        "tools/migration-verify/performance.mjs",
+        "tools/migration-verify/deviations.json",
+        "tools/migration-verify/budget.json",
+        "tools/migration-verify/package.json",
+        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
+        "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/common-journey-rules.md"
+      ],
+      "input_fingerprint": "3e541cffb9d9edd5e34c746a775a9d276f105a27ecaa26ef21d7c1a87cafb84c",
+      "output_sha256": "f16fc7a41e9ae335627bfc203aab3f86972d8cc5ff0cad4c74fcb5e6922beb1c",
+      "generated_at": "2026-09-09T12:05:00Z"
+    },
+    {
+      "path": "mercure/.agents/project-context.md",
+      "ownership": "managed-block",
+      "inputs": [
+        "mercure/Caddyfile",
+        "compose.next.yaml",
+        "compose.next.prod.yaml",
+        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
+        "frankenphp/Caddyfile",
+        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md"
+      ],
+      "input_fingerprint": "e7bc4cffcdd8251b1edf0d0fb2592a6f5f8d067e41ea6498f0682f10ca874ef5",
+      "output_sha256": "1fb9626c6b46ff35172b7c30e0e02210af2878317e1e38911f822c4e9daa8f50",
+      "generated_at": "2026-09-09T12:05:00Z"
+    },
+    {
+      "path": "context/map/diagrams/next-stack-module-dependencies.mmd",
+      "ownership": "managed-block",
+      "inputs": [
+        "backend/pom.xml",
+        "backend/src/main/java/click/kivvi/KivviApplication.java",
+        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
+        "backend/src/main/java/click/kivvi/web/CollectController.java",
+        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
+        "frontend/src/router/routes.ts",
+        "frontend/src/stores/shell.ts",
+        "frontend/src/composables/useIntents.ts",
+        "mercure/Caddyfile"
+      ],
+      "input_fingerprint": "069d5933c666ea619ea949d5e27fcdbc7033d91edba84f3faf259e7baa77626a",
+      "output_sha256": "5bf807cffe818e1f760e2576ef6a1499472dc64d71132412a559c80c64c40885",
+      "generated_at": "2026-09-09T12:05:00Z"
+    },
+    {
+      "path": "context/map/diagrams/next-stack-event-flow.mmd",
+      "ownership": "managed-block",
+      "inputs": [
+        "backend/src/main/java/click/kivvi/web/CollectController.java",
+        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
+        "backend/src/main/java/click/kivvi/infrastructure/tracking/EventDedupStore.java",
+        "frontend/src/composables/useEventStream.ts",
+        "mercure/Caddyfile"
+      ],
+      "input_fingerprint": "6be87774bcb38776f0d7a2982ee6537da747ab49fd3c5b4e499c5fa73f3e02d3",
+      "output_sha256": "3b0cd0ed4b0dda3ac960156c9500237f839953fb43fb5a14fc405d5ec7301c9d",
+      "generated_at": "2026-09-09T12:05:00Z"
     }
   ],
   "verdicts": {
@@ -1532,20 +2198,54 @@
       ],
       "state": "Decided",
       "owner": "user"
+    },
+    {
+      "id": "R19",
+      "summary": "AGENTS.md/CLAUDE.md still describe only the old (Symfony) stack as canonical; left untouched by this refresh per its mandate — stale for the next stack until the CON-1 cutover packet rewrites them",
+      "sources": [
+        "AGENTS.md",
+        "CLAUDE.md",
+        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md (Inventory coverage ledger: docs -> CON-1 (rewrite))"
+      ],
+      "state": "Decided",
+      "owner": "Piotr Mucha"
+    },
+    {
+      "id": "R20",
+      "summary": "Plan's decision ledger describes fixtures as JSON resources under backend/src/main/resources/fixtures/; actual implementation is Java classes under click.kivvi.fixtures (records/static lists) — accepted drift, recorded by the run itself as open_obligations.OBL-fixtures-drift",
+      "sources": [
+        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md (Decision and assumption ledger)",
+        "backend/src/main/java/click/kivvi/fixtures/**",
+        "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/run.json (open_obligations)"
+      ],
+      "state": "Decided",
+      "owner": "Piotr Mucha"
+    },
+    {
+      "id": "R21",
+      "summary": "Host runs many unrelated projects' containers (including self-hosted GitHub Actions runners) alongside the migration's own verification stack; disk at 88/98 GB used (5.1 GB free), close to the plan's own K7 kill-criterion threshold (<3 GB) — can cause flaky or stalled verification unrelated to the code under test",
+      "sources": [
+        "docker ps (2026-09-09)",
+        "df -h (2026-09-09)",
+        "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/common-journey-rules.md (Disk, Cohort sequencing)"
+      ],
+      "state": "N/A",
+      "owner": "Piotr Mucha"
     }
   ],
   "open_questions": [
-    "R1 decided 2026-09-08: migrate to Spring Boot + Vue 3 SPA; migration-planning pending",
-    "Is the Twig prototype the UI for roadmap S-01..S-04 or throwaway? — R3",
+    "R1: final all-journey cohort running on dae1696 — contract dimension still RUNNING; CUTOVER_READY not yet reached",
+    "Is the Twig prototype the UI for roadmap S-01..S-04 or throwaway? — R3 (unaffected by the migration)",
     "Confirm Linear as the tracker — R8",
-    "Isolate dev compose project name from prod — R5"
+    "Isolate old-stack dev compose project name from prod — R5 (next-stack leases already isolated)",
+    "R19: when should AGENTS.md/CLAUDE.md be rewritten — only at CON-1, or is an interim pointer warranted while the migration runs?"
   ],
   "uncovered_paths": [],
   "next_actions": [
-    "refresh AGENTS.md Current Shape (manual section)",
-    "add /.ai/ to root .gitignore or confirm tooling",
-    "run composer test, phpstan, typecheck, e2e in an isolated dev stack and refresh verdicts",
-    "bump Symfony 8.0.x -> 8.1.x (R16) via implementation-planning",
-    "operator answers the execution question; run implementation-orchestrator (migration profile)"
+    "track context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/run.json for the contract dimension to resolve and CUTOVER_READY to be recorded",
+    "do not edit AGENTS.md/CLAUDE.md/context/README.md before the CON-1 cutover packet (R19)",
+    "when CUTOVER_READY is reached, re-run project-context-initializer refresh ahead of RR-1/CUT-1 to capture the final state",
+    "after CON-1, remove the old-stack scoped contexts and directory entries from this manifest, and drop the 'both stacks' framing from the central artifacts",
+    "resolve R3/R5/R8 (unaffected by the migration, still open from the prior refresh)"
   ]
 }

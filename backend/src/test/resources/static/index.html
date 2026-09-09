@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kivvi-click (test fixture)</title>
+  </head>
+  <body>
+    <!--
+      Test-scoped stand-in for frontend/dist/index.html (R2-A): backend tests exercise the
+      server-side attribute injection (SpaDocument.inject onto the <html> tag) and routing,
+      never the built JS/CSS bundle, so they should not need a frontend build to run.
+      target/test-classes is ahead of target/classes on the test classpath, so this file
+      shadows the real static/index.html whenever both are present — including in a local
+      dev checkout that already ran `npm run build`. Production packaging (backend/Dockerfile)
+      is unaffected: it never runs from test-classes, and IndexHtmlTemplate still fails fast
+      at startup there if the real file is missing (see infrastructure/IndexHtmlTemplate.java).
+      Kept minimal but structurally real: same <html lang="pl"> anchor SpaDocument's regex
+      replaces, a real <title>, a mount point — no built assets, since no test asserts on them.
+    -->
+    <div id="app"></div>
+  </body>
+</html>

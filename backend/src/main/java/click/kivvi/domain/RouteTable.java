@@ -1,0 +1,72 @@
+package click.kivvi.domain;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Every path the SPA document is served for, ported from {@code inventory/routes.json} (the 27
+ * Symfony routes minus {@code /_storybook}, {@code /collect}, {@code /preferences/*} and {@code
+ * /import/upload}, which are not SPA documents). A path outside this table — or with an unsupported
+ * locale prefix — is unknown to the panel and gets a 404, matching the old stack's routing exactly:
+ * no requirement here ever matched, no route ever rendered.
+ */
+public final class RouteTable {
+
+  /** Which layout wraps the page: the marketing shell, the auth split screen, or the app shell. */
+  public enum Layout {
+    PUBLIC,
+    AUTH,
+    APP
+  }
+
+  /** A matched request: the route name (mirrors the Symfony route name) and its layout. */
+  public record Match(String routeName, Layout layout, SupportedLocale locale) {}
+
+  private record Route(String name, Pattern pattern, Layout layout) {
+    private Route(String name, String localeRelativePattern, Layout layout) {
+      this(name, Pattern.compile("^/(?<locale>pl|en)" + localeRelativePattern + "$"), layout);
+    }
+  }
+
+  private static final List<Route> LOCALE_PREFIXED =
+      List.of(
+          new Route("home", "", Layout.PUBLIC),
+          new Route("login", "/login", Layout.AUTH),
+          new Route("dashboard", "/dashboard", Layout.APP),
+          new Route("events", "/events", Layout.APP),
+          new Route("customers", "/customers", Layout.APP),
+          new Route("customer_show", "/customers/c_\\d+", Layout.APP),
+          new Route("automations", "/automations", Layout.APP),
+          new Route("automation_new", "/automations/new", Layout.APP),
+          new Route("automation_edit", "/automations/a\\d+", Layout.APP),
+          new Route("campaigns", "/campaigns", Layout.APP),
+          new Route("email_new", "/emails/new", Layout.APP),
+          new Route("email_edit", "/emails/k\\d+", Layout.APP),
+          new Route("popups", "/popups", Layout.APP),
+          new Route("popup_new", "/popups/new", Layout.APP),
+          new Route("popup_edit", "/popups/p\\d+", Layout.APP),
+          new Route("feeds", "/feeds", Layout.APP),
+          new Route("import", "/import(?:/[1-4])?", Layout.APP),
+          new Route("settings", "/settings(?:/[a-z0-9-]+)?", Layout.APP));
+
+  private static final Pattern ROOT = Pattern.compile("^/$");
+
+  private RouteTable() {}
+
+  /** Matches a request path against the table, resolving its locale from the URL segment. */
+  public static Optional<Match> match(String path) {
+    if (ROOT.matcher(path).matches()) {
+      return Optional.of(new Match("home", Layout.PUBLIC, SupportedLocale.DEFAULT));
+    }
+    for (Route route : LOCALE_PREFIXED) {
+      Matcher matcher = route.pattern().matcher(path);
+      if (matcher.matches()) {
+        SupportedLocale locale = SupportedLocale.fromCode(matcher.group("locale")).orElseThrow();
+        return Optional.of(new Match(route.name(), route.layout(), locale));
+      }
+    }
+    return Optional.empty();
+  }
+}

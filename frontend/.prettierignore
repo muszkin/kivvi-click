@@ -1,0 +1,9 @@
+dist/
+coverage/
+node_modules/
+
+# Repair-3b: the design-system CSS is copied byte-for-byte from
+# /home/muszkin/work/kivvi-click/assets/styles/ (the plan and common-journey-rules require it —
+# proved with `cmp` in worker-report.md's Repair-3b section) and must never be reformatted, not
+# even whitespace-only, regardless of what Prettier's own style would otherwise pick.
+src/styles/

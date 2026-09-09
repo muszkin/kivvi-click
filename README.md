@@ -132,3 +132,77 @@ kivvi.click {
 	}
 }
 ```
+
+## Next stack (Spring Boot + Vue)
+
+Migration in progress (`context/plans/2026-09-08-symfony-to-spring-vue-migration.md`): Spring
+Boot 4.1 API + Vue 3 SPA behind the same Mercure-hub-as-edge pattern, Postgres 18 the only other
+service. Not live yet — it ships from `compose.next.yaml` (+ `compose.next.prod.yaml` for prod)
+alongside the old stack until CUT-1. Both stacks read the SAME `.env.prod.docker` file; see
+`.env.prod.docker.example`'s "Next stack (Spring Boot + Vue) only" section for the two keys it
+adds (`MERCURE_JWT_SECRET`, `IMAGES_PREFIX`) — everything else (`POSTGRES_*`, `SERVER_NAME`,
+`HTTP_PORT`) is reused from the keys already documented above.
+
+**This section supersedes the plan's CUT-1 command line** (`context/plans/2026-09-08-symfony-to-spring-vue-migration.md`,
+§ Delivery stages, CUT-1 row): that line names `compose.next.prod.yaml` alone, which is
+override-only and fails to start on its own (`service "mercure" has neither an image nor a build
+context specified`). Every command below always combines it with `compose.next.yaml`, exactly
+like the old stack's own `-f compose.yaml -f compose.prod.yaml` pattern above.
+
+### RR-1 — rollback rehearsal (isolated project, spare ports)
+
+```bash
+cp .env.prod.docker /path/rehearsal.env   # values only, never committed
+# rehearsal.env additionally sets HTTP_PORT=23458 so it never collides with the live stack
+
+docker compose -p kivvi-stage --env-file /path/rehearsal.env \
+  -f compose.next.yaml -f compose.next.prod.yaml \
+  up -d --build --wait
+
+curl -I http://localhost:23458/pl
+cd tests/e2e && E2E_BASE_URL=http://localhost:23458 npx playwright test
+
+# All-journey cohort — one invocation per journey (compare.mjs keeps only the last --journey):
+for j in login landing feeds scheduler-heartbeat customers event-stream automations \
+         campaigns-email-editor settings shell-preferences dashboard import-wizard \
+         popups-widget-editor shell-navigation; do
+  node tools/migration-verify/compare.mjs --journey "$j" --base http://localhost:23458 --dimension all
+done
+
+# The rehearsal is disposable: tear it down INCLUDING its volumes, then prove the old prod
+# stack still comes back healthy.
+docker compose -p kivvi-stage -f compose.next.yaml -f compose.next.prod.yaml down -v
+docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --wait
+docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml ps   # expect healthy
+```
+
+### CUT-1 — cutover (same project name as the old stack, real port 23456)
+
+```bash
+docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml down   # old, NOT down -v: keeps database_data_prod
+docker compose -p kivvi-click --env-file .env.prod.docker \
+  -f compose.next.yaml -f compose.next.prod.yaml up -d --build --wait
+
+curl -I http://localhost:23456/pl
+cd tests/e2e && E2E_BASE_URL=https://kivvi.click npx playwright test   # SSE probe against the public edge
+```
+
+The next stack's `database_data_next` / `mercure_data_next` / `mercure_config_next` volumes
+carry an explicit `name:` (`kivvi-next_database_data` / `kivvi-next_mercure_data` /
+`kivvi-next_mercure_config` — see `compose.next.prod.yaml`), so they can never resolve to the
+same Docker volume as the old stack's `database_data_prod` / `caddy_data_prod` /
+`caddy_config_prod`, even though both stacks run under the identical Compose project name
+`kivvi-click` here. The new stack always starts against an EMPTY database — Flyway applies only
+its baseline migration to a fresh volume. Sessions and `var/import` uploads are not migrated:
+both are transient by design (sessions expire on their own; import uploads are per-wizard temp
+files with no identity across requests), so nothing of value is lost by starting clean.
+
+### Rollback
+
+```bash
+docker compose -p kivvi-click -f compose.next.yaml -f compose.next.prod.yaml down   # not down -v
+docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --wait
+```
+
+CUT-1 never touches the old stack's images or its `database_data_prod` volume (see above), so
+rollback is a plain `up` — no restore step.

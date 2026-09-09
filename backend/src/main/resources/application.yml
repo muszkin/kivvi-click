@@ -1,0 +1,107 @@
+spring:
+  application:
+    name: kivvi-click
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/app}
+    username: ${SPRING_DATASOURCE_USERNAME:app}
+    password: ${SPRING_DATASOURCE_PASSWORD:!ChangeMe!}
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: never
+    timeout: 30m
+  jackson:
+    default-property-inclusion: non_null
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  servlet:
+    multipart:
+      # No upload_max_filesize/post_max_size override was ever found in the old stack's own
+      # config (frankenphp/conf.d/*.ini, config/packages/*.yaml) — it ran on FrankenPHP's
+      # stock php.ini-production defaults, where upload_max_filesize=2M and post_max_size=8M.
+      # 8MB here matches that post_max_size ceiling (the binding one — it also caps the
+      # multipart body as a whole, same as this property does), so /import/upload accepts
+      # everything the old stack did and nothing it didn't. Boot's own un-set defaults
+      # (1MB/file, 10MB/request) are narrower on the file side and looser on the request side
+      # — an unintentional, undocumented parity gap otherwise.
+      max-file-size: 8MB
+      max-request-size: 8MB
+
+server:
+  port: 8080
+  # `native` configures Tomcat's RemoteIpValve, which only trusts X-Forwarded-* from a
+  # connection whose *actual* peer IP matches server.tomcat.remoteip.internal-proxies — left
+  # unset here, so Tomcat's own built-in regex (10/8, 172.16/12, 192.168/16, 169.254/16,
+  # 127/8, loopback) applies, which already covers every RFC1918 range a Docker compose
+  # bridge network can hand out. `framework` (the previous value) had no such check at all:
+  # ForwardedHeaderFilter honours these headers from ANY caller unconditionally, which would
+  # have been a real spoofing gap the day `api` is ever given a published host port — today
+  # it has none (compose.next.yaml), reachable only from the trusted `mercure` edge over the
+  # private compose network, but `native` costs nothing and removes the gap outright. See
+  # compose.next.prod.yaml's `api` service comment for why no TRUSTED_PROXIES env var feeds
+  # this (a Tomcat regex and Symfony's `private_ranges`/CIDR syntax are not interchangeable —
+  # threading the old value through unmodified would have silently matched nothing).
+  forward-headers-strategy: native
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+    session:
+      cookie:
+        name: SESSION
+        http-only: true
+        same-site: lax
+        # The only entry point into this stack is the TLS-terminating Mercure edge (both
+        # dev and prod), so every request that reaches this app is, in effect, always
+        # HTTPS — hard-coded rather than left to request.isSecure() via
+        # forward-headers-strategy, which Spring Session's cookie serializer does not
+        # consult for this property despite that strategy being set above. This is already
+        # correct for prod as-is: unlike forward-headers-strategy, this value does not need
+        # to vary by environment.
+        secure: true
+
+# Kept off the public edge: the Mercure hub only reverse-proxies to /api/*, /{locale}/*,
+# /preferences/* and /*.well-known/mercure, never to /actuator/*.
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+kivvi:
+  supported-locales: pl,en
+  default-locale: pl
+  scheduling:
+    heartbeat:
+      # Symfony's `RecurringMessage::every('1 hour', new Heartbeat())` (src/Schedule.php).
+      # Test-only profiles shorten this to observe a tick without waiting an hour — never
+      # override it in the default profile.
+      interval: PT1H
+  mercure:
+    # Internal publish endpoint: the `mercure` compose service, reached over the private
+    # docker network — never the public edge port. Plain HTTP, mirroring the old stack's own
+    # MERCURE_URL (compose.yaml: http://php/.well-known/mercure) — see compose.next.yaml's
+    # `mercure` service SERVER_NAME (adds a second, explicit-port `mercure:80` address so
+    # Caddy serves this one plain, with no automatic-HTTPS redirect) and
+    # HttpMercurePublisher's class comment.
+    url: ${MERCURE_URL:http://mercure/.well-known/mercure}
+    jwt-secret: ${MERCURE_JWT_SECRET:!ChangeThisMercureHubJWTSecretKey!}
+  tracking:
+    dedup-cleanup:
+      # Mirrors the old stack's cache TTL sweep cadence; piggybacks on the wave-1 scheduler
+      # (SchedulingConfig's single TaskScheduler bean and @EnableSchedulerLock), so no new
+      # scheduling infrastructure is introduced here.
+      interval: PT1H
+  import:
+    # Relative to the api container's working directory (/app — see backend/Dockerfile), so
+    # this resolves to /app/var/import — mirrors the old stack's own `var/import`. A path
+    # inside the container, not a named volume: the journey has no need to survive a container
+    # restart (see worker-report.md's "compose" section for why compose.next.yaml stays
+    # untouched).
+    upload-directory: ${KIVVI_IMPORT_UPLOAD_DIRECTORY:./var/import}

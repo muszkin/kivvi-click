@@ -1,0 +1,11 @@
+{
+  "name": "migration-verify",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Six-dimension verifier: replays the oracle's capture/scenarios.json against a candidate stack and reports contract/visual/performance parity. Reuses Playwright from tests/e2e/node_modules via createRequire — see compare.mjs.",
+  "type": "module",
+  "dependencies": {
+    "pixelmatch": "7.2.0",
+    "pngjs": "7.0.0"
+  }
+}

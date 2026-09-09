@@ -1,0 +1,106 @@
+---
+# The next stack: Spring Boot API + Vue 3 SPA behind the Mercure hub as the edge. Postgres
+# is the only other backing service — see CLAUDE.md's Architecture decisions. Dev/verification
+# shape; compose.next.prod.yaml layers the production overrides on top.
+services:
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/${POSTGRES_DB:-app}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-app}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
+      MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_PUBLISHER_JWT_KEY:-!ChangeThisMercureHubJWTSecretKey!}
+      MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_SUBSCRIBER_JWT_KEY:-!ChangeThisMercureHubJWTSecretKey!}
+      MERCURE_JWT_SECRET: ${MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
+      # Internal publish endpoint, reached over the private compose network only — mirrors
+      # the old stack's own MERCURE_URL (compose.yaml: http://php/.well-known/mercure).
+      # Plain HTTP works here because the mercure service's SERVER_NAME below adds a second,
+      # explicit `mercure:80` site address (same trick as the old stack's `php:80`): Caddy
+      # only enables automatic HTTPS (and the HTTP->HTTPS redirect) for a site address with no
+      # explicit port, so the `mercure:80` address is served as plain HTTP with no redirect.
+      #
+      # Substitution source is MERCURE_INTERNAL_URL, not MERCURE_URL: the repo-root `.env`
+      # (Symfony Flex's own file, read by both compose.yaml and this file since Compose loads
+      # it automatically regardless of which -f is used) already sets a real, non-empty
+      # `MERCURE_URL=https://example.com/.well-known/mercure` — Symfony's own never-customized
+      # placeholder default. `${MERCURE_URL:-...}` only falls back to the default when the
+      # variable is unset or empty, so it would silently take that value instead — found by
+      # running the full stack and seeing every publish 405 (example.com's real answer to a
+      # POST) instead of reaching this compose network at all. compose.yaml (old stack) avoids
+      # this exact trap the same way: its own `MERCURE_URL:` line reads from
+      # `${CADDY_MERCURE_URL:-http://php/.well-known/mercure}`, a distinctly-named substitution
+      # variable, not the `.env`-shadowed `MERCURE_URL` directly. The container's own env var
+      # is still named MERCURE_URL (application.yml's `${MERCURE_URL:...}` reads that from the
+      # container's environment, a separate layer `.env` never reaches).
+      MERCURE_URL: ${MERCURE_INTERNAL_URL:-http://mercure/.well-known/mercure}
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/actuator/health"]
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  mercure:
+    image: dunglas/mercure:v0.24.2
+    restart: unless-stopped
+    environment:
+      # A second, explicit-port site address (`mercure:80`) alongside the public
+      # auto-HTTPS one — mirrors compose.yaml's `SERVER_NAME: ${SERVER_NAME:-localhost}, php:80`
+      # on the old stack: it gives the api container a plain-HTTP internal address to publish
+      # to (MERCURE_URL above) without touching mercure/Caddyfile, which already parametrizes
+      # its site address entirely through this variable.
+      SERVER_NAME: ${SERVER_NAME:-localhost}, mercure:80
+      MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_PUBLISHER_JWT_KEY:-!ChangeThisMercureHubJWTSecretKey!}
+      MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_SUBSCRIBER_JWT_KEY:-!ChangeThisMercureHubJWTSecretKey!}
+    volumes:
+      - ./mercure/Caddyfile:/etc/caddy/Caddyfile:ro
+      - mercure_data:/data
+      - mercure_config:/config
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - name: http
+        target: 80
+        published: ${HTTP_PORT:-80}
+        protocol: tcp
+      - name: https
+        target: 443
+        published: ${HTTPS_PORT:-443}
+        protocol: tcp
+      - name: http3
+        target: 443
+        published: ${HTTP3_PORT:-443}
+        protocol: udp
+
+  database:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}"]
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    volumes:
+      # Postgres 18+ images keep the cluster in a versioned subdirectory of
+      # /var/lib/postgresql; mounting .../data directly makes the entrypoint abort.
+      - database_data:/var/lib/postgresql:rw
+    # No fixed host port: Compose assigns a random one (per the wave-0 resource lease),
+    # discoverable with `docker compose -p <project> port database 5432`.
+    ports:
+      - target: 5432
+        protocol: tcp
+
+volumes:
+  mercure_data:
+  mercure_config:
+  database_data:
