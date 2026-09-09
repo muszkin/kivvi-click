@@ -94,7 +94,7 @@ loosened. Clean, correctly scoped, matches the packet's "Deviations in scope: DE
 | B06/B32/B01 → `*Test.java` + real-HTTP `*IT.java` + frontend unit/integration | PASS | `SettingsFixturesTest`, `SettingsViewServiceTest`, `SettingsControllerTest` (`@WebMvcTest`) + `SettingsApiIT` (real HTTP, Testcontainers) all present and passing; `highlight.spec.ts`, `settingsComponents.spec.ts`, `SettingsView.spec.ts` cover the frontend side. Mutation-tested: renamed `span.s`→`span.str` in `highlight.ts` → 2 tests failed as expected; removed the 404 guard in `SettingsView.vue:68-70` → B06 test failed as expected (reverted both, tree clean). Did not mutate a JUnit test live — a concurrent full `./mvnw verify` was mid-build at the time and mutating source risked corrupting it. |
 | i18n PL-first/EN, no `Intl` | PASS | No `Intl.` usage anywhere in the new files. Spot-checked `settings.en.ts` against `translations/messages.en.yaml`: both the real-translation rows (`Anuluj`→`Cancel`, `Śledzone strony`→`Tracked sites`, etc.) and the "no en.yaml entry → same Polish text" fallback claim check out exactly. |
 | Commit hygiene | PASS | Single commit `feat: add settings page with eight tabs (#settings)` — Conventional Commits, English, no trailers, no AI mentions. |
-| Report accuracy | PASS | Re-ran every gate: frontend unit 88/88, integration 57/57, lint 0 errors/6 warnings (2 pre-existing pattern, 2 new — same class as existing `FeedCard.vue` warning), typecheck clean, `format:check` clean, `npm run build` clean, e2e `settings.spec.ts` 12/12, `performance.mjs` all `pass:true`, `compare.mjs --dimension contract` 0 regressions, `compare.mjs --dimension visual` 1 regression matching the worker's own reported step/number exactly. Backend: filtered `mvnw -q -Dtest=Settings* test` (unit + `SettingsApiIT`) exit 0; a full `./mvnw -q verify` was also launched — see note below. |
+| Report accuracy | PASS | Re-ran every gate: frontend unit 88/88, integration 57/57, lint 0 errors/6 warnings (2 pre-existing pattern, 2 new — same class as existing `FeedCard.vue` warning), typecheck clean, `format:check` clean, `npm run build` clean, e2e `settings.spec.ts` 12/12, `performance.mjs` all `pass:true`, `compare.mjs --dimension contract` 0 regressions, `compare.mjs --dimension visual` 1 regression matching the worker's own reported step/number exactly. Backend: filtered `mvnw -q -Dtest=Settings* test` (unit + `SettingsApiIT`) exit 0; full `./mvnw -q verify` (whole backend) also re-run to completion — exit 0, see note below. |
 
 ## Findings by severity
 
@@ -123,9 +123,11 @@ fixable with `--fix`.
 
 ## Note on backend verify
 
-`cd backend && ./mvnw -q verify` was launched against the candidate SHA's full backend (all waves
-merged so far, not just this journey) and was still running the full Testcontainers-backed IT suite
-at the time this review closed, with no failures observed in its log through its progress. The
-settings-specific subset of that same suite was independently re-run to completion in isolation
-(`-Dtest=Settings*`, includes `SettingsApiIT`) and passed cleanly (exit 0), which is the evidence
-this verdict relies on for gates 1–4 on the backend side.
+`cd backend && ./mvnw -q verify` was re-run twice against the candidate SHA's full backend (all
+waves merged so far, not just this journey): the first attempt was killed mid-run by the sandbox
+when backgrounded with a bare `nohup … &` (an environment artifact of this review session, not a
+build problem); re-run properly backgrounded, it ran to completion — **exit code 0**, no
+`BUILD FAILURE` / no failed test in the log — covering ArchUnit, `spotless:check`, and every unit +
+real-HTTP integration test in the repository, this journey's included. Combined with the
+independently re-run, isolated `-Dtest=Settings*` pass (unit + `SettingsApiIT`, exit 0) done
+earlier, gates 1–4 are confirmed green on the backend side.
