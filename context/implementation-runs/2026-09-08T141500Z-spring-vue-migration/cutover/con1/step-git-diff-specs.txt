@@ -1,0 +1,18 @@
+$ git diff --stat HEAD~10 -- tests/e2e/specs
+(exit 0, empty output above = no changes)
+
+$ git log --format='%H %ad %s' --date=iso -- tests/e2e/specs
+812db3f01358e97611dc94040ef2d385032b358c 2026-08-26 13:07:01 +0000 fix: gate live-row prepends on an open Mercure subscription and honour pause
+bdf120ec8182c563b3825c0efcc7679b260280fc 2026-08-26 13:04:49 +0000 feat: implement the full panel design system, controllers and e2e suite
+
+$ git log --oneline HEAD~10..HEAD
+4539828 docs: CON-1 progress in the run ledger
+0b46320 chore: fix workflow path filters and drop the PHP tests context (CON-1)
+8c37b92 docs: plan errata and DEV-13 retirement (CON-1)
+25329ac chore: drop the PHP test suite after the cutover (CON-1)
+7287390 refactor: remove the Symfony stack after the cutover (CON-1)
+8b224c5 feat: migrate the panel to Spring Boot 4.1 + Vue 3 SPA (squash of migration/spring-vue @ 9205294)
+a385cf3 docs: PRODUCTION_GREEN after the 20-minute observation window
+bed6361 docs: post-cutover public e2e PASS
+7e429c9 docs: CUT-1 live on 23456 (attempt 3); outages of attempts 1–2 recorded
+24e0327 docs: RR-1 PASS; CUT-1 attempts 1–2 rolled back (root causes recorded)

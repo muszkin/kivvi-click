@@ -1,0 +1,31 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T16:02:28.523Z  INFO 1 --- [kivvi-click] [           main] click.kivvi.KivviApplication             : Starting KivviApplication v0.1.0-w0-login using Java 25.0.4 with PID 1 (/app/app.jar started by kivvi in /app)
+2026-09-09T16:02:28.527Z  INFO 1 --- [kivvi-click] [           main] click.kivvi.KivviApplication             : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T16:02:29.801Z  INFO 1 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-09-09T16:02:29.814Z  INFO 1 --- [kivvi-click] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T16:02:29.814Z  INFO 1 --- [kivvi-click] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-09-09T16:02:29.836Z  INFO 1 --- [kivvi-click] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1262 ms
+2026-09-09T16:02:30.213Z  INFO 1 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-09T16:02:30.356Z  INFO 1 --- [kivvi-click] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6e0d16a4
+2026-09-09T16:02:30.358Z  INFO 1 --- [kivvi-click] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-09T16:02:30.374Z  INFO 1 --- [kivvi-click] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://database:5432/app (PostgreSQL 18.6)
+2026-09-09T16:02:30.428Z  INFO 1 --- [kivvi-click] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.018s)
+2026-09-09T16:02:30.455Z  INFO 1 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 1
+2026-09-09T16:02:30.458Z  INFO 1 --- [kivvi-click] [           main] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-09-09T16:02:30.717Z  INFO 1 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T16:02:31.134Z  INFO 1 --- [kivvi-click] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-09-09T16:02:31.182Z  INFO 1 --- [kivvi-click] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-09-09T16:02:31.196Z  INFO 1 --- [kivvi-click] [           main] click.kivvi.KivviApplication             : Started KivviApplication in 3.109 seconds (process running for 3.471)
+2026-09-09T16:02:31.219Z  INFO 1 --- [kivvi-click] [eat-scheduler-1] c.k.i.tracking.EventDedupCleanupJob      : Event dedup cleanup removed 0 expired row(s).
+2026-09-09T16:02:32.785Z  INFO 1 --- [kivvi-click] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-09T16:02:32.785Z  INFO 1 --- [kivvi-click] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-09T16:02:32.786Z  INFO 1 --- [kivvi-click] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
