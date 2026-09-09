@@ -1,0 +1,208 @@
+cwd: /home/muszkin/work/kivvi-click-wt/verify-wave-3-architecture
+Baseline commit for drift check: b87a701 (test: repair-2 for w2-event-stream)
+Wave SHA: c74e3b8e9ed6763204fa193bf66b891d35ef7fe4
+
+=== cmd: git diff --stat b87a701..HEAD -- compose.next.yaml compose.next.prod.yaml backend/Dockerfile backend/pom.xml frontend/package.json frontend/package-lock.json backend/src/main/resources/db ===
+(empty output above = no drift in compose/build/dependency-pin/Flyway files)
+
+=== cmd: git diff --name-only b87a701..HEAD (full changed-file list, 90 files) ===
+backend/src/main/java/click/kivvi/application/AutomationsViewService.java
+backend/src/main/java/click/kivvi/application/CampaignsViewService.java
+backend/src/main/java/click/kivvi/application/SettingsViewService.java
+backend/src/main/java/click/kivvi/fixtures/AutomationsFixtures.java
+backend/src/main/java/click/kivvi/fixtures/CampaignsFixtures.java
+backend/src/main/java/click/kivvi/fixtures/SettingsFixtures.java
+backend/src/main/java/click/kivvi/web/AutomationsController.java
+backend/src/main/java/click/kivvi/web/CampaignsController.java
+backend/src/main/java/click/kivvi/web/SettingsController.java
+backend/src/main/java/click/kivvi/web/dto/AutomationEditorResponse.java
+backend/src/main/java/click/kivvi/web/dto/AutomationListResponse.java
+backend/src/main/java/click/kivvi/web/dto/CampaignEmailResponse.java
+backend/src/main/java/click/kivvi/web/dto/CampaignsResponse.java
+backend/src/main/java/click/kivvi/web/dto/SettingsResponse.java
+backend/src/test/java/click/kivvi/AutomationsApiIT.java
+backend/src/test/java/click/kivvi/CampaignsApiIT.java
+backend/src/test/java/click/kivvi/SettingsApiIT.java
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java
+backend/src/test/java/click/kivvi/application/CampaignsViewServiceTest.java
+backend/src/test/java/click/kivvi/application/SettingsViewServiceTest.java
+backend/src/test/java/click/kivvi/fixtures/AutomationsFixturesTest.java
+backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java
+backend/src/test/java/click/kivvi/web/AutomationsControllerTest.java
+backend/src/test/java/click/kivvi/web/CampaignsControllerTest.java
+backend/src/test/java/click/kivvi/web/SettingsControllerTest.java
+frontend/src/components/atoms/CodeBlock.vue
+frontend/src/components/atoms/ToggleRow.vue
+frontend/src/components/molecules/CouponCode.vue
+frontend/src/components/molecules/DnsRow.vue
+frontend/src/components/molecules/FlowNode.vue
+frontend/src/components/molecules/HookRow.vue
+frontend/src/components/molecules/RbBlock.vue
+frontend/src/components/molecules/RbStep.vue
+frontend/src/components/molecules/SimulationCard.vue
+frontend/src/components/organisms/AutoCard.vue
+frontend/src/components/organisms/BlockLibrary.vue
+frontend/src/components/organisms/EditorShell.vue
+frontend/src/components/organisms/EmailDocument.vue
+frontend/src/components/organisms/EmailEnvelope.vue
+frontend/src/components/organisms/EmailInspector.vue
+frontend/src/components/organisms/EmailVariables.vue
+frontend/src/components/organisms/FlowCanvas.vue
+frontend/src/components/organisms/RulePipeline.vue
+frontend/src/components/organisms/SettingsNav.vue
+frontend/src/components/organisms/Topbar.vue
+frontend/src/components/settings/AccountTab.vue
+frontend/src/components/settings/ApiTab.vue
+frontend/src/components/settings/BillingTab.vue
+frontend/src/components/settings/GdprTab.vue
+frontend/src/components/settings/NotificationsTab.vue
+frontend/src/components/settings/ProvidersTab.vue
+frontend/src/components/settings/SettingsSelectField.vue
+frontend/src/components/settings/SitesTab.vue
+frontend/src/components/settings/TeamTab.vue
+frontend/src/components/settings/types.ts
+frontend/src/composables/useEditorDrag.ts
+frontend/src/composables/useIntents.ts
+frontend/src/highlight.ts
+frontend/src/i18n/messages/automations.en.ts
+frontend/src/i18n/messages/automations.pl.ts
+frontend/src/i18n/messages/campaigns.en.ts
+frontend/src/i18n/messages/campaigns.pl.ts
+frontend/src/i18n/messages/settings.en.ts
+frontend/src/i18n/messages/settings.pl.ts
+frontend/src/router/index.ts
+frontend/src/router/localeHref.ts
+frontend/src/router/meta.d.ts
+frontend/src/router/routes.ts
+frontend/src/router/scrollRestoration.ts
+frontend/src/views/AutomationEditorView.vue
+frontend/src/views/AutomationsView.vue
+frontend/src/views/CampaignsView.vue
+frontend/src/views/EmailEditorView.vue
+frontend/src/views/SettingsView.vue
+frontend/test/integration/AutomationEditorView.spec.ts
+frontend/test/integration/AutomationsView.spec.ts
+frontend/test/integration/CampaignsView.spec.ts
+frontend/test/integration/EmailEditorView.spec.ts
+frontend/test/integration/LocaleToggle.spec.ts
+frontend/test/integration/ScrollRestoration.spec.ts
+frontend/test/integration/SettingsView.spec.ts
+frontend/test/unit/automationsComponents.spec.ts
+frontend/test/unit/campaignsComponents.spec.ts
+frontend/test/unit/emailDocument.spec.ts
+frontend/test/unit/highlight.spec.ts
+frontend/test/unit/localeHref.spec.ts
+frontend/test/unit/scrollRestoration.spec.ts
+frontend/test/unit/settingsComponents.spec.ts
+tools/migration-verify/compare.mjs
+tools/migration-verify/deviations.json
+
+=== routes.ts diff — confirms only automations/campaigns/emails/settings route entries touched, all other EmptyPageView routes (import-wizard, popups, dashboard already integrated in earlier wave) left alone ===
+diff --git a/frontend/src/router/routes.ts b/frontend/src/router/routes.ts
+index d1888c2..81761d1 100644
+--- a/frontend/src/router/routes.ts
++++ b/frontend/src/router/routes.ts
+@@ -2,14 +2,19 @@ import type { RouteRecordRaw } from "vue-router";
+ import AppLayout from "@/layouts/AppLayout.vue";
+ import AuthLayout from "@/layouts/AuthLayout.vue";
+ import PublicLayout from "@/layouts/PublicLayout.vue";
++import AutomationEditorView from "@/views/AutomationEditorView.vue";
++import AutomationsView from "@/views/AutomationsView.vue";
++import CampaignsView from "@/views/CampaignsView.vue";
+ import CustomerView from "@/views/CustomerView.vue";
+ import CustomersView from "@/views/CustomersView.vue";
+ import DashboardView from "@/views/DashboardView.vue";
++import EmailEditorView from "@/views/EmailEditorView.vue";
+ import EmptyPageView from "@/views/EmptyPageView.vue";
+ import EventsView from "@/views/EventsView.vue";
+ import FeedsView from "@/views/FeedsView.vue";
+ import LandingView from "@/views/LandingView.vue";
+ import LoginView from "@/views/LoginView.vue";
++import SettingsView from "@/views/SettingsView.vue";
+ 
+ const LOCALE = "pl|en";
+ 
+@@ -62,37 +67,37 @@ export const routes: RouteRecordRaw[] = [
+     {
+         path: `/:locale(${LOCALE})/automations`,
+         name: "automations",
+-        component: EmptyPageView,
++        component: AutomationsView,
+         meta: { layout: AppLayout, section: "automations" },
+     },
+     {
+         path: `/:locale(${LOCALE})/automations/new`,
+         name: "automation_new",
+-        component: EmptyPageView,
++        component: AutomationEditorView,
+         meta: { layout: AppLayout, section: "automations" },
+     },
+     {
+         path: `/:locale(${LOCALE})/automations/:id(a\\d+)`,
+         name: "automation_edit",
+-        component: EmptyPageView,
++        component: AutomationEditorView,
+         meta: { layout: AppLayout, section: "automations" },
+     },
+     {
+         path: `/:locale(${LOCALE})/campaigns`,
+         name: "campaigns",
+-        component: EmptyPageView,
++        component: CampaignsView,
+         meta: { layout: AppLayout, section: "campaigns" },
+     },
+     {
+         path: `/:locale(${LOCALE})/emails/new`,
+         name: "email_new",
+-        component: EmptyPageView,
++        component: EmailEditorView,
+         meta: { layout: AppLayout, section: "campaigns" },
+     },
+     {
+         path: `/:locale(${LOCALE})/emails/:id(k\\d+)`,
+         name: "email_edit",
+-        component: EmptyPageView,
++        component: EmailEditorView,
+         meta: { layout: AppLayout, section: "campaigns" },
+     },
+     {
+@@ -128,7 +133,14 @@ export const routes: RouteRecordRaw[] = [
+     {
+         path: `/:locale(${LOCALE})/settings/:tab?`,
+         name: "settings",
+-        component: EmptyPageView,
+-        meta: { layout: AppLayout, section: "settings" },
++        component: SettingsView,
++        // defaultParams: mirrors SettingsController's `defaults: ['tab' => 'account']` — see
++        // meta.d.ts and router/localeHref.ts for how this generically drops the segment from
++        // the locale-toggle link, the way Symfony's own URL generator does.
++        meta: {
++            layout: AppLayout,
++            section: "settings",
++            defaultParams: { tab: "account" },
++        },
+     },
+ ];
+
+=== deviations.json diff — confirms only DEV-12 (settings step 10, in scope per packet) extended, no new/unscoped deviation ids added ===
+diff --git a/tools/migration-verify/deviations.json b/tools/migration-verify/deviations.json
+index 574fcd3..27e9738 100644
+--- a/tools/migration-verify/deviations.json
++++ b/tools/migration-verify/deviations.json
+@@ -98,11 +98,11 @@
+     {
+       "id": "DEV-12",
+       "journeys": ["shell-navigation", "customers", "settings", "import-wizard"],
+-      "steps": { "shell-navigation": [21], "customers": [6] },
++      "steps": { "shell-navigation": [21], "customers": [6], "settings": [10] },
+       "dimension": "visual",
+       "mechanism": "skip-on-404",
+       "rule": { "skipWhen": "oracle step.json documentStatus === 404", "skips": ["screenshot", "aria", "texts"] },
+-      "note": "compare.mjs's devAppliesToStep() requires an explicit per-journey entry in `steps` even though `journeys` already lists the journey (an object-shaped `steps` is looked up by journey id, unlike the flat-array/\"all\" shapes) — customers journey step 6 (GET /pl/customers/c_9999) is the oracle's 404 step per journeys/customers/steps/6/step.json (documentStatus 404); its screenshot/aria/texts are the old stack's Symfony dev-mode exception page, which the new stack's minimal 404 document can never match and isn't meant to."
++      "note": "compare.mjs's devAppliesToStep() requires an explicit per-journey entry in `steps` even though `journeys` already lists the journey (an object-shaped `steps` is looked up by journey id, unlike the flat-array/\"all\" shapes) — customers journey step 6 (GET /pl/customers/c_9999) is the oracle's 404 step per journeys/customers/steps/6/step.json (documentStatus 404); its screenshot/aria/texts are the old stack's Symfony dev-mode exception page, which the new stack's minimal 404 document can never match and isn't meant to. settings journey step 10 (GET /pl/settings/nonexistent) is the same case for the settings journey, added by the w3-settings worker (journeys/settings/steps/10/step.json records documentStatus 404); the mechanism already existed, only the per-journey step list was missing settings — the packet's own 'Deviations in scope' bullet names DEV-12 for exactly this step."
+     }
+   ]
+ }
+
+=== src/i18n/index.ts and src/i18n/pl.ts, en.ts untouched (protected files per common-journey-rules.md) ===
+(empty output above = untouched, as required)

@@ -1,0 +1,97 @@
+
+Running 14 tests using 1 worker
+
+  ✓   1 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "dashboard" opens its page (513ms)
+  ✓   2 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "events" opens its page (521ms)
+  ✓   3 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "customers" opens its page (502ms)
+  ✓   4 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "automations" opens its page (510ms)
+  ✓   5 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "campaigns" opens its page (483ms)
+  ✘   6 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "popups" opens its page (5.4s)
+  ✓   7 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "feeds" opens its page (546ms)
+  ✘   8 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "import" opens its page (5.4s)
+  ✓   9 [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "settings" opens its page (535ms)
+  ✓  10 [chrome] › specs/navigation.spec.ts:46:9 › app shell › only .main-scroll scrolls, never the window (414ms)
+  ✓  11 [chrome] › specs/navigation.spec.ts:63:9 › app shell › sidebar collapse survives a reload (503ms)
+  ✓  12 [chrome] › specs/navigation.spec.ts:89:9 › app shell › theme toggle survives a reload (518ms)
+  ✓  13 [chrome] › specs/navigation.spec.ts:115:9 › app shell › locale switch keeps the current page (524ms)
+  ✓  14 [chrome] › specs/navigation.spec.ts:125:9 › app shell › breadcrumb names the current section (382ms)
+
+
+  1) [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "popups" opens its page ─
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('.page-title')
+    Expected substring: "Popupy i widgety"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('.page-title')
+
+
+      35 |                 new RegExp(`${section.url.replace(/\//g, "\\/")}`),
+      36 |             );
+    > 37 |             await expect(page.locator(".page-title")).toContainText(
+         |                                                       ^
+      38 |                 section.title,
+      39 |             );
+      40 |             await expect(
+        at /home/muszkin/work/kivvi-click-wt/verify-wave-3-e2e/tests/e2e/specs/navigation.spec.ts:37:55
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/navigation-app-shell-sidebar-entry-popups-opens-its-page-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/navigation-app-shell-sidebar-entry-popups-opens-its-page-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/navigation-app-shell-sidebar-entry-popups-opens-its-page-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/navigation-app-shell-sidebar-entry-popups-opens-its-page-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "import" opens its page ─
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('.page-title')
+    Expected substring: "Import klientów"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('.page-title')
+
+
+      35 |                 new RegExp(`${section.url.replace(/\//g, "\\/")}`),
+      36 |             );
+    > 37 |             await expect(page.locator(".page-title")).toContainText(
+         |                                                       ^
+      38 |                 section.title,
+      39 |             );
+      40 |             await expect(
+        at /home/muszkin/work/kivvi-click-wt/verify-wave-3-e2e/tests/e2e/specs/navigation.spec.ts:37:55
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/navigation-app-shell-sidebar-entry-import-opens-its-page-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/navigation-app-shell-sidebar-entry-import-opens-its-page-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/navigation-app-shell-sidebar-entry-import-opens-its-page-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/navigation-app-shell-sidebar-entry-import-opens-its-page-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "popups" opens its page ──
+    [chrome] › specs/navigation.spec.ts:26:13 › app shell › sidebar entry "import" opens its page ──
+  12 passed (18.5s)

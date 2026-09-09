@@ -1,0 +1,85 @@
+cwd: /home/muszkin/work/kivvi-click-wt/verify-wave-3-architecture
+=== Journey-specific organisms/components and their importers (grep -rl) ===
+--- automations (AutoCard, FlowCanvas, RulePipeline) ---
+frontend/src/components/organisms/AutoCard.vue
+frontend/src/components/organisms/FlowCanvas.vue
+frontend/src/components/organisms/RulePipeline.vue
+frontend/src/views/AutomationEditorView.vue
+frontend/src/views/AutomationsView.vue
+--- settings (SettingsNav, components/settings/*) ---
+frontend/src/components/organisms/SettingsNav.vue
+frontend/src/components/settings/AccountTab.vue
+frontend/src/components/settings/ApiTab.vue
+frontend/src/components/settings/BillingTab.vue
+frontend/src/components/settings/GdprTab.vue
+frontend/src/components/settings/NotificationsTab.vue
+frontend/src/components/settings/ProvidersTab.vue
+frontend/src/components/settings/SitesTab.vue
+frontend/src/components/settings/TeamTab.vue
+frontend/src/views/SettingsView.vue
+--- campaigns-email-editor (BlockLibrary, EditorShell, EmailDocument, EmailEnvelope, EmailInspector, EmailVariables) ---
+frontend/src/components/molecules/CouponCode.vue
+frontend/src/components/organisms/BlockLibrary.vue
+frontend/src/components/organisms/EditorShell.vue
+frontend/src/components/organisms/EmailDocument.vue
+frontend/src/composables/useEditorDrag.ts
+frontend/src/views/EmailEditorView.vue
+
+=== Each wave-3 view's own import block (confirms no cross-journey organism import) ===
+--- AutomationsView.vue ---
+9:import { computed, onMounted, ref } from "vue";
+10:import { useI18n } from "vue-i18n";
+11:import { useRoute } from "vue-router";
+12:import Button from "@/components/atoms/Button.vue";
+13:import FilterChip from "@/components/molecules/FilterChip.vue";
+14:import AutoCard, {
+18:import PageHead from "@/components/organisms/PageHead.vue";
+--- AutomationEditorView.vue ---
+11:import { computed, onMounted, ref } from "vue";
+12:import { useI18n } from "vue-i18n";
+13:import { useRoute } from "vue-router";
+14:import Button from "@/components/atoms/Button.vue";
+15:import Card from "@/components/molecules/Card.vue";
+16:import Segmented, {
+19:import SimulationCard, {
+22:import Tabs, { type TabItem } from "@/components/molecules/Tabs.vue";
+23:import FlowCanvas, {
+27:import RulePipeline, {
+--- SettingsView.vue ---
+13:import { computed, onMounted, ref } from "vue";
+14:import { useI18n } from "vue-i18n";
+15:import { useRoute } from "vue-router";
+16:import AccountTab from "@/components/settings/AccountTab.vue";
+17:import ApiTab from "@/components/settings/ApiTab.vue";
+18:import BillingTab from "@/components/settings/BillingTab.vue";
+19:import GdprTab from "@/components/settings/GdprTab.vue";
+20:import NotificationsTab from "@/components/settings/NotificationsTab.vue";
+21:import ProvidersTab from "@/components/settings/ProvidersTab.vue";
+22:import SitesTab from "@/components/settings/SitesTab.vue";
+23:import TeamTab from "@/components/settings/TeamTab.vue";
+24:import type { SettingsData } from "@/components/settings/types";
+25:import SettingsNav, {
+28:import PageHead from "@/components/organisms/PageHead.vue";
+--- CampaignsView.vue ---
+8:import { computed, onMounted, ref, watch } from "vue";
+9:import { useI18n } from "vue-i18n";
+10:import { useRoute } from "vue-router";
+11:import Button from "@/components/atoms/Button.vue";
+12:import Chip from "@/components/atoms/Chip.vue";
+13:import Icon from "@/components/atoms/Icon.vue";
+14:import Card from "@/components/molecules/Card.vue";
+15:import FilterChip from "@/components/molecules/FilterChip.vue";
+16:import Table, { type TableRowAction } from "@/components/molecules/Table.vue";
+17:import KpiGrid, { type KpiTileData } from "@/components/organisms/KpiGrid.vue";
+18:import PageHead from "@/components/organisms/PageHead.vue";
+--- EmailEditorView.vue ---
+14:import { computed, onMounted, ref, watch } from "vue";
+15:import { useI18n } from "vue-i18n";
+16:import { useRoute } from "vue-router";
+17:import Button from "@/components/atoms/Button.vue";
+18:import BlockLibrary, {
+21:import EditorShell from "@/components/organisms/EditorShell.vue";
+22:import EmailDocument, {
+25:import EmailEnvelope from "@/components/organisms/EmailEnvelope.vue";
+26:import EmailInspector, {
+29:import EmailVariables, {

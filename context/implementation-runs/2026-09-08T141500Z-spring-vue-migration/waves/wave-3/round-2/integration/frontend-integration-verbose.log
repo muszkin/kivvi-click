@@ -1,0 +1,105 @@
+
+ RUN  v5.0.0 /home/muszkin/work/kivvi-click-wt/verify-wave-3-integration/frontend
+
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B08 setTheme updates the document attribute and posts the new value 9ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B10 setSidebar updates the store and posts the new value 1ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > load() populates navigation, workspace and identity from the shell API 2ms
+ ✓ test/integration/Sidebar.spec.ts > Sidebar navigation > marks the current section's nav item aria-current=page and data-active=true 53ms
+ ✓ test/integration/Sidebar.spec.ts > Sidebar navigation > keeps a detail route's index section highlighted (customer_show -> customers) 11ms
+ ✓ test/integration/Sidebar.spec.ts > Sidebar navigation > renders the user's identity in the sidebar footer 10ms
+ ✓ test/integration/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract > uses type=email on the username field, so the browser blocks a malformed address 82ms
+ ✓ test/integration/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract > posts natively to /{locale}/login 16ms
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+ ✓ test/integration/ScrollRestoration.spec.ts > router/index.ts scrollBehavior wiring > createRouter was configured with this module's own scrollBehavior function 11ms
+ ✓ test/integration/ScrollRestoration.spec.ts > router/index.ts scrollBehavior wiring > resolves a saved position only after the (real router-driven) layout has stabilised — not merely the standalone helper, the actual option vue-router will call 5ms
+ ✓ test/integration/ScrollRestoration.spec.ts > router/index.ts scrollBehavior wiring > resolves {left:0, top:0} for a plain push with no saved position 2ms
+ ✓ test/integration/LocaleToggle.spec.ts > repair-3 (R-B) locale toggle through the real router/AppLayout/Topbar chain > at /pl/settings/account (settings' own default tab), the toggle omits the segment: /en/settings 112ms
+ ✓ test/integration/LocaleToggle.spec.ts > repair-3 (R-B) locale toggle through the real router/AppLayout/Topbar chain > at /pl/settings/billing (not the default tab), the toggle keeps the segment: /en/settings/billing 38ms
+ ✓ test/integration/LocaleToggle.spec.ts > repair-3 (R-B) locale toggle through the real router/AppLayout/Topbar chain > at /pl/customers/c_1001 (a route with no meta.defaultParams), the toggle is an unmodified prefix swap: /en/customers/c_1001 29ms
+ ✓ test/integration/CustomerDetailSidebarSection.spec.ts > B03 detail routes keep their index section active (integration) > requests the shell with route=customer_show for /pl/customers/c_1001 133ms
+ ✓ test/integration/CustomerDetailSidebarSection.spec.ts > B03 detail routes keep their index section active (integration) > highlights the customers nav item from the fetched currentSection, not a hand-written prop 46ms
+ ✓ test/integration/CustomerDetailSidebarSection.spec.ts > B03 detail routes keep their index section active (integration) > the same chain still highlights the dashboard item on the (non-detail) dashboard route 29ms
+ ✓ test/integration/AutomationsView.spec.ts > B26 the automations index matches the oracle: 6 cards, 4 filter chips > fetches the locale-scoped payload with no status by default 106ms
+ ✓ test/integration/AutomationsView.spec.ts > B26 the automations index matches the oracle: 6 cards, 4 filter chips > forwards ?status= to the API call 42ms
+ ✓ test/integration/AutomationsView.spec.ts > B26 the automations index matches the oracle: 6 cards, 4 filter chips > renders 6 cards and 4 filter chips 40ms
+ ✓ test/integration/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract > pre-fills the sample address on a fresh load with no injected attributes 17ms
+ ✓ test/integration/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract > renders the injected error and carries back the typed address 27ms
+ ✓ test/integration/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract > B12 renders the empty-e-mail error with the default address redisplayed, not a blank field 17ms
+ ✓ test/integration/LoginView.spec.ts > B11 the login view shows the welcome copy and submit action > renders the Polish welcome heading and submit label by default 14ms
+ ✓ test/integration/CampaignsView.spec.ts > B27 the campaigns index matches the oracle: 4 KPIs, 4 filters, the performance table > fetches the locale-scoped payload, defaulting the filter to "all" 121ms
+ ✓ test/integration/CampaignsView.spec.ts > B27 the campaigns index matches the oracle: 4 KPIs, 4 filters, the performance table > forwards ?filter= from the URL unchanged 48ms
+ ✓ test/integration/LoginView.spec.ts > B11 the login view shows the welcome copy and submit action > renders the English welcome heading once the active locale is English 55ms
+ ✓ test/integration/AutomationEditorView.spec.ts > B26 the rule editor matches the oracle: list view, flow view, simulation, publish > fetches the locale- and id-scoped payload with no view param by default 132ms
+ ✓ test/integration/AutomationEditorView.spec.ts > B26 the rule editor matches the oracle: list view, flow view, simulation, publish > forwards ?view=flow to the API call 69ms
+ ✓ test/integration/CustomerView.spec.ts > B25 the 360 profile matches the oracle: facts, scores, timeline, tabs, back link > fetches the locale- and id-scoped payload 150ms
+ ✓ test/integration/CustomerView.spec.ts > B25 the 360 profile matches the oracle: facts, scores, timeline, tabs, back link > renders the customer's name as the title and 7 profile facts 76ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > fetches the locale- and tab-scoped payload, defaulting the bare route to account 123ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > fetches the explicit tab from the URL 61ms
+ ✓ test/integration/landing.spec.ts > B22 the home route resolves to the landing view for both the bare and localized paths > bare '/' resolves to the home route and fetches the Polish payload 192ms
+ ✓ test/integration/landing.spec.ts > B22 the home route resolves to the landing view for both the bare and localized paths > '/pl' renders the landing view's hero and demo link 51ms
+ ✓ test/integration/landing.spec.ts > B22 the home route resolves to the landing view for both the bare and localized paths > '/en' fetches the English-locale endpoint 38ms
+ ✓ test/integration/AutomationsView.spec.ts > B26 the automations index matches the oracle: 6 cards, 4 filter chips > the first card shows the oracle's title, status chip and money metric 36ms
+ ✓ test/integration/AutomationsView.spec.ts > B26 the automations index matches the oracle: 6 cards, 4 filter chips > wires each card to the go-automation intent with its own id 39ms
+ ✓ test/integration/AutomationsView.spec.ts > B26 the automations index matches the oracle: 6 cards, 4 filter chips > renders the 'Nowa automatyzacja' link to /automations/new 35ms
+ ✓ test/integration/CampaignsView.spec.ts > B27 the campaigns index matches the oracle: 4 KPIs, 4 filters, the performance table > B01/B27 renders 4 KPI tiles and 4 filter chips from the payload 63ms
+ ✓ test/integration/CampaignsView.spec.ts > B27 the campaigns index matches the oracle: 4 KPIs, 4 filters, the performance table > renders one table row per campaign, wired to the go-email intent with its own id 31ms
+ ✓ test/integration/CampaignsView.spec.ts > B27 the campaigns index matches the oracle: 4 KPIs, 4 filters, the performance table > renders the "Nowa kampania" action as a real link to /emails/new, not an intent 43ms
+ ✓ test/integration/CustomersView.spec.ts > B25 the customers index matches the oracle: 24 rows, 7 columns, page 1 of 192 > fetches the locale- and page-scoped payload 166ms
+ ✓ test/integration/CustomersView.spec.ts > B25 the customers index matches the oracle: 24 rows, 7 columns, page 1 of 192 > reads ?page= from the URL 91ms
+ ✓ test/integration/FeedsView.spec.ts > B30 the product-feeds page matches the oracle: 4 sources, 4 feeds, one failing with HTTP 503, matching diagnostic with 142 mismatched > fetches the locale-scoped payload 231ms
+ ✓ test/integration/EmailEditorView.spec.ts > B28 the e-mail editor matches the oracle: library, envelope, document, inspector > fetches the locale- and id-scoped payload for a known campaign 238ms
+ ✓ test/integration/EmailEditorView.spec.ts > B28 the e-mail editor matches the oracle: library, envelope, document, inspector > fetches the "new" id for the blank-draft route 66ms
+ ✓ test/integration/AutomationEditorView.spec.ts > B26 the rule editor matches the oracle: list view, flow view, simulation, publish > renders the list view by default: 3 rb-step sections, KIEDY kicker, 3 blocks in step 2 56ms
+ ✓ test/integration/AutomationEditorView.spec.ts > B26 the rule editor matches the oracle: list view, flow view, simulation, publish > renders the flow view: 6 flow-node elements, 5 svg paths, and no rb-pipeline 55ms
+ ✓ test/integration/EventsView.spec.ts > B24 the event stream page matches the oracle: 30 rows, 9+4 filters, 4 ranges > fetches the locale-scoped payload 258ms
+ ✓ test/integration/CustomerView.spec.ts > B25 the 360 profile matches the oracle: facts, scores, timeline, tabs, back link > renders 3 KPI tiles, 9 timeline entries and 5 tabs with the first selected 60ms
+ ✓ test/integration/CustomerView.spec.ts > B25 the 360 profile matches the oracle: facts, scores, timeline, tabs, back link > renders the back link as a real <a> to the customers index 49ms
+ ✓ test/integration/CustomerView.spec.ts > B25 the 360 profile matches the oracle: facts, scores, timeline, tabs, back link > renders the 3 active automations 63ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > renders all 8 tabs, with the current one aria-current=true 125ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > B01 the account tab shows its marker text (mirrors PanelPagesTest's .card-title "Dane konta") 48ms
+ ✓ test/integration/AutomationEditorView.spec.ts > B26 the rule editor matches the oracle: list view, flow view, simulation, publish > the Lista/Diagram switch is a real navigation via the 'navigate' intent 57ms
+ ✓ test/integration/AutomationEditorView.spec.ts > B26 the rule editor matches the oracle: list view, flow view, simulation, publish > shows the simulation card and the publish button 41ms
+ ✓ test/integration/AutomationEditorView.spec.ts > B26 the rule editor matches the oracle: list view, flow view, simulation, publish > renders the back link as a real <a> to the automations index 20ms
+ ✓ test/integration/AutomationEditorView.spec.ts > B26 the rule editor matches the oracle: list view, flow view, simulation, publish > B01/B26 GET /automations/new renders and shows its own headline (the generic draft header) 17ms
+ ✓ test/integration/CustomersView.spec.ts > B25 the customers index matches the oracle: 24 rows, 7 columns, page 1 of 192 > renders the subtitle and 24 rows across 7 columns 113ms
+ ✓ test/integration/CustomersView.spec.ts > B25 the customers index matches the oracle: 24 rows, 7 columns, page 1 of 192 > wires each row to the go-customer intent with the row's own id 62ms
+ ✓ test/integration/FeedsView.spec.ts > B30 the product-feeds page matches the oracle: 4 sources, 4 feeds, one failing with HTTP 503, matching diagnostic with 142 mismatched > renders 4 sources, 4 feeds and the one failing feed's HTTP 503 strip 126ms
+ ✓ test/integration/FeedsView.spec.ts > B30 the product-feeds page matches the oracle: 4 sources, 4 feeds, one failing with HTTP 503, matching diagnostic with 142 mismatched > the matching diagnostic explains the coverage 74ms
+ ✓ test/integration/EventsView.spec.ts > B24 the event stream page matches the oracle: 30 rows, 9+4 filters, 4 ranges > forwards type/site/range query parameters to the API call 124ms
+ ✓ test/integration/FeedsView.spec.ts > B30 the product-feeds page matches the oracle: 4 sources, 4 feeds, one failing with HTTP 503, matching diagnostic with 142 mismatched > renders the page title 45ms
+ ✓ test/integration/EmailEditorView.spec.ts > B28 the e-mail editor matches the oracle: library, envelope, document, inspector > B01/B28 renders the back link, title and 10 block-library buttons 68ms
+ ✓ test/integration/EmailEditorView.spec.ts > B28 the e-mail editor matches the oracle: library, envelope, document, inspector > renders the document: hero title, coupon code, 2+2 products, footer copy 51ms
+ ✓ test/integration/EmailEditorView.spec.ts > B28 the e-mail editor matches the oracle: library, envelope, document, inspector > renders the inspector with the selected block's title as the hero_title value 32ms
+ ✓ test/integration/CustomersView.spec.ts > B25 the customers index matches the oracle: 24 rows, 7 columns, page 1 of 192 > shows the pager readout and disables 'previous' on page 1 40ms
+ ✓ test/integration/CustomersView.spec.ts > B25 the customers index matches the oracle: 24 rows, 7 columns, page 1 of 192 > renders the segment rail from the payload, not hard-coded 38ms
+ ✓ test/integration/EmailEditorView.spec.ts > B28 the e-mail editor matches the oracle: library, envelope, document, inspector > B01/B28 the "new" route shows the blank draft template 28ms
+ ✓ test/integration/EmailEditorView.spec.ts > B28 the e-mail editor matches the oracle: library, envelope, document, inspector > dragging a library block onto the canvas never issues a network request (DEV-7) 27ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > the sites tab highlights the tracker snippet server-... client-side 59ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > B01 the team tab shows its marker text (mirrors PanelPagesTest's .card-title "Członkowie zespołu") 23ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > the providers tab shows 4 DNS rows: 3 good, 1 warn 30ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > the api tab shows 3 webhooks, the Slack one failing with a 410 chip and a callout 30ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > the notifications tab renders an 8x3 checkbox matrix with 15 checked 23ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > B01 the billing tab shows its marker text (mirrors PanelPagesTest's .card-title "Wykorzystanie limitów") 17ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > the billing tab's invoice-recipient toggle renders a literal '@' and the embedded mono span, despite '@' being vue-i18n's linked-message reserved character 11ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > B01 the gdpr tab shows its marker text ("Retencja danych" — a second, also-unique card title on this tab; PanelPagesTest's own .card-title marker for this row is "Umowa powierzenia (DPA)", the first card) 14ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > B01 GET /pl/settings/team renders and shows its own page title and subtitle marker 13ms
+ ✓ test/integration/SettingsView.spec.ts > B06 an unknown tab never renders a page body > stays empty when the API 404s 2ms
+ ✓ test/integration/EventsView.spec.ts > B24 the event stream page matches the oracle: 30 rows, 9+4 filters, 4 ranges > renders 30 event rows, 9 type filter chips and 4 site filter chips 94ms
+ ✓ test/integration/EventsView.spec.ts > B24 the event stream page matches the oracle: 30 rows, 9+4 filters, 4 ranges > renders the page title and the total/shown counts 45ms
+ ✓ test/integration/EventsView.spec.ts > B24 the event stream page matches the oracle: 30 rows, 9+4 filters, 4 ranges > the Pauza button carries the pause-stream action 41ms
+ ✓ test/integration/EventsView.spec.ts > B24 the live event stream: connecting -> live, a DEV-3 JSON message renders a new row, the 80-row cap, and pause > data-stream-state goes connecting -> live once the subscription opens 35ms
+ ✓ test/integration/EventsView.spec.ts > B24 the live event stream: connecting -> live, a DEV-3 JSON message renders a new row, the 80-row cap, and pause > a dispatched DEV-3 JSON message prepends a translated .event-row.new 34ms
+ ✓ test/integration/EventsView.spec.ts > B24 the live event stream: connecting -> live, a DEV-3 JSON message renders a new row, the 80-row cap, and pause > caps the row list at 80, dropping the oldest 89ms
+ ✓ test/integration/EventsView.spec.ts > B24 the live event stream: connecting -> live, a DEV-3 JSON message renders a new row, the 80-row cap, and pause > data-paused="true" suppresses new rows without closing the subscription 35ms
+
+ Test Files  16 passed (16)
+      Tests  89 passed (89)
+   Start at  03:20:07
+   Duration  2.82s (environment 45%, transform 29%, tests 16%, import 6%, setup 3%)
+
+  Transform  transforming modules took 9.62s · 29% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
+

@@ -1,0 +1,144 @@
+
+ RUN  v5.0.0 /home/muszkin/work/kivvi-click-wt/verify-wave-3-unit/frontend
+
+ ✓ test/unit/scrollRestoration.spec.ts > waitForStableLayout > does not resolve until the layout has been unchanged for many consecutive frames (mutation-detectable: reducing the stability requirement, or dropping the wait entirely, makes this assertion fail) 15ms
+ ✓ test/unit/scrollRestoration.spec.ts > waitForStableLayout > gives up after the bounded max-wait when the layout never settles 2ms
+ ✓ test/unit/scrollRestoration.spec.ts > waitForStableLayout > resolves immediately (one stable run) when the layout never changes at all 1ms
+ ✓ test/unit/scrollRestoration.spec.ts > isReloadOfAnAlreadyVisitedEntry > is false the first time a history entry is seen, and marks it 2ms
+ ✓ test/unit/scrollRestoration.spec.ts > isReloadOfAnAlreadyVisitedEntry > is true the second time the SAME entry is seen (a reload) — mutation-detectable: always returning false, or never marking the entry, makes this assertion fail 1ms
+ ✓ test/unit/scrollRestoration.spec.ts > isReloadOfAnAlreadyVisitedEntry > preserves other fields already on history.state (merges, does not replace) 1ms
+ ✓ test/unit/scrollRestoration.spec.ts > isReloadOfAnAlreadyVisitedEntry > is false again for a different entry (a fresh top-level navigation), even after another entry was marked 1ms
+ ✓ test/unit/scrollRestoration.spec.ts > scrollBehavior > returns {left:0, top:0} for a push with no saved position (a fresh forward navigation) 1ms
+ ✓ test/unit/scrollRestoration.spec.ts > scrollBehavior > resolves to the saved position unchanged, once the layout is stable (reload or back/forward) 1ms
+ ✓ test/unit/scrollRestoration.spec.ts > scrollBehavior > waits for the layout to settle before resolving a saved position on an overflowing page 1ms
+ ✓ test/unit/Segmented.spec.ts > Segmented > B24 renders one tab per option with role=tablist/tab and aria-selected 26ms
+ ✓ test/unit/Segmented.spec.ts > Segmented > each tab carries the action and its own value as the payload 4ms
+ ✓ test/unit/Icon.spec.ts > Icon > renders the stroke path for a known name 26ms
+ ✓ test/unit/Icon.spec.ts > Icon > renders nothing for an unknown name 2ms
+ ✓ test/unit/Icon.spec.ts > Icon > applies an explicit pixel size 4ms
+ ✓ test/unit/scrollRestoration.spec.ts > scrollBehavior > marks the current entry as visited even when savedPosition already resolves the navigation 196ms
+ ✓ test/unit/scrollRestoration.spec.ts > saveScrollPositionForReload / consumeScrollPositionForReload > round-trips the current scroll position for the current href 1ms
+ ✓ test/unit/scrollRestoration.spec.ts > saveScrollPositionForReload / consumeScrollPositionForReload > consumes (clears) the saved position — a second read returns null 1ms
+ ✓ test/unit/scrollRestoration.spec.ts > saveScrollPositionForReload / consumeScrollPositionForReload > ignores a saved position that belongs to a different href 1ms
+ ✓ test/unit/scrollRestoration.spec.ts > saveScrollPositionForReload / consumeScrollPositionForReload > returns null when nothing was ever saved 2ms
+ ✓ test/unit/scrollRestoration.spec.ts > scrollBehavior falling back to the reload save when vue-router supplies no savedPosition > restores a same-href reload position vue-router itself did not supply, on an actual reload 1ms
+ ✓ test/unit/scrollRestoration.spec.ts > scrollBehavior falling back to the reload save when vue-router supplies no savedPosition > still lands at {left:0, top:0} when the saved fallback belongs to a different href 1ms
+ ✓ test/unit/scrollRestoration.spec.ts > scrollBehavior falling back to the reload save when vue-router supplies no savedPosition > never touches the fallback when vue-router already supplied a savedPosition (popstate) 11ms
+ ✓ test/unit/scrollRestoration.spec.ts > scrollBehavior falling back to the reload save when vue-router supplies no savedPosition > lands at {left:0, top:0}, not the stale position, for a same-href navigation that is NOT a reload (the first time this entry is seen — a fresh top-level nav happening to match a torn-down href) 1ms
+ ✓ test/unit/scrollRestoration.spec.ts > scrollBehavior falling back to the reload save when vue-router supplies no savedPosition > still consumes (clears) the same-href fallback entry even when it is not applied 0ms
+ ✓ test/unit/customersComponents.spec.ts > B25 Table > renders one header cell per column, right-aligned where declared 24ms
+ ✓ test/unit/customersComponents.spec.ts > B25 Table > renders one row per entry via the row slot, in order 41ms
+ ✓ test/unit/customersComponents.spec.ts > B25 Table > B25 carries the row intent as data-action/data-payload and a pointer cursor, index-matched to rowActions 18ms
+ ✓ test/unit/customersComponents.spec.ts > B25 Pagination > disables the previous button on page 1 and enables next when pages remain 15ms
+ ✓ test/unit/customersComponents.spec.ts > B25 Pagination > disables the next button on the last page 6ms
+ ✓ test/unit/customersComponents.spec.ts > B25 Pagination > neither button is disabled on a middle page, and payloads are page ± 1 4ms
+ ✓ test/unit/FilterChip.spec.ts > FilterChip > B24 renders the label, data-active, data-action and data-payload 58ms
+ ✓ test/unit/FilterChip.spec.ts > FilterChip > the 'all' chip carries no icon and is inactive by default 5ms
+ ✓ test/unit/FilterChip.spec.ts > FilterChip > a site chip renders a colour dot instead of an icon 38ms
+ ✓ test/unit/KpiGrid.spec.ts > KpiGrid > renders one .kpi tile per entry, in order 56ms
+ ✓ test/unit/KpiGrid.spec.ts > KpiGrid > renders no tiles for an empty array 4ms
+ ✓ test/unit/campaignsComponents.spec.ts > B28 BlockLibrary > renders one draggable button per block, in order, with its own data-block-type 62ms
+ ✓ test/unit/campaignsComponents.spec.ts > B28 CouponCode > renders the code and, when given one, the note below it 36ms
+ ✓ test/unit/campaignsComponents.spec.ts > B28 CouponCode > omits the note entirely when none is given 6ms
+ ✓ test/unit/FeedCard.spec.ts > FeedCard > B30 renders the failing feed's HTTP 503 error strip 103ms
+ ✓ test/unit/FeedCard.spec.ts > FeedCard > B30 a synced feed carries no error strip and shows the mapped percentage 28ms
+ ✓ test/unit/FeedCard.spec.ts > FeedCard > B30 a syncing feed shows a live info chip 18ms
+ ✓ test/unit/FeedCard.spec.ts > FeedCard > colours the mismatched count bad only when it is non-zero 53ms
+ ✓ test/unit/EventRow.spec.ts > EventRow > B24 renders time, icon tone, type, detail, customer and site 110ms
+ ✓ test/unit/EventRow.spec.ts > EventRow > carries data-action="go-customer" and the customer id as its payload 14ms
+ ✓ test/unit/EventRow.spec.ts > EventRow > omits data-action when there is no customer to link to 12ms
+ ✓ test/unit/EventRow.spec.ts > EventRow > carries the 'new' class only when isNew is set (the 800ms flash-in) 24ms
+ ✓ test/unit/EventRow.spec.ts > EventRow > omits the site block when there is no site 17ms
+ ✓ test/unit/settingsComponents.spec.ts > B32 SettingsNav > marks the active tab aria-current=true and every other tab aria-current=false 86ms
+ ✓ test/unit/settingsComponents.spec.ts > B32 SettingsNav > renders a real navigation link (href), not a router-link 8ms
+ ✓ test/unit/settingsComponents.spec.ts > B32 SettingsNav > carries the tab label as text 11ms
+ ✓ test/unit/settingsComponents.spec.ts > B32 ToggleRow > renders a checked checkbox with its label 14ms
+ ✓ test/unit/settingsComponents.spec.ts > B32 ToggleRow > renders the label with v-html, so an embedded span survives as markup 10ms
+ ✓ test/unit/settingsComponents.spec.ts > B32 DnsRow > renders a good chip for a verified record and a warn chip for an unverified one 36ms
+ ✓ test/unit/settingsComponents.spec.ts > B32 HookRow > renders a good chip for a 2xx status and a bad chip for a non-2xx one 31ms
+ ✓ test/unit/settingsComponents.spec.ts > B32 CodeBlock > renders the highlighted markup and the data-lang attribute 11ms
+ ✓ test/unit/settingsComponents.spec.ts > B32 CodeBlock > omits data-lang when no lang is given 5ms
+ ✓ test/unit/automationsComponents.spec.ts > B26 FlowCanvas > renders one FlowNode per node and one dashed path per edge 138ms
+ ✓ test/unit/automationsComponents.spec.ts > B26 FlowCanvas > reports the node/edge counts in its footer 29ms
+ ✓ test/unit/automationsComponents.spec.ts > B26 FlowCanvas > computes an edge path from the tail node's right edge to the head node's left edge 21ms
+ ✓ test/unit/automationsComponents.spec.ts > B26 RulePipeline > renders 3 steps, the second with 3 blocks 27ms
+ ✓ test/unit/automationsComponents.spec.ts > B26 RulePipeline > shows the KIEDY kicker on the first step 40ms
+ ✓ test/unit/automationsComponents.spec.ts > B26 AutoCard > carries the row intent as data-action/data-payload 9ms
+ ✓ test/unit/EventStream.spec.ts > EventStream > B24 renders the initial 30 server-provided rows and subscribes to the given topic 290ms
+ ✓ test/unit/EventStream.spec.ts > EventStream > B24 flips data-stream-state to 'live' once the subscription opens 73ms
+ ✓ test/unit/emailDocument.spec.ts > B28 EmailDocument keeps a literal white background regardless of theme > computes rgb(255, 255, 255) for .ee-doc under data-theme=dark 462ms
+ ✓ test/unit/emailDocument.spec.ts > B28 EmailDocument keeps a literal white background regardless of theme > computes the same rgb(255, 255, 255) under data-theme=light (never theme-dependent) 75ms
+ ✓ test/unit/EventStream.spec.ts > EventStream > B24 prepends a row from an SSE message and flags it 'new' 111ms
+ ✓ test/unit/EventStream.spec.ts > EventStream > caps the row list at 80, dropping the oldest 236ms
+ ✓ test/unit/EventStream.spec.ts > EventStream > does not render a message received while data-paused is 'true' 40ms
+ ✓ test/unit/EventStream.spec.ts > EventStream > flips data-stream-state to 'reconnecting' on an error 41ms
+ ✓ test/unit/EventStream.spec.ts > EventStream > does not subscribe when there is no topic (a static, non-live feed) 37ms
+ ✓ test/unit/WorkspaceCard.spec.ts > WorkspaceCard > keeps a space between the name and the meta text (regression: Vue's whitespace condense mode strips newline-only whitespace between adjacent inline spans, which otherwise silently concatenates them — matches the oracle's 'aureashop.pl Plan Pro · 3 strony' text) 22ms
+ ✓ test/unit/Avatar.spec.ts > Avatar > derives initials from the first two words of the name 22ms
+ ✓ test/unit/Avatar.spec.ts > Avatar > derives a single initial from a one-word name 3ms
+ ✓ test/unit/Avatar.spec.ts > Avatar > accepts an explicit initials override 8ms
+ ✓ test/unit/highlight.spec.ts > B32 highlight() reproduces CodeHighlightExtension::highlight() byte-for-byte > matches the PHP-rendered tracker snippet exactly 2ms
+ ✓ test/unit/highlight.spec.ts > B32 highlight() reproduces CodeHighlightExtension::highlight() byte-for-byte > HTML-escapes before highlighting, so a raw '<' never survives 0ms
+ ✓ test/unit/highlight.spec.ts > B32 highlight() reproduces CodeHighlightExtension::highlight() byte-for-byte > wraps a double-quoted string in span.s 0ms
+ ✓ test/unit/highlight.spec.ts > B32 highlight() reproduces CodeHighlightExtension::highlight() byte-for-byte > never wraps a single-quoted string in span.s: ENT_QUOTES escapes ' to &#039; before the STRING pattern runs, so the single-quote branch can never match in practice — reproduced verbatim, not fixed 0ms
+ ✓ test/unit/highlight.spec.ts > B32 highlight() reproduces CodeHighlightExtension::highlight() byte-for-byte > wraps a line comment in span.c 0ms
+ ✓ test/unit/i18n.spec.ts > B04 the English catalogue translates every Polish navigation and page-head key > carries the same key set as the Polish catalogue 3ms
+ ✓ test/unit/i18n.spec.ts > B04 the English catalogue translates every Polish navigation and page-head key > translates every nav.* label 1ms
+ ✓ test/unit/i18n.spec.ts > B04 the English catalogue translates every Polish navigation and page-head key > translates the dashboard page-head 0ms
+ ✓ test/unit/localeHref.spec.ts > B32/repair-1 buildLocaleHref — generic Symfony-style default-param omission > settings' own default tab (account) is omitted from the toggled URL 3ms
+ ✓ test/unit/localeHref.spec.ts > B32/repair-1 buildLocaleHref — generic Symfony-style default-param omission > settings' bare route (tab already omitted) stays omitted 0ms
+ ✓ test/unit/localeHref.spec.ts > B32/repair-1 buildLocaleHref — generic Symfony-style default-param omission > a non-default settings tab keeps its URL segment 1ms
+ ✓ test/unit/localeHref.spec.ts > B32/repair-1 buildLocaleHref — generic Symfony-style default-param omission > a route with no meta.defaultParams (customer detail) is unaffected 0ms
+ ✓ test/unit/localeHref.spec.ts > B32/repair-1 buildLocaleHref — generic Symfony-style default-param omission > a route with no params at all (dashboard) is unaffected 0ms
+ ✓ test/unit/localeHref.spec.ts > B32/repair-1 buildLocaleHref — generic Symfony-style default-param omission > the import route has no defaultParams yet (wave-4's own repair): its default step is NOT omitted 0ms
+ ✓ test/unit/localeHref.spec.ts > B32/repair-1 buildLocaleHref — generic Symfony-style default-param omission > round-trips back to pl the same way 0ms
+stderr | test/unit/routes.spec.ts > B07 an unsupported locale prefix is unknown to the router > does not match /de/dashboard
+[VUE_ROUTER_R0004] No match found for location with path "/de/dashboard"
+├▶ fix: Add a route matching this path or check for typos in the location.
+╰▶ see: https://router.vuejs.org/guide/essentials/dynamic-matching.html#Catch-all-404-Not-found-Route
+
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > / matches a named route 4ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl matches a named route 1ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/login matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/dashboard matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/events matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/customers matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/customers/c_1 matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/automations matches a named route 1ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/automations/new matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/automations/a1 matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/campaigns matches a named route 1ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/emails/new matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/emails/k1 matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/popups matches a named route 1ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/popups/new matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/popups/p1 matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/feeds matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/import matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/import/2 matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /pl/settings matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B01 every panel/public route in the table resolves > /en/dashboard matches a named route 0ms
+ ✓ test/unit/routes.spec.ts > B07 an unsupported locale prefix is unknown to the router > does not match /de/dashboard 7ms
+ ✓ test/unit/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract (unit) > uses type=email on the username field, so the browser blocks a malformed address 72ms
+ ✓ test/unit/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract (unit) > uses type=password on the password field 14ms
+ ✓ test/unit/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract (unit) > posts natively to /{locale}/login 14ms
+ ✓ test/unit/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract (unit) > renders a submit button 8ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > renders the Polish hero heading, two hero CTAs and the demo link 147ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > renders four preview KPI tiles and a non-empty sparkline path 26ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > renders six features and three onboarding steps 21ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > renders two price cards, the Pro one carrying the .pro class and tier text 22ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > English landing keeps the same section counts 32ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > the KPI value and its unit render as one node with no separating space 13ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > the price and its unit render as one node with no separating space 12ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > a trust point keeps exactly one space between its icon and its label 15ms
+ ✓ test/unit/landing.spec.ts > B22 the landing page structure (unit) > a price-list item keeps exactly one space between its icon and its label 13ms
+
+ Test Files  21 passed (21)
+      Tests  126 passed (126)
+   Start at  03:16:25
+   Duration  3.28s (environment 66%, transform 16%, tests 10%, setup 5%, import 3%, worker 1%)
+
+Environment  jsdom was created 21 times · 23.03s total, 66% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+
