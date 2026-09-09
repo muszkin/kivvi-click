@@ -1,0 +1,205 @@
+=== Journey-scoped directories: frontend/src/components/{import,settings}; other journeys' components live in shared components/{atoms,molecules,organisms} or directly under src/views ===
+
+--- imports in components/import/*.{vue,ts} (import-wizard journey): must reference only atoms/molecules/organisms or components/import/*, never components/settings ---
+frontend/src/components/import/Dedup.vue:4:import Button from "@/components/atoms/Button.vue";
+frontend/src/components/import/Dedup.vue:5:import ToggleRow from "@/components/atoms/ToggleRow.vue";
+frontend/src/components/import/Dedup.vue:6:import Icon from "@/components/atoms/Icon.vue";
+frontend/src/components/import/Dedup.vue:7:import Segmented from "@/components/molecules/Segmented.vue";
+frontend/src/components/import/RecentImports.vue:15:import Chip from "@/components/atoms/Chip.vue";
+frontend/src/components/import/RecentImports.vue:16:import Icon from "@/components/atoms/Icon.vue";
+frontend/src/components/import/RecentImports.vue:17:import { importStepPath } from "@/components/import/importRoute";
+frontend/src/components/import/Consent.vue:7:import ToggleRow from "@/components/atoms/ToggleRow.vue";
+frontend/src/components/import/Consent.vue:8:import Segmented from "@/components/molecules/Segmented.vue";
+frontend/src/components/import/Consent.vue:9:import SelectField from "@/components/import/SelectField.vue";
+frontend/src/components/import/CondRule.vue:7:import Button from "@/components/atoms/Button.vue";
+frontend/src/components/import/CondRule.vue:8:import Chip from "@/components/atoms/Chip.vue";
+frontend/src/components/import/Segments.vue:6:import Button from "@/components/atoms/Button.vue";
+frontend/src/components/import/Segments.vue:7:import Chip from "@/components/atoms/Chip.vue";
+frontend/src/components/import/Segments.vue:8:import Icon from "@/components/atoms/Icon.vue";
+frontend/src/components/import/Segments.vue:9:import CondRule from "@/components/import/CondRule.vue";
+frontend/src/components/import/FinalOptions.vue:7:import Field from "@/components/atoms/Field.vue";
+frontend/src/components/import/FinalOptions.vue:8:import ToggleRow from "@/components/atoms/ToggleRow.vue";
+frontend/src/components/import/FinalOptions.vue:9:import Segmented from "@/components/molecules/Segmented.vue";
+frontend/src/components/import/FinalOptions.vue:10:import { useShellStore } from "@/stores/shell";
+frontend/src/components/import/ValidationList.vue:3:import Icon from "@/components/atoms/Icon.vue";
+frontend/src/components/import/StepMapping.vue:6:import Button from "@/components/atoms/Button.vue";
+frontend/src/components/import/StepMapping.vue:7:import Chip from "@/components/atoms/Chip.vue";
+frontend/src/components/import/StepMapping.vue:8:import Icon from "@/components/atoms/Icon.vue";
+frontend/src/components/import/StepMapping.vue:9:import Card from "@/components/molecules/Card.vue";
+frontend/src/components/import/StepMapping.vue:10:import FilePill from "@/components/molecules/FilePill.vue";
+frontend/src/components/import/StepMapping.vue:11:import MapRow, { type MapRowTarget } from "@/components/molecules/MapRow.vue";
+frontend/src/components/import/StepMapping.vue:12:import ValidationList, {
+frontend/src/components/import/StepMapping.vue:15:import { importStepPath } from "@/components/import/importRoute";
+frontend/src/components/import/StepRun.vue:12:import Button from "@/components/atoms/Button.vue";
+frontend/src/components/import/StepRun.vue:13:import Chip from "@/components/atoms/Chip.vue";
+frontend/src/components/import/StepRun.vue:14:import Card from "@/components/molecules/Card.vue";
+frontend/src/components/import/StepRun.vue:15:import Table, { type TableColumn } from "@/components/molecules/Table.vue";
+frontend/src/components/import/StepRun.vue:16:import KpiGrid, { type KpiTileData } from "@/components/organisms/KpiGrid.vue";
+frontend/src/components/import/StepRun.vue:17:import FinalOptions from "@/components/import/FinalOptions.vue";
+frontend/src/components/import/StepRun.vue:18:import { importStepPath } from "@/components/import/importRoute";
+frontend/src/components/import/StepRules.vue:6:import Button from "@/components/atoms/Button.vue";
+frontend/src/components/import/StepRules.vue:7:import Card from "@/components/molecules/Card.vue";
+frontend/src/components/import/StepRules.vue:8:import Consent from "@/components/import/Consent.vue";
+frontend/src/components/import/StepRules.vue:9:import Dedup, { type DedupStrategy } from "@/components/import/Dedup.vue";
+frontend/src/components/import/StepRules.vue:10:import Segments from "@/components/import/Segments.vue";
+frontend/src/components/import/StepRules.vue:11:import { importStepPath } from "@/components/import/importRoute";
+frontend/src/components/import/StepUpload.vue:8:import Button from "@/components/atoms/Button.vue";
+frontend/src/components/import/StepUpload.vue:9:import Icon from "@/components/atoms/Icon.vue";
+frontend/src/components/import/StepUpload.vue:10:import Dropzone from "@/components/molecules/Dropzone.vue";
+
+--- imports in components/settings/*.vue (settings journey): must reference only atoms/molecules/organisms or components/settings/*, never components/import ---
+frontend/src/components/settings/AccountTab.vue:6:import Avatar from "@/components/atoms/Avatar.vue";
+frontend/src/components/settings/AccountTab.vue:7:import Button from "@/components/atoms/Button.vue";
+frontend/src/components/settings/AccountTab.vue:8:import Field from "@/components/atoms/Field.vue";
+frontend/src/components/settings/AccountTab.vue:9:import ToggleRow from "@/components/atoms/ToggleRow.vue";
+frontend/src/components/settings/AccountTab.vue:10:import Card from "@/components/molecules/Card.vue";
+frontend/src/components/settings/AccountTab.vue:11:import SettingsSelectField from "@/components/settings/SettingsSelectField.vue";
+frontend/src/components/settings/ProvidersTab.vue:6:import Button from "@/components/atoms/Button.vue";
+frontend/src/components/settings/ProvidersTab.vue:7:import Chip from "@/components/atoms/Chip.vue";
+frontend/src/components/settings/ProvidersTab.vue:8:import Field from "@/components/atoms/Field.vue";
+frontend/src/components/settings/ProvidersTab.vue:9:import ToggleRow from "@/components/atoms/ToggleRow.vue";
+frontend/src/components/settings/ProvidersTab.vue:10:import Card from "@/components/molecules/Card.vue";
+frontend/src/components/settings/ProvidersTab.vue:11:import DnsRow from "@/components/molecules/DnsRow.vue";
+frontend/src/components/settings/ProvidersTab.vue:12:import type { DnsRecordData, EmailProvider } from "@/components/settings/types";
+frontend/src/components/settings/TeamTab.vue:5:import Avatar from "@/components/atoms/Avatar.vue";
+frontend/src/components/settings/TeamTab.vue:6:import Button from "@/components/atoms/Button.vue";
+frontend/src/components/settings/TeamTab.vue:7:import Chip from "@/components/atoms/Chip.vue";
+frontend/src/components/settings/TeamTab.vue:8:import Card from "@/components/molecules/Card.vue";
+frontend/src/components/settings/TeamTab.vue:9:import Table, { type TableColumn } from "@/components/molecules/Table.vue";
+frontend/src/components/settings/TeamTab.vue:10:import type { SettingsRole, TeamMember } from "@/components/settings/types";
+frontend/src/components/settings/GdprTab.vue:5:import Button from "@/components/atoms/Button.vue";
+frontend/src/components/settings/GdprTab.vue:6:import Chip from "@/components/atoms/Chip.vue";
+frontend/src/components/settings/GdprTab.vue:7:import ToggleRow from "@/components/atoms/ToggleRow.vue";
+frontend/src/components/settings/GdprTab.vue:8:import Card from "@/components/molecules/Card.vue";
+frontend/src/components/settings/GdprTab.vue:9:import Table, { type TableColumn } from "@/components/molecules/Table.vue";
+frontend/src/components/settings/GdprTab.vue:10:import SettingsSelectField from "@/components/settings/SettingsSelectField.vue";
+frontend/src/components/settings/GdprTab.vue:11:import type {
+frontend/src/components/settings/ApiTab.vue:12:import Bar from "@/components/atoms/Bar.vue";
+frontend/src/components/settings/ApiTab.vue:13:import Button from "@/components/atoms/Button.vue";
+frontend/src/components/settings/ApiTab.vue:14:import Chip from "@/components/atoms/Chip.vue";
+frontend/src/components/settings/ApiTab.vue:15:import Icon from "@/components/atoms/Icon.vue";
+frontend/src/components/settings/ApiTab.vue:16:import Card from "@/components/molecules/Card.vue";
+frontend/src/components/settings/ApiTab.vue:17:import HookRow from "@/components/molecules/HookRow.vue";
+frontend/src/components/settings/ApiTab.vue:18:import Table, { type TableColumn } from "@/components/molecules/Table.vue";
+frontend/src/components/settings/ApiTab.vue:19:import type {
+frontend/src/components/settings/NotificationsTab.vue:7:import Button from "@/components/atoms/Button.vue";
+frontend/src/components/settings/NotificationsTab.vue:8:import Chip from "@/components/atoms/Chip.vue";
+frontend/src/components/settings/NotificationsTab.vue:9:import Field from "@/components/atoms/Field.vue";
+frontend/src/components/settings/NotificationsTab.vue:10:import Icon from "@/components/atoms/Icon.vue";
+frontend/src/components/settings/NotificationsTab.vue:11:import ToggleRow from "@/components/atoms/ToggleRow.vue";
+frontend/src/components/settings/NotificationsTab.vue:12:import Card from "@/components/molecules/Card.vue";
+frontend/src/components/settings/NotificationsTab.vue:13:import Table, { type TableColumn } from "@/components/molecules/Table.vue";
+frontend/src/components/settings/NotificationsTab.vue:14:import type { NotificationRowData } from "@/components/settings/types";
+frontend/src/components/settings/SitesTab.vue:6:import Button from "@/components/atoms/Button.vue";
+frontend/src/components/settings/SitesTab.vue:7:import Chip from "@/components/atoms/Chip.vue";
+frontend/src/components/settings/SitesTab.vue:8:import CodeBlock from "@/components/atoms/CodeBlock.vue";
+frontend/src/components/settings/SitesTab.vue:9:import Dot from "@/components/atoms/Dot.vue";
+frontend/src/components/settings/SitesTab.vue:10:import Card from "@/components/molecules/Card.vue";
+frontend/src/components/settings/SitesTab.vue:11:import Table, { type TableColumn } from "@/components/molecules/Table.vue";
+frontend/src/components/settings/SitesTab.vue:12:import type { TrackedSite } from "@/components/settings/types";
+frontend/src/components/settings/BillingTab.vue:5:import Bar from "@/components/atoms/Bar.vue";
+frontend/src/components/settings/BillingTab.vue:6:import Button from "@/components/atoms/Button.vue";
+frontend/src/components/settings/BillingTab.vue:7:import Chip from "@/components/atoms/Chip.vue";
+frontend/src/components/settings/BillingTab.vue:8:import ToggleRow from "@/components/atoms/ToggleRow.vue";
+frontend/src/components/settings/BillingTab.vue:9:import Card from "@/components/molecules/Card.vue";
+frontend/src/components/settings/BillingTab.vue:10:import Table, { type TableColumn } from "@/components/molecules/Table.vue";
+frontend/src/components/settings/BillingTab.vue:11:import type { InvoiceData, SettingsBar } from "@/components/settings/types";
+
+--- grep for any components/import -> components/settings or components/settings -> components/import reference (expect: no matches) ---
+frontend/src/components/import/SelectField.vue:4:// today (see frontend/src/components/settings/SettingsSelectField.vue's own class comment for
+exit=0
+exit=1
+
+--- views for wave-4's three journeys: DashboardView.vue (dashboard), PopupsView.vue+PopupEditorView.vue (popups-widget-editor), ImportView.vue (import-wizard) ---
+frontend/src/views/ImportView.vue:12:import { computed, onMounted, ref } from "vue";
+frontend/src/views/ImportView.vue:13:import { useI18n } from "vue-i18n";
+frontend/src/views/ImportView.vue:14:import { useRoute } from "vue-router";
+frontend/src/views/ImportView.vue:15:import Button from "@/components/atoms/Button.vue";
+frontend/src/views/ImportView.vue:16:import PageHead from "@/components/organisms/PageHead.vue";
+frontend/src/views/ImportView.vue:17:import { type KpiTileData } from "@/components/organisms/KpiGrid.vue";
+frontend/src/views/ImportView.vue:18:import Stepper, { type StepperStep } from "@/components/molecules/Stepper.vue";
+frontend/src/views/ImportView.vue:19:import StepMapping, {
+frontend/src/views/ImportView.vue:23:import StepRules from "@/components/import/StepRules.vue";
+frontend/src/views/ImportView.vue:24:import StepRun, { type RunPreviewRow } from "@/components/import/StepRun.vue";
+frontend/src/views/ImportView.vue:25:import StepUpload from "@/components/import/StepUpload.vue";
+frontend/src/views/ImportView.vue:26:import RecentImports, {
+frontend/src/views/ImportView.vue:29:import type { DedupStrategy } from "@/components/import/Dedup.vue";
+frontend/src/views/ImportView.vue:30:import type { ValidationCheck } from "@/components/import/ValidationList.vue";
+frontend/src/views/PopupEditorView.vue:25:import { computed, onMounted, ref, watch } from "vue";
+frontend/src/views/PopupEditorView.vue:26:import { useI18n } from "vue-i18n";
+frontend/src/views/PopupEditorView.vue:27:import { useRoute } from "vue-router";
+frontend/src/views/PopupEditorView.vue:28:import Button from "@/components/atoms/Button.vue";
+frontend/src/views/PopupEditorView.vue:29:import Chip from "@/components/atoms/Chip.vue";
+frontend/src/views/PopupEditorView.vue:30:import Field from "@/components/atoms/Field.vue";
+frontend/src/views/PopupEditorView.vue:31:import Icon from "@/components/atoms/Icon.vue";
+frontend/src/views/PopupEditorView.vue:32:import ToggleRow from "@/components/atoms/ToggleRow.vue";
+frontend/src/views/PopupEditorView.vue:33:import AddSlot from "@/components/molecules/AddSlot.vue";
+frontend/src/views/PopupEditorView.vue:34:import PositionGrid from "@/components/molecules/PositionGrid.vue";
+frontend/src/views/PopupEditorView.vue:35:import Segmented, {
+frontend/src/views/PopupEditorView.vue:38:import SwatchGrid from "@/components/molecules/SwatchGrid.vue";
+frontend/src/views/PopupEditorView.vue:39:import TriggerRow from "@/components/molecules/TriggerRow.vue";
+frontend/src/views/PopupEditorView.vue:40:import BlockLibrary, {
+frontend/src/views/PopupEditorView.vue:43:import EditorShell from "@/components/organisms/EditorShell.vue";
+frontend/src/views/PopupEditorView.vue:44:import PopupStage from "@/components/organisms/PopupStage.vue";
+frontend/src/views/PopupEditorView.vue:45:import PopupWidget from "@/components/organisms/PopupWidget.vue";
+frontend/src/views/PopupEditorView.vue:46:import PwTypeList, { type PwType } from "@/components/organisms/PwTypeList.vue";
+frontend/src/views/PopupsView.vue:17:import { computed, onMounted, ref } from "vue";
+frontend/src/views/PopupsView.vue:18:import { useI18n } from "vue-i18n";
+frontend/src/views/PopupsView.vue:19:import { useRoute } from "vue-router";
+frontend/src/views/PopupsView.vue:20:import Button from "@/components/atoms/Button.vue";
+frontend/src/views/PopupsView.vue:21:import Icon from "@/components/atoms/Icon.vue";
+frontend/src/views/PopupsView.vue:22:import Card from "@/components/molecules/Card.vue";
+frontend/src/views/PopupsView.vue:23:import AutoCard, {
+frontend/src/views/PopupsView.vue:27:import PageHead from "@/components/organisms/PageHead.vue";
+frontend/src/views/PopupsView.vue:28:import PopupStage from "@/components/organisms/PopupStage.vue";
+frontend/src/views/PopupsView.vue:29:import PopupWidget from "@/components/organisms/PopupWidget.vue";
+frontend/src/views/DashboardView.vue:10:import { computed, onMounted, ref } from "vue";
+frontend/src/views/DashboardView.vue:11:import { useI18n } from "vue-i18n";
+frontend/src/views/DashboardView.vue:12:import { useRoute } from "vue-router";
+frontend/src/views/DashboardView.vue:13:import Avatar from "@/components/atoms/Avatar.vue";
+frontend/src/views/DashboardView.vue:14:import Button from "@/components/atoms/Button.vue";
+frontend/src/views/DashboardView.vue:15:import Chip from "@/components/atoms/Chip.vue";
+frontend/src/views/DashboardView.vue:16:import Card from "@/components/molecules/Card.vue";
+frontend/src/views/DashboardView.vue:17:import Cardiogram, {
+frontend/src/views/DashboardView.vue:21:import EventStream from "@/components/organisms/EventStream.vue";
+frontend/src/views/DashboardView.vue:22:import KpiGrid, { type KpiTileData } from "@/components/organisms/KpiGrid.vue";
+frontend/src/views/DashboardView.vue:23:import ListCard from "@/components/organisms/ListCard.vue";
+frontend/src/views/DashboardView.vue:24:import PageHead from "@/components/organisms/PageHead.vue";
+frontend/src/views/DashboardView.vue:25:import type { StreamEvent } from "@/composables/useEventStream";
+
+--- popups-only organisms (PopupStage/PopupWidget/PwTypeList/ShopMock) used exclusively by PopupsView.vue/PopupEditorView.vue; Cardiogram/ListCard used exclusively by DashboardView.vue ---
+Cardiogram ->
+frontend/src/components/organisms/Cardiogram.vue
+frontend/src/views/DashboardView.vue
+ListCard ->
+frontend/src/views/DashboardView.vue
+frontend/src/components/organisms/ListCard.vue
+PopupStage ->
+frontend/src/views/PopupEditorView.vue
+frontend/src/views/PopupsView.vue
+frontend/src/components/organisms/PopupStage.vue
+PopupWidget ->
+frontend/src/views/PopupEditorView.vue
+frontend/src/views/PopupsView.vue
+frontend/src/components/organisms/PopupStage.vue
+frontend/src/components/organisms/PopupWidget.vue
+PwTypeList ->
+frontend/src/views/PopupEditorView.vue
+frontend/src/components/organisms/PwTypeList.vue
+ShopMock ->
+frontend/src/components/organisms/ShopMock.vue
+frontend/src/components/organisms/PopupStage.vue
+
+=== Note on the one "settings" hit above ===
+frontend/src/components/import/SelectField.vue:4 is a code COMMENT referencing
+components/settings/SettingsSelectField.vue by name for documentation purposes only
+("the same gap, hit independently by the settings journey") — not an import statement, not a
+runtime dependency. No `import ... from "@/components/settings/..."` exists anywhere under
+components/import/, and no `import ... from "@/components/import/..."` exists anywhere under
+components/settings/ (the reverse grep above returned exit=1 / no matches).
+
+Verdict: no cross-journey imports beyond the shared components/{atoms,molecules,organisms}
+bucket. Journey-owned directories (components/import/, components/settings/) are self-contained;
+organisms that are in practice journey-specific (Cardiogram, ListCard for dashboard;
+PopupStage/PopupWidget/PwTypeList/ShopMock for popups-widget-editor) are each consumed from
+exactly one journey's view(s).

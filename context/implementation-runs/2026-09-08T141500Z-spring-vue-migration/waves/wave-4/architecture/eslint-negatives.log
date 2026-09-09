@@ -1,0 +1,102 @@
+=== Baseline: cd /home/muszkin/work/kivvi-click-wt/verify-wave-4-architecture/frontend && npm run lint ===
+
+> kivvi-click-frontend@0.1.0 lint
+> eslint .
+
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-architecture/frontend/src/components/import/StepRun.vue
+  142:38  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  144:39  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-architecture/frontend/src/components/molecules/HookRow.vue
+  45:22  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  46:19  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-architecture/frontend/src/components/organisms/FeedCard.vue
+  164:26  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  169:26  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-architecture/frontend/src/components/settings/ApiTab.vue
+  78:34  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  80:31  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-architecture/frontend/src/views/DashboardView.vue
+  224:42  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  224:69  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  226:43  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+  228:39  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+
+✖ 12 problems (0 errors, 12 warnings)
+  0 errors and 12 warnings potentially fixable with the `--fix` option.
+
+exit=0
+
+=== Negative probe 1: /accounts/ literal outside domain.tracking.EventStreamTopic's frontend counterpart (Mercure topic built server-side only) ===
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-architecture/frontend/src/probeAccountsTopic.ts
+  2:28  error  Mercure topics are built server-side only (domain/tracking/EventStreamTopic.java); read the topic from the API payload instead of composing it here  no-restricted-syntax
+
+✖ 1 problem (1 error, 0 warnings)
+
+exit=1
+
+=== Negative probe 2: event-row class in a template outside EventRow.vue/ListCard.vue/RecentImports.vue (vue/no-restricted-class) ===
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-architecture/frontend/src/components/atoms/ProbeEventRow.vue
+  2:16  error  'event-row' class is not allowed  vue/no-restricted-class
+
+✖ 1 problem (1 error, 0 warnings)
+
+exit=1
+
+=== Negative probe 3: event-row as a script-side :class constant (the exact RecentImports.vue bypass repair-3 closed) outside the three allowed files ===
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-architecture/frontend/src/components/atoms/ProbeEventRow.vue
+  7:23  error  "event-row" is a restricted class (wave-2 "Row markup in one place"): a script-side constant bound through :class is exactly the bypass repair-3 closed. Only EventRow.vue, ListCard.vue and RecentImports.vue may render it, each through its own governed vue/no-restricted-class override below — add a matching pair there instead of reaching for this string here  no-restricted-syntax
+
+✖ 1 problem (1 error, 0 warnings)
+
+exit=1
+
+=== Negative probe 4: Intl usage outside src/format.ts (formatting decided server-side, domain/Format.java) ===
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-architecture/frontend/src/probeIntl.ts
+  3:14  error  Unexpected use of 'Intl'. numbers are formatted server-side (domain/Format.java); see rules-translated.md  no-restricted-globals
+  3:14  error  numbers are formatted server-side (domain/Format.java); see rules-translated.md                            no-restricted-syntax
+
+✖ 2 problems (2 errors, 0 warnings)
+
+exit=1
+
+=== Final re-run after all probes removed: cd /home/muszkin/work/kivvi-click-wt/verify-wave-4-architecture/frontend && npm run lint ===
+
+> kivvi-click-frontend@0.1.0 lint
+> eslint .
+
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-architecture/frontend/src/components/import/StepRun.vue
+  142:38  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  144:39  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-architecture/frontend/src/components/molecules/HookRow.vue
+  45:22  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  46:19  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-architecture/frontend/src/components/organisms/FeedCard.vue
+  164:26  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  169:26  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-architecture/frontend/src/components/settings/ApiTab.vue
+  78:34  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  80:31  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-architecture/frontend/src/views/DashboardView.vue
+  224:42  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  224:69  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found    vue/multiline-html-element-content-newline
+  226:43  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+  228:39  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found  vue/multiline-html-element-content-newline
+
+✖ 12 problems (0 errors, 12 warnings)
+  0 errors and 12 warnings potentially fixable with the `--fix` option.
+
+exit=0

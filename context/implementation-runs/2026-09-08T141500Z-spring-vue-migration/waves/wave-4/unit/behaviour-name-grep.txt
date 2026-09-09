@@ -1,0 +1,112 @@
+# Behaviour -> named unit test evidence (round 3, dimension unit)
+
+Grep source: backend/src/test/java (Surefire *Test.java) and frontend/test/unit (vitest run test/unit)
+Command: grep -rn 'B01\|B23\|B29\|B31' backend/src/test frontend/test/unit
+
+## Backend (@DisplayName)
+click/kivvi/EventsApiIT.java:34:      "B01 GET /pl/events renders 200 (the page's own markup is verified by the Playwright e2e "
+click/kivvi/CampaignsApiIT.java:36:  @DisplayName("B01 GET /pl/campaigns renders 200 through the real HTTP layer")
+click/kivvi/CampaignsApiIT.java:71:  @DisplayName("B01/B28 GET /pl/emails/new renders 200 through the real HTTP layer")
+click/kivvi/CampaignsApiIT.java:79:  @DisplayName("B01/B28 GET /pl/emails/k1 (a known id) renders 200 through the real HTTP layer")
+click/kivvi/FeedsApiIT.java:22: * contract's unit/integration split actually requires B01/B30 to be checked against.
+click/kivvi/FeedsApiIT.java:36:      "B01 GET /pl/feeds renders 200 (the page's own headline/marker text is verified by the "
+click/kivvi/DashboardApiIT.java:35:      "B01 GET /pl/dashboard renders 200 (the page's own markup is verified by the Playwright e2e"
+click/kivvi/DashboardApiIT.java:45:      "B23 GET /api/v1/pl/dashboard: 4 KPIs, 10 events, 6 recent customers with lastSeen strings,"
+click/kivvi/infrastructure/importing/ImportUploadStorageTest.java:32:      "B31 a path-traversal original name never escapes the upload directory: the stored name is"
+click/kivvi/infrastructure/importing/ImportUploadStorageTest.java:55:      "B31 an 8-character alphanumeric extension is at the whitelist's own boundary and is accepted")
+click/kivvi/infrastructure/importing/ImportUploadStorageTest.java:66:  @DisplayName("B31 a 9-character extension exceeds the whitelist and falls back to csv")
+click/kivvi/infrastructure/importing/ImportUploadStorageTest.java:77:  @DisplayName("B31 a mixed-case extension is lower-cased before the whitelist check")
+click/kivvi/infrastructure/importing/ImportUploadStorageTest.java:87:  @DisplayName("B31 no extension at all falls back to csv")
+click/kivvi/infrastructure/importing/ImportUploadStorageTest.java:97:  @DisplayName("B31 an extension containing a non-alphanumeric character is rejected")
+click/kivvi/infrastructure/importing/ImportUploadStorageTest.java:108:  @DisplayName("B31 two uploads in the same session never collide on the generated name")
+click/kivvi/application/WidgetViewServiceTest.java:14:  @DisplayName("B29 the popup index carries 5 cards matching the oracle's names and metrics")
+click/kivvi/application/WidgetViewServiceTest.java:37:  @DisplayName("B29 a missing ?preview= falls back to the first seeded widget (p1, modal)")
+click/kivvi/application/WidgetViewServiceTest.java:47:  @DisplayName("B29 ?preview=p2 selects the banner widget's own type and content")
+click/kivvi/application/WidgetViewServiceTest.java:59:      "B29 an unknown ?preview= id never 404s — falls back to the same blank-draft shape as an"
+click/kivvi/application/WidgetViewServiceTest.java:70:  @DisplayName("B29 GET .../popups/p1 resolves the known widget's name, meta and own type")
+click/kivvi/application/WidgetViewServiceTest.java:84:      "B29 an id with no seeded widget (including \"new\") falls back to the blank-draft shape")
+click/kivvi/application/WidgetViewServiceTest.java:100:  @DisplayName("B29 ?type= overrides the shown content's shape but never the widget's own name")
+click/kivvi/application/WidgetViewServiceTest.java:112:  @DisplayName("B29 a missing ?type= falls back to the widget's own type")
+click/kivvi/application/WidgetViewServiceTest.java:121:      "B29 ?device=mobile switches the viewport chip; anything else (including absent) is"
+click/kivvi/application/WidgetViewServiceTest.java:133:      "B29 the editor payload always carries 5 types, 10 blocks, 4 variables, 3 triggers and 4"
+click/kivvi/application/ImportViewServiceTest.java:15:  @DisplayName("B31 the file falls back to \"klienci.csv\" when no upload has happened yet")
+click/kivvi/application/ImportViewServiceTest.java:24:  @DisplayName("B31 an uploaded file's session-derived name reaches the payload verbatim")
+click/kivvi/application/ImportViewServiceTest.java:32:  @DisplayName("B31 detection counts 9 confident (>=70), 1 unsure and 1 skipped (confidence 0)")
+click/kivvi/application/ImportViewServiceTest.java:44:  @DisplayName("B31 the skipped column (confidence 0) is the one mapped to \"__skip\"")
+click/kivvi/application/ImportViewServiceTest.java:55:  @DisplayName("B31 the one preview row with a validation error has a null ltv, rendered as \"?\"")
+click/kivvi/application/ImportViewServiceTest.java:67:      "B31 the run CTA's row count uses a plain space, distinct from the KPI tile's narrow"
+click/kivvi/application/ImportViewServiceTest.java:78:  @DisplayName("B31/DEV-12 a step outside 1-4 throws, mapped to a 404 by ImportController")
+click/kivvi/application/DashboardViewServiceTest.java:17:  @DisplayName("B23 four KPIs, each with a 40-point sparkline, matching the oracle exactly")
+click/kivvi/application/DashboardViewServiceTest.java:37:  @DisplayName("B23 the sparkline series is deterministic between two builds")
+click/kivvi/application/DashboardViewServiceTest.java:46:  @DisplayName("B23 the cardiogram legend carries the three oracle entries")
+click/kivvi/application/DashboardViewServiceTest.java:59:  @DisplayName("B23 ten live rows and the account's Mercure topic, matching the oracle's first row")
+click/kivvi/application/DashboardViewServiceTest.java:73:  @DisplayName("B23 live rows translate their type label to English")
+click/kivvi/application/DashboardViewServiceTest.java:81:  @DisplayName("B23 six recently seen customers, orders and lastSeen matching the oracle exactly")
+click/kivvi/application/DashboardViewServiceTest.java:105:      "B23 the four best-performing automations, active only, highest revenue first, matching the"
+click/kivvi/web/SpaDocumentControllerTest.java:27:  @DisplayName("B01 every panel/public URL renders 200 and carries the SPA document")
+click/kivvi/SettingsApiIT.java:39:   * B01 ("every panel/public URL renders 200 and shows its own headline/marker text") for each of
+click/kivvi/SettingsApiIT.java:45:   * e2e suite instead, matching {@code EventsApiIT}'s B01 comment on the same limitation), so the
+click/kivvi/SettingsApiIT.java:54:      "B01 GET /pl/settings/account renders the SPA document 200 and its own tabSubtitle marker")
+click/kivvi/SettingsApiIT.java:73:      "B01 GET /pl/settings/sites renders the SPA document 200 and its own tabSubtitle marker")
+click/kivvi/SettingsApiIT.java:90:      "B01 GET /pl/settings/team renders the SPA document 200 and its own tabSubtitle marker")
+click/kivvi/SettingsApiIT.java:107:      "B01 GET /pl/settings/providers renders the SPA document 200 and its own tabSubtitle marker")
+click/kivvi/SettingsApiIT.java:126:      "B01 GET /pl/settings/api renders the SPA document 200 and its own tabSubtitle marker")
+click/kivvi/SettingsApiIT.java:143:      "B01 GET /pl/settings/notifications renders the SPA document 200 and its own tabSubtitle"
+click/kivvi/SettingsApiIT.java:162:      "B01 GET /pl/settings/billing renders the SPA document 200 and its own tabSubtitle marker")
+click/kivvi/SettingsApiIT.java:181:      "B01 GET /pl/settings/gdpr renders the SPA document 200 and its own tabSubtitle marker")
+click/kivvi/web/DashboardControllerTest.java:29:      "B23 GET /api/v1/pl/dashboard returns 4 KPIs, 3 legend entries, 10 events, 6 recent"
+click/kivvi/web/DashboardControllerTest.java:43:  @DisplayName("B23 the first recently seen customer carries id, email, orders and lastSeen")
+click/kivvi/web/DashboardControllerTest.java:54:  @DisplayName("B23 the first best-performing automation is the highest-revenue active one")
+click/kivvi/LandingApiIT.java:24: * context, which is what the verifier contract's unit/integration split actually requires B01/B22
+click/kivvi/LandingApiIT.java:39:      "B01 GET /api/v1/pl/landing: the marketing page's copy arrays, through the real HTTP "
+click/kivvi/AutomationsApiIT.java:38:  @DisplayName("B01/B26 GET /pl/automations renders 200 through the real HTTP layer")
+click/kivvi/AutomationsApiIT.java:47:  @DisplayName("B01/B26 GET /pl/automations/new renders 200 through the real HTTP layer")
+click/kivvi/AutomationsApiIT.java:57:      "B01/B26 GET /pl/automations/a99 (shape-valid, unseeded) still renders the SPA shell")
+click/kivvi/web/ImportControllerTest.java:33:      "B31 GET /api/v1/pl/import/1 returns the full wizard payload: 4 steps, the default file"
+click/kivvi/web/ImportControllerTest.java:61:  @DisplayName("B31 GET /api/v1/pl/import/5 (outside 1-4) is not found")
+click/kivvi/web/ImportControllerTest.java:67:  @DisplayName("B31 GET /api/v1/pl/import/0 (outside 1-4) is not found")
+click/kivvi/web/ImportControllerTest.java:85:  @DisplayName("B31 every step returns the same shared 14-option target list per column")
+click/kivvi/WidgetApiIT.java:23: * contract's unit/integration split actually requires B01/B29 to be checked against.
+click/kivvi/WidgetApiIT.java:37:      "B01 GET /pl/popups renders 200 through the real HTTP layer, marker text \"Popupy i"
+click/kivvi/WidgetApiIT.java:48:      "B01 GET /pl/popups/p1 (the popup editor) renders 200 through the real HTTP layer, marker"
+click/kivvi/WidgetApiIT.java:57:  @DisplayName("B01 GET /pl/popups/new renders 200 through the real HTTP layer")
+click/kivvi/WidgetApiIT.java:66:      "B29 GET /api/v1/pl/popups: 5 cards, selected p1/modal — through the real HTTP layer")
+click/kivvi/WidgetApiIT.java:80:  @DisplayName("B29 GET /api/v1/pl/popups?preview=p2 selects the banner widget")
+click/kivvi/WidgetApiIT.java:100:      "B29 GET /api/v1/pl/popups/p1: known widget, desktop viewport — through the real HTTP"
+click/kivvi/WidgetApiIT.java:116:      "B29 GET /api/v1/pl/popups/p1?type=banner&device=mobile overrides content and viewport —"
+click/kivvi/WidgetApiIT.java:133:      "B29 GET /api/v1/pl/popups/new: the blank-draft widget — through the real HTTP layer")
+click/kivvi/WidgetApiIT.java:147:      "B29/DEV-7 GET /api/v1/pl/popups/{id} 404s for an id shape outside \"new\"/\"p\\d+\", through"
+click/kivvi/ImportApiIT.java:75:  @DisplayName("B31 GET /api/v1/pl/import/5 (outside 1-4) is not found")
+click/kivvi/ImportApiIT.java:84:  @DisplayName("B31/DEV-12 GET /pl/import/5 (outside 1-4) is a 404 document, not the 200 SPA shell")
+click/kivvi/ImportApiIT.java:93:      "B01 every import-wizard document URL (bare, step 1-4) renders 200 and carries the SPA"
+click/kivvi/ImportApiIT.java:108:  @DisplayName("B31 a request to /import/upload with no file part is not found")
+click/kivvi/ImportApiIT.java:123:      "B31 uploading a file redirects (302) to exactly /pl/import/2, and the next GET on the"
+click/kivvi/ImportApiIT.java:153:  @DisplayName("B31 without any prior upload, step 2's file name falls back to \"klienci.csv\"")
+click/kivvi/ImportApiIT.java:171:  @DisplayName("B31 empty file is stored and redirects like the old stack")
+click/kivvi/ImportApiIT.java:210:      "B31 a path-traversal original name never escapes the upload directory over a real HTTP"
+click/kivvi/web/ImportUploadControllerTest.java:42:  @DisplayName("B31 a POSTed file is stored and redirects (302) to /pl/import/2")
+click/kivvi/web/ImportUploadControllerTest.java:55:  @DisplayName("B31 a request with no file part is not found")
+click/kivvi/domain/RouteTableTest.java:11:  @DisplayName("B01 every panel/public URL in the route table is known")
+click/kivvi/web/WidgetControllerTest.java:28:  @DisplayName("B29 GET /api/v1/pl/popups returns 5 cards, a selected preview and 5 types")
+click/kivvi/web/WidgetControllerTest.java:41:  @DisplayName("B29 ?preview=p2 selects the banner widget")
+click/kivvi/web/WidgetControllerTest.java:57:      "B29 GET /api/v1/pl/popups/p1 returns the known widget plus 5 types/10 blocks/4"
+click/kivvi/web/WidgetControllerTest.java:74:  @DisplayName("B29 GET /api/v1/pl/popups/new returns the blank-draft widget shape")
+click/kivvi/web/WidgetControllerTest.java:85:      "B29 ?type= overrides the widget's shown type; ?device=mobile overrides the viewport")
+click/kivvi/web/WidgetControllerTest.java:96:      "B29/DEV-7 GET /api/v1/pl/popups/{id} 404s for an id shape outside \"new\"/\"p\\d+\"")
+
+## Frontend (describe/it)
+test/unit/widgetComponents.spec.ts:13:describe("B29 PopupStage", () => {
+test/unit/widgetComponents.spec.ts:38:describe("B29 ShopMock", () => {
+test/unit/widgetComponents.spec.ts:50:describe("B29 PopupWidget", () => {
+test/unit/widgetComponents.spec.ts:134:describe("B29 PositionGrid", () => {
+test/unit/widgetComponents.spec.ts:162:describe("B29 SwatchGrid", () => {
+test/unit/widgetComponents.spec.ts:189:describe("B29 TriggerRow", () => {
+test/unit/widgetComponents.spec.ts:225:describe("B29 AddSlot", () => {
+test/unit/widgetComponents.spec.ts:238:describe("B29 PwTypeList", () => {
+test/unit/Cardiogram.spec.ts:50:    it("B23 renders the canvas with role=img and the title as its accessible name", () => {
+test/unit/Cardiogram.spec.ts:62:    it("B23 draws once on mount", () => {
+test/unit/Cardiogram.spec.ts:68:    it("B23 redraws when <html data-theme> mutates, without reconnecting anything", async () => {
+test/unit/Cardiogram.spec.ts:83:    it("B23 redraws once a second", () => {
+test/unit/importComponents.spec.ts:13:describe("B31 Stepper marks the current step and the ones already passed", () => {
+test/unit/importComponents.spec.ts:63:describe("B31 Dropzone posts the file and follows a redirected response with a full navigation, exactly like assets/controllers/upload.ts", () => {
+test/unit/routes.spec.ts:7:describe("B01 every panel/public route in the table resolves", () => {

@@ -1,0 +1,58 @@
+
+ RUN  v5.0.0 /home/muszkin/work/kivvi-click-wt/verify-wave-4-integration/frontend
+
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B08 setTheme updates the document attribute and posts the new value 12ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B10 setSidebar updates the store, the <html> attribute and posts the new value 3ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B08 setTheme's POST survives an immediate reload (keepalive: true) 1ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B10 setSidebar's POST survives an immediate reload (keepalive: true) 1ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B08 setTheme applies the DOM attribute and store state only after the POST resolves 2ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B10 setSidebar applies the store state and <html> attribute only after the POST resolves 1ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B08 setTheme still applies the DOM attribute when the POST rejects, and logs nothing 2ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B10 setSidebar still applies the store state when the POST rejects, and logs nothing 1ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > load() populates navigation, workspace and identity from the shell API 3ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > fetches the locale-scoped payload with no preview by default 134ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > forwards ?preview= to the API call 69ms
+ ✓ test/integration/ImportView.spec.ts > B31/B01 the import wizard matches the oracle: 4 steps, one URL each > fetches the locale- and step-scoped payload 146ms
+ ✓ test/integration/ImportView.spec.ts > B31/B01 the import wizard matches the oracle: 4 steps, one URL each > B31 step 1 offers the dropzone, the template and the API, plus the sticky recent-imports card 65ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > renders one .auto-card per widget, wired to a real ?preview= navigation 50ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > each card carries an eye-preview link and an edit link 48ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > previews the selected widget on the popup stage, type=modal by default 34ms
+ ✓ test/integration/ImportView.spec.ts > B31/B01 the import wizard matches the oracle: 4 steps, one URL each > B31 step 2 maps every column with a confidence read-out, and shows the uploaded file's name 88ms
+ ✓ test/integration/ImportView.spec.ts > B31/B01 the import wizard matches the oracle: 4 steps, one URL each > B31 step 3 asks for a dedup strategy and GDPR consent 57ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > fetches the locale-scoped payload 319ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > ?preview=p2 shows the banner widget's own shape 41ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > the section-title reads "Podgląd: <name>" and links Edytuj to the edit route 36ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > renders the trigger-summary card below the stage 29ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > renders the "Nowy popup" link to /popups/new 33ms
+ ✓ test/integration/ImportView.spec.ts > B31/B01 the import wizard matches the oracle: 4 steps, one URL each > B31 step 4 summarises the run and flags invalid rows 116ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > fetches the locale- and id-scoped payload for a known widget 306ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > fetches the "new" id for the blank-draft route 68ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > renders the page title and four KPI tiles 120ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > renders the cardiogram canvas with the legend 81ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > forwards ?type= and ?device= to the API call 115ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > B01/B29 renders the back link, title and 5 widget-type links 66ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > server-renders the first page of the live stream, subscribed to the given topic 59ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > the Pauza button carries the pause-stream action 35ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > recently seen customers are real links to their profile 39ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > previews the widget on the mock storefront: modal, desktop, 1440 × 900 48ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > each widget-type link points at this same route with only ?type= set 35ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > top automations are real links to the rule editor 33ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > multiple channel chips on one automation are separated by a real text node 40ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > the new-automation button links to /pl/automations/new 35ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > the device switch links at this same route with only ?device= set 59ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > ?type=banner reshapes the preview 34ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > ?device=mobile switches the viewport readout 33ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > the inspector carries 3 triggers, a 9-cell position grid with 1 checked, and 4 checkbox rows 41ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > the audience rule with embedded markup renders through v-html 40ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > B01/B29 the "new" route shows the blank-draft widget 34ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > dragging a library block onto the canvas never issues a network request (DEV-7) 28ms
+
+ Test Files  5 passed (5)
+      Tests  45 passed (45)
+   Start at  08:48:47
+   Duration  3.77s (transform 45%, environment 29%, tests 18%, import 5%, setup 3%)
+
+  Transform  transforming modules took 6.49s · 45% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
+

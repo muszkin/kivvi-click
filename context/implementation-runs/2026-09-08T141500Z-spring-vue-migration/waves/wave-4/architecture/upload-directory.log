@@ -1,0 +1,30 @@
+=== Upload directory default resolves inside the api container's own writable layer, not a host mount ===
+
+--- application.yml property (backend/src/main/resources/application.yml) ---
+81:    upload-directory: ${KIVVI_IMPORT_UPLOAD_DIRECTORY:./var/import}
+
+--- ImportUploadStorage constructor default (backend/src/main/java/click/kivvi/infrastructure/importing/ImportUploadStorage.java) ---
+20: * <p>The file lands under {@link #uploadDirectory} with a generated name — the original name is
+36:  private final Path uploadDirectory;
+39:      @Value("${kivvi.import.upload-directory:./var/import}") String uploadDirectory) {
+40:    this.uploadDirectory = Path.of(uploadDirectory);
+50:      Files.createDirectories(uploadDirectory);
+
+--- Dockerfile runtime stage WORKDIR (relative default './var/import' resolves to /app/var/import, owned by the non-root 'kivvi' user under /app) ---
+6:WORKDIR /frontend
+15:WORKDIR /backend
+29:WORKDIR /app
+31:RUN chown -R kivvi:kivvi /app
+32:USER kivvi
+34:ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+
+--- compose.next.yaml api service: no volume mount over /app or /app/var, confirming the upload dir is container-local/ephemeral, never a host bind mount ---
+6:  api:
+7:    build:
+50:    image: dunglas/mercure:v0.24.2
+61:    volumes:
+62:      - ./mercure/Caddyfile:/etc/caddy/Caddyfile:ro
+66:      api:
+83:    image: postgres:18-alpine
+94:    volumes:
+104:volumes:

@@ -1,0 +1,71 @@
+Captured from backend/target/failsafe-reports/*.txt and backend/target/surefire-reports/*.txt
+immediately after `./mvnw -q verify -Pintegration` finished (exit 0), before backend/target was
+deleted per the packet's disk instruction. Raw XML/txt reports no longer exist on disk; this is
+the full text of what was read.
+
+=== Failsafe (real-HTTP Testcontainers *IT.java, integration-test phase) ===
+Test set: click.kivvi.AutomationsApiIT
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.951 s -- in click.kivvi.AutomationsApiIT
+
+Test set: click.kivvi.CampaignsApiIT
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.773 s -- in click.kivvi.CampaignsApiIT
+
+Test set: click.kivvi.CollectApiIT
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.684 s -- in click.kivvi.CollectApiIT
+
+Test set: click.kivvi.CustomersApiIT
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.977 s -- in click.kivvi.CustomersApiIT
+
+Test set: click.kivvi.DashboardApiIT
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.392 s -- in click.kivvi.DashboardApiIT
+
+Test set: click.kivvi.EventsApiIT
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.946 s -- in click.kivvi.EventsApiIT
+
+Test set: click.kivvi.FeedsApiIT
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.916 s -- in click.kivvi.FeedsApiIT
+
+Test set: click.kivvi.ImportApiIT
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.116 s -- in click.kivvi.ImportApiIT
+
+Test set: click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.017 s -- in click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT
+
+Test set: click.kivvi.infrastructure.tracking.EventDedupStoreIT
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.131 s -- in click.kivvi.infrastructure.tracking.EventDedupStoreIT
+
+Test set: click.kivvi.LandingApiIT
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.076 s -- in click.kivvi.LandingApiIT
+
+Test set: click.kivvi.SessionRequestSerializationIT
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.273 s -- in click.kivvi.SessionRequestSerializationIT
+
+Test set: click.kivvi.SessionRequestSerializationRedProofIT
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.007 s -- in click.kivvi.SessionRequestSerializationRedProofIT
+(class is @Disabled("RED proof only ..."), a wave-3 documentation artifact for the shell-preferences
+race fix; not in this wave's behaviour scope, skip is by design)
+
+Test set: click.kivvi.SessionRoundTripIT
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.039 s -- in click.kivvi.SessionRoundTripIT
+
+Test set: click.kivvi.SettingsApiIT
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.602 s -- in click.kivvi.SettingsApiIT
+
+Test set: click.kivvi.ShellApiIT
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.922 s -- in click.kivvi.ShellApiIT
+
+Test set: click.kivvi.WidgetApiIT
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.968 s -- in click.kivvi.WidgetApiIT
+
+TOTAL (failsafe *IT.java): 17 classes, 90 tests run, 0 failures, 0 errors, 1 skipped (pre-existing, disabled by design).
+
+=== Surefire (unit-level, test phase, runs as part of `verify`) ===
+48 report files, aggregate: Tests run: 289, Failures: 0, Errors: 0, Skipped: 0.
+(Surefire's own unit scope is the `unit` dimension's responsibility; recorded here only because
+`verify` executes it too and it is part of the exit-0 build this dimension's command produced.)
+
+Build: `./mvnw -q verify -Pintegration -Dmaven.repo.local=<checkout>/.m2-repo` exited 0.
+The "[ERROR] Surefire is going to kill self fork JVM. The exit has elapsed 30 seconds after
+System.exit(0)." line near the end of backend-mvnw-verify.log is Surefire's routine fork-shutdown
+diagnostic after the last forked JVM already called System.exit(0); it is not a test failure or a
+build failure (exit code 0, all classes above show 0 failures/0 errors).

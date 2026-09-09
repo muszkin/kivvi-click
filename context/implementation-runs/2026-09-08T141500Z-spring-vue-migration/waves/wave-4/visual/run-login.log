@@ -1,0 +1,17 @@
+compare.mjs: replaying journey "login" against https://localhost:19101 (dimensions: visual)
+page.waitForURL: Timeout 15000ms exceeded.
+=========================== logs ===========================
+waiting for navigation until "load"
+  navigated to "chrome-error://chromewebdata/"
+============================================================
+    at runStep (/home/muszkin/work/kivvi-click-wt/verify-wave-4-visual/tools/migration-verify/compare.mjs:191:29)
+    at async runJourney (/home/muszkin/work/kivvi-click-wt/verify-wave-4-visual/tools/migration-verify/compare.mjs:349:22)
+    at async file:///home/muszkin/work/kivvi-click-wt/verify-wave-4-visual/tools/migration-verify/compare.mjs:619:5 {
+  log: [],
+  name: 'TimeoutError'
+}
+
+real	0m22,657s
+user	0m2,027s
+sys	0m0,484s
+EXIT:1
