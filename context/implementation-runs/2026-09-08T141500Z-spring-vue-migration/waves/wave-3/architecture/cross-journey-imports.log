@@ -1,0 +1,49 @@
+=== Journey-exclusive component import sites (each must be inside its own journey's view tree only) ===
+-- AutoCard --
+src/views/AutomationsView.vue:14:import AutoCard, {
+-- FlowCanvas --
+src/views/AutomationEditorView.vue:23:import FlowCanvas, {
+-- FlowNode --
+src/components/organisms/FlowCanvas.vue:11:import FlowNode from "@/components/molecules/FlowNode.vue";
+-- RulePipeline --
+src/views/AutomationEditorView.vue:27:import RulePipeline, {
+-- RbBlock --
+src/components/molecules/RbStep.vue:8:import RbBlock from "@/components/molecules/RbBlock.vue";
+-- RbStep --
+src/components/organisms/RulePipeline.vue:5:import RbStep, { type RbStepBlock } from "@/components/molecules/RbStep.vue";
+-- SimulationCard --
+src/views/AutomationEditorView.vue:19:import SimulationCard, {
+-- SettingsNav --
+src/views/SettingsView.vue:25:import SettingsNav, {
+-- EditorShell --
+src/views/EmailEditorView.vue:21:import EditorShell from "@/components/organisms/EditorShell.vue";
+-- EmailDocument --
+src/views/EmailEditorView.vue:22:import EmailDocument, {
+-- EmailEnvelope --
+src/views/EmailEditorView.vue:25:import EmailEnvelope from "@/components/organisms/EmailEnvelope.vue";
+-- EmailInspector --
+src/views/EmailEditorView.vue:26:import EmailInspector, {
+-- EmailVariables --
+src/views/EmailEditorView.vue:29:import EmailVariables, {
+-- BlockLibrary --
+src/views/EmailEditorView.vue:18:import BlockLibrary, {
+-- CouponCode --
+src/components/organisms/EmailDocument.vue:9:import CouponCode from "@/components/molecules/CouponCode.vue";
+-- HookRow --
+src/components/settings/ApiTab.vue:17:import HookRow from "@/components/molecules/HookRow.vue";
+-- DnsRow --
+src/components/settings/ProvidersTab.vue:11:import DnsRow from "@/components/molecules/DnsRow.vue";
+
+=== settings/ folder consumers (must be SettingsView only) ===
+src/components/settings/ApiTab.vue
+src/views/SettingsView.vue
+src/components/settings/SitesTab.vue
+src/components/settings/BillingTab.vue
+src/components/settings/NotificationsTab.vue
+src/components/settings/GdprTab.vue
+src/components/settings/ProvidersTab.vue
+src/components/settings/AccountTab.vue
+src/components/settings/TeamTab.vue
+
+=== Shell files checked for Intl/toLocaleString/toFixed/accounts-literal/event-row (must be empty) ===
+grep exit=1 (1 = none found, expected)

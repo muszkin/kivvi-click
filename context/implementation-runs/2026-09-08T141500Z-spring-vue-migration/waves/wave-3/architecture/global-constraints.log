@@ -1,0 +1,19 @@
+=== Protected-path diff wave-2 (b87a701) -> wave-3 (32a6831) ===
+(exit above should be no output = no protected path touched)
+
+=== Dependency pin diff (backend/pom.xml, frontend/package.json) ===
+(empty = no pin changed)
+
+=== Flyway migrations present ===
+backend/src/main/resources/db/migration/V1__baseline.sql
+
+=== New backend main-source top-level packages touched this wave ===
+application
+fixtures
+web
+
+=== event-row class outside EventRow.vue (should be empty) ===
+grep exit=1 (1 = none found, expected)
+
+=== /accounts/ literal in backend outside EventStreamTopic.java (should be empty) ===
+grep exit=1 (1 = none found, expected)
