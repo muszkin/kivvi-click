@@ -267,7 +267,7 @@
       }
     },
     "w5-shell-navigation": {
-      "state": "PLANNED",
+      "state": "WORKTREE_READY",
       "wave": "wave-5",
       "branch": "migration/wave-5/shell-navigation",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w5-shell",
@@ -1031,13 +1031,57 @@
     },
     {
       "wave_id": "wave-5",
-      "state": "WAVE_PLANNED",
+      "state": "WAVE_RUNNING",
       "journeys": [
         "shell-navigation"
       ],
       "head_sha": null,
       "kill_reason": null,
-      "verifier_cohort": []
+      "verifier_cohort": [
+        {
+          "dimension": "unit",
+          "status": "PENDING",
+          "sha": null,
+          "evidence": "waves/wave-5/unit.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "integration",
+          "status": "PENDING",
+          "sha": null,
+          "evidence": "waves/wave-5/integration.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "architecture",
+          "status": "PENDING",
+          "sha": null,
+          "evidence": "waves/wave-5/architecture.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "contract",
+          "status": "PENDING",
+          "sha": null,
+          "evidence": "waves/wave-5/contract.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "visual",
+          "status": "PENDING",
+          "sha": null,
+          "evidence": "waves/wave-5/visual.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "e2e",
+          "status": "PENDING",
+          "sha": null,
+          "evidence": "waves/wave-5/e2e.md",
+          "journey_verdicts": []
+        }
+      ],
+      "repair_rounds": 0
     }
   ],
   "integration_pr": null,
@@ -1057,6 +1101,6 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T09:14:43Z",
+  "updated_at": "2026-09-09T09:15:09Z",
   "feature_head_sha": "60445ebac139bcf1179b397c997600073a356e95"
 }
