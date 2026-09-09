@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "run_id": "2026-09-08T141500Z-spring-vue-migration",
-  "state": "SLICES_RUNNING",
+  "state": "CUTOVER_READY",
   "plan": {
     "path": "/home/muszkin/work/kivvi-click/context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
     "sha256": "a21ced0ab66ee010f2ed7eaa00291eb8957fc851607b3ff6c07b19c84ef146ed",
@@ -290,7 +290,7 @@
       }
     },
     "w5-ops-cutover": {
-      "state": "REVIEW_GREEN",
+      "state": "FEATURE_HEAD_GREEN",
       "wave": "wave-5",
       "branch": "migration/wave-5/ops-cutover",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w5-ops",
@@ -1173,7 +1173,7 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T13:16:33Z",
+  "updated_at": "2026-09-09T13:48:11Z",
   "feature_head_sha": "92052947a6238ecf4ee177f4e72493122315ce32",
   "final_cohort": {
     "sha": "dae169614a52532c130bd34435994d6a914165c0",
@@ -1253,5 +1253,18 @@
       "repair": "w5-ops-cutover",
       "repair_verdict": "PASS"
     }
+  },
+  "final_gates": {
+    "sha": "92052947a6238ecf4ee177f4e72493122315ce32",
+    "build_type_lint_static": "PASS (final-gates/9205294/: mvn verify attempt2 0 \u2014 299 unit/142 IT/spotless; docker build 0; vitest 169/152; lint/typecheck/format/build 0; compose prod config clean)",
+    "sonar": "NOT_CONFIGURED (no Sonar in this repository)",
+    "combined_review": "backend PASS, frontend PASS, tooling-ops FAIL \u2192 w5-ops-cutover repair \u2192 PASS (final-review-*.md, slices/w5-ops-cutover/review.md)",
+    "e2e": "PASS 122/122 + budgets (final-gates/9205294/e2e.md)",
+    "contract": "PASS 13/13 (final-gates/9205294/contract.md)",
+    "cohort": "FINAL round 2 on dae1696 6/6 PASS; diff dae1696..9205294 = docs + ops config (forwarded headers, multipart, compose/CI/README) re-verified by verify/e2e/contract on 9205294"
+  },
+  "cutover_packet": {
+    "runbook": "README.md \u2192 \"Next stack (Spring Boot + Vue)\" section (RR-1 rehearsal on project kivvi-stage port 23458; CUT-1 old stack `down` (no -v) then `docker compose -p kivvi-click --env-file .env.prod.docker -f compose.next.yaml -f compose.next.prod.yaml up -d --build --wait`; rollback = `up` the old stack)",
+    "authorization": "NOT granted inside this run \u2014 operator confirmation required once before RR-1/CUT-1; CON-1 (old-stack removal, AGENTS.md/CLAUDE.md rewrite, Linear re-pointing) is a separate follow-up"
   }
 }

@@ -18,3 +18,11 @@
 **Active failures/blockers:** none.
 **Next action:** on each wave-1 worker report → verify SHA/scope → fresh review → cherry-pick into migration/spring-vue (alphabetical) → when the third journey integrates, wave-1 cohort (six verifiers on the wave SHA). Wave-2 packets drafted (event-stream, customers).
 Evidence: `slices/<id>/`, `waves/<wave>/`, `events.jsonl`.
+
+## Outcome (2026-09-09)
+
+- **State:** `CUTOVER_READY` (terminal outcome `local-green` reached). Feature branch `migration/spring-vue` @ `92052947a6238ecf4ee177f4e72493122315ce32` in `/home/muszkin/work/kivvi-click-wt/integration`. Not pushed, not merged, production untouched by this run.
+- **Waves:** wave-0 887af45 (3 rounds) · wave-1 4f74907 (2) · wave-2 b87a701 (2) · wave-3 11d3cc4 (4 rounds, K1 budget fully used) · wave-4 60445eb (3) · wave-5 + FINAL all-journey cohort dae1696 (2) — every cohort ends 6/6 PASS.
+- **Final gates on 9205294:** mvn verify (299 unit, 142 IT, spotless, ArchUnit), docker build, vitest 169/152, lint/typecheck/format/build, compose prod config; Sonar NOT_CONFIGURED; combined review backend/frontend PASS, tooling-ops FAIL → repaired (volumes `kivvi-next_*`, secret wiring, forwarded headers, multipart 8MB, CI image build, README runbook) → PASS; full E2E 122/122 + budgets; contract 13/13.
+- **Cutover packet:** README "Next stack" section (RR-1 rehearsal on `kivvi-stage`/23458, CUT-1 on 23456, rollback). Needs one explicit operator confirmation. CON-1 (old-stack removal, AGENTS.md/CLAUDE.md rewrite, Linear re-pointing, DEV-13 retirement, plan errata) is a follow-up.
+- **Incidents:** operator Docker data-root migration to NAS (2026-09-09 11:52–12:11Z, prod down by operator action); a reviewer subagent ran `sudo systemctl start docker` at 11:55Z during that window — reported. Host contention (other projects, GitHub runners) caused two inconclusive e2e runs and Testcontainers timeouts; all re-run in isolation.
