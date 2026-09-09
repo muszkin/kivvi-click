@@ -1,0 +1,1448 @@
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/home/muszkin/.m2/wrapper/dists/apache-maven-3.9.11/a2d47e15/lib/guice-5.1.0-classes.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
+WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
+12:00:50.094 [main] INFO click.kivvi.infrastructure.scheduling.HeartbeatJob -- Scheduler heartbeat tick.
+12:00:50.100 [main] INFO click.kivvi.infrastructure.tracking.EventDedupCleanupJob -- Event dedup cleanup removed 3 expired row(s).
+12:00:50.288 [main] INFO com.tngtech.archunit.core.PluginLoader -- Detected Java version 25.0.4.1
+12:00:52.202 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.web.SettingsControllerTest]: SettingsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:52.333 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.SettingsControllerTest
+12:00:52.335 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.web.SettingsControllerTest]: SettingsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:52.343 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.SettingsControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T12:00:52.631Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.SettingsControllerTest   : Starting SettingsControllerTest using Java 25.0.4.1 with PID 1799591 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T12:00:52.632Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.SettingsControllerTest   : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T12:00:53.102Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T12:00:53.266Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T12:00:53.266Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T12:00:53.268Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-09T12:00:53.287Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.SettingsControllerTest   : Started SettingsControllerTest in 0.912 seconds (process running for 4.748)
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-09-09T12:00:53.843Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.CampaignsControllerTest]: CampaignsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:53.849Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.CampaignsControllerTest
+2026-09-09T12:00:53.849Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.CampaignsControllerTest]: CampaignsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:53.853Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.CampaignsControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T12:00:53.879Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.CampaignsControllerTest      : Starting CampaignsControllerTest using Java 25.0.4.1 with PID 1799591 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T12:00:53.879Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.CampaignsControllerTest      : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T12:00:54.018Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T12:00:54.064Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T12:00:54.064Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T12:00:54.065Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-09T12:00:54.069Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.CampaignsControllerTest      : Started CampaignsControllerTest in 0.212 seconds (process running for 5.53)
+2026-09-09T12:00:54.129Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.CollectControllerTest
+2026-09-09T12:00:54.134Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.CollectControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T12:00:54.153Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.CollectControllerTest    : Starting CollectControllerTest using Java 25.0.4.1 with PID 1799591 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T12:00:54.153Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.CollectControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T12:00:54.326Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T12:00:54.345Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T12:00:54.345Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T12:00:54.346Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-09T12:00:54.352Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.CollectControllerTest    : Started CollectControllerTest in 0.216 seconds (process running for 5.813)
+2026-09-09T12:00:54.425Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.AutomationsControllerTest]: AutomationsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:54.429Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.AutomationsControllerTest
+2026-09-09T12:00:54.429Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.AutomationsControllerTest]: AutomationsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:54.433Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.AutomationsControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T12:00:54.452Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.AutomationsControllerTest    : Starting AutomationsControllerTest using Java 25.0.4.1 with PID 1799591 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T12:00:54.452Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.AutomationsControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T12:00:54.542Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T12:00:54.573Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T12:00:54.573Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T12:00:54.574Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-09T12:00:54.577Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.AutomationsControllerTest    : Started AutomationsControllerTest in 0.142 seconds (process running for 6.039)
+2026-09-09T12:00:54.628Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.FeedsControllerTest]: FeedsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:54.632Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.FeedsControllerTest
+2026-09-09T12:00:54.633Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.FeedsControllerTest]: FeedsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:54.637Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.FeedsControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T12:00:54.653Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.FeedsControllerTest      : Starting FeedsControllerTest using Java 25.0.4.1 with PID 1799591 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T12:00:54.653Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.FeedsControllerTest      : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T12:00:54.761Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T12:00:54.784Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T12:00:54.784Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T12:00:54.785Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-09T12:00:54.788Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.FeedsControllerTest      : Started FeedsControllerTest in 0.149 seconds (process running for 6.249)
+2026-09-09T12:00:54.807Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.WidgetControllerTest]: WidgetControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:54.812Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.WidgetControllerTest
+2026-09-09T12:00:54.812Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.WidgetControllerTest]: WidgetControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:54.816Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.WidgetControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T12:00:54.832Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.WidgetControllerTest     : Starting WidgetControllerTest using Java 25.0.4.1 with PID 1799591 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T12:00:54.832Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.WidgetControllerTest     : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T12:00:54.904Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T12:00:54.922Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T12:00:54.922Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T12:00:54.923Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-09T12:00:54.926Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.WidgetControllerTest     : Started WidgetControllerTest in 0.107 seconds (process running for 6.387)
+2026-09-09T12:00:54.972Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.LoginControllerTest]: LoginControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:54.976Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.LoginControllerTest
+2026-09-09T12:00:54.976Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.LoginControllerTest]: LoginControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:54.979Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.LoginControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T12:00:54.992Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.LoginControllerTest      : Starting LoginControllerTest using Java 25.0.4.1 with PID 1799591 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T12:00:54.992Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.LoginControllerTest      : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T12:00:55.075Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T12:00:55.095Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T12:00:55.095Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T12:00:55.096Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-09T12:00:55.098Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.LoginControllerTest      : Started LoginControllerTest in 0.117 seconds (process running for 6.56)
+2026-09-09T12:00:55.118Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.ImportUploadControllerTest]: ImportUploadControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:55.123Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.ImportUploadControllerTest
+2026-09-09T12:00:55.123Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.ImportUploadControllerTest]: ImportUploadControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:55.126Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.ImportUploadControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T12:00:55.139Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.ImportUploadControllerTest   : Starting ImportUploadControllerTest using Java 25.0.4.1 with PID 1799591 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T12:00:55.139Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.ImportUploadControllerTest   : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T12:00:55.197Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T12:00:55.215Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T12:00:55.215Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T12:00:55.216Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-09T12:00:55.218Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.ImportUploadControllerTest   : Started ImportUploadControllerTest in 0.091 seconds (process running for 6.68)
+2026-09-09T12:00:55.233Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.ImportControllerTest]: ImportControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:55.237Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.ImportControllerTest
+2026-09-09T12:00:55.237Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.ImportControllerTest]: ImportControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:55.240Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.ImportControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T12:00:55.251Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.ImportControllerTest     : Starting ImportControllerTest using Java 25.0.4.1 with PID 1799591 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T12:00:55.251Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.ImportControllerTest     : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T12:00:55.322Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T12:00:55.338Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T12:00:55.338Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T12:00:55.339Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-09T12:00:55.341Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.ImportControllerTest     : Started ImportControllerTest in 0.099 seconds (process running for 6.802)
+2026-09-09T12:00:55.376Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.CustomersControllerTest]: CustomersControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:55.380Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.CustomersControllerTest
+2026-09-09T12:00:55.380Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.CustomersControllerTest]: CustomersControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:55.383Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.CustomersControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T12:00:55.396Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.CustomersControllerTest      : Starting CustomersControllerTest using Java 25.0.4.1 with PID 1799591 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T12:00:55.396Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.CustomersControllerTest      : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T12:00:55.459Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T12:00:55.476Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T12:00:55.477Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T12:00:55.477Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-09-09T12:00:55.479Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.CustomersControllerTest      : Started CustomersControllerTest in 0.094 seconds (process running for 6.941)
+2026-09-09T12:00:55.513Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.LandingControllerTest]: LandingControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:55.516Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.LandingControllerTest
+2026-09-09T12:00:55.516Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.LandingControllerTest]: LandingControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:55.519Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.LandingControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T12:00:55.530Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.LandingControllerTest    : Starting LandingControllerTest using Java 25.0.4.1 with PID 1799591 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T12:00:55.530Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.LandingControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T12:00:55.586Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T12:00:55.601Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T12:00:55.601Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T12:00:55.601Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-09-09T12:00:55.604Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.LandingControllerTest    : Started LandingControllerTest in 0.083 seconds (process running for 7.065)
+2026-09-09T12:00:55.624Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.EventsControllerTest]: EventsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:55.627Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.EventsControllerTest
+2026-09-09T12:00:55.627Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.EventsControllerTest]: EventsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:55.630Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.EventsControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T12:00:55.639Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.EventsControllerTest     : Starting EventsControllerTest using Java 25.0.4.1 with PID 1799591 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T12:00:55.639Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.EventsControllerTest     : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T12:00:55.696Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T12:00:55.712Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T12:00:55.712Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T12:00:55.713Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-09T12:00:55.715Z  INFO 1799591 --- [kivvi-click] [           main] click.kivvi.web.EventsControllerTest     : Started EventsControllerTest in 0.084 seconds (process running for 7.176)
+2026-09-09T12:00:55.735Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.DashboardControllerTest]: DashboardControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:55.738Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.DashboardControllerTest
+2026-09-09T12:00:55.738Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.DashboardControllerTest]: DashboardControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:55.741Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.DashboardControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T12:00:55.753Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.DashboardControllerTest      : Starting DashboardControllerTest using Java 25.0.4.1 with PID 1799591 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T12:00:55.753Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.DashboardControllerTest      : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T12:00:55.817Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T12:00:55.831Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T12:00:55.831Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T12:00:55.832Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-09-09T12:00:55.834Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.DashboardControllerTest      : Started DashboardControllerTest in 0.091 seconds (process running for 7.295)
+2026-09-09T12:00:55.854Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.SpaDocumentControllerTest]: SpaDocumentControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:55.858Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.SpaDocumentControllerTest
+2026-09-09T12:00:55.858Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.SpaDocumentControllerTest]: SpaDocumentControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:55.861Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.SpaDocumentControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T12:00:55.870Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.SpaDocumentControllerTest    : Starting SpaDocumentControllerTest using Java 25.0.4.1 with PID 1799591 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T12:00:55.870Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.SpaDocumentControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T12:00:55.925Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T12:00:55.939Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T12:00:55.939Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T12:00:55.939Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-09-09T12:00:55.941Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.SpaDocumentControllerTest    : Started SpaDocumentControllerTest in 0.079 seconds (process running for 7.403)
+2026-09-09T12:00:56.013Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.PreferencesControllerTest]: PreferencesControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:56.019Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.PreferencesControllerTest
+2026-09-09T12:00:56.019Z  INFO 1799591 --- [kivvi-click] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [click.kivvi.web.PreferencesControllerTest]: PreferencesControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-09T12:00:56.023Z  INFO 1799591 --- [kivvi-click] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration click.kivvi.KivviApplication for test class click.kivvi.web.PreferencesControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-09T12:00:56.039Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.PreferencesControllerTest    : Starting PreferencesControllerTest using Java 25.0.4.1 with PID 1799591 (started by muszkin in /home/muszkin/work/kivvi-click-wt/integration/backend)
+2026-09-09T12:00:56.039Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.PreferencesControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T12:00:56.106Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-09-09T12:00:56.115Z  INFO 1799591 --- [kivvi-click] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-09T12:00:56.115Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-09T12:00:56.115Z  INFO 1799591 --- [kivvi-click] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-09-09T12:00:56.117Z  INFO 1799591 --- [kivvi-click] [           main] c.kivvi.web.PreferencesControllerTest    : Started PreferencesControllerTest in 0.092 seconds (process running for 7.578)
+12:00:57.400 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+12:00:57.403 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+12:00:57.423 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/home/muszkin/.m2/repository/net/java/dev/jna/jna/5.18.1/jna-5.18.1.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+12:00:57.535 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.UnixSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+12:00:57.541 [main] WARN org.testcontainers.dockerclient.DockerClientProviderStrategy -- DOCKER_HOST unix:///var/run/docker.sock is not listening
+java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.UnixDomainSockets.connect0(Native Method)
+	at java.base/sun.nio.ch.UnixDomainSockets.connect(UnixDomainSockets.java:126)
+	at java.base/sun.nio.ch.UnixDomainSockets.connect(UnixDomainSockets.java:122)
+	at java.base/sun.nio.ch.SocketChannelImpl.connect(SocketChannelImpl.java:950)
+	at java.base/java.nio.channels.SocketChannel.open(SocketChannel.java:281)
+	at com.github.dockerjava.transport.UnixSocket.<init>(UnixSocket.java:45)
+	at com.github.dockerjava.transport.UnixSocket.get(UnixSocket.java:27)
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.lambda$test$2(DockerClientProviderStrategy.java:194)
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.test(DockerClientProviderStrategy.java:208)
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.tryOutStrategy(DockerClientProviderStrategy.java:284)
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.lambda$getFirstValidStrategy$5(DockerClientProviderStrategy.java:263)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:196)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1693)
+	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:147)
+	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:588)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:574)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:560)
+	at java.base/java.util.stream.FindOps$FindOp.evaluateSequential(FindOps.java:150)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:265)
+	at java.base/java.util.stream.ReferencePipeline.findFirst(ReferencePipeline.java:683)
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:264)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at org.junit.platform.engine.support.store.NamespacedHierarchicalStore.lambda$getOrComputeIfAbsent$0(NamespacedHierarchicalStore.java:224)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.junit.platform.engine.support.store.NamespacedHierarchicalStore$DeferredSupplier.run(NamespacedHierarchicalStore.java:686)
+	at org.junit.platform.engine.support.store.NamespacedHierarchicalStore$StoredValue$DeferredValue.execute(NamespacedHierarchicalStore.java:595)
+	at org.junit.platform.engine.support.store.NamespacedHierarchicalStore.getOrComputeIfAbsent(NamespacedHierarchicalStore.java:249)
+	at org.junit.jupiter.engine.execution.NamespaceAwareStore.lambda$getOrComputeIfAbsent$0(NamespaceAwareStore.java:62)
+	at org.junit.jupiter.engine.execution.NamespaceAwareStore.accessStore(NamespaceAwareStore.java:120)
+	at org.junit.jupiter.engine.execution.NamespaceAwareStore.getOrComputeIfAbsent(NamespaceAwareStore.java:64)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at org.junit.jupiter.engine.descriptor.CallbackSupport.lambda$invokeBeforeCallbacks$0(CallbackSupport.java:34)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)
+	at org.junit.jupiter.engine.descriptor.CallbackSupport.invokeBeforeCallbacks(CallbackSupport.java:34)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeBeforeAllCallbacks(ClassBasedTestDescriptor.java:436)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.before(ClassBasedTestDescriptor.java:247)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.before(ClassBasedTestDescriptor.java:88)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:173)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:42)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$2(NodeTestTask.java:180)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$1(NodeTestTask.java:166)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$0(NodeTestTask.java:164)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:74)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:163)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:116)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:36)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:52)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:246)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:218)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:179)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:66)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:157)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:65)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:125)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58)
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$2(InterceptingLauncher.java:57)
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:56)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:58)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.apache.maven.surefire.api.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:125)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithCancellationToken(LauncherAdapter.java:68)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:54)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+12:00:57.569 [main] INFO org.testcontainers.dockerclient.DockerMachineClientProviderStrategy -- docker-machine executable was not found on PATH ([/home/muszkin/.cache/kivvi-toolchains/jdk-25/bin, /home/muszkin/.bun/bin, /home/muszkin/.local/bin, /home/muszkin/.npm-global/bin, /usr/bin, /home/muszkin/.bun/bin, /home/muszkin/.local/bin, /home/muszkin/.npm-global/bin, /usr/bin, /usr/local/sbin, /usr/local/bin, /usr/sbin, /usr/bin, /sbin, /bin, /usr/games, /usr/local/games, /snap/bin, /home/muszkin/.claude/plugins/cache/maister-plugins/maister/2.0.3/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/frontend-design/85cce0381e78/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/superpowers/6.3.0/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/code-review/85cce0381e78/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/code-simplifier/1.0.0/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/feature-dev/85cce0381e78/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/skill-creator/85cce0381e78/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/claude-md-management/1.0.0/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/ralph-loop/1.0.0/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/claude-code-setup/1.0.0/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/pr-review-toolkit/85cce0381e78/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/pyright-lsp/1.0.0/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/greptile/85cce0381e78/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/gopls-lsp/1.0.0/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/rust-analyzer-lsp/1.0.0/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/jdtls-lsp/1.0.0/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/php-lsp/1.0.0/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/kotlin-lsp/1.0.0/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/deploy-on-aws/1.3.0/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/aws-serverless/1.3.0/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/migration-to-aws/1.5.0/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/notion/0.1.0/bin, /home/muszkin/.claude/plugins/cache/caveman/caveman/63e797cd753b/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/build-with-wordpress/0.0.2/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/linear/85cce0381e78/bin, /home/muszkin/.claude/plugins/cache/claude-plugins-official/figma/2.2.107/bin])
+12:00:57.570 [main] ERROR org.testcontainers.dockerclient.DockerClientProviderStrategy -- Could not find a valid Docker environment. Please check configuration. Attempted configurations were:
+	DockerDesktopClientProviderStrategy: failed with exception NullPointerException (Cannot invoke "java.nio.file.Path.toString()" because the return value of "org.testcontainers.dockerclient.DockerDesktopClientProviderStrategy.getSocketPath()" is null)As no valid configuration was found, execution cannot continue.
+See https://java.testcontainers.org/on_failure.html for more details.
+12:00:57.649 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.ShellPagesIT]: ShellPagesIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:57.676 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.316 s <<< FAILURE! -- in click.kivvi.ShellPagesIT
+[ERROR] click.kivvi.ShellPagesIT -- Time elapsed: 0.316 s <<< ERROR!
+java.lang.IllegalStateException: Could not find a valid Docker environment. Please see logs and check configuration
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.lambda$getFirstValidStrategy$7(DockerClientProviderStrategy.java:274)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:265)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	Suppressed: org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:18-alpine, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@1949309d)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1308)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:90)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$1(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:591)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:558)
+		at java.base/java.util.Spliterator.forEachRemaining(Spliterator.java:332)
+		at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:803)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$0(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:691)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.collectSources(ServiceConnectionContextCustomizerFactory.java:62)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createContextCustomizer(ServiceConnectionContextCustomizerFactory.java:54)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.getContextCustomizers(AbstractTestContextBootstrapper.java:420)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:393)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:268)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:226)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:117)
+		at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:102)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:466)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterAll(SpringExtension.java:220)
+		... 1 more
+	Caused by: java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+		at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+		at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+		at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+		at org.testcontainers.images.LocalImagesCache.get(LocalImagesCache.java:31)
+		at org.testcontainers.images.AbstractImagePullPolicy.shouldPull(AbstractImagePullPolicy.java:18)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:79)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:35)
+		at org.testcontainers.utility.LazyFuture.getResolvedValue(LazyFuture.java:20)
+		at org.testcontainers.utility.LazyFuture.get(LazyFuture.java:41)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1306)
+		... 22 more
+
+12:00:57.702 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+12:00:57.705 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.CampaignsApiIT]: CampaignsApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:57.708 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.010 s <<< FAILURE! -- in click.kivvi.CampaignsApiIT
+[ERROR] click.kivvi.CampaignsApiIT -- Time elapsed: 0.010 s <<< ERROR!
+java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	Suppressed: org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:18-alpine, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@1949309d)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1308)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:90)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$1(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:591)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:558)
+		at java.base/java.util.Spliterator.forEachRemaining(Spliterator.java:332)
+		at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:803)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$0(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:691)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.collectSources(ServiceConnectionContextCustomizerFactory.java:62)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createContextCustomizer(ServiceConnectionContextCustomizerFactory.java:54)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.getContextCustomizers(AbstractTestContextBootstrapper.java:420)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:393)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:268)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:226)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:117)
+		at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:102)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:466)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterAll(SpringExtension.java:220)
+		... 1 more
+	Caused by: java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+		at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+		at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+		at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+		at org.testcontainers.images.LocalImagesCache.get(LocalImagesCache.java:31)
+		at org.testcontainers.images.AbstractImagePullPolicy.shouldPull(AbstractImagePullPolicy.java:18)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:79)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:35)
+		at org.testcontainers.utility.LazyFuture.getResolvedValue(LazyFuture.java:20)
+		at org.testcontainers.utility.LazyFuture.get(LazyFuture.java:41)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1306)
+		... 22 more
+
+12:00:57.714 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+12:00:57.718 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT]: HeartbeatSchedulerIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:57.720 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.009 s <<< FAILURE! -- in click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT
+[ERROR] click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT -- Time elapsed: 0.009 s <<< ERROR!
+java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	Suppressed: org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:18-alpine, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@1949309d)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1308)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:90)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$1(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:591)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:558)
+		at java.base/java.util.Spliterator.forEachRemaining(Spliterator.java:332)
+		at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:803)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$0(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:691)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.collectSources(ServiceConnectionContextCustomizerFactory.java:62)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createContextCustomizer(ServiceConnectionContextCustomizerFactory.java:54)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.getContextCustomizers(AbstractTestContextBootstrapper.java:420)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:393)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:255)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:117)
+		at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:102)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:466)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterAll(SpringExtension.java:220)
+		... 1 more
+	Caused by: java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+		at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+		at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+		at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+		at org.testcontainers.images.LocalImagesCache.get(LocalImagesCache.java:31)
+		at org.testcontainers.images.AbstractImagePullPolicy.shouldPull(AbstractImagePullPolicy.java:18)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:79)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:35)
+		at org.testcontainers.utility.LazyFuture.getResolvedValue(LazyFuture.java:20)
+		at org.testcontainers.utility.LazyFuture.get(LazyFuture.java:41)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1306)
+		... 21 more
+
+12:00:57.726 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+12:00:57.729 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.infrastructure.tracking.EventDedupStoreIT]: EventDedupStoreIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:57.730 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.008 s <<< FAILURE! -- in click.kivvi.infrastructure.tracking.EventDedupStoreIT
+[ERROR] click.kivvi.infrastructure.tracking.EventDedupStoreIT -- Time elapsed: 0.008 s <<< ERROR!
+java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	Suppressed: org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:18-alpine, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@1949309d)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1308)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:90)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$1(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:591)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:558)
+		at java.base/java.util.Spliterator.forEachRemaining(Spliterator.java:332)
+		at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:803)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$0(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:691)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.collectSources(ServiceConnectionContextCustomizerFactory.java:62)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createContextCustomizer(ServiceConnectionContextCustomizerFactory.java:54)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.getContextCustomizers(AbstractTestContextBootstrapper.java:420)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:393)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:268)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:226)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:117)
+		at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:102)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:466)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterAll(SpringExtension.java:220)
+		... 1 more
+	Caused by: java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+		at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+		at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+		at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+		at org.testcontainers.images.LocalImagesCache.get(LocalImagesCache.java:31)
+		at org.testcontainers.images.AbstractImagePullPolicy.shouldPull(AbstractImagePullPolicy.java:18)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:79)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:35)
+		at org.testcontainers.utility.LazyFuture.getResolvedValue(LazyFuture.java:20)
+		at org.testcontainers.utility.LazyFuture.get(LazyFuture.java:41)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1306)
+		... 22 more
+
+12:00:57.735 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+12:00:57.738 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.LandingApiIT]: LandingApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:57.740 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.008 s <<< FAILURE! -- in click.kivvi.LandingApiIT
+[ERROR] click.kivvi.LandingApiIT -- Time elapsed: 0.008 s <<< ERROR!
+java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	Suppressed: org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:18-alpine, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@1949309d)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1308)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:90)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$1(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:591)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:558)
+		at java.base/java.util.Spliterator.forEachRemaining(Spliterator.java:332)
+		at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:803)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$0(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:691)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.collectSources(ServiceConnectionContextCustomizerFactory.java:62)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createContextCustomizer(ServiceConnectionContextCustomizerFactory.java:54)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.getContextCustomizers(AbstractTestContextBootstrapper.java:420)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:393)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:268)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:226)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:117)
+		at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:102)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:466)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterAll(SpringExtension.java:220)
+		... 1 more
+	Caused by: java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+		at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+		at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+		at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+		at org.testcontainers.images.LocalImagesCache.get(LocalImagesCache.java:31)
+		at org.testcontainers.images.AbstractImagePullPolicy.shouldPull(AbstractImagePullPolicy.java:18)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:79)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:35)
+		at org.testcontainers.utility.LazyFuture.getResolvedValue(LazyFuture.java:20)
+		at org.testcontainers.utility.LazyFuture.get(LazyFuture.java:41)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1306)
+		... 22 more
+
+12:00:57.744 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+12:00:57.746 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.SettingsApiIT]: SettingsApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:57.748 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.006 s <<< FAILURE! -- in click.kivvi.SettingsApiIT
+[ERROR] click.kivvi.SettingsApiIT -- Time elapsed: 0.006 s <<< ERROR!
+java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	Suppressed: org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:18-alpine, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@1949309d)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1308)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:90)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$1(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:591)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:558)
+		at java.base/java.util.Spliterator.forEachRemaining(Spliterator.java:332)
+		at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:803)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$0(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:691)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.collectSources(ServiceConnectionContextCustomizerFactory.java:62)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createContextCustomizer(ServiceConnectionContextCustomizerFactory.java:54)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.getContextCustomizers(AbstractTestContextBootstrapper.java:420)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:393)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:268)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:226)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:117)
+		at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:102)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:466)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterAll(SpringExtension.java:220)
+		... 1 more
+	Caused by: java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+		at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+		at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+		at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+		at org.testcontainers.images.LocalImagesCache.get(LocalImagesCache.java:31)
+		at org.testcontainers.images.AbstractImagePullPolicy.shouldPull(AbstractImagePullPolicy.java:18)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:79)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:35)
+		at org.testcontainers.utility.LazyFuture.getResolvedValue(LazyFuture.java:20)
+		at org.testcontainers.utility.LazyFuture.get(LazyFuture.java:41)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1306)
+		... 22 more
+
+12:00:57.751 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+12:00:57.754 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.DashboardApiIT]: DashboardApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:57.755 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.006 s <<< FAILURE! -- in click.kivvi.DashboardApiIT
+[ERROR] click.kivvi.DashboardApiIT -- Time elapsed: 0.006 s <<< ERROR!
+java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	Suppressed: org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:18-alpine, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@1949309d)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1308)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:90)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$1(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:591)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:558)
+		at java.base/java.util.Spliterator.forEachRemaining(Spliterator.java:332)
+		at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:803)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$0(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:691)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.collectSources(ServiceConnectionContextCustomizerFactory.java:62)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createContextCustomizer(ServiceConnectionContextCustomizerFactory.java:54)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.getContextCustomizers(AbstractTestContextBootstrapper.java:420)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:393)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:268)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:226)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:117)
+		at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:102)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:466)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterAll(SpringExtension.java:220)
+		... 1 more
+	Caused by: java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+		at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+		at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+		at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+		at org.testcontainers.images.LocalImagesCache.get(LocalImagesCache.java:31)
+		at org.testcontainers.images.AbstractImagePullPolicy.shouldPull(AbstractImagePullPolicy.java:18)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:79)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:35)
+		at org.testcontainers.utility.LazyFuture.getResolvedValue(LazyFuture.java:20)
+		at org.testcontainers.utility.LazyFuture.get(LazyFuture.java:41)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1306)
+		... 22 more
+
+12:00:57.767 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+12:00:57.770 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.CollectApiIT]: CollectApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:57.772 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.016 s <<< FAILURE! -- in click.kivvi.CollectApiIT
+[ERROR] click.kivvi.CollectApiIT -- Time elapsed: 0.016 s <<< ERROR!
+java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	Suppressed: org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:18-alpine, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@1949309d)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1308)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:90)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$1(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:591)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:558)
+		at java.base/java.util.Spliterator.forEachRemaining(Spliterator.java:332)
+		at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:803)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$0(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:691)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.collectSources(ServiceConnectionContextCustomizerFactory.java:62)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createContextCustomizer(ServiceConnectionContextCustomizerFactory.java:54)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.getContextCustomizers(AbstractTestContextBootstrapper.java:420)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:393)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:268)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:226)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:117)
+		at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:102)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:466)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterAll(SpringExtension.java:220)
+		... 1 more
+	Caused by: java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+		at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+		at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+		at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+		at org.testcontainers.images.LocalImagesCache.get(LocalImagesCache.java:31)
+		at org.testcontainers.images.AbstractImagePullPolicy.shouldPull(AbstractImagePullPolicy.java:18)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:79)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:35)
+		at org.testcontainers.utility.LazyFuture.getResolvedValue(LazyFuture.java:20)
+		at org.testcontainers.utility.LazyFuture.get(LazyFuture.java:41)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1306)
+		... 22 more
+
+12:00:57.776 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+12:00:57.778 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.CustomersApiIT]: CustomersApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:57.780 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.007 s <<< FAILURE! -- in click.kivvi.CustomersApiIT
+[ERROR] click.kivvi.CustomersApiIT -- Time elapsed: 0.007 s <<< ERROR!
+java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	Suppressed: org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:18-alpine, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@1949309d)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1308)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:90)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$1(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:591)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:558)
+		at java.base/java.util.Spliterator.forEachRemaining(Spliterator.java:332)
+		at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:803)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$0(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:691)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.collectSources(ServiceConnectionContextCustomizerFactory.java:62)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createContextCustomizer(ServiceConnectionContextCustomizerFactory.java:54)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.getContextCustomizers(AbstractTestContextBootstrapper.java:420)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:393)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:268)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:226)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:117)
+		at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:102)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:466)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterAll(SpringExtension.java:220)
+		... 1 more
+	Caused by: java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+		at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+		at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+		at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+		at org.testcontainers.images.LocalImagesCache.get(LocalImagesCache.java:31)
+		at org.testcontainers.images.AbstractImagePullPolicy.shouldPull(AbstractImagePullPolicy.java:18)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:79)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:35)
+		at org.testcontainers.utility.LazyFuture.getResolvedValue(LazyFuture.java:20)
+		at org.testcontainers.utility.LazyFuture.get(LazyFuture.java:41)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1306)
+		... 22 more
+
+12:00:57.788 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+12:00:57.790 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.ImportApiIT]: ImportApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:57.792 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.014 s <<< FAILURE! -- in click.kivvi.ImportApiIT
+[ERROR] click.kivvi.ImportApiIT -- Time elapsed: 0.014 s <<< ERROR!
+java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	Suppressed: org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:18-alpine, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@1949309d)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1308)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:90)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$1(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:591)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:558)
+		at java.base/java.util.Spliterator.forEachRemaining(Spliterator.java:332)
+		at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:803)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$0(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:691)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.collectSources(ServiceConnectionContextCustomizerFactory.java:62)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createContextCustomizer(ServiceConnectionContextCustomizerFactory.java:54)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.getContextCustomizers(AbstractTestContextBootstrapper.java:420)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:393)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:268)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:226)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:117)
+		at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:102)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:466)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterAll(SpringExtension.java:220)
+		... 1 more
+	Caused by: java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+		at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+		at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+		at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+		at org.testcontainers.images.LocalImagesCache.get(LocalImagesCache.java:31)
+		at org.testcontainers.images.AbstractImagePullPolicy.shouldPull(AbstractImagePullPolicy.java:18)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:79)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:35)
+		at org.testcontainers.utility.LazyFuture.getResolvedValue(LazyFuture.java:20)
+		at org.testcontainers.utility.LazyFuture.get(LazyFuture.java:41)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1306)
+		... 22 more
+
+12:00:57.799 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+12:00:57.801 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.WidgetApiIT]: WidgetApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:57.803 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.007 s <<< FAILURE! -- in click.kivvi.WidgetApiIT
+[ERROR] click.kivvi.WidgetApiIT -- Time elapsed: 0.007 s <<< ERROR!
+java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	Suppressed: org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:18-alpine, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@1949309d)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1308)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:90)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$1(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:591)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:558)
+		at java.base/java.util.Spliterator.forEachRemaining(Spliterator.java:332)
+		at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:803)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$0(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:691)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.collectSources(ServiceConnectionContextCustomizerFactory.java:62)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createContextCustomizer(ServiceConnectionContextCustomizerFactory.java:54)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.getContextCustomizers(AbstractTestContextBootstrapper.java:420)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:393)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:268)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:226)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:117)
+		at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:102)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:466)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterAll(SpringExtension.java:220)
+		... 1 more
+	Caused by: java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+		at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+		at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+		at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+		at org.testcontainers.images.LocalImagesCache.get(LocalImagesCache.java:31)
+		at org.testcontainers.images.AbstractImagePullPolicy.shouldPull(AbstractImagePullPolicy.java:18)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:79)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:35)
+		at org.testcontainers.utility.LazyFuture.getResolvedValue(LazyFuture.java:20)
+		at org.testcontainers.utility.LazyFuture.get(LazyFuture.java:41)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1306)
+		... 22 more
+
+12:00:57.806 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+12:00:57.808 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.FeedsApiIT]: FeedsApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:57.810 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.005 s <<< FAILURE! -- in click.kivvi.FeedsApiIT
+[ERROR] click.kivvi.FeedsApiIT -- Time elapsed: 0.005 s <<< ERROR!
+java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	Suppressed: org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:18-alpine, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@1949309d)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1308)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:90)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$1(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:591)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:558)
+		at java.base/java.util.Spliterator.forEachRemaining(Spliterator.java:332)
+		at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:803)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$0(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:691)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.collectSources(ServiceConnectionContextCustomizerFactory.java:62)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createContextCustomizer(ServiceConnectionContextCustomizerFactory.java:54)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.getContextCustomizers(AbstractTestContextBootstrapper.java:420)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:393)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:268)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:226)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:117)
+		at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:102)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:466)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterAll(SpringExtension.java:220)
+		... 1 more
+	Caused by: java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+		at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+		at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+		at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+		at org.testcontainers.images.LocalImagesCache.get(LocalImagesCache.java:31)
+		at org.testcontainers.images.AbstractImagePullPolicy.shouldPull(AbstractImagePullPolicy.java:18)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:79)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:35)
+		at org.testcontainers.utility.LazyFuture.getResolvedValue(LazyFuture.java:20)
+		at org.testcontainers.utility.LazyFuture.get(LazyFuture.java:41)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1306)
+		... 22 more
+
+12:00:57.813 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+12:00:57.815 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.SessionRoundTripIT]: SessionRoundTripIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:57.817 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.006 s <<< FAILURE! -- in click.kivvi.SessionRoundTripIT
+[ERROR] click.kivvi.SessionRoundTripIT -- Time elapsed: 0.006 s <<< ERROR!
+java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	Suppressed: org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:18-alpine, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@1949309d)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1308)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:90)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$1(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:591)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:558)
+		at java.base/java.util.Spliterator.forEachRemaining(Spliterator.java:332)
+		at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:803)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$0(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:691)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.collectSources(ServiceConnectionContextCustomizerFactory.java:62)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createContextCustomizer(ServiceConnectionContextCustomizerFactory.java:54)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.getContextCustomizers(AbstractTestContextBootstrapper.java:420)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:393)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:268)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:226)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:117)
+		at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:102)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:466)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterAll(SpringExtension.java:220)
+		... 1 more
+	Caused by: java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+		at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+		at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+		at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+		at org.testcontainers.images.LocalImagesCache.get(LocalImagesCache.java:31)
+		at org.testcontainers.images.AbstractImagePullPolicy.shouldPull(AbstractImagePullPolicy.java:18)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:79)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:35)
+		at org.testcontainers.utility.LazyFuture.getResolvedValue(LazyFuture.java:20)
+		at org.testcontainers.utility.LazyFuture.get(LazyFuture.java:41)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1306)
+		... 22 more
+
+12:00:57.821 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+12:00:57.824 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.ShellApiIT]: ShellApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:57.825 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.006 s <<< FAILURE! -- in click.kivvi.ShellApiIT
+[ERROR] click.kivvi.ShellApiIT -- Time elapsed: 0.006 s <<< ERROR!
+java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	Suppressed: org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:18-alpine, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@1949309d)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1308)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:90)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$1(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:591)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:558)
+		at java.base/java.util.Spliterator.forEachRemaining(Spliterator.java:332)
+		at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:803)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$0(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:691)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.collectSources(ServiceConnectionContextCustomizerFactory.java:62)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createContextCustomizer(ServiceConnectionContextCustomizerFactory.java:54)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.getContextCustomizers(AbstractTestContextBootstrapper.java:420)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:393)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:268)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:226)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:117)
+		at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:102)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:466)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterAll(SpringExtension.java:220)
+		... 1 more
+	Caused by: java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+		at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+		at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+		at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+		at org.testcontainers.images.LocalImagesCache.get(LocalImagesCache.java:31)
+		at org.testcontainers.images.AbstractImagePullPolicy.shouldPull(AbstractImagePullPolicy.java:18)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:79)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:35)
+		at org.testcontainers.utility.LazyFuture.getResolvedValue(LazyFuture.java:20)
+		at org.testcontainers.utility.LazyFuture.get(LazyFuture.java:41)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1306)
+		... 22 more
+
+12:00:57.828 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+12:00:57.830 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.AutomationsApiIT]: AutomationsApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:57.831 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.005 s <<< FAILURE! -- in click.kivvi.AutomationsApiIT
+[ERROR] click.kivvi.AutomationsApiIT -- Time elapsed: 0.005 s <<< ERROR!
+java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	Suppressed: org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:18-alpine, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@1949309d)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1308)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:90)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$1(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:591)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:558)
+		at java.base/java.util.Spliterator.forEachRemaining(Spliterator.java:332)
+		at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:803)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$0(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:691)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.collectSources(ServiceConnectionContextCustomizerFactory.java:62)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createContextCustomizer(ServiceConnectionContextCustomizerFactory.java:54)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.getContextCustomizers(AbstractTestContextBootstrapper.java:420)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:393)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:268)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:226)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:117)
+		at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:102)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:466)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterAll(SpringExtension.java:220)
+		... 1 more
+	Caused by: java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+		at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+		at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+		at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+		at org.testcontainers.images.LocalImagesCache.get(LocalImagesCache.java:31)
+		at org.testcontainers.images.AbstractImagePullPolicy.shouldPull(AbstractImagePullPolicy.java:18)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:79)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:35)
+		at org.testcontainers.utility.LazyFuture.getResolvedValue(LazyFuture.java:20)
+		at org.testcontainers.utility.LazyFuture.get(LazyFuture.java:41)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1306)
+		... 22 more
+
+12:00:57.834 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+12:00:57.836 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.EventsApiIT]: EventsApiIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:57.837 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.006 s <<< FAILURE! -- in click.kivvi.EventsApiIT
+[ERROR] click.kivvi.EventsApiIT -- Time elapsed: 0.006 s <<< ERROR!
+java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	Suppressed: org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:18-alpine, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@1949309d)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1308)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:90)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$1(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:591)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:558)
+		at java.base/java.util.Spliterator.forEachRemaining(Spliterator.java:332)
+		at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:803)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$0(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:691)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.collectSources(ServiceConnectionContextCustomizerFactory.java:62)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createContextCustomizer(ServiceConnectionContextCustomizerFactory.java:54)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.getContextCustomizers(AbstractTestContextBootstrapper.java:420)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:393)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:268)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:226)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:117)
+		at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:102)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:466)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterAll(SpringExtension.java:220)
+		... 1 more
+	Caused by: java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+		at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+		at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+		at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+		at org.testcontainers.images.LocalImagesCache.get(LocalImagesCache.java:31)
+		at org.testcontainers.images.AbstractImagePullPolicy.shouldPull(AbstractImagePullPolicy.java:18)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:79)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:35)
+		at org.testcontainers.utility.LazyFuture.getResolvedValue(LazyFuture.java:20)
+		at org.testcontainers.utility.LazyFuture.get(LazyFuture.java:41)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1306)
+		... 22 more
+
+12:00:57.840 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+12:00:57.842 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [click.kivvi.SessionRequestSerializationIT]: SessionRequestSerializationIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:00:57.844 [main] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+[ERROR] Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.005 s <<< FAILURE! -- in click.kivvi.SessionRequestSerializationIT
+[ERROR] click.kivvi.SessionRequestSerializationIT -- Time elapsed: 0.005 s <<< ERROR!
+java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+	at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+	at org.testcontainers.DockerClientFactory$1.getDockerClient(DockerClientFactory.java:108)
+	at com.github.dockerjava.api.DockerClientDelegate.authConfig(DockerClientDelegate.java:111)
+	at org.testcontainers.containers.GenericContainer.start(GenericContainer.java:316)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.start(TestcontainersExtension.java:276)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension$StoreAdapter.access$200(TestcontainersExtension.java:263)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$4(TestcontainersExtension.java:83)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.lambda$startContainers$5(TestcontainersExtension.java:83)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.startContainers(TestcontainersExtension.java:83)
+	at org.testcontainers.junit.jupiter.TestcontainersExtension.beforeAll(TestcontainersExtension.java:57)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	Suppressed: org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:18-alpine, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@1949309d)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1308)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:90)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$1(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:591)
+		at org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator.tryAdvance(TypeMappedAnnotations.java:558)
+		at java.base/java.util.Spliterator.forEachRemaining(Spliterator.java:332)
+		at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:803)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.lambda$collectSources$0(ServiceConnectionContextCustomizerFactory.java:65)
+		at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:691)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.collectSources(ServiceConnectionContextCustomizerFactory.java:62)
+		at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createContextCustomizer(ServiceConnectionContextCustomizerFactory.java:54)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.getContextCustomizers(AbstractTestContextBootstrapper.java:420)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:393)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:268)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:226)
+		at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:117)
+		at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:102)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+		at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:466)
+		at org.springframework.test.context.junit.jupiter.SpringExtension.afterAll(SpringExtension.java:220)
+		... 1 more
+	Caused by: java.lang.IllegalStateException: Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+		at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:229)
+		at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:154)
+		at org.testcontainers.DockerClientFactory.client(DockerClientFactory.java:196)
+		at org.testcontainers.images.LocalImagesCache.get(LocalImagesCache.java:31)
+		at org.testcontainers.images.AbstractImagePullPolicy.shouldPull(AbstractImagePullPolicy.java:18)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:79)
+		at org.testcontainers.images.RemoteDockerImage.resolve(RemoteDockerImage.java:35)
+		at org.testcontainers.utility.LazyFuture.getResolvedValue(LazyFuture.java:20)
+		at org.testcontainers.utility.LazyFuture.get(LazyFuture.java:41)
+		at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1306)
+		... 22 more
+
+[ERROR] Errors: 
+[ERROR]   AutomationsApiIT » IllegalState Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+[ERROR]   CampaignsApiIT » IllegalState Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+[ERROR]   CollectApiIT » IllegalState Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+[ERROR]   CustomersApiIT » IllegalState Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+[ERROR]   DashboardApiIT » IllegalState Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+[ERROR]   EventsApiIT » IllegalState Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+[ERROR]   FeedsApiIT » IllegalState Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+[ERROR]   ImportApiIT » IllegalState Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+[ERROR]   LandingApiIT » IllegalState Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+[ERROR]   SessionRequestSerializationIT » IllegalState Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+[ERROR]   SessionRoundTripIT » IllegalState Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+[ERROR]   SettingsApiIT » IllegalState Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+[ERROR]   ShellApiIT » IllegalState Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+[ERROR]   ShellPagesIT » IllegalState Could not find a valid Docker environment. Please see logs and check configuration
+[ERROR]   WidgetApiIT » IllegalState Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+[ERROR]   HeartbeatSchedulerIT » IllegalState Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+[ERROR]   EventDedupStoreIT » IllegalState Previous attempts to find a Docker environment failed. Will not retry. Please see logs and check configuration
+[ERROR] Tests run: 18, Failures: 0, Errors: 17, Skipped: 1
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-failsafe-plugin:3.5.6:verify (default) on project kivvi-click: 
+[ERROR] 
+[ERROR] See /home/muszkin/work/kivvi-click-wt/integration/backend/target/failsafe-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

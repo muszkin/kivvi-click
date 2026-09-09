@@ -53,3 +53,5 @@ The `api` image builds the whole SPA and jar (several minutes). For fast iterati
 - Visual guard for `shell-navigation` is mandatory in every cohort from wave-4 round 3 on (a pre-existing `<html data-sidebar>` desync produced 7 visual regressions that contract-only guards never saw).
 
 - Disk: `~/.npm` cache grows ~3 GB per wave of `npm ci` runs — `npm cache clean --force` before every cohort; keep `docker builder prune -af` and stale `kivvi-w-*` volume removal in the teardown routine (wave-4 round 3 hit 2.0 GB free, K7 threshold is 3 GB).
+
+- Subagents NEVER start, stop, mask or restart system services (`systemctl`), Docker daemons or anything outside their worktree/stack — an operator maintenance window (docker data-root rsync) was interfered with by a reviewer running `sudo systemctl start docker`. If the daemon is down, stop and report.
