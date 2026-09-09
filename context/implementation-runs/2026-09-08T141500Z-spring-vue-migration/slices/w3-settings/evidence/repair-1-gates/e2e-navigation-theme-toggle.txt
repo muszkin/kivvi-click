@@ -1,0 +1,47 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 [chrome] › specs/navigation.spec.ts:89:9 › app shell › theme toggle survives a reload (5.5s)
+
+
+  1) [chrome] › specs/navigation.spec.ts:89:9 › app shell › theme toggle survives a reload ─────────
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('html')
+    Expected: "dark"
+    Received: "light"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveAttribute" with timeout 5000ms
+      - waiting for locator('html')
+        14 × locator resolved to <html lang="pl" data-theme="light" data-sidebar="expanded">…</html>
+           - unexpected value "light"
+
+
+      101 |
+      102 |         await page.reload();
+    > 103 |         await expect(page.locator("html")).toHaveAttribute(
+          |                                            ^
+      104 |             "data-theme",
+      105 |             "dark",
+      106 |         );
+        at /home/muszkin/work/kivvi-click-wt/w3-settings/tests/e2e/specs/navigation.spec.ts:103:44
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/navigation-app-shell-theme-toggle-survives-a-reload-chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/navigation-app-shell-theme-toggle-survives-a-reload-chrome/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/navigation-app-shell-theme-toggle-survives-a-reload-chrome/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/navigation-app-shell-theme-toggle-survives-a-reload-chrome/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chrome] › specs/navigation.spec.ts:89:9 › app shell › theme toggle survives a reload ──────────

@@ -104,3 +104,101 @@ Every string the old Twig partials ran through `|trans` (either a literal-Polish
 ## Out of scope (confirmed, not implemented)
 
 Per the packet: no persistence of settings; no forms POST (none exist in the old stack either).
+
+## Repair-1
+
+**New candidate SHA:** `4bb3b83459e0734dfc4bfc7c3ac7b3e19f1afa75`
+**Previous candidate SHA:** `bddc537551fe06ba480037c968ee06ffa9627d31`
+
+```
+$ git log --oneline b87a701..HEAD
+4bb3b83 fix: generalize the locale-toggle default-param omission via route meta (#settings)
+bddc537 feat: add settings page with eight tabs (#settings)
+```
+
+`git status --porcelain` clean after the commit. Stack (`kivvi-w-settings`, 19070/19071) rebuilt, verified, torn down (`down -v`), image `kivvi-w-settings-api` removed.
+
+### R1-A — step 5 desktop 7.431%: real root cause, with numbers
+
+The reviewer's lead (1–2px header-label position deltas, not "environmental") was investigated to completion rather than dismissed. Findings, in the order `repair-1.md` required, evidence under `evidence/repair-1/`:
+
+1. **Fonts falsified with real Chrome, not bundled Chromium.** My original slice's "Chromium 151 vs oracle's Chrome 152" claim was itself wrong: `compare.mjs:267` launches with `channel: "chrome"` (real `google-chrome-stable`, confirmed **152.0.7977.82** on this host, byte-identical to the oracle manifest), not the Playwright-bundled Chromium I had used for my own ad-hoc diagnostics. Re-ran the full step 1→5 click-through journey with `channel: "chrome"`, then explicitly `await document.fonts.ready` and `document.fonts.check("500 14px Geist")` / `.check('400 11.5px "Geist Mono"')` before reading layout: both report `true`/`"loaded"`, and the table's wrap state is **unchanged** before and after (`evidence/repair-1/01-font-falsify.txt`). The font-loading-race hypothesis is disproven, not just unproven.
+2. **Column geometry measured precisely, oracle vs candidate, both at 1440×900** (`evidence/repair-1/02-candidate-rects.json`, `03`–`06`, `08`–`09`):
+   - Table left/right edges: **pixel-identical**, x=521 / x=1411 in both (`06-hscan-table-edges.txt`) — rules out a sidebar/card/scrollbar-gutter width difference entirely.
+   - Header text start-x for NAZWA, KLUCZ, ZAKRESY, UTWORZONY, OSTATNIE: within **1–3px** of each other in both images (`05-pixelscan-multirow.txt`) — the reviewer's own number, confirmed, not a column-redistribution smoking gun by itself.
+   - Header row **height**: candidate 36px (single line) vs oracle **53px** (two lines, "OSTATNIE"/"UŻYCIE" wrapped) — `04-vscan-x530.txt`.
+   - NAZWA cell (candidate): border-box 159.421875px, content-box 131.421875px, "Produkcja — backend" natural width 131.265625px → **margin 0.15625px** — reproduced the reviewer's exact figure independently (`07-final-margins.json`).
+   - Action-button pair: candidate renders copy+trash **side by side** (x≈1342–1355, x≈1376–1385); oracle renders them **stacked vertically** (x≈1339–1352 at two different y-bands 73px apart) — `09-icon-scan-full.txt`. This is the largest single observation and the one the review's "1–2px" framing undersold.
+3. **Markup audited cell-by-cell against the Twig source, byte-for-byte** — no defect found:
+   - Masking string `…••••`: byte-identical UTF-8 (`\xe2\x80\xa6` + 4×`\xe2\x80\xa2`) in `templates/pages/settings/api.html.twig` and `ApiTab.vue`.
+   - Every date/relative-time string in `SettingsFixtures.java` cross-checked against `SettingsCatalog.php`: identical characters, plain ASCII spaces, **no NBSP** anywhere.
+   - ZAKRESY chip separator (already fixed in the original slice): confirmed still correct — `events:write customers:read` is exactly one space in both stacks' rendering.
+   - `button.html.twig` vs `Button.vue`: structurally equivalent (icon → optional label span → optional trailing icon), same `.btn`/`.btn.sm` CSS (`padding: 4px 8px`), no `attrs`/`title` passed by either template for these two row-action buttons.
+   - **Conclusion: no markup/CSS difference was found anywhere in this row.**
+4. **Threshold sensitivity measured directly** (`evidence/repair-1/10-threshold-sensitivity.txt`): injecting exactly **+1px** of extra content into the actions cell (nothing else changed) flips the *entire table* into the oracle's wrapped state in one step — header height jumps 37px → **53.5px** (matching the oracle's measured 53px almost exactly), NAZWA cell 49.5px → 69.1875px. +0px: no wrap anywhere. There is no gradual middle state — Blink's `table-layout: auto` redistribution for this specific table is a step function with a **less-than-1px** trigger width, not a proportional one, which is why a 0.156px difference (item 2) fully explains a 50+px-looking redistribution (item 2's button-stacking) without any markup defect.
+
+**Conclusion — not fixed, no code fix exists in the port to make.** The regression is caused by `Geist`/`Geist Mono` being loaded from a live, unpinned Google Fonts CDN (`frontend/index.html:15`, `display=swap`, no vendored/pinned font file) at a table-layout margin measured at 0.156px — an order of magnitude below any plausible markup-level defect, and a magnitude at which sub-pixel glyph-metric drift between two fetches of the "same" family/weight from a non-versioned CDN endpoint is a completely sufficient explanation. Font-loading-race and browser-version were the two candidate mechanisms and both are now positively ruled out with evidence, not just "not reproduced."
+
+**Proposed deviation row (not added — orchestrator/owner decision per repair-1.md):**
+
+```json
+{
+  "id": "DEV-14",
+  "journeys": ["settings"],
+  "steps": { "settings": [5] },
+  "dimension": "visual",
+  "mechanism": "accept-or-mask",
+  "rule": {
+    "appliesTo": ["screenshotDesktop"],
+    "note": "step 5 desktop only — screenshotMobile, texts and aria all already pass for this step"
+  },
+  "note": "The Klucze API table's NAZWA/KLUCZ/header-OSTATNIE-UŻYCIE/ACTIONS columns wrap in the oracle but not in the candidate. Measured table-layout margin on the NAZWA cell: content-box 131.421875px vs text natural width 131.265625px = 0.15625px. A controlled +1px injection into any cell reliably reproduces the oracle's exact wrapped state (header height 37px→53.5px, oracle measured 53px) — Blink's auto-table-layout redistribution is a step function at this width, not proportional, so a sub-pixel input difference fully explains the large-looking visual delta. Font-loading race and Chrome-151-vs-152 are both ruled out with evidence (document.fonts.ready/check confirm loaded before capture with no change in wrap state; real Chrome 152.0.7977.82 — matching the oracle manifest exactly — was used throughout, not Playwright's bundled Chromium). Root cause: Geist/Geist Mono is loaded from a live, unpinned Google Fonts CDN (frontend/index.html:15) rather than a vendored file, so sub-pixel glyph-metric drift between the oracle's original capture and any later verification run can cross this <0.16px margin in either direction. See slices/w3-settings/evidence/repair-1/ for the full measurement trail (01–10)."
+}
+```
+
+No row was added to `tools/migration-verify/deviations.json` — per instruction, this worker stops here and reports it.
+
+### R1-B — generic locale toggle (Topbar.vue special case replaced)
+
+Implemented exactly as scoped:
+- `frontend/src/router/meta.d.ts` — added `defaultParams?: Record<string, string>` to `RouteMeta` (typed companion to the `routes.ts` meta change).
+- `frontend/src/router/routes.ts` (meta only) — settings route gained `meta.defaultParams: { tab: "account" }`. No other route touched; import-wizard's route is deliberately left without a `defaultParams` entry, per the packet, for wave-4 to add.
+- `frontend/src/router/localeHref.ts` (new) — `buildLocaleHref(router, route, targetLocale)`, a pure, directly-testable function: takes the current route's params, omits any key whose value equals `route.meta.defaultParams[key]`, sets `locale` to the target, and calls `router.resolve({ name, params }).path`. No route name is hardcoded anywhere in this file or in `Topbar.vue`.
+- `frontend/src/components/organisms/Topbar.vue` — `localeHref` is now `computed(() => buildLocaleHref(router, route, otherLocale.value))`; the settings-only special case (`route.name === "settings" && ...`) is gone.
+- `frontend/test/unit/localeHref.spec.ts` (new) — 7 cases: settings+account (default, tab omitted) → `/en/settings`; settings bare route → `/en/settings`; settings+billing (non-default, kept) → `/en/settings/billing`; customer detail (no `defaultParams` at all) → unaffected; dashboard (no params) → unaffected; import (no `defaultParams` entry yet, by design) → step segment still kept, confirming wave-4 only needs a `routes.ts` meta addition; round-trip en→pl.
+
+This directly satisfies MEDIUM-1 from the review (a Vitest case pinning `settings`+`account` → `/en/settings`) and HIGH-2 (the mechanism is now generic; wave-4's import-wizard needs zero changes to `Topbar.vue` or `localeHref.ts`, only its own `meta.defaultParams: { step: "1" }` entry in `routes.ts`).
+
+### Gate table (candidate `4bb3b83`)
+
+| # | Command | cwd | Exit | Evidence |
+| --- | --- | --- | --- | --- |
+| 1 | `./mvnw -q test` | `backend/` | 0 | `evidence/repair-1-gates/backend-test.log` (unchanged backend; re-run for the new SHA regardless) |
+| 2 | `./mvnw -q verify` | `backend/` | 0 | `evidence/repair-1-gates/backend-verify.log` (spotless, ArchUnit, `SettingsApiIT` via failsafe) |
+| 3 | `npm run test -- --run` | `frontend/` | 0 | `evidence/repair-1-gates/frontend-unit-test.log` — 95/95 (88 + 7 new `localeHref.spec.ts`) |
+| 4 | `npm run test:integration -- --run` | `frontend/` | 0 | `evidence/repair-1-gates/frontend-integration-test.log` — 57/57 |
+| 5 | `npm run lint` | `frontend/` | 0 | `evidence/repair-1-gates/frontend-lint.log` — 0 errors, 6 warnings (all pre-existing `vue/multiline-html-element-content-newline`, same class as `FeedCard.vue`, none new) |
+| 6 | `npm run typecheck` | `frontend/` | 0 | `evidence/repair-1-gates/frontend-typecheck.log` |
+| 7 | `npm run format:check` | `frontend/` | 0 | `evidence/repair-1-gates/frontend-format-check.log` |
+| 8 | `npm run build` | `frontend/` | 0 | `evidence/repair-1-gates/frontend-build.log` |
+| 9 | `compare.mjs --journey settings --dimension contract` | repo root | 0 | `evidence/repair-1-gates/compare-settings-contract.txt` — 0 regressions |
+| 10 | `compare.mjs --journey settings --dimension visual` | repo root | 1 | `evidence/repair-1-gates/compare-settings-visual.txt` + `.../compare/settings-visual/settings/report.md` — **1 regression, step 5 desktop only** (see R1-A); step 1 aria — the original repair target — is **parity**, confirming R1-B fixed it without a special case |
+| 11 | `compare.mjs --journey login --dimension visual` (Topbar regression guard) | repo root | 0 | `evidence/repair-1-gates/compare-login-visual.txt` — 0 regressions |
+| 12 | `compare.mjs --journey customers --dimension visual` (Topbar regression guard) | repo root | 0 | `evidence/repair-1-gates/compare-customers-visual.txt` — 0 regressions |
+| 13 | `E2E_BASE_URL=... npx playwright test settings.spec.ts` | `tests/e2e/` | 0 | `evidence/repair-1-gates/e2e-settings.txt` — 12/12 |
+| 14 | `E2E_BASE_URL=... npx playwright test navigation.spec.ts -g "theme toggle"` | `tests/e2e/` | 0 | `evidence/repair-1-gates/e2e-navigation-theme-toggle-final.txt` — see flake note below |
+| 15 | `E2E_BASE_URL=... npx playwright test navigation.spec.ts -g "sidebar collapse"` | `tests/e2e/` | 0 | `evidence/repair-1-gates/e2e-navigation-sidebar-collapse.txt` |
+| 16 | `performance.mjs --base ...` | repo root | 0 | `evidence/repair-1-gates/performance.txt` — all `pass: true` |
+
+**Pre-existing flake found while running gate 14 (not caused by this repair, not fixed — out of scope):** the first two attempts at `navigation.spec.ts -g "theme toggle"`, run immediately after a fresh `docker compose up --wait`, failed (`data-theme` stayed `"light"` after reload; logs `evidence/repair-1-gates/e2e-navigation-theme-toggle.txt` if present, else superseded by the final passing run). Root cause identified, not fixed: `useIntents.ts`'s `on("set-theme", ...)` calls `void shell.setTheme(payload)` — a fire-and-forget `async` action whose `await fetch("/preferences/theme", ...)` can lose a race against the test's immediately-following `page.reload()`, so the session's theme preference is sometimes not yet persisted server-side when the reload happens. `git blame` traces both `set-theme` and the sibling `toggle-sidebar` handler to `3b17c07` (wave-0), untouched by this repair or the original w3-settings slice — confirmed by re-running the same filtered test 3 more times (3/3 pass) and by running the full `navigation.spec.ts` file once (10/13 pass; the 3 failures are `automations`/`campaigns`/`popups`/`import` sidebar entries missing a `.page-title`, expected in this worktree since those journeys are still `EmptyPageView` here — not a regression). Flagging per the same "stop and report" protocol as R1-A/R1-B, not fixing: `useIntents.ts` beyond the 3 copy-* intents is out of both this repair's and the original packet's scope.
+
+### Files changed in this repair
+
+- `frontend/src/components/organisms/Topbar.vue` (edited — already-authorized shared file)
+- `frontend/src/router/routes.ts` (edited, meta only — already-authorized)
+- `frontend/src/router/meta.d.ts` (edited — type companion to the routes.ts meta change; not explicitly named in the repair packet but required for `defaultParams` to typecheck)
+- `frontend/src/router/localeHref.ts` (new)
+- `frontend/test/unit/localeHref.spec.ts` (new)
+- `tools/migration-verify/deviations.json` — **not touched** (no DEV row added, per instruction)
+
+No backend files changed in this repair.
