@@ -1,0 +1,12 @@
+# Repair packet w3-campaigns-email-editor / repair-3 (wave-3 cohort round 1: integration FAIL on B01 labels)
+
+Base: wave SHA 32a68311594e611aaa8eaa0803bc72bba7d735a9 (your slice is integrated). Fresh worktree the orchestrator created: /home/muszkin/work/kivvi-click-wt/w3-campaigns-email-editor-r3 on branch migration/wave-3/campaigns-email-editor-repair3 (identity guard first). New commits only. HIGH reasoning effort. Test-only change.
+
+## R-A — B01 traceability at integration level
+The integration verifier maps every behaviour id in scope to a qualifying test BY NAME: real-HTTP `*IT.java` (Testcontainers) for backend, `frontend/test/integration` with real router/store + stubbed fetch for frontend. B01 ("every panel URL renders 200 with its own marker") for the campaigns and email-editor (, , ) rows is currently proved only by the disqualified `@WebMvcTest` `SpaDocumentControllerTest` and by tests tagged with other ids. Add/relabel in `CampaignsApiIT` real-HTTP cases `@DisplayName("B01/… GET <url> renders the SPA document 200 …")` for each row (document request → 200 + the shell/api marker the old `PanelPagesTest` asserted), and label the matching frontend integration test(s) (view mounts via real router and shows its own page title) with "B01". Follow the exact convention used by `AutomationsApiIT` (B01/B26) and `EventsApiIT`.
+
+## R-B — shell integration tests for your wave-3 shell change (scroll restoration)
+Add `frontend/test/integration/ScrollRestoration.spec.ts`: create the real router (the app router factory with `scrollBehavior`), drive `router.push` with a fake `savedPosition` path via `router.options.scrollBehavior` invoked the way vue-router does (to/from/savedPosition) and assert the promise resolves to the saved position only after the fake layout signature stabilises; and assert a plain push resolves `{left:0, top:0}`. Keep the unit tests; this proves the wiring in `router/index.ts`, not just the helper.
+
+## Gates on the NEW candidate SHA (logs under evidence/repair-3-gates/)
+`./mvnw -q test` → `./mvnw -q verify` → `npm run test -- --run` → `npm run test:integration -- --run` → `npm run lint` → `npm run typecheck` → `npm run format:check`. Test-only: compare.mjs/Playwright may be skipped — say so. Commit `test: label B01 campaigns-email-editor coverage at integration level (#campaigns-email-editor)` (Conventional Commits, English, NO trailers). Append "## Repair-3" to worker-report.md (files changed, gate table, new candidate SHA, `git log --oneline 32a6831..HEAD`, clean status) and return it.
