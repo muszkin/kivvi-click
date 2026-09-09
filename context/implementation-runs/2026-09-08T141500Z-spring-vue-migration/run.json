@@ -602,7 +602,67 @@
       ],
       "head_sha": "32a68311594e611aaa8eaa0803bc72bba7d735a9",
       "kill_reason": null,
-      "verifier_cohort": []
+      "verifier_cohort": [
+        {
+          "dimension": "unit",
+          "status": "PASS",
+          "sha": "32a68311594e611aaa8eaa0803bc72bba7d735a9",
+          "evidence": "waves/wave-3/unit.md",
+          "journey_verdicts": [
+            {
+              "journey": "automations",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "settings",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "campaigns-email-editor",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
+        },
+        {
+          "dimension": "integration",
+          "status": "RUNNING",
+          "sha": "32a68311594e611aaa8eaa0803bc72bba7d735a9",
+          "evidence": "waves/wave-3/integration.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "architecture",
+          "status": "RUNNING",
+          "sha": "32a68311594e611aaa8eaa0803bc72bba7d735a9",
+          "evidence": "waves/wave-3/architecture.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "contract",
+          "status": "RUNNING",
+          "sha": "32a68311594e611aaa8eaa0803bc72bba7d735a9",
+          "evidence": "waves/wave-3/contract.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "visual",
+          "status": "RUNNING",
+          "sha": "32a68311594e611aaa8eaa0803bc72bba7d735a9",
+          "evidence": "waves/wave-3/visual.md",
+          "journey_verdicts": []
+        },
+        {
+          "dimension": "e2e",
+          "status": "RUNNING",
+          "sha": "32a68311594e611aaa8eaa0803bc72bba7d735a9",
+          "evidence": "waves/wave-3/e2e.md",
+          "journey_verdicts": []
+        }
+      ],
+      "repair_rounds": 0
     },
     {
       "wave_id": "wave-4",
@@ -644,6 +704,6 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T02:21:31Z",
+  "updated_at": "2026-09-09T02:27:02Z",
   "feature_head_sha": "32a68311594e611aaa8eaa0803bc72bba7d735a9"
 }
