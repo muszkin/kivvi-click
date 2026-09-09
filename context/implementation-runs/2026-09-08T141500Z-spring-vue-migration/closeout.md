@@ -36,3 +36,10 @@ Copied from `run.json`/`events.jsonl`:
 - Verification sequencing, disk hygiene, whitespace-node and frozen-clock rules — already recorded in `common-journey-rules.md` and the refreshed scoped contexts (`backend/.agents/project-context.md` etc.).
 - DEV-14 rejection (upload redirect reproduced as a full navigation) — an application of the plan's zero-change rule, recorded in `slices/w4-import-wizard/repair-1.md`; no new decision.
 - Transient tooling friction (backgrounded shells killed by the harness, `open('w')` truncation, heredoc backtick mangling) — private agent memory only.
+
+
+## Addendum: cutover and consolidation (2026-09-09)
+
+- RR-1 PASS (`cutover/rr1.md`). CUT-1 live 14:18:42Z after two rolled-back attempts caused by the orchestrator (wrong compose project directory; Symfony auto-created tables in the fresh volume) — outages 14:08:42–14:13:23Z and 14:13:53–14:16:10Z; production data never mounted by the new stack. 20-min observation clean; public e2e 66/66 (`cutover/cut1.md`).
+- CON-1 (operator: "zrob to"): squash merge `8b224c5` on `main`; old stack deleted (`7287390`, `25329ac`, `0b46320`), `compose.next*` → `compose*`, workflow `build.yml`; plan errata + DEV-13 retirement (`8c37b92`); docs rewritten (`fe9c3fe`); context map refreshed; 46 Linear issues re-pointed; old images/volumes removed after `pg_dumpall` (personal backup path recorded in the run ledger only); exit e2e green (`cutover/con1-e2e.md`).
+- Not done: `git push` (operator's call); `.claude/settings.json` format hook still targets the old stack (R22); stale "old stack" comments in compose/Caddyfile/env example (R23); monitoring (PIO-112).

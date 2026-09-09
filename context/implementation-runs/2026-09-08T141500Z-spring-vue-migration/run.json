@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "run_id": "2026-09-08T141500Z-spring-vue-migration",
-  "state": "PRODUCTION_GREEN",
+  "state": "TARGET_REACHED",
   "plan": {
     "path": "/home/muszkin/work/kivvi-click/context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
     "sha256": "a21ced0ab66ee010f2ed7eaa00291eb8957fc851607b3ff6c07b19c84ef146ed",
@@ -1173,7 +1173,7 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T16:09:58Z",
+  "updated_at": "2026-09-09T16:33:59Z",
   "feature_head_sha": "92052947a6238ecf4ee177f4e72493122315ce32",
   "final_cohort": {
     "sha": "dae169614a52532c130bd34435994d6a914165c0",
@@ -1307,7 +1307,7 @@
       "observation": "20 min (14:19\u201314:39Z): public 200 every minute, all containers healthy, 0 api errors"
     },
     "con1": {
-      "state": "RUNNING",
+      "state": "DONE",
       "authorization": "operator \"zrob to\" 2026-09-09 after the PRODUCTION_GREEN report",
       "merge": "squash-merge of migration/spring-vue @ 9205294 into main as 8b224c5 (conflict: context/map/manifest.json digest \u2014 branch version taken; map refresh follows)",
       "contract_commits": [
@@ -1319,12 +1319,12 @@
       "old_stack": "images app-php-prod/app-php-dev removed; volumes kivvi-click_*_prod and dev removed after pg_dumpall to /home/muszkin/backups/kivvi-click-old-symfony-prod-2026-09-09.sql.gz (2.4 KB: sessions/cache only)",
       "worktree": "integration worktree removed; branch migration/spring-vue deleted after merge",
       "pending": [
-        "docs rewrite (CLAUDE.md, AGENTS.md, README.md, product-spec SKILL)",
-        "context map refresh",
-        "push to origin/main \u2014 left to the operator"
+        "push to origin/main \u2014 left to the operator (local main is ~170 commits ahead)"
       ],
       "exit_e2e": "PASS: specs unchanged since 812db3f; 66 tests (80 executions) green via https://kivvi.click; budgets 4/4; 0 5xx; 0 old-path requests",
-      "linear": "46/46 issues PIO-70..115: \"Punkt startu w repo\" re-pointed to backend/frontend paths + migration line appended (titles/status/labels untouched)"
+      "linear": "46/46 issues PIO-70..115: \"Punkt startu w repo\" re-pointed to backend/frontend paths + migration line appended (titles/status/labels untouched)",
+      "docs": "CLAUDE.md, AGENTS.md, README.md, product-spec SKILL rewritten (fe9c3fe); .env/.env.example trimmed to dev defaults; .gitignore/.gitattributes cleaned",
+      "context_map": "refreshed on main after CON-1 (R2/R19 resolved; R22 settings.json hook stale; R23 stale comments)"
     }
   }
 }
