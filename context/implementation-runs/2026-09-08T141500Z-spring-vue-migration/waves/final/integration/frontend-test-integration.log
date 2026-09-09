@@ -1,0 +1,172 @@
+
+> kivvi-click-frontend@0.1.0 test:integration
+> vitest run test/integration --reporter=verbose
+
+
+ RUN  v5.0.0 /home/muszkin/work/kivvi-click-wt/verify-final-integration/frontend
+
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B08 setTheme updates the document attribute and posts the new value 21ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B10 setSidebar updates the store, the <html> attribute and posts the new value 3ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B08 setTheme's POST survives an immediate reload (keepalive: true) 4ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B10 setSidebar's POST survives an immediate reload (keepalive: true) 2ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B08 setTheme applies the DOM attribute and store state only after the POST resolves 2ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B10 setSidebar applies the store state and <html> attribute only after the POST resolves 2ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B08 setTheme still applies the DOM attribute when the POST rejects, and logs nothing 3ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > B10 setSidebar still applies the store state when the POST rejects, and logs nothing 2ms
+ ✓ test/integration/shellStore.spec.ts > B08/B10 shell store preference toggles > load() populates navigation, workspace and identity from the shell API 6ms
+ ✓ test/integration/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract > uses type=email on the username field, so the browser blocks a malformed address 149ms
+ ✓ test/integration/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract > posts natively to /{locale}/login 33ms
+ ✓ test/integration/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract > pre-fills the sample address on a fresh load with no injected attributes 40ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > fetches the locale- and tab-scoped payload, defaulting the bare route to account 155ms
+ ✓ test/integration/CustomerDetailSidebarSection.spec.ts > B03 detail routes keep their index section active (integration) > requests the shell with route=customer_show for /pl/customers/c_1001 166ms
+ ✓ test/integration/CustomerDetailSidebarSection.spec.ts > B03 detail routes keep their index section active (integration) > highlights the customers nav item from the fetched currentSection, not a hand-written prop 59ms
+ ✓ test/integration/CustomerView.spec.ts > B25 the 360 profile matches the oracle: facts, scores, timeline, tabs, back link > fetches the locale- and id-scoped payload 188ms
+ ✓ test/integration/CustomerDetailSidebarSection.spec.ts > B03 detail routes keep their index section active (integration) > the same chain still highlights the dashboard item on the (non-detail) dashboard route 84ms
+ ✓ test/integration/AutomationEditorView.spec.ts > B26 the rule editor matches the oracle: list view, flow view, simulation, publish > fetches the locale- and id-scoped payload with no view param by default 216ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/dashboard highlights "dashboard", shows crumb "Pulpit", and carries sidebar/topbar/main-scroll 214ms
+ ✓ test/integration/AutomationsView.spec.ts > B26 the automations index matches the oracle: 6 cards, 4 filter chips > fetches the locale-scoped payload with no status by default 188ms
+ ✓ test/integration/AutomationsView.spec.ts > B26 the automations index matches the oracle: 6 cards, 4 filter chips > forwards ?status= to the API call 81ms
+ ✓ test/integration/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract > renders the injected error and carries back the typed address 43ms
+ ✓ test/integration/LoginView.spec.ts > B22 the login form matches the browser-validated, server-rendered contract > B12 renders the empty-e-mail error with the default address redisplayed, not a blank field 34ms
+ ✓ test/integration/LoginView.spec.ts > B11 the login view shows the welcome copy and submit action > renders the Polish welcome heading and submit label by default 23ms
+ ✓ test/integration/CampaignsView.spec.ts > B27 the campaigns index matches the oracle: 4 KPIs, 4 filters, the performance table > fetches the locale-scoped payload, defaulting the filter to "all" 274ms
+ ✓ test/integration/CampaignsView.spec.ts > B27 the campaigns index matches the oracle: 4 KPIs, 4 filters, the performance table > forwards ?filter= from the URL unchanged 84ms
+ ✓ test/integration/LoginView.spec.ts > B11 the login view shows the welcome copy and submit action > renders the English welcome heading once the active locale is English 92ms
+ ✓ test/integration/AutomationEditorView.spec.ts > B26 the rule editor matches the oracle: list view, flow view, simulation, publish > forwards ?view=flow to the API call 105ms
+ ✓ test/integration/AutomationsView.spec.ts > B26 the automations index matches the oracle: 6 cards, 4 filter chips > renders 6 cards and 4 filter chips 125ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > fetches the locale-scoped payload with no preview by default 358ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/events highlights "events", shows crumb "Strumień zdarzeń", and carries sidebar/topbar/main-scroll 118ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > fetches the explicit tab from the URL 140ms
+ ✓ test/integration/ImportView.spec.ts > B31/B01 the import wizard matches the oracle: 4 steps, one URL each > fetches the locale- and step-scoped payload 414ms
+ ✓ test/integration/CustomerView.spec.ts > B25 the 360 profile matches the oracle: facts, scores, timeline, tabs, back link > renders the customer's name as the title and 7 profile facts 179ms
+ ✓ test/integration/CampaignsView.spec.ts > B27 the campaigns index matches the oracle: 4 KPIs, 4 filters, the performance table > B01/B27 renders 4 KPI tiles and 4 filter chips from the payload 123ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > forwards ?preview= to the API call 108ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/customers highlights "customers", shows crumb "Klienci", and carries sidebar/topbar/main-scroll 146ms
+ ✓ test/integration/AutomationEditorView.spec.ts > B26 the rule editor matches the oracle: list view, flow view, simulation, publish > renders the list view by default: 3 rb-step sections, KIEDY kicker, 3 blocks in step 2 139ms
+ ✓ test/integration/AutomationsView.spec.ts > B26 the automations index matches the oracle: 6 cards, 4 filter chips > the first card shows the oracle's title, status chip and money metric 75ms
+ ✓ test/integration/AutomationsView.spec.ts > B26 the automations index matches the oracle: 6 cards, 4 filter chips > wires each card to the go-automation intent with its own id 54ms
+ ✓ test/integration/FeedsView.spec.ts > B30 the product-feeds page matches the oracle: 4 sources, 4 feeds, one failing with HTTP 503, matching diagnostic with 142 mismatched > fetches the locale-scoped payload 520ms
+ ✓ test/integration/AutomationsView.spec.ts > B26 the automations index matches the oracle: 6 cards, 4 filter chips > renders the 'Nowa automatyzacja' link to /automations/new 112ms
+ ✓ test/integration/CampaignsView.spec.ts > B27 the campaigns index matches the oracle: 4 KPIs, 4 filters, the performance table > renders one table row per campaign, wired to the go-email intent with its own id 91ms
+ ✓ test/integration/EmailEditorView.spec.ts > B28 the e-mail editor matches the oracle: library, envelope, document, inspector > fetches the locale- and id-scoped payload for a known campaign 574ms
+ ✓ test/integration/CampaignsView.spec.ts > B27 the campaigns index matches the oracle: 4 KPIs, 4 filters, the performance table > renders the "Nowa kampania" action as a real link to /emails/new, not an intent 105ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > renders all 8 tabs, with the current one aria-current=true 274ms
+ ✓ test/integration/AutomationEditorView.spec.ts > B26 the rule editor matches the oracle: list view, flow view, simulation, publish > renders the flow view: 6 flow-node elements, 5 svg paths, and no rb-pipeline 182ms
+ ✓ test/integration/CustomerView.spec.ts > B25 the 360 profile matches the oracle: facts, scores, timeline, tabs, back link > renders 3 KPI tiles, 9 timeline entries and 5 tabs with the first selected 233ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/customers/c_1001 highlights "customers", shows crumb "Klienci", and carries sidebar/topbar/main-scroll 148ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > renders one .auto-card per widget, wired to a real ?preview= navigation 185ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > B01 the account tab shows its marker text (mirrors PanelPagesTest's .card-title "Dane konta") 139ms
+ ✓ test/integration/EmailEditorView.spec.ts > B28 the e-mail editor matches the oracle: library, envelope, document, inspector > fetches the "new" id for the blank-draft route 120ms
+ ✓ test/integration/AutomationEditorView.spec.ts > B26 the rule editor matches the oracle: list view, flow view, simulation, publish > the Lista/Diagram switch is a real navigation via the 'navigate' intent 94ms
+ ✓ test/integration/AutomationEditorView.spec.ts > B26 the rule editor matches the oracle: list view, flow view, simulation, publish > shows the simulation card and the publish button 54ms
+ ✓ test/integration/CustomerView.spec.ts > B25 the 360 profile matches the oracle: facts, scores, timeline, tabs, back link > renders the back link as a real <a> to the customers index 155ms
+ ✓ test/integration/CustomerView.spec.ts > B25 the 360 profile matches the oracle: facts, scores, timeline, tabs, back link > renders the 3 active automations 110ms
+ ✓ test/integration/ImportView.spec.ts > B31/B01 the import wizard matches the oracle: 4 steps, one URL each > B31 step 1 offers the dropzone, the template and the API, plus the sticky recent-imports card 157ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/automations highlights "automations", shows crumb "Reguły", and carries sidebar/topbar/main-scroll 154ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > fetches the locale- and id-scoped payload for a known widget 720ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > the sites tab highlights the tracker snippet server-... client-side 113ms
+ ✓ test/integration/EmailEditorView.spec.ts > B28 the e-mail editor matches the oracle: library, envelope, document, inspector > B01/B28 renders the back link, title and 10 block-library buttons 148ms
+ ✓ test/integration/FeedsView.spec.ts > B30 the product-feeds page matches the oracle: 4 sources, 4 feeds, one failing with HTTP 503, matching diagnostic with 142 mismatched > renders 4 sources, 4 feeds and the one failing feed's HTTP 503 strip 276ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > each card carries an eye-preview link and an edit link 100ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > previews the selected widget on the popup stage, type=modal by default 43ms
+ ✓ test/integration/AutomationEditorView.spec.ts > B26 the rule editor matches the oracle: list view, flow view, simulation, publish > renders the back link as a real <a> to the automations index 77ms
+ ✓ test/integration/AutomationEditorView.spec.ts > B26 the rule editor matches the oracle: list view, flow view, simulation, publish > B01/B26 GET /automations/new renders and shows its own headline (the generic draft header) 104ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/automations/new highlights "automations", shows crumb "Reguły", and carries sidebar/topbar/main-scroll 100ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/automations/a1 highlights "automations", shows crumb "Reguły", and carries sidebar/topbar/main-scroll 50ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > fetches the locale-scoped payload 862ms
+ ✓ test/integration/ImportView.spec.ts > B31/B01 the import wizard matches the oracle: 4 steps, one URL each > B31 step 2 maps every column with a confidence read-out, and shows the uploaded file's name 330ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > B01 the team tab shows its marker text (mirrors PanelPagesTest's .card-title "Członkowie zespołu") 130ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > fetches the "new" id for the blank-draft route 187ms
+ ✓ test/integration/EventsView.spec.ts > B24 the event stream page matches the oracle: 30 rows, 9+4 filters, 4 ranges > fetches the locale-scoped payload 587ms
+ ✓ test/integration/FeedsView.spec.ts > B30 the product-feeds page matches the oracle: 4 sources, 4 feeds, one failing with HTTP 503, matching diagnostic with 142 mismatched > the matching diagnostic explains the coverage 174ms
+ ✓ test/integration/EmailEditorView.spec.ts > B28 the e-mail editor matches the oracle: library, envelope, document, inspector > renders the document: hero title, coupon code, 2+2 products, footer copy 98ms
+ ✓ test/integration/EmailEditorView.spec.ts > B28 the e-mail editor matches the oracle: library, envelope, document, inspector > renders the inspector with the selected block's title as the hero_title value 71ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > ?preview=p2 shows the banner widget's own shape 167ms
+ ✓ test/integration/FeedsView.spec.ts > B30 the product-feeds page matches the oracle: 4 sources, 4 feeds, one failing with HTTP 503, matching diagnostic with 142 mismatched > renders the page title 148ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/campaigns highlights "campaigns", shows crumb "Kampanie email", and carries sidebar/topbar/main-scroll 80ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > renders the page title and four KPI tiles 183ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > the providers tab shows 4 DNS rows: 3 good, 1 warn 121ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > forwards ?type= and ?device= to the API call 155ms
+ ✓ test/integration/ImportView.spec.ts > B31/B01 the import wizard matches the oracle: 4 steps, one URL each > B31 step 3 asks for a dedup strategy and GDPR consent 145ms
+ ✓ test/integration/EmailEditorView.spec.ts > B28 the e-mail editor matches the oracle: library, envelope, document, inspector > B01/B28 the "new" route shows the blank draft template 117ms
+ ✓ test/integration/EmailEditorView.spec.ts > B28 the e-mail editor matches the oracle: library, envelope, document, inspector > dragging a library block onto the canvas never issues a network request (DEV-7) 93ms
+ ✓ test/integration/ImportView.spec.ts > B31/B01 the import wizard matches the oracle: 4 steps, one URL each > B31 step 4 summarises the run and flags invalid rows 180ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > the section-title reads "Podgląd: <name>" and links Edytuj to the edit route 166ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > renders the trigger-summary card below the stage 52ms
+ ✓ test/integration/PopupsView.spec.ts > B29 the popup index matches the oracle: 5 cards, a live preview > renders the "Nowy popup" link to /popups/new 55ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > renders the cardiogram canvas with the legend 116ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/emails/new highlights "campaigns", shows crumb "Kampanie email", and carries sidebar/topbar/main-scroll 124ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/emails/k1 highlights "campaigns", shows crumb "Kampanie email", and carries sidebar/topbar/main-scroll 91ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > the api tab shows 3 webhooks, the Slack one failing with a 410 chip and a callout 115ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > the notifications tab renders an 8x3 checkbox matrix with 15 checked 83ms
+ ✓ test/integration/EventsView.spec.ts > B24 the event stream page matches the oracle: 30 rows, 9+4 filters, 4 ranges > forwards type/site/range query parameters to the API call 469ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > B01/B29 renders the back link, title and 5 widget-type links 137ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > server-renders the first page of the live stream, subscribed to the given topic 108ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/popups highlights "popups", shows crumb "Popupy i widgety", and carries sidebar/topbar/main-scroll 69ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/popups/new highlights "popups", shows crumb "Popupy i widgety", and carries sidebar/topbar/main-scroll 42ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/popups/p1 highlights "popups", shows crumb "Popupy i widgety", and carries sidebar/topbar/main-scroll 34ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > B01 the billing tab shows its marker text (mirrors PanelPagesTest's .card-title "Wykorzystanie limitów") 38ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > the billing tab's invoice-recipient toggle renders a literal '@' and the embedded mono span, despite '@' being vue-i18n's linked-message reserved character 39ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > B01 the gdpr tab shows its marker text ("Retencja danych" — a second, also-unique card title on this tab; PanelPagesTest's own .card-title marker for this row is "Umowa powierzenia (DPA)", the first card) 51ms
+ ✓ test/integration/SettingsView.spec.ts > B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix > B01 GET /pl/settings/team renders and shows its own page title and subtitle marker 39ms
+ ✓ test/integration/SettingsView.spec.ts > B06 an unknown tab never renders a page body > stays empty when the API 404s 4ms
+ ✓ test/integration/EventsView.spec.ts > B24 the event stream page matches the oracle: 30 rows, 9+4 filters, 4 ranges > renders 30 event rows, 9 type filter chips and 4 site filter chips 270ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > previews the widget on the mock storefront: modal, desktop, 1440 × 900 103ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > each widget-type link points at this same route with only ?type= set 98ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > the Pauza button carries the pause-stream action 115ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > recently seen customers are real links to their profile 64ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/feeds highlights "feeds", shows crumb "Feedy produktów", and carries sidebar/topbar/main-scroll 61ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/import highlights "import", shows crumb "Import klientów", and carries sidebar/topbar/main-scroll 33ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/import/2 highlights "import", shows crumb "Import klientów", and carries sidebar/topbar/main-scroll 33ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > the device switch links at this same route with only ?device= set 81ms
+ ✓ test/integration/EventsView.spec.ts > B24 the event stream page matches the oracle: 30 rows, 9+4 filters, 4 ranges > renders the page title and the total/shown counts 140ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > top automations are real links to the rule editor 70ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > multiple channel chips on one automation are separated by a real text node 61ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/settings highlights "settings", shows crumb "Ustawienia", and carries sidebar/topbar/main-scroll 35ms
+ ✓ test/integration/ShellNavigation.spec.ts > B02 every panel route carries the shell, with the right nav item and crumb active > /pl/settings/billing highlights "settings", shows crumb "Ustawienia", and carries sidebar/topbar/main-scroll 31ms
+ ✓ test/integration/ShellNavigation.spec.ts > B08/B10 the shell store re-hydrates sidebar/theme from the shell API on a simulated reload > a fresh mount (simulated reload) reflects a session that was left collapsed/dark 45ms
+ ✓ test/integration/ShellNavigation.spec.ts > B08/B10 the shell store re-hydrates sidebar/theme from the shell API on a simulated reload > a fresh mount of a DIFFERENT session (never toggled) still reflects expanded/light 44ms
+ ✓ test/integration/ShellNavigation.spec.ts > B08/B10 the shell store re-hydrates sidebar/theme from the shell API on a simulated reload > the store itself re-hydrates from the API payload, not from whatever it held before load() 2ms
+ ✓ test/integration/DashboardView.spec.ts > B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations > the new-automation button links to /pl/automations/new 96ms
+ ✓ test/integration/EventsView.spec.ts > B24 the event stream page matches the oracle: 30 rows, 9+4 filters, 4 ranges > the Pauza button carries the pause-stream action 93ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > ?type=banner reshapes the preview 92ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > ?device=mobile switches the viewport readout 82ms
+ ✓ test/integration/EventsView.spec.ts > B24 the live event stream: connecting -> live, a DEV-3 JSON message renders a new row, the 80-row cap, and pause > data-stream-state goes connecting -> live once the subscription opens 125ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > the inspector carries 3 triggers, a 9-cell position grid with 1 checked, and 4 checkbox rows 56ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > the audience rule with embedded markup renders through v-html 68ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > B01/B29 the "new" route shows the blank-draft widget 51ms
+ ✓ test/integration/PopupEditorView.spec.ts > B29 the popup editor matches the oracle: type list, stage, inspector > dragging a library block onto the canvas never issues a network request (DEV-7) 58ms
+ ✓ test/integration/EventsView.spec.ts > B24 the live event stream: connecting -> live, a DEV-3 JSON message renders a new row, the 80-row cap, and pause > a dispatched DEV-3 JSON message prepends a translated .event-row.new 113ms
+ ✓ test/integration/EventsView.spec.ts > B24 the live event stream: connecting -> live, a DEV-3 JSON message renders a new row, the 80-row cap, and pause > caps the row list at 80, dropping the oldest 171ms
+ ✓ test/integration/EventsView.spec.ts > B24 the live event stream: connecting -> live, a DEV-3 JSON message renders a new row, the 80-row cap, and pause > data-paused="true" suppresses new rows without closing the subscription 89ms
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+Not implemented: Window's scrollTo() method
+ ✓ test/integration/ScrollRestoration.spec.ts > router/index.ts scrollBehavior wiring > createRouter was configured with this module's own scrollBehavior function 9ms
+ ✓ test/integration/ScrollRestoration.spec.ts > router/index.ts scrollBehavior wiring > resolves a saved position only after the (real router-driven) layout has stabilised — not merely the standalone helper, the actual option vue-router will call 3ms
+ ✓ test/integration/ScrollRestoration.spec.ts > router/index.ts scrollBehavior wiring > resolves {left:0, top:0} for a plain push with no saved position 2ms
+ ✓ test/integration/Sidebar.spec.ts > Sidebar navigation > marks the current section's nav item aria-current=page and data-active=true 91ms
+ ✓ test/integration/Sidebar.spec.ts > Sidebar navigation > keeps a detail route's index section highlighted (customer_show -> customers) 27ms
+ ✓ test/integration/Sidebar.spec.ts > Sidebar navigation > renders the user's identity in the sidebar footer 15ms
+ ✓ test/integration/CustomersView.spec.ts > B25 the customers index matches the oracle: 24 rows, 7 columns, page 1 of 192 > fetches the locale- and page-scoped payload 167ms
+ ✓ test/integration/CustomersView.spec.ts > B25 the customers index matches the oracle: 24 rows, 7 columns, page 1 of 192 > reads ?page= from the URL 67ms
+ ✓ test/integration/LocaleToggle.spec.ts > repair-3 (R-B) locale toggle through the real router/AppLayout/Topbar chain > at /pl/settings/account (settings' own default tab), the toggle omits the segment: /en/settings 117ms
+ ✓ test/integration/LocaleToggle.spec.ts > repair-3 (R-B) locale toggle through the real router/AppLayout/Topbar chain > at /pl/settings/billing (not the default tab), the toggle keeps the segment: /en/settings/billing 18ms
+ ✓ test/integration/LocaleToggle.spec.ts > repair-3 (R-B) locale toggle through the real router/AppLayout/Topbar chain > at /pl/customers/c_1001 (a route with no meta.defaultParams), the toggle is an unmodified prefix swap: /en/customers/c_1001 14ms
+ ✓ test/integration/landing.spec.ts > B22 the home route resolves to the landing view for both the bare and localized paths > bare '/' resolves to the home route and fetches the Polish payload 144ms
+ ✓ test/integration/landing.spec.ts > B22 the home route resolves to the landing view for both the bare and localized paths > '/pl' renders the landing view's hero and demo link 29ms
+ ✓ test/integration/landing.spec.ts > B22 the home route resolves to the landing view for both the bare and localized paths > '/en' fetches the English-locale endpoint 16ms
+ ✓ test/integration/CustomersView.spec.ts > B25 the customers index matches the oracle: 24 rows, 7 columns, page 1 of 192 > renders the subtitle and 24 rows across 7 columns 66ms
+ ✓ test/integration/CustomersView.spec.ts > B25 the customers index matches the oracle: 24 rows, 7 columns, page 1 of 192 > wires each row to the go-customer intent with the row's own id 28ms
+ ✓ test/integration/CustomersView.spec.ts > B25 the customers index matches the oracle: 24 rows, 7 columns, page 1 of 192 > shows the pager readout and disables 'previous' on page 1 34ms
+ ✓ test/integration/CustomersView.spec.ts > B25 the customers index matches the oracle: 24 rows, 7 columns, page 1 of 192 > renders the segment rail from the payload, not hard-coded 28ms
+
+ Test Files  21 passed (21)
+      Tests  152 passed (152)
+   Start at  10:25:00
+   Duration  6.16s (environment 34%, transform 32%, tests 25%, import 6%, setup 3%)
+
+Environment  jsdom was created 21 times · 25.28s total, 34% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+
