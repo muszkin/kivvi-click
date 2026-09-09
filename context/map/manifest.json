@@ -1,181 +1,112 @@
 {
   "schema_version": 1,
   "generator": "project-context-initializer",
-  "generator_version": "a26f4ab1f8949c90",
+  "generator_version": "2026-09-09-refresh-post-CON1",
   "manifest_digest": {
     "algorithm": "sha256-rfc8785-with-empty-digest",
-    "value": "ebe0892a2349875a6a310abf705e7a674acd154094fedff55c2e67aceb02de32"
+    "value": "f5ec93af5687052521e9e75270d034eadede225e2e6e08a116eb4d6f31471279"
   },
   "operation": "refresh",
   "project_classification": "brownfield",
   "scope_kind": "repository",
   "phase": "complete",
-  "generated_at": "2026-09-09T12:05:00Z",
+  "generated_at": "2026-09-09T16:30:00Z",
   "repository_root": ".",
   "scope": [
     "."
   ],
   "source_snapshot": {
     "basis": "HEAD+worktree",
-    "revision": "dae169614a52532c130bd34435994d6a914165c0",
-    "branch": "migration/spring-vue",
-    "worktree_status": [
-      "M context/map/INDEX.md",
-      "M context/map/architecture-and-flows.md",
-      "M context/map/delivery-and-verification.md",
-      "M context/map/dependencies.md",
-      "M context/map/project-overview.md",
-      "M context/map/risks-and-unknowns.md",
-      "M context/map/technology.md",
-      "?? backend/.agents/project-context.md",
-      "?? frontend/.agents/project-context.md",
-      "?? mercure/.agents/project-context.md",
-      "?? tools/migration-verify/.agents/project-context.md",
-      "?? context/map/diagrams/next-stack-event-flow.mmd",
-      "?? context/map/diagrams/next-stack-module-dependencies.mmd",
-      "(context/map/manifest.json itself is being written by this refresh; excluded from its own inventory fingerprint, see fingerprint_method)"
-    ],
+    "revision": "fe9c3fe06b919302d322994438a8fbb177c8b2a0",
+    "branch": "main",
+    "worktree_status": [],
     "untracked_nonignored_paths": [
-      "backend/.agents/project-context.md",
-      "context/map/diagrams/next-stack-event-flow.mmd",
-      "context/map/diagrams/next-stack-module-dependencies.mmd",
-      "frontend/.agents/project-context.md",
-      "mercure/.agents/project-context.md",
-      "tools/migration-verify/.agents/project-context.md"
+      {
+        "path": ".ai/",
+        "status": "untracked, not gitignored, secret-bearing (launch-key); excluded, not read"
+      }
     ],
     "comparability": "comparable",
     "non_comparable_reasons": [],
-    "dirty_tracked_fingerprints": [
-      {
-        "path": "context/map/INDEX.md",
-        "method": "sha256-current-worktree-bytes",
-        "value": "6e3b1beb7616d953017693ebe5679656eaecf2c9a251b484420f0a8530955c7d"
-      },
-      {
-        "path": "context/map/architecture-and-flows.md",
-        "method": "sha256-current-worktree-bytes",
-        "value": "172f72f622e5ecaf3db1df5d74cdddfd6273ec412a347a3554f3ecb014b8e3d7"
-      },
-      {
-        "path": "context/map/delivery-and-verification.md",
-        "method": "sha256-current-worktree-bytes",
-        "value": "5e9cc7450921f5e004dc3e1c25829fdf5ba26b728c040fa826f2e89c9c0dcce0"
-      },
-      {
-        "path": "context/map/dependencies.md",
-        "method": "sha256-current-worktree-bytes",
-        "value": "434492a2f07eb9c9eee8b9cc3960e7cdb5b851129379fcd8f41026376d93e403"
-      },
-      {
-        "path": "context/map/project-overview.md",
-        "method": "sha256-current-worktree-bytes",
-        "value": "55319bc1ea61b2aa6a7d33e6fcc7b1a72832d1fe16b6c72e730f835160128fda"
-      },
-      {
-        "path": "context/map/risks-and-unknowns.md",
-        "method": "sha256-current-worktree-bytes",
-        "value": "70b5edca9a2c3aaf15489c2bb2a5a12c9596e6703f2ceaf94ab6fe6b2a5f354d"
-      },
-      {
-        "path": "context/map/technology.md",
-        "method": "sha256-current-worktree-bytes",
-        "value": "f4cef26b65a5a58ebad01a3a35f9bcfce6c023138246c45b956978d42966b33c"
-      }
-    ],
-    "inventory_fingerprint": "6e942668e2b9e3e279c5e51591b8c13a494880a5e9932e34960f22ed1283a92e",
-    "fingerprint_method": "sha256 over sorted lines '<path>\\tblob:<git blob id>' for clean tracked files, '<path>\\tworktree:<sha256 of current bytes>' for dirty tracked files (the seven context/map/*.md central artifacts this refresh edited), '<path>\\tuntracked:<sha256 of current bytes>' for safe new untracked files (the four new .agents/project-context.md scoped contexts and two new next-stack diagrams), computed over the full repository inventory excluding the standard exclusion list below and excluding context/map/manifest.json itself (its own content is written after this value is computed). No secret-bearing or oversized input was part of this refresh's changed set."
+    "dirty_tracked_fingerprints": [],
+    "inventory_fingerprint": "e37231c7b361e01ca2534459c803dc6e4a515deab86b59cc40e6614e9486c65b",
+    "fingerprint_method": "sha256 over the sorted list of `git ls-files -s` (mode, blob-sha, path) tuples for the clean tracked worktree; untracked non-ignored paths recorded separately by path/status only (no secret content hashed)"
   },
   "git_history": {
     "available": true,
     "shallow": false,
-    "commit_window": "all 11 commits, 2026-05-21T13:28:40+02:00 .. 2026-08-26T18:27:30Z, no path filter, no merges",
-    "pr_provider": "github via gh (authenticated, read-only)",
-    "pr_window": "gh pr list --state all --limit 20 on 2026-09-08 -> 0 PRs"
+    "commit_window": "full history, 179 commits, 2026-05-21..2026-09-09 (168 commits since the prior map's baseline 91f8f85)",
+    "pr_provider": "github.com (gh CLI, authenticated read-only)",
+    "pr_window": "gh pr list --repo muszkin/kivvi-click --state all --limit 20, queried 2026-09-09: 0 results"
   },
   "exclusions": [
     {
       "path": ".git",
-      "reason": "VCS metadata"
+      "reason": "VCS internals"
     },
     {
       "path": "vendor",
-      "reason": "Composer dependencies (root-owned, ignored)"
-    },
-    {
-      "path": "var",
-      "reason": "runtime cache/logs/uploads (ignored)"
+      "reason": "gitignored leftover from the deleted PHP stack"
     },
     {
       "path": ".phpunit.cache",
-      "reason": "test cache (ignored)"
-    },
-    {
-      "path": "tests/e2e/node_modules",
-      "reason": "npm dependencies (ignored)"
-    },
-    {
-      "path": ".ai",
-      "reason": "untracked tool state (\"cezar\"), contains secret launch-key; not read beyond structure"
-    },
-    {
-      "path": ".ai/cezar",
-      "reason": "see .ai"
-    },
-    {
-      "path": ".ai/cezar/runs",
-      "reason": "see .ai"
+      "reason": "gitignored leftover from the deleted PHP stack"
     },
     {
       "path": "kivvi-click.zip",
-      "reason": "ignored binary design archive"
+      "reason": "gitignored design handoff archive, superseded by frontend/src/ design system"
+    },
+    {
+      "path": ".ai",
+      "reason": "untracked, not gitignored, contains a secret (launch-key)"
     },
     {
       "path": ".env.local",
-      "reason": "secret-bearing, ignored"
+      "reason": "gitignored, host-local dev port overrides, not read for values"
     },
     {
       "path": ".env.prod.docker",
-      "reason": "secret-bearing, ignored"
-    },
-    {
-      "path": ".php-cs-fixer.cache",
-      "reason": "tool cache, ignored"
-    },
-    {
-      "path": "public/assets",
-      "reason": "generated, ignored (absent)"
-    },
-    {
-      "path": "assets/vendor",
-      "reason": "generated, ignored (absent)"
+      "reason": "gitignored, production secrets, never read"
     },
     {
       "path": "backend/target",
-      "reason": "Maven build output (ignored)"
-    },
-    {
-      "path": "backend/src/main/resources/static",
-      "reason": "SPA build copied in at image-build time only (ignored, absent in source control)"
+      "reason": "gitignored Maven build output"
     },
     {
       "path": "frontend/node_modules",
-      "reason": "npm dependencies (ignored)"
+      "reason": "gitignored npm dependency store"
     },
     {
       "path": "frontend/dist",
-      "reason": "Vite build output (ignored)"
+      "reason": "gitignored Vite build output"
     },
     {
       "path": "frontend/coverage",
-      "reason": "test coverage output (ignored)"
+      "reason": "gitignored coverage output"
     },
     {
       "path": "tools/migration-verify/node_modules",
-      "reason": "npm dependencies (ignored)"
+      "reason": "gitignored npm dependency store"
     },
     {
-      "path": "tools/migration-verify/.out",
-      "reason": "compare.mjs/performance.mjs evidence output (ignored)"
+      "path": "tests/e2e/node_modules",
+      "reason": "gitignored npm dependency store"
+    },
+    {
+      "path": "tests/e2e/test-results",
+      "reason": "gitignored Playwright run artifacts"
+    },
+    {
+      "path": "tests/e2e/playwright-report",
+      "reason": "gitignored Playwright HTML report"
+    },
+    {
+      "path": "context/migration-oracle",
+      "reason": "immutable oracle evidence, not traversed directory-by-directory, federated instead"
+    },
+    {
+      "path": "context/implementation-runs",
+      "reason": "generated execution evidence (hundreds of files), federated via related_artifacts and cited directly where material, not traversed directory-by-directory"
     }
   ],
   "unreadable_paths": [],
@@ -184,689 +115,384 @@
       "path": ".",
       "coverage": "own",
       "context": ".agents/project-context.md",
-      "reason": "repository root: ops, docs, translations, migrations"
+      "reason": "repository root: ops, docs, ADRs, product spec, root manifests"
     },
     {
       "path": ".agents",
       "coverage": "rolled-up",
       "context": ".agents/project-context.md",
-      "reason": "initializer-owned context directory"
+      "reason": "holds the root scoped context itself"
     },
     {
       "path": ".ai",
       "coverage": "excluded",
-      "context": null,
-      "reason": "untracked tool state (\"cezar\"), contains secret launch-key; not read beyond structure"
+      "reason": "untracked, not gitignored, tool state with a secret file (.ai/cezar/launch-key) — see R13"
     },
     {
       "path": ".ai/cezar",
       "coverage": "excluded",
-      "context": null,
-      "reason": "see .ai"
+      "reason": "secret-bearing (launch-key); not read"
     },
     {
       "path": ".ai/cezar/runs",
       "coverage": "excluded",
-      "context": null,
-      "reason": "see .ai"
+      "reason": "tool run state, generator unknown"
     },
     {
       "path": ".claude",
       "coverage": "rolled-up",
       "context": ".agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": ".claude/skills",
-      "coverage": "rolled-up",
-      "context": ".agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "settings.json + skills, described in root context"
     },
     {
       "path": ".claude/skills/product-spec",
       "coverage": "rolled-up",
       "context": ".agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "canonical product-spec skill file, referenced not duplicated"
     },
     {
       "path": ".git",
       "coverage": "excluded",
-      "context": null,
-      "reason": "VCS metadata"
+      "reason": "VCS internals"
     },
     {
       "path": ".github",
       "coverage": "rolled-up",
       "context": ".agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "single CI workflow file"
     },
     {
       "path": ".github/workflows",
       "coverage": "rolled-up",
       "context": ".agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "build.yml only"
     },
     {
       "path": ".phpunit.cache",
       "coverage": "excluded",
-      "context": null,
-      "reason": "test cache (ignored)"
-    },
-    {
-      "path": "assets",
-      "coverage": "own",
-      "context": "assets/.agents/project-context.md",
-      "reason": "TypeScript/CSS asset pipeline"
-    },
-    {
-      "path": "assets/.agents",
-      "coverage": "rolled-up",
-      "context": "assets/.agents/project-context.md",
-      "reason": "initializer-owned context directory"
-    },
-    {
-      "path": "assets/controllers",
-      "coverage": "rolled-up",
-      "context": "assets/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "assets/js",
-      "coverage": "rolled-up",
-      "context": "assets/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "assets/styles",
-      "coverage": "rolled-up",
-      "context": "assets/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "gitignored leftover build artifact from the deleted PHP stack, root-owned on disk, not regenerated by this stack"
     },
     {
       "path": "backend",
       "coverage": "own",
       "context": "backend/.agents/project-context.md",
-      "reason": "next-stack Spring Boot API"
+      "reason": "Spring Boot API service, independent build/test/deploy boundary"
     },
     {
       "path": "backend/.agents",
       "coverage": "rolled-up",
       "context": "backend/.agents/project-context.md",
-      "reason": "initializer-owned context directory"
+      "reason": "holds the scoped context itself"
     },
     {
       "path": "backend/.mvn",
       "coverage": "rolled-up",
       "context": "backend/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "Maven wrapper support files"
     },
     {
       "path": "backend/src/main/java",
       "coverage": "rolled-up",
       "context": "backend/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "click.kivvi package tree (web/application/domain/infrastructure/fixtures), described as one unit in the scoped context's package-layering section"
     },
     {
       "path": "backend/src/main/resources",
       "coverage": "rolled-up",
       "context": "backend/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "application.yml + Flyway migration V1__baseline.sql"
     },
     {
       "path": "backend/src/test/java",
       "coverage": "rolled-up",
       "context": "backend/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "unit/integration/architecture test tree"
     },
     {
       "path": "backend/src/test/resources",
       "coverage": "rolled-up",
       "context": "backend/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "test-only static/index.html stand-in and junit-platform.properties"
     },
     {
       "path": "backend/target",
       "coverage": "excluded",
-      "context": null,
-      "reason": "Maven build output (ignored)"
-    },
-    {
-      "path": "bin",
-      "coverage": "rolled-up",
-      "context": ".agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "config",
-      "coverage": "own",
-      "context": "config/.agents/project-context.md",
-      "reason": "Symfony configuration surface"
-    },
-    {
-      "path": "config/.agents",
-      "coverage": "rolled-up",
-      "context": "config/.agents/project-context.md",
-      "reason": "initializer-owned context directory"
-    },
-    {
-      "path": "config/packages",
-      "coverage": "rolled-up",
-      "context": "config/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "config/routes",
-      "coverage": "rolled-up",
-      "context": "config/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "gitignored Maven build output"
     },
     {
       "path": "context",
       "coverage": "rolled-up",
       "context": ".agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "container for map/, foundation/, changes/, archive/, plans/, research/, migration-oracle/, implementation-runs/"
     },
     {
       "path": "context/archive",
       "coverage": "rolled-up",
       "context": ".agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "10x-dev archive convention folder, empty except README"
     },
     {
       "path": "context/changes",
       "coverage": "rolled-up",
       "context": ".agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "10x-dev changes convention folder, empty except README"
     },
     {
       "path": "context/foundation",
       "coverage": "rolled-up",
       "context": ".agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "preserved 10x foundation docs (prd, roadmap, shape-notes, stack-assessment, health-check), stale baseline 2026-06-25, federated not owned"
+    },
+    {
+      "path": "context/implementation-runs",
+      "coverage": "excluded",
+      "reason": "generated execution evidence owned by implementation-orchestrator, hundreds of per-round/per-journey files (waves/, slices/, integration/, final-gates/, cutover/); federated via documentation-index.md's related-artifacts table and cited directly where materially relevant, not traversed directory-by-directory"
     },
     {
       "path": "context/map",
       "coverage": "rolled-up",
       "context": ".agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "this generated map itself (project-context-initializer output)"
     },
     {
       "path": "context/map/diagrams",
       "coverage": "rolled-up",
       "context": ".agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "Mermaid diagram sources"
     },
     {
       "path": "context/migration-oracle",
       "coverage": "excluded",
-      "context": null,
-      "reason": "immutable oracle evidence generated by migration-planning; hashed in its own manifest, not mapped per directory"
+      "reason": "immutable pre-migration oracle capture (13 journeys, ~hundreds of files); read-only evidence for tools/migration-verify, never traversed/edited by this map"
     },
     {
       "path": "context/plans",
       "coverage": "rolled-up",
       "context": ".agents/project-context.md",
-      "reason": "plan artifacts (federated)"
+      "reason": "the approved, executed migration plan"
     },
     {
       "path": "context/research",
       "coverage": "rolled-up",
       "context": ".agents/project-context.md",
-      "reason": "research artifacts (federated in related_artifacts)"
+      "reason": "the research-spike verdict that fed the migration decision"
     },
     {
-      "path": "frankenphp",
-      "coverage": "own",
-      "context": "frankenphp/.agents/project-context.md",
-      "reason": "runtime/deploy boundary"
-    },
-    {
-      "path": "frankenphp/.agents",
+      "path": "docs",
       "coverage": "rolled-up",
-      "context": "frankenphp/.agents/project-context.md",
-      "reason": "initializer-owned context directory"
+      "context": ".agents/project-context.md",
+      "reason": "container for adr/"
     },
     {
-      "path": "frankenphp/conf.d",
+      "path": "docs/adr",
       "coverage": "rolled-up",
-      "context": "frankenphp/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "context": ".agents/project-context.md",
+      "reason": "two accepted decision records from the migration, canonical evidence, referenced not duplicated"
     },
     {
       "path": "frontend",
       "coverage": "own",
       "context": "frontend/.agents/project-context.md",
-      "reason": "next-stack Vue 3 SPA"
+      "reason": "Vue 3 SPA, independent build/test/deploy boundary"
     },
     {
       "path": "frontend/.agents",
       "coverage": "rolled-up",
       "context": "frontend/.agents/project-context.md",
-      "reason": "initializer-owned context directory"
+      "reason": "holds the scoped context itself"
+    },
+    {
+      "path": "frontend/coverage",
+      "coverage": "excluded",
+      "reason": "gitignored Vitest coverage output (if generated)"
     },
     {
       "path": "frontend/dist",
       "coverage": "excluded",
-      "context": null,
-      "reason": "Vite build output (ignored)"
+      "reason": "gitignored Vite build output, copied into backend/src/main/resources/static at build time"
     },
     {
       "path": "frontend/node_modules",
       "coverage": "excluded",
-      "context": null,
-      "reason": "npm dependencies (ignored)"
-    },
-    {
-      "path": "frontend/src",
-      "coverage": "rolled-up",
-      "context": "frontend/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "gitignored npm dependency store"
     },
     {
       "path": "frontend/src/components",
       "coverage": "rolled-up",
       "context": "frontend/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "atoms/molecules/organisms/import/settings design-system components, structural leaves under one design-system boundary"
     },
     {
       "path": "frontend/src/composables",
       "coverage": "rolled-up",
       "context": "frontend/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "useIntents/useEventStream/useEditorDrag"
     },
     {
       "path": "frontend/src/i18n",
       "coverage": "rolled-up",
       "context": "frontend/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "canonical loader + per-journey message catalogues"
     },
     {
       "path": "frontend/src/layouts",
       "coverage": "rolled-up",
       "context": "frontend/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "AppLayout/AuthLayout/PublicLayout"
     },
     {
       "path": "frontend/src/lib",
       "coverage": "rolled-up",
       "context": "frontend/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "shared helpers"
     },
     {
       "path": "frontend/src/router",
       "coverage": "rolled-up",
       "context": "frontend/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "route table, scroll restoration, locale href helper"
     },
     {
       "path": "frontend/src/stores",
       "coverage": "rolled-up",
       "context": "frontend/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "Pinia shell store"
     },
     {
       "path": "frontend/src/styles",
       "coverage": "rolled-up",
       "context": "frontend/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "byte-identical CSS design system, never edited independently"
     },
     {
       "path": "frontend/src/views",
       "coverage": "rolled-up",
       "context": "frontend/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "one *View.vue per journey"
     },
     {
       "path": "frontend/test",
       "coverage": "rolled-up",
       "context": "frontend/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "Vitest unit + integration specs"
     },
     {
       "path": "mercure",
       "coverage": "own",
       "context": "mercure/.agents/project-context.md",
-      "reason": "next-stack Mercure edge configuration"
+      "reason": "public edge/hub configuration, single-file boundary with its own trust-boundary invariants"
     },
     {
       "path": "mercure/.agents",
       "coverage": "rolled-up",
       "context": "mercure/.agents/project-context.md",
-      "reason": "initializer-owned context directory"
-    },
-    {
-      "path": "migrations",
-      "coverage": "rolled-up",
-      "context": ".agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "public",
-      "coverage": "rolled-up",
-      "context": ".agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "src",
-      "coverage": "own",
-      "context": "src/.agents/project-context.md",
-      "reason": "application code boundary"
-    },
-    {
-      "path": "src/.agents",
-      "coverage": "rolled-up",
-      "context": "src/.agents/project-context.md",
-      "reason": "initializer-owned context directory"
-    },
-    {
-      "path": "src/Controller",
-      "coverage": "rolled-up",
-      "context": "src/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "src/Entity",
-      "coverage": "rolled-up",
-      "context": "src/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "src/Message",
-      "coverage": "rolled-up",
-      "context": "src/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "src/MessageHandler",
-      "coverage": "rolled-up",
-      "context": "src/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "src/Panel",
-      "coverage": "own",
-      "context": "src/Panel/.agents/project-context.md",
-      "reason": "panel view-model and sample content boundary"
-    },
-    {
-      "path": "src/Panel/.agents",
-      "coverage": "rolled-up",
-      "context": "src/Panel/.agents/project-context.md",
-      "reason": "initializer-owned context directory"
-    },
-    {
-      "path": "src/Panel/Content",
-      "coverage": "rolled-up",
-      "context": "src/Panel/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "src/Repository",
-      "coverage": "rolled-up",
-      "context": "src/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "src/Storybook",
-      "coverage": "rolled-up",
-      "context": "src/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "src/Tracking",
-      "coverage": "own",
-      "context": "src/Tracking/.agents/project-context.md",
-      "reason": "only real domain flow; high risk"
-    },
-    {
-      "path": "src/Tracking/.agents",
-      "coverage": "rolled-up",
-      "context": "src/Tracking/.agents/project-context.md",
-      "reason": "initializer-owned context directory"
-    },
-    {
-      "path": "src/Twig",
-      "coverage": "rolled-up",
-      "context": "src/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "templates",
-      "coverage": "own",
-      "context": "templates/.agents/project-context.md",
-      "reason": "design system and pages"
-    },
-    {
-      "path": "templates/.agents",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "initializer-owned context directory"
-    },
-    {
-      "path": "templates/components",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "templates/components/atoms",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "templates/components/molecules",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "templates/components/organisms",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "templates/layout",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "templates/pages",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "templates/pages/automations",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "templates/pages/customers",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "templates/pages/dashboard",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "templates/pages/emails",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "templates/pages/feeds",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "templates/pages/import",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "templates/pages/landing",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "templates/pages/popups",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "templates/pages/settings",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "templates/pages/widgets",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "templates/storybook",
-      "coverage": "rolled-up",
-      "context": "templates/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "holds the scoped context itself"
     },
     {
       "path": "tests",
-      "coverage": "own",
-      "context": "tests/.agents/project-context.md",
-      "reason": "PHPUnit suite"
-    },
-    {
-      "path": "tests/.agents",
       "coverage": "rolled-up",
-      "context": "tests/.agents/project-context.md",
-      "reason": "initializer-owned context directory"
-    },
-    {
-      "path": "tests/Controller",
-      "coverage": "rolled-up",
-      "context": "tests/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "tests/Tracking",
-      "coverage": "rolled-up",
-      "context": "tests/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "context": "tests/e2e/.agents/project-context.md",
+      "reason": "container with no files of its own now that tests/Controller and tests/Tracking (old PHP suite) were deleted by CON-1; tests/e2e is its only child"
     },
     {
       "path": "tests/e2e",
       "coverage": "own",
       "context": "tests/e2e/.agents/project-context.md",
-      "reason": "independent npm project, real-surface E2E"
+      "reason": "isolated npm project, real-surface acceptance oracle, distinct test/deploy surface"
     },
     {
       "path": "tests/e2e/.agents",
       "coverage": "rolled-up",
       "context": "tests/e2e/.agents/project-context.md",
-      "reason": "initializer-owned context directory"
+      "reason": "holds the scoped context itself"
     },
     {
       "path": "tests/e2e/node_modules",
       "coverage": "excluded",
-      "context": null,
-      "reason": "npm dependencies (ignored)"
+      "reason": "gitignored npm dependency store"
+    },
+    {
+      "path": "tests/e2e/playwright-report",
+      "coverage": "excluded",
+      "reason": "gitignored Playwright HTML report output"
     },
     {
       "path": "tests/e2e/specs",
       "coverage": "rolled-up",
       "context": "tests/e2e/.agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
+      "reason": "the ten *.spec.ts files, described as a set in the scoped context"
+    },
+    {
+      "path": "tests/e2e/test-results",
+      "coverage": "excluded",
+      "reason": "gitignored Playwright run artifacts"
     },
     {
       "path": "tools",
       "coverage": "rolled-up",
       "context": "tools/migration-verify/.agents/project-context.md",
-      "reason": "structural leaf described by owning descendant (single child directory)"
+      "reason": "container, migration-verify is its only child"
     },
     {
       "path": "tools/migration-verify",
       "coverage": "own",
       "context": "tools/migration-verify/.agents/project-context.md",
-      "reason": "next-stack six-dimension verifier tooling"
+      "reason": "standalone npm tool with its own package.json, distinct verification-surface boundary, kept as a post-cutover regression tool"
     },
     {
       "path": "tools/migration-verify/.agents",
       "coverage": "rolled-up",
       "context": "tools/migration-verify/.agents/project-context.md",
-      "reason": "initializer-owned context directory"
+      "reason": "holds the scoped context itself"
     },
     {
       "path": "tools/migration-verify/node_modules",
       "coverage": "excluded",
-      "context": null,
-      "reason": "npm dependencies (ignored)"
-    },
-    {
-      "path": "translations",
-      "coverage": "rolled-up",
-      "context": ".agents/project-context.md",
-      "reason": "structural leaf described by owning ancestor"
-    },
-    {
-      "path": "var",
-      "coverage": "excluded",
-      "context": null,
-      "reason": "runtime cache/logs/uploads (ignored)"
+      "reason": "gitignored npm dependency store"
     },
     {
       "path": "vendor",
       "coverage": "excluded",
-      "context": null,
-      "reason": "Composer dependencies (root-owned, ignored)"
+      "reason": "gitignored leftover build artifact from the deleted PHP stack, root-owned on disk, not regenerated by this stack"
     }
   ],
   "remote_sources": [
     {
-      "provider": "github",
+      "provider": "github.com",
+      "repo": "muszkin/kivvi-click",
       "query": "gh pr list --state all --limit 20",
-      "time": "2026-09-08T13:27:13Z",
-      "result": "0 pull requests",
-      "used_by": [
-        "context/map/git-and-pr-history.md"
-      ]
+      "queried_at": "2026-09-09T16:22:00Z",
+      "result": "0 pull requests"
+    },
+    {
+      "provider": "github.com",
+      "repo": "muszkin/kivvi-click",
+      "query": "gh api repos/muszkin/kivvi-click --jq '.default_branch,.pushed_at'",
+      "queried_at": "2026-09-09T16:22:00Z",
+      "result": "default_branch=main, pushed_at=2026-09-09T08:53:48Z (predates the 168 local commits — local main not yet pushed)"
     }
   ],
   "related_artifacts": [
     {
       "path": "context/foundation/prd.md",
-      "generator_or_owner": "10x-dev shaping (Unknown exact skill)",
-      "purpose": "PRD v1 first slice FR-001..FR-008",
+      "generator_or_owner": "10x-dev shaping/roadmap skills",
+      "purpose": "Product requirements v1 (FR-001..FR-008), non-goals",
       "scope": [
         "."
       ],
       "artifact_type": "proposal",
       "authority": "supporting",
-      "source_revision": "d02a3b3",
+      "source_revision": null,
       "generated_at": "2026-06-25T00:00:00Z",
       "freshness": "stale",
-      "content_sha256": "c30ffd910d49936338d06b395ed50143b20839c34c5674b92e5d8ac33542fcd2",
+      "content_sha256": "b3f94163335a2db7c2f043a1d1107efb94955956",
       "approval_status": "draft",
       "conflicts": [
-        "baseline says homepage-only; full prototype exists (R3)"
+        "describes a homepage-only baseline; a full panel prototype exists"
       ],
       "referenced_by": [
-        "context/map/INDEX.md",
-        "context/map/documentation-index.md"
+        "context/map/documentation-index.md",
+        "context/map/project-overview.md"
       ],
       "consumers": [
         "research",
@@ -875,23 +501,22 @@
     },
     {
       "path": "context/foundation/roadmap.md",
-      "generator_or_owner": "10x-dev roadmap",
-      "purpose": "Slices S-01..S-04",
+      "generator_or_owner": "10x-dev shaping/roadmap skills",
+      "purpose": "Slices S-01..S-04 roadmap",
       "scope": [
         "."
       ],
       "artifact_type": "proposal",
       "authority": "supporting",
-      "source_revision": "d02a3b3",
+      "source_revision": null,
       "generated_at": "2026-06-25T00:00:00Z",
       "freshness": "stale",
-      "content_sha256": "ead49bf5dec6e9ef5e05a1b75e213d7c023119f6d2637c18fd2ae2b42e2892d1",
+      "content_sha256": "a5fec738a4933b8a052b759a80d7083e3abf74d5",
       "approval_status": "draft",
       "conflicts": [
-        "R3"
+        "slices formally unimplemented while a full prototype exists"
       ],
       "referenced_by": [
-        "context/map/INDEX.md",
         "context/map/documentation-index.md"
       ],
       "consumers": [
@@ -901,23 +526,20 @@
     },
     {
       "path": "context/foundation/shape-notes.md",
-      "generator_or_owner": "10x-dev shaping",
-      "purpose": "Decision ledger and seed idea",
+      "generator_or_owner": "10x-dev shaping skill",
+      "purpose": "Shaping ledger, decisions, competitor notes",
       "scope": [
         "."
       ],
       "artifact_type": "historical-record",
       "authority": "supporting",
-      "source_revision": "d02a3b3",
+      "source_revision": null,
       "generated_at": "2026-06-25T00:00:00Z",
       "freshness": "stale",
-      "content_sha256": "66703f1905ea85abfb694bf23b72c7505ab6c60bf539b0422c26465e8ccd3bed",
+      "content_sha256": "37e05cabfacdf1948d3c2fc4cdaefad7ef009216",
       "approval_status": "not-applicable",
-      "conflicts": [
-        "R3"
-      ],
+      "conflicts": [],
       "referenced_by": [
-        "context/map/INDEX.md",
         "context/map/documentation-index.md"
       ],
       "consumers": [
@@ -926,88 +548,244 @@
     },
     {
       "path": "context/foundation/stack-assessment.md",
-      "generator_or_owner": "10x-dev stack-assess",
-      "purpose": "Agent-readiness assessment",
+      "generator_or_owner": "10x-dev stack-assess skill",
+      "purpose": "Agent-readiness assessment of the pre-migration PHP stack",
       "scope": [
         "."
       ],
       "artifact_type": "generated-synthesis",
       "authority": "advisory",
-      "source_revision": "d02a3b3",
+      "source_revision": null,
       "generated_at": "2026-06-25T00:00:00Z",
       "freshness": "stale",
-      "content_sha256": "7595268fe4c5b8bc059ac0f34ed2504a4388edfba3a345bedf6d11ca9e1c0598",
+      "content_sha256": "b01ff3df855ba595e3e274dac6f2ebd7233b02b4",
       "approval_status": "not-applicable",
       "conflicts": [
-        "test counts outdated"
+        "describes a stack that no longer exists"
       ],
       "referenced_by": [
-        "context/map/INDEX.md",
         "context/map/documentation-index.md"
       ],
-      "consumers": [
-        "review"
-      ]
+      "consumers": []
     },
     {
       "path": "context/foundation/health-check.md",
-      "generator_or_owner": "10x-dev health-check",
-      "purpose": "Dependency/test/CI health",
+      "generator_or_owner": "10x-dev health-check skill",
+      "purpose": "Dependency/test/CI health snapshot of the pre-migration PHP stack",
       "scope": [
         "."
       ],
       "artifact_type": "generated-synthesis",
       "authority": "advisory",
-      "source_revision": "d02a3b3",
+      "source_revision": null,
       "generated_at": "2026-06-25T00:00:00Z",
       "freshness": "stale",
-      "content_sha256": "e4fba9fcfdd545757ad87f0a809c5e1ad26e78c1d1cbb0e132faf358e5fe943f",
+      "content_sha256": "788cd912ce1fb1f52836c1e513761d6a8870749a",
       "approval_status": "not-applicable",
       "conflicts": [
-        "test counts outdated"
+        "describes a stack that no longer exists"
       ],
       "referenced_by": [
-        "context/map/INDEX.md",
         "context/map/documentation-index.md"
       ],
+      "consumers": []
+    },
+    {
+      "path": "context/research/2026-09-08-stack-migration-spring-vue-react.md",
+      "generator_or_owner": "research-spike skill",
+      "purpose": "Verdict on Spring Boot + Vue/React migration (fed R1's decision)",
+      "scope": [
+        "."
+      ],
+      "artifact_type": "generated-synthesis",
+      "authority": "supporting",
+      "source_revision": null,
+      "generated_at": "2026-09-08T00:00:00Z",
+      "freshness": "current",
+      "content_sha256": "c16758c1ad461888b353390d7ac536cb48274131",
+      "approval_status": "not-applicable",
+      "conflicts": [],
+      "referenced_by": [
+        "context/map/INDEX.md",
+        "context/map/risks-and-unknowns.md"
+      ],
       "consumers": [
-        "review",
-        "implementation-planning"
+        "research"
       ]
     },
     {
-      "path": ".claude/skills/product-spec/SKILL.md",
-      "generator_or_owner": "project maintainer",
-      "purpose": "Canonical product spec",
+      "path": "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
+      "generator_or_owner": "migration-planning skill",
+      "purpose": "Approved, executed migration plan: 6 waves, 13 journeys, DEV-1..13 deviations, RR-1/CUT-1/CON-1 cutover packets",
       "scope": [
         "."
       ],
       "artifact_type": "canonical-evidence",
       "authority": "canonical",
       "source_revision": null,
-      "generated_at": null,
+      "generated_at": "2026-09-08T00:00:00Z",
       "freshness": "current",
-      "content_sha256": "95aa1e4c41de4600777f008fcd72b5f6b76d2612c8cc9b8b4f6bb42a39512d64",
-      "approval_status": "not-applicable",
-      "conflicts": [
-        "says ignore original Java/Vue stack; user now reconsidering (R1)"
-      ],
+      "content_sha256": "8f991de95742450db2235a75970ab27ce9e35eab",
+      "approval_status": "approved",
+      "conflicts": [],
       "referenced_by": [
         "context/map/INDEX.md",
-        "context/map/documentation-index.md"
+        "context/map/project-overview.md",
+        "context/map/architecture-and-flows.md",
+        "backend/.agents/project-context.md",
+        "frontend/.agents/project-context.md",
+        "mercure/.agents/project-context.md",
+        "tools/migration-verify/.agents/project-context.md"
       ],
       "consumers": [
-        "research",
-        "implementation-planning",
-        "migration-planning",
-        "review",
-        "implementation-orchestrator"
+        "implementation-orchestrator",
+        "implementer",
+        "review"
       ]
     },
     {
-      "path": ".ai/cezar/",
-      "generator_or_owner": "Unknown (tool named cezar)",
-      "purpose": "tool run state",
+      "path": "context/migration-oracle/symfony-to-spring-vue",
+      "generator_or_owner": "migration-planning skill",
+      "purpose": "Immutable pre-migration oracle capture (13 journeys) — still the reference tools/migration-verify replays against",
+      "scope": [
+        "."
+      ],
+      "artifact_type": "canonical-evidence",
+      "authority": "canonical",
+      "source_revision": "5b806ac",
+      "generated_at": "2026-09-08T00:00:00Z",
+      "freshness": "current",
+      "content_sha256": "4945a8deb19ea342a4aaa2c0ac681dc13f05c121aa387677c30ecf210a90f74f",
+      "approval_status": "not-applicable",
+      "conflicts": [],
+      "referenced_by": [
+        "context/map/INDEX.md",
+        "tools/migration-verify/.agents/project-context.md"
+      ],
+      "consumers": [
+        "implementer",
+        "review"
+      ]
+    },
+    {
+      "path": "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration",
+      "generator_or_owner": "implementation-orchestrator run",
+      "purpose": "Full run ledger: waves/slices/final-gates evidence, closeout.md (terminal outcome), RUN.md (state + cutover section), common-journey-rules.md (federated into backend/frontend/mercure/tools scoped contexts)",
+      "scope": [
+        "."
+      ],
+      "artifact_type": "historical-record",
+      "authority": "supporting",
+      "source_revision": null,
+      "generated_at": "2026-09-09T14:39:00Z",
+      "freshness": "current",
+      "content_sha256": null,
+      "approval_status": "not-applicable",
+      "conflicts": [
+        "RUN.md's header table is stale (last edited at wave-2); its later-appended Outcome/Cutover sections are current"
+      ],
+      "referenced_by": [
+        "context/map/INDEX.md",
+        "context/map/documentation-index.md",
+        "context/map/delivery-and-verification.md",
+        "backend/.agents/project-context.md",
+        "frontend/.agents/project-context.md",
+        "mercure/.agents/project-context.md",
+        "tools/migration-verify/.agents/project-context.md",
+        "tests/e2e/.agents/project-context.md"
+      ],
+      "consumers": [
+        "implementation-orchestrator",
+        "implementer",
+        "review"
+      ]
+    },
+    {
+      "path": "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/cutover/con1-e2e.md",
+      "generator_or_owner": "a separate read-only verification session (not this refresh)",
+      "purpose": "Post-CON-1 verification: full Playwright suite (66/66 PASS) + 4 performance budgets (PASS) against production https://kivvi.click, clean logs, zero old-stack-only requests",
+      "scope": [
+        "."
+      ],
+      "artifact_type": "canonical-evidence",
+      "authority": "canonical",
+      "source_revision": "4539828",
+      "generated_at": "2026-09-09T16:07:00Z",
+      "freshness": "current",
+      "content_sha256": "e5ee2201411c9c82e442953678bf76114d3d0db4",
+      "approval_status": "not-applicable",
+      "conflicts": [],
+      "referenced_by": [
+        "context/map/INDEX.md",
+        "context/map/delivery-and-verification.md",
+        "context/map/risks-and-unknowns.md",
+        "backend/.agents/project-context.md",
+        "frontend/.agents/project-context.md",
+        "mercure/.agents/project-context.md",
+        "tests/e2e/.agents/project-context.md"
+      ],
+      "consumers": [
+        "delivery-and-verification",
+        "review"
+      ]
+    },
+    {
+      "path": "docs/adr/0001-serialize-requests-per-session-like-php.md",
+      "generator_or_owner": "implementation-orchestrator run (accepted decision record)",
+      "purpose": "Session-lock parity decision (SessionRequestSerializationFilter)",
+      "scope": [
+        "backend"
+      ],
+      "artifact_type": "canonical-evidence",
+      "authority": "canonical",
+      "source_revision": null,
+      "generated_at": "2026-09-09T00:00:00Z",
+      "freshness": "current",
+      "content_sha256": "4cbe1070ae2aea5c3cf0b49064a976b86d575ede",
+      "approval_status": "approved",
+      "conflicts": [],
+      "referenced_by": [
+        "context/map/INDEX.md",
+        "context/map/architecture-and-flows.md",
+        "backend/.agents/project-context.md",
+        "frontend/.agents/project-context.md"
+      ],
+      "consumers": [
+        "architecture",
+        "implementer",
+        "review"
+      ]
+    },
+    {
+      "path": "docs/adr/0002-spa-reload-scroll-restoration-via-router-scrollbehavior.md",
+      "generator_or_owner": "implementation-orchestrator run (accepted decision record)",
+      "purpose": "Scroll-restoration parity decision (vue-router scrollBehavior)",
+      "scope": [
+        "frontend"
+      ],
+      "artifact_type": "canonical-evidence",
+      "authority": "canonical",
+      "source_revision": null,
+      "generated_at": "2026-09-09T00:00:00Z",
+      "freshness": "current",
+      "content_sha256": "a502fddf0ef212207cb93104a016c5b91dd6b7d7",
+      "approval_status": "approved",
+      "conflicts": [],
+      "referenced_by": [
+        "context/map/INDEX.md",
+        "context/map/architecture-and-flows.md",
+        "frontend/.agents/project-context.md"
+      ],
+      "consumers": [
+        "architecture",
+        "implementer",
+        "review"
+      ]
+    },
+    {
+      "path": ".ai/cezar",
+      "generator_or_owner": "Unknown (\"cezar\" tool)",
+      "purpose": "Tool run state",
       "scope": [
         "."
       ],
@@ -1017,173 +795,12 @@
       "generated_at": null,
       "freshness": "unverifiable",
       "content_sha256": null,
-      "approval_status": "unknown",
-      "conflicts": [],
-      "referenced_by": [
-        "context/map/documentation-index.md"
+      "approval_status": "not-applicable",
+      "conflicts": [
+        "contains a secret file (launch-key) not covered by root .gitignore"
       ],
-      "consumers": []
-    },
-    {
-      "path": "context/research/2026-09-08-stack-migration-spring-vue-react.md",
-      "generator_or_owner": "research-spike",
-      "purpose": "Verdict on R1: migrate to Spring Boot + Vue/React?",
-      "scope": [
-        "."
-      ],
-      "artifact_type": "generated-synthesis",
-      "authority": "advisory",
-      "source_revision": "f58d62c4a4147750737b09c4b470654d5614955d",
-      "generated_at": "2026-09-08T13:34:12Z",
-      "freshness": "current",
-      "content_sha256": "c2f97c54766192b24f61e0eb44dc21d06e6b49e7d9570644ed10218bcdf6be1c",
-      "approval_status": "approved",
-      "conflicts": [],
       "referenced_by": [
-        "context/map/INDEX.md",
-        "context/map/documentation-index.md",
         "context/map/risks-and-unknowns.md"
-      ],
-      "consumers": [
-        "implementation-planning",
-        "migration-planning"
-      ]
-    },
-    {
-      "path": "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
-      "generator_or_owner": "migration-planning",
-      "purpose": "Migration plan Symfony/Twig -> Spring Boot + Vue 3 SPA (waves, packets, deviations, cutover)",
-      "scope": [
-        "."
-      ],
-      "artifact_type": "proposal",
-      "authority": "supporting",
-      "source_revision": "5b806ac74b75d1d521de97f7d3c70b8c431697fb",
-      "generated_at": "2026-09-08T14:06:12Z",
-      "freshness": "current",
-      "content_sha256": "3bfddc087494e7dde656e8a58cfc63c1ac74dfefa461275d3adc7777ddd5da0a",
-      "approval_status": "approved",
-      "conflicts": [
-        "CLAUDE.md/AGENTS.md stack rules remain the old stack until CON-1"
-      ],
-      "referenced_by": [
-        "context/map/INDEX.md",
-        "context/map/documentation-index.md",
-        "backend/.agents/project-context.md",
-        "frontend/.agents/project-context.md",
-        "tools/migration-verify/.agents/project-context.md",
-        "mercure/.agents/project-context.md"
-      ],
-      "consumers": [
-        "implementation-orchestrator",
-        "task-closeout"
-      ]
-    },
-    {
-      "path": "context/migration-oracle/symfony-to-spring-vue/manifest.json",
-      "generator_or_owner": "migration-planning (capture.mjs)",
-      "purpose": "Immutable pre-migration oracle",
-      "scope": [
-        "."
-      ],
-      "artifact_type": "canonical-evidence",
-      "authority": "canonical",
-      "source_revision": "5b806ac",
-      "generated_at": "2026-09-08T13:58:50Z",
-      "freshness": "current",
-      "content_sha256": "4945a8deb19ea342a4aaa2c0ac681dc13f05c121aa387677c30ecf210a90f74f",
-      "approval_status": "not-applicable",
-      "conflicts": [],
-      "referenced_by": [
-        "context/map/INDEX.md",
-        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
-        "backend/.agents/project-context.md",
-        "frontend/.agents/project-context.md",
-        "tools/migration-verify/.agents/project-context.md"
-      ],
-      "consumers": [
-        "implementation-orchestrator"
-      ]
-    },
-    {
-      "path": "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/common-journey-rules.md",
-      "generator_or_owner": "implementation-orchestrator (migration profile run)",
-      "purpose": "Cross-journey invariants for waves 1-5 (session-lock parity, ShedLock heartbeat, frozen-clock verifier behaviour, whitespace text nodes, event-row governance, disk/cohort-sequencing operational notes) — federated as invariants into backend/frontend/tools/migration-verify scoped contexts by this refresh",
-      "scope": [
-        "backend/",
-        "frontend/",
-        "tools/migration-verify/"
-      ],
-      "artifact_type": "canonical-evidence",
-      "authority": "canonical",
-      "source_revision": null,
-      "generated_at": null,
-      "freshness": "current",
-      "content_sha256": "36525143d623c966bbc64566e2d3100db68e9e653c531da9ea1403f5d16fce5d",
-      "approval_status": "not-applicable",
-      "conflicts": [
-        "lives outside this worktree, at /home/muszkin/work/kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/ (main checkout) — not tracked by Git (run ledgers are explicitly never committed to any branch per the run's own rule)"
-      ],
-      "referenced_by": [
-        "context/map/INDEX.md",
-        "backend/.agents/project-context.md",
-        "frontend/.agents/project-context.md",
-        "tools/migration-verify/.agents/project-context.md"
-      ],
-      "consumers": [
-        "implementation-orchestrator",
-        "review"
-      ]
-    },
-    {
-      "path": "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/run.json",
-      "generator_or_owner": "implementation-orchestrator (migration profile run)",
-      "purpose": "Machine-readable live run state: feature_head_sha, per-slice states, final all-journey cohort dimension results",
-      "scope": [
-        "."
-      ],
-      "artifact_type": "canonical-evidence",
-      "authority": "canonical",
-      "source_revision": null,
-      "generated_at": "2026-09-09T11:42:47Z",
-      "freshness": "current",
-      "content_sha256": "59831575961c9dbea523f7442b972ce1741d773ef451834b878dd9586b122a77",
-      "approval_status": "not-applicable",
-      "conflicts": [
-        "lives outside this worktree, at /home/muszkin/work/kivvi-click/context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/ (main checkout) — not tracked by Git",
-        "RUN.md (sibling file) is stale relative to this file — read run.json, not RUN.md, for current state"
-      ],
-      "referenced_by": [
-        "context/map/INDEX.md",
-        "context/map/project-overview.md",
-        "context/map/delivery-and-verification.md",
-        "context/map/risks-and-unknowns.md"
-      ],
-      "consumers": [
-        "implementation-orchestrator",
-        "review",
-        "task-closeout"
-      ]
-    },
-    {
-      "path": "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/RUN.md",
-      "generator_or_owner": "implementation-orchestrator (migration profile run)",
-      "purpose": "Human-readable run summary (narrative)",
-      "scope": [
-        "."
-      ],
-      "artifact_type": "historical-record",
-      "authority": "advisory",
-      "source_revision": null,
-      "generated_at": null,
-      "freshness": "stale",
-      "content_sha256": "d4bedcc342f70461c0c2ad783f7da0edc1dc6aafd566932caf563bbbc17f50c4",
-      "approval_status": "not-applicable",
-      "conflicts": [
-        "last updated at wave-2; run.json (sibling) is the current source of truth for run state"
-      ],
-      "referenced_by": [
-        "context/map/INDEX.md"
       ],
       "consumers": []
     }
@@ -1196,290 +813,72 @@
         "README.md",
         "CLAUDE.md",
         "AGENTS.md",
-        "composer.json",
-        "composer.lock",
-        "package.json",
-        "compose.yaml",
-        "compose.override.yaml",
-        "compose.prod.yaml",
-        "Dockerfile",
-        ".github/workflows/docker-build.yml",
-        ".claude/skills/product-spec/SKILL.md",
-        "backend/pom.xml",
-        "backend/src/main/java/click/kivvi/KivviApplication.java",
-        "backend/src/main/resources/application.yml",
-        "backend/src/main/resources/db/migration/V1__baseline.sql",
-        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
-        "backend/src/main/java/click/kivvi/web/CollectController.java",
-        "backend/src/main/java/click/kivvi/domain/RouteTable.java",
-        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
-        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java",
-        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatJob.java",
-        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
-        "frontend/package.json",
-        "frontend/eslint.config.js",
-        "frontend/src/router/routes.ts",
-        "frontend/src/router/index.ts",
-        "frontend/src/router/scrollRestoration.ts",
-        "frontend/src/router/meta.d.ts",
-        "frontend/src/router/localeHref.ts",
-        "frontend/src/stores/shell.ts",
-        "frontend/src/i18n/index.ts",
-        "frontend/src/composables/useIntents.ts",
-        "mercure/Caddyfile",
-        "tools/migration-verify/compare.mjs",
-        "tools/migration-verify/performance.mjs",
-        "tools/migration-verify/deviations.json",
-        "tools/migration-verify/budget.json",
-        "compose.next.yaml",
-        "compose.next.prod.yaml",
-        ".github/workflows/next-build.yml",
         "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
-        "... plus the four new .agents/project-context.md scoped contexts and two new next-stack diagrams (see this manifest's own artifacts[] entries)"
+        "docs/adr/0001-serialize-requests-per-session-like-php.md",
+        "docs/adr/0002-spa-reload-scroll-restoration-via-router-scrollbehavior.md"
       ],
-      "input_fingerprint": "e06987cbdcd7b01756b5616d95934819eacde5f5e58090fb283208cce18c3557",
-      "output_sha256": "6e3b1beb7616d953017693ebe5679656eaecf2c9a251b484420f0a8530955c7d",
-      "generated_at": "2026-09-09T12:05:00Z"
+      "input_fingerprint": "2afdd88e436aba43b21ff25ec9de6672fbf93c88de0db0d77e65801026ebd8d3",
+      "output_sha256": "3ac19a263456c34af5b43dda31b9d5bece0acd41d1a6278f676bc70b370e025b",
+      "generated_at": "2026-09-09T16:30:00Z"
     },
     {
       "path": "context/map/project-overview.md",
       "ownership": "managed-block",
       "inputs": [
         "README.md",
-        "CLAUDE.md",
-        "AGENTS.md",
-        "composer.json",
-        "composer.lock",
-        "package.json",
-        "compose.yaml",
-        "compose.override.yaml",
-        "compose.prod.yaml",
-        "Dockerfile",
-        ".github/workflows/docker-build.yml",
         ".claude/skills/product-spec/SKILL.md",
-        "src/Controller/.gitignore",
-        "src/Controller/AutomationController.php",
-        "src/Controller/CampaignController.php",
-        "src/Controller/CustomerController.php",
-        "src/Controller/DashboardController.php",
-        "src/Controller/EventIngestionController.php",
-        "src/Controller/EventStreamController.php",
-        "src/Controller/ImportController.php",
-        "backend/pom.xml",
-        "backend/src/main/java/click/kivvi/KivviApplication.java",
-        "backend/src/main/resources/application.yml",
-        "backend/src/main/resources/db/migration/V1__baseline.sql",
-        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
-        "backend/src/main/java/click/kivvi/web/CollectController.java",
-        "backend/src/main/java/click/kivvi/domain/RouteTable.java",
-        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
-        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java",
-        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatJob.java",
-        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
-        "frontend/package.json",
-        "frontend/eslint.config.js",
-        "frontend/src/router/routes.ts",
-        "frontend/src/router/index.ts",
-        "frontend/src/router/scrollRestoration.ts",
-        "frontend/src/router/meta.d.ts",
-        "frontend/src/router/localeHref.ts",
-        "frontend/src/stores/shell.ts",
-        "frontend/src/i18n/index.ts",
-        "frontend/src/composables/useIntents.ts",
-        "mercure/Caddyfile",
-        "tools/migration-verify/compare.mjs",
-        "tools/migration-verify/performance.mjs",
-        "tools/migration-verify/deviations.json",
-        "tools/migration-verify/budget.json",
-        "compose.next.yaml",
-        "compose.next.prod.yaml",
-        ".github/workflows/next-build.yml",
-        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
-        "... 44 more old-stack tracked files under the scope (unchanged from the prior refresh), plus the next-stack files listed above"
+        "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/closeout.md"
       ],
-      "input_fingerprint": "c61029072e099adc7c22b21ca5639b4ceb2e26a8cd31cad5fe2b9741df225136",
-      "output_sha256": "55319bc1ea61b2aa6a7d33e6fcc7b1a72832d1fe16b6c72e730f835160128fda",
-      "generated_at": "2026-09-09T12:05:00Z"
+      "input_fingerprint": "1899d34be0bbad59e0317109cd925dde1151ec72c435e281c6d40d9e6e4b2ac3",
+      "output_sha256": "e2e8bc4ef1400ee7c417e5ee24744dc914a45703e1736ba9f6f8e38207eaec65",
+      "generated_at": "2026-09-09T16:30:00Z"
     },
     {
       "path": "context/map/technology.md",
       "ownership": "managed-block",
       "inputs": [
-        "README.md",
-        "CLAUDE.md",
-        "AGENTS.md",
-        "composer.json",
-        "composer.lock",
-        "package.json",
-        "compose.yaml",
-        "compose.override.yaml",
-        "compose.prod.yaml",
-        "Dockerfile",
-        ".github/workflows/docker-build.yml",
-        ".claude/skills/product-spec/SKILL.md",
-        "yarn.lock",
-        "tests/e2e/package.json",
-        "tests/e2e/package-lock.json",
-        "tsconfig.json",
-        "phpstan.neon.dist",
-        "phpunit.dist.xml",
-        ".php-cs-fixer.dist.php",
-        ".env",
         "backend/pom.xml",
-        "backend/src/main/java/click/kivvi/KivviApplication.java",
-        "backend/src/main/resources/application.yml",
-        "backend/src/main/resources/db/migration/V1__baseline.sql",
-        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
-        "backend/src/main/java/click/kivvi/web/CollectController.java",
-        "backend/src/main/java/click/kivvi/domain/RouteTable.java",
-        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
-        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java",
-        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatJob.java",
-        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
         "frontend/package.json",
-        "frontend/eslint.config.js",
-        "frontend/src/router/routes.ts",
-        "frontend/src/router/index.ts",
-        "frontend/src/router/scrollRestoration.ts",
-        "frontend/src/router/meta.d.ts",
-        "frontend/src/router/localeHref.ts",
-        "frontend/src/stores/shell.ts",
-        "frontend/src/i18n/index.ts",
-        "frontend/src/composables/useIntents.ts",
         "mercure/Caddyfile",
-        "tools/migration-verify/compare.mjs",
-        "tools/migration-verify/performance.mjs",
-        "tools/migration-verify/deviations.json",
-        "tools/migration-verify/budget.json",
-        "compose.next.yaml",
-        "compose.next.prod.yaml",
-        ".github/workflows/next-build.yml",
-        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
-        "... 12 more old-stack tracked files under the scope (unchanged), plus the next-stack files listed above"
+        "compose.yaml",
+        "compose.prod.yaml",
+        ".github/workflows/build.yml",
+        ".env.prod.docker.example"
       ],
-      "input_fingerprint": "aaf338416157cba7e5df52597236dc2824bdfd483df93237bc9cc193684daab0",
-      "output_sha256": "f4cef26b65a5a58ebad01a3a35f9bcfce6c023138246c45b956978d42966b33c",
-      "generated_at": "2026-09-09T12:05:00Z"
+      "input_fingerprint": "c65f6f2640273e9ffa130b735b649f4652b4d5187f3e7f56259e9bfdcfdeafaf",
+      "output_sha256": "dfea7e242478e61f30d45737d80cdb0937ed3b949c3b3231ffb704b3c26f504f",
+      "generated_at": "2026-09-09T16:30:00Z"
     },
     {
       "path": "context/map/architecture-and-flows.md",
       "ownership": "managed-block",
       "inputs": [
-        "README.md",
-        "CLAUDE.md",
-        "AGENTS.md",
-        "composer.json",
-        "composer.lock",
-        "package.json",
-        "compose.yaml",
-        "compose.override.yaml",
-        "compose.prod.yaml",
-        "Dockerfile",
-        ".github/workflows/docker-build.yml",
-        ".claude/skills/product-spec/SKILL.md",
-        "src/Controller/.gitignore",
-        "src/Controller/AutomationController.php",
-        "src/Controller/CampaignController.php",
-        "src/Controller/CustomerController.php",
-        "src/Controller/DashboardController.php",
-        "src/Controller/EventIngestionController.php",
-        "src/Controller/EventStreamController.php",
-        "src/Controller/ImportController.php",
         "backend/pom.xml",
-        "backend/src/main/java/click/kivvi/KivviApplication.java",
-        "backend/src/main/resources/application.yml",
-        "backend/src/main/resources/db/migration/V1__baseline.sql",
-        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
-        "backend/src/main/java/click/kivvi/web/CollectController.java",
-        "backend/src/main/java/click/kivvi/domain/RouteTable.java",
-        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
-        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java",
-        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatJob.java",
-        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
         "frontend/package.json",
-        "frontend/eslint.config.js",
-        "frontend/src/router/routes.ts",
-        "frontend/src/router/index.ts",
-        "frontend/src/router/scrollRestoration.ts",
-        "frontend/src/router/meta.d.ts",
-        "frontend/src/router/localeHref.ts",
-        "frontend/src/stores/shell.ts",
-        "frontend/src/i18n/index.ts",
-        "frontend/src/composables/useIntents.ts",
         "mercure/Caddyfile",
-        "tools/migration-verify/compare.mjs",
-        "tools/migration-verify/performance.mjs",
-        "tools/migration-verify/deviations.json",
-        "tools/migration-verify/budget.json",
-        "compose.next.yaml",
-        "compose.next.prod.yaml",
-        ".github/workflows/next-build.yml",
-        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
-        "... 77 more old-stack tracked files under the scope (unchanged), plus the next-stack files listed above"
+        "compose.yaml",
+        "compose.prod.yaml",
+        "docs/adr/0001-serialize-requests-per-session-like-php.md",
+        "docs/adr/0002-spa-reload-scroll-restoration-via-router-scrollbehavior.md"
       ],
-      "input_fingerprint": "c61029072e099adc7c22b21ca5639b4ceb2e26a8cd31cad5fe2b9741df225136",
-      "output_sha256": "172f72f622e5ecaf3db1df5d74cdddfd6273ec412a347a3554f3ecb014b8e3d7",
-      "generated_at": "2026-09-09T12:05:00Z"
+      "input_fingerprint": "6637c0cee397dbc5831ba3ace848f855367e6f9dc5a4dcacc380c2f603d2a67a",
+      "output_sha256": "394cf0314e2250d9e79c3acabff6c4fc08a395e24fc410d6f7ffcbc8b7e57ef1",
+      "generated_at": "2026-09-09T16:30:00Z"
     },
     {
       "path": "context/map/dependencies.md",
       "ownership": "managed-block",
       "inputs": [
-        "README.md",
-        "CLAUDE.md",
-        "AGENTS.md",
-        "composer.json",
-        "composer.lock",
-        "package.json",
-        "compose.yaml",
-        "compose.override.yaml",
-        "compose.prod.yaml",
-        "Dockerfile",
-        ".github/workflows/docker-build.yml",
-        ".claude/skills/product-spec/SKILL.md",
-        "src/Controller/.gitignore",
-        "src/Controller/AutomationController.php",
-        "src/Controller/CampaignController.php",
-        "src/Controller/CustomerController.php",
-        "src/Controller/DashboardController.php",
-        "src/Controller/EventIngestionController.php",
-        "src/Controller/EventStreamController.php",
-        "src/Controller/ImportController.php",
         "backend/pom.xml",
-        "backend/src/main/java/click/kivvi/KivviApplication.java",
-        "backend/src/main/resources/application.yml",
-        "backend/src/main/resources/db/migration/V1__baseline.sql",
-        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
-        "backend/src/main/java/click/kivvi/web/CollectController.java",
-        "backend/src/main/java/click/kivvi/domain/RouteTable.java",
-        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
-        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java",
-        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatJob.java",
-        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
         "frontend/package.json",
-        "frontend/eslint.config.js",
-        "frontend/src/router/routes.ts",
-        "frontend/src/router/index.ts",
-        "frontend/src/router/scrollRestoration.ts",
-        "frontend/src/router/meta.d.ts",
-        "frontend/src/router/localeHref.ts",
-        "frontend/src/stores/shell.ts",
-        "frontend/src/i18n/index.ts",
-        "frontend/src/composables/useIntents.ts",
+        "tools/migration-verify/package.json",
+        "tests/e2e/package.json",
         "mercure/Caddyfile",
-        "tools/migration-verify/compare.mjs",
-        "tools/migration-verify/performance.mjs",
-        "tools/migration-verify/deviations.json",
-        "tools/migration-verify/budget.json",
-        "compose.next.yaml",
-        "compose.next.prod.yaml",
-        ".github/workflows/next-build.yml",
-        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
-        "... 71 more old-stack tracked files under the scope (unchanged), plus the next-stack files listed above"
+        ".github/workflows/build.yml"
       ],
-      "input_fingerprint": "c61029072e099adc7c22b21ca5639b4ceb2e26a8cd31cad5fe2b9741df225136",
-      "output_sha256": "434492a2f07eb9c9eee8b9cc3960e7cdb5b851129379fcd8f41026376d93e403",
-      "generated_at": "2026-09-09T12:05:00Z"
+      "input_fingerprint": "d679af319e2f3403aa071f21a3f3c1c705759348cc74f28b229b8d483c7c9efb",
+      "output_sha256": "e9485da829272f47ce96c3714a21b7f511be2b81081ba9e0a439ea1e90e027cf",
+      "generated_at": "2026-09-09T16:30:00Z"
     },
     {
       "path": "context/map/documentation-index.md",
@@ -1488,497 +887,102 @@
         "README.md",
         "CLAUDE.md",
         "AGENTS.md",
-        "composer.json",
-        "composer.lock",
-        "package.json",
+        ".claude/settings.json",
+        "backend/README.md",
+        "frontend/README.md",
+        ".env.prod.docker.example",
         "compose.yaml",
-        "compose.override.yaml",
         "compose.prod.yaml",
-        "Dockerfile",
-        ".github/workflows/docker-build.yml",
-        ".claude/skills/product-spec/SKILL.md",
-        "context/archive/README.md",
-        "context/changes/README.md",
-        "context/foundation/README.md",
-        "context/foundation/health-check.md",
-        "context/foundation/prd.md",
-        "context/foundation/roadmap.md",
-        "context/foundation/shape-notes.md",
-        "context/foundation/stack-assessment.md",
-        "... 6 more tracked files under the scope"
+        "mercure/Caddyfile"
       ],
-      "input_fingerprint": "753a41d634c2cfcf0cc2843027121c0dce1437f3ac3d25f994edc74d8e910d33",
-      "output_sha256": "582d87db7f79445aaaf103f183f70561a5ff7dd21bffe2b19fa00431525848c1",
-      "generated_at": "2026-09-08T14:02:47Z"
+      "input_fingerprint": "ea2244af3642ee702ad131693c81f814be850cda3bb1f6a3f5e0f81aa1e2ef81",
+      "output_sha256": "0fa4ef46f35434a48df264f1b9583cbbc8451132bc7666b13424cb450a9517df",
+      "generated_at": "2026-09-09T16:30:00Z"
     },
     {
       "path": "context/map/delivery-and-verification.md",
       "ownership": "managed-block",
       "inputs": [
-        "README.md",
-        "CLAUDE.md",
-        "AGENTS.md",
-        "composer.json",
-        "composer.lock",
-        "package.json",
-        "compose.yaml",
-        "compose.override.yaml",
-        "compose.prod.yaml",
-        "Dockerfile",
-        ".github/workflows/docker-build.yml",
-        ".claude/skills/product-spec/SKILL.md",
-        "tests/CacheTest.php",
-        "tests/Controller/PanelPagesTest.php",
-        "tests/Controller/PreferencesControllerTest.php",
-        "tests/Controller/SecurityControllerTest.php",
-        "tests/Tracking/EventIngestionTest.php",
-        "tests/bootstrap.php",
-        "tests/e2e/package-lock.json",
-        "tests/e2e/package.json",
         "backend/pom.xml",
-        "backend/src/main/java/click/kivvi/KivviApplication.java",
-        "backend/src/main/resources/application.yml",
-        "backend/src/main/resources/db/migration/V1__baseline.sql",
-        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
-        "backend/src/main/java/click/kivvi/web/CollectController.java",
-        "backend/src/main/java/click/kivvi/domain/RouteTable.java",
-        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
-        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java",
-        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatJob.java",
-        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
         "frontend/package.json",
-        "frontend/eslint.config.js",
-        "frontend/src/router/routes.ts",
-        "frontend/src/router/index.ts",
-        "frontend/src/router/scrollRestoration.ts",
-        "frontend/src/router/meta.d.ts",
-        "frontend/src/router/localeHref.ts",
-        "frontend/src/stores/shell.ts",
-        "frontend/src/i18n/index.ts",
-        "frontend/src/composables/useIntents.ts",
-        "mercure/Caddyfile",
-        "tools/migration-verify/compare.mjs",
-        "tools/migration-verify/performance.mjs",
-        "tools/migration-verify/deviations.json",
-        "tools/migration-verify/budget.json",
-        "compose.next.yaml",
-        "compose.next.prod.yaml",
-        ".github/workflows/next-build.yml",
-        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
-        "... 13 more old-stack tracked files under the scope (unchanged), plus the next-stack files listed above"
+        ".github/workflows/build.yml",
+        "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/cutover/con1-e2e.md"
       ],
-      "input_fingerprint": "61cfa82c04e6b76e9cded0d572233e9d0cbcd3700756f884360ffe81e5997aed",
-      "output_sha256": "5e9cc7450921f5e004dc3e1c25829fdf5ba26b728c040fa826f2e89c9c0dcce0",
-      "generated_at": "2026-09-09T12:05:00Z"
+      "input_fingerprint": "3e039688a90eaeb7989fc3b0c0f6a3519c3a3a9554cc2ae5d52f4cb785177972",
+      "output_sha256": "c63557cfe5de556748274ac9e24372275a41ebef4120f4dbce7019eb956e1741",
+      "generated_at": "2026-09-09T16:30:00Z"
     },
     {
       "path": "context/map/git-and-pr-history.md",
       "ownership": "managed-block",
-      "inputs": [
-        ".git/HEAD"
-      ],
-      "input_fingerprint": "43662bc08b262cbc2c428f953d84ea2d6677236c6f9b89d324e210309e556e77",
-      "output_sha256": "caddcc426099ad36f64591c505380613b096bf91ed2006f146dd4dc9e9cad329",
-      "generated_at": "2026-09-08T13:27:13Z"
+      "inputs": [],
+      "input_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "output_sha256": "2884f58fa6cc80ab2f212c293bc40ebda500360f3011979078785bcca139ebbc",
+      "generated_at": "2026-09-09T16:30:00Z"
     },
     {
       "path": "context/map/risks-and-unknowns.md",
       "ownership": "managed-block",
       "inputs": [
-        "README.md",
-        "CLAUDE.md",
-        "AGENTS.md",
-        "composer.json",
-        "composer.lock",
-        "package.json",
+        ".claude/settings.json",
+        ".env.prod.docker.example",
         "compose.yaml",
-        "compose.override.yaml",
         "compose.prod.yaml",
-        "Dockerfile",
-        ".github/workflows/docker-build.yml",
-        ".claude/skills/product-spec/SKILL.md",
-        "src/Controller/.gitignore",
-        "src/Controller/AutomationController.php",
-        "src/Controller/CampaignController.php",
-        "src/Controller/CustomerController.php",
-        "src/Controller/DashboardController.php",
-        "src/Controller/EventIngestionController.php",
-        "src/Controller/EventStreamController.php",
-        "src/Controller/ImportController.php",
-        "backend/pom.xml",
-        "backend/src/main/java/click/kivvi/KivviApplication.java",
-        "backend/src/main/resources/application.yml",
-        "backend/src/main/resources/db/migration/V1__baseline.sql",
-        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
-        "backend/src/main/java/click/kivvi/web/CollectController.java",
-        "backend/src/main/java/click/kivvi/domain/RouteTable.java",
-        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
-        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java",
-        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatJob.java",
-        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
-        "frontend/package.json",
-        "frontend/eslint.config.js",
-        "frontend/src/router/routes.ts",
-        "frontend/src/router/index.ts",
-        "frontend/src/router/scrollRestoration.ts",
-        "frontend/src/router/meta.d.ts",
-        "frontend/src/router/localeHref.ts",
-        "frontend/src/stores/shell.ts",
-        "frontend/src/i18n/index.ts",
-        "frontend/src/composables/useIntents.ts",
         "mercure/Caddyfile",
-        "tools/migration-verify/compare.mjs",
-        "tools/migration-verify/performance.mjs",
-        "tools/migration-verify/deviations.json",
-        "tools/migration-verify/budget.json",
-        "compose.next.yaml",
-        "compose.next.prod.yaml",
-        ".github/workflows/next-build.yml",
-        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
-        "... 44 more old-stack tracked files under the scope (unchanged), plus the next-stack files listed above"
+        "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/closeout.md"
       ],
-      "input_fingerprint": "c61029072e099adc7c22b21ca5639b4ceb2e26a8cd31cad5fe2b9741df225136",
-      "output_sha256": "70b5edca9a2c3aaf15489c2bb2a5a12c9596e6703f2ceaf94ab6fe6b2a5f354d",
-      "generated_at": "2026-09-09T12:05:00Z"
+      "input_fingerprint": "90cca492c2b97b2bef7efd153fa5566e807e91cc2f04a5bf594627907d18abbb",
+      "output_sha256": "026fb8ffa251157ab35cb7d583de1fbe92da8d2a5564e2810b5fd5a00c332de6",
+      "generated_at": "2026-09-09T16:30:00Z"
     },
     {
       "path": "context/map/diagrams/module-dependencies.mmd",
       "ownership": "managed-block",
       "inputs": [
-        "src/Controller/.gitignore",
-        "src/Controller/AutomationController.php",
-        "src/Controller/CampaignController.php",
-        "src/Controller/CustomerController.php",
-        "src/Controller/DashboardController.php",
-        "src/Controller/EventIngestionController.php",
-        "src/Controller/EventStreamController.php",
-        "src/Controller/ImportController.php",
-        "src/Controller/LandingController.php",
-        "src/Controller/PreferencesController.php",
-        "src/Controller/ProductFeedController.php",
-        "src/Controller/SecurityController.php",
-        "src/Controller/SettingsController.php",
-        "src/Controller/StorybookController.php",
-        "src/Controller/WidgetController.php",
-        "src/Entity/.gitignore",
-        "src/Kernel.php",
-        "src/Message/Heartbeat.php",
-        "src/MessageHandler/HeartbeatHandler.php",
-        "src/Panel/Content/AutomationCatalog.php",
-        "... 41 more tracked files under the scope"
+        "backend/pom.xml",
+        "frontend/package.json",
+        "mercure/Caddyfile"
       ],
-      "input_fingerprint": "aae3c1c52aa68e14bad7ddb6fa5dffd3d83a0a02ed49eedc2892eec101e6f78a",
-      "output_sha256": "ce778b4f6462edcbd90b0aa97ee7ad802befe6e1c03742b8748fbd5f317ed718",
-      "generated_at": "2026-09-08T13:27:13Z"
+      "input_fingerprint": "cba1c59a2e4660a259e947e230043d11c45fd6165d199678e567058bde5dcdb8",
+      "output_sha256": "ab89b838176409c7e2cd42a44c930bf3e9f3c5cb4557d0e954505cdfbf6e5cf4",
+      "generated_at": "2026-09-09T16:30:00Z"
     },
     {
       "path": "context/map/diagrams/primary-runtime-flow.mmd",
       "ownership": "managed-block",
       "inputs": [
-        "src/Tracking/EventIngestion.php",
-        "src/Tracking/InvalidEventPayload.php",
-        "src/Tracking/TrackedEvent.php",
-        "assets/controllers/event-stream.ts",
-        "frankenphp/Caddyfile"
+        "backend/pom.xml",
+        "mercure/Caddyfile"
       ],
-      "input_fingerprint": "0617b108606a6afcc4cf99fd6d7eabce0c2744d7ac0010277e298b7ca2a59ebf",
-      "output_sha256": "e6b516460562dc92dc5dc801fcf81b56227211286d96c9502ea8559680c85653",
-      "generated_at": "2026-09-08T13:27:13Z"
-    },
-    {
-      "path": "context/README.md",
-      "ownership": "managed-block",
-      "inputs": [
-        "context/foundation/README.md"
-      ],
-      "input_fingerprint": "3841ac44dcb45964a976a9a8164144e6e8872a3c1e621019ea1f97d3bdd46698",
-      "output_sha256": "f636537e9678bbe3bc93b004748023932d3eded6f92e6942c08c1919de353617",
-      "generated_at": "2026-09-08T13:27:13Z"
+      "input_fingerprint": "4dd6c8607fd5b3fd768fa2ee0121d6e4266b2afdeb3c1de9098f255a5da06f4e",
+      "output_sha256": "ce0005f660aaa45eb7ed05fac69850a55ab594d0f0a3eacab83470b1554d86e9",
+      "generated_at": "2026-09-09T16:30:00Z"
     },
     {
       "path": ".agents/project-context.md",
       "ownership": "managed-block",
       "inputs": [
-        ".claude/settings.json",
-        ".claude/skills/product-spec/SKILL.md",
-        ".dockerignore",
-        ".editorconfig",
-        ".env",
-        ".env.dev",
-        ".env.example",
-        ".env.prod.docker.example",
-        ".env.test",
-        ".gitattributes",
-        ".github/workflows/docker-build.yml",
-        ".gitignore",
-        ".php-cs-fixer.dist.php",
-        ".pnp.cjs",
-        ".prettierignore",
-        "AGENTS.md",
-        "CLAUDE.md",
-        "Dockerfile",
         "README.md",
-        "assets/app.ts",
-        "... 261 more tracked files under the scope"
+        "CLAUDE.md",
+        "AGENTS.md",
+        "compose.yaml",
+        "compose.prod.yaml"
       ],
-      "input_fingerprint": "f84164a901bdccf837f56a483c9370fdad1375495558a09ff94af96d3cfe9c45",
-      "output_sha256": "15bcd14688f5e55759d994b9b0298260e265e45c16cd11c1ca84d2037f7ef6ad",
-      "generated_at": "2026-09-08T13:27:13Z"
-    },
-    {
-      "path": "src/.agents/project-context.md",
-      "ownership": "managed-block",
-      "inputs": [
-        "src/Controller/.gitignore",
-        "src/Controller/AutomationController.php",
-        "src/Controller/CampaignController.php",
-        "src/Controller/CustomerController.php",
-        "src/Controller/DashboardController.php",
-        "src/Controller/EventIngestionController.php",
-        "src/Controller/EventStreamController.php",
-        "src/Controller/ImportController.php",
-        "src/Controller/LandingController.php",
-        "src/Controller/PreferencesController.php",
-        "src/Controller/ProductFeedController.php",
-        "src/Controller/SecurityController.php",
-        "src/Controller/SettingsController.php",
-        "src/Controller/StorybookController.php",
-        "src/Controller/WidgetController.php",
-        "src/Entity/.gitignore",
-        "src/Kernel.php",
-        "src/Message/Heartbeat.php",
-        "src/MessageHandler/HeartbeatHandler.php",
-        "src/Panel/Content/AutomationCatalog.php",
-        "... 26 more tracked files under the scope"
-      ],
-      "input_fingerprint": "77525bc889f7208fe77501e9ef07df4b4466cc685b212f0369c12b174c448e4f",
-      "output_sha256": "a1acd0cbf8f3e7dff03241ea96736094def250f07e62c99564688c6bae819cac",
-      "generated_at": "2026-09-08T13:27:13Z"
-    },
-    {
-      "path": "src/Panel/.agents/project-context.md",
-      "ownership": "managed-block",
-      "inputs": [
-        "src/Panel/Content/AutomationCatalog.php",
-        "src/Panel/Content/CampaignCatalog.php",
-        "src/Panel/Content/CustomerDirectory.php",
-        "src/Panel/Content/DashboardMetrics.php",
-        "src/Panel/Content/EventFeed.php",
-        "src/Panel/Content/ImportWizard.php",
-        "src/Panel/Content/LandingContent.php",
-        "src/Panel/Content/ProductFeedCatalog.php",
-        "src/Panel/Content/SettingsCatalog.php",
-        "src/Panel/Content/WidgetCatalog.php",
-        "src/Panel/EventStreamTopic.php",
-        "src/Panel/Format.php",
-        "src/Panel/ImportUploadStorage.php",
-        "src/Panel/Navigation.php",
-        "src/Panel/PanelContext.php",
-        "src/Panel/PanelIdentity.php",
-        "src/Panel/PanelPreferences.php",
-        "src/Panel/Workspace.php"
-      ],
-      "input_fingerprint": "1388636bed4b90d075c13e7cca1a3b0641def3e7cfefb22769c81e036a249526",
-      "output_sha256": "024f35e51ec977724b583421fbdbc9388fd8beeffe967f369c73d56fc62e7b9e",
-      "generated_at": "2026-09-08T13:27:13Z"
-    },
-    {
-      "path": "src/Tracking/.agents/project-context.md",
-      "ownership": "managed-block",
-      "inputs": [
-        "src/Tracking/EventIngestion.php",
-        "src/Tracking/InvalidEventPayload.php",
-        "src/Tracking/TrackedEvent.php"
-      ],
-      "input_fingerprint": "8d61e247f95c67e8a260317a0bcc1cab0549a8ed913bfa30c257a8c64b9f5225",
-      "output_sha256": "be5729c4f2fb17459e9ebe78409c5454ef624bb854646011a3a399eb592e7ce0",
-      "generated_at": "2026-09-08T13:27:13Z"
-    },
-    {
-      "path": "config/.agents/project-context.md",
-      "ownership": "managed-block",
-      "inputs": [
-        "config/bundles.php",
-        "config/packages/asset_mapper.yaml",
-        "config/packages/cache.yaml",
-        "config/packages/doctrine.yaml",
-        "config/packages/doctrine_migrations.yaml",
-        "config/packages/framework.yaml",
-        "config/packages/mercure.yaml",
-        "config/packages/messenger.yaml",
-        "config/packages/routing.yaml",
-        "config/packages/translation.yaml",
-        "config/packages/twig.yaml",
-        "config/preload.php",
-        "config/reference.php",
-        "config/routes.yaml",
-        "config/routes/framework.yaml",
-        "config/services.yaml",
-        "config/storybook.php"
-      ],
-      "input_fingerprint": "d3c3503b40e93649fe05ae36f911d21c1fc070f483babd60c89b16ba7d44c226",
-      "output_sha256": "3c2349661baf59b34bda66d6ad2eb616a3d28797447ca75f1405b53952b1ccd8",
-      "generated_at": "2026-09-08T13:27:13Z"
-    },
-    {
-      "path": "templates/.agents/project-context.md",
-      "ownership": "managed-block",
-      "inputs": [
-        "templates/base.html.twig",
-        "templates/components/atoms/avatar.html.twig",
-        "templates/components/atoms/bar.html.twig",
-        "templates/components/atoms/button.html.twig",
-        "templates/components/atoms/chip.html.twig",
-        "templates/components/atoms/code-block.html.twig",
-        "templates/components/atoms/dot.html.twig",
-        "templates/components/atoms/field.html.twig",
-        "templates/components/atoms/icon.html.twig",
-        "templates/components/atoms/kbd.html.twig",
-        "templates/components/atoms/logo.html.twig",
-        "templates/components/atoms/sparkline.html.twig",
-        "templates/components/atoms/toggle-row.html.twig",
-        "templates/components/atoms/wordmark.html.twig",
-        "templates/components/molecules/add-slot.html.twig",
-        "templates/components/molecules/callout.html.twig",
-        "templates/components/molecules/card.html.twig",
-        "templates/components/molecules/cond-rule.html.twig",
-        "templates/components/molecules/coupon-code.html.twig",
-        "templates/components/molecules/dns-row.html.twig",
-        "... 112 more tracked files under the scope"
-      ],
-      "input_fingerprint": "b65774c40246f3750eff5aeab8c40acb85ecb2752ff204b18bbcf2a54c625b77",
-      "output_sha256": "73e210bebd1c64cc4d0482333cf848c966291aca7c4f9cb378d1bf6ce5da6791",
-      "generated_at": "2026-09-08T13:27:13Z"
-    },
-    {
-      "path": "assets/.agents/project-context.md",
-      "ownership": "managed-block",
-      "inputs": [
-        "assets/app.ts",
-        "assets/controllers/cardiogram.ts",
-        "assets/controllers/editor.ts",
-        "assets/controllers/event-stream.ts",
-        "assets/controllers/modal.ts",
-        "assets/controllers/shell.ts",
-        "assets/controllers/upload.ts",
-        "assets/global.d.ts",
-        "assets/js/storybook-controls.js",
-        "assets/styles/01-tokens.css",
-        "assets/styles/02-base.css",
-        "assets/styles/03-components.css",
-        "assets/styles/04-patterns.css",
-        "assets/styles/app.css",
-        "assets/styles/storybook.css"
-      ],
-      "input_fingerprint": "c8b67a6c972052c2d2052f84936335489f7621c75fe1f7b7605805afe532a7c8",
-      "output_sha256": "73629ef095ab58c22911fb219034dff7b744f00f2f4ccdb77713262365a6e201",
-      "generated_at": "2026-09-08T13:27:13Z"
-    },
-    {
-      "path": "frankenphp/.agents/project-context.md",
-      "ownership": "managed-block",
-      "inputs": [
-        "frankenphp/Caddyfile",
-        "frankenphp/conf.d/10-app.ini",
-        "frankenphp/conf.d/20-app.dev.ini",
-        "frankenphp/conf.d/20-app.prod.ini",
-        "frankenphp/docker-entrypoint.sh"
-      ],
-      "input_fingerprint": "8b69f1b3de796dafd54adce5c6747c25a11d802aa431a128d23d27efdb681d46",
-      "output_sha256": "b30812a1e6f268e640e5b880a1fe1d922a568e86a4ed68a0aed5aaed08b60784",
-      "generated_at": "2026-09-08T13:27:13Z"
-    },
-    {
-      "path": "tests/.agents/project-context.md",
-      "ownership": "managed-block",
-      "inputs": [
-        "tests/CacheTest.php",
-        "tests/Controller/PanelPagesTest.php",
-        "tests/Controller/PreferencesControllerTest.php",
-        "tests/Controller/SecurityControllerTest.php",
-        "tests/Tracking/EventIngestionTest.php",
-        "tests/bootstrap.php",
-        "tests/e2e/package-lock.json",
-        "tests/e2e/package.json",
-        "tests/e2e/playwright.config.ts",
-        "tests/e2e/specs/automations.spec.ts",
-        "tests/e2e/specs/customers.spec.ts",
-        "tests/e2e/specs/dashboard.spec.ts",
-        "tests/e2e/specs/editors.spec.ts",
-        "tests/e2e/specs/events.spec.ts",
-        "tests/e2e/specs/import.spec.ts",
-        "tests/e2e/specs/lists.spec.ts",
-        "tests/e2e/specs/navigation.spec.ts",
-        "tests/e2e/specs/public.spec.ts",
-        "tests/e2e/specs/settings.spec.ts"
-      ],
-      "input_fingerprint": "41c9f5fff59cfbb6dc20b64b57124fe86e0c20cebd2ad14a58c7f7303162f6ae",
-      "output_sha256": "ce55df25b6fff8613b1fb200da68175dafdc65ae5ca3c86b9835c56bb4033d5e",
-      "generated_at": "2026-09-08T13:27:13Z"
-    },
-    {
-      "path": "tests/e2e/.agents/project-context.md",
-      "ownership": "managed-block",
-      "inputs": [
-        "tests/e2e/package-lock.json",
-        "tests/e2e/package.json",
-        "tests/e2e/playwright.config.ts",
-        "tests/e2e/specs/automations.spec.ts",
-        "tests/e2e/specs/customers.spec.ts",
-        "tests/e2e/specs/dashboard.spec.ts",
-        "tests/e2e/specs/editors.spec.ts",
-        "tests/e2e/specs/events.spec.ts",
-        "tests/e2e/specs/import.spec.ts",
-        "tests/e2e/specs/lists.spec.ts",
-        "tests/e2e/specs/navigation.spec.ts",
-        "tests/e2e/specs/public.spec.ts",
-        "tests/e2e/specs/settings.spec.ts"
-      ],
-      "input_fingerprint": "25229384e91768d02e73457157a4c854648115eea654ca8a008a973aca9cdf90",
-      "output_sha256": "ce1b61fffa40d572b6c642a32b0fe3dd641d39719031d4a526d87fe24d407b65",
-      "generated_at": "2026-09-08T13:27:13Z"
-    },
-    {
-      "path": "AGENTS.md",
-      "ownership": "managed-block(router)",
-      "inputs": [],
-      "input_fingerprint": null,
-      "output_sha256": "b125930a712df47c507e16d1419f802273a9b6fae25df51291b9edd25973bd95",
-      "generated_at": "2026-09-08T13:27:13Z"
-    },
-    {
-      "path": "CLAUDE.md",
-      "ownership": "managed-block(router)",
-      "inputs": [],
-      "input_fingerprint": null,
-      "output_sha256": "b70f6321a91c64c5d7cf428e65339660c37afc8ef729160c2a1d0b86459411b8",
-      "generated_at": "2026-09-08T13:27:13Z"
+      "input_fingerprint": "17f6b13612899043ee6e184e44dd8942eee81ed8ea4fa62b52b1f4a75dc73c70",
+      "output_sha256": "a0cbce8bc684ed72582b820877e71fbf8f5f32ba1f6ff1383d57db0dc783177f",
+      "generated_at": "2026-09-09T16:30:00Z"
     },
     {
       "path": "backend/.agents/project-context.md",
       "ownership": "managed-block",
       "inputs": [
         "backend/pom.xml",
-        "backend/src/main/java/click/kivvi/KivviApplication.java",
-        "backend/src/main/resources/application.yml",
-        "backend/src/main/resources/db/migration/V1__baseline.sql",
-        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
-        "backend/src/main/java/click/kivvi/domain/RouteTable.java",
-        "backend/src/main/java/click/kivvi/web/CollectController.java",
-        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
-        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationFilter.java",
-        "backend/src/main/java/click/kivvi/infrastructure/session/SessionRequestSerializationConfig.java",
-        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatJob.java",
-        "backend/src/main/java/click/kivvi/infrastructure/scheduling/HeartbeatTrigger.java",
-        "backend/src/main/java/click/kivvi/infrastructure/config/SchedulingConfig.java",
-        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
-        "backend/Dockerfile",
-        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
-        "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/common-journey-rules.md"
+        "backend/README.md",
+        "docs/adr/0001-serialize-requests-per-session-like-php.md"
       ],
-      "input_fingerprint": "580f972e61cf3491e89fbd0f34332114011b4b479423ff0de85f602c21a872bc",
-      "output_sha256": "39e9671381752a2d55eae344e697628327371ea24c5cc7ce2c33831a5de83ae2",
-      "generated_at": "2026-09-09T12:05:00Z"
+      "input_fingerprint": "12502338e14c06501766706bc7b4a7badb298c7ca5cf4071f03b2a91804208b2",
+      "output_sha256": "f50ea337a110b831f32bd3910e58da82d437213e6fda7fb03ae0492a6f4248cf",
+      "generated_at": "2026-09-09T16:30:00Z"
     },
     {
       "path": "frontend/.agents/project-context.md",
@@ -1986,83 +990,47 @@
       "inputs": [
         "frontend/package.json",
         "frontend/eslint.config.js",
-        "frontend/src/router/routes.ts",
-        "frontend/src/router/index.ts",
-        "frontend/src/router/scrollRestoration.ts",
-        "frontend/src/router/meta.d.ts",
-        "frontend/src/router/localeHref.ts",
-        "frontend/src/stores/shell.ts",
-        "frontend/src/i18n/index.ts",
-        "frontend/src/composables/useIntents.ts",
-        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
-        "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/common-journey-rules.md"
+        "frontend/README.md",
+        "docs/adr/0002-spa-reload-scroll-restoration-via-router-scrollbehavior.md"
       ],
-      "input_fingerprint": "5533596431e2ef8304d9d1cc462497c8565054a825a29b9542a40fc374d9f3ff",
-      "output_sha256": "0ef4859fcbbf628a2fd4844815a6cc4dff84c92b5148ed8afb22ff7b14fdc636",
-      "generated_at": "2026-09-09T12:05:00Z"
-    },
-    {
-      "path": "tools/migration-verify/.agents/project-context.md",
-      "ownership": "managed-block",
-      "inputs": [
-        "tools/migration-verify/compare.mjs",
-        "tools/migration-verify/performance.mjs",
-        "tools/migration-verify/deviations.json",
-        "tools/migration-verify/budget.json",
-        "tools/migration-verify/package.json",
-        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md",
-        "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/common-journey-rules.md"
-      ],
-      "input_fingerprint": "3e541cffb9d9edd5e34c746a775a9d276f105a27ecaa26ef21d7c1a87cafb84c",
-      "output_sha256": "f16fc7a41e9ae335627bfc203aab3f86972d8cc5ff0cad4c74fcb5e6922beb1c",
-      "generated_at": "2026-09-09T12:05:00Z"
+      "input_fingerprint": "0eb02f9249813359c60907b494407791ea0e59997f78575e97ee2509018a4847",
+      "output_sha256": "90e7a98be17d456d2efd62950ba34f59389050472e3c83f2fd9d264f0f049555",
+      "generated_at": "2026-09-09T16:30:00Z"
     },
     {
       "path": "mercure/.agents/project-context.md",
       "ownership": "managed-block",
       "inputs": [
         "mercure/Caddyfile",
-        "compose.next.yaml",
-        "compose.next.prod.yaml",
-        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
-        "frankenphp/Caddyfile",
-        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md"
+        "compose.yaml",
+        "compose.prod.yaml"
       ],
-      "input_fingerprint": "e7bc4cffcdd8251b1edf0d0fb2592a6f5f8d067e41ea6498f0682f10ca874ef5",
-      "output_sha256": "1fb9626c6b46ff35172b7c30e0e02210af2878317e1e38911f822c4e9daa8f50",
-      "generated_at": "2026-09-09T12:05:00Z"
+      "input_fingerprint": "562b7ad45b7c2d3054537b30bb6f69a0ad77ef64c81e3dbb85b279f9365d54bb",
+      "output_sha256": "d0ba3bcc9fe583bc4564648b219b4acbd2fd55431815d807bf56c8e130f8d933",
+      "generated_at": "2026-09-09T16:30:00Z"
     },
     {
-      "path": "context/map/diagrams/next-stack-module-dependencies.mmd",
+      "path": "tools/migration-verify/.agents/project-context.md",
       "ownership": "managed-block",
       "inputs": [
-        "backend/pom.xml",
-        "backend/src/main/java/click/kivvi/KivviApplication.java",
-        "backend/src/main/java/click/kivvi/web/SpaDocumentController.java",
-        "backend/src/main/java/click/kivvi/web/CollectController.java",
-        "backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java",
-        "frontend/src/router/routes.ts",
-        "frontend/src/stores/shell.ts",
-        "frontend/src/composables/useIntents.ts",
-        "mercure/Caddyfile"
+        "tools/migration-verify/package.json",
+        "tools/migration-verify/budget.json",
+        "tools/migration-verify/deviations.json"
       ],
-      "input_fingerprint": "069d5933c666ea619ea949d5e27fcdbc7033d91edba84f3faf259e7baa77626a",
-      "output_sha256": "5bf807cffe818e1f760e2576ef6a1499472dc64d71132412a559c80c64c40885",
-      "generated_at": "2026-09-09T12:05:00Z"
+      "input_fingerprint": "fd6a3cae197f1bf680185dbb6d2629eccf0f53f682a7976b115cc0fa4af1ef5f",
+      "output_sha256": "969593e8e7aa53416c84f52be98a36be2b34c9836bff882dd2824cdfe2b869ed",
+      "generated_at": "2026-09-09T16:30:00Z"
     },
     {
-      "path": "context/map/diagrams/next-stack-event-flow.mmd",
+      "path": "tests/e2e/.agents/project-context.md",
       "ownership": "managed-block",
       "inputs": [
-        "backend/src/main/java/click/kivvi/web/CollectController.java",
-        "backend/src/main/java/click/kivvi/infrastructure/mercure/HttpMercurePublisher.java",
-        "backend/src/main/java/click/kivvi/infrastructure/tracking/EventDedupStore.java",
-        "frontend/src/composables/useEventStream.ts",
-        "mercure/Caddyfile"
+        "tests/e2e/package.json",
+        "tests/e2e/playwright.config.ts"
       ],
-      "input_fingerprint": "6be87774bcb38776f0d7a2982ee6537da747ab49fd3c5b4e499c5fa73f3e02d3",
-      "output_sha256": "3b0cd0ed4b0dda3ac960156c9500237f839953fb43fb5a14fc405d5ec7301c9d",
-      "generated_at": "2026-09-09T12:05:00Z"
+      "input_fingerprint": "bc67dde0d54ba4f27cd2a63563b40a75f2b854a7ce44e61c28fe18be7a395fab",
+      "output_sha256": "e50896f8c657a802d6a80df5c949d7aaf0377f3ea8389e6b6738dfc59a3cb26f",
+      "generated_at": "2026-09-09T16:30:00Z"
     }
   ],
   "verdicts": {
@@ -2070,7 +1038,7 @@
     "coverage": "complete",
     "technology_and_documentation": "complete",
     "architecture_and_dependencies": "complete",
-    "git": "complete",
+    "git": "partial",
     "agent_discovery": "partial",
     "scaffold": "not-applicable",
     "tests": "partial",
@@ -2081,171 +1049,94 @@
     "risks": "partial"
   },
   "verdict_details": {
-    "agent_discovery": {
-      "reason": "routers written to AGENTS.md and CLAUDE.md; no fresh Codex/Claude session smoke performed (codex CLI absent on host; Claude smoke requires a new session)",
+    "git": {
+      "reason": "gh CLI queried and returned 0 PRs (confirmed, not just unavailable); local main is 168 commits ahead of and 1 behind origin/main, so remote history does not reflect local reality",
       "missing_evidence": [
-        "fresh-session /context confirmation",
-        "Codex instruction-chain smoke"
+        "any PR/review history to analyze (none exists)",
+        "remote validation of the 168 unpushed local commits"
       ],
-      "impact": "discovery is very likely (root files, 4.9KB/4.2KB, no claudeMdExcludes) but unproven",
-      "next_action": "open a fresh Claude Code session in the repo and check /context shows CLAUDE.md importing context/map/INDEX.md",
-      "fallback": "root routers + manifest remain the discovery path",
-      "owner": "user"
+      "impact": "co-change/hotspot analysis is entirely local-history-based; no independent review signal exists to cross-check",
+      "next_action": "push local main to origin if/when the operator wants remote history and CI to reflect the current state",
+      "fallback": "local git log analysis (see git-and-pr-history.md)",
+      "owner": "Piotr Mucha"
     },
-    "scaffold": {
-      "reason": "brownfield project"
+    "agent_discovery": {
+      "reason": "AGENTS.md and CLAUDE.md router blocks were verified present, unique, well-formed and pointing at the correct context/map/INDEX.md path by direct file read in this session; no fresh separate Codex/Claude Code session was launched to confirm discovery via /context or an equivalent read-only diagnostic",
+      "missing_evidence": [
+        "a fresh-session diagnostic confirming the router is actually loaded"
+      ],
+      "impact": "low — the router content itself is verified correct and was not modified by this refresh (the CON-1 docs worker's rewrite already left it intact)",
+      "next_action": "run a fresh Claude Code session in this directory and check /context if independent confirmation is wanted",
+      "fallback": "static verification of the router blocks (this refresh)",
+      "owner": "Unknown"
     },
     "tests": {
-      "reason": "commands discovered, not run: dev stack shares compose project with running prod containers",
+      "reason": "this refresh did not execute tests itself (read-only mandate); a separate verification session (cutover/con1-e2e.md, 2026-09-09T16:04-16:07Z) already ran the e2e suite and performance budgets against production and is cited as evidence, but backend/frontend unit+integration suites were last actually executed by the migration's own final gates (pre-cutover, on SHA 9205294), not re-run after CON-1's code changes to AGENTS.md/CLAUDE.md/README.md (which do not touch backend/frontend source, so no regression is expected, but this is inferred, not verified)",
       "missing_evidence": [
-        "current composer test result"
+        "a ./mvnw verify and frontend gate run on the current HEAD fe9c3fe"
       ],
-      "impact": "pass state unknown",
-      "next_action": "run docker compose -p kivvi-dev ... up, then composer test",
-      "fallback": "commands recorded as documented",
-      "owner": "user"
+      "impact": "low-to-moderate: CON-1's commits only touched docs/CI-config, not backend/frontend source, so a regression is unlikely, but unverified",
+      "next_action": "run `./mvnw -q verify` (backend) and the frontend gate sequence on current HEAD",
+      "fallback": "cite the final-gates evidence pre-cutover plus the post-CON-1 e2e/performance run",
+      "owner": "maintainer"
     },
     "ci": {
-      "reason": "workflow inspected; remote run status not queried",
+      "reason": "workflow file inspected in full; gh run list was not queried in this refresh",
       "missing_evidence": [
-        "latest Actions run"
+        "current GitHub Actions run status for HEAD"
       ],
-      "impact": "image build status unknown",
-      "next_action": "gh run list --workflow docker-build.yml",
-      "fallback": "configuration-only evidence",
-      "owner": "maintainer"
+      "impact": "cannot confirm the workflow actually ran green for the CON-1 commits (they were also never pushed to origin, so CI would not have triggered on them at all)",
+      "next_action": "push to origin and/or query `gh run list` after pushing",
+      "fallback": "workflow file content verified current and correct for this stack",
+      "owner": "Piotr Mucha"
     },
     "deploy_smoke": {
-      "reason": "prod containers observed running (docker compose ps) but no HTTP smoke performed",
+      "reason": "production was inspected read-only (`docker ps`) and found healthy; no deploy action was taken by this refresh",
       "missing_evidence": [
-        "HTTP 200 from http://localhost:23456"
+        "an active HTTP smoke request to https://kivvi.click from this refresh itself"
       ],
-      "impact": "health unknown beyond container state",
-      "next_action": "curl -I http://localhost:23456/pl",
-      "fallback": "container state recorded",
-      "owner": "maintainer"
+      "impact": "low — container health status plus the very recent (same-day) con1-e2e.md verification already exercised the real HTTP surface",
+      "next_action": "none required; re-check `docker ps` / an HTTP smoke request after any future deploy",
+      "fallback": "docker ps health status, cited",
+      "owner": "Piotr Mucha"
     },
     "e2e": {
-      "reason": "not run; needs isolated dev stack and system Chrome",
+      "reason": "not run by this refresh; a separate very recent verification (cutover/con1-e2e.md, 2026-09-09T16:04-16:07Z) already ran the full suite against production and passed 66/66",
       "missing_evidence": [
-        "playwright run result"
+        "an e2e run performed by this refresh itself"
       ],
-      "impact": "primary journeys unverified in this run",
-      "next_action": "cd tests/e2e && npx playwright test with E2E_BASE_URL",
-      "fallback": "static flow trace",
-      "owner": "user"
+      "impact": "low — the cited evidence is same-day and against production, the strongest available surface",
+      "next_action": "re-run after any further code change",
+      "fallback": "cite cutover/con1-e2e.md",
+      "owner": "maintainer"
     },
     "risks": {
-      "reason": "R1 (stack decision), R3, R5, R8, R13 need user decisions",
+      "reason": "R8 (issue tracker) and R5 (compose project-name collision) remain genuinely undecided/unresolved; several other risks were newly closed by this refresh (R2,R6,R7,R9,R15,R16,R18,R19) but two new risks were opened (R22, R23) from evidence found during this refresh",
       "missing_evidence": [
-        "decisions"
+        "operator decision on R8 (Linear vs GitHub Issues)",
+        "operator decision on R22 (fix or accept the stale format hook)"
       ],
-      "impact": "planning inputs provisional",
-      "next_action": "resolve R1 via research-spike + migration-planning",
-      "fallback": "risks visible in INDEX",
-      "owner": "user"
+      "impact": "documentation-accuracy and workflow-consistency gaps, not functional risks",
+      "next_action": "see risks-and-unknowns.md next-action column per row",
+      "fallback": "risks kept visible in the index and this file",
+      "owner": "Piotr Mucha"
     }
   },
   "contradictions": [
-    {
-      "id": "R1",
-      "summary": "CLAUDE.md/AGENTS.md/product-spec mandate Symfony+Twig, no JS frameworks; user proposes Java/Spring Boot + Vue/React — DECIDED 2026-09-08: Spring Boot + Vue 3 SPA, no SSR (owner: long-term Java maintenance)",
-      "sources": [
-        "CLAUDE.md",
-        "AGENTS.md",
-        ".claude/skills/product-spec/SKILL.md",
-        "conversation 2026-09-08"
-      ],
-      "state": "Decided",
-      "owner": "user"
-    },
-    {
-      "id": "R2",
-      "summary": "AGENTS.md Current Shape lists deleted files (HomeController, templates/home, HomeControllerTest)",
-      "sources": [
-        "AGENTS.md",
-        "git ls-files"
-      ],
-      "state": "N/A"
-    },
-    {
-      "id": "R3",
-      "summary": "context/foundation baseline (homepage-only) vs full prototype in bdf120e",
-      "sources": [
-        "context/foundation/prd.md",
-        "context/foundation/roadmap.md",
-        "src/**"
-      ],
-      "state": "Undecided",
-      "owner": "user"
-    },
-    {
-      "id": "R8",
-      "summary": "Issue tracker: GitHub Issues (CLAUDE.md) vs Linear (memory, user)",
-      "sources": [
-        "CLAUDE.md",
-        "memory kivvi-linear-backlog"
-      ],
-      "state": "Undecided",
-      "owner": "user"
-    },
-    {
-      "id": "R17",
-      "summary": "Production stack down since 2026-09-07 11:00 UTC (database container stopped, no restart policy) — repaired 2026-09-08",
-      "sources": [
-        "docker inspect kivvi-click-database-1",
-        "compose.yaml"
-      ],
-      "state": "Decided",
-      "owner": "user"
-    },
-    {
-      "id": "R19",
-      "summary": "AGENTS.md/CLAUDE.md still describe only the old (Symfony) stack as canonical; left untouched by this refresh per its mandate — stale for the next stack until the CON-1 cutover packet rewrites them",
-      "sources": [
-        "AGENTS.md",
-        "CLAUDE.md",
-        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md (Inventory coverage ledger: docs -> CON-1 (rewrite))"
-      ],
-      "state": "Decided",
-      "owner": "Piotr Mucha"
-    },
-    {
-      "id": "R20",
-      "summary": "Plan's decision ledger describes fixtures as JSON resources under backend/src/main/resources/fixtures/; actual implementation is Java classes under click.kivvi.fixtures (records/static lists) — accepted drift, recorded by the run itself as open_obligations.OBL-fixtures-drift",
-      "sources": [
-        "context/plans/2026-09-08-symfony-to-spring-vue-migration.md (Decision and assumption ledger)",
-        "backend/src/main/java/click/kivvi/fixtures/**",
-        "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/run.json (open_obligations)"
-      ],
-      "state": "Decided",
-      "owner": "Piotr Mucha"
-    },
-    {
-      "id": "R21",
-      "summary": "Host runs many unrelated projects' containers (including self-hosted GitHub Actions runners) alongside the migration's own verification stack; disk at 88/98 GB used (5.1 GB free), close to the plan's own K7 kill-criterion threshold (<3 GB) — can cause flaky or stalled verification unrelated to the code under test",
-      "sources": [
-        "docker ps (2026-09-09)",
-        "df -h (2026-09-09)",
-        "context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/common-journey-rules.md (Disk, Cohort sequencing)"
-      ],
-      "state": "N/A",
-      "owner": "Piotr Mucha"
-    }
+    "R8: CLAUDE.md/AGENTS.md say GitHub Issues; the migration's own closeout ledger and commit 8047d3e say Linear re-pointing was done",
+    "R23: several canonical config files (.env.prod.docker.example, compose.yaml, compose.prod.yaml, mercure/Caddyfile) still contain prose describing a since-deleted old stack or a since-completed 'not yet deployed' state"
   ],
   "open_questions": [
-    "R1: final all-journey cohort running on dae1696 — contract dimension still RUNNING; CUTOVER_READY not yet reached",
-    "Is the Twig prototype the UI for roadmap S-01..S-04 or throwaway? — R3 (unaffected by the migration)",
-    "Confirm Linear as the tracker — R8",
-    "Isolate old-stack dev compose project name from prod — R5 (next-stack leases already isolated)",
-    "R19: when should AGENTS.md/CLAUDE.md be rewritten — only at CON-1, or is an interim pointer warranted while the migration runs?"
+    "Should local main be pushed to origin (currently 168 ahead, 1 behind)?",
+    "Is Linear or GitHub Issues the actual issue tracker going forward (R8)?",
+    "Should .claude/settings.json's format hook be extended to *.java/*.vue, or is explicit spotless:apply/npm run format the accepted permanent workflow (R22)?"
   ],
   "uncovered_paths": [],
   "next_actions": [
-    "track context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/run.json for the contract dimension to resolve and CUTOVER_READY to be recorded",
-    "do not edit AGENTS.md/CLAUDE.md/context/README.md before the CON-1 cutover packet (R19)",
-    "when CUTOVER_READY is reached, re-run project-context-initializer refresh ahead of RR-1/CUT-1 to capture the final state",
-    "after CON-1, remove the old-stack scoped contexts and directory entries from this manifest, and drop the 'both stacks' framing from the central artifacts",
-    "resolve R3/R5/R8 (unaffected by the migration, still open from the prior refresh)"
-  ]
+    "Push local main to origin if the operator wants remote history/CI to reflect current state",
+    "Resolve R8 (issue tracker) explicitly",
+    "Re-run ./mvnw verify and the frontend gate sequence on current HEAD if a stronger same-SHA test signal is wanted beyond the pre-cutover final gates + post-CON-1 e2e/performance evidence",
+    "Consider a follow-up edit pass on the stale 'old stack'/'both stacks' comments named in R23 (out of scope for this refresh, which does not edit product config)"
+  ],
+  "coverage_granularity_note": "A rolled-up directory entry covers its entire subtree (e.g. \"backend/src/main/java\" covers every backend/src/main/java/click/kivvi/** subpackage). Deep, uniform package/component leaves are not each given a separate manifest line, consistent with the reconnaissance reference's \"roll small structural leaves into their parent\" rule and this repository's own prior manifests. Verified: every directory on disk has either a direct entry or a covered ancestor (checked programmatically during this refresh)."
 }

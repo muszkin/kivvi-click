@@ -1,119 +1,87 @@
 <!-- BEGIN project-context-initializer:artifact -->
 # Delivery and verification
 
-Labels: `documented` (in README/CLAUDE/AGENTS/plan), `derived` (from config), `verified` (executed
-— by this context refresh, or Observed as executed by the migration run itself, cited either way),
-`failed`, `not-run`. This refresh executed nothing itself except read-only inspection
-(`docker ps`, `df -h`, `git log`); "verified" entries below cite the migration run's own evidence
-(`context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/run.json`) as the source.
+Labels: `documented` (in README/CLAUDE/AGENTS), `derived` (from config), `verified` (executed —
+either by a prior verification session, cited by evidence path, or Observed as executed by the
+migration run itself), `failed`, `not-run`. **This context refresh executed nothing itself**
+except read-only inspection (`git log`/`git status`, `docker ps`, `gh pr list`, file reads) —
+per its own mandate it does not run tests/CI/e2e. Every "verified" row below cites a specific
+evidence path from a prior session, not this refresh.
 
 ## Environments
 
 | Environment | How | Ports / URL | Label |
 | --- | --- | --- | --- |
-| Old-stack dev (Docker) | `HTTP_PORT=8080 HTTPS_PORT=8443 HTTP3_PORT=8443 docker compose up -d --wait` | https://localhost:8443 (self-signed) | documented |
-| Old-stack prod on this host | `docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --wait` | http://localhost:23456 → https://kivvi.click via external TLS proxy | documented; containers `kivvi-click-php-1`, `kivvi-click-database-1` observed running (`docker ps`, 2026-09-09) |
-| Old-stack test (PHPUnit) | `APP_ENV=test`, DB `app_test`, in-memory Messenger, mock-file sessions | inside `php` container | derived |
-| Next-stack dev/verification (Docker) | `docker compose -p <lease> -f compose.next.yaml up -d --build --wait` (leased HTTP/HTTPS ports from the `19000 + 10·n` pool) | `https://localhost:<leased-port>` | documented (plan §"Worktree resource lease"); observed running as `kivvi-int-*` during this refresh (`docker ps`) |
-| Next-stack prod overlay | `docker compose -p kivvi-click --env-file .env.prod.docker -f compose.next.prod.yaml up -d --build --wait` | http://localhost:23456 (same port, after CUT-1) | documented (plan §"Delivery stages", CUT-1 row); **not deployed** — CUT-1 requires separate authorization |
-| Next-stack backend test (Testcontainers) | `./mvnw verify` spins up Postgres 18 via Testcontainers | inside the Maven build | verified (Observed, `run.json`) |
-| Next-stack frontend test (Vitest) | `npm run test` / `npm run test:integration` | Node process, jsdom | verified (Observed, `run.json`) |
+| Dev (Docker) | `docker compose -p kivvi-dev up -d --build --wait` (`HTTP_PORT`/`HTTPS_PORT`/`HTTP3_PORT` env vars) | https://localhost:8443 (self-signed) | documented |
+| Prod on this host | `docker compose -p kivvi-click --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --wait`, run from this directory only | http://localhost:23456 → https://kivvi.click via external TLS proxy | documented; **observed running and healthy** — `api`/`mercure`/`database` all `Up (healthy)` (`docker ps`, 2026-09-09T16:20Z; this refresh ran `ps` only, no `up`/`down`) |
+| Backend test (Testcontainers) | `cd backend && ./mvnw -q verify` spins up Postgres 18 via Testcontainers | inside the Maven build | verified (final gates, `run.json`; also `cutover/con1-e2e.md` ran a fresh `frontend` build+e2e pass post-CON-1, not a backend test re-run) |
+| Frontend test (Vitest) | `cd frontend && npm run test -- --run` / `npm run test:integration -- --run` | Node process, jsdom | verified (final gates, `run.json`) |
+| E2E against production | `cd tests/e2e && E2E_BASE_URL=https://kivvi.click npx playwright test` | production, port 23456 via the proxy | **verified 2026-09-09T16:04-16:07Z**, `cutover/con1-e2e.md`: 66/66 unique tests PASS across 11 invocations (`navigation.spec.ts` run twice, `--workers=1` for `events`/`dashboard`/`navigation`) |
 
-**Hazard (Inferred, unchanged from prior refresh):** old-stack dev and prod compose stacks share
-project name `kivvi-click`; running the documented dev command without a distinct `-p` would
-recreate the running prod containers. The next stack's leases already use distinct project names
-(`kivvi-w-<journey>`, `kivvi-int`, `kivvi-final`) by design — this hazard is specific to the old
-stack and unaffected by the migration until `CUT-1`, which explicitly reuses project name
-`kivvi-click` at that point (plan §"Delivery stages" CUT-1 row) — a deliberate, authorized reuse,
-not the same accidental hazard.
+**Hazard (unchanged since the prior refresh):** dev and prod compose stacks can still collide on
+the default project name — omitting `-p` on a dev `docker compose up` here defaults to this
+directory's own name (`kivvi-click`), which is exactly prod's running project name on this host.
+Always pass `-p kivvi-dev` for dev work (`AGENTS.md`/`CLAUDE.md` both say this explicitly). See
+R5 in `risks-and-unknowns.md`.
 
-## Commands — old stack (unchanged)
+## Commands (Observed, `backend/pom.xml`, `frontend/package.json`, `AGENTS.md`, `CLAUDE.md`)
 
 | Purpose | Command | Label |
 | --- | --- | --- |
-| Build images | `docker compose build php` | documented |
-| Console | `docker compose exec php php bin/console <cmd>` | documented |
-| Unit + functional tests | `docker compose exec php composer test` | documented, not-run (this refresh) |
-| Static analysis PHP | `docker compose exec php composer phpstan` | documented, not-run |
-| Type-check TS | `yarn typecheck` | documented, not-run |
-| Format | `vendor/bin/php-cs-fixer fix`, `yarn format` | documented, not-run |
-| E2E | `cd tests/e2e && npm install && npx playwright test` (`E2E_BASE_URL` default `https://localhost:8543`) | documented, not-run |
-| Storybook | https://localhost:8443/_storybook (dev/test only) | documented |
-| Prod migrations | one-shot `migrations` service in `compose.prod.yaml` | derived |
-
-## Commands — next stack (Observed, `backend/pom.xml`, `frontend/package.json`, `common-journey-rules.md`)
-
-| Purpose | Command | Label |
-| --- | --- | --- |
-| Java toolchain | `export JAVA_HOME=/home/muszkin/.cache/kivvi-toolchains/jdk-25; export PATH=$JAVA_HOME/bin:$PATH` | documented (host has no system Java 25) |
-| Backend unit tests | `cd backend && ./mvnw -q test` | verified (Observed, `run.json`: unit dimension in the final cohort) |
-| Backend integration + ArchUnit + Spotless | `cd backend && ./mvnw -q verify` | verified |
+| Java toolchain | `export JAVA_HOME=~/.cache/kivvi-toolchains/jdk-25` (host has no system Java 25) | documented |
+| Backend unit tests | `cd backend && ./mvnw -q test` (unit + `ArchitectureTest`, no containers) | verified (final gates) |
+| Backend integration + ArchUnit + Spotless | `cd backend && ./mvnw -q verify` (Testcontainers Postgres 18) | verified (final gates: 299 unit, 142 IT, spotless, ArchUnit) |
 | Backend format check/fix | `./mvnw spotless:check` / `./mvnw spotless:apply` | verified (bound to `verify` phase) |
-| Backend local dev run | `./mvnw spring-boot:run` (against the compose database) | documented — fast iteration only, gates still run against the compose-built image |
-| Frontend unit tests | `cd frontend && npm run test -- --run` | verified |
-| Frontend integration tests | `npm run test:integration -- --run` | verified |
-| Frontend lint | `npm run lint` | verified |
-| Frontend typecheck | `npm run typecheck` (`vue-tsc --noEmit`) | verified |
-| Frontend format check | `npm run format:check` | verified |
-| Frontend build | `npm run build` | verified |
-| Stack up (per-journey lease) | `docker compose -p <lease> -f compose.next.yaml up -d --build --wait` | documented |
-| Contract/visual verification | `node tools/migration-verify/compare.mjs --journey <id> --base https://localhost:<port> --out <dir> [--dimension contract\|visual\|performance\|all]` | verified |
-| Performance verification | `node tools/migration-verify/performance.mjs --base https://localhost:<port>` | verified |
-| E2E (shared oracle suite) | `cd tests/e2e && E2E_BASE_URL=https://localhost:<port> npx playwright test <spec>` (one invocation per `-g` filter; `events.spec.ts` with `--workers=1`) | verified |
-| CI | `.github/workflows/next-build.yml` (`backend` + `frontend` jobs) | documented, not queried in this refresh (`gh run list` not run) |
+| Backend local dev run | `./mvnw spring-boot:run` (against the compose database) | documented — fast iteration only; every gate still runs against the compose-built image |
+| Frontend install | `cd frontend && npm ci` | verified (`cutover/con1-e2e.md` step1) |
+| Frontend unit tests | `npm run test -- --run` | verified (final gates: 169) |
+| Frontend integration tests | `npm run test:integration -- --run` | verified (final gates: 152) |
+| Frontend lint | `npm run lint` | verified (final gates) |
+| Frontend typecheck | `npm run typecheck` (`vue-tsc --noEmit`) | verified (final gates) |
+| Frontend format check | `npm run format:check` | verified (final gates) |
+| Frontend build | `npm run build` | verified (final gates; also re-run 2026-09-09 for the post-CON-1 performance check) |
+| Migration parity check (still supported post-cutover) | `node tools/migration-verify/compare.mjs --journey <id> --base <url> [--dimension contract\|visual\|performance\|all]` | verified pre-cutover; not re-run by this refresh |
+| Performance budget check | `node tools/migration-verify/performance.mjs --base <url>` | **verified against production 2026-09-09**, `cutover/con1-e2e.md` §3: all 4 budgets PASS (`initialJsGzipBytes` 101,990 B ≤ 307,200 B; `lcpMillis` 200 ≤ 2000; `ttiMillis` 57.8 ≤ 2500; `collectP95Millis` 39.7 ≤ 500) |
+| E2E (full suite) | `cd tests/e2e && npm install && E2E_BASE_URL=<url> npx playwright test` (`events`/`dashboard`/`navigation` with `--workers=1`, `navigation` run twice) | **verified against production 2026-09-09T16:04-16:07Z**, 66/66 PASS |
+| CI | `.github/workflows/build.yml` (`backend`, `frontend`, `backend-image` jobs) | documented, not queried in this refresh (`gh run list` not run; `gh pr list` was run and returned 0 open/closed PRs — see `git-and-pr-history.md`) |
 
 ## Test surfaces
 
-| Suite | Files | Covers | Stack |
-| --- | --- | --- | --- |
-| PHPUnit functional | `tests/Controller/PanelPagesTest.php`, `PreferencesControllerTest.php`, `SecurityControllerTest.php` | every panel screen renders, PL/EN nav, preferences round-trip, login/logout identity | old |
-| PHPUnit integration | `tests/Tracking/EventIngestionTest.php`, `tests/CacheTest.php` | validation, dedup, `/collect` 202/200/400; Postgres cache round-trip | old |
-| JUnit unit | `backend/src/test/java/click/kivvi/{application,domain,infrastructure,fixtures,web}/**` | one `*ViewServiceTest`/`*ControllerTest` per page, domain logic, session lock, heartbeat, mercure publisher request shape | next |
-| JUnit integration (`*IT`, Testcontainers Postgres) | `backend/src/test/java/click/kivvi/*ApiIT.java`, `SessionRoundTripIT`, `SessionRequestSerializationIT`/`...RedProofIT`, `ShellPagesIT` | end-to-end API behaviour against a real Postgres 18 | next |
-| ArchUnit | `backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java` | layering (`domain`↛`web`, `infrastructure` only from `application`, no cycle), Mercure-publisher access, topic-literal locality | next |
-| Vitest unit | `frontend/test/unit/*.spec.ts` (28 files) | component/structural invariants (e.g. exactly one `.main-scroll`) | next |
-| Vitest integration | `frontend/test/integration/*.spec.ts` (21 files) | one per view/journey + shell store, locale toggle, scroll restoration | next |
-| Playwright E2E | `tests/e2e/specs/{automations,customers,dashboard,editors,events,import,lists,navigation,public,settings}.spec.ts` | **shared acceptance oracle for both stacks** — unchanged specs, `E2E_BASE_URL` selects the target | old + next |
-| Migration verifier | `tools/migration-verify/{compare,performance}.mjs` | contract/visual/performance parity between the frozen oracle capture and a candidate next-stack build | next (compares against old-stack-derived oracle) |
+| Suite | Files | Covers |
+| --- | --- | --- |
+| JUnit unit | `backend/src/test/java/click/kivvi/{application,domain,infrastructure,fixtures,web}/**` | one `*ViewServiceTest`/`*ControllerTest` per page, domain logic, session lock, heartbeat, mercure publisher request shape |
+| JUnit integration (`*IT`, Testcontainers Postgres) | `backend/src/test/java/click/kivvi/*ApiIT.java`, `SessionRoundTripIT`, `SessionRequestSerializationIT`/`...RedProofIT`, `ShellPagesIT` | end-to-end API behaviour against a real Postgres 18 |
+| ArchUnit | `backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java` | layering (`domain`↛`web`, `infrastructure` only from `application`, no cycle), Mercure-publisher access, topic-literal locality |
+| Vitest unit | `frontend/test/unit/*.spec.ts` (28 files) | component/structural invariants (e.g. exactly one `.main-scroll`) |
+| Vitest integration | `frontend/test/integration/*.spec.ts` (21 files) | one per view/journey + shell store, locale toggle, scroll restoration |
+| Playwright E2E | `tests/e2e/specs/{automations,customers,dashboard,editors,events,import,lists,navigation,public,settings}.spec.ts` | the whole panel's browser-level acceptance oracle — unchanged specs since `812db3f` (2026-08-26), verified untouched by `git diff --stat` over the full CON-1 window |
+| Migration verifier | `tools/migration-verify/{compare,performance}.mjs` | contract/visual/performance parity between the frozen pre-migration oracle capture and this stack; kept running post-cutover as a regression tool |
 
-PHPUnit (old) fails on any deprecation/notice/warning; `backend`'s Maven compiler runs `-Xlint:all
--Werror` (next) — both stacks treat a warning as a build failure, by design (Observed, plan
-§"Technology decisions" Architecture-tests row and `pom.xml`).
+Both `./mvnw` and the frontend gate treat a warning as a build failure by design: Maven's
+compiler plugin runs `-Xlint:all -Werror`; a JUnit extension
+(`testsupport.FailOnWarnLogExtension`) fails any test that logs at `WARN` or above.
 
 ## CI/CD
 
-- Old stack: `.github/workflows/docker-build.yml` — build-only on push to `main`, `push: false`, no
-  test/lint/phpstan/e2e job.
-- Next stack: `.github/workflows/next-build.yml` — separate workflow, triggered on push/PR touching
-  `backend/**`, `frontend/**`, `compose.next*.yaml`, `mercure/**`, `tools/migration-verify/**`;
-  `backend` job builds the SPA first and copies it into the jar's resources, then `./mvnw -B -q
-  verify`; `frontend` job runs typecheck/lint/format-check/unit/integration/build. Neither workflow
-  currently runs the shared Playwright suite or `tools/migration-verify` in CI (Observed, workflow
-  file content) — these run inside the migration orchestrator's own worker/verification loop instead
-  (`context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/`), not as a GitHub Actions
-  job.
+`.github/workflows/build.yml` — triggers on push to `main` and PRs touching `backend/**`,
+`frontend/**`, `compose*.yaml`, `mercure/**`, `tools/migration-verify/**`, or the workflow file
+itself (path filters fixed by CON-1 commit `0b46320`, which dropped an old-stack-only path).
+Three jobs: `backend` (builds the SPA, copies it into the jar's static resources, `./mvnw -B -q
+verify`), `frontend` (typecheck/lint/format-check/unit/integration/build), `backend-image`
+(build-only Docker image check, no push). **Neither the shared Playwright suite nor
+`tools/migration-verify` runs in CI** — both ran inside the migration orchestrator's own
+worker/verification loop and, since cutover, only in ad-hoc sessions like
+`cutover/con1-e2e.md` — a regression introduced after this refresh would not be caught by CI
+alone until someone runs the e2e suite by hand.
 
-## Migration run status (Observed, `context/implementation-runs/2026-09-08T141500Z-spring-vue-migration/run.json`, `RUN.md` — RUN.md is stale, run.json is current)
+## Missing harnesses (Observed gaps)
 
-- `feature_head_sha`: `dae169614a52532c130bd34435994d6a914165c0` (this refresh's source revision).
-- `final_cohort.state`: `RUNNING` on this SHA — described in `run.json` as also serving as the
-  wave-5 cohort (a superset). Round 1 of the final cohort `FAIL`ed on unit coverage labelling
-  (B02/B03/B21 not named after `behaviours.json` ids); fixed in the commits leading to this SHA.
-- Per-dimension state at this SHA (Observed, `run.json`): unit/integration/architecture/e2e/visual
-  `PASS`; contract dimension `PASS` (final cohort 6/6 on `dae1696`, 2026-09-09).
-- `staging`/`production`/`production_pr`: all `NOT_APPLICABLE`/`NOT_RUN` — `CUTOVER_READY` has not
-  been reached; `RR-1`/`CUT-1`/`CON-1` have not started.
-- `open_obligations`: one recorded item, `OBL-fixtures-drift` — "plan decision ledger described
-  fixtures as JSON resources; implemented as Java classes under `click.kivvi.fixtures`... record in
-  the plan/context refresh, no code change" — addressed by this refresh as R20 in
-  `risks-and-unknowns.md`.
-
-## Missing harnesses (Observed gaps, both stacks)
-
-- Old stack: no CI test gate; no image registry push; no rollback procedure; no test for the
-  missing editor `/blocks` endpoint; no load/perf test for `/collect` although PRD sets p95 < 500 ms.
-- Next stack: no CI job runs the shared Playwright suite or the migration verifier (both run inside
-  the orchestrator loop, outside GitHub Actions) — a regression introduced after the migration run
-  closes would not be caught by `next-build.yml` alone. `/collect` p95 < 500 ms is checked by
-  `tools/migration-verify/performance.mjs` (`budget.json` `collectP95Millis: 500`), not by CI.
+- No CI job runs the shared Playwright suite or the migration verifier.
+- No metrics/tracing/error-tracking harness (see `architecture-and-flows.md` Observability).
+- No load/perf test for `/collect` runs in CI, although `tools/migration-verify/performance.mjs`
+  can check it manually against `budget.json`'s `collectP95Millis: 500` (last checked and PASSing
+  against production, see above).
+- No rollback automation beyond the documented `git checkout <sha>` + redeploy sequence in
+  `README.md`'s "Production operations" — there is no second stack to fall back to any more
+  (the old stack was deleted by CON-1).
 <!-- END project-context-initializer:artifact -->

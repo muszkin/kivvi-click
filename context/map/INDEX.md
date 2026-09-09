@@ -3,107 +3,93 @@
 
 | Field | Value |
 | --- | --- |
-| Project | kivvi-click — Symfony 8/PHP 8.5 marketing-automation SaaS, **mid-migration** to Spring Boot 4.1.1 (Java 25) + Vue 3 SPA |
-| Scope | whole repository (`scope_kind: repository`), both coexisting stacks |
+| Project | kivvi-click — Spring Boot 4.1.1 (Java 25) API + Vue 3.5 SPA marketing-automation SaaS |
+| Scope | whole repository (`scope_kind: repository`) |
 | Operation | refresh |
-| Classification | brownfield (design-complete UI prototype on both stacks; no domain entities yet on either) |
-| Source | `dae169614a52532c130bd34435994d6a914165c0` on `migration/spring-vue` (worktree `/home/muszkin/work/kivvi-click-wt/integration`), refreshed on the feature branch mid-run |
-| Generated | 2026-09-08T13:17Z (initial) · refreshed 2026-09-09 (this run, Phase 5 context reconciliation) |
-| Coverage / freshness | inventory complete, coverage complete, freshness complete for both stacks; old-stack tests/CI/e2e **not re-run** by this refresh; next-stack final verification cohort **still running** (contract dimension) — see manifest verdicts and R1/R12 |
+| Classification | brownfield (design-complete UI prototype + real event-ingestion flow; no domain entities yet) |
+| Source | `fe9c3fe06b919302d322994438a8fbb177c8b2a0` on `main`, clean tracked tree; untracked `.ai/` excluded |
+| Generated | 2026-09-08T13:17Z (initial) · refreshed 2026-09-09T16:20Z (this run, post-cutover/CON-1) |
+| Coverage / freshness | inventory complete, coverage complete, freshness complete; this refresh did **not** run tests/CI itself — see `delivery-and-verification.md` and manifest verdicts for what a prior verification session already proved green |
 
 **Precedence:** current user instructions, `CLAUDE.md`/`AGENTS.md`, code, runtime behaviour and
-canonical docs outrank this generated map. `CLAUDE.md`/`AGENTS.md` describe only the old stack and
-are **stale for the next stack by design** until the `CON-1` cutover packet rewrites them — see R19
-in `risks-and-unknowns.md`. Verify stale or high-risk claims before acting.
+canonical docs outrank this generated map. Verify stale or high-risk claims before acting.
 
-## Two stacks, one repository
+## What changed since the last map
 
-The old Symfony stack (`src/`, `templates/`, `assets/`, `config/`, `frankenphp/`) is unchanged and
-still serves production on port 23456. The next Spring Boot + Vue 3 SPA stack (`backend/`,
-`frontend/`, `mercure/`, `tools/migration-verify/`) exists on this branch, behind
-`compose.next.yaml`/`compose.next.prod.yaml`, not yet cut over. See `project-overview.md` and
-`architecture-and-flows.md` for the full picture, and the migration plan/oracle below for how the
-two are being reconciled.
+The prior map (source `dae1696` on `migration/spring-vue`) described **two coexisting stacks**
+mid-migration. Since then: the migration reached `CUTOVER_READY`, `RR-1` (rollback rehearsal) and
+`CUT-1` (production cutover, live 2026-09-09T14:18:42Z on port 23456) both passed, and `CON-1`
+removed the old Symfony/PHP/Twig stack entirely (commits `7287390`, `25329ac`, `8c37b92`,
+`0b46320`, `4539828`, `4de4fed`, `8047d3e`, `fe9c3fe`) and rewrote `AGENTS.md`/`CLAUDE.md`/
+`README.md` for the new stack. `src/`, `templates/`, `assets/`, `config/`, `frankenphp/`,
+`migrations/`, `translations/`, `bin/`, `public/`, `var/` and `tests/Controller`/`tests/Tracking`
+no longer exist on disk. This refresh rebuilds the map for the single remaining stack:
+`backend/` (Spring Boot API), `frontend/` (Vue 3 SPA), `mercure/` (edge/hub config),
+`tools/migration-verify/` (kept as a post-cutover parity regression tool), `tests/e2e/`
+(unchanged Playwright suite), plus `docs/adr/` (two decision records from the migration) and the
+federated `context/plans|research|migration-oracle|implementation-runs/**` evidence.
 
 ## Task router
 
 | Consumer | Read next |
 | --- | --- |
-| research | `project-overview.md`, `documentation-index.md` (incl. related 10x foundation docs), relevant scoped context, `risks-and-unknowns.md` |
+| research | `project-overview.md`, `documentation-index.md` (incl. related 10x foundation docs and migration evidence), relevant scoped context, `risks-and-unknowns.md` |
 | implementation planning | overview, `technology.md`, `architecture-and-flows.md`, `dependencies.md`, `delivery-and-verification.md`, `git-and-pr-history.md` (hotspots), risks, scoped contexts of touched directories |
-| migration execution (this run, R1 IN EXECUTION) | `../plans/2026-09-08-symfony-to-spring-vue-migration.md` (approved plan), `../implementation-runs/2026-09-08T141500Z-spring-vue-migration/{RUN.md,run.json,common-journey-rules.md}` (live run state), `../migration-oracle/symfony-to-spring-vue/` (oracle, immutable), `backend/.agents/project-context.md`, `frontend/.agents/project-context.md`, `tools/migration-verify/.agents/project-context.md`, `mercure/.agents/project-context.md`, architecture + next-stack diagrams, risks R1/R19/R20/R21 |
-| review | architecture, dependencies (contracts table), risks, git co-change, delivery gates, scoped contexts of both stacks |
-| `implementation-orchestrator` | approved plan: `../plans/2026-09-08-symfony-to-spring-vue-migration.md`, run ledger `../implementation-runs/2026-09-08T141500Z-spring-vue-migration/`, overview, architecture, dependencies, delivery commands, risks, nearest scoped contexts (old- and next-stack) |
-| implementer | approved plan, scoped context of the directory (old or next stack), dependencies, delivery commands, invariants listed in each scoped context |
+| review | architecture, dependencies (contracts table), risks, git co-change, delivery gates, `docs/adr/`, scoped contexts |
+| `implementation-orchestrator` | overview, architecture/ADRs/flows, dependencies/contracts, delivery and quality-gate commands (`./mvnw verify`, frontend gate sequence, e2e), risks, nearest scoped contexts, prior run ledger `../implementation-runs/2026-09-08T141500Z-spring-vue-migration/` for cross-cutting invariants (`common-journey-rules.md`) |
+| implementer | scoped context of the directory, dependencies, delivery commands, invariants listed in each scoped context, `docs/adr/` for accepted parity deviations |
 
 ## Domains
 
 | Domain | Path | Scoped context |
 | --- | --- | --- |
-| Root, ops, docs, translations, migrations | `.` | [`.agents/project-context.md`](../../.agents/project-context.md) |
-| Old-stack application code | `src/` | [`src/.agents/project-context.md`](../../src/.agents/project-context.md) |
-| Old-stack panel view-model + sample content | `src/Panel/` | [`src/Panel/.agents/project-context.md`](../../src/Panel/.agents/project-context.md) |
-| Old-stack event tracking / ingestion | `src/Tracking/` | [`src/Tracking/.agents/project-context.md`](../../src/Tracking/.agents/project-context.md) |
-| Old-stack Symfony configuration | `config/` | [`config/.agents/project-context.md`](../../config/.agents/project-context.md) |
-| Old-stack Twig design system + pages | `templates/` | [`templates/.agents/project-context.md`](../../templates/.agents/project-context.md) |
-| Old-stack TypeScript + CSS | `assets/` | [`assets/.agents/project-context.md`](../../assets/.agents/project-context.md) |
-| Old-stack FrankenPHP/Caddy runtime | `frankenphp/` | [`frankenphp/.agents/project-context.md`](../../frankenphp/.agents/project-context.md) |
-| Old-stack PHPUnit suite | `tests/` | [`tests/.agents/project-context.md`](../../tests/.agents/project-context.md) |
-| Shared Playwright E2E (acceptance oracle for both stacks) | `tests/e2e/` | [`tests/e2e/.agents/project-context.md`](../../tests/e2e/.agents/project-context.md) |
-| **Next-stack Spring Boot API** | `backend/` | [`backend/.agents/project-context.md`](../../backend/.agents/project-context.md) |
-| **Next-stack Vue 3 SPA** | `frontend/` | [`frontend/.agents/project-context.md`](../../frontend/.agents/project-context.md) |
-| **Next-stack six-dimension verifier tooling** | `tools/migration-verify/` | [`tools/migration-verify/.agents/project-context.md`](../../tools/migration-verify/.agents/project-context.md) |
-| **Next-stack Mercure edge config** | `mercure/` | [`mercure/.agents/project-context.md`](../../mercure/.agents/project-context.md) |
+| Root, ops, docs, ADRs, product spec | `.` | [`.agents/project-context.md`](../../.agents/project-context.md) |
+| Spring Boot API | `backend/` | [`backend/.agents/project-context.md`](../../backend/.agents/project-context.md) |
+| Vue 3 SPA | `frontend/` | [`frontend/.agents/project-context.md`](../../frontend/.agents/project-context.md) |
+| Mercure edge/hub config | `mercure/` | [`mercure/.agents/project-context.md`](../../mercure/.agents/project-context.md) |
+| Post-cutover parity-check tooling | `tools/migration-verify/` | [`tools/migration-verify/.agents/project-context.md`](../../tools/migration-verify/.agents/project-context.md) |
+| Playwright E2E (acceptance oracle) | `tests/e2e/` | [`tests/e2e/.agents/project-context.md`](../../tests/e2e/.agents/project-context.md) |
+
+`tests/` itself has no files of its own now that the PHP suite is gone (`tests/Controller`,
+`tests/Tracking` deleted by CON-1) — it is `rolled-up` into `tests/e2e/`'s context; see manifest.
 
 ## Central artifacts
 
 - [`project-overview.md`](project-overview.md) · [`technology.md`](technology.md) · [`architecture-and-flows.md`](architecture-and-flows.md)
 - [`dependencies.md`](dependencies.md) · [`documentation-index.md`](documentation-index.md) · [`delivery-and-verification.md`](delivery-and-verification.md)
 - [`git-and-pr-history.md`](git-and-pr-history.md) · [`risks-and-unknowns.md`](risks-and-unknowns.md)
-- Diagrams — old stack: [`diagrams/module-dependencies.mmd`](diagrams/module-dependencies.mmd), [`diagrams/primary-runtime-flow.mmd`](diagrams/primary-runtime-flow.mmd)
-- Diagrams — next stack: [`diagrams/next-stack-module-dependencies.mmd`](diagrams/next-stack-module-dependencies.mmd), [`diagrams/next-stack-event-flow.mmd`](diagrams/next-stack-event-flow.mmd)
-  (all Mermaid source, rendering not run)
+- Diagrams: [`diagrams/module-dependencies.mmd`](diagrams/module-dependencies.mmd), [`diagrams/primary-runtime-flow.mmd`](diagrams/primary-runtime-flow.mmd) (Mermaid source, rendering not run)
 - Manifest: [`manifest.json`](manifest.json) — rolled-up and excluded directories, fingerprints, verdicts.
 
-## Research artifacts
+## Decision records and migration evidence
 
-- [`../research/2026-09-08-stack-migration-spring-vue-react.md`](../research/2026-09-08-stack-migration-spring-vue-react.md) — research-spike verdict on R1 (Spring Boot + Vue/React migration): adopt-with-constraints (flip condition met — see the plan); also finds Symfony 8.0 unmaintained since 2026-07-31 (R16).
-
-## Plan, oracle and run ledger
-
-- [`../plans/2026-09-08-symfony-to-spring-vue-migration.md`](../plans/2026-09-08-symfony-to-spring-vue-migration.md) — migration plan (approved 2026-09-08): 6 waves, 13 journeys, deviations DEV-1..13, cutover packets RR-1/CUT-1/CON-1.
-- `../migration-oracle/symfony-to-spring-vue/` — immutable pre-migration oracle captured on `5b806ac` (manifest SHA-256 `4945a8deb19ea342a4aaa2c0ac681dc13f05c121aa387677c30ecf210a90f74f`); do not edit.
-- `../implementation-runs/2026-09-08T141500Z-spring-vue-migration/` — live run ledger (not tracked by
-  Git — local to the main checkout `/home/muszkin/work/kivvi-click`, outside this worktree):
-  `run.json` (machine-readable state, current), `RUN.md` (human summary, **stale** — last updated at
-  wave-2), `common-journey-rules.md` (cross-journey invariants, federated into `backend/`, `frontend/`
-  and `tools/migration-verify/` scoped contexts), `waves/`, `slices/`, `events.jsonl`. As of this
-  refresh: final all-journey cohort PASSED 6/6 on `dae1696` (2026-09-09); FEATURE_LOCAL_GREEN pending the final gates, not yet
-  `CUTOVER_READY`.
+- [`../../docs/adr/0001-serialize-requests-per-session-like-php.md`](../../docs/adr/0001-serialize-requests-per-session-like-php.md) — session-lock parity filter (accepted).
+- [`../../docs/adr/0002-spa-reload-scroll-restoration-via-router-scrollbehavior.md`](../../docs/adr/0002-spa-reload-scroll-restoration-via-router-scrollbehavior.md) — scroll restoration via `scrollBehavior` (accepted).
+- [`../research/2026-09-08-stack-migration-spring-vue-react.md`](../research/2026-09-08-stack-migration-spring-vue-react.md) — research-spike verdict that led to R1's decision.
+- [`../plans/2026-09-08-symfony-to-spring-vue-migration.md`](../plans/2026-09-08-symfony-to-spring-vue-migration.md) — approved migration plan (6 waves, 13 journeys, deviations DEV-1..13, cutover packets RR-1/CUT-1/CON-1); plan errata and DEV-13 retirement recorded in-place (commit `8c37b92`).
+- `../migration-oracle/symfony-to-spring-vue/` — immutable pre-migration oracle captured on `5b806ac` (manifest SHA-256 `4945a8deb19ea342a4aaa2c0ac681dc13f05c121aa387677c30ecf210a90f74f`); do not edit. Still the reference `tools/migration-verify/` replays against.
+- `../implementation-runs/2026-09-08T141500Z-spring-vue-migration/` — the migration's run ledger: `closeout.md` (terminal outcome, open obligations), `RUN.md` (state + cutover section), `common-journey-rules.md` (cross-journey invariants, federated into the scoped contexts below), `cutover/{rr1,cut1,con1}` (rehearsal/cutover/removal evidence, including `cutover/con1-e2e.md` — a **read-only post-CON-1 verification** that ran the full Playwright suite against production and passed 66/66; see `delivery-and-verification.md`), `waves/`, `slices/`, `final-gates/`.
 
 ## Canonical project documents
 
-`README.md`, `CLAUDE.md`, `AGENTS.md`, `.claude/skills/product-spec/SKILL.md` — **stale for the next
-stack** until `CON-1` (R19); preserved 10x foundation docs
+`README.md`, `CLAUDE.md`, `AGENTS.md`, `.claude/skills/product-spec/SKILL.md`, `backend/README.md`,
+`frontend/README.md`, `docs/adr/*`; preserved 10x foundation docs
 `context/foundation/{prd,roadmap,shape-notes,stack-assessment,health-check}.md` (stale baseline
-2026-06-25, see `documentation-index.md`).
+2026-06-25, describes a homepage-only app — see `documentation-index.md`).
 
 ## Unresolved contradictions (details in `risks-and-unknowns.md`)
 
-- R1 Stack: **Decided 2026-09-08, IN EXECUTION** — migrating to Spring Boot + Vue 3 SPA; final cohort running on `dae1696`, contract dimension pending, not yet `CUTOVER_READY`.
-- R2 `AGENTS.md` "Current Shape" lists deleted files.
-- R3 Foundation docs describe a homepage-only baseline; a full prototype exists (on both stacks now).
-- R5 Old-stack dev and prod compose stacks share one project name; prod containers run on this host (next-stack leases are already isolated).
-- R8 Issue tracker: GitHub Issues (`CLAUDE.md`) vs Linear (memory, user).
-- R17 Production was down 2026-09-07 → 2026-09-08 (database container exited, no restart policy); repaired, policy added. Monitoring still absent (PIO-112).
-- **R19 (new)** `AGENTS.md`/`CLAUDE.md` still describe only the old stack; stale by design until `CON-1`.
-- **R20 (new)** Fixtures implemented as Java classes (`backend/.../fixtures/*.java`) vs. the plan's stated JSON resources — accepted drift, no code change needed.
-- **R21 (new)** Host disk/CPU contention from unrelated projects' containers (including self-hosted GitHub Actions runners) affects verification runs — re-run ambiguous failures in isolation.
+- R1 Stack: **Decided and executed (2026-09-09)** — migrated to Spring Boot + Vue 3 SPA; old stack removed by CON-1.
+- R5 Dev and prod compose stacks can still share the compose project name (`kivvi-click`) unless dev is started with `-p kivvi-dev`; prod is running under that name on this host right now.
+- R8 Issue tracker: GitHub Issues (`CLAUDE.md`) vs Linear (memory, closeout ledger mentions re-pointing PIO-70..115) — `CLAUDE.md` still says GitHub Issues; contradiction not resolved by this refresh.
+- R12 This refresh did not itself run tests/CI/e2e; it relies on the migration run's own recorded evidence and the separately-run `cutover/con1-e2e.md` verification (2026-09-09T16:04-16:07Z).
+- R17 Production was down 2026-09-07 11:00 UTC → 2026-09-08 (database container exited, no restart policy); repaired, `restart: unless-stopped` added. Monitoring still absent (PIO-112).
+- R22 (new) `.claude/settings.json`'s post-edit format hook still matches only `*.php`/`*.ts` — stale for this Java/Vue stack (also noted in `AGENTS.md` itself).
+- R23 (new) `.env.prod.docker.example` and `compose.yaml`/`compose.prod.yaml`/`mercure/Caddyfile` still carry comments describing the old stack ("both stacks", "old stack only", "mirrors frankenphp/Caddyfile") that no longer apply now that only one stack exists.
 
 ## Freshness rule
 
-Refresh when `HEAD`, instruction files, manifests/lockfiles, or any mapped directory changes (either
-stack); `manifest.json` records the source snapshot and per-artifact input fingerprints used for
-comparison. This refresh's own trigger: Phase 5 (context reconciliation) of the
-`implementation-orchestrator` run for `migration/spring-vue`.
+Refresh when `HEAD`, instruction files, manifests/lockfiles, or any mapped directory changes;
+`manifest.json` records the source snapshot and per-artifact input fingerprints used for
+comparison.
 <!-- END project-context-initializer:artifact -->

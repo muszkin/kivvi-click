@@ -1,30 +1,35 @@
-%% Primary runtime flow — event ingestion and live stream (observed in src/Tracking, assets/controllers/event-stream.ts, frankenphp/Caddyfile)
+%% Primary runtime flow — event ingestion and live stream
+%% (observed in backend/src/main/java/click/kivvi/{web/CollectController.java,application/tracking,infrastructure},
+%%  frontend/src/composables/useEventStream.ts, mercure/Caddyfile)
 sequenceDiagram
   participant Tracker as Tracker / test client
-  participant Caddy as Caddy + FrankenPHP
-  participant App as EventIngestionController / EventIngestion
-  participant PG as Postgres cache_items
-  participant Hub as Mercure hub (Caddy module)
-  participant Panel as Panel browser (event-stream.ts)
+  participant Edge as mercure edge (Caddy + Mercure hub)
+  participant Api as CollectController / EventIngestionService
+  participant PG as Postgres event_dedup
+  participant Hub as Mercure hub (same process as Edge)
+  participant SPA as Vue SPA (useEventStream.ts)
 
-  Panel->>Caddy: GET /pl/events (server-rendered rows + data-event-stream-topic)
-  Caddy-->>Panel: HTML (layout/app + organisms/event-stream)
-  Panel->>Hub: EventSource /.well-known/mercure?topic=/accounts/1/events (anonymous)
-  Hub-->>Panel: open -> data-stream-state=live
+  SPA->>Edge: GET /pl/events (SPA document, served by SpaDocumentController)
+  Edge-->>SPA: HTML shell + built JS/CSS
+  SPA->>Edge: GET /api/v1/pl/events (EventsController -> EventsViewService, 30 seeded rows)
+  Edge-->>SPA: JSON view-model
+  SPA->>Hub: EventSource /.well-known/mercure?topic=/accounts/1/events (withCredentials)
+  Hub-->>SPA: open -> data-stream-state=live
 
-  Tracker->>Caddy: POST /collect {idempotency_id, type, ...}
-  Caddy->>App: index.php (worker mode)
-  App->>App: TrackedEvent::fromPayload (400 on invalid)
-  App->>PG: getItem event.seen.<xxh128(id)>
-  alt duplicate
-    PG-->>App: hit
-    App-->>Tracker: 200 {"status":"duplicate"}
+  Tracker->>Edge: POST /collect {idempotency_id, type, ...}
+  Edge->>Api: reverse_proxy api:8080
+  Api->>Api: TrackedEvent.fromPayload (400 on invalid, PL messages)
+  Api->>PG: insert-or-conflict event_dedup(idempotency_hash, expires_at)
+  alt duplicate (conflict)
+    PG-->>Api: conflict
+    Api-->>Tracker: 200 {"status":"duplicate"}
   else new
-    PG-->>App: miss
-    App->>PG: save key, TTL 24h
-    App->>App: render components/molecules/event-row.html.twig
-    App->>Hub: publish Update(topic, {"html": row}) with publisher JWT
-    App-->>Tracker: 202 {"status":"accepted"}
-    Hub-->>Panel: SSE message {"html": row}
-    Panel->>Panel: prepend row unless data-paused, cap 80 rows
+    PG-->>Api: inserted, 24h TTL
+    Api->>Hub: publish {"event": {time,type,typeIcon,tone,detail,customerId?,customerName?,siteName?,siteColor?}} with publisher JWT
+    Api-->>Tracker: 202 {"status":"accepted"}
+    Hub-->>SPA: SSE message (JSON event)
+    SPA->>SPA: render EventRow.vue client-side, prepend, cap 80, unless data-paused
   end
+
+  Note over Api,Hub: A failed publish is NOT caught (HttpMercurePublisher) -> propagates as 500,<br/>by design (matches the pre-migration behaviour this stack replaced).
+  Note over PG: Hourly cleanup piggybacks on the same scheduler/ShedLock infrastructure<br/>as the heartbeat job (EventDedupCleanupJob).

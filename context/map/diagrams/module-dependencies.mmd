@@ -1,80 +1,94 @@
-%% Module dependencies — kivvi-click (static, observed from src/, assets/, templates/, config/)
-%% Legend: solid = observed static edge; dotted = inferred / external; "??" = missing target
+%% Module dependencies — kivvi-click, Spring Boot API (backend/) + Vue 3 SPA (frontend/)
+%% (static, observed from backend/src/main/java, frontend/src, mercure/Caddyfile)
+%% Legend: solid = observed static edge; dotted = inferred / external
 flowchart LR
-  subgraph browser["Browser (assets/)"]
-    appts["app.ts (intents + mount)"]
-    ctrl_stream["controllers/event-stream.ts"]
-    ctrl_upload["controllers/upload.ts"]
-    ctrl_editor["controllers/editor.ts"]
-    ctrl_misc["cardiogram / modal / shell"]
-  end
-  subgraph http["HTTP layer (src/Controller)"]
-    panel_ctrl["Panel controllers (Dashboard, Events, Customers, Automation, Campaign, Widget, ProductFeed, Import, Settings, Landing, Security)"]
-    prefs_ctrl["PreferencesController"]
-    collect_ctrl["EventIngestionController"]
-    story_ctrl["StorybookController"]
-  end
-  subgraph panel["src/Panel"]
-    content["Panel/Content/* catalogues (sample data)"]
-    shell["PanelContext / Navigation / Workspace / PanelPreferences / PanelIdentity"]
-    topic["EventStreamTopic"]
-    upload_store["ImportUploadStorage"]
-    format["Format"]
-  end
-  subgraph tracking["src/Tracking"]
-    tracked["TrackedEvent"]
-    ingest["EventIngestion"]
-  end
-  subgraph twigext["src/Twig"]
-    panel_ext["PanelExtension (global panel)"]
-    icon_ext["IconExtension (global icons)"]
-    code_ext["CodeHighlightExtension"]
-  end
-  subgraph views["templates/"]
-    layouts["layout/{base,app,auth,public}"]
-    pages["pages/**"]
+  subgraph browser["Browser (frontend/src)"]
+    router["router/index.ts + routes.ts"]
+    shellstore["stores/shell.ts (Pinia)"]
+    intents["composables/useIntents.ts"]
+    eventstream["composables/useEventStream.ts"]
+    views["views/*View.vue"]
     components["components/{atoms,molecules,organisms}"]
+    i18n["i18n/index.ts (canonical loader)"]
   end
-  subgraph infra["Infrastructure"]
-    session["Postgres sessions"]
-    cache["Postgres cache_items (UNLOGGED)"]
-    messenger["Postgres messenger_messages"]
-    mercure["Caddy Mercure hub"]
+  subgraph edge["mercure/ (edge, Caddy + Mercure hub)"]
+    hub["Mercure hub /.well-known/mercure"]
+    rproxy["reverse_proxy api:8080"]
   end
-  storyreg["Storybook/StoryRegistry + config/storybook.php"]
-  schedule["Schedule -> Heartbeat -> HeartbeatHandler"]
+  subgraph web["backend web/ (Spring MVC controllers)"]
+    spadoc["SpaDocumentController"]
+    shellctrl["ShellController"]
+    pagectrls["Page controllers (Dashboard, Events, Customers, Automations, Campaigns, Feeds, Import, Settings, Widget, Landing)"]
+    collectctrl["CollectController"]
+    loginctrl["LoginController"]
+    prefsctrl["PreferencesController"]
+    uploadctrl["ImportUploadController"]
+  end
+  subgraph application["backend application/"]
+    viewservices["*ViewService (one per page)"]
+    ingestsvc["tracking/EventIngestionService"]
+    loginsvc["LoginService"]
+    prefssvc["PreferencesService"]
+    uploadsvc["ImportUploadService"]
+  end
+  subgraph domain["backend domain/"]
+    routetable["RouteTable"]
+    format["Format"]
+    trackedevent["tracking/TrackedEvent"]
+    eventtopic["tracking/EventStreamTopic"]
+  end
+  subgraph fixtures["backend fixtures/"]
+    fixtureclasses["*Fixtures.java (sample data, Java records — R20)"]
+  end
+  subgraph infra["backend infrastructure/"]
+    session["session/SessionRequestSerializationFilter + Spring Session JDBC"]
+    scheduling["scheduling/HeartbeatJob + ShedLock"]
+    mercurepub["mercure/HttpMercurePublisher"]
+    dedup["tracking/EventDedupStore"]
+    importstore["importing/ImportUploadStorage"]
+  end
+  subgraph pg["Postgres (compose.yaml database)"]
+    springsession["spring_session / spring_session_attributes"]
+    shedlock["shedlock"]
+    eventdedup["event_dedup"]
+  end
 
-  appts --> ctrl_stream
-  appts --> ctrl_upload
-  appts --> ctrl_editor
-  appts --> ctrl_misc
-  appts --> prefs_ctrl
-  ctrl_upload --> panel_ctrl
-  ctrl_editor -.->|"POST .../blocks ??"| panel_ctrl
-  ctrl_stream --> mercure
-  panel_ctrl --> content
-  panel_ctrl --> shell
-  panel_ctrl --> topic
-  panel_ctrl --> upload_store
-  panel_ctrl --> format
-  panel_ctrl --> pages
-  prefs_ctrl --> shell
-  collect_ctrl --> tracked
-  collect_ctrl --> ingest
-  ingest --> topic
-  ingest --> content
-  ingest --> components
-  ingest --> cache
-  ingest --> mercure
-  story_ctrl --> storyreg
-  storyreg --> components
-  panel_ext --> shell
-  pages --> layouts
-  pages --> components
-  layouts --> panel_ext
-  components --> icon_ext
-  components --> code_ext
-  shell --> session
-  upload_store --> session
-  schedule --> cache
-  schedule --> messenger
+  router --> views
+  views --> components
+  views --> intents
+  views --> shellstore
+  intents --> shellstore
+  views --> eventstream
+  eventstream --> hub
+  views --> i18n
+  shellstore -->|"GET /api/v1/{locale}/shell"| rproxy
+  views -->|"GET /api/v1/{locale}/<page>"| rproxy
+  intents -->|"navigate (real GET, never router.push)"| rproxy
+  shellstore -->|"POST /preferences/theme|sidebar (keepalive)"| rproxy
+  rproxy --> spadoc
+  rproxy --> shellctrl
+  rproxy --> pagectrls
+  rproxy --> collectctrl
+  rproxy --> loginctrl
+  rproxy --> prefsctrl
+  rproxy --> uploadctrl
+  spadoc --> routetable
+  shellctrl --> viewservices
+  pagectrls --> viewservices
+  viewservices --> fixtureclasses
+  viewservices --> format
+  collectctrl --> ingestsvc
+  ingestsvc --> trackedevent
+  ingestsvc --> eventtopic
+  ingestsvc --> dedup
+  ingestsvc --> mercurepub
+  loginctrl --> loginsvc
+  prefsctrl --> prefssvc
+  uploadctrl --> uploadsvc
+  uploadsvc --> importstore
+  loginsvc --> session
+  prefssvc --> session
+  session --> springsession
+  scheduling --> shedlock
+  dedup --> eventdedup
+  mercurepub -.->|"plain HTTP, publisher JWT"| hub
