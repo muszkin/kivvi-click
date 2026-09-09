@@ -1,0 +1,230 @@
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java	B26 4 status filters, plain-space-grouped counts 6/4/1/1, 'all' active by default
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java	B26 ?status=active marks only the 'Aktywne' chip active
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java	B26 an unrecognised status marks no chip active — same ternary as AutomationController
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java	B26 the status filter never actually filters — always 6 cards regardless of ?status=
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java	B26 the first card matches the oracle: title, chips, three metrics
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java	B26 a zero-conversion automation renders '—' for conversion and revenue, muted
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java	B26 editor(\"a1\", null) resolves to the list view by default
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java	B26 editor(\"a1\", \"flow\") resolves to the flow view; any other value stays list
+backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java	B26 editor(\"new\", ...) carries the same fixed rule content as a seeded automation
+backend/src/test/java/click/kivvi/application/CampaignsViewServiceTest.java	B27 the four campaign KPIs match the oracle, narrow-space-grouped and money-formatted
+backend/src/test/java/click/kivvi/application/CampaignsViewServiceTest.java	B27 four filters are offered; only the requested one is active, others fall back to \"all\"
+backend/src/test/java/click/kivvi/application/CampaignsViewServiceTest.java	B27 the filter never changes which 5 rows come back — only which chip is active
+backend/src/test/java/click/kivvi/application/CampaignsViewServiceTest.java	B27 the 5 rows match the oracle: names, type/status chips, and \"—\" for the two unsent campaigns
+backend/src/test/java/click/kivvi/application/CampaignsViewServiceTest.java	B28 GET .../emails/k1 resolves a known template's name, meta and subject
+backend/src/test/java/click/kivvi/application/CampaignsViewServiceTest.java	B28 an id with no seeded campaign (including \"new\") falls back to the blank draft shape
+backend/src/test/java/click/kivvi/application/CampaignsViewServiceTest.java	B28 the editor payload always carries 10 blocks, 5 variables, 5 sections and the same selected block
+backend/src/test/java/click/kivvi/application/CustomersViewServiceTest.java	B25 the subtitle is narrow-space-grouped: '4 218 zidentyfikowanych klientów · 7 632 anonimowych sesji'
+backend/src/test/java/click/kivvi/application/CustomersViewServiceTest.java	B25 six segment tiles, plain-space-grouped counts, 'Wszyscy' active with the users icon
+backend/src/test/java/click/kivvi/application/CustomersViewServiceTest.java	B25 24 rows, revenue money-formatted, lastSeen computed against the request clock
+backend/src/test/java/click/kivvi/application/CustomersViewServiceTest.java	B25 page is clamped to at least 1; pages is always 192 (the pager, not real pagination)
+backend/src/test/java/click/kivvi/application/CustomersViewServiceTest.java	B25 the 360 profile: 7 facts, 3 active automations, 5 tabs, 3 scores, 9 timeline entries
+backend/src/test/java/click/kivvi/application/CustomersViewServiceTest.java	B25 the profile's tags are always VIP/subskrybent/PL, independent of the customer's own segment
+backend/src/test/java/click/kivvi/application/CustomersViewServiceTest.java	B25 profileSub reads '<email> · klient od 14 stycznia 2024 · ostatnia aktywność <lastSeen>'
+backend/src/test/java/click/kivvi/application/CustomersViewServiceTest.java	B25 the timeline's 'Zalogowanie' entry carries the customer's own email as its detail
+backend/src/test/java/click/kivvi/application/DashboardViewServiceTest.java	B23 four KPIs, each with a 40-point sparkline, matching the oracle exactly
+backend/src/test/java/click/kivvi/application/DashboardViewServiceTest.java	B23 the sparkline series is deterministic between two builds
+backend/src/test/java/click/kivvi/application/DashboardViewServiceTest.java	B23 the cardiogram legend carries the three oracle entries
+backend/src/test/java/click/kivvi/application/DashboardViewServiceTest.java	B23 ten live rows and the account's Mercure topic, matching the oracle's first row
+backend/src/test/java/click/kivvi/application/DashboardViewServiceTest.java	B23 live rows translate their type label to English
+backend/src/test/java/click/kivvi/application/DashboardViewServiceTest.java	B23 six recently seen customers, orders and lastSeen matching the oracle exactly
+backend/src/test/java/click/kivvi/application/DashboardViewServiceTest.java	B23 the four best-performing automations, active only, highest revenue first, matching the oracle exactly
+backend/src/test/java/click/kivvi/application/EventsViewServiceTest.java	B24 30 rows, 9 type filters (8 + all) and 4 site filters (3 + all)
+backend/src/test/java/click/kivvi/application/EventsViewServiceTest.java	the type/site/range query parameters mark a filter active but never change the rows
+backend/src/test/java/click/kivvi/application/EventsViewServiceTest.java	with no filter given, 'all' and the '1h' range are active by default
+backend/src/test/java/click/kivvi/application/EventsViewServiceTest.java	type labels and filter chip icons are translated per locale
+backend/src/test/java/click/kivvi/application/EventsViewServiceTest.java	the 'all' type filter carries no icon; each type filter carries its own icon
+backend/src/test/java/click/kivvi/application/EventsViewServiceTest.java	the 'all' site filter carries the globe icon; each site filter carries its dot colour
+backend/src/test/java/click/kivvi/application/EventsViewServiceTest.java	row generation is a deterministic function of position, not real time
+backend/src/test/java/click/kivvi/application/EventsViewServiceTest.java	the first row (login-derived seed 0) matches the oracle's cycling pattern
+backend/src/test/java/click/kivvi/application/EventsViewServiceTest.java	a login row's detail is the customer's e-mail, matching the seventh oracle row
+backend/src/test/java/click/kivvi/application/FeedsViewServiceTest.java	B30 the four KPIs match the oracle, narrow-space-grouped and money-formatted
+backend/src/test/java/click/kivvi/application/FeedsViewServiceTest.java	B30 four sources are offered, Google Merchant recommended
+backend/src/test/java/click/kivvi/application/FeedsViewServiceTest.java	B30 four feeds are connected, one failing with HTTP 503, product/mapped counts plain-space-grouped and the match rate computed here (never in the SPA)
+backend/src/test/java/click/kivvi/application/FeedsViewServiceTest.java	B30 the matching diagnostic: 4 coverage bars, 3 fallback rules, 142 mismatched
+backend/src/test/java/click/kivvi/application/ImportViewServiceTest.java	B31 the file falls back to \"klienci.csv\" when no upload has happened yet
+backend/src/test/java/click/kivvi/application/ImportViewServiceTest.java	B31 an uploaded file's session-derived name reaches the payload verbatim
+backend/src/test/java/click/kivvi/application/ImportViewServiceTest.java	B31 detection counts 9 confident (>=70), 1 unsure and 1 skipped (confidence 0)
+backend/src/test/java/click/kivvi/application/ImportViewServiceTest.java	B31 the skipped column (confidence 0) is the one mapped to \"__skip\"
+backend/src/test/java/click/kivvi/application/ImportViewServiceTest.java	B31 the one preview row with a validation error has a null ltv, rendered as \"?\"
+backend/src/test/java/click/kivvi/application/ImportViewServiceTest.java	B31 the run CTA's row count uses a plain space, distinct from the KPI tile's narrow no-break space — both conventions ported verbatim, not reconciled
+backend/src/test/java/click/kivvi/application/ImportViewServiceTest.java	B31/DEV-12 a step outside 1-4 throws, mapped to a 404 by ImportController
+backend/src/test/java/click/kivvi/application/LoginServiceTest.java	B11 valid e-mail sign-in shows the e-mail in the sidebar footer
+backend/src/test/java/click/kivvi/application/LoginServiceTest.java	a successful sign-in creates a session; nothing was needed before it
+backend/src/test/java/click/kivvi/application/LoginServiceTest.java	B12 empty e-mail is rejected with 'Podaj adres e-mail.' and creates no session
+backend/src/test/java/click/kivvi/application/LoginServiceTest.java	B13 malformed e-mail is rejected with 'poprawny adres e-mail'
+backend/src/test/java/click/kivvi/application/LoginServiceTest.java	B14 sign-out restores the default identity
+backend/src/test/java/click/kivvi/application/LoginServiceTest.java	signing out with no prior session is a safe no-op
+backend/src/test/java/click/kivvi/application/PreferencesServiceTest.java	B08 theme choice persists in the session
+backend/src/test/java/click/kivvi/application/PreferencesServiceTest.java	B09 unknown theme value falls back to light
+backend/src/test/java/click/kivvi/application/PreferencesServiceTest.java	B10 collapsed sidebar choice persists in the session
+backend/src/test/java/click/kivvi/application/PreferencesServiceTest.java	unknown sidebar value falls back to expanded
+backend/src/test/java/click/kivvi/application/SettingsViewServiceTest.java	B32 the \"account\" tab is marked active and carries the account subtitle
+backend/src/test/java/click/kivvi/application/SettingsViewServiceTest.java	B32 the account tab's own nav link omits the default tab's URL segment, every other tab keeps it — Symfony's URL generator drops a route parameter equal to its default
+backend/src/test/java/click/kivvi/application/SettingsViewServiceTest.java	B32 hrefs carry the requested locale prefix
+backend/src/test/java/click/kivvi/application/SettingsViewServiceTest.java	B06 an unknown tab throws, mirroring SettingsController's 404
+backend/src/test/java/click/kivvi/application/ShellViewServiceTest.java	B04 /en/... renders English navigation and page title
+backend/src/test/java/click/kivvi/application/ShellViewServiceTest.java	Polish locale renders the Polish navigation and crumb
+backend/src/test/java/click/kivvi/application/ShellViewServiceTest.java	a detail route keeps its index section current, mirroring Navigation::currentSection
+backend/src/test/java/click/kivvi/application/ShellViewServiceTest.java	the default identity and workspace appear when nobody has signed in
+backend/src/test/java/click/kivvi/application/WidgetViewServiceTest.java	B29 the popup index carries 5 cards matching the oracle's names and metrics
+backend/src/test/java/click/kivvi/application/WidgetViewServiceTest.java	B29 a missing ?preview= falls back to the first seeded widget (p1, modal)
+backend/src/test/java/click/kivvi/application/WidgetViewServiceTest.java	B29 ?preview=p2 selects the banner widget's own type and content
+backend/src/test/java/click/kivvi/application/WidgetViewServiceTest.java	B29 an unknown ?preview= id never 404s — falls back to the same blank-draft shape as an unmatched editor id
+backend/src/test/java/click/kivvi/application/WidgetViewServiceTest.java	B29 GET .../popups/p1 resolves the known widget's name, meta and own type
+backend/src/test/java/click/kivvi/application/WidgetViewServiceTest.java	B29 an id with no seeded widget (including \"new\") falls back to the blank-draft shape
+backend/src/test/java/click/kivvi/application/WidgetViewServiceTest.java	B29 ?type= overrides the shown content's shape but never the widget's own name
+backend/src/test/java/click/kivvi/application/WidgetViewServiceTest.java	B29 a missing ?type= falls back to the widget's own type
+backend/src/test/java/click/kivvi/application/WidgetViewServiceTest.java	B29 ?device=mobile switches the viewport chip; anything else (including absent) is desktop
+backend/src/test/java/click/kivvi/application/WidgetViewServiceTest.java	B29 the editor payload always carries 5 types, 10 blocks, 4 variables, 3 triggers and 4 audience rows
+backend/src/test/java/click/kivvi/application/tracking/EventIngestionServiceTest.java	B17 an accepted event is published once on /accounts/1/events with the translated type, detail, customer, site and the add_to_cart icon/tone from EventFeed::TYPES
+backend/src/test/java/click/kivvi/application/tracking/EventIngestionServiceTest.java	a type outside EventFeed::TYPES's eight-entry table publishes the generic 'activity' icon and an empty tone
+backend/src/test/java/click/kivvi/application/tracking/EventIngestionServiceTest.java	blank optional fields are omitted from the published payload, not sent as \"\"
+backend/src/test/java/click/kivvi/application/tracking/EventIngestionServiceTest.java	B18 the same idempotency id is never published twice
+backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java	domain never depends on web
+backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java	infrastructure is only used from application
+backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java	web, application, domain and infrastructure form no package cycle
+backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java	only application.tracking and infrastructure.mercure may depend on the Mercure publisher types (wave-2: \"Mercure topic built only server-side\")
+backend/src/test/java/click/kivvi/architecture/ArchitectureTest.java	the /accounts/ Mercure topic literal exists only in domain.tracking.EventStreamTopic — a plain source scan, not an ArchUnit condition: ArchUnit reasons about compiled bytecode class/member dependencies, and a string constant folded into every call site by the compiler is not reliably distinguishable there from one held in a single shared field, so this checks the .java sources directly instead.
+backend/src/test/java/click/kivvi/domain/EmailValidationTest.java	B12 empty e-mail is rejected with 'Podaj adres e-mail.'
+backend/src/test/java/click/kivvi/domain/EmailValidationTest.java	B13 malformed e-mail is rejected with 'poprawny adres e-mail'
+backend/src/test/java/click/kivvi/domain/EmailValidationTest.java	a well-formed address passes validation
+backend/src/test/java/click/kivvi/domain/RouteTableTest.java	B01 every panel/public URL in the route table is known
+backend/src/test/java/click/kivvi/domain/RouteTableTest.java	B07 unsupported locale prefix is unknown to the route table
+backend/src/test/java/click/kivvi/domain/RouteTableTest.java	a path outside the route table is unknown
+backend/src/test/java/click/kivvi/domain/tracking/TrackedEventTest.java	B15 event without idempotency_id is rejected
+backend/src/test/java/click/kivvi/domain/tracking/TrackedEventTest.java	B15 a blank idempotency_id is rejected the same as a missing one
+backend/src/test/java/click/kivvi/domain/tracking/TrackedEventTest.java	B16 unknown event type is rejected
+backend/src/test/java/click/kivvi/domain/tracking/TrackedEventTest.java	an invalid occurred_at is rejected
+backend/src/test/java/click/kivvi/domain/tracking/TrackedEventTest.java	a valid ISO-8601 occurred_at is parsed
+backend/src/test/java/click/kivvi/domain/tracking/TrackedEventTest.java	a missing occurred_at defaults to now
+backend/src/test/java/click/kivvi/domain/tracking/TrackedEventTest.java	every supported type is accepted
+backend/src/test/java/click/kivvi/domain/tracking/TrackedEventTest.java	missing optional fields read as blank strings, not null
+backend/src/test/java/click/kivvi/domain/tracking/TrackedEventTest.java	a non-string field value reads as a blank string rather than failing
+backend/src/test/java/click/kivvi/fixtures/AutomationsFixturesTest.java	B26 six seeded automations, in the oracle's own order
+backend/src/test/java/click/kivvi/fixtures/AutomationsFixturesTest.java	B26 header(\"a1\") is the seeded identity with its status label suffixed
+backend/src/test/java/click/kivvi/fixtures/AutomationsFixturesTest.java	B26 header(\"new\") falls back to a generic draft header
+backend/src/test/java/click/kivvi/fixtures/AutomationsFixturesTest.java	B26 header of a shape-valid but unseeded id (e.g. a99) also falls back — AutomationCatalog never 404s a shape-valid id, only a generic draft is shown
+backend/src/test/java/click/kivvi/fixtures/AutomationsFixturesTest.java	B26 the rule pipeline has 3 steps, KIEDY/JEŚLI/WTEDY, 3 blocks each
+backend/src/test/java/click/kivvi/fixtures/AutomationsFixturesTest.java	B26 the flow graph has 6 nodes and 5 edges
+backend/src/test/java/click/kivvi/fixtures/AutomationsFixturesTest.java	B26 the simulation has 3 read-outs: matching, passing, estimated revenue
+backend/src/test/java/click/kivvi/fixtures/CustomersFixturesTest.java	B25 the index has 24 seeded customers, first two matching the oracle exactly
+backend/src/test/java/click/kivvi/fixtures/CustomersFixturesTest.java	B25 total() is the fixed grand total shown in the subtitle, not the seeded row count
+backend/src/test/java/click/kivvi/fixtures/CustomersFixturesTest.java	B05 byId finds a seeded customer by id
+backend/src/test/java/click/kivvi/fixtures/CustomersFixturesTest.java	B05 byId throws for an id outside the seeded set
+backend/src/test/java/click/kivvi/fixtures/LandingFixturesTest.java	B22 the feature grid has six entries with icon, title and body
+backend/src/test/java/click/kivvi/fixtures/LandingFixturesTest.java	B22 the onboarding path has three numbered steps
+backend/src/test/java/click/kivvi/fixtures/LandingFixturesTest.java	B22 the pricing grid is Free then featured Pro, carrying the 'popularne' badge
+backend/src/test/java/click/kivvi/fixtures/LandingFixturesTest.java	B22 the preview KPI tiles are pre-formatted with the narrow no-break thousands separator
+backend/src/test/java/click/kivvi/fixtures/LandingFixturesTest.java	B22 the traffic sparkline has 60 points, none of them negative
+backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java	B32 eight settings tabs, in the oracle's exact order
+backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java	B06 isKnownTab is true for every seeded tab and false for anything else
+backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java	B32 the default tab is \"account\"
+backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java	B32 three tracked sites, event counts narrow-space-grouped
+backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java	B32 four DNS records, three verified and one warning (BIMI)
+backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java	B32 three webhooks, the Slack one failing with HTTP 410
+backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java	B32 the notification matrix has 8 rows and exactly 15 of its 24 checkboxes are checked
+backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java	B32 the tracker snippet is the raw, unhighlighted source
+backend/src/test/java/click/kivvi/infrastructure/importing/ImportUploadStorageTest.java	B31 a path-traversal original name never escapes the upload directory: the stored name is a random 32-hex-char name plus the whitelisted extension of its basename
+backend/src/test/java/click/kivvi/infrastructure/importing/ImportUploadStorageTest.java	B31 an 8-character alphanumeric extension is at the whitelist's own boundary and is accepted
+backend/src/test/java/click/kivvi/infrastructure/importing/ImportUploadStorageTest.java	B31 a 9-character extension exceeds the whitelist and falls back to csv
+backend/src/test/java/click/kivvi/infrastructure/importing/ImportUploadStorageTest.java	B31 a mixed-case extension is lower-cased before the whitelist check
+backend/src/test/java/click/kivvi/infrastructure/importing/ImportUploadStorageTest.java	B31 no extension at all falls back to csv
+backend/src/test/java/click/kivvi/infrastructure/importing/ImportUploadStorageTest.java	B31 an extension containing a non-alphanumeric character is rejected
+backend/src/test/java/click/kivvi/infrastructure/importing/ImportUploadStorageTest.java	B31 two uploads in the same session never collide on the generated name
+backend/src/test/java/click/kivvi/infrastructure/importing/ImportUploadStorageTest.java	currentFileName is empty for a null session and for a session with no upload yet
+backend/src/test/java/click/kivvi/infrastructure/importing/ImportUploadStorageTest.java	currentFileName reads back the original name recorded by store()
+backend/src/test/java/click/kivvi/infrastructure/mercure/HttpMercurePublisherTest.java	publishes topic/data form-encoded, with a valid HS256 publisher JWT
+backend/src/test/java/click/kivvi/infrastructure/mercure/HttpMercurePublisherTest.java	raises when the hub refuses the publish with a non-200 status
+backend/src/test/java/click/kivvi/infrastructure/mercure/HttpMercurePublisherTest.java	raises when the hub cannot be reached at all
+backend/src/test/java/click/kivvi/infrastructure/mercure/HttpMercurePublisherTest.java	buildRequest: POSTs the hub URI with the JWT bearer and form content type
+backend/src/test/java/click/kivvi/infrastructure/mercure/HttpMercurePublisherTest.java	buildRequest: form-encodes topic and data as the request body
+backend/src/test/java/click/kivvi/infrastructure/scheduling/HeartbeatJobTest.java	B33 tick() logs exactly \"Scheduler heartbeat tick.\" at INFO
+backend/src/test/java/click/kivvi/infrastructure/scheduling/HeartbeatTriggerTest.java	B20/B33 with no prior lock row, the first-ever tick fires immediately
+backend/src/test/java/click/kivvi/infrastructure/scheduling/HeartbeatTriggerTest.java	B33 a routine restart minutes after the last tick waits out the remainder of the interval — no extra catch-up run
+backend/src/test/java/click/kivvi/infrastructure/scheduling/HeartbeatTriggerTest.java	B33 a restart after downtime longer than the interval fires exactly one catch-up run, immediately
+backend/src/test/java/click/kivvi/infrastructure/scheduling/HeartbeatTriggerTest.java	B33 once the process has completed a tick, the next one is due one interval after that completion — the lock table is not consulted again
+backend/src/test/java/click/kivvi/infrastructure/tracking/EventDedupCleanupJobTest.java	sweep() delegates to the dedup store and logs the removed row count
+backend/src/test/java/click/kivvi/testsupport/FailOnWarnLogExtensionTest.java	a deliberate click.kivvi WARN event is reported as a failure
+backend/src/test/java/click/kivvi/testsupport/FailOnWarnLogExtensionTest.java	a deliberate click.kivvi ERROR event is also reported (>= WARN)
+backend/src/test/java/click/kivvi/testsupport/FailOnWarnLogExtensionTest.java	INFO and DEBUG events are not reported
+backend/src/test/java/click/kivvi/testsupport/FailOnWarnLogExtensionTest.java	no events at all is not reported
+backend/src/test/java/click/kivvi/testsupport/FailOnWarnLogExtensionTest.java	a first-party-looking System.err line is reported
+backend/src/test/java/click/kivvi/testsupport/FailOnWarnLogExtensionTest.java	known JVM/agent noise on System.err is not reported
+backend/src/test/java/click/kivvi/testsupport/FailOnWarnLogExtensionTest.java	blank System.err output is not reported
+backend/src/test/java/click/kivvi/web/AutomationsControllerTest.java	B26 GET /api/v1/pl/automations returns 6 cards and 4 filters
+backend/src/test/java/click/kivvi/web/AutomationsControllerTest.java	B26 ?status=active marks the 'Aktywne' filter active, without filtering the cards
+backend/src/test/java/click/kivvi/web/AutomationsControllerTest.java	B26 GET /api/v1/pl/automations/a1 returns the editor shape: header, 3 steps, 6 nodes, 5 edges
+backend/src/test/java/click/kivvi/web/AutomationsControllerTest.java	B26 GET /api/v1/pl/automations/a1?view=flow reports the flow view
+backend/src/test/java/click/kivvi/web/AutomationsControllerTest.java	B26 GET /api/v1/pl/automations/new returns the generic draft header
+backend/src/test/java/click/kivvi/web/AutomationsControllerTest.java	B26 GET /api/v1/pl/automations/xyz (not \"new\" or a\\d+) is not found
+backend/src/test/java/click/kivvi/web/AutomationsControllerTest.java	B07 GET /api/v1/de/automations is not found
+backend/src/test/java/click/kivvi/web/CampaignsControllerTest.java	B27 GET /api/v1/pl/campaigns returns 4 KPIs, 4 filters, 8 columns and 5 rows
+backend/src/test/java/click/kivvi/web/CampaignsControllerTest.java	B27 ?filter=trigger marks the \"Wyzwalane\" chip active and no other
+backend/src/test/java/click/kivvi/web/CampaignsControllerTest.java	B07 GET /api/v1/de/campaigns is not found
+backend/src/test/java/click/kivvi/web/CampaignsControllerTest.java	B28 GET /api/v1/pl/emails/k1 returns the known template plus 10 blocks/5 variables/5 sections
+backend/src/test/java/click/kivvi/web/CampaignsControllerTest.java	B28 GET /api/v1/pl/emails/new returns the blank draft shape
+backend/src/test/java/click/kivvi/web/CampaignsControllerTest.java	B28/DEV-7 GET /api/v1/pl/emails/{id} 404s for an id shape outside \"new\"/\"k\\d+\"
+backend/src/test/java/click/kivvi/web/CampaignsControllerTest.java	B07 GET /api/v1/de/emails/k1 is not found
+backend/src/test/java/click/kivvi/web/CollectControllerTest.java	B19 a new event is accepted with 202 {\"status\":\"accepted\"}
+backend/src/test/java/click/kivvi/web/CollectControllerTest.java	B19 a duplicate event is answered 200 {\"status\":\"duplicate\"}
+backend/src/test/java/click/kivvi/web/CollectControllerTest.java	B15 a missing idempotency_id answers 400 with the exact Polish message
+backend/src/test/java/click/kivvi/web/CollectControllerTest.java	B16 an unknown type answers 400 with the exact Polish message
+backend/src/test/java/click/kivvi/web/CollectControllerTest.java	an invalid occurred_at answers 400 with the exact Polish message
+backend/src/test/java/click/kivvi/web/CollectControllerTest.java	an empty body answers 400 with 'Oczekiwano obiektu JSON.'
+backend/src/test/java/click/kivvi/web/CollectControllerTest.java	a scalar JSON body answers 400 with 'Oczekiwano obiektu JSON.'
+backend/src/test/java/click/kivvi/web/CollectControllerTest.java	malformed JSON answers 400 with 'Oczekiwano obiektu JSON.'
+backend/src/test/java/click/kivvi/web/CollectControllerTest.java	a JSON array body is accepted as an empty-fields payload, matching PHP's is_array()
+backend/src/test/java/click/kivvi/web/CustomersControllerTest.java	B25 GET /api/v1/pl/customers returns 24 rows and the pager fields
+backend/src/test/java/click/kivvi/web/CustomersControllerTest.java	B25 ?page= only moves the pager; the same 24 rows render on every page
+backend/src/test/java/click/kivvi/web/CustomersControllerTest.java	B25 GET /api/v1/pl/customers/{id} returns the 360 profile shape
+backend/src/test/java/click/kivvi/web/CustomersControllerTest.java	B05 GET /api/v1/pl/customers/c_9999 is not found
+backend/src/test/java/click/kivvi/web/CustomersControllerTest.java	B07 GET /api/v1/de/customers is not found
+backend/src/test/java/click/kivvi/web/CustomersControllerTest.java	B25 GET /pl/customers/{id} renders the SPA document for a known customer
+backend/src/test/java/click/kivvi/web/CustomersControllerTest.java	B05/DEV-12 GET /pl/customers/c_9999 is a 404 document, not the 200 SPA shell
+backend/src/test/java/click/kivvi/web/DashboardControllerTest.java	B23 GET /api/v1/pl/dashboard returns 4 KPIs, 3 legend entries, 10 events, 6 recent customers and 4 top automations
+backend/src/test/java/click/kivvi/web/DashboardControllerTest.java	B23 the first recently seen customer carries id, email, orders and lastSeen
+backend/src/test/java/click/kivvi/web/DashboardControllerTest.java	B23 the first best-performing automation is the highest-revenue active one
+backend/src/test/java/click/kivvi/web/DashboardControllerTest.java	B07 GET /api/v1/de/dashboard is not found
+backend/src/test/java/click/kivvi/web/EventsControllerTest.java	B24 GET /api/v1/pl/events returns 30 rows, 9 type filters and 4 site filters
+backend/src/test/java/click/kivvi/web/EventsControllerTest.java	B07 GET /api/v1/de/events is not found
+backend/src/test/java/click/kivvi/web/EventsControllerTest.java	query parameters mark the matching filter chip active
+backend/src/test/java/click/kivvi/web/FeedsControllerTest.java	B30 GET /api/v1/pl/feeds returns 4 sources, 4 feeds (one failing with HTTP 503), 4 coverage bars, 3 fallback rules and 142 mismatched
+backend/src/test/java/click/kivvi/web/FeedsControllerTest.java	B07 GET /api/v1/de/feeds is not found
+backend/src/test/java/click/kivvi/web/ImportControllerTest.java	B31 GET /api/v1/pl/import/1 returns the full wizard payload: 4 steps, the default file name, 11 mapped columns, 6 validations, 4 dedup strategies, 4 KPI tiles, 6 preview rows, 3 recent imports
+backend/src/test/java/click/kivvi/web/ImportControllerTest.java	B31 GET /api/v1/pl/import/5 (outside 1-4) is not found
+backend/src/test/java/click/kivvi/web/ImportControllerTest.java	B31 GET /api/v1/pl/import/0 (outside 1-4) is not found
+backend/src/test/java/click/kivvi/web/ImportControllerTest.java	B07 GET /api/v1/de/import/1 (unsupported locale) is not found
+backend/src/test/java/click/kivvi/web/ImportControllerTest.java	GET /api/v1/pl/import/step (non-numeric) is not found
+backend/src/test/java/click/kivvi/web/ImportControllerTest.java	B31 every step returns the same shared 14-option target list per column
+backend/src/test/java/click/kivvi/web/ImportUploadControllerTest.java	B31 a POSTed file is stored and redirects (302) to /pl/import/2
+backend/src/test/java/click/kivvi/web/ImportUploadControllerTest.java	B31 a request with no file part is not found
+backend/src/test/java/click/kivvi/web/LandingControllerTest.java	B22 GET /api/v1/pl/landing returns the marketing page's copy arrays
+backend/src/test/java/click/kivvi/web/LandingControllerTest.java	B22 GET /api/v1/en/landing returns the same locale-invariant copy
+backend/src/test/java/click/kivvi/web/LandingControllerTest.java	B22 GET /api/v1/de/landing (unsupported locale) is unknown to the mapping
+backend/src/test/java/click/kivvi/web/LandingControllerTest.java	the demo shortcut redirects to the localized dashboard
+backend/src/test/java/click/kivvi/web/LoginControllerTest.java	B11 valid e-mail sign-in redirects to the dashboard
+backend/src/test/java/click/kivvi/web/LoginControllerTest.java	B12 empty e-mail is rejected with 200 and the Polish message
+backend/src/test/java/click/kivvi/web/LoginControllerTest.java	B13 malformed e-mail is rejected with 200 and the Polish message
+backend/src/test/java/click/kivvi/web/LoginControllerTest.java	B14 sign-out redirects to login
+backend/src/test/java/click/kivvi/web/PreferencesControllerTest.java	B08 POST /preferences/theme (JSON) stores and echoes the theme
+backend/src/test/java/click/kivvi/web/PreferencesControllerTest.java	B09 unknown theme value falls back to light
+backend/src/test/java/click/kivvi/web/PreferencesControllerTest.java	B10 POST /preferences/sidebar (JSON) stores and echoes the sidebar state
+backend/src/test/java/click/kivvi/web/PreferencesControllerTest.java	form-encoded bodies are also accepted, mirroring PreferencesController::readValue
+backend/src/test/java/click/kivvi/web/SettingsControllerTest.java	B32 GET /api/v1/pl/settings/account returns the full catalogue: 8 tabs, account active, 3 tracked sites, 5 team rows, 4 dns records, 3 webhooks, 8x3 notification matrix
+backend/src/test/java/click/kivvi/web/SettingsControllerTest.java	B32 GET /api/v1/pl/settings/sites marks the \"sites\" tab active
+backend/src/test/java/click/kivvi/web/SettingsControllerTest.java	B06 GET /api/v1/pl/settings/nonexistent is not found
+backend/src/test/java/click/kivvi/web/SettingsControllerTest.java	B07 GET /api/v1/de/settings/account is not found
+backend/src/test/java/click/kivvi/web/SettingsControllerTest.java	B32 GET /pl/settings/account renders the SPA document for a known tab
+backend/src/test/java/click/kivvi/web/SettingsControllerTest.java	B06/DEV-12 GET /pl/settings/nonexistent is a 404 document, not the 200 SPA shell
+backend/src/test/java/click/kivvi/web/SpaDocumentControllerTest.java	B01 every panel/public URL renders 200 and carries the SPA document
+backend/src/test/java/click/kivvi/web/SpaDocumentControllerTest.java	B07 unsupported locale prefix is not found
+backend/src/test/java/click/kivvi/web/SpaDocumentControllerTest.java	a path outside the route table is not found with a minimal HTML document
+backend/src/test/java/click/kivvi/web/WidgetControllerTest.java	B29 GET /api/v1/pl/popups returns 5 cards, a selected preview and 5 types
+backend/src/test/java/click/kivvi/web/WidgetControllerTest.java	B29 ?preview=p2 selects the banner widget
+backend/src/test/java/click/kivvi/web/WidgetControllerTest.java	B07 GET /api/v1/de/popups is not found
+backend/src/test/java/click/kivvi/web/WidgetControllerTest.java	B29 GET /api/v1/pl/popups/p1 returns the known widget plus 5 types/10 blocks/4 variables/3 triggers/4 audience rows
+backend/src/test/java/click/kivvi/web/WidgetControllerTest.java	B29 GET /api/v1/pl/popups/new returns the blank-draft widget shape
+backend/src/test/java/click/kivvi/web/WidgetControllerTest.java	B29 ?type= overrides the widget's shown type; ?device=mobile overrides the viewport
+backend/src/test/java/click/kivvi/web/WidgetControllerTest.java	B29/DEV-7 GET /api/v1/pl/popups/{id} 404s for an id shape outside \"new\"/\"p\\d+\"
+backend/src/test/java/click/kivvi/web/WidgetControllerTest.java	B07 GET /api/v1/de/popups/p1 is not found

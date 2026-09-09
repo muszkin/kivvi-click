@@ -267,7 +267,7 @@
       }
     },
     "w5-shell-navigation": {
-      "state": "FEATURE_HEAD_GREEN",
+      "state": "IMPLEMENTED",
       "wave": "wave-5",
       "branch": "migration/wave-5/shell-navigation",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w5-shell",
@@ -277,6 +277,13 @@
       "review": {
         "path": "slices/w5-shell-navigation/review.md",
         "verdict": "PASS"
+      },
+      "repair": {
+        "round": 1,
+        "packet": "slices/w5-shell-navigation/repair-1.md",
+        "worktree": "/home/muszkin/work/kivvi-click-wt/w5-shell-r1",
+        "branch": "migration/wave-5/shell-navigation-repair1",
+        "base_sha": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194"
       }
     }
   },
@@ -1044,10 +1051,21 @@
       "verifier_cohort": [
         {
           "dimension": "unit",
-          "status": "RUNNING",
+          "status": "FAIL",
           "sha": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194",
           "evidence": "waves/final/unit.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "shell-navigation",
+              "verdict": "regression",
+              "deviation_id": null
+            },
+            {
+              "journey": "customers",
+              "verdict": "regression",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "integration",
@@ -1105,7 +1123,7 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T09:56:40Z",
+  "updated_at": "2026-09-09T10:04:57Z",
   "feature_head_sha": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194",
   "final_cohort": {
     "sha": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194",
