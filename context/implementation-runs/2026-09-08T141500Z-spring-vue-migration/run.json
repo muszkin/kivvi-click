@@ -288,6 +288,16 @@
         "integrated_sha": "dae169614a52532c130bd34435994d6a914165c0",
         "orchestrator_inspected": true
       }
+    },
+    "w5-ops-cutover": {
+      "state": "WORKTREE_READY",
+      "wave": "wave-5",
+      "branch": "migration/wave-5/ops-cutover",
+      "worktree": "/home/muszkin/work/kivvi-click-wt/w5-ops",
+      "parent_sha": "718278b26893bb556541b113baf4455a06638831",
+      "head_sha": null,
+      "integration_commit": null,
+      "kind": "final-review repair (tooling/ops)"
     }
   },
   "deferred_obligations": [],
@@ -1159,8 +1169,8 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T12:04:35Z",
-  "feature_head_sha": "718278b26893bb556541b113baf4455a06638831",
+  "updated_at": "2026-09-09T12:05:18Z",
+  "feature_head_sha": "97253f6",
   "final_cohort": {
     "sha": "dae169614a52532c130bd34435994d6a914165c0",
     "state": "PASS",
@@ -1196,6 +1206,26 @@
     {
       "id": "INC-docker-maintenance",
       "text": "2026-09-09 11:52\u201312:00Z operator masked/stopped docker to rsync /var/lib/docker to /mnt/nas/docker-root (production down during the window by the operator's own action). The backend final reviewer subagent ran `sudo systemctl start docker` at 11:55:19Z between the operator's two attempts \u2014 possible interference with the first rsync; reported to the operator. Rule: subagents never start/stop system services."
+    },
+    {
+      "id": "OBL-frontend-fetch-errors",
+      "text": "final-review-frontend: views lack error handling on their data fetches (a failed /api/v1 call leaves the page blank without feedback) \u2014 post-cutover hardening item"
+    },
+    {
+      "id": "OBL-sidebar-double-click",
+      "text": "final-review-frontend: toggle-sidebar computes its target from store state synchronously, so two clicks within one RTT send the same target twice \u2014 post-cutover item"
+    },
+    {
+      "id": "OBL-backend-it-contexts",
+      "text": "final-review-backend: 18 IT classes boot separate Spring contexts/Postgres containers (no reuse; forced JVM kill after shutdown-hook cascade) \u2014 test-infra hygiene item"
+    },
+    {
+      "id": "OBL-comment-noise",
+      "text": "final reviews: narrative Javadoc/comments in HttpMercurePublisher, WidgetViewService, ImportUploadController, scrollRestoration.ts exceed the minimal-comments rule \u2014 cleanup item"
+    },
+    {
+      "id": "OBL-plan-errata",
+      "text": "plan errata for closeout: CUT-1 command needs both compose files; ports 23456/23457 vs the prod file; DEV-12 is in the plan table but DEV-13 is unused; fixtures as Java classes"
     }
   ],
   "final_review": {
