@@ -433,3 +433,63 @@ Sonar: not applicable. Introduced dependencies: none. Secrets grep on the diff: 
 none built or torn down for this follow-up (not needed — no visual/contract/e2e-affecting change,
 confirmed by the coordinator's own message). Report/evidence written only to the main checkout,
 never committed on the `migration/wave-4/import-wizard` branch.
+
+## Repair-2
+
+Post-integration feature-head RED (lint): on the merged head `e7a16e0898b1f23459c685ab241dca0e46b32c64`
+(popups + import integrated into `migration/spring-vue`), `npm run lint` failed with
+`frontend/src/router/routes.ts:12:8 error 'EmptyPageView' is defined but never used` — once both
+wave-4 slices replaced their own placeholder route with a real view, the import became dead;
+neither slice could see this alone (each only ever touched its own route entry).
+
+Executed in a **fresh worktree** `/home/muszkin/work/kivvi-click-wt/w4-import-r2`, branch
+`migration/wave-4/import-wizard-repair2`, base `e7a16e0` (identity guard confirmed: branch head,
+clean tree, zero diff from base before starting).
+
+**New SHA: `a8fb5f6`**
+
+```
+a8fb5f6 chore: drop the unused EmptyPageView placeholder after wave-4 routes landed (#import-wizard)
+e7a16e0 fix: store an empty upload like the old stack; prove traversal end to end (#import-wizard)
+30c8943 fix: follow the upload redirect with a full navigation like the old stack (#import-wizard)
+ca0532d test: label the B01 import document-render cases explicitly (#import-wizard)
+0bac102 fix: accept the upload step's router-handled redirect in the contract verifier (#import-wizard)
+```
+
+`git status --porcelain` empty. One new commit, Conventional Commits, English, no trailers.
+
+### What changed
+
+- **`frontend/src/router/routes.ts`**: removed the unused `import EmptyPageView from
+  "@/views/EmptyPageView.vue"`. Also rewrote the file's top-of-file comment, which still claimed
+  "only login and dashboard have real page bodies in this slice; every other route mounts the app
+  shell around an empty page" — no longer true on this feature head (every route now has its own
+  journey-built view) and directly adjacent to the line being edited.
+- **`frontend/src/views/EmptyPageView.vue`**: deleted. Grepped `frontend/src`, `frontend/test` and
+  the new stack's config for any remaining reference before deleting — none found (`grep -rn
+  "EmptyPageView" frontend/ config/ tests/` returned only the one import line, now removed, plus a
+  documentation mention in `frontend/README.md`); no dedicated test file for it ever existed
+  (`frontend/test/**/*EmptyPage*` — none), and the new Vue frontend has no storybook-equivalent
+  registry (the `config/storybook.php`/`src/Storybook`/`templates/storybook` hits found are all
+  old-stack PHP, untouched, out of scope). Per repair-2's own instruction, since nothing else
+  referenced it, the file was deleted rather than kept with only the import removed.
+- **`frontend/README.md`**: updated the one remaining stale mention (`src/views/{LoginView,
+  DashboardView,EmptyPageView}.vue` — only login/dashboard have real bodies…) to reflect that
+  every route now has its own view and the placeholder was removed once the last journey replaced
+  it — a direct, low-risk consequence of the deletion above, not independent scope.
+
+### Gate table (SHA `a8fb5f6`, `cd frontend` for every command)
+
+| # | Command | Exit | Evidence |
+| --- | --- | --- | --- |
+| 1 | `npm run lint` | 0 (0 errors — the reported error is gone; same 8 pre-existing `vue/multiline-html-element-content-newline` warnings as every prior gate run, unrelated to this change) | `evidence/repair-2-gates/npm-lint.txt` |
+| 2 | `npm run typecheck` | 0 | `evidence/repair-2-gates/npm-typecheck.txt` |
+| 3 | `npm run test -- --run` | 0 (153 passed — the full wave-4 feature-head unit suite, popups + import combined) | `evidence/repair-2-gates/npm-test.txt` |
+| 4 | `npm run test:integration -- --run` | 0 (118 passed) | `evidence/repair-2-gates/npm-test-integration.txt` |
+| 5 | `npm run format:check` | 0 | `evidence/repair-2-gates/npm-format-check.txt` |
+| 6 | `npm run build` | 0 (324.69 kB JS / 100.62 kB gzip) | `evidence/repair-2-gates/npm-build.txt` |
+
+No backend gates re-run (nothing under `backend/` touched by this repair; the finding was
+frontend-lint-only). No docker stack needed or built, per the coordinator's own message. Secrets
+grep on the diff: none found. Report/evidence written only to the main checkout, never committed
+on the `migration/wave-4/import-wizard-repair2` branch.

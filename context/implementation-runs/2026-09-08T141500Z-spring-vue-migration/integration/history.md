@@ -19,3 +19,4 @@
 | 2026-09-09T04:52:17Z | w3-shell-preferences repair-1 | fast-forward | 60296f1 → 11d3cc4 | feature-head green; wave-3 round-4 SHA |
 | 2026-09-09T06:17:01Z | w4-popups-widget-editor | cherry-pick f278607 | 11d3cc4 → a12e00d | feature-head green (`integration/feature-head-a12e00d/`) |
 | 2026-09-09T06:44:32Z | w4-import-wizard | cherry-pick ×5 | a12e00d → e7a16e0 | feature-head gates in integration/feature-head-e7a16e0/ |
+| 2026-09-09T06:49:45Z | w4-import-wizard repair-2 | fast-forward | e7a16e0 → a8fb5f6 | gates: green (integration/feature-head-a8fb5f6/) |
