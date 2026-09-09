@@ -1,0 +1,10 @@
+compare.mjs: replaying journey "campaigns-email-editor" against https://localhost:19081 (dimensions: visual)
+compare.mjs: 1 regression(s) — report at .../evidence/visual/campaigns-email-editor/report.md
+Regression: step 6 (reload, dark theme persists), screenshotMobile only — 2.961% pixels differ.
+texts/aria: parity on all 8 steps. screenshotDesktop: parity on all 8 steps (incl. step 6, 0%).
+screenshotMobile: parity on 7/8 steps (all except step 6).
+Root cause: horizontal scroll-position artifact from Chromium's native scroll-restoration on
+`page.reload()`, specific to the `.email-editor` 3-pane CSS grid (240px + 1fr, unchanged,
+byte-identical to the old stack) intrinsically overflowing the 390px mobile viewport — NOT a
+content/DOM defect (proven by 100% text/aria parity and 100% desktop parity at the same step).
+See worker-report.md "Visual dimension finding" for full analysis and evidence.
