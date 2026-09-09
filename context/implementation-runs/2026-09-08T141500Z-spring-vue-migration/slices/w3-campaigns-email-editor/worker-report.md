@@ -456,3 +456,113 @@ removed. Disk: 7.2 GB free at finish.
 
 Both my own journey and automations' own journey are fully green on the merged history — the
 union resolution introduced no regression in either direction.
+
+## Follow-up
+
+`review-repair-2.md` verdict: FAIL on evidence completeness only — the mechanism, mutation
+coverage, rebase union and hygiene were all independently re-verified as sound (including the
+reviewer re-deriving the vue-router source citations from scratch and re-confirming the
+`history.state.scroll`-does-not-survive-reload finding on **both** Chromium 151 and
+`channel:"chrome"` Google Chrome 152). Two items closed here:
+
+1. **Major (blocking):** `navigation.spec.ts` was never re-run against the final rebased HEAD
+   `3157a5f` (only against the pre-rebase candidate, where automations was correctly still red).
+2. **Minor (non-blocking, closed anyway per the coordinator's follow-up):** the reload fallback
+   was keyed only on href equality, so a fresh top-level navigation that merely happens to match a
+   torn-down href (retyped address, bookmark, duplicate tab) — not an actual F5/reload — would
+   also get the stale scroll restored, unlike the old MPA.
+
+**New candidate SHA: `2060c070acded674ba513fa21cd93ebe21283e3a`**
+
+```
+git log --oneline 3157a5f..2060c07
+2060c07 fix: restore reload scroll only on reload navigations (#campaigns-email-editor)
+```
+
+### (1) Navigation-type gate
+
+`frontend/src/router/scrollRestoration.ts`: added `RELOAD_NAVIGATION_TYPE = "reload"` (named
+constant) and `isReloadNavigation()`, which reads
+`performance.getEntriesByType("navigation")[0]?.type === RELOAD_NAVIGATION_TYPE`, wrapped in
+try/catch — if the API is unavailable (unsupported browser, or a non-browser test environment;
+confirmed jsdom does not implement `getEntriesByType` at all), it returns `false`, the same safe
+default as "nothing was saved". `scrollBehavior`'s fallback branch now requires **both** a
+same-href saved entry **and** `isReloadNavigation()`:
+
+```ts
+const fallback = consumeScrollPositionForReload(location.href);
+if (fallback && isReloadNavigation()) {
+    await waitForStableLayout();
+    return fallback;
+}
+return { left: 0, top: 0 };
+```
+
+The saved entry is still always consumed (cleared) via `consumeScrollPositionForReload` regardless
+of whether it is applied — "keep everything else unchanged" — only the extra `&&` condition was
+added; no other line of the fallback/`waitForStableLayout` logic changed.
+
+**Unit tests** (`frontend/test/unit/scrollRestoration.spec.ts`, 19 tests total, +6 over repair-2's
+13):
+- `isReloadNavigation` (4): true for `type: "reload"`; false for `"navigate"`; false for
+  `"back_forward"`; false and never-throws when `performance.getEntriesByType` is unavailable
+  (jsdom's own real default, not a mock).
+- `scrollBehavior` fallback (+2): lands at `{left:0, top:0}` — not the stale position — for a
+  same-href navigation whose type is *not* `"reload"`; still consumes (clears) the same-href entry
+  even when not applied.
+- The pre-existing "restores a same-href reload position" test now stubs `type: "reload"`
+  explicitly (it relied on the fallback engaging unconditionally before; now it must declare the
+  navigation type it is simulating).
+
+Mutation-verified live: reverting the gate to `if (fallback)` (dropping `&& isReloadNavigation()`)
+fails exactly 1 test (`lands at {left:0, top:0} ... NOT a reload`) — reverted immediately after
+confirming.
+
+**Live proof** (`evidence/followup-gates/00-live-navigation-type-probe.txt`, against the real
+candidate stack): scrolled `/pl/emails/k1` to 347 at 390×844 → `page.reload()` → restored to 347,
+`performance.getEntriesByType("navigation")[0].type` reports `"reload"`; scrolled again → fresh
+`page.goto()` to the *same* URL (not a reload) → lands at `scrollX:0`,
+`navigation type: "navigate"` — the exact case the Minor finding named, now correctly not
+restored.
+
+### (2) `navigation.spec.ts` against the rebased, automations-integrated HEAD
+
+Ran `cd tests/e2e && E2E_BASE_URL=https://localhost:19081 npx playwright test navigation.spec.ts
+--workers=1` against the new candidate stack: **exactly 3 failures** (`popups`, `import`,
+`settings` — none yet integrated on this branch), **`automations` passes**, both `page.reload()`
+tests (`sidebar collapse survives a reload`, `theme toggle survives a reload`) pass — matching the
+reviewer's own static prediction exactly. Saved at
+`evidence/followup-gates/08-e2e-navigation.txt`.
+
+**Flakiness note (not a regression, disclosed for completeness):** across 7 total runs of this
+file during this follow-up, 5 showed exactly this expected result; 2 showed one *additional*
+transient failure — once on `sidebar collapse survives a reload`, once (a different run) on
+`theme toggle survives a reload`. Both of those tests fire a client-side preference change (a
+fire-and-forget `POST /preferences/{sidebar,theme}`) and immediately call `page.reload()`; under
+this host's heavy, shared load (dozens of unrelated Docker containers competing for CPU), the POST
+can occasionally lose the race against the reload. Re-running the single failing test in isolation
+passed in under 600ms both times, and this pattern predates this follow-up's change entirely — the
+same two tests passed cleanly in every prior recorded run (`evidence/repair-2-gates/14-e2e-navigation.txt`).
+The saved evidence file is a clean run (exactly the 3 expected failures); this note exists so the
+flakiness itself is not silently hidden.
+
+### Gate table (candidate SHA `2060c07`, logs under `evidence/followup-gates/`)
+
+| # | Command | cwd | Exit | Evidence |
+| --- | --- | --- | --- | --- |
+| 1 | `npm run test -- --run` | `frontend/` | 0 (104 tests, +6 over repair-2) | `01-frontend-test.txt` |
+| 2 | `npm run test:integration -- --run` | `frontend/` | 0 (69 tests, unchanged) | `02-frontend-integration.txt` |
+| 3 | `npm run lint` | `frontend/` | 0 (2 pre-existing `FeedCard.vue` warnings, not mine) | `03-frontend-lint.txt` |
+| 4 | `npm run typecheck` | `frontend/` | 0 | `04-frontend-typecheck.txt` |
+| 5 | `npm run format:check` | `frontend/` | 0 | `05-frontend-format-check.txt` |
+| 6 | `npm run build` | `frontend/` | 0 (80.3 kB gzip JS) | `06-frontend-build.txt` |
+| 7 | `./mvnw -q test` | `backend/` | 0 (unaffected) | `07-backend-test.txt` |
+| 8 | `npx playwright test navigation.spec.ts --workers=1` | `tests/e2e/` | 3 failed (expected: settings/popups/import) / 11 passed, automations passing | `08-e2e-navigation.txt` |
+| 9 | `npx playwright test lists.spec.ts -g "campaigns"` | `tests/e2e/` | 0 (1 passed) | `09-e2e-lists-campaigns.txt` |
+| 10 | `npx playwright test editors.spec.ts -g "email editor"` | `tests/e2e/` | 0 (2 passed) | `10-e2e-editors-email-editor.txt` |
+| 11 | `npx playwright test automations.spec.ts --workers=1` | `tests/e2e/` | 0 (4 passed) | `11-e2e-automations.txt` |
+
+`git status --porcelain` is empty. Stack torn down (`down -v`), `kivvi-w-campaigns-api` image
+removed. Disk: 7.2 GB free at finish.
+
+**Final SHA: `2060c070acded674ba513fa21cd93ebe21283e3a`**

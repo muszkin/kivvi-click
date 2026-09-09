@@ -11,3 +11,5 @@
 | 2026-09-08T22:26:58Z | w2-customers repair-1 | cherry-pick d0545af | 22d7fcb → 91ae8db | feature-head green (`integration/feature-head-91ae8db/`) |
 | 2026-09-08T22:44:23Z | w2-event-stream repair-2 | cherry-pick 7ba8f08 | 91ae8db → b87a701 | feature-head green (`integration/feature-head-b87a701/`); wave-2 round-2 SHA |
 | 2026-09-08T23:56:27Z | w3-automations | fast-forward | b87a701 → 2ca5f07 | feature-head green (`integration/feature-head-2ca5f07/`) |
+| 2026-09-09T02:21:31Z | w3-campaigns-email-editor | fast-forward | 2ca5f07 → 2060c07 | — |
+| 2026-09-09T02:21:31Z | w3-settings | cherry-pick ×3 | 2060c07 → 32a6831 | feature-head green (`integration/feature-head-32a6831/`); wave-3 SHA |
