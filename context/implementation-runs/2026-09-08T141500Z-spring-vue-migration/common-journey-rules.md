@@ -51,3 +51,5 @@ The `api` image builds the whole SPA and jar (several minutes). For fast iterati
 - Worker reports and evidence live ONLY in the main checkout run dir (/home/muszkin/work/kivvi-click/context/implementation-runs/…). Never commit them on the slice branch: the orchestrator integrates code commits only (wave-4 popups committed its report on the branch; that commit was dropped at integration).
 
 - Visual guard for `shell-navigation` is mandatory in every cohort from wave-4 round 3 on (a pre-existing `<html data-sidebar>` desync produced 7 visual regressions that contract-only guards never saw).
+
+- Disk: `~/.npm` cache grows ~3 GB per wave of `npm ci` runs — `npm cache clean --force` before every cohort; keep `docker builder prune -af` and stale `kivvi-w-*` volume removal in the teardown routine (wave-4 round 3 hit 2.0 GB free, K7 threshold is 3 GB).
