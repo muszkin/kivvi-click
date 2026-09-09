@@ -65,6 +65,7 @@ stack for this rebuild is in `CLAUDE.md`.
 
 ## What to ignore from the original
 
-The original kivvi-click was Java/Spring + Go + Vue + Kafka/Redpanda, monorepo. The rebuild is a
-single Symfony 8 / PHP 8.5 full-stack app with Postgres for everything (see `CLAUDE.md`). Reuse
-the **product** intent above, not those technology choices or the multi-service split.
+The original kivvi-click was Java/Spring + Go + Vue + Kafka/Redpanda, monorepo. The rebuild also
+uses Spring Boot + Vue, but as one deployable, Postgres-only two-module app: Spring Boot 4.1 API
++ Vue 3 SPA, no Go services, no Kafka/Redpanda, no microservice split (see `CLAUDE.md`). Reuse
+the **product** intent above, not the original's multi-service architecture.

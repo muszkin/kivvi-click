@@ -2,106 +2,155 @@
 
 Marketing-automation platform for e-commerce: track visitor events, configure rule-based
 automations, and deliver popups / emails / coupons / product recommendations at the right
-moment. This repository is a from-scratch rebuild of the original kivvi-click on a new stack.
+moment. This repository is a from-scratch rebuild of the original kivvi-click on a new stack —
+migrated from Symfony/Twig on 2026-09-09, see `docs/adr` and `context/plans`.
 
 See `CLAUDE.md` for architecture decisions and the `product-spec` skill (`.claude/skills/`) for
 the full product vision.
 
 ## Stack
 
-- PHP 8.5, Symfony 8 — single full-stack app
-- FrankenPHP + Caddy runtime (Mercure hub built into Caddy), Docker-first via
-  [dunglas/symfony-docker](https://github.com/dunglas/symfony-docker)
-- PostgreSQL 18 — backs everything: application data, sessions, cache (Doctrine DBAL adapter),
-  Messenger transport (Doctrine), and scheduling. No Redis/RabbitMQ/Memcached.
-- Frontend: server-rendered Twig + pure CSS + vanilla TypeScript (AssetMapper). No JS/CSS frameworks.
-- i18n: Polish by default, English available (`/`, `/pl`, `/en`)
+- Backend: Java 25, Spring Boot 4.1.1, Maven (wrapper `./mvnw`). Package root `click.kivvi`,
+  layered `web` → `application` → `domain`, with `infrastructure` reachable only from
+  `application` (enforced by `ArchitectureTest`).
+- Frontend: Vue 3.5 SPA (Vite build, no SSR), history-mode vue-router, Pinia, vue-i18n. Pure
+  CSS design system under `frontend/src/styles/`, byte-identical to the original. No JS/CSS
+  frameworks (React, Svelte, Tailwind, Bootstrap).
+- One deployable: the Spring Boot jar serves the built SPA from its own classpath
+  (`backend/src/main/resources/static`); `backend/Dockerfile` builds both stages into one image.
+- PostgreSQL 18 — the only backing service: application data, Spring Session JDBC sessions,
+  `event_dedup` idempotency, ShedLock scheduling, all via Flyway-managed schema. No
+  Redis/RabbitMQ/Kafka/Memcached.
+- Real-time: the Mercure Hub (`dunglas/mercure`, embeds Caddy) is the stack's public edge —
+  Server-Sent Events, not a separate WebSocket server.
+- i18n: Polish by default, English available (`/pl`, `/en`), via vue-i18n.
+
+## Requirements
+
+- Docker Engine with the Compose plugin (`docker compose`, not the standalone v1
+  `docker-compose`) — this is the only thing required for the commands below.
+- For host-local backend work (outside Docker): JDK 25 (Temurin). On this host, set
+  `export JAVA_HOME=~/.cache/kivvi-toolchains/jdk-25` before running `./mvnw`.
+- For host-local frontend work (outside Docker): Node 26+.
 
 ## Run locally
 
+Production already runs on this host under the Compose project `kivvi-click` (see Production
+below). Always give the dev stack its own project name — a bare `docker compose up` here
+defaults to this directory's name (`kivvi-click`) and would collide with prod's containers and
+volumes:
+
 ```bash
-docker compose build
-HTTP_PORT=8080 HTTPS_PORT=8443 HTTP3_PORT=8443 docker compose up -d --wait
+HTTP_PORT=8080 HTTPS_PORT=8443 HTTP3_PORT=8443 docker compose -p kivvi-dev up -d --build --wait
 ```
 
-Open https://localhost:8443/ (self-signed certificate in dev). The container compiles the
-TypeScript bundle on start, so a fresh `var/` needs no extra step.
-
-This also starts a `worker` container that runs `messenger:consume async scheduler_default`,
-so async (Doctrine transport) messages are processed and scheduled tasks fire automatically.
-Migrations run on the `php` container's start; the `worker` skips them (`AUTO_MIGRATE=0`).
+Open https://localhost:8443/ (self-signed certificate in dev). This builds the `api` image
+(Spring Boot jar with the Vue SPA baked into its classpath), starts `mercure` as the public
+edge and `database` (Postgres 18, no fixed host port — find it with
+`docker compose -p kivvi-dev port database 5432`).
 
 ## Common commands
 
 ```bash
-docker compose exec php php bin/console <command>   # Symfony console
-docker compose exec php php bin/phpunit              # run tests
-docker compose exec php composer require <package>   # add a dependency
-docker compose logs -f php                           # follow app logs
+docker compose -p kivvi-dev logs -f api                # follow app logs
+docker compose -p kivvi-dev build api                   # rebuild after a Dockerfile/dependency change
+cd backend && ./mvnw -q test                             # unit tests + ArchitectureTest, no containers
+cd backend && ./mvnw -q verify                           # + Testcontainers Postgres 18 integration tests
+cd backend && ./mvnw spotless:apply                      # format (google-java-format)
+cd frontend && npm ci && npm run dev                      # Vite dev server
+cd frontend && npm run format                             # format (Prettier)
 ```
 
 ## Panel
 
-The whole panel is server-rendered from `templates/pages/` and composed of the design system in
-`templates/components/` (atoms → molecules → organisms). Screens: landing, login, dashboard,
-event stream, customers + 360 profile, automations + rule editor (list and diagram), email
-campaigns + template editor, popups/widgets + widget editor, product feeds, the four-step
-customer import and eight settings tabs.
+The whole panel is a Vue 3 SPA (`frontend/src/`) served by the Spring Boot API (`backend/`)
+from its own classpath — one process, one deployable jar. Screens: landing, login, dashboard,
+live event stream, customers + 360 profile, automations, email campaigns + template editor,
+popups/widgets + widget editor, product feeds, the four-step customer import wizard, and eight
+settings tabs. Components are organized atoms → molecules → organisms in
+`frontend/src/components/`, ported 1:1 from the original design system; the CSS itself was
+copied byte-for-byte into `frontend/src/styles/`.
 
-Interaction is declared, never wired by hand: one delegated listener in `assets/app.ts` turns
-`data-action` / `data-payload` attributes into named intents, and `[data-controller]` mounts the
-TypeScript controllers in `assets/controllers/`.
+Navigation between routes is always a full document request (plain `<a>` hrefs through
+`useIntents`'s `navigate` intent), never `router.push` — this matches every transition the
+original server-rendered app made, which the Playwright e2e suite still asserts against.
 
-The live event stream subscribes to Mercure; `POST /collect` takes a tracked event, drops
-duplicates by `idempotency_id` and publishes the **server-rendered row**, so the markup of a row
-exists in exactly one place.
+The live event stream subscribes to the Mercure Hub over Server-Sent Events; `POST /collect`
+takes a tracked event, drops duplicates via the `event_dedup` table (24h TTL), and publishes it
+for the SPA's live rows to pick up.
 
-### Component storybook
-
-Every component renders from its production Twig template at https://localhost:8443/_storybook
-(dev and test environments only). Stories live in `config/storybook.php` as plain data.
+There is no component storybook route in this stack (`/_storybook` is intentionally excluded
+from the route table).
 
 ## Tests
 
-```bash
-docker compose exec php php bin/phpunit          # functional + unit
-docker compose exec php composer phpstan         # static analysis
-```
-
-End-to-end tests drive the running stack with Playwright, headless, using the system Chrome:
+Backend:
 
 ```bash
-cd tests/e2e && npm install                      # first run only
-npx playwright test                              # against https://localhost:8543
-E2E_BASE_URL=https://localhost:8443 npx playwright test
+cd backend
+./mvnw -q test      # unit tests + ArchitectureTest, no containers
+./mvnw -q verify     # + Testcontainers Postgres 18 integration tests (*IT.java), needs Docker
 ```
 
-The e2e suite has its own `package.json` so the app's yarn/PnP setup stays untouched.
+Frontend:
+
+```bash
+cd frontend
+npm ci
+npm run test -- --run              # Vitest unit
+npm run test:integration -- --run  # Vitest integration
+npm run lint
+npm run typecheck
+npm run format:check
+```
+
+End-to-end tests drive the running stack with Playwright, headless Chrome — unchanged across
+the rewrite, this suite is the migration's parity oracle:
+
+```bash
+cd tests/e2e && npm install                              # first run only
+E2E_BASE_URL=https://localhost:8443 npx playwright test  # default base is https://localhost:8543
+```
+
+`events.spec.ts`, `dashboard.spec.ts` and `navigation.spec.ts` share live/SSE state and should
+run serialized: add `--workers=1` when running them. The e2e suite has its own `package.json`,
+independent of `frontend/`'s.
+
+Migration parity/regression check (optional; replays the pre-migration oracle capture):
+
+```bash
+node tools/migration-verify/compare.mjs --journey <id> --base <url> --dimension all
+```
 
 ## Production
 
-Production uses `compose.prod.yaml` (built prod image, no bind-mount). A one-shot `migrations`
-job applies migrations once and exits; `php` and `worker` wait for it to succeed
-(`service_completed_successfully`) and run with `AUTO_MIGRATE=0`, so no two containers race on
-migrations.
+Production uses `compose.prod.yaml` layered on `compose.yaml` (built image, no bind-mount):
+`api` builds from `backend/Dockerfile` (Node stage → Maven stage → JRE runtime, one jar serving
+the SPA), `mercure` is the public edge, `database` is Postgres 18 on its own volume.
 
-TLS is **not** terminated here. Caddy serves plain HTTP on the published port and a reverse proxy
-in front of the stack answers for https://kivvi.click. The proxy must forward `X-Forwarded-Proto`,
-`X-Forwarded-Host` and `X-Forwarded-For` — Symfony trusts them (`TRUSTED_PROXIES`, default
-`private_ranges`) and generates `https://kivvi.click/...` URLs and secure session cookies from
-them. `TRUSTED_HOSTS` is the allow-list of names the app answers for.
+TLS is **not** terminated here. The `mercure` edge serves plain HTTP on the published port and
+a reverse proxy in front of the stack answers for https://kivvi.click, forwarding
+`X-Forwarded-Proto`, `X-Forwarded-Host` and `X-Forwarded-For`. Spring reads them natively
+(`server.forward-headers-strategy: native`, see `backend/src/main/resources/application.yml`);
+no explicit trusted-proxy CIDR list is needed because `api` publishes no host port of its own —
+the Mercure edge is the only path in.
 
-Runtime configuration and secrets live in `.env.prod.docker` (git- and docker-ignored):
-`APP_SECRET`, `CADDY_MERCURE_JWT_SECRET`, `POSTGRES_PASSWORD`, the published port and the public
-address. Copy `.env.prod.docker.example`, fill in the secrets, then:
+Runtime configuration and secrets live in `.env.prod.docker` (git- and docker-ignored; copy
+from `.env.prod.docker.example`): `SERVER_NAME`, `HTTP_PORT`, `POSTGRES_DB`/`POSTGRES_USER`/
+`POSTGRES_PASSWORD` (shared by `database` and `api`), `MERCURE_JWT_SECRET` (derives all three
+Mercure JWT env vars for both `api` and `mercure`), and an optional `IMAGES_PREFIX` for the
+built image tag.
 
 ```bash
-docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml build
-docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --wait
+docker compose -p kivvi-click --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --build --wait
 ```
 
-The app is then reachable on http://localhost:23456 and, through the proxy,
-on https://kivvi.click. Example nginx server block:
+Run this **from this directory only** — the Compose project name (`-p kivvi-click`) must match
+the checkout's own directory name; a git worktree has a different directory name and would
+start a second, colliding stack rather than update this one.
+
+The app is then reachable on http://localhost:23456 and, through the proxy, on
+https://kivvi.click. Example nginx server block:
 
 ```nginx
 server {
@@ -133,76 +182,38 @@ kivvi.click {
 }
 ```
 
-## Next stack (Spring Boot + Vue)
+## Production operations
 
-Migration in progress (`context/plans/2026-09-08-symfony-to-spring-vue-migration.md`): Spring
-Boot 4.1 API + Vue 3 SPA behind the same Mercure-hub-as-edge pattern, Postgres 18 the only other
-service. Not live yet — it ships from `compose.yaml` (+ `compose.prod.yaml` for prod)
-alongside the old stack until CUT-1. Both stacks read the SAME `.env.prod.docker` file; see
-`.env.prod.docker.example`'s "Next stack (Spring Boot + Vue) only" section for the two keys it
-adds (`MERCURE_JWT_SECRET`, `IMAGES_PREFIX`) — everything else (`POSTGRES_*`, `SERVER_NAME`,
-`HTTP_PORT`) is reused from the keys already documented above.
-
-**This section supersedes the plan's CUT-1 command line** (`context/plans/2026-09-08-symfony-to-spring-vue-migration.md`,
-§ Delivery stages, CUT-1 row): that line names `compose.prod.yaml` alone, which is
-override-only and fails to start on its own (`service "mercure" has neither an image nor a build
-context specified`). Every command below always combines it with `compose.yaml`, exactly
-like the old stack's own `-f compose.yaml -f compose.prod.yaml` pattern above.
-
-### RR-1 — rollback rehearsal (isolated project, spare ports)
+Redeploy (pull latest, rebuild, restart in place):
 
 ```bash
-cp .env.prod.docker /path/rehearsal.env   # values only, never committed
-# rehearsal.env additionally sets HTTP_PORT=23458 so it never collides with the live stack
-
-docker compose -p kivvi-stage --env-file /path/rehearsal.env \
-  -f compose.yaml -f compose.prod.yaml \
-  up -d --build --wait
-
-curl -I http://localhost:23458/pl
-cd tests/e2e && E2E_BASE_URL=http://localhost:23458 npx playwright test
-
-# All-journey cohort — one invocation per journey (compare.mjs keeps only the last --journey):
-for j in login landing feeds scheduler-heartbeat customers event-stream automations \
-         campaigns-email-editor settings shell-preferences dashboard import-wizard \
-         popups-widget-editor shell-navigation; do
-  node tools/migration-verify/compare.mjs --journey "$j" --base http://localhost:23458 --dimension all
-done
-
-# The rehearsal is disposable: tear it down INCLUDING its volumes, then prove the old prod
-# stack still comes back healthy.
-docker compose -p kivvi-stage -f compose.yaml -f compose.prod.yaml down -v
-docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --wait
-docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml ps   # expect healthy
-```
-
-### CUT-1 — cutover (same project name as the old stack, real port 23456)
-
-```bash
-docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml down   # old, NOT down -v: keeps database_data_prod
-docker compose -p kivvi-click --env-file .env.prod.docker \
-  -f compose.yaml -f compose.prod.yaml up -d --build --wait
-
+git pull
+docker compose -p kivvi-click --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --build --wait
+docker compose -p kivvi-click -f compose.yaml -f compose.prod.yaml ps   # expect all services healthy
 curl -I http://localhost:23456/pl
-cd tests/e2e && E2E_BASE_URL=https://kivvi.click npx playwright test   # SSE probe against the public edge
 ```
 
-The next stack's `database_data_next` / `mercure_data_next` / `mercure_config_next` volumes
-carry an explicit `name:` (`kivvi-next_database_data` / `kivvi-next_mercure_data` /
-`kivvi-next_mercure_config` — see `compose.prod.yaml`), so they can never resolve to the
-same Docker volume as the old stack's `database_data_prod` / `caddy_data_prod` /
-`caddy_config_prod`, even though both stacks run under the identical Compose project name
-`kivvi-click` here. The new stack always starts against an EMPTY database — Flyway applies only
-its baseline migration to a fresh volume. Sessions and `var/import` uploads are not migrated:
-both are transient by design (sessions expire on their own; import uploads are per-wizard temp
-files with no identity across requests), so nothing of value is lost by starting clean.
-
-### Rollback
+Roll back to a previous known-good commit (plain git + redeploy — there is no second stack to
+fall back to any more):
 
 ```bash
-docker compose -p kivvi-click -f compose.yaml -f compose.prod.yaml down   # not down -v
-docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --wait
+git checkout <previous-good-sha>
+docker compose -p kivvi-click --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --build --wait
 ```
 
-CUT-1 never touches the old stack's images or its `database_data_prod` volume (see above), so
-rollback is a plain `up` — no restore step.
+Smoke-test against the public edge after either operation:
+
+```bash
+cd tests/e2e && E2E_BASE_URL=https://kivvi.click npx playwright test
+```
+
+The database volume persists across redeploys; Flyway applies only new, forward-only
+migrations on top of it — never edit `V1__baseline.sql`. `GET /actuator/health` is deliberately
+not reachable through the public edge (`mercure/Caddyfile` returns 404 for `/actuator/*`); use
+`docker compose -p kivvi-click -f compose.yaml -f compose.prod.yaml ps` or a real route like
+`/pl` to check health from outside the host.
+
+Full history of the cutover itself (the rollback rehearsal, the CUT-1 attempts and their
+outages, and the decision records) is preserved in
+`context/plans/2026-09-08-symfony-to-spring-vue-migration.md` and `docs/adr/` — this section
+only covers day-to-day operation of the stack that is live now.

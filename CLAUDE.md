@@ -19,47 +19,87 @@ Full product vision, feature list, domain entities, and assumptions live in the 
 skill — invoke it when planning or building features. Carry over the product goals from the
 original, NOT its tech stack.
 
-## Stack — single full-stack app
+## Stack — Spring Boot API + Vue 3 SPA, one deployable
 
-- PHP 8.5, Symfony 8, Composer. Always use latest stable versions.
-- Runtime: FrankenPHP + Caddy. Develop docker-first via dunglas/symfony-docker
-  (https://github.com/dunglas/symfony-docker). Do not assume a local PHP/Nginx setup.
-- Database: PostgreSQL — the ONLY backing service (see Architecture decisions).
-- Frontend: server-rendered Twig + pure CSS + vanilla TypeScript. NO frontend frameworks
-  (React/Vue/Svelte) and NO CSS frameworks (Tailwind/Bootstrap). Do not pull in npm UI libs.
+- Backend: Java 25, Spring Boot 4.1.1, Maven (wrapper `./mvnw`, no local Maven install needed).
+  Package root `click.kivvi`, layered `web` → `application` → `domain`, with `infrastructure`
+  reachable only from `application` (enforced by `ArchitectureTest`, an ArchUnit test). Always
+  use latest stable versions.
+- Frontend: Vue 3.5 SPA (Vite build, no SSR), history-mode vue-router, Pinia, vue-i18n
+  (Polish default, English toggle). Pure CSS design system — byte-identical to the original —
+  under `frontend/src/styles/`. NO CSS frameworks (Tailwind/Bootstrap) and no other frontend
+  framework (React/Svelte). Do not pull in npm UI libs beyond what's already declared.
+- One deployable artifact: the Spring Boot jar serves the built SPA from its own classpath
+  (`backend/src/main/resources/static`); `backend/Dockerfile` builds both in one multi-stage
+  image (Node stage → Maven stage → JRE runtime) — that image is what `compose.yaml` runs.
+- Database: PostgreSQL 18 — the ONLY backing service (see Architecture decisions).
+- Edge/runtime: the Mercure Hub (`dunglas/mercure` image, embeds Caddy) is the stack's public
+  edge — it terminates the outward connection, serves `/.well-known/mercure*` itself, and
+  reverse-proxies everything else to the Spring Boot `api` service. Develop docker-first via
+  `compose.yaml`. Do not assume a local Postgres/edge setup outside Docker.
 
 ## Architecture decisions — do not substitute the usual defaults
 
-Postgres backs everything; there is no Redis, RabbitMQ, or Memcached.
+Postgres backs everything; there is no Redis, RabbitMQ, Kafka, or Memcached.
 
-- Sessions: stored in Postgres.
-- Cache: Postgres `UNLOGGED TABLE` + connection pooling.
-- Messenger: Doctrine transport on Postgres with `auto_setup` (`messenger_dsn` = doctrine).
-- Scheduler: Symfony Scheduler, or the `pg_cron` Postgres extension.
-- Real-time (live event dashboard): Mercure Hub built into Caddy — not a separate WebSocket server.
-- i18n: default language Polish; English is an optional toggle. Build strings PL-first with EN translations.
+- Sessions: Spring Session JDBC (`spring_session` / `spring_session_attributes` tables).
+- Schema: Flyway migrations under `backend/src/main/resources/db/migration`. `V1__baseline.sql`
+  is the cutover baseline (`spring_session*`, `shedlock`, `event_dedup`) — extend it with new
+  versioned migrations, never edit it.
+- Event idempotency: a dedicated `event_dedup(idempotency_hash, expires_at)` table (24h TTL),
+  not a generic cache abstraction — there is nothing else to cache yet.
+- Scheduler: Spring `@Scheduled` + ShedLock (`shedlock-spring` / `shedlock-provider-jdbc-template`,
+  JDBC provider) over a `shedlock` lock table, so a restart of the single `api` process resumes
+  correctly instead of double-firing. No separate worker container — the scheduled job runs
+  inside `api`.
+- Messaging: no message-queue/outbox layer exists — there is nothing to replace it with yet.
+- Real-time (live event dashboard): the Mercure Hub is the edge (see Stack) — Server-Sent
+  Events (SSE), not a separate WebSocket server. `api` publishes over the internal Docker
+  network; the browser subscribes through the public Mercure edge.
+- i18n: vue-i18n message catalogues in `frontend/src/i18n/{pl,en}.ts` — default language
+  Polish; English is an optional toggle. Build strings PL-first with EN translations.
 
 ## Commands
 
-Docker-first — run everything inside the `php` container.
+Docker-first — run everything through `compose.yaml`.
 
-- Start: `HTTP_PORT=8080 HTTPS_PORT=8443 HTTP3_PORT=8443 docker compose up -d --wait` → https://localhost:8443
-- Rebuild image after a Dockerfile/extension change: `docker compose build php` (the doctrine recipe adds `pdo_pgsql` there — rebuild if you see "could not find driver")
-- Console: `docker compose exec php php bin/console <cmd>`
-- Tests: `docker compose exec php composer test`. The script creates the `app_test` database if missing, builds TypeScript assets for AssetMapper, then runs PHPUnit. If migrations are added later, migrate the test DB with `php bin/console --env=test doctrine:migrations:migrate`.
-- Format: `vendor/bin/php-cs-fixer fix` (PHP) and `yarn format` (prettier, TS/CSS).
-- Static analysis: `docker compose exec php composer phpstan` and `yarn typecheck`.
-- CI/CD: GitHub Actions builds the production Docker image on push to `main`.
-- Run the scheduler: `php bin/console messenger:consume scheduler_default`.
-- Production on this host: `docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --wait`
-  → http://localhost:23456, fronted by a reverse proxy that terminates TLS for https://kivvi.click.
-  Secrets and ports live in `.env.prod.docker` (git- and docker-ignored); prod uses its own
-  database and Caddy volumes, so it never shares state with the dev stack.
-- E2E: `cd tests/e2e && npm install && npx playwright test` — headless Chrome against the running
-  stack (`E2E_BASE_URL` overrides the default `https://localhost:8543`). Isolated `package.json`
-  on purpose: the root project stays on yarn/PnP.
-- Component storybook (dev/test only): https://localhost:8443/_storybook — every component
-  rendered from its production template; stories are data in `config/storybook.php`.
+- Start (dev): production already runs on this host under the `kivvi-click` Compose project
+  (see Production below), so always give the dev stack its own project name — omitting `-p`
+  defaults to this directory's name (`kivvi-click`) and would collide with prod's containers
+  and volumes:
+  `HTTP_PORT=8080 HTTPS_PORT=8443 HTTP3_PORT=8443 docker compose -p kivvi-dev up -d --build --wait`
+  → https://localhost:8443. See `compose.yaml` for the full port/variable list; the `database`
+  service publishes no fixed host port — find it with `docker compose -p kivvi-dev port database 5432`.
+- Rebuild after a `backend/Dockerfile`/dependency change: `docker compose -p kivvi-dev build api`.
+- Logs: `docker compose -p kivvi-dev logs -f api`.
+- Backend build/tests: `cd backend && ./mvnw -q verify` (Testcontainers Postgres 18, needs
+  Docker; runs unit tests, `ArchitectureTest`, and every `*IT.java`). Needs `JAVA_HOME` pointed
+  at a JDK 25 install — on this host: `export JAVA_HOME=~/.cache/kivvi-toolchains/jdk-25`
+  (Docker-based commands need no local JDK). `./mvnw -q test` alone runs the fast, no-container
+  subset.
+- Frontend build/tests: `cd frontend && npm ci && npm run test -- --run && npm run test:integration -- --run && npm run lint && npm run typecheck && npm run format:check && npm run build`.
+- Format: `cd backend && ./mvnw spotless:apply` (google-java-format) and
+  `cd frontend && npm run format` (Prettier, TS/CSS).
+- Static analysis: `cd backend && ./mvnw spotless:check` (module-boundary check is
+  `ArchitectureTest`, part of `./mvnw test`) and `cd frontend && npm run typecheck && npm run lint`.
+- CI/CD: GitHub Actions (`.github/workflows/build.yml`) runs the backend (`./mvnw verify`), the
+  frontend (typecheck/lint/format/test/build) and a build-only backend Docker image check on
+  push to `main` and on pull requests; nothing is pushed to a registry from CI.
+- E2E: `cd tests/e2e && npm install && E2E_BASE_URL=https://localhost:8443 npx playwright test`
+  — headless Chrome against the running stack (`E2E_BASE_URL` overrides the default
+  `https://localhost:8543` in `playwright.config.ts`). Run `events.spec.ts`, `dashboard.spec.ts`
+  and `navigation.spec.ts` with `--workers=1` — they share live/SSE state and are flaky in
+  parallel. Isolated `package.json` on purpose: this suite's Playwright toolchain is versioned
+  independently of `frontend/`'s Vite/Vitest one.
+- Migration parity check (oracle regression, safe to keep running after cutover):
+  `node tools/migration-verify/compare.mjs --journey <id> --base <url> [--dimension contract|visual|performance|all]`.
+- Production on this host: run from this directory only —
+  `docker compose -p kivvi-click --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --wait`
+  → http://localhost:23456, fronted by a reverse proxy that terminates TLS for
+  https://kivvi.click. The project name (`-p kivvi-click`) must match this directory's own
+  name; NEVER run the prod compose from a git worktree, whose different directory name would
+  start a second, colliding stack. Secrets and ports live in `.env.prod.docker` (git- and
+  docker-ignored).
 
 ## Workflow — overrides the global gitflow/Jira rules for this repo
 

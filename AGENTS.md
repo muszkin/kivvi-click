@@ -42,31 +42,41 @@ Important product constraints:
 
 ## Stack
 
-- PHP 8.5, Symfony 8, Composer.
-- Single full-stack app.
-- Runtime: FrankenPHP + Caddy, developed Docker-first via dunglas/symfony-docker.
-- Database: PostgreSQL is the only backing service.
-- Frontend: server-rendered Twig, pure CSS, vanilla TypeScript through AssetMapper.
-- No React, Vue, Svelte, Tailwind, Bootstrap, npm UI libraries, Redis, RabbitMQ, or Memcached.
+- Backend: Java 25, Spring Boot 4.1.1, Maven (wrapper `./mvnw`).
+- Frontend: Vue 3.5 SPA (Vite, no SSR), history-mode vue-router, Pinia, vue-i18n.
+- One deployable: the Spring Boot jar serves the built SPA from its own classpath
+  (`backend/src/main/resources/static`); `backend/Dockerfile` builds both in one multi-stage
+  image, which is what `compose.yaml` runs.
+- Database: PostgreSQL 18 is the only backing service.
+- Frontend styling: pure CSS design system under `frontend/src/styles/`, byte-identical to the
+  original. No React, Svelte, Tailwind, Bootstrap, or other npm UI libraries. No Redis,
+  RabbitMQ, Kafka, or Memcached.
 
 Postgres backs:
 
 - Application data.
-- Sessions.
-- Cache via Postgres `UNLOGGED TABLE` and connection pooling.
-- Messenger through Doctrine transport.
-- Scheduling through Symfony Scheduler or `pg_cron`.
+- Sessions, via Spring Session JDBC (`spring_session` / `spring_session_attributes`).
+- Event idempotency, via a dedicated `event_dedup(idempotency_hash, expires_at)` table (24h
+  TTL) — there is no generic cache abstraction.
+- Scheduling, via Spring `@Scheduled` + ShedLock over a `shedlock` lock table (no separate
+  worker container — the job runs inside `api`).
+- Schema, via Flyway migrations under `backend/src/main/resources/db/migration`.
 
-Real-time live event dashboard work should use Mercure Hub built into Caddy.
+There is no message-queue/outbox layer.
+
+Real-time live event dashboard work uses the Mercure Hub (`dunglas/mercure` image, embeds
+Caddy) as the stack's public edge — Server-Sent Events, not a separate WebSocket server.
 
 ## Development Commands
 
-Run commands Docker-first inside the `php` container.
+Run everything Docker-first through `compose.yaml`.
 
-Start locally:
+Start locally, with a project name distinct from production's `kivvi-click` (see Current Shape
+and the workflow notes in `README.md`'s Production section — this host already runs prod under
+that project name, so a bare `docker compose up` here would collide with it):
 
 ```bash
-HTTP_PORT=8080 HTTPS_PORT=8443 HTTP3_PORT=8443 docker compose up -d --wait
+HTTP_PORT=8080 HTTPS_PORT=8443 HTTP3_PORT=8443 docker compose -p kivvi-dev up -d --build --wait
 ```
 
 Open the app at `https://localhost:8443/`.
@@ -74,59 +84,67 @@ Open the app at `https://localhost:8443/`.
 Common commands:
 
 ```bash
-docker compose exec php php bin/console <command>
-docker compose exec php composer test
-docker compose exec php composer require <package>
-docker compose logs -f php
+docker compose -p kivvi-dev logs -f api
+docker compose -p kivvi-dev build api
+docker compose -p kivvi-dev port database 5432   # find the random host port Compose assigned
 ```
 
-If Dockerfile or PHP extension setup changes:
+Backend build/tests (needs `JAVA_HOME` pointed at a JDK 25 install — on this host,
+`export JAVA_HOME=~/.cache/kivvi-toolchains/jdk-25`; Docker-based commands above need no local
+JDK):
 
 ```bash
-docker compose build php
+cd backend
+./mvnw -q test      # fast, no containers: unit tests + ArchitectureTest
+./mvnw -q verify     # + Testcontainers Postgres 18 integration tests (*IT.java), needs Docker
+./mvnw spotless:apply    # format (google-java-format)
+./mvnw spotless:check    # format check
 ```
 
-Test database setup, when needed:
+Frontend build/tests:
 
 ```bash
-docker compose exec php php bin/console --env=test doctrine:database:create
-docker compose exec php php bin/console --env=test doctrine:migrations:migrate
+cd frontend
+npm ci
+npm run test -- --run              # Vitest unit
+npm run test:integration -- --run  # Vitest integration
+npm run lint
+npm run typecheck
+npm run format:check
+npm run build
+npm run format   # fix formatting
 ```
 
-The canonical test command is `docker compose exec php composer test`; it creates the test
-database if missing, builds TypeScript assets for AssetMapper, then runs PHPUnit.
-
-Formatting:
-
-```bash
-docker compose exec php vendor/bin/php-cs-fixer fix
-yarn format
-```
-
-Static analysis:
-
-```bash
-docker compose exec php composer phpstan
-yarn typecheck
-```
+The canonical CI-equivalent gate is `./mvnw -q verify` (backend) plus the frontend sequence
+above, in the order GitHub Actions (`.github/workflows/build.yml`) runs them.
 
 CI/CD:
 
-- GitHub Actions builds the production Docker image on push to `main`.
+- GitHub Actions (`.github/workflows/build.yml`) runs the backend (`mvnw verify`), the frontend
+  (typecheck/lint/format/test/build) and a build-only backend Docker image check on push to
+  `main` and on pull requests. Nothing is pushed to a registry from CI.
 
 ## Current Shape
 
-The app currently has a localized homepage:
+The full panel is implemented on both sides:
 
-- `src/Controller/HomeController.php`
-- `templates/home/index.html.twig`
-- `translations/messages.pl.yaml`
-- `translations/messages.en.yaml`
+- `backend/src/main/java/click/kivvi/` — `web` (controllers + DTOs) → `application` (view
+  services, tracking ingestion) → `domain` (route table, formatting, tracking domain), with
+  `infrastructure` (session, scheduling, Mercure publishing, import storage, config) reachable
+  only from `application`. Schema in `backend/src/main/resources/db/migration/`.
+- `frontend/src/` — `components/{atoms,molecules,organisms}` (ported design system),
+  `layouts/` (`PublicLayout`, `AuthLayout`, `AppLayout`), `views/` (one per route), `router/`
+  (route table), `stores/` (Pinia, e.g. the shell store), `i18n/{pl,en}.ts`, `styles/`.
 
-Existing tests cover the homepage locale behavior and cache behavior:
+Both sides cover the whole panel: landing, login, dashboard, live event stream, customers,
+automations, email campaigns, popups/widgets, product feeds, the customer import wizard, and
+settings. See `backend/README.md` and `frontend/README.md` for the endpoint list, module
+boundaries, and test layout — they're more likely to stay current than a file list here.
 
-- `tests/Controller/HomeControllerTest.php`
-- `tests/CacheTest.php`
+Integration coverage lives in `backend/src/test/java/click/kivvi/*IT.java` (one per journey,
+e.g. `DashboardApiIT`, `EventsApiIT`, `CollectApiIT`, `ImportApiIT`); frontend coverage lives in
+`frontend/test/{unit,integration}/`. The Playwright suite in `tests/e2e/specs/` is unchanged
+across the rewrite — it is the parity oracle.
 
 ## Workflow
 
@@ -145,7 +163,9 @@ Do not use Jira keys or `CORE-123`-style scopes.
 The `.claude` directory is part of the project context:
 
 - `.claude/skills/product-spec/SKILL.md` is the authoritative product/domain spec.
-- `.claude/settings.json` formats edited PHP and TypeScript files after Claude tool edits.
+- `.claude/settings.json` runs a post-edit formatting hook. It still only matches `*.php` and
+  `*.ts` file extensions from the old stack — that hook is stale for this stack (Java/Vue) and
+  due its own fix; don't rely on it to format `.java` or `.vue` files.
 
-Codex does not automatically run those Claude hooks, so format edited PHP and frontend files
-explicitly when making changes.
+Codex does not automatically run those Claude hooks, so format edited backend and frontend
+files explicitly when making changes (`./mvnw spotless:apply`, `npm run format`).

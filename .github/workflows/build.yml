@@ -1,9 +1,7 @@
-name: Next stack build
+name: Build
 
-# Spring Boot + Vue 3 SPA CI (wave-0 walking skeleton onward). Separate from
-# docker-build.yml, which still builds the old PHP stack's production image until CON-1
-# removes it. Testcontainers pulls its own Postgres 18 image and talks to the runner's
-# already-present Docker daemon — no external Postgres service container needed.
+# Spring Boot + Vue 3 SPA CI. Testcontainers pulls its own Postgres 18 image and talks to
+# the runner's already-present Docker daemon — no external Postgres service container needed.
 on:
   push:
     branches: [main]
@@ -93,10 +91,9 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-  # Exercises the actual artifact CUT-1 deploys — compose.yaml/compose.prod.yaml
-  # both build `api` from this same Dockerfile. Mirrors docker-build.yml's shape (build-only,
-  # no push) for the old stack's own production image: neither job pushes anywhere, both
-  # exist purely to catch a broken COPY/stage reference before it reaches a runbook.
+  # Exercises the actual artifact production deploys — compose.yaml/compose.prod.yaml
+  # both build `api` from this same Dockerfile. Build-only, no push: this job exists purely
+  # to catch a broken COPY/stage reference before it reaches a runbook.
   backend-image:
     runs-on: ubuntu-latest
     steps:
