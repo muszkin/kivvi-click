@@ -1,0 +1,33 @@
+Wave-3 shell-change regression-guard coverage (round 4)
+
+1) vue-router scrollBehavior + reload scroll restoration -- frontend/test/integration/ScrollRestoration.spec.ts
+60:describe("router/index.ts scrollBehavior wiring", () => {
+61:    it("createRouter was configured with this module's own scrollBehavior function", () => {
+65:    it(
+88:    it("resolves {left:0, top:0} for a plain push with no saved position", async () => {
+
+2) generic locale toggle via route.meta.defaultParams -- frontend/test/integration/LocaleToggle.spec.ts
+65:describe("repair-3 (R-B) locale toggle through the real router/AppLayout/Topbar chain", () => {
+80:    it("at /pl/settings/account (settings' own default tab), the toggle omits the segment: /en/settings", async () => {
+86:    it("at /pl/settings/billing (not the default tab), the toggle keeps the segment: /en/settings/billing", async () => {
+92:    it("at /pl/customers/c_1001 (a route with no meta.defaultParams), the toggle is an unmodified prefix swap: /en/customers/c_1001", async () => {
+
+3) keepalive preference POSTs (theme, sidebar) -- frontend/test/integration/shellStore.spec.ts
+5:describe("B08/B10 shell store preference toggles", () => {
+21:    it("B08 setTheme updates the document attribute and posts the new value", async () => {
+37:    it("B10 setSidebar updates the store and posts the new value", async () => {
+59:    it("B08 setTheme's POST survives an immediate reload (keepalive: true)", async () => {
+70:    it("B10 setSidebar's POST survives an immediate reload (keepalive: true)", async () => {
+81:    it("load() populates navigation, workspace and identity from the shell API", async () => {
+
+4) per-session request-serialization filter -- backend IT
+58:  @DisplayName(
+59-      "the session-lock filter is registered at a lower order than SessionRepositoryFilter, so"
+--
+73:  @DisplayName(
+74-      "a reload's GET blocks until an in-flight theme POST on the same session commits, and then"
+
+RED-proof IT intentionally disabled:
+36: * claims to fix. It stays {@code @Disabled} so CI never depends on a deliberately-broken
+40:@Disabled("RED proof only — see class Javadoc; enable manually to reproduce the pre-fix race")
+49:class SessionRequestSerializationRedProofIT {

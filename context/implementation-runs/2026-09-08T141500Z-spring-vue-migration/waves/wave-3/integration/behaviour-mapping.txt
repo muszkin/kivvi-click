@@ -1,0 +1,105 @@
+Behaviour-id -> qualifying integration test mapping (wave-3: automations, settings, campaigns-email-editor)
+
+== Backend (real-HTTP *IT.java, Testcontainers Postgres 18) ==
+backend/src/test/java/click/kivvi/CampaignsApiIT.java:36:  @DisplayName("B01 GET /pl/campaigns renders 200 through the real HTTP layer")
+backend/src/test/java/click/kivvi/CampaignsApiIT.java-37-  void campaignsPageRenders200() {
+backend/src/test/java/click/kivvi/CampaignsApiIT.java:45:  @DisplayName(
+backend/src/test/java/click/kivvi/CampaignsApiIT.java-46-      "B27 GET /api/v1/pl/campaigns: 4 KPIs, 4 filters, 5 rows, last row \"—\" — through the real HTTP layer")
+backend/src/test/java/click/kivvi/CampaignsApiIT.java:62:  @DisplayName("B07 GET /api/v1/de/campaigns is not found, through the real HTTP layer")
+backend/src/test/java/click/kivvi/CampaignsApiIT.java-63-  void unsupportedLocaleCampaignsIsNotFoundThroughTheRealHttpLayer() {
+backend/src/test/java/click/kivvi/CampaignsApiIT.java:71:  @DisplayName("B01/B28 GET /pl/emails/new renders 200 through the real HTTP layer")
+backend/src/test/java/click/kivvi/CampaignsApiIT.java-72-  void newEmailDocumentRenders200() {
+backend/src/test/java/click/kivvi/CampaignsApiIT.java:79:  @DisplayName("B01/B28 GET /pl/emails/k1 (a known id) renders 200 through the real HTTP layer")
+backend/src/test/java/click/kivvi/CampaignsApiIT.java-80-  void knownEmailDocumentRenders200() {
+backend/src/test/java/click/kivvi/CampaignsApiIT.java:87:  @DisplayName(
+backend/src/test/java/click/kivvi/CampaignsApiIT.java-88-      "B28 GET /pl/emails/k999 (an unseeded but shape-valid id) still renders 200 — unlike the "
+backend/src/test/java/click/kivvi/CampaignsApiIT.java:97:  @DisplayName(
+backend/src/test/java/click/kivvi/CampaignsApiIT.java-98-      "B28 GET /api/v1/pl/emails/k1: 10 blocks, 5 variables, 5 sections, selected block "
+backend/src/test/java/click/kivvi/CampaignsApiIT.java:115:  @DisplayName(
+backend/src/test/java/click/kivvi/CampaignsApiIT.java-116-      "B28 GET /api/v1/pl/emails/new: the blank draft template, through the real HTTP layer")
+backend/src/test/java/click/kivvi/AutomationsApiIT.java:38:  @DisplayName("B01/B26 GET /pl/automations renders 200 through the real HTTP layer")
+backend/src/test/java/click/kivvi/AutomationsApiIT.java-39-  void automationsIndexPageRenders200() {
+backend/src/test/java/click/kivvi/AutomationsApiIT.java:47:  @DisplayName("B01/B26 GET /pl/automations/new renders 200 through the real HTTP layer")
+backend/src/test/java/click/kivvi/AutomationsApiIT.java-48-  void automationNewPageRenders200() {
+backend/src/test/java/click/kivvi/AutomationsApiIT.java:56:  @DisplayName(
+backend/src/test/java/click/kivvi/AutomationsApiIT.java-57-      "B01/B26 GET /pl/automations/a99 (shape-valid, unseeded) still renders the SPA shell")
+backend/src/test/java/click/kivvi/AutomationsApiIT.java:66:  @DisplayName("B26 GET /api/v1/pl/automations: 6 cards, 4 filters — through the real HTTP layer")
+backend/src/test/java/click/kivvi/AutomationsApiIT.java-67-  void automationsListPayloadMatchesTheOracleThroughTheRealHttpLayer() {
+backend/src/test/java/click/kivvi/AutomationsApiIT.java:79:  @DisplayName(
+backend/src/test/java/click/kivvi/AutomationsApiIT.java-80-      "B26 GET /api/v1/pl/automations/a1: 3 steps, 6 nodes, 5 edges, 3 simulation read-outs — through the real HTTP layer")
+backend/src/test/java/click/kivvi/AutomationsApiIT.java:96:  @DisplayName("B26 GET /api/v1/pl/automations/xyz is not found, through the real HTTP layer")
+backend/src/test/java/click/kivvi/AutomationsApiIT.java-97-  void unknownIdShapeApiIsNotFoundThroughTheRealHttpLayer() {
+backend/src/test/java/click/kivvi/AutomationsApiIT.java:110:  @DisplayName(
+backend/src/test/java/click/kivvi/AutomationsApiIT.java-111-      "B03 GET /api/v1/pl/shell?route=automation_edit reports currentSection \"automations\" and "
+backend/src/test/java/click/kivvi/SettingsApiIT.java:53:  @DisplayName(
+backend/src/test/java/click/kivvi/SettingsApiIT.java-54-      "B01 GET /pl/settings/account renders the SPA document 200 and its own tabSubtitle marker")
+backend/src/test/java/click/kivvi/SettingsApiIT.java:72:  @DisplayName(
+backend/src/test/java/click/kivvi/SettingsApiIT.java-73-      "B01 GET /pl/settings/sites renders the SPA document 200 and its own tabSubtitle marker")
+backend/src/test/java/click/kivvi/SettingsApiIT.java:89:  @DisplayName(
+backend/src/test/java/click/kivvi/SettingsApiIT.java-90-      "B01 GET /pl/settings/team renders the SPA document 200 and its own tabSubtitle marker")
+backend/src/test/java/click/kivvi/SettingsApiIT.java:106:  @DisplayName(
+backend/src/test/java/click/kivvi/SettingsApiIT.java-107-      "B01 GET /pl/settings/providers renders the SPA document 200 and its own tabSubtitle marker")
+backend/src/test/java/click/kivvi/SettingsApiIT.java:125:  @DisplayName(
+backend/src/test/java/click/kivvi/SettingsApiIT.java-126-      "B01 GET /pl/settings/api renders the SPA document 200 and its own tabSubtitle marker")
+backend/src/test/java/click/kivvi/SettingsApiIT.java:142:  @DisplayName(
+backend/src/test/java/click/kivvi/SettingsApiIT.java-143-      "B01 GET /pl/settings/notifications renders the SPA document 200 and its own tabSubtitle"
+backend/src/test/java/click/kivvi/SettingsApiIT.java:161:  @DisplayName(
+backend/src/test/java/click/kivvi/SettingsApiIT.java-162-      "B01 GET /pl/settings/billing renders the SPA document 200 and its own tabSubtitle marker")
+backend/src/test/java/click/kivvi/SettingsApiIT.java:180:  @DisplayName(
+backend/src/test/java/click/kivvi/SettingsApiIT.java-181-      "B01 GET /pl/settings/gdpr renders the SPA document 200 and its own tabSubtitle marker")
+backend/src/test/java/click/kivvi/SettingsApiIT.java:198:  @DisplayName(
+backend/src/test/java/click/kivvi/SettingsApiIT.java-199-      "B32 GET /api/v1/pl/settings/account: 8 tabs, 3 tracked sites, 5 team rows, through the "
+backend/src/test/java/click/kivvi/SettingsApiIT.java:214:  @DisplayName("B06 GET /api/v1/pl/settings/nonexistent is not found, through the real HTTP layer")
+backend/src/test/java/click/kivvi/SettingsApiIT.java-215-  void unknownTabApiIsNotFoundThroughTheRealHttpLayer() {
+backend/src/test/java/click/kivvi/SettingsApiIT.java:223:  @DisplayName(
+backend/src/test/java/click/kivvi/SettingsApiIT.java-224-      "B06/DEV-12 GET /pl/settings/nonexistent is a 404 document even though the tab shape "
+backend/src/test/java/click/kivvi/SettingsApiIT.java:235:  @DisplayName(
+backend/src/test/java/click/kivvi/SettingsApiIT.java-236-      "B32 GET /pl/settings (no tab) still renders the SPA document — the default tab is applied "
+
+== Frontend (frontend/test/integration, real router/store/component, network stubbed) ==
+frontend/test/integration/CampaignsView.spec.ts:116:describe("B27 the campaigns index matches the oracle: 4 KPIs, 4 filters, the performance table", () => {
+frontend/test/integration/CampaignsView.spec.ts:128:    it('fetches the locale-scoped payload, defaulting the filter to "all"', async () => {
+frontend/test/integration/CampaignsView.spec.ts:139:    it("forwards ?filter= from the URL unchanged", async () => {
+frontend/test/integration/CampaignsView.spec.ts:150:    it("B01/B27 renders 4 KPI tiles and 4 filter chips from the payload", async () => {
+frontend/test/integration/CampaignsView.spec.ts:160:    it("renders one table row per campaign, wired to the go-email intent with its own id", async () => {
+frontend/test/integration/CampaignsView.spec.ts:171:    it('renders the "Nowa kampania" action as a real link to /emails/new, not an intent', async () => {
+frontend/test/integration/AutomationEditorView.spec.ts:163:describe("B26 the rule editor matches the oracle: list view, flow view, simulation, publish", () => {
+frontend/test/integration/AutomationEditorView.spec.ts:168:    it("fetches the locale- and id-scoped payload with no view param by default", async () => {
+frontend/test/integration/AutomationEditorView.spec.ts:184:    it("forwards ?view=flow to the API call", async () => {
+frontend/test/integration/AutomationEditorView.spec.ts:200:    it("renders the list view by default: 3 rb-step sections, KIEDY kicker, 3 blocks in step 2", async () => {
+frontend/test/integration/AutomationEditorView.spec.ts:215:    it("renders the flow view: 6 flow-node elements, 5 svg paths, and no rb-pipeline", async () => {
+frontend/test/integration/AutomationEditorView.spec.ts:228:    it("the Lista/Diagram switch is a real navigation via the 'navigate' intent", async () => {
+frontend/test/integration/AutomationEditorView.spec.ts:248:    it("shows the simulation card and the publish button", async () => {
+frontend/test/integration/AutomationEditorView.spec.ts:266:    it("renders the back link as a real <a> to the automations index", async () => {
+frontend/test/integration/AutomationEditorView.spec.ts:279:    it("B01/B26 GET /automations/new renders and shows its own headline (the generic draft header)", async () => {
+frontend/test/integration/SettingsView.spec.ts:268:describe("B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix", () => {
+frontend/test/integration/SettingsView.spec.ts:284:    it("fetches the locale- and tab-scoped payload, defaulting the bare route to account", async () => {
+frontend/test/integration/SettingsView.spec.ts:295:    it("fetches the explicit tab from the URL", async () => {
+frontend/test/integration/SettingsView.spec.ts:306:    it("renders all 8 tabs, with the current one aria-current=true", async () => {
+frontend/test/integration/SettingsView.spec.ts:322:    it('B01 the account tab shows its marker text (mirrors PanelPagesTest\'s .card-title "Dane konta")', async () => {
+frontend/test/integration/SettingsView.spec.ts:328:    it("the sites tab highlights the tracker snippet server-... client-side", async () => {
+frontend/test/integration/SettingsView.spec.ts:337:    it('B01 the team tab shows its marker text (mirrors PanelPagesTest\'s .card-title "Członkowie zespołu")', async () => {
+frontend/test/integration/SettingsView.spec.ts:343:    it("the providers tab shows 4 DNS rows: 3 good, 1 warn", async () => {
+frontend/test/integration/SettingsView.spec.ts:351:    it("the api tab shows 3 webhooks, the Slack one failing with a 410 chip and a callout", async () => {
+frontend/test/integration/SettingsView.spec.ts:359:    it("the notifications tab renders an 8x3 checkbox matrix with 15 checked", async () => {
+frontend/test/integration/SettingsView.spec.ts:373:    it('B01 the billing tab shows its marker text (mirrors PanelPagesTest\'s .card-title "Wykorzystanie limitów")', async () => {
+frontend/test/integration/SettingsView.spec.ts:379:    it(
+frontend/test/integration/SettingsView.spec.ts:391:    it('B01 the gdpr tab shows its marker text ("Retencja danych" — a second, also-unique card title on this tab; PanelPagesTest\'s own .card-title marker for this row is "Umowa powierzenia (DPA)", the first card)', async () => {
+frontend/test/integration/SettingsView.spec.ts:397:    it("B01 GET /pl/settings/team renders and shows its own page title and subtitle marker", async () => {
+frontend/test/integration/SettingsView.spec.ts:405:describe("B06 an unknown tab never renders a page body", () => {
+frontend/test/integration/SettingsView.spec.ts:417:    it("stays empty when the API 404s", async () => {
+frontend/test/integration/EmailEditorView.spec.ts:104:describe("B28 the e-mail editor matches the oracle: library, envelope, document, inspector", () => {
+frontend/test/integration/EmailEditorView.spec.ts:119:    it("fetches the locale- and id-scoped payload for a known campaign", async () => {
+frontend/test/integration/EmailEditorView.spec.ts:130:    it('fetches the "new" id for the blank-draft route', async () => {
+frontend/test/integration/EmailEditorView.spec.ts:141:    it("B01/B28 renders the back link, title and 10 block-library buttons", async () => {
+frontend/test/integration/EmailEditorView.spec.ts:152:    it("renders the document: hero title, coupon code, 2+2 products, footer copy", async () => {
+frontend/test/integration/EmailEditorView.spec.ts:166:    it("renders the inspector with the selected block's title as the hero_title value", async () => {
+frontend/test/integration/EmailEditorView.spec.ts:178:    it('B01/B28 the "new" route shows the blank draft template', async () => {
+frontend/test/integration/EmailEditorView.spec.ts:184:    it("dragging a library block onto the canvas never issues a network request (DEV-7)", async () => {
+frontend/test/integration/AutomationsView.spec.ts:95:describe("B26 the automations index matches the oracle: 6 cards, 4 filter chips", () => {
+frontend/test/integration/AutomationsView.spec.ts:107:    it("fetches the locale-scoped payload with no status by default", async () => {
+frontend/test/integration/AutomationsView.spec.ts:118:    it("forwards ?status= to the API call", async () => {
+frontend/test/integration/AutomationsView.spec.ts:129:    it("renders 6 cards and 4 filter chips", async () => {
+frontend/test/integration/AutomationsView.spec.ts:136:    it("the first card shows the oracle's title, status chip and money metric", async () => {
+frontend/test/integration/AutomationsView.spec.ts:149:    it("wires each card to the go-automation intent with its own id", async () => {
+frontend/test/integration/AutomationsView.spec.ts:157:    it("renders the 'Nowa automatyzacja' link to /automations/new", async () => {
