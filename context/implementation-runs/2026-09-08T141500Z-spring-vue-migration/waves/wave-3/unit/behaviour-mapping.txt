@@ -1,0 +1,78 @@
+Behaviours in scope (per packet): B26 (automations), B06, B32 (settings), B27, B28 (campaigns-email-editor),
+B01 automations/settings/campaigns/email-editor rows.
+
+Named test verification (grep for `Bnn` in @DisplayName / describe() blocks under Surefire *Test.java and
+frontend/test/unit), all matched tests confirmed present in the passing run above.
+
+B01 — "Every panel/public URL renders 200 and shows its own headline/marker text" (rows: automations,
+campaigns-email-editor, settings)
+  - backend/src/test/java/click/kivvi/domain/RouteTableTest.java :: everyKnownRouteMatches
+      @DisplayName("B01 every panel/public URL in the route table is known")
+      — includes /pl/automations, /pl/automations/new, /pl/automations/a12, /pl/campaigns,
+        /pl/emails/new, /pl/emails/k7, /pl/settings
+  - backend/src/test/java/click/kivvi/web/SpaDocumentControllerTest.java :: everyKnownRouteRenders200
+      @DisplayName("B01 every panel/public URL renders 200 and carries the SPA document")
+      — same route list as above, parameterized
+  - frontend/test/unit/routes.spec.ts
+      describe("B01 every panel/public route in the table resolves") — same route list
+
+B06 — "Unknown settings tab -> 404" (settings)
+  - backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java
+      @DisplayName("B06 isKnownTab is true for every seeded tab and false for anything else")
+  - backend/src/test/java/click/kivvi/web/SettingsControllerTest.java
+      @DisplayName("B06 GET /api/v1/pl/settings/nonexistent is not found")
+      @DisplayName("B06/DEV-12 GET /pl/settings/nonexistent is a 404 document, not the 200 SPA shell")
+  - backend/src/test/java/click/kivvi/application/SettingsViewServiceTest.java
+      @DisplayName("B06 an unknown tab throws, mirroring SettingsController's 404")
+
+B26 — "6 cards, editor list (3 steps) and flow (6 nodes, 5 edges) views, simulation card, publish button"
+      (automations)
+  - backend/src/test/java/click/kivvi/application/AutomationsViewServiceTest.java (8 x B26-labelled cases)
+  - backend/src/test/java/click/kivvi/web/AutomationsControllerTest.java (6 x B26-labelled cases)
+  - backend/src/test/java/click/kivvi/fixtures/AutomationsFixturesTest.java (7 x B26-labelled cases)
+  - frontend/test/unit/automationsComponents.spec.ts
+      describe("B26 FlowCanvas"), describe("B26 RulePipeline"), describe("B26 AutoCard")
+
+B27 — "Campaign KPIs, 4 filters, 5 rows" (campaigns-email-editor)
+  - backend/src/test/java/click/kivvi/application/CampaignsViewServiceTest.java (4 x B27-labelled cases)
+  - backend/src/test/java/click/kivvi/web/CampaignsControllerTest.java (2 x B27-labelled cases)
+  (no frontend/test/unit describe tagged B27 — filters/KPI list is a plain data-render composed of
+  already-covered atoms (KpiGrid.spec.ts, FilterChip.spec.ts from earlier waves); the behaviour itself
+  is named and green in the backend tests above, satisfying "every behaviour has a named test")
+
+B28 — "Email editor library/envelope/document/inspector; document stays white in dark theme"
+      (campaigns-email-editor)
+  - backend/src/test/java/click/kivvi/web/CampaignsControllerTest.java (3 x B28-labelled cases, incl.
+      "B28/DEV-7 GET /api/v1/pl/emails/{id} 404s for an id shape outside \"new\"/\"k\\d+\"")
+  - backend/src/test/java/click/kivvi/application/CampaignsViewServiceTest.java (3 x B28-labelled cases)
+  - frontend/test/unit/campaignsComponents.spec.ts
+      describe("B28 BlockLibrary"), describe("B28 CouponCode")
+  - frontend/test/unit/emailDocument.spec.ts
+      describe("B28 EmailDocument keeps a literal white background regardless of theme")
+
+B32 — "8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook,
+       notification matrix 8x3 with 15 checked" (settings)
+  - backend/src/test/java/click/kivvi/fixtures/SettingsFixturesTest.java (7 x B32-labelled cases)
+  - backend/src/test/java/click/kivvi/web/SettingsControllerTest.java (3 x B32-labelled cases)
+  - backend/src/test/java/click/kivvi/application/SettingsViewServiceTest.java (3 x B32-labelled cases)
+  - frontend/test/unit/settingsComponents.spec.ts
+      describe("B32 SettingsNav"), describe("B32 ToggleRow"), describe("B32 DnsRow"),
+      describe("B32 HookRow"), describe("B32 CodeBlock")
+  - frontend/test/unit/highlight.spec.ts
+      describe("B32 highlight() reproduces CodeHighlightExtension::highlight() byte-for-byte")
+  - frontend/test/unit/localeHref.spec.ts
+      describe("B32/repair-1 buildLocaleHref — generic Symfony-style default-param omission")
+
+Every named test above is contained in the green backend-surefire-summary.txt / frontend-npm-test.log
+runs (0 failures, 0 errors across both suites) — no behaviour in scope is missing a test or red.
+
+Wave-3 shell changes (regression guard, not oracle behaviour IDs):
+  - frontend/test/unit/scrollRestoration.spec.ts — waitForStableLayout, isReloadOfAnAlreadyVisitedEntry,
+    scrollBehavior (incl. fallback without savedPosition), saveScrollPositionForReload /
+    consumeScrollPositionForReload — all green, part of the 128-test/22-file passing run.
+  - frontend/test/unit/localeHref.spec.ts — generic route.meta.defaultParams locale toggle — green.
+
+Deviations DEV-4 (contract) and DEV-12 (visual, settings step 10 = 404 document) are scoped to the
+contract/visual dimensions respectively; neither changes a unit-dimension test's expected outcome —
+B06's 404 unit tests assert plain behaviour (404 status / thrown exception), not the byte-identical
+document DEV-12 exempts from visual comparison. No deviation applies to the unit dimension this wave.
