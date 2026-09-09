@@ -1076,10 +1076,16 @@
         },
         {
           "dimension": "architecture",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194",
           "evidence": "waves/final/architecture.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "shell-navigation",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "contract",
@@ -1123,12 +1129,27 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T10:04:57Z",
+  "updated_at": "2026-09-09T10:13:40Z",
   "feature_head_sha": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194",
   "final_cohort": {
     "sha": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194",
     "state": "RUNNING",
     "evidence": "waves/final/",
-    "note": "serves as the wave-5 cohort too (superset)"
-  }
+    "note": "serves as the wave-5 cohort too (superset)",
+    "history": [
+      {
+        "round": 1,
+        "sha": "7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194",
+        "result": "FAIL",
+        "evidence": "waves/final/round-1/",
+        "note": "unit FAIL (B02/B03/B21 labels); architecture PASS; other dims not run"
+      }
+    ]
+  },
+  "open_obligations": [
+    {
+      "id": "OBL-fixtures-drift",
+      "text": "plan decision ledger described fixtures as JSON resources; implemented as Java classes under click.kivvi.fixtures (architecture FINAL finding) \u2014 record in the plan/context refresh, no code change"
+    }
+  ]
 }

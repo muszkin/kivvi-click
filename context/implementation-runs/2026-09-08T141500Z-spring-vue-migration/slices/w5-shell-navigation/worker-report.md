@@ -254,3 +254,72 @@ rmi kivvi-w-shell-api`, `docker builder prune -af` — all done; final `df -h /`
   teardown).
 - `git status --porcelain` in the worktree — empty (verified after both commits and after
   deleting `frontend/dist`/`tests/e2e/test-results`/`backend/target`).
+
+## Repair-1
+
+Fresh worktree `/home/muszkin/work/kivvi-click-wt/w5-shell-r1`, branch
+`migration/wave-5/shell-navigation-repair1`, base `7e6a66a77d4f97ecd2aaea8ad2eb3b6c66015194`
+(identity guard confirmed at start: worktree HEAD == base, clean). Test-only, no stack.
+
+**Finding:** B02, B03, B21 had no unit-level test (`./mvnw -q test` / `npm run test -- --run`)
+carrying a `"Bnn"`-prefixed name — B03's test existed unlabelled since wave-2.
+
+**Fix:**
+- **B03** — labelled `ShellViewServiceTest.detailRouteKeepsItsIndexSectionCurrent` with
+  `@DisplayName("B03 …")` (was unlabelled; GAP-1).
+- **B02** — added `@ParameterizedTest @DisplayName("B02 the crumb names every section, matching
+  its own nav label")` to `ShellViewServiceTest` (9 cases, one per `NavigationCatalog` section,
+  cross-checked against the oracle's own breadcrumb text). Added
+  `frontend/test/unit/Topbar.spec.ts` (new): a unit-level test proving `Topbar.vue` renders
+  whatever crumb text its `crumb` prop carries into `.crumbs .now`, verbatim, for two different
+  sections (mutation-detectable against a hard-coded string).
+- **B21** — added `frontend/test/unit/AppShell.spec.ts` (new): pins the structural invariant the
+  frozen `03-components.css` relies on — exactly one `.main-scroll` element exists, the slot
+  (standing in for `<router-view>`) renders inside it and nowhere else (not bare under `.app`,
+  not inside `.sidebar`), and no inline `overflow`/scroll style stands in for the stylesheet.
+  Hit a real `@vue/test-utils` `find()` quirk along the way: a compound selector whose leading
+  class matches the wrapper's own root element (`.app .main .main-scroll`, when the mounted
+  component's root IS `.app`) silently matches nothing, even though native
+  `Element.querySelector` on the same root finds it — `find()` does not treat the wrapper's own
+  root as a valid ancestor for a selector component earlier than the query target. Worked around
+  by dropping the redundant `.app` prefix (the wrapper is already scoped to it) and asserting
+  parentage directly (`.parentElement === wrapper.find(".main-scroll").element`) where a
+  child-combinator check was needed — documented in the test file's own class comment so the next
+  person does not rediscover it via a silently-false assertion.
+
+**Sweep:** every `Bnn` id in `behaviours.json` for B01–B32 checked against every `*Test.java` and
+`frontend/test/unit/*.ts` file, backend and frontend independently. Full map:
+`evidence/repair-1/behaviour-unit-map.md` (this run dir). Result: 29/32 already had unit-level
+coverage; B02/B03/B21 were the only gaps, all closed by this repair. No other gap found.
+
+### Gates (repair-1 candidate SHA `dae1696`)
+
+| Command | cwd | Exit | Notes |
+| --- | --- | --- | --- |
+| `./mvnw -q test` | `backend/` | 0 | 298 tests, 0 failures/errors (was 289 before repair-1; +9 from the new B02 `@ParameterizedTest`) |
+| `npm run test -- --run` | `frontend/` | 0 | 169 tests, 28 files (was 165/26; +2 files, +4 tests: `AppShell.spec.ts` ×2, `Topbar.spec.ts` ×2) |
+| `npm run lint` | `frontend/` | 0 | 0 errors, 12 pre-existing warnings in untouched files (unchanged) |
+| `npm run typecheck` | `frontend/` | 0 | clean |
+| `npm run format:check` | `frontend/` | 0 | clean (after one `prettier --write` pass on the 2 new files) |
+| `./mvnw -q spotless:check` | `backend/` | 0 | clean (after one `spotless:apply` pass — a Javadoc line-wrap violation in the new B02 test's own doc comment) |
+
+No stack was brought up (test-only repair, per packet). `frontend/node_modules`,
+`backend/target` and `frontend/dist` deleted after the gates ran, before reporting (disk was
+critical throughout, 2.1-2.9 GB free).
+
+### Files changed (repair-1)
+
+- `backend/src/test/java/click/kivvi/application/ShellViewServiceTest.java` — B03 label, new B02
+  `@ParameterizedTest`.
+- `frontend/test/unit/Topbar.spec.ts` — new (B02).
+- `frontend/test/unit/AppShell.spec.ts` — new (B21).
+
+### `git log --oneline 7e6a66a..HEAD` (repair-1 worktree)
+
+```
+dae1696 test: label B02/B03/B21 unit coverage and pin the main-scroll invariant (#shell-navigation)
+```
+
+**Repair-1 SHA: `dae169614a52532c130bd34435994d6a914165c0`** (worktree
+`/home/muszkin/work/kivvi-click-wt/w5-shell-r1`, branch `migration/wave-5/shell-navigation-repair1`).
+`git status --porcelain` empty in that worktree at the end.
