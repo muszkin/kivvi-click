@@ -25,3 +25,4 @@
 | 2026-09-09T08:39:52Z | w3-shell-preferences repair-2 | fast-forward | 71d884d → 60445eb | gates green; wave-4 round-3 SHA |
 | 2026-09-09T09:56:40Z | w5-shell-navigation | fast-forward | 60445eb → 7e6a66a | gates green; FINAL cohort SHA |
 | 2026-09-09T10:16:04Z | w5-shell-navigation repair-1 | fast-forward | 7e6a66a → dae1696 | gates green; FINAL round-2 SHA |
+| 2026-09-09T13:09:42Z | w5-ops-cutover | cherry-pick ×3 | 97253f6 → 9205294 | final SHA candidate; gates pending |

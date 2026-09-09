@@ -1,0 +1,332 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.43kB done
+#1 DONE 0.0s
+
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 DONE 0.2s
+
+#3 docker-image://docker.io/docker/dockerfile:1@sha256:ecfaec9ed6d810b56388c508f4121597bfbba70d41a6dfeee4d8cad5f295fc32
+#3 resolve docker.io/docker/dockerfile:1@sha256:ecfaec9ed6d810b56388c508f4121597bfbba70d41a6dfeee4d8cad5f295fc32 0.0s done
+#3 sha256:ecfaec9ed6d810b56388c508f4121597bfbba70d41a6dfeee4d8cad5f295fc32 9.08kB / 9.08kB done
+#3 sha256:34b128e419449565adc5ed7f487a6f503a73f1077012cfed86354c731338c44f 1.13kB / 1.13kB done
+#3 sha256:c844dc65644b70ea8b391444db20ff38537384d800ea9896d46ab8f3ce897f51 1.33kB / 1.33kB done
+#3 sha256:9f624ef51ad55db0ea52d755cc777566386156106fbb4f465eecb22c67ac55ed 14.14MB / 14.14MB 1.4s done
+#3 extracting sha256:9f624ef51ad55db0ea52d755cc777566386156106fbb4f465eecb22c67ac55ed 0.1s done
+#3 DONE 1.6s
+
+#4 [internal] load metadata for docker.io/library/maven:3.9-eclipse-temurin-25
+#4 DONE 0.0s
+
+#5 [internal] load metadata for docker.io/library/node:26-alpine
+#5 DONE 0.2s
+
+#6 [internal] load metadata for docker.io/library/eclipse-temurin:25-jre
+#6 DONE 0.2s
+
+#7 [backend-build 1/7] FROM docker.io/library/maven:3.9-eclipse-temurin-25
+#7 DONE 0.1s
+
+#8 [runtime 1/6] FROM docker.io/library/eclipse-temurin:25-jre@sha256:f9e65324a37f28209ce7dd0e5149a7aa954520ed936fb87813cf6ded2400a112
+#8 resolve docker.io/library/eclipse-temurin:25-jre@sha256:f9e65324a37f28209ce7dd0e5149a7aa954520ed936fb87813cf6ded2400a112 0.0s done
+#8 sha256:589a2ad66f8ee9a7a610a41c24260201b4b223102929a35a8c558fadb5b9fabb 2.13kB / 2.13kB done
+#8 sha256:69f7b0828b96a430cfc6dfbc0c815d007374206adf852c006bc485de3e368ea1 9.01kB / 9.01kB done
+#8 sha256:f9e65324a37f28209ce7dd0e5149a7aa954520ed936fb87813cf6ded2400a112 5.91kB / 5.91kB done
+#8 DONE 0.1s
+
+#9 [backend-build 2/7] WORKDIR /backend
+#9 DONE 0.0s
+
+#10 [backend-build 3/7] COPY backend/pom.xml backend/mvnw ./
+#10 DONE 0.0s
+
+#11 [backend-build 4/7] COPY backend/.mvn/ .mvn/
+#11 DONE 0.0s
+
+#12 [internal] load .dockerignore
+#12 transferring context: 540B done
+#12 DONE 0.0s
+
+#13 [internal] load build context
+#13 transferring context: 1.59MB 0.0s done
+#13 DONE 0.0s
+
+#14 [backend-build 3/7] COPY backend/pom.xml backend/mvnw ./
+#14 CACHED
+
+#15 [backend-build 4/7] COPY backend/.mvn/ .mvn/
+#15 CACHED
+
+#16 [backend-build 5/7] COPY backend/src/ src/
+#16 DONE 0.0s
+
+#17 [frontend-build 1/6] FROM docker.io/library/node:26-alpine@sha256:2d984a15c9b54fd0aeb608b8e0d0d83529eb34d2966db27a1fb4f1edc3d298a3
+#17 resolve docker.io/library/node:26-alpine@sha256:2d984a15c9b54fd0aeb608b8e0d0d83529eb34d2966db27a1fb4f1edc3d298a3 0.0s done
+#17 sha256:2d984a15c9b54fd0aeb608b8e0d0d83529eb34d2966db27a1fb4f1edc3d298a3 2.61kB / 2.61kB done
+#17 sha256:ad6400dee476b06e82d0ee3a088e2d7555f6e6569c346e61d69e14d0f19e8c2b 1.53kB / 1.53kB done
+#17 sha256:89824ea3fb69002f51789e1e40a2f389aeb70dc4b9349ac2b467c5ba11d506cb 4.84kB / 4.84kB done
+#17 sha256:80d39da31aaab43d6b63da0ed87ad747290062bd97f8901fe45eefb469cfeb0c 451B / 451B 0.3s done
+#17 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 14.68MB / 59.76MB 1.7s
+#17 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 18.87MB / 59.76MB 2.2s
+#17 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 22.02MB / 59.76MB 2.5s
+#17 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 25.17MB / 59.76MB 2.9s
+#17 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 29.36MB / 59.76MB 3.4s
+#17 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 33.55MB / 59.76MB 3.9s
+#17 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 37.75MB / 59.76MB 4.5s
+#17 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 41.94MB / 59.76MB 5.0s
+#17 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 45.09MB / 59.76MB 5.5s
+#17 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 48.23MB / 59.76MB 6.0s
+#17 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 51.38MB / 59.76MB 6.4s
+#17 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 54.53MB / 59.76MB 6.8s
+#17 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 57.67MB / 59.76MB 7.4s
+#17 extracting sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414
+#17 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 59.76MB / 59.76MB 7.6s done
+#17 extracting sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 1.2s done
+#17 extracting sha256:80d39da31aaab43d6b63da0ed87ad747290062bd97f8901fe45eefb469cfeb0c
+#17 extracting sha256:80d39da31aaab43d6b63da0ed87ad747290062bd97f8901fe45eefb469cfeb0c done
+#17 DONE 8.9s
+
+#18 [frontend-build 2/6] WORKDIR /frontend
+#18 DONE 0.2s
+
+#19 [runtime 2/6] RUN apt-get update && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#19 0.316 Get:1 http://security.ubuntu.com/ubuntu resolute-security InRelease [137 kB]
+#19 0.324 Get:2 http://archive.ubuntu.com/ubuntu resolute InRelease [136 kB]
+#19 0.691 Get:3 http://security.ubuntu.com/ubuntu resolute-security/main amd64 Packages [578 kB]
+#19 0.918 Get:4 http://archive.ubuntu.com/ubuntu resolute-updates InRelease [137 kB]
+#19 1.154 Get:5 http://archive.ubuntu.com/ubuntu resolute-backports InRelease [137 kB]
+#19 1.281 Get:6 http://archive.ubuntu.com/ubuntu resolute/restricted amd64 Packages [189 kB]
+#19 1.317 Get:7 http://security.ubuntu.com/ubuntu resolute-security/restricted amd64 Packages [489 kB]
+#19 1.473 Get:8 http://archive.ubuntu.com/ubuntu resolute/main amd64 Packages [1,874 kB]
+#19 1.701 Get:9 http://security.ubuntu.com/ubuntu resolute-security/multiverse amd64 Packages [11.2 kB]
+#19 1.823 Get:10 http://security.ubuntu.com/ubuntu resolute-security/universe amd64 Packages [212 kB]
+#19 2.250 Get:11 http://archive.ubuntu.com/ubuntu resolute/universe amd64 Packages [20.1 MB]
+#19 7.084 Get:12 http://archive.ubuntu.com/ubuntu resolute/multiverse amd64 Packages [352 kB]
+#19 7.215 Get:13 http://archive.ubuntu.com/ubuntu resolute-updates/universe amd64 Packages [338 kB]
+#19 7.253 Get:14 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 Packages [743 kB]
+#19 7.396 Get:15 http://archive.ubuntu.com/ubuntu resolute-updates/restricted amd64 Packages [505 kB]
+#19 7.447 Get:16 http://archive.ubuntu.com/ubuntu resolute-updates/multiverse amd64 Packages [14.6 kB]
+#19 7.451 Get:17 http://archive.ubuntu.com/ubuntu resolute-backports/universe amd64 Packages [3,306 B]
+#19 7.801 Fetched 26.0 MB in 8s (3,418 kB/s)
+#19 7.801 Reading package lists...
+#19 8.395 Reading package lists...#19 ...
+
+#20 [frontend-build 3/6] COPY frontend/package.json frontend/package-lock.json ./
+#20 DONE 0.0s
+
+#19 [runtime 2/6] RUN apt-get update && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#19 8.395 Reading package lists...
+#19 ...
+
+#21 [frontend-build 4/6] RUN npm ci
+#21 ...
+
+#19 [runtime 2/6] RUN apt-get update && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#19 9.068 Building dependency tree...
+#19 9.250 Reading state information...
+#19 9.297 Solving dependencies...
+#19 9.499 The following additional packages will be installed:
+#19 9.499   libcurl4t64 libgnutls30t64 libgssapi-krb5-2 libhogweed6t64 libidn2-0
+#19 9.499   libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap-common libldap2
+#19 9.499   libnettle8t64 libnghttp2-14 libpsl5t64 librtmp1 libsasl2-2
+#19 9.500   libsasl2-modules-db libssh2-1t64 libunistring5
+#19 9.502 Suggested packages:
+#19 9.502   gnutls-bin krb5-doc krb5-user
+#19 9.502 Recommended packages:
+#19 9.502   bash-completion krb5-locales publicsuffix libsasl2-modules
+#19 9.539 The following NEW packages will be installed:
+#19 9.539   curl libcurl4t64 libgnutls30t64 libgssapi-krb5-2 libhogweed6t64 libidn2-0
+#19 9.539   libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap-common libldap2
+#19 9.540   libnettle8t64 libnghttp2-14 libpsl5t64 librtmp1 libsasl2-2
+#19 9.541   libsasl2-modules-db libssh2-1t64 libunistring5
+#19 9.655 0 upgraded, 20 newly installed, 0 to remove and 30 not upgraded.
+#19 9.655 Need to get 4,069 kB of archives.
+#19 9.655 After this operation, 11.1 MB of additional disk space will be used.
+#19 9.655 Get:1 http://archive.ubuntu.com/ubuntu resolute/main amd64 libnettle8t64 amd64 3.10.2-1 [185 kB]
+#19 9.850 Get:2 http://archive.ubuntu.com/ubuntu resolute/main amd64 libhogweed6t64 amd64 3.10.2-1 [201 kB]
+#19 9.889 Get:3 http://archive.ubuntu.com/ubuntu resolute/main amd64 libunistring5 amd64 1.3-2build1 [610 kB]
+#19 10.01 Get:4 http://archive.ubuntu.com/ubuntu resolute/main amd64 libidn2-0 amd64 2.3.8-4build1 [67.6 kB]
+#19 10.03 Get:5 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libgnutls30t64 amd64 3.8.12-2ubuntu1.1 [1,029 kB]
+#19 10.17 Get:6 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libkrb5support0 amd64 1.22.1-2ubuntu4.1 [33.5 kB]
+#19 10.17 Get:7 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libk5crypto3 amd64 1.22.1-2ubuntu4.1 [82.0 kB]
+#19 10.19 Get:8 http://archive.ubuntu.com/ubuntu resolute/main amd64 libkeyutils1 amd64 1.6.3-6ubuntu3 [10.6 kB]
+#19 10.19 Get:9 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libkrb5-3 amd64 1.22.1-2ubuntu4.1 [361 kB]
+#19 10.26 Get:10 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libgssapi-krb5-2 amd64 1.22.1-2ubuntu4.1 [147 kB]
+#19 10.33 Get:11 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libnghttp2-14 amd64 1.68.0-2ubuntu0.2 [71.0 kB]
+#19 10.33 Get:12 http://archive.ubuntu.com/ubuntu resolute/main amd64 libpsl5t64 amd64 0.21.2-1.1build2 [59.5 kB]
+#19 10.33 Get:13 http://archive.ubuntu.com/ubuntu resolute/main amd64 libsasl2-modules-db amd64 2.1.28+dfsg1-9ubuntu3 [21.1 kB]
+#19 10.33 Get:14 http://archive.ubuntu.com/ubuntu resolute/main amd64 libsasl2-2 amd64 2.1.28+dfsg1-9ubuntu3 [54.0 kB]
+#19 10.33 Get:15 http://archive.ubuntu.com/ubuntu resolute/main amd64 libldap-common all 2.6.10+dfsg-1ubuntu5 [36.0 kB]
+#19 10.33 Get:16 http://archive.ubuntu.com/ubuntu resolute/main amd64 libldap2 amd64 2.6.10+dfsg-1ubuntu5 [204 kB]
+#19 10.35 Get:17 http://archive.ubuntu.com/ubuntu resolute/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-3 [59.0 kB]
+#19 10.35 Get:18 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libssh2-1t64 amd64 1.11.1-1ubuntu0.26.04.4 [138 kB]
+#19 10.38 Get:19 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libcurl4t64 amd64 8.18.0-1ubuntu2.5 [427 kB]
+#19 10.44 Get:20 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 curl amd64 8.18.0-1ubuntu2.5 [272 kB]
+#19 11.40 debconf: unable to initialize frontend: Dialog
+#19 11.40 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#19 11.40 debconf: falling back to frontend: Readline
+#19 11.40 debconf: unable to initialize frontend: Readline
+#19 11.40 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8, <STDIN> line 20.)
+#19 11.40 debconf: falling back to frontend: Teletype
+#19 11.41 debconf: unable to initialize frontend: Teletype
+#19 11.41 debconf: (This frontend requires a controlling tty.)
+#19 11.41 debconf: falling back to frontend: Noninteractive
+#19 12.08 Fetched 4,069 kB in 2s (2,421 kB/s)
+#19 12.09 Selecting previously unselected package libnettle8t64:amd64.
+#19 12.09 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 9734 files and directories currently installed.)
+#19 12.10 Preparing to unpack .../00-libnettle8t64_3.10.2-1_amd64.deb ...
+#19 12.11 Unpacking libnettle8t64:amd64 (3.10.2-1) ...
+#19 12.12 Selecting previously unselected package libhogweed6t64:amd64.
+#19 12.12 Preparing to unpack .../01-libhogweed6t64_3.10.2-1_amd64.deb ...
+#19 12.13 Unpacking libhogweed6t64:amd64 (3.10.2-1) ...
+#19 12.14 Selecting previously unselected package libunistring5:amd64.
+#19 12.14 Preparing to unpack .../02-libunistring5_1.3-2build1_amd64.deb ...
+#19 12.15 Unpacking libunistring5:amd64 (1.3-2build1) ...
+#19 12.17 Selecting previously unselected package libidn2-0:amd64.
+#19 12.17 Preparing to unpack .../03-libidn2-0_2.3.8-4build1_amd64.deb ...
+#19 12.17 Unpacking libidn2-0:amd64 (2.3.8-4build1) ...
+#19 12.19 Selecting previously unselected package libgnutls30t64:amd64.
+#19 12.19 Preparing to unpack .../04-libgnutls30t64_3.8.12-2ubuntu1.1_amd64.deb ...
+#19 12.19 Unpacking libgnutls30t64:amd64 (3.8.12-2ubuntu1.1) ...
+#19 12.21 Selecting previously unselected package libkrb5support0:amd64.
+#19 12.22 Preparing to unpack .../05-libkrb5support0_1.22.1-2ubuntu4.1_amd64.deb ...
+#19 12.22 Unpacking libkrb5support0:amd64 (1.22.1-2ubuntu4.1) ...
+#19 12.24 Selecting previously unselected package libk5crypto3:amd64.
+#19 12.24 Preparing to unpack .../06-libk5crypto3_1.22.1-2ubuntu4.1_amd64.deb ...
+#19 12.24 Unpacking libk5crypto3:amd64 (1.22.1-2ubuntu4.1) ...
+#19 12.25 Selecting previously unselected package libkeyutils1:amd64.
+#19 12.26 Preparing to unpack .../07-libkeyutils1_1.6.3-6ubuntu3_amd64.deb ...
+#19 12.26 Unpacking libkeyutils1:amd64 (1.6.3-6ubuntu3) ...
+#19 12.28 Selecting previously unselected package libkrb5-3:amd64.
+#19 12.28 Preparing to unpack .../08-libkrb5-3_1.22.1-2ubuntu4.1_amd64.deb ...
+#19 12.28 Unpacking libkrb5-3:amd64 (1.22.1-2ubuntu4.1) ...
+#19 12.30 Selecting previously unselected package libgssapi-krb5-2:amd64.
+#19 12.30 Preparing to unpack .../09-libgssapi-krb5-2_1.22.1-2ubuntu4.1_amd64.deb ...
+#19 12.30 Unpacking libgssapi-krb5-2:amd64 (1.22.1-2ubuntu4.1) ...
+#19 12.32 Selecting previously unselected package libnghttp2-14:amd64.
+#19 12.32 Preparing to unpack .../10-libnghttp2-14_1.68.0-2ubuntu0.2_amd64.deb ...
+#19 12.32 Unpacking libnghttp2-14:amd64 (1.68.0-2ubuntu0.2) ...
+#19 12.34 Selecting previously unselected package libpsl5t64:amd64.
+#19 12.34 Preparing to unpack .../11-libpsl5t64_0.21.2-1.1build2_amd64.deb ...
+#19 12.34 Unpacking libpsl5t64:amd64 (0.21.2-1.1build2) ...
+#19 12.35 Selecting previously unselected package libsasl2-modules-db:amd64.
+#19 12.35 Preparing to unpack .../12-libsasl2-modules-db_2.1.28+dfsg1-9ubuntu3_amd64.deb ...
+#19 12.35 Unpacking libsasl2-modules-db:amd64 (2.1.28+dfsg1-9ubuntu3) ...
+#19 12.37 Selecting previously unselected package libsasl2-2:amd64.
+#19 12.37 Preparing to unpack .../13-libsasl2-2_2.1.28+dfsg1-9ubuntu3_amd64.deb ...
+#19 12.37 Unpacking libsasl2-2:amd64 (2.1.28+dfsg1-9ubuntu3) ...
+#19 12.39 Selecting previously unselected package libldap-common.
+#19 12.39 Preparing to unpack .../14-libldap-common_2.6.10+dfsg-1ubuntu5_all.deb ...
+#19 12.39 Unpacking libldap-common (2.6.10+dfsg-1ubuntu5) ...
+#19 12.41 Selecting previously unselected package libldap2:amd64.
+#19 12.41 Preparing to unpack .../15-libldap2_2.6.10+dfsg-1ubuntu5_amd64.deb ...
+#19 12.41 Unpacking libldap2:amd64 (2.6.10+dfsg-1ubuntu5) ...
+#19 12.43 Selecting previously unselected package librtmp1:amd64.
+#19 12.43 Preparing to unpack .../16-librtmp1_2.4+20151223.gitfa8646d.1-3_amd64.deb ...
+#19 12.43 Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-3) ...
+#19 12.45 Selecting previously unselected package libssh2-1t64:amd64.
+#19 12.45 Preparing to unpack .../17-libssh2-1t64_1.11.1-1ubuntu0.26.04.4_amd64.deb ...
+#19 12.45 Unpacking libssh2-1t64:amd64 (1.11.1-1ubuntu0.26.04.4) ...
+#19 12.46 Selecting previously unselected package libcurl4t64:amd64.
+#19 12.47 Preparing to unpack .../18-libcurl4t64_8.18.0-1ubuntu2.5_amd64.deb ...
+#19 12.47 Unpacking libcurl4t64:amd64 (8.18.0-1ubuntu2.5) ...
+#19 12.49 Selecting previously unselected package curl.
+#19 12.49 Preparing to unpack .../19-curl_8.18.0-1ubuntu2.5_amd64.deb ...
+#19 12.49 Unpacking curl (8.18.0-1ubuntu2.5) ...
+#19 12.52 Setting up libkeyutils1:amd64 (1.6.3-6ubuntu3) ...
+#19 12.52 Setting up libnghttp2-14:amd64 (1.68.0-2ubuntu0.2) ...
+#19 12.53 Setting up libldap-common (2.6.10+dfsg-1ubuntu5) ...
+#19 12.53 Setting up libkrb5support0:amd64 (1.22.1-2ubuntu4.1) ...
+#19 12.53 Setting up libsasl2-modules-db:amd64 (2.1.28+dfsg1-9ubuntu3) ...
+#19 12.54 Setting up libnettle8t64:amd64 (3.10.2-1) ...
+#19 12.54 Setting up libunistring5:amd64 (1.3-2build1) ...
+#19 12.55 Setting up libk5crypto3:amd64 (1.22.1-2ubuntu4.1) ...
+#19 12.55 Setting up libsasl2-2:amd64 (2.1.28+dfsg1-9ubuntu3) ...
+#19 12.55 Setting up libhogweed6t64:amd64 (3.10.2-1) ...
+#19 12.56 Setting up libkrb5-3:amd64 (1.22.1-2ubuntu4.1) ...
+#19 12.56 Setting up libssh2-1t64:amd64 (1.11.1-1ubuntu0.26.04.4) ...
+#19 12.56 Setting up libldap2:amd64 (2.6.10+dfsg-1ubuntu5) ...
+#19 12.57 Setting up libidn2-0:amd64 (2.3.8-4build1) ...
+#19 12.57 Setting up libgssapi-krb5-2:amd64 (1.22.1-2ubuntu4.1) ...
+#19 12.58 Setting up libgnutls30t64:amd64 (3.8.12-2ubuntu1.1) ...
+#19 12.58 Setting up libpsl5t64:amd64 (0.21.2-1.1build2) ...
+#19 12.59 Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-3) ...
+#19 12.59 Setting up libcurl4t64:amd64 (8.18.0-1ubuntu2.5) ...
+#19 12.59 Setting up curl (8.18.0-1ubuntu2.5) ...
+#19 12.60 Processing triggers for libc-bin (2.43-2ubuntu2.3) ...
+#19 DONE 12.8s
+
+#22 [runtime 3/6] RUN groupadd --system kivvi && useradd --system --gid kivvi --home-dir /app kivvi
+#22 DONE 0.2s
+
+#21 [frontend-build 4/6] RUN npm ci
+#21 ...
+
+#23 [runtime 4/6] WORKDIR /app
+#23 DONE 0.0s
+
+#21 [frontend-build 4/6] RUN npm ci
+#21 4.564 
+#21 4.564 added 259 packages, and audited 260 packages in 4s
+#21 4.564 
+#21 4.564 72 packages are looking for funding
+#21 4.564   run `npm fund` for details
+#21 4.565 
+#21 4.565 found 0 vulnerabilities
+#21 4.566 npm notice
+#21 4.566 npm notice New major version of npm available! 11.19.0 -> 12.0.2
+#21 4.566 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.0.2
+#21 4.566 npm notice To update run: npm install -g npm@12.0.2
+#21 4.566 npm notice
+#21 DONE 4.7s
+
+#24 [frontend-build 5/6] COPY frontend/ ./
+#24 DONE 0.0s
+
+#25 [frontend-build 6/6] RUN npm run build
+#25 0.279 
+#25 0.279 > kivvi-click-frontend@0.1.0 build
+#25 0.279 > vue-tsc --noEmit && vite build
+#25 0.279 
+#25 4.401 vite v8.2.2 building client environment for production...
+#25 4.451 transforming...
+#25 4.822 ✓ 292 modules transformed.
+#25 4.863 rendering chunks...
+#25 4.902 computing gzip size...
+#25 4.906 dist/index.html                   1.32 kB │ gzip:   0.63 kB
+#25 4.906 dist/assets/index-BubHWPzC.css   45.85 kB │ gzip:   8.67 kB
+#25 4.906 dist/assets/index-DLIxCBtZ.js   332.79 kB │ gzip: 102.80 kB
+#25 4.906 
+#25 4.906 ✓ built in 505ms
+#25 DONE 5.0s
+
+#26 [frontend-build 4/6] RUN npm ci
+#26 CACHED
+
+#27 [frontend-build 5/6] COPY frontend/ ./
+#27 CACHED
+
+#28 [frontend-build 6/6] RUN npm run build
+#28 CACHED
+
+#29 [frontend-build 3/6] COPY frontend/package.json frontend/package-lock.json ./
+#29 CACHED
+
+#30 [backend-build 6/7] COPY --from=frontend-build /frontend/dist/. src/main/resources/static/
+#30 DONE 0.0s
+
+#31 [backend-build 7/7] RUN mvn -q -DskipTests package
+#31 DONE 35.9s
+
+#32 [runtime 5/6] COPY --from=backend-build /backend/target/kivvi-click-*.jar app.jar
+#32 DONE 0.1s
+
+#33 [runtime 6/6] RUN chown -R kivvi:kivvi /app
+#33 DONE 0.3s
+
+#34 exporting to image
+#34 exporting layers 0.1s done
+#34 writing image sha256:b93f1adb9dc658e6241864be469cb933f994f4ae56d36d00bfc9a160e2c8b28d done
+#34 naming to docker.io/library/kivvi-final-image-check done
+#34 DONE 0.1s

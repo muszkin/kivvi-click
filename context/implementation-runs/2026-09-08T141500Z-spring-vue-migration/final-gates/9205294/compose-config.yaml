@@ -1,0 +1,99 @@
+name: integration
+services:
+  api:
+    build:
+      context: /home/muszkin/work/kivvi-click-wt/integration
+      dockerfile: backend/Dockerfile
+    depends_on:
+      database:
+        condition: service_healthy
+        required: true
+    environment:
+      MERCURE_JWT_SECRET: ""
+      MERCURE_PUBLISHER_JWT_KEY: ""
+      MERCURE_SUBSCRIBER_JWT_KEY: ""
+      MERCURE_URL: http://mercure/.well-known/mercure
+      SPRING_DATASOURCE_PASSWORD: ""
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/app
+      SPRING_DATASOURCE_USERNAME: app
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - -f
+        - http://127.0.0.1:8080/actuator/health
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    image: kivvi-click-api
+    networks:
+      default: null
+    restart: unless-stopped
+  database:
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_PASSWORD: ""
+      POSTGRES_USER: app
+    healthcheck:
+      test:
+        - CMD
+        - pg_isready
+        - -d
+        - app
+        - -U
+        - app
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    image: postgres:18-alpine
+    networks:
+      default: null
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: database_data_next
+        target: /var/lib/postgresql
+        volume: {}
+  mercure:
+    depends_on:
+      api:
+        condition: service_healthy
+        required: true
+    environment:
+      MERCURE_PUBLISHER_JWT_KEY: ""
+      MERCURE_SUBSCRIBER_JWT_KEY: ""
+      SERVER_NAME: :80
+    image: dunglas/mercure:v0.24.2
+    networks:
+      default: null
+    ports:
+      - name: http
+        mode: ingress
+        target: 80
+        published: "23456"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /home/muszkin/work/kivvi-click-wt/integration/mercure/Caddyfile
+        target: /etc/caddy/Caddyfile
+        read_only: true
+        bind: {}
+      - type: volume
+        source: mercure_data_next
+        target: /data
+        volume: {}
+      - type: volume
+        source: mercure_config_next
+        target: /config
+        volume: {}
+networks:
+  default:
+    name: integration_default
+volumes:
+  database_data_next:
+    name: kivvi-next_database_data
+  mercure_config_next:
+    name: kivvi-next_mercure_config
+  mercure_data_next:
+    name: kivvi-next_mercure_data
