@@ -1,0 +1,13 @@
+# Repair packet w4-import-wizard / repair-3 (wave-4 cohort round 1: architecture FAIL)
+
+Fresh worktree /home/muszkin/work/kivvi-click-wt/w4-import-r3 · branch `migration/wave-4/import-wizard-repair3` · base fe37fad3b884864ca1d41a2ed7cf258126329e18 (wave-4 SHA). HIGH reasoning effort. New commit(s) only. Do not start a stack.
+
+## Finding (waves/wave-4/architecture.md, finding-recentimports-event-row-bypass.log)
+`frontend/src/components/import/RecentImports.vue` renders `.event-row` via `:class="recentImportRowClass"` (`const … = "event-row"`) — a deliberate bypass of `vue/no-restricted-class`. The old `templates/pages/import/recent-imports.html.twig:14` does use `class="event-row"`, so the markup is parity; the process is wrong: exceptions go through the governed mechanism (file-scoped `eslint.config.js` override with a justification, as `ListCard.vue` did), never through evasion.
+
+## Required changes
+1. `RecentImports.vue`: use the literal `class="event-row …"` exactly like the Twig partial; delete the constant and its comment.
+2. `frontend/eslint.config.js`: add a file-scoped override for `src/components/import/RecentImports.vue` allowing `event-row`, with the same justification pattern as the `ListCard.vue` override (cite the Twig partial).
+3. Harden the rule so this bypass cannot recur: add a `no-restricted-syntax` selector (or extend the existing `/accounts/` rule pattern) that flags the string literal `"event-row"` (and template literals containing it) in `<script>`/`<script setup>` of any `.vue`/`.ts` file outside the allowed files (`EventRow.vue`, `ListCard.vue`, `RecentImports.vue`), so `:class` constants are caught too. Prove positive/negative with throwaway probes (deleted afterwards) and record the outputs under evidence/repair-3/.
+4. Gates: `npm run lint` (0 errors), `npm run typecheck`, `npm run test -- --run`, `npm run test:integration -- --run`, `npm run format:check`, `npm run build` (logs under evidence/repair-3-gates/). Backend untouched → no Maven needed.
+5. Commit `fix: declare the recent-imports event-row reuse through the governed ESLint exception (#import-wizard)` (Conventional Commits, English, NO trailers); append "## Repair-3" to worker-report.md (probe outputs, gate table, new SHA, `git status --porcelain` empty) and return it.

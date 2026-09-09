@@ -1,0 +1,31 @@
+=== upload directory config: safe default inside the container ===
+--- backend/src/main/resources/application.yml (import.upload-directory) ---
+78-    # inside the container, not a named volume: the journey has no need to survive a container
+79-    # restart (see worker-report.md's "compose" section for why compose.next.yaml stays
+80-    # untouched).
+81:    upload-directory: ${KIVVI_IMPORT_UPLOAD_DIRECTORY:./var/import}
+
+--- backend/src/main/java/.../infrastructure/importing/ImportUploadStorage.java (constructor + Files.createDirectories) ---
+37-
+38-  public ImportUploadStorage(
+39:      @Value("${kivvi.import.upload-directory:./var/import}") String uploadDirectory) {
+40-    this.uploadDirectory = Path.of(uploadDirectory);
+41-  }
+42-
+43-  /**
+
+--- backend/Dockerfile WORKDIR ---
+6:WORKDIR /frontend
+15:WORKDIR /backend
+29:WORKDIR /app
+
+--- compose.next.yaml: api service has no bind-mounted volumes (upload dir is container-local, ephemeral, not host-exposed) ---
+(no 'volumes:' key under the api service)
+
+Conclusion: default is the relative path './var/import', resolved against the image WORKDIR
+/app (backend/Dockerfile), so it lands at /app/var/import purely inside the api container's
+own filesystem. No KIVVI_IMPORT_UPLOAD_DIRECTORY override is set in compose.next.yaml and the
+api service declares no volumes, so this path is never bind-mounted to the host or a named
+volume -- a safe, self-contained default. Filename handling (ImportUploadStorage.store) strips
+client path components (basename()) and generates a random 32-hex stored name, so client input
+never reaches the filesystem path directly (traversal-safe).

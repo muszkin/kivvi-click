@@ -1,0 +1,77 @@
+Diagnosis — click.kivvi.ImportApiIT.pathTraversalOriginalNameNeverEscapesTheUploadDirectoryOverHttp
+(B31, backend/src/test/java/click/kivvi/ImportApiIT.java:184-212)
+
+WHAT FAILED
+-----------
+assertThat(listEntries(uploadDirectory.getParent()))
+    .as("nothing written outside the upload directory")
+    .isEqualTo(siblingsBefore);
+
+`uploadDirectory` is a JUnit 5 `@TempDir`, created directly under the JVM's `java.io.tmpdir`
+(this host: /tmp). `.getParent()` therefore resolves to /tmp itself, and the test asserts an exact
+Set<Path> equality of /tmp's direct children taken immediately before vs. immediately after one
+multipart HTTP upload. AssertJ throws on the first failed assertion, so the traversal-specific
+assertions later in the same method (exactly one new file matching ^[0-9a-f]{32}\.sh$, present
+inside uploadDirectory) never executed on this run.
+
+REPRODUCIBILITY
+----------------
+Reproduced twice, identically, in this checkout:
+  1. Full `./mvnw -q verify -Pintegration` run (evidence: backend-mvnw-verify.log) — ImportApiIT
+     8 tests, 1 failure, same method, same assertion.
+  2. Isolated rerun `./mvnw -q verify -Pintegration -Dit.test=ImportApiIT -DfailIfNoTests=false`
+     — same single method failed again ("Tests run: 8, Failures: 1"), confirmed via
+     PIPESTATUS-correct exit code capture: MVN_EXIT=1.
+
+WHY THIS LOOKS LIKE A HOST-ENVIRONMENT ARTIFACT, NOT A PRODUCT REGRESSION
+---------------------------------------------------------------------------
+1. This is a shared, busy host: `ls -1 /tmp | wc -l` = ~3160-3162 entries at the time of the run,
+   with names belonging to clearly unrelated concurrent tooling (magellan-ai-tooling-*,
+   magellan-skill-validator-*, magellan-run-ledger-*, kotlin-daemon.*, blog_cache_*,
+   phpunit_icon_*, oms-import-upload-test-*, kivvi-import-*, wsdl-muszkin-*, and this verifier's
+   own /tmp/claude-1000/... scratchpad).
+2. Direct observation confirmed live churn: watching `/tmp`'s direct children for 10s (1s
+   sampling) captured 3 add/remove events from an unrelated Kotlin compiler daemon
+   (kotlin-compilation-session-*-is-running, kotlin-daemon.*.log[.lck], kotlin-backups*) appearing
+   and disappearing within single-second windows — i.e. other processes on this host mutate /tmp's
+   direct-child set on a sub-second cadence, well inside this test's ~30-50ms assertion window.
+3. AssertJ's default max-elements-for-printing (1000) truncated BOTH the "expected" and "was" sets
+   in the failure message at 1000 entries each; comparing the two truncated listings element-by-
+   element found zero differences in the printed portion (script: python3 set-diff over the log
+   text). Since /tmp had ~3160 real entries, ~2160 were never printed — the actual differing
+   entry/entries are hidden in the untruncated tail, consistent with (2): a single unrelated
+   process momentarily adding/removing one /tmp sibling during the test's HTTP round trip.
+4. The corroborating unit test for the exact same sanitisation logic —
+   click.kivvi.infrastructure.importing.ImportUploadStorageTest (a directly-constructed
+   MockMultipartFile, no real HTTP/servlet layer, no shared /tmp involved) — passed 9/9 in the
+   same `verify` run (surefire; see backend-test-report-summary.txt). Per this IT class's own
+   Javadoc, that unit test already proves the traversal control; this IT was added to prove the
+   same control end-to-end through the real servlet multipart parser.
+5. The other 7 ImportApiIT tests in the same class, run in the same JVM fork immediately before
+   and after this one (including two other tests that also perform a real multipart upload and
+   then inspect the upload directory: uploadRedirectsAndTheFileNameSurvivesASecondRequest,
+   emptyFileIsStoredAndRedirectsLikeTheOldStack), all passed — the servlet multipart pipeline and
+   the upload-directory storage logic itself is exercised successfully elsewhere in the same run.
+
+WHAT THIS DOES NOT PROVE
+-------------------------
+This diagnosis does not positively confirm the traversal-safe-storage assertions that never ran
+(new-file-count == 1, filename pattern, file presence inside uploadDirectory) passed on THIS
+specific request — only that the surrounding infrastructure and the equivalent unit-level logic
+are sound. A clean re-run (e.g. with `-Djava.io.tmpdir` on the forked JVM redirected to an
+otherwise-empty directory, so `uploadDirectory.getParent()` is not the host's shared, churning
+/tmp) was not attempted: doing so would require overriding the forked JVM's argLine, which this
+project's pom.xml does not wire to a `${argLine}` property, so it could not be done without
+editing a tracked file — out of bounds for this read-only run.
+
+CONCLUSION
+----------
+Reported as the literal, reproducible result of the required command
+(`./mvnw -q verify -Pintegration`, 0-failures threshold not met). Evidence above makes an
+environmental false positive (this host's shared, churning /tmp beating an over-broad
+"nothing else in /tmp changed" assertion) considerably more likely than a real path-traversal
+regression, but this run cannot rule out the latter with certainty because the actual
+traversal-specific assertions in the same test method never executed. Recommend a re-run on a
+quiet host/TMPDIR, or narrowing the assertion to a snapshot of uploadDirectory's own siblings
+under a dedicated (non-shared) parent, before either accepting this as a deviation or treating it
+as a blocking regression.

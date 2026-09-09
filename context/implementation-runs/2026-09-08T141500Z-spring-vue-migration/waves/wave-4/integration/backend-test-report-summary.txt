@@ -1,0 +1,46 @@
+=== failsafe (backend integration, *IT.java) per-class ===
+-- click.kivvi.AutomationsApiIT
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.916 s -- in click.kivvi.AutomationsApiIT
+-- click.kivvi.CampaignsApiIT
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.900 s -- in click.kivvi.CampaignsApiIT
+-- click.kivvi.CollectApiIT
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.081 s -- in click.kivvi.CollectApiIT
+-- click.kivvi.CustomersApiIT
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.163 s -- in click.kivvi.CustomersApiIT
+-- click.kivvi.DashboardApiIT
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.997 s -- in click.kivvi.DashboardApiIT
+-- click.kivvi.EventsApiIT
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.926 s -- in click.kivvi.EventsApiIT
+-- click.kivvi.FeedsApiIT
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.015 s -- in click.kivvi.FeedsApiIT
+-- click.kivvi.ImportApiIT
+Tests run: 8, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 6.061 s <<< FAILURE! -- in click.kivvi.ImportApiIT
+-- click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.383 s -- in click.kivvi.infrastructure.scheduling.HeartbeatSchedulerIT
+-- click.kivvi.infrastructure.tracking.EventDedupStoreIT
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.092 s -- in click.kivvi.infrastructure.tracking.EventDedupStoreIT
+-- click.kivvi.LandingApiIT
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.993 s -- in click.kivvi.LandingApiIT
+-- click.kivvi.SessionRequestSerializationIT
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.260 s -- in click.kivvi.SessionRequestSerializationIT
+-- click.kivvi.SessionRequestSerializationRedProofIT
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.009 s -- in click.kivvi.SessionRequestSerializationRedProofIT
+-- click.kivvi.SessionRoundTripIT
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.017 s -- in click.kivvi.SessionRoundTripIT
+-- click.kivvi.SettingsApiIT
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.094 s -- in click.kivvi.SettingsApiIT
+-- click.kivvi.ShellApiIT
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.931 s -- in click.kivvi.ShellApiIT
+-- click.kivvi.WidgetApiIT
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.984 s -- in click.kivvi.WidgetApiIT
+
+=== failsafe aggregate ===
+Tests run: 90 Failures: 1 Errors: 0 Skipped: 1
+
+=== surefire (backend unit, regression guard only for this dimension) aggregate ===
+Tests run: 289 Failures: 0 Errors: 0 Skipped: 0
+click.kivvi.infrastructure.importing.ImportUploadStorageTest (unit, corroborating, not this dimension's gate):
+-------------------------------------------------------------------------------
+Test set: click.kivvi.infrastructure.importing.ImportUploadStorageTest
+-------------------------------------------------------------------------------
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.172 s -- in click.kivvi.infrastructure.importing.ImportUploadStorageTest

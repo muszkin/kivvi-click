@@ -1,0 +1,65 @@
+=== backend @DisplayName grep for B01/B23/B29/B31 (backend/src/test) ===
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/CampaignsApiIT.java:36:  @DisplayName("B01 GET /pl/campaigns renders 200 through the real HTTP layer")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/CampaignsApiIT.java:71:  @DisplayName("B01/B28 GET /pl/emails/new renders 200 through the real HTTP layer")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/CampaignsApiIT.java:79:  @DisplayName("B01/B28 GET /pl/emails/k1 (a known id) renders 200 through the real HTTP layer")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/ImportApiIT.java:60:  @DisplayName("B31 GET /api/v1/pl/import/5 (outside 1-4) is not found")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/ImportApiIT.java:69:  @DisplayName("B31/DEV-12 GET /pl/import/5 (outside 1-4) is a 404 document, not the 200 SPA shell")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/ImportApiIT.java:93:  @DisplayName("B31 a request to /import/upload with no file part is not found")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/ImportApiIT.java:138:  @DisplayName("B31 without any prior upload, step 2's file name falls back to \"klienci.csv\"")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/ImportApiIT.java:156:  @DisplayName("B31 empty file is stored and redirects like the old stack")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/AutomationsApiIT.java:38:  @DisplayName("B01/B26 GET /pl/automations renders 200 through the real HTTP layer")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/AutomationsApiIT.java:47:  @DisplayName("B01/B26 GET /pl/automations/new renders 200 through the real HTTP layer")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/WidgetApiIT.java:57:  @DisplayName("B01 GET /pl/popups/new renders 200 through the real HTTP layer")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/WidgetApiIT.java:80:  @DisplayName("B29 GET /api/v1/pl/popups?preview=p2 selects the banner widget")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/ImportViewServiceTest.java:15:  @DisplayName("B31 the file falls back to \"klienci.csv\" when no upload has happened yet")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/ImportViewServiceTest.java:24:  @DisplayName("B31 an uploaded file's session-derived name reaches the payload verbatim")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/ImportViewServiceTest.java:32:  @DisplayName("B31 detection counts 9 confident (>=70), 1 unsure and 1 skipped (confidence 0)")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/ImportViewServiceTest.java:44:  @DisplayName("B31 the skipped column (confidence 0) is the one mapped to \"__skip\"")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/ImportViewServiceTest.java:55:  @DisplayName("B31 the one preview row with a validation error has a null ltv, rendered as \"?\"")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/ImportViewServiceTest.java:78:  @DisplayName("B31/DEV-12 a step outside 1-4 throws, mapped to a 404 by ImportController")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/WidgetViewServiceTest.java:14:  @DisplayName("B29 the popup index carries 5 cards matching the oracle's names and metrics")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/WidgetViewServiceTest.java:37:  @DisplayName("B29 a missing ?preview= falls back to the first seeded widget (p1, modal)")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/WidgetViewServiceTest.java:47:  @DisplayName("B29 ?preview=p2 selects the banner widget's own type and content")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/WidgetViewServiceTest.java:70:  @DisplayName("B29 GET .../popups/p1 resolves the known widget's name, meta and own type")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/WidgetViewServiceTest.java:100:  @DisplayName("B29 ?type= overrides the shown content's shape but never the widget's own name")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/WidgetViewServiceTest.java:112:  @DisplayName("B29 a missing ?type= falls back to the widget's own type")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/domain/RouteTableTest.java:11:  @DisplayName("B01 every panel/public URL in the route table is known")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/infrastructure/importing/ImportUploadStorageTest.java:66:  @DisplayName("B31 a 9-character extension exceeds the whitelist and falls back to csv")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/infrastructure/importing/ImportUploadStorageTest.java:77:  @DisplayName("B31 a mixed-case extension is lower-cased before the whitelist check")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/infrastructure/importing/ImportUploadStorageTest.java:87:  @DisplayName("B31 no extension at all falls back to csv")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/infrastructure/importing/ImportUploadStorageTest.java:97:  @DisplayName("B31 an extension containing a non-alphanumeric character is rejected")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/infrastructure/importing/ImportUploadStorageTest.java:108:  @DisplayName("B31 two uploads in the same session never collide on the generated name")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/web/SpaDocumentControllerTest.java:27:  @DisplayName("B01 every panel/public URL renders 200 and carries the SPA document")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/web/ImportControllerTest.java:61:  @DisplayName("B31 GET /api/v1/pl/import/5 (outside 1-4) is not found")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/web/ImportControllerTest.java:67:  @DisplayName("B31 GET /api/v1/pl/import/0 (outside 1-4) is not found")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/web/ImportControllerTest.java:85:  @DisplayName("B31 every step returns the same shared 14-option target list per column")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/DashboardViewServiceTest.java:17:  @DisplayName("B23 four KPIs, each with a 40-point sparkline, matching the oracle exactly")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/DashboardViewServiceTest.java:37:  @DisplayName("B23 the sparkline series is deterministic between two builds")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/DashboardViewServiceTest.java:46:  @DisplayName("B23 the cardiogram legend carries the three oracle entries")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/DashboardViewServiceTest.java:59:  @DisplayName("B23 ten live rows and the account's Mercure topic, matching the oracle's first row")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/DashboardViewServiceTest.java:73:  @DisplayName("B23 live rows translate their type label to English")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/application/DashboardViewServiceTest.java:81:  @DisplayName("B23 six recently seen customers, orders and lastSeen matching the oracle exactly")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/web/WidgetControllerTest.java:28:  @DisplayName("B29 GET /api/v1/pl/popups returns 5 cards, a selected preview and 5 types")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/web/WidgetControllerTest.java:41:  @DisplayName("B29 ?preview=p2 selects the banner widget")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/web/WidgetControllerTest.java:74:  @DisplayName("B29 GET /api/v1/pl/popups/new returns the blank-draft widget shape")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/web/DashboardControllerTest.java:43:  @DisplayName("B23 the first recently seen customer carries id, email, orders and lastSeen")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/web/DashboardControllerTest.java:54:  @DisplayName("B23 the first best-performing automation is the highest-revenue active one")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/web/ImportUploadControllerTest.java:42:  @DisplayName("B31 a POSTed file is stored and redirects (302) to /pl/import/2")
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/backend/src/test/java/click/kivvi/web/ImportUploadControllerTest.java:55:  @DisplayName("B31 a request with no file part is not found")
+
+=== frontend describe/it grep for B01/B23/B29/B31 (frontend/test/unit) ===
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/frontend/test/unit/Cardiogram.spec.ts:50:    it("B23 renders the canvas with role=img and the title as its accessible name", () => {
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/frontend/test/unit/Cardiogram.spec.ts:62:    it("B23 draws once on mount", () => {
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/frontend/test/unit/Cardiogram.spec.ts:68:    it("B23 redraws when <html data-theme> mutates, without reconnecting anything", async () => {
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/frontend/test/unit/Cardiogram.spec.ts:83:    it("B23 redraws once a second", () => {
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/frontend/test/unit/widgetComponents.spec.ts:13:describe("B29 PopupStage", () => {
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/frontend/test/unit/widgetComponents.spec.ts:38:describe("B29 ShopMock", () => {
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/frontend/test/unit/widgetComponents.spec.ts:50:describe("B29 PopupWidget", () => {
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/frontend/test/unit/widgetComponents.spec.ts:134:describe("B29 PositionGrid", () => {
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/frontend/test/unit/widgetComponents.spec.ts:162:describe("B29 SwatchGrid", () => {
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/frontend/test/unit/widgetComponents.spec.ts:189:describe("B29 TriggerRow", () => {
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/frontend/test/unit/widgetComponents.spec.ts:225:describe("B29 AddSlot", () => {
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/frontend/test/unit/widgetComponents.spec.ts:238:describe("B29 PwTypeList", () => {
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/frontend/test/unit/importComponents.spec.ts:13:describe("B31 Stepper marks the current step and the ones already passed", () => {
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/frontend/test/unit/importComponents.spec.ts:63:describe("B31 Dropzone posts the file and follows a redirected response with a full navigation, exactly like assets/controllers/upload.ts", () => {
+/home/muszkin/work/kivvi-click-wt/verify-wave-4-unit/frontend/test/unit/routes.spec.ts:7:describe("B01 every panel/public route in the table resolves", () => {

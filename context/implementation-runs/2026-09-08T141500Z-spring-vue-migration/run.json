@@ -228,7 +228,7 @@
       }
     },
     "w4-import-wizard": {
-      "state": "FEATURE_HEAD_GREEN",
+      "state": "IMPLEMENTED",
       "wave": "wave-4",
       "branch": "migration/wave-4/import-wizard",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w4-import",
@@ -236,14 +236,11 @@
       "head_sha": "a1c2f83",
       "integration_commit": "e7a16e0898b1f23459c685ab241dca0e46b32c64",
       "repair": {
-        "round": 2,
-        "packet": "slices/w4-import-wizard/repair-2.md",
-        "worktree": "/home/muszkin/work/kivvi-click-wt/w4-import-r2",
-        "branch": "migration/wave-4/import-wizard-repair2",
-        "base_sha": "e7a16e0898b1f23459c685ab241dca0e46b32c64",
-        "candidate_sha": "a8fb5f6",
-        "integrated_sha": "a8fb5f69cff892908cc8ffabde45386de4346918",
-        "orchestrator_inspected": true
+        "round": 3,
+        "packet": "slices/w4-import-wizard/repair-3.md",
+        "worktree": "/home/muszkin/work/kivvi-click-wt/w4-import-r3",
+        "branch": "migration/wave-4/import-wizard-repair3",
+        "base_sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18"
       },
       "review": {
         "path": "slices/w4-import-wizard/review.md",
@@ -859,10 +856,26 @@
       "verifier_cohort": [
         {
           "dimension": "unit",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
           "evidence": "waves/wave-4/unit.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "popups-widget-editor",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "import-wizard",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "dashboard",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "integration",
@@ -873,10 +886,26 @@
         },
         {
           "dimension": "architecture",
-          "status": "RUNNING",
+          "status": "FAIL",
           "sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
           "evidence": "waves/wave-4/architecture.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "popups-widget-editor",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "import-wizard",
+              "verdict": "regression",
+              "deviation_id": null
+            },
+            {
+              "journey": "dashboard",
+              "verdict": "parity",
+              "deviation_id": null
+            }
+          ]
         },
         {
           "dimension": "contract",
@@ -887,10 +916,26 @@
         },
         {
           "dimension": "visual",
-          "status": "RUNNING",
+          "status": "PASS",
           "sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
           "evidence": "waves/wave-4/visual.md",
-          "journey_verdicts": []
+          "journey_verdicts": [
+            {
+              "journey": "popups-widget-editor",
+              "verdict": "parity",
+              "deviation_id": null
+            },
+            {
+              "journey": "import-wizard",
+              "verdict": "parity",
+              "deviation_id": "DEV-12"
+            },
+            {
+              "journey": "dashboard",
+              "verdict": "parity",
+              "deviation_id": "DEV-2"
+            }
+          ]
         },
         {
           "dimension": "e2e",
@@ -930,6 +975,6 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T07:08:09Z",
+  "updated_at": "2026-09-09T07:20:14Z",
   "feature_head_sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18"
 }

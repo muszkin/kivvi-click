@@ -1,0 +1,55 @@
+Behaviour id -> named qualifying-integration-test mapping (wave-4 in-scope behaviours)
+Qualifying test = real-HTTP backend/src/test/java/click/kivvi/*IT.java (Testcontainers, run via
+`./mvnw -q verify -Pintegration`) or frontend/test/integration/*.spec.ts mounting the real view
+component with the real router (+ real Pinia store where used) and stubbing only the network
+(fetch / EventSource / canvas 2D context). @WebMvcTest slices and prop-fed component tests do NOT
+qualify and are excluded below even where they carry the same @DisplayName text.
+
+B29 (popups-widget-editor) — "Widget list with preview, preview switch by ?preview=, editor
+type/device switches, inspector triggers/audience/position grid"
+  backend/src/test/java/click/kivvi/WidgetApiIT.java
+    - popupsPayloadMatchesTheOracleThroughTheRealHttpLayer            "B29 GET /api/v1/pl/popups: 5 cards, selected p1/modal — through the real HTTP layer"
+    - previewQuerySelectsTheBannerWidgetThroughTheRealHttpLayer       "B29 GET /api/v1/pl/popups?preview=p2 selects the banner widget"
+    - knownPopupPayloadMatchesTheOracleThroughTheRealHttpLayer        "B29 GET /api/v1/pl/popups/p1: known widget, desktop viewport — through the real HTTP layer"
+    - typeAndDeviceQueryOverrideThroughTheRealHttpLayer               "B29 GET /api/v1/pl/popups/p1?type=banner&device=mobile overrides content and viewport"
+    - newPopupPayloadMatchesTheOracleThroughTheRealHttpLayer          "B29 GET /api/v1/pl/popups/new: the blank-draft widget"
+    - unmatchedPopupIdIsNotFoundThroughTheRealHttpLayer               "B29/DEV-7 GET /api/v1/pl/popups/{id} 404s for an id shape outside "new"/"p\d+""
+  frontend/test/integration/PopupsView.spec.ts        describe("B29 the popup index matches the oracle: 5 cards, a live preview") — 9 tests, incl. ?preview= forwarding + stage type=modal/banner switch
+  frontend/test/integration/PopupEditorView.spec.ts   describe("B29 the popup editor matches the oracle: type list, stage, inspector") — 15 tests, incl. ?type=/?device= forwarding+override, 3 triggers, 9-cell position grid, 4 audience checkboxes, DEV-7 (drag never issues a network request)
+  ALL GREEN (WidgetApiIT 10/10; PopupsView.spec.ts + PopupEditorView.spec.ts all passing within the 127/127 frontend integration run)
+
+B31 (import-wizard) — "Four wizard steps with their content, stepper forward/back, upload
+advances to step 2 and shows the file name"
+  backend/src/test/java/click/kivvi/ImportApiIT.java
+    - outOfRangeStepApiIsNotFound                                     "B31 GET /api/v1/pl/import/5 (outside 1-4) is not found"
+    - outOfRangeStepDocumentIsNotFound                                "B31/DEV-12 GET /pl/import/5 (outside 1-4) is a 404 document, not the 200 SPA shell"
+    - missingFilePartIsNotFound                                       "B31 a request to /import/upload with no file part is not found"
+    - uploadRedirectsAndTheFileNameSurvivesASecondRequest             "B31 uploading a file redirects (302) to exactly /pl/import/2, and the next GET on the same session reflects the uploaded file's original name..." — GREEN
+    - withoutAnUploadStepTwoFallsBackToTheFixtureFileName             "B31 without any prior upload, step 2's file name falls back to \"klienci.csv\"" — GREEN
+    - emptyFileIsStoredAndRedirectsLikeTheOldStack                    "B31 empty file is stored and redirects like the old stack" — GREEN
+    - pathTraversalOriginalNameNeverEscapesTheUploadDirectoryOverHttp "B31 a path-traversal original name never escapes the upload directory over a real HTTP round trip..." — RED, see import-wizard-failure-diagnosis.txt
+  frontend/test/integration/ImportView.spec.ts  describe("B31/B01 the import wizard matches the oracle: 4 steps, one URL each") — 5 tests (steps 1-4 content + fetch scoping), ALL GREEN
+  Mapping present for every required scenario (unknown step 404, missing file 404, empty file stored+302, path traversal end to end, session round-trip of the original file name); 7/8 backend IT green, 1/8 red (see diagnosis file); frontend integration 5/5 green.
+
+B23 (dashboard) — "Four KPIs, cardiogram canvas redraws on theme change, 10 live rows with
+topic attribute, links to customer/automation, pause toggles data-paused"
+  backend/src/test/java/click/kivvi/DashboardApiIT.java
+    - dashboardPageRenders200                                         "B01 GET /pl/dashboard renders 200 ..."
+    - dashboardPayloadMatchesTheOracleThroughTheRealHttpLayer         "B23 GET /api/v1/pl/dashboard: 4 KPIs, 10 events, 6 recent customers with lastSeen strings, 4 top automations, through the real HTTP layer"
+    - unsupportedLocaleIsNotFound                                     "B07 GET /api/v1/de/dashboard is not found, through the real HTTP layer"
+  frontend/test/integration/DashboardView.spec.ts  describe("B23 the dashboard matches the oracle: KPIs, cardiogram, live feed, recent customers, top automations") — 10 tests: fetch payload, 4 KPI tiles, cardiogram canvas+legend, 10-row live stream with data-event-stream-topic, Pauza data-action, customer/automation links, chip separator, new-automation link. Network stubbed via fetch AND a FakeEventSource class stubbed onto window.EventSource (class FakeEventSource with onopen/onmessage/onerror/close — confirms a real EventSource-driven store/component wiring, not a hand-fed prop).
+  ALL GREEN (DashboardApiIT 3/3; DashboardView.spec.ts 10/10)
+
+B01 rows of this wave (popups-widget-editor, import-wizard, dashboard) — "Every panel/public
+URL renders 200 and shows its own headline/marker text"
+  backend/src/test/java/click/kivvi/WidgetApiIT.java
+    - popupsPageRenders200            "B01 GET /pl/popups renders 200 through the real HTTP layer, marker text \"Popupy i widgety\""
+    - popupEditorDocumentRenders200   "B01 GET /pl/popups/p1 (the popup editor) renders 200 through the real HTTP layer, marker text \"Exit intent — 10% rabatu\""
+    - newPopupDocumentRenders200      "B01 GET /pl/popups/new renders 200 through the real HTTP layer"
+  backend/src/test/java/click/kivvi/ImportApiIT.java
+    - everyImportDocumentUrlRenders200 "B01 every import-wizard document URL (bare, step 1-4) renders 200 and carries the SPA document, over a real HTTP round trip — not only the sliced SpaDocumentControllerTest" — GREEN
+  backend/src/test/java/click/kivvi/DashboardApiIT.java
+    - dashboardPageRenders200          "B01 GET /pl/dashboard renders 200 ..." — GREEN
+  frontend/test/integration/PopupEditorView.spec.ts  "B01/B29 renders the back link, title and 5 widget-type links", "B01/B29 the \"new\" route shows the blank-draft widget"
+  frontend/test/integration/ImportView.spec.ts        describe carries "B31/B01" in its title; step 1-4 tests double as B01 document coverage
+  ALL GREEN except the one ImportApiIT-class failure noted above (which is NOT one of the B01-labelled tests in that class — everyImportDocumentUrlRenders200 itself passed).

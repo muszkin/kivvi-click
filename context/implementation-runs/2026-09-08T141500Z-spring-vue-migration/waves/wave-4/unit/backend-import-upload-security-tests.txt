@@ -1,0 +1,17 @@
+=== Surefire report: ImportUploadStorageTest (security controls: extension whitelist, random stored name) ===
+-------------------------------------------------------------------------------
+Test set: click.kivvi.infrastructure.importing.ImportUploadStorageTest
+-------------------------------------------------------------------------------
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.176 s -- in click.kivvi.infrastructure.importing.ImportUploadStorageTest
+
+=== @DisplayName list ===
+9:import org.junit.jupiter.api.DisplayName;
+31:  @DisplayName(
+54:  @DisplayName(
+66:  @DisplayName("B31 a 9-character extension exceeds the whitelist and falls back to csv")
+77:  @DisplayName("B31 a mixed-case extension is lower-cased before the whitelist check")
+87:  @DisplayName("B31 no extension at all falls back to csv")
+97:  @DisplayName("B31 an extension containing a non-alphanumeric character is rejected")
+108:  @DisplayName("B31 two uploads in the same session never collide on the generated name")
+123:  @DisplayName("currentFileName is empty for a null session and for a session with no upload yet")
+132:  @DisplayName("currentFileName reads back the original name recorded by store()")

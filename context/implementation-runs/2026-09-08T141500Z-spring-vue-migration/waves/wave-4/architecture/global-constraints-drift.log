@@ -1,0 +1,93 @@
+=== protected-path diff, 11d3cc4 (wave-3 SHA) .. HEAD (fe37fad3, wave-4 SHA) ===
+$ git diff --stat 11d3cc4..HEAD -- src/ templates/ assets/ translations/ migrations/ tests/**/*.php tests/e2e/specs/ composer.json composer.lock compose.yaml compose.override.yaml compose.prod.yaml Dockerfile frankenphp/ config/ public/
+exit=0  (empty = no protected-path drift)
+
+=== dependency-pin diff ===
+$ git diff 11d3cc4..HEAD -- backend/pom.xml frontend/package.json frontend/package-lock.json
+exit=0 (empty = no dependency-pin drift)
+
+=== Flyway migration diff ===
+$ git diff --stat 11d3cc4..HEAD -- backend/src/main/resources/db/migration/
+exit=0 (empty = no new/changed Flyway migration)
+
+=== full changed-file list since wave-3 SHA ===
+A	backend/src/main/java/click/kivvi/application/DashboardViewService.java
+A	backend/src/main/java/click/kivvi/application/ImportUploadService.java
+A	backend/src/main/java/click/kivvi/application/ImportViewService.java
+A	backend/src/main/java/click/kivvi/application/WidgetViewService.java
+A	backend/src/main/java/click/kivvi/fixtures/DashboardFixtures.java
+A	backend/src/main/java/click/kivvi/fixtures/ImportFixtures.java
+A	backend/src/main/java/click/kivvi/fixtures/WidgetFixtures.java
+A	backend/src/main/java/click/kivvi/infrastructure/importing/ImportUploadStorage.java
+A	backend/src/main/java/click/kivvi/web/DashboardController.java
+A	backend/src/main/java/click/kivvi/web/ImportController.java
+A	backend/src/main/java/click/kivvi/web/ImportUploadController.java
+A	backend/src/main/java/click/kivvi/web/WidgetController.java
+A	backend/src/main/java/click/kivvi/web/dto/DashboardResponse.java
+A	backend/src/main/java/click/kivvi/web/dto/ImportResponse.java
+A	backend/src/main/java/click/kivvi/web/dto/WidgetEditorResponse.java
+A	backend/src/main/java/click/kivvi/web/dto/WidgetsResponse.java
+M	backend/src/main/resources/application.yml
+A	backend/src/test/java/click/kivvi/DashboardApiIT.java
+A	backend/src/test/java/click/kivvi/ImportApiIT.java
+A	backend/src/test/java/click/kivvi/WidgetApiIT.java
+A	backend/src/test/java/click/kivvi/application/DashboardViewServiceTest.java
+A	backend/src/test/java/click/kivvi/application/ImportViewServiceTest.java
+A	backend/src/test/java/click/kivvi/application/WidgetViewServiceTest.java
+A	backend/src/test/java/click/kivvi/infrastructure/importing/ImportUploadStorageTest.java
+A	backend/src/test/java/click/kivvi/web/DashboardControllerTest.java
+A	backend/src/test/java/click/kivvi/web/ImportControllerTest.java
+A	backend/src/test/java/click/kivvi/web/ImportUploadControllerTest.java
+A	backend/src/test/java/click/kivvi/web/WidgetControllerTest.java
+M	frontend/README.md
+M	frontend/eslint.config.js
+A	frontend/src/components/import/CondRule.vue
+A	frontend/src/components/import/Consent.vue
+A	frontend/src/components/import/Dedup.vue
+A	frontend/src/components/import/FinalOptions.vue
+A	frontend/src/components/import/RecentImports.vue
+A	frontend/src/components/import/Segments.vue
+A	frontend/src/components/import/SelectField.vue
+A	frontend/src/components/import/StepMapping.vue
+A	frontend/src/components/import/StepRules.vue
+A	frontend/src/components/import/StepRun.vue
+A	frontend/src/components/import/StepUpload.vue
+A	frontend/src/components/import/ValidationList.vue
+A	frontend/src/components/import/importRoute.ts
+A	frontend/src/components/molecules/AddSlot.vue
+A	frontend/src/components/molecules/Dropzone.vue
+A	frontend/src/components/molecules/FilePill.vue
+A	frontend/src/components/molecules/MapRow.vue
+A	frontend/src/components/molecules/PositionGrid.vue
+A	frontend/src/components/molecules/Stepper.vue
+A	frontend/src/components/molecules/SwatchGrid.vue
+A	frontend/src/components/molecules/TriggerRow.vue
+A	frontend/src/components/organisms/Cardiogram.vue
+A	frontend/src/components/organisms/ListCard.vue
+A	frontend/src/components/organisms/PopupStage.vue
+A	frontend/src/components/organisms/PopupWidget.vue
+A	frontend/src/components/organisms/PwTypeList.vue
+A	frontend/src/components/organisms/ShopMock.vue
+A	frontend/src/i18n/messages/dashboard.en.ts
+A	frontend/src/i18n/messages/dashboard.pl.ts
+A	frontend/src/i18n/messages/import.en.ts
+A	frontend/src/i18n/messages/import.pl.ts
+A	frontend/src/i18n/messages/popups.en.ts
+A	frontend/src/i18n/messages/popups.pl.ts
+M	frontend/src/router/routes.ts
+M	frontend/src/views/DashboardView.vue
+D	frontend/src/views/EmptyPageView.vue
+A	frontend/src/views/ImportView.vue
+A	frontend/src/views/PopupEditorView.vue
+A	frontend/src/views/PopupsView.vue
+A	frontend/test/integration/DashboardView.spec.ts
+A	frontend/test/integration/ImportView.spec.ts
+A	frontend/test/integration/PopupEditorView.spec.ts
+A	frontend/test/integration/PopupsView.spec.ts
+A	frontend/test/unit/Cardiogram.spec.ts
+A	frontend/test/unit/ListCard.spec.ts
+A	frontend/test/unit/importComponents.spec.ts
+M	frontend/test/unit/localeHref.spec.ts
+A	frontend/test/unit/widgetComponents.spec.ts
+M	tools/migration-verify/compare.mjs
+M	tools/migration-verify/deviations.json
