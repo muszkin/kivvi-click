@@ -14,7 +14,7 @@
  *
  * Env:
  *   VERIFY_COMPOSE — docker compose invocation used for the db.json counts (default: the
- *     wave-0 resource lease, "docker compose -p kivvi-w-login -f compose.next.yaml").
+ *     wave-0 resource lease, "docker compose -p kivvi-w-login -f compose.yaml").
  */
 import { execSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -58,7 +58,7 @@ const DIMENSIONS = new Set(args.dimension === "all" ? ["contract", "visual"] : [
 const FIXED_TIME = new Date("2026-09-08T12:00:00Z");
 const VIEWPORTS = { desktop: { width: 1440, height: 900 }, mobile: { width: 390, height: 844 } };
 const SETTLE_MS = 400;
-const COMPOSE = process.env.VERIFY_COMPOSE ?? "docker compose -p kivvi-w-login -f compose.next.yaml";
+const COMPOSE = process.env.VERIFY_COMPOSE ?? "docker compose -p kivvi-w-login -f compose.yaml";
 // --sidebar-w (248px) x --topbar-h (56px) from assets/styles/01-tokens.css — see DEV-11 in
 // deviations.json for why this fixed rectangle stands in for a live-page selector mask.
 const MAIN_SCROLL_ORIGIN = { x: 248, y: 56 };

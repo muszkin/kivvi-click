@@ -117,7 +117,7 @@ test/
 - `npm run typecheck` → `vue-tsc --noEmit`
 - `npm run format` / `npm run format:check` → Prettier
 - `npm run build` → `vue-tsc --noEmit && vite build`
-- CI: `.github/workflows/next-build.yml` job `frontend` — `npm ci`, typecheck, lint, format:check, `npm run test -- --run`, `npm run test:integration -- --run`, `npm run build`
+- CI: `.github/workflows/build.yml` job `frontend` — `npm ci`, typecheck, lint, format:check, `npm run test -- --run`, `npm run test:integration -- --run`, `npm run build`
 
 ## Tests (Observed)
 

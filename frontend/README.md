@@ -21,7 +21,7 @@ npm run dev
 
 Talks to whatever API the Vite dev server proxies to in `vite.config.ts`; for the full
 authenticated flow (sessions, preferences) run the whole stack through
-`compose.next.yaml` instead.
+`compose.yaml` instead.
 
 ## Test
 

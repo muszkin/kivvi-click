@@ -1,21 +1,69 @@
 ---
+# The next stack: Spring Boot API + Vue 3 SPA behind the Mercure hub as the edge. Postgres
+# is the only other backing service — see CLAUDE.md's Architecture decisions. Dev/verification
+# shape; compose.prod.yaml layers the production overrides on top.
 services:
-  php:
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     restart: unless-stopped
     environment:
-      SERVER_NAME: ${SERVER_NAME:-localhost}, php:80
-      DEFAULT_URI: https://${SERVER_NAME:-localhost}:${HTTPS_PORT:-443}
-      MERCURE_PUBLISHER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
-      MERCURE_SUBSCRIBER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
-      # Run "composer require symfony/orm-pack" to install and configure Doctrine ORM
-      DATABASE_URL: postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-!ChangeMe!}@database:5432/${POSTGRES_DB:-app}?serverVersion=${POSTGRES_VERSION:-15}&charset=${POSTGRES_CHARSET:-utf8}
-      # Run "composer require symfony/mercure-bundle" to install and configure the Mercure integration
-      MERCURE_URL: ${CADDY_MERCURE_URL:-http://php/.well-known/mercure}
-      MERCURE_PUBLIC_URL: ${CADDY_MERCURE_PUBLIC_URL:-https://${SERVER_NAME:-localhost}:${HTTPS_PORT:-443}/.well-known/mercure}
-      MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/${POSTGRES_DB:-app}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-app}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
+      MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_PUBLISHER_JWT_KEY:-!ChangeThisMercureHubJWTSecretKey!}
+      MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_SUBSCRIBER_JWT_KEY:-!ChangeThisMercureHubJWTSecretKey!}
+      MERCURE_JWT_SECRET: ${MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
+      # Internal publish endpoint, reached over the private compose network only — mirrors
+      # the old stack's own MERCURE_URL (compose.yaml: http://php/.well-known/mercure).
+      # Plain HTTP works here because the mercure service's SERVER_NAME below adds a second,
+      # explicit `mercure:80` site address (same trick as the old stack's `php:80`): Caddy
+      # only enables automatic HTTPS (and the HTTP->HTTPS redirect) for a site address with no
+      # explicit port, so the `mercure:80` address is served as plain HTTP with no redirect.
+      #
+      # Substitution source is MERCURE_INTERNAL_URL, not MERCURE_URL: the repo-root `.env`
+      # (Symfony Flex's own file, read by both compose.yaml and this file since Compose loads
+      # it automatically regardless of which -f is used) already sets a real, non-empty
+      # `MERCURE_URL=https://example.com/.well-known/mercure` — Symfony's own never-customized
+      # placeholder default. `${MERCURE_URL:-...}` only falls back to the default when the
+      # variable is unset or empty, so it would silently take that value instead — found by
+      # running the full stack and seeing every publish 405 (example.com's real answer to a
+      # POST) instead of reaching this compose network at all. compose.yaml (old stack) avoids
+      # this exact trap the same way: its own `MERCURE_URL:` line reads from
+      # `${CADDY_MERCURE_URL:-http://php/.well-known/mercure}`, a distinctly-named substitution
+      # variable, not the `.env`-shadowed `MERCURE_URL` directly. The container's own env var
+      # is still named MERCURE_URL (application.yml's `${MERCURE_URL:...}` reads that from the
+      # container's environment, a separate layer `.env` never reaches).
+      MERCURE_URL: ${MERCURE_INTERNAL_URL:-http://mercure/.well-known/mercure}
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/actuator/health"]
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  mercure:
+    image: dunglas/mercure:v0.24.2
+    restart: unless-stopped
+    environment:
+      # A second, explicit-port site address (`mercure:80`) alongside the public
+      # auto-HTTPS one — mirrors compose.yaml's `SERVER_NAME: ${SERVER_NAME:-localhost}, php:80`
+      # on the old stack: it gives the api container a plain-HTTP internal address to publish
+      # to (MERCURE_URL above) without touching mercure/Caddyfile, which already parametrizes
+      # its site address entirely through this variable.
+      SERVER_NAME: ${SERVER_NAME:-localhost}, mercure:80
+      MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_PUBLISHER_JWT_KEY:-!ChangeThisMercureHubJWTSecretKey!}
+      MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_SUBSCRIBER_JWT_KEY:-!ChangeThisMercureHubJWTSecretKey!}
     volumes:
-      - caddy_data:/data
-      - caddy_config:/config
+      - ./mercure/Caddyfile:/etc/caddy/Caddyfile:ro
+      - mercure_data:/data
+      - mercure_config:/config
+    depends_on:
+      api:
+        condition: service_healthy
     ports:
       - name: http
         target: 80
@@ -30,57 +78,29 @@ services:
         published: ${HTTP3_PORT:-443}
         protocol: udp
 
-  # Long-running worker: consumes async messages (Doctrine transport) and drives the scheduler.
-  # Without it, queued messages sit in messenger_messages and scheduled tasks never fire.
-  worker:
-    restart: unless-stopped
-    command: php bin/console messenger:consume async scheduler_default -v --time-limit=3600 --memory-limit=128M
-    # The base image healthcheck probes the Caddy admin API; the worker runs no web server.
-    healthcheck:
-      disable: true
-    depends_on:
-      database:
-        condition: service_healthy
-    environment:
-      DATABASE_URL: postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-!ChangeMe!}@database:5432/${POSTGRES_DB:-app}?serverVersion=${POSTGRES_VERSION:-15}&charset=${POSTGRES_CHARSET:-utf8}
-      MERCURE_URL: ${CADDY_MERCURE_URL:-http://php/.well-known/mercure}
-      MERCURE_PUBLIC_URL: ${CADDY_MERCURE_PUBLIC_URL:-https://${SERVER_NAME:-localhost}:${HTTPS_PORT:-443}/.well-known/mercure}
-      MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
-
-# Mercure is installed as a Caddy module, prevent the Flex recipe from installing another service
-###> symfony/mercure-bundle ###
-###< symfony/mercure-bundle ###
-
-###> doctrine/doctrine-bundle ###
   database:
-    image: postgres:${POSTGRES_VERSION:-16}-alpine
-    # Without a restart policy the database stayed down after a host-level stop
-    # while php/worker (unless-stopped) came back and crash-looped waiting for it.
+    image: postgres:18-alpine
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
       POSTGRES_USER: ${POSTGRES_USER:-app}
     healthcheck:
       test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}"]
       timeout: 5s
       retries: 5
-      start_period: 60s
+      start_period: 30s
     volumes:
       # Postgres 18+ images keep the cluster in a versioned subdirectory of
       # /var/lib/postgresql; mounting .../data directly makes the entrypoint abort.
       - database_data:/var/lib/postgresql:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql:rw
-###< doctrine/doctrine-bundle ###
+    # No fixed host port: Compose assigns a random one (per the wave-0 resource lease),
+    # discoverable with `docker compose -p <project> port database 5432`.
+    ports:
+      - target: 5432
+        protocol: tcp
 
 volumes:
-  caddy_data:
-  caddy_config:
-###> symfony/mercure-bundle ###
-###< symfony/mercure-bundle ###
-
-###> doctrine/doctrine-bundle ###
+  mercure_data:
+  mercure_config:
   database_data:
-###< doctrine/doctrine-bundle ###

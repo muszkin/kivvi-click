@@ -1,9 +1,0 @@
-{#
-  PARTIAL · settings / DNS authentication records
-
-  Params:
-    records (array of {record, value, ok}, required)
-#}
-<div class="col" style="gap:8px;">
-  {%- for record in records %}{{ include('components/molecules/dns-row.html.twig', record) }}{% endfor %}
-</div>

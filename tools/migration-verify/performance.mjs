@@ -76,7 +76,7 @@ async function measureLoginPage() {
 // insert, JWT-signed Mercure publish included — not the cheaper 400-rejection path a malformed
 // body would exercise instead.
 async function collectP95() {
-  // The dev/verification stack's HTTPS is self-signed (see compose.next.yaml's mercure
+  // The dev/verification stack's HTTPS is self-signed (see compose.yaml's mercure
   // service); Playwright's measureLoginPage() above already opts out via
   // `ignoreHTTPSErrors: true`, but plain Node fetch() has no equivalent per-call option
   // without an extra HTTP-client dependency, so this loop opts the whole process out —

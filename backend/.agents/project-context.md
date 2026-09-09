@@ -23,7 +23,7 @@ document routes the SPA itself is served from, and preserves the old stack's ext
 byte-for-byte where the plan requires it (`POST /collect`, `POST /preferences/theme|sidebar`,
 `POST /import/upload`, `POST /{locale}/login|logout`). The old Symfony app (`../../src/`) stays
 read-only and keeps serving production on port 23456 until cutover (CUT-1); this backend runs only
-behind `../../compose.next.yaml` / `compose.next.prod.yaml` today (Observed).
+behind `../../compose.yaml` / `compose.prod.yaml` today (Observed).
 
 ## Package layering (Observed, `pom.xml`, `ArchitectureTest.java`)
 
@@ -118,14 +118,14 @@ numbers itself**, enforced by `../frontend/eslint.config.js`'s `no-restricted-im
   hard-coded rather than derived from `forward-headers-strategy`) because the only entry point is
   the TLS-terminating Mercure edge in both dev and prod.
 
-## Commands (Observed, `pom.xml`, `common-journey-rules.md`, `.github/workflows/next-build.yml`)
+## Commands (Observed, `pom.xml`, `common-journey-rules.md`, `.github/workflows/build.yml`)
 
 - `export JAVA_HOME=/home/muszkin/.cache/kivvi-toolchains/jdk-25; export PATH=$JAVA_HOME/bin:$PATH` (host has no system Java 25 — pinned toolchain path, per the run's common rules)
 - `cd backend && ./mvnw -q test` — unit gate (JUnit; no Testcontainers)
 - `cd backend && ./mvnw -q verify` — integration gate: unit + Testcontainers-backed `*IT` tests (Postgres 18 via Testcontainers) + ArchUnit (`ArchitectureTest`) + Spotless check, bound to `verify`
 - `cd backend && ./mvnw -q spotless:check` / `./mvnw spotless:apply`
 - `./mvnw spring-boot:run` (fast local iteration against the compose database) — every CI/gate command must still run against the full compose-built image (`common-journey-rules.md` "Stack build hint")
-- CI: `.github/workflows/next-build.yml` job `backend` — builds the SPA first (`npm run build` in `../frontend`), copies `dist/` into `src/main/resources/static/`, then `./mvnw -B -q verify`
+- CI: `.github/workflows/build.yml` job `backend` — builds the SPA first (`npm run build` in `../frontend`), copies `dist/` into `src/main/resources/static/`, then `./mvnw -B -q verify`
 
 ## Tests (Observed, `src/test/java/click/kivvi/**`)
 
@@ -147,7 +147,7 @@ numbers itself**, enforced by `../frontend/eslint.config.js`'s `no-restricted-im
 
 ## Ports / leases / hazards
 
-- Runs only inside `compose.next.yaml` (dev/verification) or `compose.next.prod.yaml` (not
+- Runs only inside `compose.yaml` (dev/verification) or `compose.prod.yaml` (not
   deployed by any slice yet — CUT-1 is a separately authorized packet). No fixed host port of its
   own: reached through the `mercure` edge container (`reverse_proxy api:8080`,
   `../mercure/Caddyfile`).

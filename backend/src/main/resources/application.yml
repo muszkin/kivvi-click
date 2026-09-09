@@ -37,9 +37,9 @@ server:
   # bridge network can hand out. `framework` (the previous value) had no such check at all:
   # ForwardedHeaderFilter honours these headers from ANY caller unconditionally, which would
   # have been a real spoofing gap the day `api` is ever given a published host port — today
-  # it has none (compose.next.yaml), reachable only from the trusted `mercure` edge over the
+  # it has none (compose.yaml), reachable only from the trusted `mercure` edge over the
   # private compose network, but `native` costs nothing and removes the gap outright. See
-  # compose.next.prod.yaml's `api` service comment for why no TRUSTED_PROXIES env var feeds
+  # compose.prod.yaml's `api` service comment for why no TRUSTED_PROXIES env var feeds
   # this (a Tomcat regex and Symfony's `private_ranges`/CIDR syntax are not interchangeable —
   # threading the old value through unmodified would have silently matched nothing).
   forward-headers-strategy: native
@@ -86,7 +86,7 @@ kivvi:
   mercure:
     # Internal publish endpoint: the `mercure` compose service, reached over the private
     # docker network — never the public edge port. Plain HTTP, mirroring the old stack's own
-    # MERCURE_URL (compose.yaml: http://php/.well-known/mercure) — see compose.next.yaml's
+    # MERCURE_URL (compose.yaml: http://php/.well-known/mercure) — see compose.yaml's
     # `mercure` service SERVER_NAME (adds a second, explicit-port `mercure:80` address so
     # Caddy serves this one plain, with no automatic-HTTPS redirect) and
     # HttpMercurePublisher's class comment.
@@ -102,6 +102,6 @@ kivvi:
     # Relative to the api container's working directory (/app — see backend/Dockerfile), so
     # this resolves to /app/var/import — mirrors the old stack's own `var/import`. A path
     # inside the container, not a named volume: the journey has no need to survive a container
-    # restart (see worker-report.md's "compose" section for why compose.next.yaml stays
+    # restart (see worker-report.md's "compose" section for why compose.yaml stays
     # untouched).
     upload-directory: ${KIVVI_IMPORT_UPLOAD_DIRECTORY:./var/import}

@@ -13,7 +13,7 @@ on:
       - "compose.next*.yaml"
       - "mercure/**"
       - "tools/migration-verify/**"
-      - ".github/workflows/next-build.yml"
+      - ".github/workflows/build.yml"
   pull_request:
     paths:
       - "backend/**"
@@ -21,7 +21,7 @@ on:
       - "compose.next*.yaml"
       - "mercure/**"
       - "tools/migration-verify/**"
-      - ".github/workflows/next-build.yml"
+      - ".github/workflows/build.yml"
 
 jobs:
   backend:
@@ -93,7 +93,7 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-  # Exercises the actual artifact CUT-1 deploys — compose.next.yaml/compose.next.prod.yaml
+  # Exercises the actual artifact CUT-1 deploys — compose.yaml/compose.prod.yaml
   # both build `api` from this same Dockerfile. Mirrors docker-build.yml's shape (build-only,
   # no push) for the old stack's own production image: neither job pushes anywhere, both
   # exist purely to catch a broken COPY/stage reference before it reaches a runbook.

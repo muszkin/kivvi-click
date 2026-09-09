@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  * <p>That worked on the old stack because {@code php}'s own Caddy site list included a second,
  * explicit-port address ({@code php:80}) alongside the public auto-HTTPS one — Caddy only enables
  * automatic HTTPS (and its HTTP→HTTPS redirect) for a site address with no explicit port. {@code
- * compose.next.yaml} reproduces the same trick for the {@code mercure} service's {@code
+ * compose.yaml} reproduces the same trick for the {@code mercure} service's {@code
  * SERVER_NAME} (adding {@code mercure:80}), so {@link #hub} here is a plain {@code http://} address
  * the hub serves without any TLS involved — no certificate to trust, no SNI to reason about, no
  * dependency on this container's TLS configuration at all.

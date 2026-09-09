@@ -60,7 +60,7 @@ never needs to be modified during the run (Observed, plan revision note at the t
   `../../assets/styles/01-tokens.css`) anchors the DEV-11 fixed-rectangle mask — keep this in sync
   if those token values ever change (they are currently frozen/copied verbatim per the plan).
 - **`VERIFY_COMPOSE` env var** controls which compose invocation supplies `db.json` counts (default
-  `docker compose -p kivvi-w-login -f compose.next.yaml`) — pass the caller's own lease project name
+  `docker compose -p kivvi-w-login -f compose.yaml`) — pass the caller's own lease project name
   when verifying a different worktree; the wrong project name silently reads someone else's
   database deltas.
 

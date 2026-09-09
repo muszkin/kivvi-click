@@ -19,7 +19,7 @@ cp -r frontend/dist/. backend/src/main/resources/static/
 ```
 
 `backend/Dockerfile` does this automatically in a multi-stage build (Node stage → Maven
-stage → JRE runtime) — use it for anything running through `compose.next.yaml`.
+stage → JRE runtime) — use it for anything running through `compose.yaml`.
 
 Requires Java 25 (Temurin) on `PATH`/`JAVA_HOME` and Docker for the Testcontainers-backed
 integration test.
@@ -32,7 +32,7 @@ export JAVA_HOME=/path/to/jdk-25
 ```
 
 Needs a reachable Postgres 18 at the `SPRING_DATASOURCE_URL`/`_USERNAME`/`_PASSWORD` env
-vars (defaults point at `localhost:5432`) — bring one up with `compose.next.yaml`, or run
+vars (defaults point at `localhost:5432`) — bring one up with `compose.yaml`, or run
 the whole stack through Docker Compose instead of this module directly.
 
 ## Test
