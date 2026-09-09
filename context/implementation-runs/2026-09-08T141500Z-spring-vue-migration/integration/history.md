@@ -17,3 +17,4 @@
 | 2026-09-09T03:11:01Z | w3-campaigns-email-editor repair-3 | cherry-pick 79a2224,fca55fc | 2eb457a → c74e3b8 | feature-head green (`integration/feature-head-c74e3b8/`); wave-3 round-2 SHA |
 | 2026-09-09T03:48:23Z | w3-shell-preferences | fast-forward | c74e3b8 → 60296f1 | feature-head green; wave-3 round-3 SHA |
 | 2026-09-09T04:52:17Z | w3-shell-preferences repair-1 | fast-forward | 60296f1 → 11d3cc4 | feature-head green; wave-3 round-4 SHA |
+| 2026-09-09T06:17:01Z | w4-popups-widget-editor | cherry-pick f278607 | 11d3cc4 → a12e00d | feature-head green (`integration/feature-head-a12e00d/`) |
