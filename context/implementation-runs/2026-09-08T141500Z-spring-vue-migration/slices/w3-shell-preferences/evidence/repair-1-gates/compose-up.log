@@ -1,0 +1,389 @@
+ Image kivvi-w-shell-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 574B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.43kB done
+#2 DONE 0.0s
+
+#3 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#3 DONE 0.7s
+
+#4 docker-image://docker.io/docker/dockerfile:1@sha256:ecfaec9ed6d810b56388c508f4121597bfbba70d41a6dfeee4d8cad5f295fc32
+#4 CACHED
+
+#5 [internal] load metadata for docker.io/library/maven:3.9-eclipse-temurin-25
+#5 DONE 0.0s
+
+#6 [internal] load metadata for docker.io/library/node:26-alpine
+#6 ...
+
+#7 [internal] load metadata for docker.io/library/eclipse-temurin:25-jre
+#7 DONE 1.3s
+
+#6 [internal] load metadata for docker.io/library/node:26-alpine
+#6 DONE 1.3s
+
+#8 [internal] load .dockerignore
+#8 transferring context: 540B done
+#8 DONE 0.0s
+
+#9 [backend-build 1/7] FROM docker.io/library/maven:3.9-eclipse-temurin-25
+#9 CACHED
+
+#10 [backend-build 2/7] WORKDIR /backend
+#10 DONE 0.0s
+
+#11 [runtime 1/6] FROM docker.io/library/eclipse-temurin:25-jre@sha256:f9e65324a37f28209ce7dd0e5149a7aa954520ed936fb87813cf6ded2400a112
+#11 resolve docker.io/library/eclipse-temurin:25-jre@sha256:f9e65324a37f28209ce7dd0e5149a7aa954520ed936fb87813cf6ded2400a112 done
+#11 sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0 0B / 63.08MB 0.1s
+#11 sha256:69f7b0828b96a430cfc6dfbc0c815d007374206adf852c006bc485de3e368ea1 9.01kB / 9.01kB done
+#11 sha256:31a173310068d7f979024baba66e75779151d5fe8265e9c2ab397ca66aadecba 0B / 12.15MB 0.1s
+#11 sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 0B / 32B 0.1s
+#11 sha256:f9e65324a37f28209ce7dd0e5149a7aa954520ed936fb87813cf6ded2400a112 5.91kB / 5.91kB done
+#11 sha256:589a2ad66f8ee9a7a610a41c24260201b4b223102929a35a8c558fadb5b9fabb 2.13kB / 2.13kB done
+#11 sha256:31a173310068d7f979024baba66e75779151d5fe8265e9c2ab397ca66aadecba 1.05MB / 12.15MB 0.3s
+#11 sha256:31a173310068d7f979024baba66e75779151d5fe8265e9c2ab397ca66aadecba 2.10MB / 12.15MB 0.4s
+#11 sha256:31a173310068d7f979024baba66e75779151d5fe8265e9c2ab397ca66aadecba 3.15MB / 12.15MB 0.5s
+#11 sha256:31a173310068d7f979024baba66e75779151d5fe8265e9c2ab397ca66aadecba 5.24MB / 12.15MB 0.8s
+#11 sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 32B / 32B 0.8s done
+#11 sha256:8788471b16bd936498fb07b237c992d41284ab8b42678e03958c20f955889ab5 0B / 2.46kB 0.8s
+#11 ...
+
+#12 [internal] load build context
+#12 transferring context: 144.79MB 0.9s done
+#12 DONE 1.0s
+
+#11 [runtime 1/6] FROM docker.io/library/eclipse-temurin:25-jre@sha256:f9e65324a37f28209ce7dd0e5149a7aa954520ed936fb87813cf6ded2400a112
+#11 sha256:31a173310068d7f979024baba66e75779151d5fe8265e9c2ab397ca66aadecba 6.29MB / 12.15MB 1.0s
+#11 sha256:8788471b16bd936498fb07b237c992d41284ab8b42678e03958c20f955889ab5 2.46kB / 2.46kB 0.9s done
+#11 sha256:31a173310068d7f979024baba66e75779151d5fe8265e9c2ab397ca66aadecba 7.34MB / 12.15MB 1.1s
+#11 ...
+
+#13 [backend-build 3/7] COPY backend/pom.xml backend/mvnw ./
+#13 DONE 0.2s
+
+#14 [backend-build 4/7] COPY backend/.mvn/ .mvn/
+#14 DONE 0.0s
+
+#15 [backend-build 5/7] COPY backend/src/ src/
+#15 DONE 0.0s
+
+#11 [runtime 1/6] FROM docker.io/library/eclipse-temurin:25-jre@sha256:f9e65324a37f28209ce7dd0e5149a7aa954520ed936fb87813cf6ded2400a112
+#11 sha256:31a173310068d7f979024baba66e75779151d5fe8265e9c2ab397ca66aadecba 8.39MB / 12.15MB 1.3s
+#11 sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0 4.19MB / 63.08MB 1.6s
+#11 sha256:31a173310068d7f979024baba66e75779151d5fe8265e9c2ab397ca66aadecba 10.49MB / 12.15MB 1.6s
+#11 sha256:31a173310068d7f979024baba66e75779151d5fe8265e9c2ab397ca66aadecba 11.53MB / 12.15MB 1.8s
+#11 extracting sha256:31a173310068d7f979024baba66e75779151d5fe8265e9c2ab397ca66aadecba
+#11 sha256:31a173310068d7f979024baba66e75779151d5fe8265e9c2ab397ca66aadecba 12.15MB / 12.15MB 1.8s done
+#11 sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0 8.39MB / 63.08MB 2.3s
+#11 extracting sha256:31a173310068d7f979024baba66e75779151d5fe8265e9c2ab397ca66aadecba 0.4s done
+#11 sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0 12.58MB / 63.08MB 2.9s
+#11 sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0 16.78MB / 63.08MB 3.5s
+#11 sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0 20.97MB / 63.08MB 4.1s
+#11 sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0 25.17MB / 63.08MB 4.8s
+#11 sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0 29.36MB / 63.08MB 5.4s
+#11 sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0 33.55MB / 63.08MB 6.0s
+#11 sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0 37.75MB / 63.08MB 6.6s
+#11 sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0 41.94MB / 63.08MB 7.2s
+#11 sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0 46.14MB / 63.08MB 7.8s
+#11 sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0 50.33MB / 63.08MB 8.5s
+#11 sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0 55.57MB / 63.08MB 9.2s
+#11 sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0 59.77MB / 63.08MB 9.8s
+#11 ...
+
+#16 [frontend-build 1/6] FROM docker.io/library/node:26-alpine@sha256:2d984a15c9b54fd0aeb608b8e0d0d83529eb34d2966db27a1fb4f1edc3d298a3
+#16 resolve docker.io/library/node:26-alpine@sha256:2d984a15c9b54fd0aeb608b8e0d0d83529eb34d2966db27a1fb4f1edc3d298a3 0.0s done
+#16 sha256:ad6400dee476b06e82d0ee3a088e2d7555f6e6569c346e61d69e14d0f19e8c2b 1.53kB / 1.53kB done
+#16 sha256:89824ea3fb69002f51789e1e40a2f389aeb70dc4b9349ac2b467c5ba11d506cb 4.84kB / 4.84kB done
+#16 sha256:2d984a15c9b54fd0aeb608b8e0d0d83529eb34d2966db27a1fb4f1edc3d298a3 2.61kB / 2.61kB done
+#16 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 38.80MB / 59.76MB 10.0s
+#16 sha256:80d39da31aaab43d6b63da0ed87ad747290062bd97f8901fe45eefb469cfeb0c 451B / 451B 2.0s done
+#16 ...
+
+#11 [runtime 1/6] FROM docker.io/library/eclipse-temurin:25-jre@sha256:f9e65324a37f28209ce7dd0e5149a7aa954520ed936fb87813cf6ded2400a112
+#11 sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0 63.08MB / 63.08MB 10.3s done
+#11 extracting sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0
+#11 extracting sha256:a322f4a9722f2401caed2ed5014a33aab50cd9faf6ad6c7b7d595314cc6eb0c0 0.5s done
+#11 extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 done
+#11 extracting sha256:8788471b16bd936498fb07b237c992d41284ab8b42678e03958c20f955889ab5 done
+#11 DONE 10.9s
+
+#16 [frontend-build 1/6] FROM docker.io/library/node:26-alpine@sha256:2d984a15c9b54fd0aeb608b8e0d0d83529eb34d2966db27a1fb4f1edc3d298a3
+#16 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 46.14MB / 59.76MB 10.8s
+#16 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 49.28MB / 59.76MB 11.1s
+#16 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 52.43MB / 59.76MB 11.4s
+#16 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 55.57MB / 59.76MB 11.7s
+#16 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 58.72MB / 59.76MB 12.7s
+#16 sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 59.76MB / 59.76MB 12.9s done
+#16 extracting sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 0.1s
+#16 extracting sha256:9098cc82c400bbe83569e25f937227d53aad39a688142b5dbb979dab5cfc5414 1.1s done
+#16 extracting sha256:80d39da31aaab43d6b63da0ed87ad747290062bd97f8901fe45eefb469cfeb0c
+#16 extracting sha256:80d39da31aaab43d6b63da0ed87ad747290062bd97f8901fe45eefb469cfeb0c done
+#16 DONE 14.2s
+
+#17 [frontend-build 2/6] WORKDIR /frontend
+#17 DONE 0.3s
+
+#18 [frontend-build 3/6] COPY frontend/package.json frontend/package-lock.json ./
+#18 DONE 0.0s
+
+#19 [frontend-build 4/6] RUN npm ci
+#19 4.844 
+#19 4.844 added 259 packages, and audited 260 packages in 5s
+#19 4.844 
+#19 4.844 72 packages are looking for funding
+#19 4.845   run `npm fund` for details
+#19 4.846 
+#19 4.846 found 0 vulnerabilities
+#19 4.847 npm notice
+#19 4.847 npm notice New major version of npm available! 11.19.0 -> 12.0.2
+#19 4.847 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.0.2
+#19 4.847 npm notice To update run: npm install -g npm@12.0.2
+#19 4.847 npm notice
+#19 DONE 5.1s
+
+#20 [runtime 2/6] RUN apt-get update && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*
+#20 0.306 Get:1 http://security.ubuntu.com/ubuntu resolute-security InRelease [137 kB]
+#20 0.310 Get:2 http://archive.ubuntu.com/ubuntu resolute InRelease [136 kB]
+#20 0.598 Get:3 http://archive.ubuntu.com/ubuntu resolute-updates InRelease [137 kB]
+#20 0.620 Get:4 http://security.ubuntu.com/ubuntu resolute-security/multiverse amd64 Packages [11.2 kB]
+#20 0.732 Get:5 http://archive.ubuntu.com/ubuntu resolute-backports InRelease [137 kB]
+#20 0.805 Get:6 http://security.ubuntu.com/ubuntu resolute-security/universe amd64 Packages [212 kB]
+#20 0.912 Get:7 http://archive.ubuntu.com/ubuntu resolute/multiverse amd64 Packages [352 kB]
+#20 1.053 Get:8 http://security.ubuntu.com/ubuntu resolute-security/main amd64 Packages [578 kB]
+#20 1.060 Get:9 http://archive.ubuntu.com/ubuntu resolute/universe amd64 Packages [20.1 MB]
+#20 1.404 Get:10 http://security.ubuntu.com/ubuntu resolute-security/restricted amd64 Packages [489 kB]
+#20 3.572 Get:11 http://archive.ubuntu.com/ubuntu resolute/restricted amd64 Packages [189 kB]
+#20 3.596 Get:12 http://archive.ubuntu.com/ubuntu resolute/main amd64 Packages [1,874 kB]
+#20 3.848 Get:13 http://archive.ubuntu.com/ubuntu resolute-updates/multiverse amd64 Packages [14.6 kB]
+#20 3.850 Get:14 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 Packages [743 kB]
+#20 3.950 Get:15 http://archive.ubuntu.com/ubuntu resolute-updates/universe amd64 Packages [338 kB]
+#20 3.988 Get:16 http://archive.ubuntu.com/ubuntu resolute-updates/restricted amd64 Packages [505 kB]
+#20 4.038 Get:17 http://archive.ubuntu.com/ubuntu resolute-backports/universe amd64 Packages [3,306 B]
+#20 4.133 Fetched 26.0 MB in 4s (6,530 kB/s)
+#20 4.133 Reading package lists...
+#20 4.709 Reading package lists...
+#20 5.282 Building dependency tree...
+#20 5.439 Reading state information...
+#20 5.484 Solving dependencies...
+#20 5.664 The following additional packages will be installed:
+#20 5.664   libcurl4t64 libgnutls30t64 libgssapi-krb5-2 libhogweed6t64 libidn2-0
+#20 5.665   libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap-common libldap2
+#20 5.665   libnettle8t64 libnghttp2-14 libpsl5t64 librtmp1 libsasl2-2
+#20 5.666   libsasl2-modules-db libssh2-1t64 libunistring5
+#20 5.668 Suggested packages:
+#20 5.668   gnutls-bin krb5-doc krb5-user
+#20 5.668 Recommended packages:
+#20 5.668   bash-completion krb5-locales publicsuffix libsasl2-modules
+#20 5.704 The following NEW packages will be installed:
+#20 5.705   curl libcurl4t64 libgnutls30t64 libgssapi-krb5-2 libhogweed6t64 libidn2-0
+#20 5.705   libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap-common libldap2
+#20 5.705   libnettle8t64 libnghttp2-14 libpsl5t64 librtmp1 libsasl2-2
+#20 5.706   libsasl2-modules-db libssh2-1t64 libunistring5
+#20 5.851 0 upgraded, 20 newly installed, 0 to remove and 30 not upgraded.
+#20 5.851 Need to get 4,069 kB of archives.
+#20 5.851 After this operation, 11.1 MB of additional disk space will be used.
+#20 5.851 Get:1 http://archive.ubuntu.com/ubuntu resolute/main amd64 libnettle8t64 amd64 3.10.2-1 [185 kB]
+#20 6.206 Get:2 http://archive.ubuntu.com/ubuntu resolute/main amd64 libhogweed6t64 amd64 3.10.2-1 [201 kB]
+#20 6.277 Get:3 http://archive.ubuntu.com/ubuntu resolute/main amd64 libunistring5 amd64 1.3-2build1 [610 kB]
+#20 6.474 Get:4 http://archive.ubuntu.com/ubuntu resolute/main amd64 libidn2-0 amd64 2.3.8-4build1 [67.6 kB]
+#20 6.477 Get:5 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libgnutls30t64 amd64 3.8.12-2ubuntu1.1 [1,029 kB]
+#20 6.808 Get:6 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libkrb5support0 amd64 1.22.1-2ubuntu4.1 [33.5 kB]
+#20 6.808 Get:7 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libk5crypto3 amd64 1.22.1-2ubuntu4.1 [82.0 kB]
+#20 6.809 Get:8 http://archive.ubuntu.com/ubuntu resolute/main amd64 libkeyutils1 amd64 1.6.3-6ubuntu3 [10.6 kB]
+#20 6.809 Get:9 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libkrb5-3 amd64 1.22.1-2ubuntu4.1 [361 kB]
+#20 6.835 Get:10 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libgssapi-krb5-2 amd64 1.22.1-2ubuntu4.1 [147 kB]
+#20 6.836 Get:11 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libnghttp2-14 amd64 1.68.0-2ubuntu0.2 [71.0 kB]
+#20 6.837 Get:12 http://archive.ubuntu.com/ubuntu resolute/main amd64 libpsl5t64 amd64 0.21.2-1.1build2 [59.5 kB]
+#20 6.837 Get:13 http://archive.ubuntu.com/ubuntu resolute/main amd64 libsasl2-modules-db amd64 2.1.28+dfsg1-9ubuntu3 [21.1 kB]
+#20 6.837 Get:14 http://archive.ubuntu.com/ubuntu resolute/main amd64 libsasl2-2 amd64 2.1.28+dfsg1-9ubuntu3 [54.0 kB]
+#20 6.850 Get:15 http://archive.ubuntu.com/ubuntu resolute/main amd64 libldap-common all 2.6.10+dfsg-1ubuntu5 [36.0 kB]
+#20 6.889 Get:16 http://archive.ubuntu.com/ubuntu resolute/main amd64 libldap2 amd64 2.6.10+dfsg-1ubuntu5 [204 kB]
+#20 6.999 Get:17 http://archive.ubuntu.com/ubuntu resolute/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-3 [59.0 kB]
+#20 7.068 Get:18 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libssh2-1t64 amd64 1.11.1-1ubuntu0.26.04.4 [138 kB]
+#20 7.150 Get:19 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libcurl4t64 amd64 8.18.0-1ubuntu2.5 [427 kB]
+#20 7.234 Get:20 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 curl amd64 8.18.0-1ubuntu2.5 [272 kB]
+#20 7.372 debconf: unable to initialize frontend: Dialog
+#20 7.372 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#20 7.372 debconf: falling back to frontend: Readline
+#20 7.373 debconf: unable to initialize frontend: Readline
+#20 7.373 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8, <STDIN> line 20.)
+#20 7.373 debconf: falling back to frontend: Teletype
+#20 7.381 debconf: unable to initialize frontend: Teletype
+#20 7.381 debconf: (This frontend requires a controlling tty.)
+#20 7.381 debconf: falling back to frontend: Noninteractive
+#20 7.958 Fetched 4,069 kB in 2s (2,680 kB/s)
+#20 7.972 Selecting previously unselected package libnettle8t64:amd64.
+#20 7.972 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 9734 files and directories currently installed.)
+#20 7.978 Preparing to unpack .../00-libnettle8t64_3.10.2-1_amd64.deb ...
+#20 7.980 Unpacking libnettle8t64:amd64 (3.10.2-1) ...
+#20 7.998 Selecting previously unselected package libhogweed6t64:amd64.
+#20 7.999 Preparing to unpack .../01-libhogweed6t64_3.10.2-1_amd64.deb ...
+#20 8.000 Unpacking libhogweed6t64:amd64 (3.10.2-1) ...
+#20 8.017 Selecting previously unselected package libunistring5:amd64.
+#20 8.018 Preparing to unpack .../02-libunistring5_1.3-2build1_amd64.deb ...
+#20 8.019 Unpacking libunistring5:amd64 (1.3-2build1) ...
+#20 8.044 Selecting previously unselected package libidn2-0:amd64.
+#20 8.045 Preparing to unpack .../03-libidn2-0_2.3.8-4build1_amd64.deb ...
+#20 8.046 Unpacking libidn2-0:amd64 (2.3.8-4build1) ...
+#20 8.063 Selecting previously unselected package libgnutls30t64:amd64.
+#20 8.064 Preparing to unpack .../04-libgnutls30t64_3.8.12-2ubuntu1.1_amd64.deb ...
+#20 8.066 Unpacking libgnutls30t64:amd64 (3.8.12-2ubuntu1.1) ...
+#20 8.093 Selecting previously unselected package libkrb5support0:amd64.
+#20 8.094 Preparing to unpack .../05-libkrb5support0_1.22.1-2ubuntu4.1_amd64.deb ...
+#20 8.095 Unpacking libkrb5support0:amd64 (1.22.1-2ubuntu4.1) ...
+#20 8.111 Selecting previously unselected package libk5crypto3:amd64.
+#20 8.112 Preparing to unpack .../06-libk5crypto3_1.22.1-2ubuntu4.1_amd64.deb ...
+#20 8.113 Unpacking libk5crypto3:amd64 (1.22.1-2ubuntu4.1) ...
+#20 8.130 Selecting previously unselected package libkeyutils1:amd64.
+#20 8.131 Preparing to unpack .../07-libkeyutils1_1.6.3-6ubuntu3_amd64.deb ...
+#20 8.132 Unpacking libkeyutils1:amd64 (1.6.3-6ubuntu3) ...
+#20 8.147 Selecting previously unselected package libkrb5-3:amd64.
+#20 8.148 Preparing to unpack .../08-libkrb5-3_1.22.1-2ubuntu4.1_amd64.deb ...
+#20 8.149 Unpacking libkrb5-3:amd64 (1.22.1-2ubuntu4.1) ...
+#20 8.171 Selecting previously unselected package libgssapi-krb5-2:amd64.
+#20 8.172 Preparing to unpack .../09-libgssapi-krb5-2_1.22.1-2ubuntu4.1_amd64.deb ...
+#20 8.174 Unpacking libgssapi-krb5-2:amd64 (1.22.1-2ubuntu4.1) ...
+#20 8.191 Selecting previously unselected package libnghttp2-14:amd64.
+#20 8.192 Preparing to unpack .../10-libnghttp2-14_1.68.0-2ubuntu0.2_amd64.deb ...
+#20 8.193 Unpacking libnghttp2-14:amd64 (1.68.0-2ubuntu0.2) ...
+#20 8.209 Selecting previously unselected package libpsl5t64:amd64.
+#20 8.210 Preparing to unpack .../11-libpsl5t64_0.21.2-1.1build2_amd64.deb ...
+#20 8.211 Unpacking libpsl5t64:amd64 (0.21.2-1.1build2) ...
+#20 8.225 Selecting previously unselected package libsasl2-modules-db:amd64.
+#20 8.227 Preparing to unpack .../12-libsasl2-modules-db_2.1.28+dfsg1-9ubuntu3_amd64.deb ...
+#20 8.228 Unpacking libsasl2-modules-db:amd64 (2.1.28+dfsg1-9ubuntu3) ...
+#20 8.244 Selecting previously unselected package libsasl2-2:amd64.
+#20 8.245 Preparing to unpack .../13-libsasl2-2_2.1.28+dfsg1-9ubuntu3_amd64.deb ...
+#20 8.247 Unpacking libsasl2-2:amd64 (2.1.28+dfsg1-9ubuntu3) ...
+#20 8.262 Selecting previously unselected package libldap-common.
+#20 8.263 Preparing to unpack .../14-libldap-common_2.6.10+dfsg-1ubuntu5_all.deb ...
+#20 8.266 Unpacking libldap-common (2.6.10+dfsg-1ubuntu5) ...
+#20 8.282 Selecting previously unselected package libldap2:amd64.
+#20 8.283 Preparing to unpack .../15-libldap2_2.6.10+dfsg-1ubuntu5_amd64.deb ...
+#20 8.284 Unpacking libldap2:amd64 (2.6.10+dfsg-1ubuntu5) ...
+#20 8.302 Selecting previously unselected package librtmp1:amd64.
+#20 8.304 Preparing to unpack .../16-librtmp1_2.4+20151223.gitfa8646d.1-3_amd64.deb ...
+#20 8.305 Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-3) ...
+#20 8.320 Selecting previously unselected package libssh2-1t64:amd64.
+#20 8.322 Preparing to unpack .../17-libssh2-1t64_1.11.1-1ubuntu0.26.04.4_amd64.deb ...
+#20 8.323 Unpacking libssh2-1t64:amd64 (1.11.1-1ubuntu0.26.04.4) ...
+#20 8.340 Selecting previously unselected package libcurl4t64:amd64.
+#20 8.341 Preparing to unpack .../18-libcurl4t64_8.18.0-1ubuntu2.5_amd64.deb ...
+#20 8.342 Unpacking libcurl4t64:amd64 (8.18.0-1ubuntu2.5) ...
+#20 8.361 Selecting previously unselected package curl.
+#20 8.362 Preparing to unpack .../19-curl_8.18.0-1ubuntu2.5_amd64.deb ...
+#20 8.363 Unpacking curl (8.18.0-1ubuntu2.5) ...
+#20 8.385 Setting up libkeyutils1:amd64 (1.6.3-6ubuntu3) ...
+#20 8.389 Setting up libnghttp2-14:amd64 (1.68.0-2ubuntu0.2) ...
+#20 8.392 Setting up libldap-common (2.6.10+dfsg-1ubuntu5) ...
+#20 8.396 Setting up libkrb5support0:amd64 (1.22.1-2ubuntu4.1) ...
+#20 8.399 Setting up libsasl2-modules-db:amd64 (2.1.28+dfsg1-9ubuntu3) ...
+#20 8.403 Setting up libnettle8t64:amd64 (3.10.2-1) ...
+#20 8.406 Setting up libunistring5:amd64 (1.3-2build1) ...
+#20 8.409 Setting up libk5crypto3:amd64 (1.22.1-2ubuntu4.1) ...
+#20 8.412 Setting up libsasl2-2:amd64 (2.1.28+dfsg1-9ubuntu3) ...
+#20 8.415 Setting up libhogweed6t64:amd64 (3.10.2-1) ...
+#20 8.418 Setting up libkrb5-3:amd64 (1.22.1-2ubuntu4.1) ...
+#20 8.422 Setting up libssh2-1t64:amd64 (1.11.1-1ubuntu0.26.04.4) ...
+#20 8.425 Setting up libldap2:amd64 (2.6.10+dfsg-1ubuntu5) ...
+#20 8.428 Setting up libidn2-0:amd64 (2.3.8-4build1) ...
+#20 8.432 Setting up libgssapi-krb5-2:amd64 (1.22.1-2ubuntu4.1) ...
+#20 8.436 Setting up libgnutls30t64:amd64 (3.8.12-2ubuntu1.1) ...
+#20 8.441 Setting up libpsl5t64:amd64 (0.21.2-1.1build2) ...
+#20 8.444 Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-3) ...
+#20 8.447 Setting up libcurl4t64:amd64 (8.18.0-1ubuntu2.5) ...
+#20 8.450 Setting up curl (8.18.0-1ubuntu2.5) ...
+#20 8.454 Processing triggers for libc-bin (2.43-2ubuntu2.3) ...
+#20 DONE 8.7s
+
+#21 [runtime 3/6] RUN groupadd --system kivvi && useradd --system --gid kivvi --home-dir /app kivvi
+#21 DONE 0.2s
+
+#22 [frontend-build 5/6] COPY frontend/ ./
+#22 ...
+
+#23 [runtime 4/6] WORKDIR /app
+#23 DONE 0.0s
+
+#22 [frontend-build 5/6] COPY frontend/ ./
+#22 DONE 1.2s
+
+#24 [frontend-build 6/6] RUN npm run build
+#24 0.236 
+#24 0.236 > kivvi-click-frontend@0.1.0 build
+#24 0.236 > vue-tsc --noEmit && vite build
+#24 0.236 
+#24 3.585 vite v8.2.2 building client environment for production...
+#24 3.644 transforming...
+#24 3.959 ✓ 229 modules transformed.
+#24 4.006 rendering chunks...
+#24 4.042 computing gzip size...
+#24 4.045 dist/index.html                   1.32 kB │ gzip:  0.63 kB
+#24 4.045 dist/assets/index-BubHWPzC.css   45.85 kB │ gzip:  8.67 kB
+#24 4.045 dist/assets/index-CtRfNzA4.js   279.59 kB │ gzip: 89.48 kB
+#24 4.045 
+#24 4.045 ✓ built in 459ms
+#24 DONE 4.1s
+
+#25 [backend-build 6/7] COPY --from=frontend-build /frontend/dist/. src/main/resources/static/
+#25 DONE 0.0s
+
+#26 [backend-build 7/7] RUN mvn -q -DskipTests package
+#26 DONE 25.3s
+
+#27 [runtime 5/6] COPY --from=backend-build /backend/target/kivvi-click-*.jar app.jar
+#27 DONE 0.1s
+
+#28 [runtime 6/6] RUN chown -R kivvi:kivvi /app
+#28 DONE 0.2s
+
+#29 exporting to image
+#29 exporting layers 0.0s done
+#29 writing image sha256:f3b9a3a79d54716f108625bebe7588e1bb0777c57b32f2fbd9999e52fd1de3f7 done
+#29 naming to docker.io/library/kivvi-w-shell-api done
+#29 DONE 0.1s
+
+#30 resolving provenance for metadata file
+#30 DONE 0.0s
+ Image kivvi-w-shell-api Built 
+ Network kivvi-w-shell_default Creating 
+ Network kivvi-w-shell_default Creating 
+ Volume kivvi-w-shell_mercure_data Creating 
+ Volume kivvi-w-shell_mercure_config Creating 
+ Volume kivvi-w-shell_mercure_config Creating 
+ Volume kivvi-w-shell_mercure_data Creating 
+ Volume kivvi-w-shell_database_data Creating 
+ Volume kivvi-w-shell_database_data Creating 
+ Volume kivvi-w-shell_mercure_config Created 
+ Volume kivvi-w-shell_mercure_config Created 
+ Volume kivvi-w-shell_database_data Created 
+ Volume kivvi-w-shell_database_data Created 
+ Volume kivvi-w-shell_mercure_data Created 
+ Volume kivvi-w-shell_mercure_data Created 
+ Network kivvi-w-shell_default Created 
+ Network kivvi-w-shell_default Created 
+ Container kivvi-w-shell-database-1 Creating 
+ Container kivvi-w-shell-database-1 Created 
+ Container kivvi-w-shell-api-1 Creating 
+ Container kivvi-w-shell-api-1 Created 
+ Container kivvi-w-shell-mercure-1 Creating 
+ Container kivvi-w-shell-mercure-1 Created 
+ Container kivvi-w-shell-database-1 Starting 
+ Container kivvi-w-shell-database-1 Started 
+ Container kivvi-w-shell-database-1 Waiting 
+ Container kivvi-w-shell-database-1 Healthy 
+ Container kivvi-w-shell-api-1 Starting 
+ Container kivvi-w-shell-api-1 Started 
+ Container kivvi-w-shell-api-1 Waiting 
+ Container kivvi-w-shell-api-1 Healthy 
+ Container kivvi-w-shell-mercure-1 Starting 
+ Container kivvi-w-shell-mercure-1 Started 
+ Container kivvi-w-shell-database-1 Waiting 
+ Container kivvi-w-shell-api-1 Waiting 
+ Container kivvi-w-shell-mercure-1 Waiting 
+ Container kivvi-w-shell-api-1 Healthy 
+ Container kivvi-w-shell-database-1 Healthy 
+ Container kivvi-w-shell-mercure-1 Healthy 

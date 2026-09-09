@@ -1,8 +1,8 @@
-# Verifier packet — wave wave-3 (round 3), dimension contract
+# Verifier packet — wave wave-3 (round 4), dimension contract
 
 Read-only verifier. You receive no worker claims. Inspect the assembled wave SHA from your own detached checkout and return one verdict per journey with evidence paths.
 
-- Wave SHA: 60296f16250c6ebd25f7b4435c795268772fb6be · Journeys: automations, settings, campaigns-email-editor · Checkout: /home/muszkin/work/kivvi-click-wt/verify-wave-3-contract (detached at the wave SHA; do not edit).
+- Wave SHA: 11d3cc49fdc15e6e696c9a6f175d8953caec8a2e · Journeys: automations, settings, campaigns-email-editor · Checkout: /home/muszkin/work/kivvi-click-wt/verify-wave-3-contract (detached at the wave SHA; do not edit).
 - Oracle: /home/muszkin/work/kivvi-click/context/migration-oracle/symfony-to-spring-vue (manifest sha256 4945a8deb19ea342a4aaa2c0ac681dc13f05c121aa387677c30ecf210a90f74f). Deviation table: plan section "Accepted deviations" (DEV-1..DEV-12) and tools/migration-verify/deviations.json.
 - Verifier contract (plan section "Verifier contract"): thresholds and commands for your dimension.
 - Running stack for this SHA (if your dimension needs one): https://localhost:19101 (compose project kivvi-int, edge http 19100), compose project kivvi-int, started by the orchestrator; do not start or stop stacks yourself.
@@ -20,8 +20,10 @@ Java 25: `export JAVA_HOME=/home/muszkin/.cache/kivvi-toolchains/jdk-25; export 
 
 Round 1 for wave-3. Earlier-wave journeys (login, landing, feeds, event-stream, customers, scheduler-heartbeat) are regression guards only. Shell changes landed in this wave and MUST be covered by your regression guard where your dimension applies: (1) vue-router `scrollBehavior` + reload scroll restoration (`frontend/src/router/scrollRestoration.ts`, `router/index.ts`), (2) generic locale toggle via `route.meta.defaultParams` (`frontend/src/router/localeHref.ts`, `Topbar.vue`). e2e: `events.spec.ts` and `navigation.spec.ts` run with `--workers=1`; in `navigation.spec.ts` exactly the popups/import sidebar tests are expected to fail (wave-4 routes are still `EmptyPageView`) — any other failure is a regression. Contract dimension runs ALONE on the shared stack (the orchestrator sequences it after e2e/visual); `/collect` traffic from other verifiers contaminates `db.json` deltas.
 
-## Round 3 note
+## Round 4 note
 
-Cohort round 3 after repairs (round-1/round-2 evidence archived under waves/wave-3/round-1/ and round-2/ — do not read it; verify afresh). Repairs since round 1: B01-labelled real-HTTP ITs and frontend integration tests for settings and campaigns/email-editor rows; `LocaleToggle.spec.ts` and `ScrollRestoration.spec.ts` integration tests; reload detection via a history.state marker (compare.mjs freezes the page clock, so Navigation Timing is empty under the verifier).
+Cohort round 4 after repairs (earlier evidence archived under waves/wave-3/round-1..3/ — do not read it; verify afresh). Repairs since round 1: B01-labelled real-HTTP ITs and frontend integration tests for settings and campaigns/email-editor rows; `LocaleToggle.spec.ts` and `ScrollRestoration.spec.ts` integration tests; reload detection via a history.state marker (compare.mjs freezes the page clock, so Navigation Timing is empty under the verifier).
 
 Round-3 repair: preference POSTs (theme, sidebar) now use fetch keepalive so they survive an immediate reload; e2e must run navigation.spec.ts --workers=1 FIVE times (exactly popups+import failing each time).
+
+Round-4 repair: backend `SessionRequestSerializationFilter` serializes requests of the same session (PHP session-lock parity) so a reload's shell GET waits for an in-flight preference POST; requests without the SESSION cookie (e.g. /collect) are unaffected. e2e: navigation.spec.ts --workers=1 FIVE times, exactly popups+import failing each time; contract: login and shell-navigation guards must show 0 regressions; performance budgets incl. collectP95 must hold.
