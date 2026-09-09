@@ -202,3 +202,86 @@ This directly satisfies MEDIUM-1 from the review (a Vitest case pinning `setting
 - `tools/migration-verify/deviations.json` — **not touched** (no DEV row added, per instruction)
 
 No backend files changed in this repair.
+
+## Repair-2
+
+**New candidate SHA:** `049b142d42ff81b2b86f7637dc580ea8d7b3f2f3`
+**Previous candidate SHA:** `4bb3b83459e0734dfc4bfc7c3ac7b3e19f1afa75`
+
+```
+$ git log --oneline b87a701..HEAD
+049b142 fix: preserve the file-trailing-newline space between adjacent table-row action buttons (#settings)
+4bb3b83 fix: generalize the locale-toggle default-param omission via route meta (#settings)
+bddc537 feat: add settings page with eight tabs (#settings)
+```
+
+`git status --porcelain` clean after the commit, in both the worktree and the main `kivvi-click` checkout (only this run's own evidence directory is untracked there). Both stacks torn down: `kivvi-w-settings` (`down -v`, image `kivvi-w-settings-api` removed) and the read-only old stack (`docker compose -p kivvi-oracle down -v --remove-orphans`, image `app-php-dev` removed).
+
+DEV-14 (proposed in Repair-1) is **withdrawn** — the orchestrator's old-stack rebuild proved step 5 is a real port defect, not environmental. Repair-1's font/browser-version diagnosis was itself correct on its own narrow terms (real Chrome 152, `document.fonts.ready` confirmed, no markup difference found in the cells inspected) — the miss was scope: R2-A's direct DOM diff found the actual differing content, which R1-A's screenshot/rect-based approach never looked at, because it never rendered a real old-stack page to compare cell computed-styles or text-node content against.
+
+### R2-A — direct DOM diff against a live old stack: root cause found
+
+Ran the old Symfony stack read-only (`docker compose -p kivvi-oracle up -d --build --wait` from `/home/muszkin/work/kivvi-click`, ports 18080/18443, never edited) and the candidate stack side by side, both at 1440×900 with the same 5-step click-through navigation as `capture-oldstack.mjs`. Dumped, for every node under `.card table.table` (74 nodes each — same count, same tag/class shape, confirmed no missing/extra elements): `getBoundingClientRect()`, the computed-style properties listed in the packet, and every direct-child text node's `JSON.stringify`'d content. Full dumps: `evidence/repair-2/oldstack-dom-dump.json`, `evidence/repair-2/candidate-dom-dump.json`; diff: `evidence/repair-2/diff-report.txt`.
+
+**Diff table (`.table` columns, old vs candidate, before the fix):**
+
+| Column | old x | old width | candidate x | candidate width | Δwidth |
+| --- | --- | --- | --- | --- | --- |
+| NAZWA | 521.0000 | 158.6719 | 521.0000 | 159.4219 | −0.7500 |
+| KLUCZ | 679.6719 | 158.8750 | 680.4219 | 159.2656 | −0.3906 |
+| ZAKRESY | 838.5469 | 245.7969 | 839.6875 | 246.9063 | −1.1094 |
+| UTWORZONY | 1084.3438 | 103.8594 | 1086.5938 | 103.9688 | −0.1094 |
+| OSTATNIE UŻYCIE | 1188.2031 | 127.8125 | 1190.5625 | 128.3125 | −0.5000 |
+| (actions) | 1316.0156 | **94.9844** | 1318.8750 | **92.1250** | **+2.8594** |
+
+Table's own rect (x=521, width=890) is pixel-identical in both — ruling out sidebar/card/scrollbar-gutter width differences (also confirmed: `document.documentElement.clientWidth` = 1440 in both, no scrollbar). Every column but ACTIONS is narrower in old stack (auto-table-layout borrowing width from them); ACTIONS is the one column that's **wider** in old stack — the outlier, and the actual cause.
+
+**The differing element:** `table>tbody[1]>tr[0]>td[5]` (the row-actions cell, copy+trash buttons). Its two `<button>` elements are pixel-identical in both stacks (32×24px, same 14×14 SVG, same `rect`/`path`/`polyline` sub-paths — confirmed via the computed-style and rect dump, zero diffs on the button/icon elements themselves). The difference is the cell's **own child text nodes**:
+
+```
+table>tbody[1]>tr[0]>td[5]:
+    old:       ["\n", "\n"]
+    candidate: []
+```
+
+`templates/components/atoms/button.html.twig` ends its literal file content with `</{{ tag }}>\n` — a real trailing newline byte after the closing tag (confirmed via `python3 -c "open(...,'rb').read()[-60:]"`: `b"...{% endif %}\n</{{ tag }}>\n"`). `api.html.twig` (and `team.html.twig`) concatenate two `include('button.html.twig', …)` calls with Twig's `~` and nothing else between them — but because **each include's own returned string carries its file's trailing `\n`**, the actual concatenated HTML is `<button…>…</button>\n<button…>…</button>\n`: a genuine newline text node sitting between the two buttons. `td` is a plain table cell (`display: table-cell`, no `gap`), not a flex container, so that whitespace is not stripped — normal CSS collapsing renders it as one space between the buttons (the trailing one, after the second button, is at the block's own trailing edge and is dropped, matching the dump's "leading node stripped, one space rendered" pattern already established for the ZAKRESY chips in the original slice).
+
+Vue's compiler drops **all** whitespace-with-a-newline between sibling elements at compile time — there is no equivalent "each SFC's own file ends in a newline" mechanism for it to reproduce, so `<Button/>\n<Button/>` in a `.vue` template renders with **zero** space between them. This under-claims roughly one space-character's width (`~2.86px` at this font/size) in the ACTIONS column's natural (max-content) width, which is enough for Blink's `table-layout: auto` redistribution (already shown in Repair-1 to operate as a sub-1px step function for this specific table) to give ACTIONS ~3px more than it needs and take that ~3px from every other column, tipping NAZWA (and, on inspection, KLUCZ and the header) just over their own wrap thresholds.
+
+This is the exact same defect class as the ZAKRESY chip-separator bug already fixed in the original slice (`highlight`/chip work) — a Twig-file-boundary whitespace quirk with no Vue-native equivalent — just not caught for the two-button case because it never showed up as a *text content* mismatch (`visual.texts` was `parity` for step 5 throughout, since the missing text node is pure whitespace and both wrapped/unwrapped renders produce the same `innerText`), only as a screenshot/layout mismatch.
+
+### Fix (never CSS)
+
+- `frontend/src/components/settings/ApiTab.vue` — API-keys row actions (copy + trash): inserted `{{ " " }}` between the two `<Button>` components, with a comment explaining the file-trailing-newline mechanism.
+- `frontend/src/components/settings/TeamTab.vue` — team row actions (edit + remove): same fix, same root cause (`team.html.twig` has the identical `~`-concatenation pattern).
+
+Audited every other multi-button/multi-chip adjacency in the journey for the same risk before concluding these were the only two instances needing it:
+- Account-tab footer (cancel+save), sites-tab chip row, provider-tab DPA-style chip rows, GDPR DPA button row, provider row's edit+test buttons, webhook row's test+edit buttons (`HookRow.vue`, inside `.hook-row` which is `display:flex; gap:12px`) — all wrapped in a `display:flex` container with an explicit `gap` in the shared CSS (`.row { display:flex; gap:10px }`, `.hook-row`, `.provider-row`), matching the old stack's own wrapping `<div class="row" style="gap:…">`. A flex container's pure-whitespace child text nodes are dropped by the rendering engine regardless of origin, and the explicit `gap` supplies the correct spacing either way — confirmed via the CSS source (`assets/styles/03-components.css:765`, `04-patterns.css:1629,1656`), not fixed because there is nothing to fix.
+- The two table-cell cases fixed above (`ApiTab.vue`, `TeamTab.vue`) are the only two-button pairs rendered as **direct, unwrapped `<td>` children** with no flex/gap container — exactly where the old stack's per-file trailing newline is not absorbed by anything and becomes a real rendered space.
+
+Not CSS: no `.table td`/`.btn`/`.chip` rule was touched; the fix is markup-only (an explicit text node), matching the packet's "never CSS" instruction.
+
+### Gate table (candidate `049b142`)
+
+| # | Command | cwd | Exit | Evidence |
+| --- | --- | --- | --- | --- |
+| 1 | `./mvnw -q test` | `backend/` | 0 | `evidence/repair-2-gates/backend-test.log` (backend unchanged this repair; re-run regardless) |
+| 2 | `./mvnw -q verify` | `backend/` | 0 | `evidence/repair-2-gates/backend-verify.log` |
+| 3 | `npm run test -- --run` | `frontend/` | 0 | `evidence/repair-2-gates/frontend-unit-test.log` — 95/95 |
+| 4 | `npm run test:integration -- --run` | `frontend/` | 0 | `evidence/repair-2-gates/frontend-integration-test.log` — 57/57 |
+| 5 | `npm run lint` | `frontend/` | 0 | `evidence/repair-2-gates/frontend-lint.log` — 0 errors, 6 warnings (all pre-existing) |
+| 6 | `npm run typecheck` | `frontend/` | 0 | `evidence/repair-2-gates/frontend-typecheck.log` |
+| 7 | `npm run format:check` | `frontend/` | 0 | `evidence/repair-2-gates/frontend-format-check.log` |
+| 8 | `npm run build` | `frontend/` | 0 | `evidence/repair-2-gates/frontend-build.log` |
+| 9 | `compare.mjs --journey settings --dimension contract` | repo root | 0 | `evidence/repair-2-gates/compare-settings-contract.txt` — 0 regressions |
+| 10 | `compare.mjs --journey settings --dimension visual` | repo root | 0 | `evidence/repair-2-gates/compare-settings-visual.txt` + `.../compare/settings-visual-final/settings/report.md` — **0 regressions, all 10 steps, step 5 desktop 0.000% (was 7.431%)** |
+| 11 | `E2E_BASE_URL=... npx playwright test settings.spec.ts` | `tests/e2e/` | 0 | `evidence/repair-2-gates/e2e-settings.txt` — 12/12 |
+
+**Gate 5 (visual) is now fully green with zero deviations, zero masks, zero accepted regressions — settings journey is WAVE_PARITY_GREEN on this dimension.**
+
+### Files changed in this repair
+
+- `frontend/src/components/settings/ApiTab.vue` (edited)
+- `frontend/src/components/settings/TeamTab.vue` (edited)
+
+No backend files, no shared/out-of-allowlist files, no `deviations.json` changes in this repair.
