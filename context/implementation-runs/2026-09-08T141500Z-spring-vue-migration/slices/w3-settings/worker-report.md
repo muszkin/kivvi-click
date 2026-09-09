@@ -285,3 +285,58 @@ Not CSS: no `.table td`/`.btn`/`.chip` rule was touched; the fix is markup-only 
 - `frontend/src/components/settings/TeamTab.vue` (edited)
 
 No backend files, no shared/out-of-allowlist files, no `deviations.json` changes in this repair.
+
+## Repair-3
+
+**Worktree:** `/home/muszkin/work/kivvi-click-wt/w3-settings-r3` (fresh, orchestrator-created), branch `migration/wave-3/settings-repair3`.
+**New candidate SHA:** `0a337f9c287aa997fb6b95d6acb713cfbec33d79`
+**Base SHA:** `32a68311594e611aaa8eaa0803bc72bba7d735a9` (the integrated wave-3 cohort)
+
+```
+$ git log --oneline 32a6831..HEAD
+0a337f9 test: label B01 settings coverage at integration level (#settings)
+```
+
+Identity guard passed at start (`git rev-parse HEAD` == base SHA `32a6831`, `git status --porcelain` empty). Working tree clean after the commit. Test-only change: no compose stack was started (none needed — no visual/contract/e2e gates required by this packet), so nothing needed tearing down.
+
+### R-A — B01 traceability at integration level
+
+**Backend (`backend/src/test/java/click/kivvi/SettingsApiIT.java`):** added 8 new real-HTTP `@Test` cases, one per settings row, following the exact convention `AutomationsApiIT`/`EventsApiIT` use (plain `@Test` methods, no parameterization — this codebase's IT files don't use `@ParameterizedTest` anywhere, so none was introduced here either). Each case:
+1. `GET /pl/settings/{tab}` → 200, body contains `"<html"` (the shell marker — matches `AutomationsApiIT`'s B01 pattern).
+2. `GET /api/v1/pl/settings/{tab}` → 200, `tab` field matches, `tabSubtitle` equals the exact marker string the old `PanelPagesTest::pages()` data provider paired with that row's URL (a `.card-title` selector text in the old test; the new stack's document route serves the SPA shell only — card titles render client-side, which `TestRestTemplate` never executes, so the JSON-carried `tabSubtitle` stands in as the "api marker", exactly the choice `EventsApiIT`'s own B01 comment already documents as the norm for this codebase: DOM markup verification is the e2e suite's job, not the real-HTTP IT's).
+
+Rows covered: `account` ("Dane firmy, faktury i preferencje właściciela konta."), `sites` ("Domeny objęte trackingiem oraz instalacja skryptu."), `team` ("Osoby z dostępem do panelu, ich role i zaproszenia."), `providers` ("Skąd wychodzą Twoje e-maile i jak radzą sobie z dostarczalnością."), `api` ("Klucze API, webhooks i logi wywołań."), `notifications` ("Kiedy Kivvi ma Cię powiadomić i którym kanałem."), `billing` ("Plan, wykorzystanie limitów, metoda płatności i faktury."), `gdpr` ("Retencja danych, umowa powierzenia i obsługa żądań podmiotów.") — all 8 values cross-checked against `SettingsFixtures.java`'s `SUBTITLES` map (byte-identical to the old `SettingsCatalog::SUBTITLES` entries). Confirmed via `-Dtest=SettingsApiIT`: 12 tests run (8 new + 4 pre-existing), 0 failures.
+
+The pre-existing B32 payload-shape test (`settingsPayloadMatchesTheOracleThroughTheRealHttpLayer`) and the two B06/DEV-12 404 tests were left untouched — different concerns (full payload shape; unknown-tab 404), not B01.
+
+**Frontend (`frontend/test/integration/SettingsView.spec.ts`):** relabeled 5 existing tests with a "B01" prefix — the one that most literally matches the packet's "shows its own page title" (`.page-title`/`.page-sub` assertion), plus the four `"the <tab> tab shows its marker text"` tests (account/team/billing/gdpr) that directly reproduce `PanelPagesTest`'s per-row `.card-title` markers (`"Dane konta"`, `"Członkowie zespołu"`, `"Wykorzystanie limitów"`; gdpr's existing assertion checks a second, also-tab-unique card title, `"Retencja danych"`, rather than the old test's first-card `"Umowa powierzenia (DPA)"` — the comment now says so explicitly rather than overclaiming an exact match). No assertions were changed, only `@DisplayName`/test-name text — all 14 tests in the file still pass.
+
+### R-B — LocaleToggle integration test through the real router/AppLayout
+
+Added `frontend/test/integration/LocaleToggle.spec.ts`, mirroring `CustomerDetailSidebarSection.spec.ts`'s exact mounting pattern (real `AppLayout` + real `vue-router` history + a stubbed `GET /api/v1/{locale}/shell`, standing in for the document route) rather than calling `buildLocaleHref()` directly — the chain under test is router → `AppLayout` → `AppShell` → `Topbar`'s `localeHref` computed, reading `useRoute()`/`useRouter()` from the same router instance the app navigated with. Three cases, all against the real `a.tb-btn` element's `href` attribute:
+- `/pl/settings/account` (settings' own default tab) → `/en/settings` (segment omitted).
+- `/pl/settings/billing` (non-default tab) → `/en/settings/billing` (segment kept).
+- `/pl/customers/c_1001` (a route with no `meta.defaultParams`) → `/en/customers/c_1001` (unmodified prefix swap, proving the mechanism is opt-in per route and doesn't affect routes that never declared a default).
+
+All 3 pass.
+
+### Gate table (candidate `0a337f9`)
+
+| # | Command | cwd | Exit | Evidence |
+| --- | --- | --- | --- | --- |
+| 1 | `./mvnw -q test` | `backend/` | 0 | `evidence/repair-3-gates/backend-test.log`; isolated `-Dtest=SettingsApiIT` also run directly (not `-q`, full console captured) confirming 12/12 |
+| 2 | `./mvnw -q verify` | `backend/` | 0 | `evidence/repair-3-gates/backend-verify.log` — first attempt failed on `spotless:check` (the new Javadoc comment's line-wrapping), fixed with `mvn spotless:apply`, re-run clean; the `HikariPool`/`SPRING_SESSION` I/O-error warnings visible mid-log are the scheduled session-cleanup task racing Testcontainers' Postgres teardown — benign, pre-existing noise (present in every prior `mvn verify` run of this journey too), not a test failure: confirmed no `Tests run: … Failures: …` summary or `BUILD FAILURE` accompanies them, and the run is green end to end once spotless was fixed |
+| 3 | `npm run test -- --run` | `frontend/` | 0 | `evidence/repair-3-gates/frontend-unit-test.log` — 125/125 (21 files; this worktree also carries the integrated automations/campaigns-email-editor journeys' own unit tests) |
+| 4 | `npm run test:integration -- --run` | `frontend/` | 0 | `evidence/repair-3-gates/frontend-integration-test.log` — 86/86 (15 files, incl. the new `LocaleToggle.spec.ts`) |
+| 5 | `npm run lint` | `frontend/` | 0 | `evidence/repair-3-gates/frontend-lint.log` — 0 errors, 6 warnings (all pre-existing `vue/multiline-html-element-content-newline`, none in the files touched this repair) |
+| 6 | `npm run typecheck` | `frontend/` | 0 | `evidence/repair-3-gates/frontend-typecheck.log` |
+| 7 | `npm run format:check` | `frontend/` | 0 | `evidence/repair-3-gates/frontend-format-check.log` (after one `prettier --write` pass on the two touched spec files) |
+| — | `compare.mjs` / Playwright | — | — | **Skipped, as authorized** — test-only change, packet explicitly allows skipping these; no compose stack was started |
+
+### Files changed in this repair
+
+- `backend/src/test/java/click/kivvi/SettingsApiIT.java` (edited — 8 new B01 row tests)
+- `frontend/test/integration/SettingsView.spec.ts` (edited — 5 tests relabeled B01, no assertions changed)
+- `frontend/test/integration/LocaleToggle.spec.ts` (new)
+
+Test-only, as required: no production code, no `deviations.json`, no shared/out-of-allowlist files touched.
