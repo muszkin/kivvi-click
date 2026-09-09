@@ -242,3 +242,125 @@ Host disk stayed tight throughout (5.3-6.8 GB free on a 98 GB volume at ~94-95% 
 removed via `docker compose ... down -v` + `docker image rm kivvi-w-import-api` immediately after
 its gates finished, before moving on. No leftover `kivvi-w-import*` containers, images or volumes
 at handoff (confirmed via `docker ps -a` / `docker images` / `docker volume ls`, all empty).
+
+## Repair-1
+
+**Ruling:** DEV-14 and `compare.mjs`'s "fewer candidate entries" tolerance rejected — workers may
+not add deviation rows; the plan's breaking-change-catalog row was never approved as a DEV. The
+zero-change rule wins: the SPA must reproduce `assets/controllers/upload.ts`'s own redirect
+handling exactly (`if (r.redirected) window.location.href = r.url` — a full document navigation),
+not `router.push`.
+
+**New candidate SHA: `9a9aeaa`**
+
+```
+9a9aeaa fix: follow the upload redirect with a full navigation like the old stack (#import-wizard)
+6ed54e9 test: label the B01 import document-render cases explicitly (#import-wizard)
+e053255 fix: accept the upload step's router-handled redirect in the contract verifier (#import-wizard)
+ca8dd0a feat: implement the four-step import wizard and file upload (#import-wizard)
+```
+
+`git status --porcelain` empty in the worktree. Single new commit
+`fix: follow the upload redirect with a full navigation like the old stack (#import-wizard)` on
+top of `6ed54e9`, Conventional Commits, English, no trailers.
+
+### What was reverted / changed
+
+- **`frontend/src/components/molecules/Dropzone.vue`**: `send()` now does exactly what
+  `upload.ts` did — `const response = await fetch("/import/upload", { method: "POST", body });
+  if (response.redirected) { window.location.href = response.url; }`. Removed `useRouter`/the
+  `router.push` call entirely; request shape (`fetch`, same `file` FormData field, default
+  credentials, no extra headers) was never touched by the earlier version either, so it is
+  unchanged.
+- **`frontend/src/views/ImportView.vue`**: removed `watch(step, load)` and the now-unused `watch`
+  import. It existed only to re-fetch after Dropzone's `router.push`; with that gone, no code
+  anywhere in this journey ever calls `router.push` (`grep -rn "router.push" frontend/src/…`
+  confirms zero matches under `components/import/`, `components/molecules/{Dropzone,Stepper}.vue`
+  and this view), so every transition is a real document request and `onMounted(load)` alone is
+  correct — keeping the `watch` would have been dead code referencing a mechanism that no longer
+  exists.
+- **`tools/migration-verify/compare.mjs`**: `compareHttp()` restored verbatim to its pre-DEV-14
+  form (the `acceptsOneFewerForRouterRedirect` branch and its comment removed; hard
+  `core.length !== oracleEntries.length` → `regression` check is unconditional again, exactly as
+  wave-0 wrote it). The `dbCounts()` filesystem counter for `var/import files` (`importFileCount()`,
+  added to `dbCounts()`'s return value) was **kept**: the oracle's own
+  `journeys/import-wizard/db.json` genuinely records `"var/import files": {before: 0, after: 1,
+  delta: 1}` (re-checked directly against that file for this repair), so removing the counter
+  would silently stop verifying a real, oracle-recorded side effect — the repair packet's own
+  instruction #2 conditioned removal on the key *not* existing, which is not the case here.
+- **`tools/migration-verify/deviations.json`**: the `DEV-14` object removed entirely. `DEV-5`'s
+  `mapping` keeps its `"var/import files": ["var/import files"]` entry (same reasoning: the oracle
+  key exists). `DEV-12`'s `steps` object keeps `"import-wizard": [10]` (undisputed, 404-document
+  case, unrelated to this repair).
+- **`frontend/test/unit/importComponents.spec.ts`**: Dropzone's two redirect tests rewritten to
+  assert a full navigation instead of a router transition. `window.location`/`location.href`'s
+  property descriptors are non-configurable in jsdom (`Object.getOwnPropertyDescriptor(window,
+  "location").configurable === false`, confirmed empirically both standalone and inside this
+  project's own vitest environment) — neither `delete window.location` nor
+  `Object.defineProperty(window, "location", …)` can replace them, and a real assignment triggers
+  jsdom's "Not implemented: navigation to another Document" `console.error`, which the frontend's
+  fail-on-warning test policy (`test/setup.ts`) turns into a false test failure. `vi.stubGlobal
+  ("location", { href: "…" })` swaps the whole binding on `globalThis` (bypassing the existing
+  accessor entirely, confirmed working both standalone and in-suite) rather than writing through
+  it, so the component's own `window.location.href = response.url` assignment lands on a plain,
+  inspectable stub. Also dropped the now-unneeded router plugin from all three Dropzone tests
+  (Dropzone no longer calls `useRouter()`).
+- **`frontend/test/integration/ImportView.spec.ts`**: removed the
+  "step-param-only route change (router.push, no remount) re-fetches" test — the behaviour it
+  proved (an SPA-internal step transition) no longer exists by design after this repair; keeping
+  it would have been asserting dead behaviour (and would in fact now fail, correctly, since
+  `ImportView.vue` no longer watches `step`).
+
+### Step 9 http.jsonl — oracle vs. candidate, side by side
+
+Oracle (`context/migration-oracle/symfony-to-spring-vue/journeys/import-wizard/steps/9/http.jsonl`):
+
+```
+xhr      POST /import/upload   302  -> /pl/import/2
+xhr      GET  /pl/import/2     200
+document GET  /pl/import/2     200
+```
+
+Candidate (`evidence/repair-1-gates/candidate-step9-http.jsonl`, captured during the contract run
+below):
+
+```
+xhr      POST /import/upload      302  -> /pl/import/2
+xhr      GET  /pl/import/2        200
+document GET  /pl/import/2        200
+xhr      GET  /api/v1/pl/import/2 200   (DEV-4 apiBaseline — excluded from the 3-entry "core" tally)
+xhr      GET  /api/v1/pl/shell?route=import 200   (DEV-4 apiBaseline — same)
+```
+
+The three core entries are byte-for-byte identical in kind, method, path, status and redirect
+`Location` — no count mismatch, no new deviation. `compare.mjs`'s report confirms this: step 9's
+verdict is `accepted-deviation(DEV-4,DEV-5)`, the same generic verdict every other step gets — no
+step-9-specific tolerance appears anywhere in the report.
+
+### Gate table (candidate SHA `9a9aeaa`)
+
+| # | Command | cwd | Exit | Evidence |
+| --- | --- | --- | --- | --- |
+| 1 | `./mvnw -q test` | `backend` | 0 (266, unchanged — backend untouched by this repair) | `evidence/repair-1-gates/mvn-test.txt` |
+| 2a | `./mvnw -q verify` | `backend` | 0 (341, unchanged) | `evidence/repair-1-gates/mvn-verify.txt` |
+| 2b | `npm run test:integration -- --run` | `frontend` | 0 (95 — one fewer than before, the removed dead-behaviour test) | `evidence/repair-1-gates/npm-test-integration.txt` |
+| 3 | ArchUnit (inside gate 1/2a) | `backend` | 0 | included above |
+| 3b | `npm run lint` | `frontend` | 0 (0 errors, same 8 pre-existing warnings as before) | `evidence/repair-1-gates/npm-lint.txt` |
+| 3c | `npm run typecheck` | `frontend` | 0 | `evidence/repair-1-gates/npm-typecheck.txt` |
+| 4a | `./mvnw -q spotless:check` | `backend` | 0 | `evidence/repair-1-gates/mvn-spotless.txt` |
+| 4b | `npm run format:check` | `frontend` | 0 | `evidence/repair-1-gates/npm-format-check.txt` |
+| 4c | `npm run build` | `frontend` | 0 (308 kB JS / 96.4 kB gzip — unchanged) | `evidence/repair-1-gates/npm-build.txt` |
+| 5a | `compare.mjs --journey import-wizard --dimension visual` | repo root | 0 (0 regressions) | `evidence/repair-1-gates/compare-visual.txt` |
+| 5b | `compare.mjs --journey import-wizard --dimension contract` | repo root | 0 (0 regressions, **no new deviation** — step 9 now `accepted-deviation(DEV-4,DEV-5)`, the same verdict as every other step) | `evidence/repair-1-gates/compare-contract.txt` |
+| 6a | `E2E_BASE_URL=https://localhost:19121 npx playwright test import.spec.ts` | `tests/e2e` | 0 (6/6) | `evidence/repair-1-gates/e2e-import-spec.txt` |
+| 6b | `E2E_BASE_URL=https://localhost:19121 npx playwright test navigation.spec.ts --workers=1` | `tests/e2e` | 1 (13/14 — only "popups" fails, unrelated to this journey/branch; "import" passes) | `evidence/repair-1-gates/e2e-navigation-spec.txt` |
+| — | `npm run test -- --run` | `frontend` | 0 (137, unchanged) | `evidence/repair-1-gates/npm-test.txt` |
+
+Sonar: not applicable. Introduced dependencies: none. Secrets grep on the repair diff: none found.
+Docker: built `kivvi-w-import-api` once for this repair's stack-based gates, removed
+(`down -v` + `docker image rm`) immediately after; `docker ps -a`/`docker images`/`docker volume
+ls` filtered on `kivvi-w-import` all empty at handoff.
+
+Report and evidence were written directly to the main checkout
+(`/home/muszkin/work/kivvi-click/context/implementation-runs/…`), never committed on the
+`migration/wave-4/import-wizard` branch.
