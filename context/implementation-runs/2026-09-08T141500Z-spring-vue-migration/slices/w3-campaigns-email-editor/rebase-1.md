@@ -1,0 +1,8 @@
+# Rebase packet w3-campaigns-email-editor / rebase-1 (onto feature HEAD 2ca5f07 = automations integrated)
+
+Same worktree /home/muszkin/work/kivvi-click-wt/w3-campaigns-email-editor, branch migration/wave-3/campaigns-email-editor (currently 4530eb2 on b87a701). HIGH reasoning effort.
+
+1. `git rebase 2ca5f07cf0dfc405feb6b13a9302883f134c328b`. Expected conflicts: `frontend/src/router/routes.ts` and `frontend/src/composables/useIntents.ts` — both are additive: keep BOTH sides (automations' routes/imports/intents from HEAD and yours), preserve the file's existing ordering convention (routes in sidebar order; intents grouped as the file does), no duplicate keys, no other edits. Resolve nothing semantically beyond the union; if any other file conflicts, stop and report.
+2. After the rebase, `git range-diff b87a701..4530eb2 2ca5f07..HEAD` must show only the conflict-resolution hunks in those two files; save it to evidence/rebase-1/range-diff.txt.
+3. Gates on the rebased HEAD (logs under evidence/rebase-1-gates/): `./mvnw -q test`, `./mvnw -q verify`, `npm run test -- --run`, `npm run test:integration -- --run`, `npm run lint`, `npm run typecheck`, `npm run format:check`, `npm run build`, stack up (kivvi-w-campaigns, 19080/19081) → `compare.mjs --journey campaigns-email-editor --dimension visual` and `--dimension contract` (0 regressions) → `lists.spec.ts -g campaigns`, `editors.spec.ts -g "email editor"`, `automations.spec.ts` (regression guard for the union) → `down -v`, image removed.
+4. Append "## Rebase-1" to worker-report.md: resolved hunks (quote them), range-diff summary, gate table, the rebased HEAD SHA, `git log --oneline 2ca5f07..HEAD`, clean status.
