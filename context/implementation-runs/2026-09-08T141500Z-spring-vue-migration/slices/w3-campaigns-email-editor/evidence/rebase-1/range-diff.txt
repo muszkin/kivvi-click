@@ -1,0 +1,28 @@
+1:  41dd5cb ! 1:  49f21bb feat: add campaigns index and e-mail template editor (#campaigns-email-editor)
+    @@ frontend/src/composables/useEditorDrag.ts (new)
+     
+      ## frontend/src/composables/useIntents.ts ##
+     @@ frontend/src/composables/useIntents.ts: export function useIntents(): void {
+    -         window.location.href = `/${shell.locale}/customers/${payload}`;
+    +         window.location.href = `/${shell.locale}/automations/${payload}`;
+          });
+      
+     +    // A campaigns-index row declares only the campaign id; this builds the same
+    @@ frontend/src/i18n/messages/campaigns.pl.ts (new)
+     +};
+     
+      ## frontend/src/router/routes.ts ##
+    -@@ frontend/src/router/routes.ts: import type { RouteRecordRaw } from "vue-router";
+    - import AppLayout from "@/layouts/AppLayout.vue";
+    - import AuthLayout from "@/layouts/AuthLayout.vue";
+    +@@ frontend/src/router/routes.ts: import AuthLayout from "@/layouts/AuthLayout.vue";
+      import PublicLayout from "@/layouts/PublicLayout.vue";
+    + import AutomationEditorView from "@/views/AutomationEditorView.vue";
+    + import AutomationsView from "@/views/AutomationsView.vue";
+     +import CampaignsView from "@/views/CampaignsView.vue";
+      import CustomerView from "@/views/CustomerView.vue";
+      import CustomersView from "@/views/CustomersView.vue";
+2:  4829252 = 2:  2f7128d fix: capture response body for full-parity paths reached via a click step (#campaigns-email-editor)
+3:  4530eb2 = 3:  616abbb fix: replace native reload scroll restoration with a hydration-aware manual one (#campaigns-email-editor)
+4:  ddcc853 = 4:  ebc6fd6 fix: use vue-router scrollBehavior instead of a global manual scroll-restoration flag (#campaigns-email-editor)
+5:  d0412c2 = 5:  3157a5f fix: add a same-href reload fallback for vue-router's non-functional history.state.scroll restore (#campaigns-email-editor)

@@ -239,3 +239,220 @@ Finding A from `review.md` is resolved: `compare.mjs --dimension visual` for
 journeys (`login`, `customers`, `event-stream`) confirm the fix does not disturb any other page's
 scroll/reload behaviour. Nothing else from the review was reopened (B and C were already
 "confirmed"/passing, not blockers).
+
+## Repair-2
+
+`review-repair-1.md` verdict: FAIL. Rubric 4 (evidence) and the reload fix itself were fine, but
+rubric 1(b) found a new, undisclosed regression: repair-1 set `history.scrollRestoration =
+"manual"` unconditionally and globally, and only ever listened for `pagehide` — never `popstate`
+— so a same-document in-app **back/forward** navigation silently lost the browser's native scroll
+memory app-wide, with nothing replacing it. Proven by the reviewer with an isolated
+`pushState`+`goBack()` probe (scrollY 1000→1000 with native `"auto"`, 1000→200 with repair-1's
+`"manual"`).
+
+**Candidate SHA (pre-rebase): `d0412c272e076916f351a2a101f20619075f4582`**
+
+```
+git log --oneline 4530eb2..d0412c2
+d0412c2 fix: add a same-href reload fallback for vue-router's non-functional history.state.scroll restore (#campaigns-email-editor)
+ddcc853 fix: use vue-router scrollBehavior instead of a global manual scroll-restoration flag (#campaigns-email-editor)
+```
+
+### R2-A mechanism
+
+Removed `history.scrollRestoration` management and the `pagehide`-based sessionStorage mechanism
+from repair-1; replaced with vue-router's own `scrollBehavior` router option
+(`frontend/src/router/index.ts`, authorized). Verified in
+`node_modules/vue-router/dist/vue-router.js`:
+- **line 1162**: `if (isBrowser && options.scrollBehavior && "scrollRestoration" in history)
+  history.scrollRestoration = "manual";` — vue-router itself flips the flag, only when
+  `scrollBehavior` is configured, and only ever to `"manual"`.
+- **lines 76-77**: `createWebHistory()`'s own `useHistoryListeners` attaches **both**
+  `window.addEventListener("popstate", popStateHandler)` and
+  `window.addEventListener("pagehide", beforeUnloadListener)` unconditionally — this is exactly
+  the `popstate` coverage repair-1 was missing.
+- **line 1429**: the `popstate` handler calls `saveScrollPosition(getScrollKey(from.fullPath,
+  info.delta))` before handling a back/forward navigation — vue-router's own, separate,
+  popstate-keyed scroll store.
+- **lines 1487-1490** (`handleScroll`): resolves `scrollPosition` from that popstate store, or
+  from `history.state.scroll` for "the first navigation after a fresh load/reload", then calls
+  `scrollBehavior(to, from, scrollPosition)` and applies a truthy result via `scrollToPosition`
+  (`window.scrollTo`/`scrollBy` only — confirmed it never touches `.main-scroll` or any other
+  descendant scroller, matching native scroll-restoration's own scope).
+
+New `frontend/src/router/scrollRestoration.ts` exports `scrollBehavior` (typed `RouterScrollBehavior`,
+imported from `vue-router`) wired into `createRouter({ ..., scrollBehavior })` in
+`frontend/src/router/index.ts`. `waitForStableLayout`/`REQUIRED_STABLE_FRAMES` (12)/
+`MAX_STABILITY_FRAMES` (90, a new named bound) are unchanged from repair-1's logic, reused inside
+`scrollBehavior` whenever a position needs restoring.
+
+**Unplanned but necessary addition — the reload fallback.** Proving live-proof (a) ("reload at
+390×844 on `/pl/emails/k1` scrolled to 347 → restored 347") with vue-router's `scrollBehavior`
+alone **failed**: reload landed at `scrollX=0`, not 347. Investigated with raw, vue-router-free
+probes against `history.state`:
+- Confirmed `history.scrollRestoration` really was `"manual"` at pagehide time, and vue-router's
+  own `beforeUnloadListener` really did call `history.replaceState(..., { scroll: {left:347,
+  top:0} })` — read back correctly *within the same event*.
+- Yet after the reload completed, `history.state` reverted to its original value from when the
+  entry was first created — the `scroll` field never survived. Reproduced identically with: a
+  plain (non-vue-router) `beforeunload`/`pagehide` listener; `location.reload()` called from
+  page-context JS instead of Playwright's CDP `page.reload()`; a 200ms delay inserted between the
+  `replaceState()` call and the reload; and `history.go(0)` instead of `location.reload()`. All
+  five variants gave the same result: `history.state.scroll` does not survive a reload in the
+  Chromium build this pipeline runs (`151.0.7922.34`) — a genuine, reproducible browser behaviour,
+  not a timing race and not specific to vue-router's implementation.
+- The `popstate` (back/forward) path is unaffected by this — proven separately (see below) — since
+  it never depends on `history.state.scroll` at all; it uses vue-router's own in-memory
+  popstate-keyed store instead.
+
+Given `scrollBehavior` alone cannot satisfy the packet's own required reload proof, added back a
+narrow, same-href-only fallback in `scrollRestoration.ts`: a `pagehide` listener
+(`saveScrollPositionForReload`) writes `{href, left, top}` to `sessionStorage`; `scrollBehavior`
+calls `consumeScrollPositionForReload(location.href)` **only when vue-router itself supplies no
+`savedPosition`**, and only applies it on an exact href match. This never touches the `popstate`
+path (vue-router already supplies a truthy `savedPosition` there, so the fallback branch is never
+reached) and never fires for a genuine fresh navigation to an unseen URL (no matching entry).
+Unlike repair-1, `history.scrollRestoration` is left entirely to vue-router.
+
+### Tests
+
+`frontend/test/unit/scrollRestoration.spec.ts` — 13 tests (was 10 in repair-1; dropped the 4 tests
+of the removed pagehide-only mechanism, added these):
+- `waitForStableLayout` (3): stubs `document.documentElement.scrollWidth`/`scrollHeight` via
+  `Object.defineProperty` to a fixed sequence that changes twice then settles — asserts
+  `requestAnimationFrame` was called exactly `14` times (2 changes + 12 stable), a **literal**,
+  not imported, constant so a mutation to `REQUIRED_STABLE_FRAMES` (12→1) or deleting the wait
+  cannot trivially re-pass; a "never settles" stub bounded to a small `maxFrames` override; and
+  the constant-jsdom-default case (12 calls). Verified live: mutating `REQUIRED_STABLE_FRAMES` to
+  `1` fails 3 tests; deleting `await waitForStableLayout()` from `scrollBehavior` fails 1 test —
+  both reverted after confirming.
+- `scrollBehavior` (3): `null` → `{left:0,top:0}`; a truthy `savedPosition` passed through
+  unchanged after the stability wait; an overflowing-page case exercising the real 2-change+stable
+  shape end to end.
+- `saveScrollPositionForReload`/`consumeScrollPositionForReload` (4): round-trip, consumed-once,
+  mismatched-href ignored, nothing-saved returns null.
+- `scrollBehavior` reload fallback (3): restores a same-href fallback when vue-router supplies
+  none; still lands at `{0,0}` for a mismatched-href fallback; never touches the fallback (leaves
+  it un-consumed) when vue-router already supplied a `savedPosition`.
+
+### Live proofs
+
+| Scenario | Result |
+| --- | --- |
+| (a) reload at 390×844, `/pl/emails/k1` scrolled to 347 | restored to the same value every run (347/347, 295/295, 347/347, 346/346 across 5 runs) |
+| (b) real app: scroll on `/pl/emails/k1` → full nav to `/pl/campaigns` → `page.goBack()` | scrollX restored correctly every run |
+| (b, isolated) genuine `router.push()` + native back/forward, minimal vue-router harness (own `vue.global.js`/`vue-router.global.js`, no docker) | scrollY 1000 (home, scrolled) → push `/other` → 0 (fresh) → `goBack()` → **1000** (restored) → `goForward()` → 0 |
+| (c) push to a new route (sidebar nav to campaigns) | scrollX 0 every run |
+| (d) desktop, no-overflow page reload | scrollX 0 every run |
+
+Evidence: `evidence/repair-2-gates/00a-live-app-scroll-probe.txt`,
+`00b-isolated-popstate-harness-probe.txt`. All probe scripts were temporary (run from `tests/e2e/`
+or an isolated scratch server, deleted afterward) — not part of the diff.
+
+### Gate table (candidate SHA `d0412c2`, logs under `evidence/repair-2-gates/`)
+
+| # | Command | cwd | Exit | Evidence |
+| --- | --- | --- | --- | --- |
+| 1 | `./mvnw -o test` | `backend/` | 0 (184 tests, unaffected) | `01-backend-test.txt` |
+| 2 | `./mvnw -o verify` | `backend/` | 0 (184+46, spotless clean) | `02-backend-verify.txt` |
+| 3 | `npm run test -- --run` | `frontend/` | 0 (92 tests) | `03-frontend-test.txt` |
+| 4 | `npm run test:integration -- --run` | `frontend/` | 0 (55 tests, unchanged) | `04-frontend-integration.txt` |
+| 5 | `npm run lint` | `frontend/` | 0 (2 pre-existing `FeedCard.vue` warnings, not mine) | `05-frontend-lint.txt` |
+| 6 | `npm run typecheck` | `frontend/` | 0 | `06-frontend-typecheck.txt` |
+| 7 | `npm run format:check` | `frontend/` | 0 | `07-frontend-format-check.txt` |
+| 8 | `npm run build` | `frontend/` | 0 (78.1 kB gzip JS) | `08-frontend-build.txt` |
+| 9 | `compare.mjs --journey campaigns-email-editor --dimension contract` | worktree root | **0 regressions** | `09-compare-contract-campaigns.txt` |
+| 10 | `compare.mjs --journey campaigns-email-editor --dimension visual` | worktree root | **0 regressions**, all 8 steps incl. 6 mobile | `10-compare-visual-campaigns.txt` |
+| 11 | `compare.mjs --journey login --dimension visual` | worktree root | 0 regressions | `11-compare-visual-login.txt` |
+| 12 | `compare.mjs --journey customers --dimension visual` | worktree root | 0 regressions | `12-compare-visual-customers.txt` |
+| 13 | `compare.mjs --journey event-stream --dimension visual` | worktree root | 0 regressions | `13-compare-visual-eventstream.txt` |
+| 14 | `npx playwright test navigation.spec.ts --workers=1` | `tests/e2e/` | 4 failed / 10 passed — same 4 expected not-yet-implemented-route failures as repair-1 (automations/popups/import/settings); both `page.reload()` tests (sidebar collapse, theme toggle) pass | `14-e2e-navigation.txt` |
+| 15 | `npx playwright test public.spec.ts` | `tests/e2e/` | 0 (5 passed) | `15-e2e-public.txt` |
+| 16 | `npx playwright test events.spec.ts --workers=1` | `tests/e2e/` | 0 (4 passed) | `16-e2e-events.txt` |
+| 17 | `npx playwright test lists.spec.ts -g "campaigns"` | `tests/e2e/` | 0 (1 passed) | `17-e2e-lists-campaigns.txt` |
+| 18 | `npx playwright test editors.spec.ts -g "email editor"` | `tests/e2e/` | 0 (2 passed) | `18-e2e-editors-email-editor.txt` |
+| 19 | `performance.mjs --base https://localhost:19081` | worktree root | 0 (4/4 budgets) | `19-performance.txt` |
+
+No deviation row added. Stack torn down, image removed after this repair's gates, before rebase-1
+began.
+
+## Rebase-1
+
+`git rebase 2ca5f07cf0dfc405feb6b13a9302883f134c328b` (automations integrated) from `d0412c2`.
+
+Two conflicts, exactly as predicted, both additive/union, resolved with no other semantic changes:
+
+**`frontend/src/composables/useIntents.ts`** — both branches added an `on(...)` block after
+`go-customer`; kept both, ordered to match the sidebar (customers → automations → campaigns):
+
+```ts
+on("go-automation", (payload) => {
+    if (!payload) return;
+    window.location.href = `/${shell.locale}/automations/${payload}`;
+});
+
+on("go-email", (payload) => {
+    if (!payload) return;
+    window.location.href = `/${shell.locale}/emails/${payload}`;
+});
+```
+
+**`frontend/src/router/routes.ts`** — both branches added a view import in the same alphabetical
+slot; kept both (only the import lines conflicted — every route-table entry itself, in a
+different array element, had already auto-merged correctly):
+
+```ts
+import AutomationEditorView from "@/views/AutomationEditorView.vue";
+import AutomationsView from "@/views/AutomationsView.vue";
+import CampaignsView from "@/views/CampaignsView.vue";
+```
+
+No duplicate keys in either file; no other file conflicted; nothing resolved beyond the union.
+
+`git range-diff` note: the packet named `4530eb2` as the pre-rebase base, but repair-2 had already
+landed two more commits on top of it (`ddcc853`, `d0412c2`) by the time this rebase ran — used the
+actual pre-rebase HEAD instead so the range-diff covers the real commit set:
+
+```
+git range-diff b87a701..d0412c2 2ca5f07..HEAD
+```
+
+Result (`evidence/rebase-1/range-diff.txt`): only commit 1 (`41dd5cb`→`49f21bb`, the original
+feature commit) shows any diff, confined to the two conflict-resolution files above; commits 2-5
+(`4829252`→`2f7128d`, `4530eb2`→`616abbb`, `ddcc853`→`ebc6fd6`, `d0412c2`→`3157a5f`) all show `=`
+(byte-identical after the rebase).
+
+**Final rebased HEAD SHA: `3157a5f042264de4b9dee26678a658d6f41b35df`**
+
+```
+git log --oneline 2ca5f07..HEAD
+3157a5f fix: add a same-href reload fallback for vue-router's non-functional history.state.scroll restore (#campaigns-email-editor)
+ebc6fd6 fix: use vue-router scrollBehavior instead of a global manual scroll-restoration flag (#campaigns-email-editor)
+616abbb fix: replace native reload scroll restoration with a hydration-aware manual one (#campaigns-email-editor)
+2f7128d fix: capture response body for full-parity paths reached via a click step (#campaigns-email-editor)
+49f21bb feat: add campaigns index and e-mail template editor (#campaigns-email-editor)
+```
+
+`git status --porcelain` is empty. Stack torn down (`down -v`), `kivvi-w-campaigns-api` image
+removed. Disk: 7.2 GB free at finish.
+
+### Gate table (rebased HEAD `3157a5f`, logs under `evidence/rebase-1-gates/`)
+
+| # | Command | cwd | Exit | Evidence |
+| --- | --- | --- | --- | --- |
+| 1 | `./mvnw -o test` | `backend/` | 0 (207 tests — 184 + automations' 23) | `01-backend-test.txt` |
+| 2 | `./mvnw -o verify` | `backend/` | 0 (207 + 53 IT, spotless clean) | `02-backend-verify.txt` |
+| 3 | `npm run test -- --run` | `frontend/` | 0 (98 tests — 92 + automations' 6) | `03-frontend-test.txt` |
+| 4 | `npm run test:integration -- --run` | `frontend/` | 0 (69 tests — 55 + automations' 14) | `04-frontend-integration.txt` |
+| 5 | `npm run lint` | `frontend/` | 0 (2 pre-existing `FeedCard.vue` warnings, not mine) | `05-frontend-lint.txt` |
+| 6 | `npm run typecheck` | `frontend/` | 0 | `06-frontend-typecheck.txt` |
+| 7 | `npm run format:check` | `frontend/` | 0 | `07-frontend-format-check.txt` |
+| 8 | `npm run build` | `frontend/` | 0 | `08-frontend-build.txt` |
+| 9 | `compare.mjs --journey campaigns-email-editor --dimension visual` | worktree root | 0 regressions | `09-compare-visual-campaigns.txt` |
+| 10 | `compare.mjs --journey campaigns-email-editor --dimension contract` | worktree root | 0 regressions | `10-compare-contract-campaigns.txt` |
+| 11 | `npx playwright test lists.spec.ts -g "campaigns"` | `tests/e2e/` | 0 (1 passed) | `11-e2e-lists-campaigns.txt` |
+| 12 | `npx playwright test editors.spec.ts -g "email editor"` | `tests/e2e/` | 0 (2 passed) | `12-e2e-editors-email-editor.txt` |
+| 13 | `npx playwright test automations.spec.ts --workers=1` (union regression guard) | `tests/e2e/` | 0 (4 passed) | `13-e2e-automations.txt` |
+
+Both my own journey and automations' own journey are fully green on the merged history — the
+union resolution introduced no regression in either direction.

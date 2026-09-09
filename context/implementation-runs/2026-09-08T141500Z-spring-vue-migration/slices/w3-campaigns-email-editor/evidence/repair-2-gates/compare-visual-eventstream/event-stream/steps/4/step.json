@@ -1,0 +1,12 @@
+{
+  "index": 4,
+  "step": {
+    "post": "/collect",
+    "json": {
+      "type": "purchase"
+    },
+    "expectStatus": 400,
+    "note": "missing idempotency id"
+  },
+  "title": "Kivvi-click"
+}

@@ -161,7 +161,7 @@
       "wave": "wave-3",
       "branch": "migration/wave-3/campaigns-email-editor",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w3-campaigns-email-editor",
-      "parent_sha": "b87a701244f5316e1a53bace7a1e41facdffc277",
+      "parent_sha": "2ca5f07cf0dfc405feb6b13a9302883f134c328b",
       "head_sha": "4829252f08bf5375c35d195d41096a214b8df19c",
       "integration_commit": null,
       "review": {
@@ -178,10 +178,15 @@
           "frontend/src/main.ts",
           "frontend/src/App.vue"
         ],
-        "candidate_sha": null,
+        "candidate_sha": "3157a5f042264de4b9dee26678a658d6f41b35df",
         "review": "slices/w3-campaigns-email-editor/review-repair-1.md",
         "review_verdict": "FAIL",
         "round": 2
+      },
+      "rebase": {
+        "packet": "slices/w3-campaigns-email-editor/rebase-1.md",
+        "onto": "2ca5f07cf0dfc405feb6b13a9302883f134c328b",
+        "result_sha": "3157a5f042264de4b9dee26678a658d6f41b35df"
       }
     }
   },
@@ -637,6 +642,6 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T01:32:32Z",
+  "updated_at": "2026-09-09T01:58:40Z",
   "feature_head_sha": "2ca5f07cf0dfc405feb6b13a9302883f134c328b"
 }

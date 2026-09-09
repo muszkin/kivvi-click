@@ -1,0 +1,4 @@
+(a) reload /pl/emails/k1: scrollX before=295 after=295
+(b) real app: /pl/emails/k1 (scrolled 347) -> goto /pl/campaigns -> goBack(): scrollX restored=347
+(c) push to a new route (sidebar nav): scrollX after=0 (expect 0)
+(d) desktop /pl/campaigns (no overflow) reload: scrollX after=0 (expect 0)
