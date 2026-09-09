@@ -49,3 +49,5 @@ The `api` image builds the whole SPA and jar (several minutes). For fast iterati
 - Cohort sequencing (from wave-3 round 4): CPU-heavy dimensions (unit, integration, architecture — Maven/Testcontainers) run first and in parallel; **e2e runs alone afterwards** (timing-sensitive reload/preference specs flake 1/5 under host CPU starvation even with the session lock), then **contract alone** (db.json contamination). A verdict from an e2e run that overlapped CPU-heavy verifiers is inconclusive and is re-run in isolation on the same SHA before any ruling; if it still fails in isolation it is a real regression.
 
 - Worker reports and evidence live ONLY in the main checkout run dir (/home/muszkin/work/kivvi-click/context/implementation-runs/…). Never commit them on the slice branch: the orchestrator integrates code commits only (wave-4 popups committed its report on the branch; that commit was dropped at integration).
+
+- Visual guard for `shell-navigation` is mandatory in every cohort from wave-4 round 3 on (a pre-existing `<html data-sidebar>` desync produced 7 visual regressions that contract-only guards never saw).
