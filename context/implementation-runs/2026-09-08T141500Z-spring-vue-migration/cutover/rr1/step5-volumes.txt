@@ -1,0 +1,240 @@
+=== docker volume ls | grep kivvi ===
+local     kivvi-click_caddy_config
+local     kivvi-click_caddy_config_prod
+local     kivvi-click_caddy_data
+local     kivvi-click_caddy_data_prod
+local     kivvi-click_database_data
+local     kivvi-click_database_data_prod
+local     kivvi-next_database_data
+local     kivvi-next_mercure_config
+local     kivvi-next_mercure_data
+local     kivvi_postgres_data
+local     kivvi_redis_data
+local     kivvi_redpanda_data
+
+=== inspect each kivvi-related volume ===
+--- kivvi-click_caddy_config ---
+[
+    {
+        "CreatedAt": "2026-09-09T13:03:03Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "289532257a4452779aac112717f73b5a94e09b9538907381eedb5e8c125065dc",
+            "com.docker.compose.project": "kivvi-click",
+            "com.docker.compose.version": "5.5.0",
+            "com.docker.compose.volume": "caddy_config"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/kivvi-click_caddy_config/_data",
+        "Name": "kivvi-click_caddy_config",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+--- kivvi-click_caddy_config_prod ---
+[
+    {
+        "CreatedAt": "2026-09-09T13:03:03Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "664373797175a7df1c01df86cdadc1fd664482de4e3f8d919c17306654bd1423",
+            "com.docker.compose.project": "kivvi-click",
+            "com.docker.compose.version": "5.5.0",
+            "com.docker.compose.volume": "caddy_config_prod"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/kivvi-click_caddy_config_prod/_data",
+        "Name": "kivvi-click_caddy_config_prod",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+--- kivvi-click_caddy_data ---
+[
+    {
+        "CreatedAt": "2026-09-09T13:03:03Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "49e3ec65cd9e4d5ccd1300b6ff2df6db3a1ea74c1f6443e18792850248d47bfd",
+            "com.docker.compose.project": "kivvi-click",
+            "com.docker.compose.version": "5.5.0",
+            "com.docker.compose.volume": "caddy_data"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/kivvi-click_caddy_data/_data",
+        "Name": "kivvi-click_caddy_data",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+--- kivvi-click_caddy_data_prod ---
+[
+    {
+        "CreatedAt": "2026-09-09T13:03:03Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "bb7e45b0185f166e8d788cf5d0ddc3ed20f51769d7f22e05ce82ab411bbcf9d9",
+            "com.docker.compose.project": "kivvi-click",
+            "com.docker.compose.version": "5.5.0",
+            "com.docker.compose.volume": "caddy_data_prod"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/kivvi-click_caddy_data_prod/_data",
+        "Name": "kivvi-click_caddy_data_prod",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+--- kivvi-click_database_data ---
+[
+    {
+        "CreatedAt": "2026-09-09T13:03:03Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "e6aa4f44a89c912dcea9c7ee618919e88601b0ff485ede3ab9878333a7d4cef0",
+            "com.docker.compose.project": "kivvi-click",
+            "com.docker.compose.version": "5.5.0",
+            "com.docker.compose.volume": "database_data"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/kivvi-click_database_data/_data",
+        "Name": "kivvi-click_database_data",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+--- kivvi-click_database_data_prod ---
+[
+    {
+        "CreatedAt": "2026-09-09T13:03:03Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "27c5277a18a4561a56b4fbf503e2b8919de0030c189a77f5141f2e7a4e281141",
+            "com.docker.compose.project": "kivvi-click",
+            "com.docker.compose.version": "5.5.0",
+            "com.docker.compose.volume": "database_data_prod"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/kivvi-click_database_data_prod/_data",
+        "Name": "kivvi-click_database_data_prod",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+--- kivvi-next_database_data ---
+[
+    {
+        "CreatedAt": "2026-09-09T13:57:43Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "7d4d87b13bb29a5f7cf5fc81e498af7058279a5f270f898fe2074d391151def7",
+            "com.docker.compose.project": "kivvi-stage",
+            "com.docker.compose.version": "5.5.1",
+            "com.docker.compose.volume": "database_data_next"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/kivvi-next_database_data/_data",
+        "Name": "kivvi-next_database_data",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+--- kivvi-next_mercure_config ---
+[
+    {
+        "CreatedAt": "2026-09-09T13:57:43Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "c6974752204d5e2a1496983f5bdf48b6939ee5c20bd107401e3c21e54ecdd397",
+            "com.docker.compose.project": "kivvi-stage",
+            "com.docker.compose.version": "5.5.1",
+            "com.docker.compose.volume": "mercure_config_next"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/kivvi-next_mercure_config/_data",
+        "Name": "kivvi-next_mercure_config",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+--- kivvi-next_mercure_data ---
+[
+    {
+        "CreatedAt": "2026-09-09T13:57:43Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "ab9c1ba42557e04ad80fad1536ca21ec2f0d8404ba0c2300b2e08bbbc2dbc168",
+            "com.docker.compose.project": "kivvi-stage",
+            "com.docker.compose.version": "5.5.1",
+            "com.docker.compose.volume": "mercure_data_next"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/kivvi-next_mercure_data/_data",
+        "Name": "kivvi-next_mercure_data",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+--- kivvi_postgres_data ---
+[
+    {
+        "CreatedAt": "2026-09-09T13:03:04Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "a74daedc4b42989bd99a52162d12efd9a8e69ca0eba940753791c0de0eb5ae6c",
+            "com.docker.compose.project": "kivvi",
+            "com.docker.compose.version": "5.1.0",
+            "com.docker.compose.volume": "postgres_data"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/kivvi_postgres_data/_data",
+        "Name": "kivvi_postgres_data",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+--- kivvi_redis_data ---
+[
+    {
+        "CreatedAt": "2026-09-09T13:03:04Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "56449a5180a9f4eda3dac6ac51396103e662f7a2aba9070059f2f68d92dd6f66",
+            "com.docker.compose.project": "kivvi",
+            "com.docker.compose.version": "5.1.0",
+            "com.docker.compose.volume": "redis_data"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/kivvi_redis_data/_data",
+        "Name": "kivvi_redis_data",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+--- kivvi_redpanda_data ---
+[
+    {
+        "CreatedAt": "2026-09-09T13:03:04Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "a075e948b77b4a506a9d4111531c7ba185611fbf192845c586b45f00f454e6e0",
+            "com.docker.compose.project": "kivvi",
+            "com.docker.compose.version": "5.1.0",
+            "com.docker.compose.volume": "redpanda_data"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/kivvi_redpanda_data/_data",
+        "Name": "kivvi_redpanda_data",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+kivvi-click-api                                  latest                    b7a828f46065   8 minutes ago       400MB     100.2MB       300.3MB       1
+6239de85cee3   dunglas/mercure:v0.24.2                                          "caddy run --config …"   2               0B        8 minutes ago        Up 7 minutes (healthy)          kivvi-stage-mercure-1
+3d6acbf97485   kivvi-click-api                                                  "java -jar /app/app.…"   0               32.9kB    8 minutes ago        Up 7 minutes (healthy)          kivvi-stage-api-1
+f4a306dcef54   postgres:18-alpine                                               "docker-entrypoint.s…"   1               68B       8 minutes ago        Up 8 minutes (healthy)          kivvi-stage-database-1
+9049d54fa1ef   postgres:18-alpine                                               "docker-entrypoint.s…"   1               68B       24 hours ago         Up About an hour (healthy)      kivvi-click-database-1
+8192d869b146   app-php-prod                                                     "docker-entrypoint f…"   2               355B      13 days ago          Up About an hour (healthy)      kivvi-click-php-1
+ecdde5bbd8e6   app-php-prod                                                     "docker-entrypoint p…"   0               0B        13 days ago          Up 31 seconds                   kivvi-click-worker-1
+1abc80983446   app-php-prod                                                     "docker-entrypoint p…"   0               0B        13 days ago          Exited (0) 13 days ago          kivvi-click-migrations-1
+VOLUME NAME                                                        LINKS     SIZE
+kivvi-click_database_data_prod                                     1         65.76MB
+kivvi-next_mercure_config                                          1         1.035kB
+kivvi-click_caddy_data                                             0         51.81MB
+kivvi-click_caddy_config                                           0         4.782kB
+kivvi-click_caddy_config_prod                                      1         1.584kB
+kivvi-click_database_data                                          0         73.72MB
+kivvi_postgres_data                                                0         0B
+kivvi-next_mercure_data                                            1         262.3kB
+kivvi_redpanda_data                                                0         0B
+kivvi-click_caddy_data_prod                                        1         264.1kB
+kivvi-next_database_data                                           1         65.88MB
+kivvi_redis_data                                                   0         0B

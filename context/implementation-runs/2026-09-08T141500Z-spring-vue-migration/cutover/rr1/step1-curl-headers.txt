@@ -1,0 +1,26 @@
+=== curl -sI http://localhost:23458/pl ===
+HTTP/1.1 200 OK
+Content-Length: 1368
+Content-Type: text/html;charset=UTF-8
+Date: Wed, 09 Sep 2026 13:58:49 GMT
+Permissions-Policy: browsing-topics=()
+Via: 1.1 Caddy
+
+
+=== curl -sI http://localhost:23458/pl/dashboard ===
+HTTP/1.1 200 OK
+Content-Length: 1368
+Content-Type: text/html;charset=UTF-8
+Date: Wed, 09 Sep 2026 13:58:49 GMT
+Permissions-Policy: browsing-topics=()
+Via: 1.1 Caddy
+
+
+=== curl -sI http://localhost:23458/api/v1/pl/shell ===
+HTTP/1.1 200 OK
+Content-Length: 1116
+Content-Type: application/json
+Date: Wed, 09 Sep 2026 13:58:49 GMT
+Permissions-Policy: browsing-topics=()
+Via: 1.1 Caddy
+
