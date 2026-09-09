@@ -1173,7 +1173,7 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T14:39:27Z",
+  "updated_at": "2026-09-09T16:03:13Z",
   "feature_head_sha": "92052947a6238ecf4ee177f4e72493122315ce32",
   "final_cohort": {
     "sha": "dae169614a52532c130bd34435994d6a914165c0",
@@ -1305,6 +1305,26 @@
       "old_stack": "down (containers removed, images and kivvi-click_*_prod volumes kept for rollback: `docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --wait` from /home/muszkin/work/kivvi-click after `docker compose -p kivvi-click -f compose.next.yaml -f compose.next.prod.yaml down` in the integration worktree)",
       "public_e2e": "PASS 66/66 via https://kivvi.click; budgets 4/4; 0 5xx; cookies Secure/HttpOnly/SameSite=Lax; relative Location",
       "observation": "20 min (14:19\u201314:39Z): public 200 every minute, all containers healthy, 0 api errors"
+    },
+    "con1": {
+      "state": "RUNNING",
+      "authorization": "operator \"zrob to\" 2026-09-09 after the PRODUCTION_GREEN report",
+      "merge": "squash-merge of migration/spring-vue @ 9205294 into main as 8b224c5 (conflict: context/map/manifest.json digest \u2014 branch version taken; map refresh follows)",
+      "contract_commits": [
+        "7287390 refactor: remove the Symfony stack",
+        "25329ac chore: drop the PHP test suite",
+        "8c37b92 docs: plan errata + DEV-13 retirement"
+      ],
+      "prod": "re-anchored to /home/muszkin/work/kivvi-click compose.yaml + compose.prod.yaml (api force-recreated 16:02:27\u201316:02:33Z, public 200)",
+      "old_stack": "images app-php-prod/app-php-dev removed; volumes kivvi-click_*_prod and dev removed after pg_dumpall to /home/muszkin/backups/kivvi-click-old-symfony-prod-2026-09-09.sql.gz (2.4 KB: sessions/cache only)",
+      "worktree": "integration worktree removed; branch migration/spring-vue deleted after merge",
+      "pending": [
+        "docs rewrite (CLAUDE.md, AGENTS.md, README.md, product-spec SKILL)",
+        "context map refresh",
+        "Linear re-pointing PIO-70..115",
+        "full e2e against https://kivvi.click after the contract change",
+        "push to origin/main \u2014 left to the operator"
+      ]
     }
   }
 }
