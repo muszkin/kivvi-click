@@ -1,0 +1,34 @@
+# compare.mjs diff: b87a701..32a68311594e611aaa8eaa0803bc72bba7d735a9
+
+```
+diff --git a/tools/migration-verify/compare.mjs b/tools/migration-verify/compare.mjs
+index 162c91e..9b99b82 100644
+--- a/tools/migration-verify/compare.mjs
++++ b/tools/migration-verify/compare.mjs
+@@ -295,6 +295,22 @@ async function runJourney(id, journeyDef, viewportName) {
+       responseHeaders: pick(response.headers(), stripRes),
+     };
+     if (req.postData()) entry.requestBody = applyText(req.postData().slice(0, 2000));
++    // compareHttpEntry's DEV-4 full-parity deep-check (/collect, /preferences/*, /login) reads
++    // `entry.body` (the response body) — previously only ever set by the explicit `s.post` step
++    // branch above, never by this passive listener, so any full-parity endpoint reached via a
++    // `click` step (e.g. the theme toggle's `data-action="set-theme"`, which POSTs
++    // /preferences/theme) always recorded `body: undefined` and false-flagged as a regression
++    // against the oracle's own non-empty `body` field. Scoped to full-parity paths only — other
++    // responses (JS/CSS/image assets, `/api/v1/**`) never need this and some response types
++    // cannot be read as text, hence the try/catch.
++    if (isFullParityPath(entry.path)) {
++      try {
++        const text = await response.text();
++        entry.body = applyText(text.length > 4000 ? text.slice(0, 4000) + "…" : text);
++      } catch {
++        // Body already consumed or not text-readable — leave entry.body unset, same as before.
++      }
++    }
+     http.push(entry);
+   });
+ 
+```
+
+Commits touching compare.mjs in that range:
+2f7128d fix: capture response body for full-parity paths reached via a click step (#campaigns-email-editor)
