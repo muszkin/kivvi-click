@@ -21,3 +21,4 @@
 | 2026-09-09T06:44:32Z | w4-import-wizard | cherry-pick ×5 | a12e00d → e7a16e0 | feature-head gates in integration/feature-head-e7a16e0/ |
 | 2026-09-09T06:49:45Z | w4-import-wizard repair-2 | fast-forward | e7a16e0 → a8fb5f6 | gates: green (integration/feature-head-a8fb5f6/) |
 | 2026-09-09T07:08:09Z | w4-dashboard | cherry-pick ba33a68 | a8fb5f6 → fe37fad | feature-head green; wave-4 SHA |
+| 2026-09-09T07:34:34Z | w4-import-wizard repair-3 | fast-forward | fe37fad → 71d884d | gates green; wave-4 round-2 SHA |

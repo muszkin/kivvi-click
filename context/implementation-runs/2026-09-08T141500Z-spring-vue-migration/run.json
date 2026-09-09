@@ -228,7 +228,7 @@
       }
     },
     "w4-import-wizard": {
-      "state": "IMPLEMENTED",
+      "state": "FEATURE_HEAD_GREEN",
       "wave": "wave-4",
       "branch": "migration/wave-4/import-wizard",
       "worktree": "/home/muszkin/work/kivvi-click-wt/w4-import",
@@ -240,7 +240,10 @@
         "packet": "slices/w4-import-wizard/repair-3.md",
         "worktree": "/home/muszkin/work/kivvi-click-wt/w4-import-r3",
         "branch": "migration/wave-4/import-wizard-repair3",
-        "base_sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18"
+        "base_sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
+        "candidate_sha": "71d884d",
+        "integrated_sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
+        "orchestrator_inspected": true
       },
       "review": {
         "path": "slices/w4-import-wizard/review.md",
@@ -851,133 +854,62 @@
         "import-wizard",
         "dashboard"
       ],
-      "head_sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
+      "head_sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
       "kill_reason": null,
       "verifier_cohort": [
         {
           "dimension": "unit",
-          "status": "PASS",
-          "sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
-          "evidence": "waves/wave-4/unit.md",
-          "journey_verdicts": [
-            {
-              "journey": "popups-widget-editor",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "import-wizard",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "dashboard",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
+          "evidence": "waves/wave-4/round-1/unit.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "integration",
-          "status": "FAIL",
-          "sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
-          "evidence": "waves/wave-4/integration.md",
-          "journey_verdicts": [
-            {
-              "journey": "popups-widget-editor",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "import-wizard",
-              "verdict": "regression",
-              "deviation_id": null
-            },
-            {
-              "journey": "dashboard",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
+          "evidence": "waves/wave-4/round-1/integration.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "architecture",
-          "status": "FAIL",
-          "sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
-          "evidence": "waves/wave-4/architecture.md",
-          "journey_verdicts": [
-            {
-              "journey": "popups-widget-editor",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "import-wizard",
-              "verdict": "regression",
-              "deviation_id": null
-            },
-            {
-              "journey": "dashboard",
-              "verdict": "parity",
-              "deviation_id": null
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
+          "evidence": "waves/wave-4/round-1/architecture.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "contract",
-          "status": "PASS",
-          "sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
-          "evidence": "waves/wave-4/contract.md",
-          "journey_verdicts": [
-            {
-              "journey": "popups-widget-editor",
-              "verdict": "parity",
-              "deviation_id": "DEV-7"
-            },
-            {
-              "journey": "import-wizard",
-              "verdict": "parity",
-              "deviation_id": "DEV-12"
-            },
-            {
-              "journey": "dashboard",
-              "verdict": "parity",
-              "deviation_id": "DEV-3"
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
+          "evidence": "waves/wave-4/round-1/contract.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "visual",
-          "status": "PASS",
-          "sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
-          "evidence": "waves/wave-4/visual.md",
-          "journey_verdicts": [
-            {
-              "journey": "popups-widget-editor",
-              "verdict": "parity",
-              "deviation_id": null
-            },
-            {
-              "journey": "import-wizard",
-              "verdict": "parity",
-              "deviation_id": "DEV-12"
-            },
-            {
-              "journey": "dashboard",
-              "verdict": "parity",
-              "deviation_id": "DEV-2"
-            }
-          ]
+          "status": "RUNNING",
+          "sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
+          "evidence": "waves/wave-4/round-1/visual.md",
+          "journey_verdicts": []
         },
         {
           "dimension": "e2e",
           "status": "RUNNING",
-          "sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
-          "evidence": "waves/wave-4/e2e.md",
+          "sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d",
+          "evidence": "waves/wave-4/round-1/e2e.md",
           "journey_verdicts": []
         }
       ],
-      "repair_rounds": 0
+      "repair_rounds": 1,
+      "cohort_history": [
+        {
+          "round": 1,
+          "sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18",
+          "result": "FAIL",
+          "evidence": "waves/wave-4/round-1/",
+          "note": "e2e not run in round 1"
+        }
+      ]
     },
     {
       "wave_id": "wave-5",
@@ -1007,6 +939,6 @@
     "observation_window": null,
     "rollback_status": "NOT_NEEDED"
   },
-  "updated_at": "2026-09-09T07:28:33Z",
-  "feature_head_sha": "fe37fad3b884864ca1d41a2ed7cf258126329e18"
+  "updated_at": "2026-09-09T07:34:34Z",
+  "feature_head_sha": "71d884d2ed96a7a7caad18147e76570c9e113d4d"
 }

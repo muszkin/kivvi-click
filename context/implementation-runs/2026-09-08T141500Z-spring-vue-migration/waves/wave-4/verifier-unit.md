@@ -1,8 +1,8 @@
-# Verifier packet — wave wave-4 (round 1), dimension unit
+# Verifier packet — wave wave-4 (round 2), dimension unit
 
 Read-only verifier. You receive no worker claims. Inspect the assembled wave SHA from your own detached checkout and return one verdict per journey with evidence paths.
 
-- Wave SHA: fe37fad3b884864ca1d41a2ed7cf258126329e18 · Journeys: popups-widget-editor, import-wizard, dashboard · Checkout: /home/muszkin/work/kivvi-click-wt/verify-wave-4-unit (detached at the wave SHA; do not edit).
+- Wave SHA: 71d884d2ed96a7a7caad18147e76570c9e113d4d · Journeys: popups-widget-editor, import-wizard, dashboard · Checkout: /home/muszkin/work/kivvi-click-wt/verify-wave-4-unit (detached at the wave SHA; do not edit).
 - Oracle: /home/muszkin/work/kivvi-click/context/migration-oracle/symfony-to-spring-vue (manifest sha256 4945a8deb19ea342a4aaa2c0ac681dc13f05c121aa387677c30ecf210a90f74f). Deviation table: plan section "Accepted deviations" (DEV-1..DEV-12) and tools/migration-verify/deviations.json.
 - Verifier contract (plan section "Verifier contract"): thresholds and commands for your dimension.
 - Running stack for this SHA (if your dimension needs one): https://localhost:19101 (compose project kivvi-int, edge http 19100), compose project kivvi-int, started by the orchestrator; do not start or stop stacks yourself.
@@ -19,3 +19,7 @@ Java 25: `export JAVA_HOME=/home/muszkin/.cache/kivvi-toolchains/jdk-25; export 
 ## Wave-4 note
 
 Round 1 for wave-4 (parent = wave-3 SHA 11d3cc4). From this wave on every sidebar route has a real page: `navigation.spec.ts --workers=1` must pass 14/14 (no accepted failures). Shell/backend changes since wave-3 relevant to guards: none in shell files; `tools/migration-verify/deviations.json` changed only for DEV-5 (`var/import files` counter), DEV-12 (import step 10) and DEV-11 closure; `frontend/eslint.config.js` has a file-scoped override letting `ListCard.vue` use the `event-row` class (parity with the old dashboard partials — the architecture verifier must confirm it is file-scoped and the rule still fires elsewhere). Cohort sequencing: unit/integration/architecture/visual run in parallel; e2e runs ALONE afterwards; contract ALONE after e2e (the orchestrator sequences this).
+
+## Round 2 note
+
+Round 2 after repair-3 of import-wizard: RecentImports.vue now uses the literal event-row class under a file-scoped ESLint override, `no-restricted-syntax` selectors flag the "event-row" string literal in script code outside EventRow.vue/ListCard.vue/RecentImports.vue, and ImportApiIT's traversal test uses a private @TempDir root. Round-1 evidence archived under waves/wave-4/round-1/ — do not read it.

@@ -493,3 +493,134 @@ No backend gates re-run (nothing under `backend/` touched by this repair; the fi
 frontend-lint-only). No docker stack needed or built, per the coordinator's own message. Secrets
 grep on the diff: none found. Report/evidence written only to the main checkout, never committed
 on the `migration/wave-4/import-wizard-repair2` branch.
+
+## Repair-3
+
+Two findings from the wave-4 cohort round 1, both addressed in this repair, in a **fresh
+worktree** `/home/muszkin/work/kivvi-click-wt/w4-import-r3`, branch
+`migration/wave-4/import-wizard-repair3`, base `fe37fad3b884864ca1d41a2ed7cf258126329e18`
+(identity guard confirmed: branch head, clean tree, zero diff from base before starting). No stack
+was started; Maven was needed only for part R3-B (the addendum).
+
+**Final SHA: `71d884d`**
+
+```
+71d884d test: isolate the traversal IT from the shared /tmp (#import-wizard)
+5075b7e fix: declare the recent-imports event-row reuse through the governed ESLint exception (#import-wizard)
+fe37fad feat: give the dashboard its real body (#dashboard)
+a8fb5f6 chore: drop the unused EmptyPageView placeholder after wave-4 routes landed (#import-wizard)
+```
+
+`git status --porcelain` empty. Two new commits, Conventional Commits, English, no trailers (the
+addendum offered "same commit or a second commit" for R3-B; used a second commit since the two
+findings are logically independent — one a frontend ESLint-governance fix, the other a backend
+test-isolation fix — matching the addendum's own suggested message verbatim).
+
+### Part 1 — RecentImports.vue's event-row bypass (architecture FAIL)
+
+**Finding:** `RecentImports.vue` rendered `.event-row` through `:class="recentImportRowClass"`
+(`const recentImportRowClass = "event-row"`), evading `vue/no-restricted-class`'s plain
+`class="..."` check. The markup itself was parity (`recent-imports.html.twig:14` does use
+`class="event-row"`), but the *mechanism* was wrong: exceptions to a governed architecture rule
+must go through the rule's own governed override (as `ListCard.vue` already does), never around it.
+
+**Fix:**
+1. `RecentImports.vue`: replaced `:class="recentImportRowClass"` with the literal
+   `class="event-row"`, exactly like the Twig partial and like `ListCard.vue`. Deleted the
+   constant and its justifying comment; replaced with a class-level comment (same shape as
+   `ListCard.vue`'s own) explaining the reuse and pointing at the new `eslint.config.js` override.
+2. `frontend/eslint.config.js`: added a file-scoped override —
+   `files: ["src/components/import/RecentImports.vue"], rules: { "vue/no-restricted-class": "off" }`
+   — the same shape as the existing `ListCard.vue` override, with its own justification comment
+   citing the Twig partial.
+3. **Hardening** (so a *script-side* bypass of this kind can't recur): added two
+   `no-restricted-syntax` selectors — `Literal[value=/event-row/]` and
+   `TemplateElement[value.raw=/event-row/]` — to the existing `src/**/*.{ts,vue}` block, so any
+   plain string or template-literal segment containing "event-row" in a file's `<script>` fails
+   lint, everywhere except the three files the `vue/no-restricted-class` overrides already allow
+   to render the class (`EventRow.vue`, `ListCard.vue`, `RecentImports.vue`). Because
+   `no-restricted-syntax`'s array value *replaces* rather than merges across cascading config
+   blocks (the file's own pre-existing comment on this), lifting the new restriction for just
+   those three files required a fourth, more specific block placed *after* the
+   `vue/no-restricted-class` overrides, re-declaring the same Intl/Mercure-topic selector set
+   *without* the two new ones — not a blanket `ignores`, which would have also (silently, wrongly)
+   exempted those three files from the unrelated Intl/Mercure-topic checks.
+
+**Probes (evidence/repair-3/, all four created and deleted in this same session):**
+- `probe-1-positive-string-literal.txt` — a throwaway file outside the allowed list with
+  `const bypassRowClass = "event-row";` bound through `:class`: **1 error**, exact reproduction of
+  the original bypass shape, confirming the hardened rule catches it.
+- `probe-2-positive-template-literal.txt` — same file, but the value in a template literal
+  (`` `event-row ${suffix}` ``): **1 error**, confirming `TemplateElement` detection.
+- `probe-3-negative-unrelated-string.txt` — a throwaway file outside the allowed list with an
+  unrelated string (`"not-restricted-at-all"`): **0 errors**, confirming the rule doesn't
+  over-trigger on arbitrary strings.
+- `probe-4-negative-allowed-file.txt` — the same `"event-row"` literal temporarily injected into
+  the *real* `RecentImports.vue` (reverted immediately after this one lint run — confirmed via
+  `git diff`/`grep` showing zero residue before moving on): **0 errors**, confirming the
+  file-scoped exemption block actually works for the one file it's meant to cover. (A genuinely
+  new file at that exact path isn't possible since the real file already exists there — this is
+  the equivalent proof, done in-place and reverted, rather than a second throwaway file.)
+- A fifth, ad hoc re-verification after `prettier --write` reformatted the new blocks' quote style
+  (`__ReverifyProbe.vue`, not kept as a numbered file) re-confirmed the rule still fires
+  post-formatting: 1 error, then deleted.
+
+None of the three allowed files' own `<script>` blocks currently contain the string "event-row" at
+all (every occurrence is either a template `class="..."` attribute — a separate AST
+`no-restricted-syntax` never traverses — or a code comment), so the fourth exemption block is
+presently a no-op in production code; it exists so the exemption is explicit and discoverable
+rather than incidental, matching the packet's own instruction.
+
+### Part 2 (R3-B addendum) — racy path-traversal IT (integration FAIL)
+
+**Finding** (`waves/wave-4/integration/import-wizard-failure-diagnosis.txt`):
+`ImportApiIT.pathTraversalOriginalNameNeverEscapesTheUploadDirectoryOverHttp` snapshotted the
+direct children of `uploadDirectory.getParent()` — which, since `uploadDirectory` was itself a
+`@TempDir` created directly under the JVM's shared `java.io.tmpdir` (`/tmp` on this host, ~3160
+entries, other unrelated tooling observed mutating it on a sub-second cadence), asserted an exact
+before/after equality of a directory this test process does not own. Reproduced 2/2 by the
+diagnosis; the corroborating unit test (`ImportUploadStorageTest`, no real HTTP/servlet layer, no
+shared `/tmp`) passed 9/9 in the same run, and the traversal-specific assertions later in the same
+method never even executed (AssertJ stops at the first failure) — an environmental false positive,
+not a proven regression.
+
+**Fix:** `ImportApiIT.java` — introduced a private `@TempDir static Path root` (this class's own,
+never shared with host tooling); the configured upload directory is now the derived
+`static Path uploadDirectory = root.resolve("import")` (created lazily by
+`ImportUploadStorage.store()` on first write, same as before), registered via the existing
+`@DynamicPropertySource`. Rewrote the traversal test's filesystem assertions to be scoped
+exclusively to `root`:
+1. `root`'s direct children are **exactly** `{"import"}` — an absolute invariant (true regardless
+   of method execution order across the whole test class, since nothing else this class ever
+   writes to `root`), not a racy before/after diff of a directory other processes also touch.
+2. Exactly one new `<32 hex>.sh` file lands directly inside `uploadDirectory`.
+3. The raw traversal segment's own filename, `x.sh`, is asserted absent **anywhere** under `root`
+   (a recursive `Files.walk`) — the strongest available negative, not merely "the sibling count
+   didn't change".
+
+Never touches or enumerates `/tmp`. Assertion messages stay short and readable (`root`/
+`uploadDirectory` hold at most a handful of entries across the whole test class, so no truncated
+1000-element AssertJ dumps are possible even on failure).
+
+### R3-B gate table (`cd backend` unless noted; candidate SHA `71d884d`)
+
+| # | Command | Exit | Evidence |
+| --- | --- | --- | --- |
+| 1 | `./mvnw -q verify -Dsurefire.skip=true -Dit.test=ImportApiIT -DfailIfNoTests=false`, run **3×** | 0, 0, 0 (8/8 tests, 0 failures, every run) | `evidence/repair-3-gates/mvn-verify-importapiit-3x.txt` |
+| 2 | `./mvnw -q verify` (full backend suite) | 0 (379 total: unit + IT + ArchUnit, 0 failures — higher than earlier wave-4 SHAs since the dashboard journey's own tests are now in this feature-head lineage) | `evidence/repair-3-gates/mvn-verify-full.txt` |
+| 3 | `./mvnw -q spotless:check` | 0 (ran `spotless:apply` once first) | `evidence/repair-3-gates/mvn-spotless.txt` |
+
+### Part-1 (frontend) gate table (`cd frontend`; candidate SHA `71d884d`)
+
+| # | Command | Exit | Evidence |
+| --- | --- | --- | --- |
+| 1 | `npm run lint` | 0 (0 errors; same 12 pre-existing `vue/multiline-html-element-content-newline` warnings as the wave-4 cohort baseline, none introduced by this repair) | `evidence/repair-3-gates/npm-lint.txt` |
+| 2 | `npm run typecheck` | 0 | `evidence/repair-3-gates/npm-typecheck.txt` |
+| 3 | `npm run test -- --run` | 0 (164 passed) | `evidence/repair-3-gates/npm-test.txt` |
+| 4 | `npm run test:integration -- --run` | 0 (127 passed) | `evidence/repair-3-gates/npm-test-integration.txt` |
+| 5 | `npm run format:check` | 0 (after one `prettier --write eslint.config.js` — the hand-authored new blocks needed re-wrapping; re-verified the hardened rule still fires post-format) | `evidence/repair-3-gates/npm-format-check.txt` |
+| 6 | `npm run build` | 0 (332.71 kB JS / 102.79 kB gzip) | `evidence/repair-3-gates/npm-build.txt` |
+
+Sonar: not applicable. Introduced dependencies: none. Secrets grep on both diffs: none found.
+Report/evidence written only to the main checkout, never committed on the
+`migration/wave-4/import-wizard-repair3` branch.
