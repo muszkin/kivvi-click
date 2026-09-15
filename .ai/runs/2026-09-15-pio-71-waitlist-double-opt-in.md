@@ -98,6 +98,8 @@ on this host by unrelated containers) with `--workers=1`.
 
 ## Progress
 
+PR: #2
+
 > Convention: `- [ ]` pending, `- [x]` done. Append ` — <commit sha>` when a step lands. Do not rename step titles.
 
 ### Phase 1: schema and outbox
@@ -123,19 +125,39 @@ on this host by unrelated containers) with `--workers=1`.
 
 ### Phase 5: confirm, resend, unsubscribe
 
-- [ ] 5.1 Token operations on the subscriber store
-- [ ] 5.2 WaitlistConfirmationService and the signup wiring
-- [ ] 5.3 WaitlistConfirmationController and the route table
-- [ ] 5.4 End-to-end API test and the outbox cleanup sweep
+- [x] 5.1 Token operations on the subscriber store — 5d8994a
+- [x] 5.2 WaitlistConfirmationService and the signup wiring — 5d8994a
+- [x] 5.3 WaitlistConfirmationController and the route table — 5d8994a
+- [x] 5.4 End-to-end API test and the outbox cleanup sweep — 5d8994a
 
 ### Phase 6: the pages
 
-- [ ] 6.1 Confirmation and unsubscribe views
-- [ ] 6.2 Frontend integration specs and the landing copy
-- [ ] 6.3 The privacy policy names Brevo
+- [x] 6.1 Confirmation and unsubscribe views — dbf1aa8
+- [x] 6.2 Frontend integration specs and the landing copy — dbf1aa8
+- [x] 6.3 The privacy policy names Brevo — dbf1aa8
 
 ### Phase 7: end to end
 
-- [ ] 7.1 Dev maildrop in compose
-- [ ] 7.2 Playwright loop against the dev stack
-- [ ] 7.3 Full validation gate
+- [x] 7.1 Dev maildrop in compose — ab92fe5
+- [x] 7.2 Playwright loop against the dev stack — b491d2a
+- [x] 7.3 Full validation gate — b491d2a
+
+## Outcome
+
+Status: complete. All 8 validation-gate commands green from the repository root, and the full
+Playwright suite green at 75/75 against the dev stack (`-p kivvi-dev`, ports 8544/8543,
+`--workers=1`).
+
+Two defects the run found and fixed, neither of them in the plan:
+
+- Boot's mail health indicator opens an SMTP connection on every probe, so a relay having a bad
+  minute reported the whole application as DOWN and took the compose healthcheck with it. Under
+  `dev`, where there is deliberately no relay, it failed on the first probe and the stack never
+  came up. Disabled: delivery problems belong in `mail_outbox`'s `failed` rows, not in liveness.
+- Docker creates any missing parent of a bind-mount point as root, so mounting the maildrop at
+  `/app/var/mail` left `/app/var` root-owned and the unprivileged runtime user could no longer
+  create `/app/var/import` — every customer-import upload became an `AccessDeniedException`. The
+  image now creates that tree itself. The e2e suite is what caught it.
+
+Deliberately left out: re-opening an `unsubscribed` row when that address signs up again.
+Unsubscribe stays terminal here; a rejoin path is follow-up work.
