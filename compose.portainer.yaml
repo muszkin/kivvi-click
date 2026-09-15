@@ -51,9 +51,18 @@ services:
       SERVER_NAME: ${SERVER_NAME:-:80}
       MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_JWT_SECRET}
       MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_JWT_SECRET}
+    configs:
+      # Inlined rather than bind-mounted from ./mercure/Caddyfile. Portainer checks the
+      # repository out inside its own container, at /data/compose/<id>/<sha>/, and the Docker
+      # daemon resolves a bind-mount source on the HOST, where that path does not exist — the
+      # mercure container then fails to start with "not a directory". An inline config is
+      # written into the container by the daemon itself, so no host path is involved.
+      #
+      # Kept byte-identical to mercure/Caddyfile except for Compose's own `$` escaping, and CI
+      # fails if the two drift apart (see .github/workflows/build.yml).
+      - source: caddyfile
+        target: /etc/caddy/Caddyfile
     volumes:
-      # Read from the repository Portainer checks out for this stack.
-      - ./mercure/Caddyfile:/etc/caddy/Caddyfile:ro
       - mercure_data:/data
       - mercure_config:/config
     depends_on:
@@ -84,6 +93,55 @@ services:
       # mounting .../data directly makes the entrypoint abort.
       - database_data:/var/lib/postgresql:rw
     # No published port: the database is reachable only over this stack's private network.
+
+configs:
+  caddyfile:
+    content: |
+      # Mercure hub as the public edge: serves /.well-known/mercure* and reverse-proxies
+      # application requests to Spring Boot. TLS is automatic in dev; production terminates
+      # TLS at the upstream proxy and configures this edge to serve plain HTTP.
+
+      {
+      	{$$GLOBAL_OPTIONS}
+      }
+
+      {$$CADDY_EXTRA_CONFIG}
+
+      {$$SERVER_NAME:localhost} {
+      	log {
+      		# Redact the authorization query parameter that can be set by Mercure
+      		format filter {
+      			request>uri query {
+      				replace authorization REDACTED
+      			}
+      		}
+      	}
+
+      	encode zstd gzip
+
+      	mercure {
+      		# Publisher JWT key
+      		publisher_jwt {env.MERCURE_PUBLISHER_JWT_KEY} {env.MERCURE_PUBLISHER_JWT_ALG}
+      		# Subscriber JWT key
+      		subscriber_jwt {env.MERCURE_SUBSCRIBER_JWT_KEY} {env.MERCURE_SUBSCRIBER_JWT_ALG}
+      		# Allow anonymous subscribers (double-check that it's what you want)
+      		anonymous
+      		# Enable the subscription API (double-check that it's what you want)
+      		subscriptions
+      		# Extra directives
+      		{$$MERCURE_EXTRA_DIRECTIVES}
+      	}
+
+      	{$$CADDY_SERVER_EXTRA_DIRECTIVES}
+
+      	header ?Permissions-Policy "browsing-topics=()"
+
+      	# Actuator stays internal-only: the edge is the only publicly reachable surface, and
+      	# health checks that need it (this compose file's own) hit the api container directly.
+      	respond /actuator/* 404
+
+      	reverse_proxy api:8080
+      }
 
 volumes:
   database_data:
