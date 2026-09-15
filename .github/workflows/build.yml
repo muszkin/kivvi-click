@@ -92,20 +92,81 @@ jobs:
         run: npm run build
 
   # Exercises the actual artifact production deploys — compose.yaml/compose.prod.yaml
-  # both build `api` from this same Dockerfile. Build-only, no push: this job exists purely
-  # to catch a broken COPY/stage reference before it reaches a runbook.
+  # both build `api` from this same Dockerfile. On a pull request this is build-only, to catch
+  # a broken COPY/stage reference before it reaches a runbook. On `main` the same build is
+  # pushed to GHCR, which is where the Portainer-managed production stack pulls `api` from.
   backend-image:
     runs-on: [self-hosted, home]
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v5
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Log in to GHCR
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build image
         uses: docker/build-push-action@v6
         with:
           context: .
           file: ./backend/Dockerfile
-          push: false
-          tags: kivvi-click-api:ci
+          # Pushed only from `main`; a pull request must never publish an image tagged
+          # `latest`, because that tag is what production pulls.
+          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+          # Two tags on purpose: `latest` is what the stack pulls, the commit SHA is what a
+          # rollback pins. Set API_TAG to a SHA in the stack's environment to go back.
+          tags: |
+            ghcr.io/muszkin/kivvi-click-api:latest
+            ghcr.io/muszkin/kivvi-click-api:${{ github.sha }}
+
+  # The inlined Caddyfile in compose.portainer.yaml has to stay identical to the one the dev
+  # stack bind-mounts, or the production edge quietly diverges from what anyone reads or tests
+  # locally. Portainer cannot bind-mount it (see that file's comment), so this is the guard.
+  compose-consistency:
+    runs-on: [self-hosted, home]
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: The Portainer stack's inlined Caddyfile matches mercure/Caddyfile
+        run: |
+          python3 - <<'PY'
+          import pathlib, sys, yaml
+
+          canonical = pathlib.Path("mercure/Caddyfile").read_text(encoding="utf-8")
+          stack = yaml.safe_load(pathlib.Path("compose.portainer.yaml").read_text(encoding="utf-8"))
+          inlined = stack["configs"]["caddyfile"]["content"]
+
+          # Compose interpolates the inlined content, so every `$` is doubled there.
+          if inlined.replace("$$", "$").strip() != canonical.strip():
+              sys.exit(
+                  "compose.portainer.yaml's inlined Caddyfile has drifted from mercure/Caddyfile.\n"
+                  "Regenerate it from that file, escaping every '$' as '$$'."
+              )
+          print("Caddyfile in step")
+          PY
+
+  # Deploys production. Runs only after every gate above is green, and only for `main`:
+  # merging a PR is what ships. The webhook redeploys exactly one Portainer stack and can do
+  # nothing else, which is why it, and not a Portainer API token, is the secret held here.
+  deploy:
+    runs-on: [self-hosted, home]
+    needs: [backend, frontend, backend-image, compose-consistency]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Trigger the Portainer stack redeploy
+        run: |
+          status=$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
+            "${{ secrets.PORTAINER_WEBHOOK_URL }}")
+          echo "Portainer webhook answered HTTP $status"
+          # 2xx only. A 404 means the stack or its webhook is gone, and silently carrying on
+          # would report a deployment that never happened.
+          case "$status" in 2??) ;; *) exit 1 ;; esac
