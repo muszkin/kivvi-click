@@ -33,13 +33,20 @@ spring:
     properties:
       mail:
         smtp:
-          # Off only where there is nothing to authenticate against: GreenMail in the tests.
-          auth: ${SPRING_MAIL_SMTP_AUTH:true}
+          # Plain values, with no environment placeholder of this project's own devising. Spring's
+          # canonical names (SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH and friends) already override
+          # these from the environment and are what the production stack sets; a second, custom
+          # variable name for the same flag would be silently outranked by the canonical one, and
+          # an operator who set it would be ignored without being told.
+          #
+          # `required` as well as `enable`: with only `enable`, a relay that answers without
+          # advertising STARTTLS is talked to in the clear and the credentials go with it. The two
+          # are one decision — overriding `enable` without `required` leaves a configuration that
+          # fails every send — so change them together or not at all.
+          auth: true
           starttls:
-            enable: ${SPRING_MAIL_SMTP_STARTTLS:true}
-            # `required` as well as `enable`: with only `enable`, a relay that answers without
-            # advertising STARTTLS is talked to in the clear, and the credentials go with it.
-            required: ${SPRING_MAIL_SMTP_STARTTLS:true}
+            enable: true
+            required: true
           # A relay that stops answering must not be able to pin the sender's single thread. The
           # claim lease in mail_outbox is ten minutes; these three keep one message far inside it.
           connectiontimeout: 10000

@@ -164,9 +164,9 @@ Mercure JWT env vars for both `api` and `mercure`), the transactional-mail setti
 `KIVVI_UNSUBSCRIBE_SECRET`, and an optional `IMAGES_PREFIX` for the built image tag.
 
 Mail goes out over Brevo's plain SMTP relay; the password is Brevo's **SMTP key**, not the account
-password and not an API v3 key. Two of these stop the application from starting if they are
-missing, deliberately — not starting is the honest failure, where starting up and silently dropping
-every confirmation is not:
+password and not an API v3 key. Missing any of the following stops the application from starting,
+deliberately — not starting is the honest failure, where starting up and silently dropping every
+confirmation is not:
 
 - `SMTP_HOST`, outside the `dev` profile, because there would be nowhere to send — and
   `SMTP_USERNAME`/`SMTP_PASSWORD` with it whenever the relay wants authentication, which Brevo
