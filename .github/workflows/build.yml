@@ -139,19 +139,34 @@ jobs:
       - name: The Portainer stack's inlined Caddyfile matches mercure/Caddyfile
         run: |
           python3 - <<'PY'
-          import pathlib, sys, yaml
+          import pathlib, sys
 
-          canonical = pathlib.Path("mercure/Caddyfile").read_text(encoding="utf-8")
-          stack = yaml.safe_load(pathlib.Path("compose.portainer.yaml").read_text(encoding="utf-8"))
-          inlined = stack["configs"]["caddyfile"]["content"]
+          # Deliberately stdlib-only: the runner has no PyYAML, and a CI guard that needs its
+          # own dependency installed is a guard that gets disabled the first time it breaks.
+          # The block is read textually, which is all a literal scalar needs.
+          INDENT = " " * 6
+          lines = pathlib.Path("compose.portainer.yaml").read_text(encoding="utf-8").splitlines()
+          try:
+              start = lines.index("    content: |") + 1
+          except ValueError:
+              sys.exit("compose.portainer.yaml has no inlined `content: |` block for the Caddyfile.")
+
+          block = []
+          for line in lines[start:]:
+              if line.strip() and not line.startswith(INDENT):
+                  break
+              block.append(line[len(INDENT):] if line.startswith(INDENT) else "")
 
           # Compose interpolates the inlined content, so every `$` is doubled there.
-          if inlined.replace("$$", "$").strip() != canonical.strip():
+          inlined = "\n".join(block).replace("$$", "$")
+          canonical = pathlib.Path("mercure/Caddyfile").read_text(encoding="utf-8")
+
+          if inlined.strip() != canonical.strip():
               sys.exit(
                   "compose.portainer.yaml's inlined Caddyfile has drifted from mercure/Caddyfile.\n"
                   "Regenerate it from that file, escaping every '$' as '$$'."
               )
-          print("Caddyfile in step")
+          print("The inlined Caddyfile matches mercure/Caddyfile.")
           PY
 
   # Deploys production. Runs only after every gate above is green, and only for `main`:

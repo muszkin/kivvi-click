@@ -21,6 +21,10 @@ RUN mvn -q -DskipTests package
 
 # Stage 3: run the jar as a non-root user on a bare JRE.
 FROM eclipse-temurin:25-jre AS runtime
+# Links the published GHCR package to this repository. Without it the package is owned by
+# whoever first pushed it and the repository's own GITHUB_TOKEN is refused with
+# "permission_denied: read_package" — which is exactly how the first CI push failed.
+LABEL org.opencontainers.image.source="https://github.com/muszkin/kivvi-click"
 # curl: the only thing the base image is missing for compose's own health check
 # (GET /actuator/health) — everything else about this image is otherwise minimal on purpose.
 RUN apt-get update && apt-get install -y --no-install-recommends curl \
