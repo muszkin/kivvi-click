@@ -102,24 +102,24 @@ on this host by unrelated containers) with `--workers=1`.
 
 ### Phase 1: schema and outbox
 
-- [ ] 1.1 V3 migration
-- [ ] 1.2 MailOutboxStore and its integration test
+- [x] 1.1 V3 migration — 8e6e456
+- [x] 1.2 MailOutboxStore and its integration test — 8e6e456
 
 ### Phase 2: the confirmation token
 
-- [ ] 2.1 Sha256, OpaqueToken, ConfirmationToken
+- [x] 2.1 Sha256, OpaqueToken, ConfirmationToken — 6da193f
 
 ### Phase 3: the mail template
 
-- [ ] 3.1 Thymeleaf, mail and GreenMail dependencies
-- [ ] 3.2 Thymeleaf template and message keys
-- [ ] 3.3 WaitlistMailComposer
+- [x] 3.1 Thymeleaf, mail and GreenMail dependencies — bd3fc62
+- [x] 3.2 Thymeleaf template and message keys — bd3fc62
+- [x] 3.3 WaitlistMailComposer — bd3fc62
 
 ### Phase 4: the sender
 
-- [ ] 4.1 Mail transports and the configuration guard
-- [ ] 4.2 MailOutboxSenderJob on its own pool
-- [ ] 4.3 SMTP configuration and the GreenMail integration test
+- [x] 4.1 Mail transports and the configuration guard — f3413f1
+- [x] 4.2 MailOutboxSenderJob on its own pool — f3413f1
+- [x] 4.3 SMTP configuration and the GreenMail integration test — f3413f1
 
 ### Phase 5: confirm, resend, unsubscribe
 
