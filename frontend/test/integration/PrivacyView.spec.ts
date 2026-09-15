@@ -55,6 +55,48 @@ describe("PIO-70 the privacy policy page", () => {
         expect(text).toContain("klauzuli zgody");
     });
 
+    it("identifies the controller, so the page is not signed by an anonymous 'site owner'", async () => {
+        const { wrapper } = await mountAtRoute("/pl/privacy");
+
+        const text = wrapper.text();
+        expect(text).toContain("Fairydeck Piotr Mucha");
+        expect(text).toContain("7321962870");
+        expect(text).toContain("Niepołomice");
+    });
+
+    it("gives a contact address that actually works, in every section that promises one", async () => {
+        const { wrapper } = await mountAtRoute("/pl/privacy");
+
+        const text = wrapper.text();
+        // The consent-withdrawal route, the rights section and the contact section all promise an
+        // address. A placeholder here would describe a mechanism nobody can use — which is exactly
+        // what this page shipped with before the owner supplied the real one.
+        expect(text).toContain("piotr@kivvi.click");
+        expect(text).not.toMatch(/do uzupełnienia|\[.*—.*\]/);
+    });
+
+    it("discloses the Google Fonts transfer while index.html still loads them from Google", async () => {
+        const { wrapper } = await mountAtRoute("/pl/privacy");
+
+        // Pinned to frontend/index.html: every visitor's browser reaches Google's CDN, so the
+        // page cannot claim a blanket "no transfers outside the EEA". Self-hosting the fonts is
+        // what lets this assertion — and that section — go away.
+        expect(wrapper.text()).toContain("Google Fonts");
+    });
+
+    it("keeps the Polish and English policies in step", async () => {
+        const polish = await mountAtRoute("/pl/privacy");
+        const polishHeadings =
+            polish.wrapper.findAll(".legal-section h2").length;
+
+        i18n.global.locale.value = "en";
+        const english = await mountAtRoute("/en/privacy");
+        const englishHeadings =
+            english.wrapper.findAll(".legal-section h2").length;
+
+        expect(englishHeadings).toBe(polishHeadings);
+    });
+
     it("renders the English policy on '/en/privacy'", async () => {
         i18n.global.locale.value = "en";
         const { wrapper } = await mountAtRoute("/en/privacy");
