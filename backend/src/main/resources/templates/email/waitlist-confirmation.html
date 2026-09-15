@@ -1,0 +1,163 @@
+<!doctype html>
+<!--/*
+  The waitlist confirmation message (PIO-71).
+
+  Mail clients are not browsers. Three constraints follow and every one of them is visible below:
+
+  1. No external stylesheet is ever fetched, so every declaration is inlined on the element it
+     styles. That also rules out reusing EmailDocument.vue, which is a preview component in the
+     campaign editor styled by 04-patterns.css - a different job wearing a similar face.
+  2. oklch() is CSS Color 4 and most clients do not implement it, so the colours here are hex
+     values converted from the design tokens in frontend/src/styles/01-tokens.css (light theme):
+     bg #f7f3eb, card #fefcf7, ink #172319, muted #606d62, rule #ddd7ca, accent #34563b.
+     A grep for "oklch(" in this file is a test assertion, not a style preference.
+  3. Outlook renders through Word, which ignores modern layout entirely - hence nested tables and
+     a fixed 600px content column rather than flexbox or grid.
+
+  Every string comes from messages_pl.properties / messages_en.properties through #{...}; the
+  links and the address are the only model values.
+*/-->
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${locale}" lang="pl">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title th:text="#{mail.waitlist.confirm.subject}">Potwierdź adres</title>
+    </head>
+    <body
+        style="margin: 0; padding: 0; background-color: #f7f3eb; color: #172319; -webkit-font-smoothing: antialiased"
+    >
+        <!--/* The preheader is what an inbox list shows next to the subject. Hidden in the body
+               itself, or it would be read twice. */-->
+        <div
+            style="display: none; max-height: 0; overflow: hidden; mso-hide: all"
+            th:text="#{mail.waitlist.confirm.preheader}"
+        ></div>
+
+        <table
+            role="presentation"
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            border="0"
+            style="background-color: #f7f3eb; margin: 0; padding: 0"
+        >
+            <tr>
+                <td align="center" style="padding: 32px 16px">
+                    <table
+                        role="presentation"
+                        width="600"
+                        cellpadding="0"
+                        cellspacing="0"
+                        border="0"
+                        style="width: 600px; max-width: 100%; background-color: #fefcf7; border: 1px solid #ddd7ca; border-radius: 14px"
+                    >
+                        <tr>
+                            <td
+                                style="padding: 28px 32px 0 32px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: #34563b"
+                            >
+                                kivvi&middot;click
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px 32px 0 32px">
+                                <h1
+                                    style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 26px; line-height: 1.25; font-weight: 600; color: #172319"
+                                    th:text="#{mail.waitlist.confirm.heading}"
+                                >
+                                    Jeszcze jedno kliknięcie
+                                </h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 16px 32px 0 32px">
+                                <p
+                                    style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.6; color: #2f3c31"
+                                    th:text="#{mail.waitlist.confirm.intro}"
+                                >
+                                    Potwierdź, że to Twój adres.
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="padding: 28px 32px 0 32px">
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                        <td
+                                            align="center"
+                                            style="background-color: #34563b; border-radius: 10px"
+                                        >
+                                            <a
+                                                th:href="${confirmUrl}"
+                                                href="#"
+                                                style="display: inline-block; padding: 14px 28px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #fdfaf4; text-decoration: none"
+                                                th:text="#{mail.waitlist.confirm.button}"
+                                                >Potwierdzam adres</a
+                                            >
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 20px 32px 0 32px">
+                                <p
+                                    style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #606d62"
+                                    th:text="#{mail.waitlist.confirm.expiry}"
+                                >
+                                    Link jest ważny 7 dni.
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 16px 32px 0 32px">
+                                <p
+                                    style="margin: 0 0 6px 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #606d62"
+                                    th:text="#{mail.waitlist.confirm.fallback}"
+                                >
+                                    Jeśli przycisk nie działa, skopiuj ten adres do przeglądarki:
+                                </p>
+                                <!--/* The bare URL, because "click the button" is useless in a
+                                       client that strips buttons. word-break keeps a 64-character
+                                       token from widening the table on a phone. */-->
+                                <p
+                                    style="margin: 0; font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 12px; line-height: 1.5; color: #34563b; word-break: break-all"
+                                    th:text="${confirmUrl}"
+                                >
+                                    https://kivvi.click/pl/waitlist/confirm/…
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 24px 32px 0 32px">
+                                <p
+                                    style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.6; color: #606d62"
+                                    th:text="#{mail.waitlist.confirm.ignore}"
+                                >
+                                    Jeśli to nie Ty, po prostu zignoruj tę wiadomość.
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 24px 32px 28px 32px">
+                                <hr style="border: 0; border-top: 1px solid #ddd7ca; margin: 0 0 16px 0" />
+                                <p
+                                    style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.6; color: #919c91"
+                                >
+                                    <span th:text="${recipient}">ala@sklep.pl</span>
+                                    &middot;
+                                    <a
+                                        th:href="${unsubscribeUrl}"
+                                        href="#"
+                                        style="color: #606d62; text-decoration: underline"
+                                        th:text="#{mail.unsubscribe}"
+                                        >Wypisz się</a
+                                    >
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

@@ -15,6 +15,36 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
+  # PIO-71. Transactional mail goes out over a plain SMTP relay — Brevo today
+  # (context/research/2026-09-15-transactional-email-provider.md), which is all EU processing with
+  # a DPA and no standard contractual clauses. Every value here comes from the environment and
+  # NOTHING is defaulted to a credential: .env.prod.docker holds the real ones and is ignored by
+  # both Git and Docker. Swapping providers is these four variables, not a code change.
+  #
+  # `host` deliberately defaults to empty rather than to a plausible-looking server: outside the
+  # `dev` profile MailConfigurationGuard refuses to start the application on a blank host. Not
+  # starting is the honest failure — the dishonest one is starting up and silently dropping every
+  # confirmation a visitor is waiting for.
+  mail:
+    host: ${SPRING_MAIL_HOST:}
+    port: ${SPRING_MAIL_PORT:587}
+    username: ${SPRING_MAIL_USERNAME:}
+    password: ${SPRING_MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          # Off only where there is nothing to authenticate against: GreenMail in the tests.
+          auth: ${SPRING_MAIL_SMTP_AUTH:true}
+          starttls:
+            enable: ${SPRING_MAIL_SMTP_STARTTLS:true}
+            # `required` as well as `enable`: with only `enable`, a relay that answers without
+            # advertising STARTTLS is talked to in the clear, and the credentials go with it.
+            required: ${SPRING_MAIL_SMTP_STARTTLS:true}
+          # A relay that stops answering must not be able to pin the sender's single thread. The
+          # claim lease in mail_outbox is ten minutes; these three keep one message far inside it.
+          connectiontimeout: 10000
+          timeout: 10000
+          writetimeout: 10000
   servlet:
     multipart:
       # No upload_max_filesize/post_max_size override was ever found in the old stack's own
@@ -105,6 +135,30 @@ kivvi:
     # a @Scheduled fixedRate task performs at context startup cannot delete a row between such
     # a test's setup and its assertion. Never set this to false outside tests.
     enabled: true
+  mail:
+    # Absolute links for a message composed now and delivered by a background job later, possibly
+    # after a restart. There is no request to derive a host from at that point — and deriving one
+    # from a visitor-controlled Host header is how a confirmation link ends up pointing at somebody
+    # else's server.
+    base-url: ${KIVVI_BASE_URL:https://kivvi.click}
+    from-address: ${KIVVI_MAIL_FROM_ADDRESS:no-reply@kivvi.click}
+    from-name: ${KIVVI_MAIL_FROM_NAME:kivvi·click}
+    # Where the dev profile drops .eml files instead of connecting to a relay. Relative to the api
+    # container's working directory (/app — see backend/Dockerfile), and mounted from the host in
+    # compose.yaml so the Playwright suite can read what the container wrote.
+    dev-directory: ${KIVVI_MAIL_DEV_DIRECTORY:./var/mail}
+    sender:
+      # Stated for discoverability; the job defaults to on when the key is absent. The integration
+      # tests that drive the outbox by hand turn it off so a background run cannot claim a row out
+      # from under an assertion. Never set this to false outside tests.
+      enabled: true
+      # Fast enough that a confirmation feels immediate, slow enough that an idle stack is not
+      # polling Postgres in a tight loop.
+      interval: PT30S
+      batch-size: 20
+    # How long a delivered message stays in mail_outbox before the hourly sweep drops it. Failed
+    # rows are never swept: they are the evidence that something did not arrive.
+    sent-retention: P30D
   import:
     # Relative to the api container's working directory (/app — see backend/Dockerfile), so
     # this resolves to /app/var/import — mirrors the old stack's own `var/import`. A path
