@@ -186,7 +186,7 @@ describe("PIO-70 the waitlist form on the landing hero", () => {
         expect(wrapper.find("form.waitlist-form").exists()).toBe(false);
         const thanks = wrapper.find(".waitlist-thanks");
         expect(thanks.attributes("role")).toBe("status");
-        expect(thanks.text()).toContain("jesteś na liście");
+        expect(thanks.text()).toContain("link potwierdzający");
     });
 
     it("the hero keeps exactly one CTA link — the demo — now that the form replaced the other", async () => {

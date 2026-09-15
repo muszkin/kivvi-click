@@ -5,6 +5,11 @@
  * address, the absence of a data protection officer and the hosting arrangement were supplied by
  * the owner on 2026-09-15; do not edit them without him.
  *
+ * PIO-71 named the e-mail provider, which this page had promised to do before the first message
+ * went out. That promise is now a statement of fact about a subprocessor: the section must be
+ * edited in the same change as any switch away from Brevo, or the policy starts describing a
+ * company that no longer touches the data.
+ *
  * Two statements here are pinned to things the code actually does, and both break silently if the
  * code changes: the "no cookies on the public pages" section is only true while no controller
  * calls request.getSession(true) on a public path (today only LoginService and
@@ -65,7 +70,7 @@ export default {
             },
             {
                 heading: "Komu powierzamy dane",
-                body: "Twój adres e-mail i dowód zgody przechowujemy wyłącznie na serwerze administratora, stojącym pod adresem siedziby podanym wyżej. Nie korzystamy z zewnętrznego dostawcy hostingu i nie przekazujemy tych danych żadnemu innemu podmiotowi. Zanim wyślemy powiadomienie o starcie, skorzystamy z zewnętrznego dostawcy poczty — zostanie on nazwany w tej polityce, zanim wyjdzie pierwsza wiadomość.",
+                body: "Twój adres e-mail i dowód zgody przechowujemy wyłącznie na serwerze administratora, stojącym pod adresem siedziby podanym wyżej. Nie korzystamy z zewnętrznego dostawcy hostingu. Wiadomości — potwierdzenie zapisu i powiadomienie o starcie — wysyła w naszym imieniu Brevo (Sendinblue SAS, 106 boulevard Haussmann, 75008 Paryż, Francja), z którym zawarliśmy umowę powierzenia przetwarzania danych. Brevo przetwarza dane w całości na terenie Unii Europejskiej i dostaje wyłącznie to, co jest potrzebne do doręczenia wiadomości: Twój adres e-mail i jej treść. Żadnemu innemu podmiotowi nie przekazujemy tych danych.",
             },
             {
                 heading:
@@ -86,7 +91,7 @@ export default {
             },
             {
                 heading: "Zmiany tej polityki",
-                body: "Ta wersja obowiązuje od 15 września 2026. Jeśli zmienimy zakres przetwarzania — na przykład dodamy dostawcę poczty albo uruchomimy konta użytkowników — zaktualizujemy tę stronę i zmienimy datę powyżej.",
+                body: "Ta wersja obowiązuje od 15 września 2026 i wymienia Brevo jako podmiot przetwarzający, dopisany zanim wyszła pierwsza wiadomość. Jeśli zmienimy zakres przetwarzania — na przykład zmienimy dostawcę poczty albo uruchomimy konta użytkowników — zaktualizujemy tę stronę i zmienimy datę powyżej.",
             },
         ],
     },

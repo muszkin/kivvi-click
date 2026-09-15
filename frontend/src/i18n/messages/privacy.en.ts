@@ -50,7 +50,7 @@ export default {
             },
             {
                 heading: "Who else handles it",
-                body: "Your e-mail address and consent record are held solely on the controller's own server, located at the registered address given above. We use no external hosting provider and pass this data to no one else. Before we send the launch notification we will use an external e-mail provider — it will be named in this policy before the first message goes out.",
+                body: "Your e-mail address and consent record are held solely on the controller's own server, located at the registered address given above. We use no external hosting provider. Our messages — the signup confirmation and the launch notification — are delivered on our behalf by Brevo (Sendinblue SAS, 106 boulevard Haussmann, 75008 Paris, France), with whom we have a data processing agreement. Brevo processes the data entirely within the European Union and receives only what delivering a message requires: your e-mail address and the content of that message. We pass this data to no one else.",
             },
             {
                 heading: "Transfers outside the European Economic Area",
@@ -70,7 +70,7 @@ export default {
             },
             {
                 heading: "Changes to this policy",
-                body: "This version takes effect on 15 September 2026. If we change the scope of processing — by adding an e-mail provider, say, or launching user accounts — we will update this page and change the date above.",
+                body: "This version takes effect on 15 September 2026 and names Brevo as a processor, added before the first message went out. If we change the scope of processing — by switching e-mail provider, say, or launching user accounts — we will update this page and change the date above.",
             },
         ],
     },

@@ -28,7 +28,10 @@ export default {
                 "Zgadzam się na otrzymanie jednorazowego powiadomienia o starcie kivvi·click na podany adres e-mail.",
             privacyLink: "Co robimy z tymi danymi",
             note: "Jeden e-mail, kiedy ruszamy. Żadnego spamu, wypisujesz się jednym kliknięciem.",
-            thanks: "Dzięki — jesteś na liście. Odezwiemy się, kiedy ruszamy.",
+            // PIO-71 made this true. It used to say the visitor was on the list, which stopped
+            // being the case the moment signing up only created a `pending` row: the address is
+            // on the list once the link in the mail is followed, and not a second earlier.
+            thanks: "Dzięki — wysłaliśmy Ci link potwierdzający. Kliknij go, a trafisz na listę.",
             honeypotLabel: "Zostaw to pole puste",
         },
         featuresTitle:
