@@ -6,7 +6,6 @@ import click.kivvi.domain.SupportedLocale;
 import click.kivvi.domain.waitlist.WaitlistSignup;
 import click.kivvi.domain.waitlist.WaitlistSignupError;
 import click.kivvi.infrastructure.waitlist.SignupThrottle;
-import click.kivvi.infrastructure.waitlist.WaitlistSubscriberStore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,18 +16,24 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.support.StaticMessageSource;
 
 /**
- * {@link WaitlistSignupService} against stand-ins for the store and the limiter — the point of each
- * test is the decision the service makes and, just as importantly, what it declines to touch when
- * it refuses: a honeypot hit and an exhausted allowance must both cost zero database writes.
+ * {@link WaitlistSignupService} against stand-ins for the registrar and the limiter — the point of
+ * each test is the decision the service makes and, just as importantly, what it declines to touch
+ * when it refuses: a honeypot hit and an exhausted allowance must both cost zero database writes
+ * and zero queued messages.
+ *
+ * <p>PIO-71 turned the store dependency into {@link WaitlistRegistrar}, because registering is no
+ * longer only an insert — it also queues a confirmation link. What that step does is {@code
+ * WaitlistConfirmationServiceTest}'s subject; what matters here is only whether it is reached at
+ * all.
  */
 class WaitlistSignupServiceTest {
 
   private static final String CONSENT_TEXT = "Zgadzam się na otrzymanie powiadomienia o starcie.";
 
-  private final RecordingStore store = new RecordingStore();
+  private final RecordingRegistrar registrar = new RecordingRegistrar();
   private final CountingThrottle throttle = new CountingThrottle();
   private final WaitlistSignupService service =
-      new WaitlistSignupService(store, throttle, consentTextSource());
+      new WaitlistSignupService(registrar, throttle, consentTextSource());
 
   @Test
   @DisplayName("a good submission is accepted and stored as a pending landing signup")
@@ -36,9 +41,9 @@ class WaitlistSignupServiceTest {
     SignupOutcome outcome = service.signUp(request("ala@sklep.pl", true, ""));
 
     assertThat(outcome).isEqualTo(new SignupOutcome.Accepted());
-    assertThat(store.saved).hasSize(1);
-    assertThat(store.saved.getFirst().email()).isEqualTo("ala@sklep.pl");
-    assertThat(store.saved.getFirst().consent().text()).isEqualTo(CONSENT_TEXT);
+    assertThat(registrar.registered).hasSize(1);
+    assertThat(registrar.registered.getFirst().email()).isEqualTo("ala@sklep.pl");
+    assertThat(registrar.registered.getFirst().consent().text()).isEqualTo(CONSENT_TEXT);
   }
 
   @Test
@@ -47,7 +52,7 @@ class WaitlistSignupServiceTest {
     SignupOutcome outcome = service.signUp(request("bot@spam.example", true, "http://spam"));
 
     assertThat(outcome).isEqualTo(new SignupOutcome.Accepted());
-    assertThat(store.saved).isEmpty();
+    assertThat(registrar.registered).isEmpty();
     assertThat(throttle.acquisitions).isEmpty();
   }
 
@@ -59,7 +64,7 @@ class WaitlistSignupServiceTest {
     SignupOutcome outcome = service.signUp(request("nie-adres", false, ""));
 
     assertThat(outcome).isEqualTo(new SignupOutcome.ThrottleExceeded());
-    assertThat(store.saved).isEmpty();
+    assertThat(registrar.registered).isEmpty();
   }
 
   @Test
@@ -126,7 +131,7 @@ class WaitlistSignupServiceTest {
   @Test
   @DisplayName("a repeat of an address already on the list still reads as success")
   void aDuplicateStillLooksLikeSuccess() {
-    store.reportEverythingAsAlreadyPresent();
+    registrar.reportEverythingAsAlreadyPresent();
 
     SignupOutcome outcome = service.signUp(request("ala@sklep.pl", true, ""));
 
@@ -139,7 +144,7 @@ class WaitlistSignupServiceTest {
     SignupOutcome outcome = service.signUp(request("nie-adres", true, ""));
 
     assertThat(outcome).isEqualTo(new SignupOutcome.Rejected(WaitlistSignupError.EMAIL_MALFORMED));
-    assertThat(store.saved).isEmpty();
+    assertThat(registrar.registered).isEmpty();
   }
 
   @Test
@@ -148,7 +153,7 @@ class WaitlistSignupServiceTest {
     SignupOutcome outcome = service.signUp(request("ala@sklep.pl", false, ""));
 
     assertThat(outcome).isEqualTo(new SignupOutcome.Rejected(WaitlistSignupError.CONSENT_REQUIRED));
-    assertThat(store.saved).isEmpty();
+    assertThat(registrar.registered).isEmpty();
   }
 
   @Test
@@ -158,7 +163,7 @@ class WaitlistSignupServiceTest {
         new SignupRequest(
             "ala@sklep.pl", true, "", SupportedLocale.EN, "203.0.113.7", "Mozilla/5.0"));
 
-    assertThat(store.saved.getFirst().consent().text())
+    assertThat(registrar.registered.getFirst().consent().text())
         .isEqualTo("I agree to be told when it launches.");
   }
 
@@ -177,23 +182,19 @@ class WaitlistSignupServiceTest {
     return source;
   }
 
-  /** Records what reached the store, and can pretend every address is already on the list. */
-  private static final class RecordingStore extends WaitlistSubscriberStore {
+  /** Records what reached registration, and can pretend every address is already on the list. */
+  private static final class RecordingRegistrar implements WaitlistRegistrar {
 
-    private final List<WaitlistSignup> saved = new ArrayList<>();
+    private final List<WaitlistSignup> registered = new ArrayList<>();
     private boolean everythingAlreadyPresent;
-
-    private RecordingStore() {
-      super(null);
-    }
 
     private void reportEverythingAsAlreadyPresent() {
       everythingAlreadyPresent = true;
     }
 
     @Override
-    public boolean save(WaitlistSignup signup) {
-      saved.add(signup);
+    public boolean register(WaitlistSignup signup) {
+      registered.add(signup);
       return !everythingAlreadyPresent;
     }
   }

@@ -30,6 +30,9 @@ import org.testcontainers.postgresql.PostgreSQLContainer;
  * behind, the repeat that leaves nothing, and the allowance running out. {@code
  * WaitlistControllerTest} slices the web layer with stand-ins behind it; this is the one that
  * proves the pieces fit together, including that {@code V2__waitlist.sql} applied.
+ *
+ * <p>Still about the signup itself. What PIO-71 hung off the end of it — the confirmation mail, the
+ * link, and everything that follows it — belongs to {@code WaitlistConfirmationApiIT}.
  */
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -66,7 +69,12 @@ class WaitlistApiIT {
     assertThat(row.get("consent_text").toString()).contains("Zgadzam się");
     assertThat(row.get("consent_ip")).isNotNull();
     assertThat(row.get("confirmed_at")).isNull();
-    assertThat(row.get("confirmation_token_hash")).isNull();
+    // PIO-71: the row is pending *and* already carries the token of the confirmation link that
+    // went out with it. The columns were created empty by PIO-70 precisely so this ticket could
+    // fill them without reshaping a table that already holds production rows. What the link then
+    // does is WaitlistConfirmationApiIT's subject.
+    assertThat(row.get("confirmation_token_hash")).isNotNull();
+    assertThat(row.get("confirmation_token_expires_at")).isNotNull();
   }
 
   @Test

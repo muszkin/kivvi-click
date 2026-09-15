@@ -9,13 +9,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import click.kivvi.application.SpaDocumentService;
+import click.kivvi.application.waitlist.WaitlistRegistrar;
 import click.kivvi.application.waitlist.WaitlistSignupService;
 import click.kivvi.domain.waitlist.WaitlistSignup;
 import click.kivvi.infrastructure.IndexHtmlTemplate;
 import click.kivvi.infrastructure.SessionPreferencesStore;
 import click.kivvi.infrastructure.config.MessageSourceConfig;
 import click.kivvi.infrastructure.waitlist.SignupThrottle;
-import click.kivvi.infrastructure.waitlist.WaitlistSubscriberStore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,10 +31,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
 /**
- * The HTTP contract of {@code POST /{locale}/waitlist}, sliced at the web layer. The store and the
- * limiter are in-memory stand-ins — what is under test here is the status code, the content type
- * and the state handed back to the SPA, not what Postgres does with the row (that is {@code
- * WaitlistApiIT}'s job).
+ * The HTTP contract of {@code POST /{locale}/waitlist}, sliced at the web layer. Registration and
+ * the limiter are in-memory stand-ins — what is under test here is the status code, the content
+ * type and the state handed back to the SPA, not what Postgres does with the row or what the
+ * confirmation mail says (those are {@code WaitlistApiIT}'s and {@code WaitlistConfirmationApiIT}'s
+ * jobs).
  */
 @WebMvcTest(WaitlistController.class)
 @Import({
@@ -47,14 +48,14 @@ import org.springframework.test.web.servlet.MockMvc;
 class WaitlistControllerTest {
 
   @Autowired private MockMvc mvc;
-  @Autowired private RecordingStore store;
+  @Autowired private RecordingRegistrar registrar;
   @Autowired private CountingThrottle throttle;
 
   // The slice's context — and with it both stand-ins — is shared by every test in this class,
   // so each one starts from a clean counter rather than inheriting its neighbours' writes.
   @BeforeEach
   void resetBackends() {
-    store.reset();
+    registrar.reset();
     throttle.reset();
   }
 
@@ -65,7 +66,7 @@ class WaitlistControllerTest {
         .andExpect(status().isFound())
         .andExpect(header().string("Location", "/pl?waitlist=ok"));
 
-    assertThat(store.saved).hasSize(1);
+    assertThat(registrar.registered).hasSize(1);
   }
 
   @Test
@@ -139,7 +140,7 @@ class WaitlistControllerTest {
                         "data-waitlist-error=\"Za dużo prób z tego miejsca. Spróbuj ponownie za"
                             + " godzinę.\"")));
 
-    assertThat(store.saved).isEmpty();
+    assertThat(registrar.registered).isEmpty();
   }
 
   @Test
@@ -153,7 +154,7 @@ class WaitlistControllerTest {
         .andExpect(status().isFound())
         .andExpect(header().string("Location", "/pl?waitlist=ok"));
 
-    assertThat(store.saved).isEmpty();
+    assertThat(registrar.registered).isEmpty();
   }
 
   @Test
@@ -187,8 +188,8 @@ class WaitlistControllerTest {
   static class InMemoryWaitlistBackends {
 
     @Bean
-    RecordingStore waitlistSubscriberStore() {
-      return new RecordingStore();
+    RecordingRegistrar waitlistRegistrar() {
+      return new RecordingRegistrar();
     }
 
     @Bean
@@ -197,21 +198,17 @@ class WaitlistControllerTest {
     }
   }
 
-  static final class RecordingStore extends WaitlistSubscriberStore {
+  static final class RecordingRegistrar implements WaitlistRegistrar {
 
-    private final List<WaitlistSignup> saved = new ArrayList<>();
-
-    private RecordingStore() {
-      super(null);
-    }
+    private final List<WaitlistSignup> registered = new ArrayList<>();
 
     private void reset() {
-      saved.clear();
+      registered.clear();
     }
 
     @Override
-    public boolean save(WaitlistSignup signup) {
-      saved.add(signup);
+    public boolean register(WaitlistSignup signup) {
+      registered.add(signup);
       return true;
     }
   }

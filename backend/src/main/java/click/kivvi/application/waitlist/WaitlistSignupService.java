@@ -4,7 +4,6 @@ import click.kivvi.domain.Sha256;
 import click.kivvi.domain.waitlist.WaitlistSignup;
 import click.kivvi.domain.waitlist.WaitlistSignupError;
 import click.kivvi.infrastructure.waitlist.SignupThrottle;
-import click.kivvi.infrastructure.waitlist.WaitlistSubscriberStore;
 import java.time.Instant;
 import java.util.Locale;
 import java.util.Optional;
@@ -52,13 +51,13 @@ public class WaitlistSignupService {
 
   private static final Logger LOG = LoggerFactory.getLogger(WaitlistSignupService.class);
 
-  private final WaitlistSubscriberStore store;
+  private final WaitlistRegistrar registrar;
   private final SignupThrottle throttle;
   private final MessageSource messageSource;
 
   public WaitlistSignupService(
-      WaitlistSubscriberStore store, SignupThrottle throttle, MessageSource messageSource) {
-    this.store = store;
+      WaitlistRegistrar registrar, SignupThrottle throttle, MessageSource messageSource) {
+    this.registrar = registrar;
     this.throttle = throttle;
     this.messageSource = messageSource;
   }
@@ -126,9 +125,13 @@ public class WaitlistSignupService {
             request.userAgent(),
             consentText);
 
-    boolean stored = store.save(signup);
+    // PIO-71: registering is no longer just an insert — it also puts a confirmation link in the
+    // post, in the same transaction. A repeat signup for an address that has not confirmed yet is
+    // therefore not "ignored" any more: nothing new is stored, but a fresh link goes out, which is
+    // exactly what someone is asking for when they submit the form again.
+    boolean stored = registrar.register(signup);
     if (!stored) {
-      LOG.info("Waitlist signup ignored: the address is already on the list.");
+      LOG.info("Waitlist signup: the address was already on the list.");
     }
   }
 

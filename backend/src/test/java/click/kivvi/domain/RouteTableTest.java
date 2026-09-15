@@ -48,6 +48,34 @@ class RouteTableTest {
   }
 
   @Test
+  @DisplayName("PIO-71 the three pages a confirmation mail leads to are public document routes")
+  void theConfirmationPagesArePublicRoutes() {
+    String token = "a".repeat(64);
+
+    assertThat(RouteTable.match("/pl/waitlist/confirm/" + token).map(RouteTable.Match::routeName))
+        .contains("waitlist_confirm");
+    assertThat(RouteTable.match("/pl/waitlist/confirm/" + token).map(RouteTable.Match::layout))
+        .contains(RouteTable.Layout.PUBLIC);
+    assertThat(RouteTable.match("/pl/waitlist/confirm/sent").map(RouteTable.Match::routeName))
+        .contains("waitlist_confirm_sent");
+    assertThat(
+            RouteTable.match("/en/waitlist/unsubscribe/" + token).map(RouteTable.Match::routeName))
+        .contains("waitlist_unsubscribe");
+    assertThat(RouteTable.match("/en/waitlist/unsubscribe/" + token).map(RouteTable.Match::locale))
+        .contains(SupportedLocale.EN);
+  }
+
+  @Test
+  @DisplayName(
+      "PIO-71 a link that is not a token shape is not a route, so it 404s before any lookup")
+  void aMalformedTokenIsNotARoute() {
+    assertThat(RouteTable.match("/pl/waitlist/confirm/nonsense")).isEmpty();
+    assertThat(RouteTable.match("/pl/waitlist/confirm/" + "a".repeat(63))).isEmpty();
+    assertThat(RouteTable.match("/pl/waitlist/confirm/" + "A".repeat(64))).isEmpty();
+    assertThat(RouteTable.match("/de/waitlist/confirm/" + "a".repeat(64))).isEmpty();
+  }
+
+  @Test
   @DisplayName("PIO-70 the privacy policy is a public document route in both languages")
   void thePrivacyPolicyIsAPublicRoute() {
     assertThat(RouteTable.match("/pl/privacy").map(RouteTable.Match::routeName))

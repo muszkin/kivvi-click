@@ -42,6 +42,17 @@ public final class RouteTable {
           // from there has to serve the landing page rather than a 404. GET here is just the
           // landing page; only POST (WaitlistController) does anything.
           new Route("waitlist", "/waitlist", Layout.PUBLIC),
+          // PIO-71. The three pages a confirmation mail leads to. Entries here matter for the
+          // "sent" page above all: the other two are answered by WaitlistConfirmationController,
+          // but /waitlist/confirm/sent is a plain document and without a route it would 404 the
+          // moment the browser followed the redirect. The token routes are listed for the same
+          // reason every other route is — one table describes what this application serves.
+          //
+          // The token pattern is the token's own shape (64 hex characters), so a mistyped or
+          // truncated link 404s here rather than reaching the controller to be told it is unknown.
+          new Route("waitlist_confirm_sent", "/waitlist/confirm/sent", Layout.PUBLIC),
+          new Route("waitlist_confirm", "/waitlist/confirm/[0-9a-f]{64}", Layout.PUBLIC),
+          new Route("waitlist_unsubscribe", "/waitlist/unsubscribe/[0-9a-f]{64}", Layout.PUBLIC),
           new Route("login", "/login", Layout.AUTH),
           new Route("dashboard", "/dashboard", Layout.APP),
           new Route("events", "/events", Layout.APP),
