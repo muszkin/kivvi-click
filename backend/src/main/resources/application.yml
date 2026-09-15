@@ -103,6 +103,14 @@ management:
     health:
       probes:
         enabled: true
+  health:
+    mail:
+      # Off deliberately. Boot's mail health indicator opens an SMTP connection on every health
+      # check, so a relay having a bad minute would report this application as DOWN and, under
+      # compose, take the container's healthcheck with it — while the application is in fact
+      # serving every page perfectly well and the outbox is doing exactly what an outbox is for.
+      # Delivery problems belong in mail_outbox's `failed` rows, not in liveness.
+      enabled: false
 
 kivvi:
   supported-locales: pl,en
