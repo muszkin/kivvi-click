@@ -1,23 +1,41 @@
 package click.kivvi.domain;
 
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Injects server state into the built SPA's {@code index.html} before it reaches the browser, so
  * the very first paint already has the right language, theme and sidebar state — no flash of the
- * wrong one. A failed login POST additionally carries the error message and the last-typed address,
- * so the SPA can render the login page's callout without a second round trip.
+ * wrong one. A form POST that could not be accepted additionally carries what went wrong and what
+ * was typed, so the SPA can redisplay the form without a second round trip.
  */
 public final class SpaDocument {
 
   private static final Pattern HTML_TAG = Pattern.compile("<html[^>]*>");
 
-  /** {@code loginError} and {@code lastUsername} are {@code null} outside a failed login POST. */
+  /**
+   * The three attributes every document carries, plus whatever a failed POST needs to add.
+   *
+   * <p>{@code dataAttributes} maps an attribute name without its {@code data-} prefix to its value
+   * ({@code "login-error"} renders as {@code data-login-error="…"}), and renders in insertion
+   * order. It replaced a pair of positional {@code loginError}/{@code lastUsername} components when
+   * the waitlist form arrived needing three more of its own: five nullable trailing parameters,
+   * four of which are null on any given call, is a worse record than one map, and every further
+   * form would have added to the pile. Existing callers produce byte-for-byte the same tag they did
+   * before — {@code SpaDocumentTest} pins that.
+   */
   public record Attributes(
-      String locale, String theme, String sidebar, String loginError, String lastUsername) {
+      String locale, String theme, String sidebar, Map<String, String> dataAttributes) {
+
     public Attributes(String locale, String theme, String sidebar) {
-      this(locale, theme, sidebar, null, null);
+      this(locale, theme, sidebar, Map.of());
+    }
+
+    public Attributes {
+      dataAttributes = Collections.unmodifiableMap(new LinkedHashMap<>(dataAttributes));
     }
   }
 
@@ -40,12 +58,15 @@ public final class SpaDocument {
             .append("\" data-sidebar=\"")
             .append(escape(attrs.sidebar()))
             .append('"');
-    if (attrs.loginError() != null) {
-      tag.append(" data-login-error=\"").append(escape(attrs.loginError())).append('"');
-    }
-    if (attrs.lastUsername() != null) {
-      tag.append(" data-last-username=\"").append(escape(attrs.lastUsername())).append('"');
-    }
+    attrs
+        .dataAttributes()
+        .forEach(
+            (name, value) ->
+                tag.append(" data-")
+                    .append(escape(name))
+                    .append("=\"")
+                    .append(escape(value))
+                    .append('"'));
     return tag.append('>').toString();
   }
 

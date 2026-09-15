@@ -7,6 +7,8 @@ import click.kivvi.fixtures.ShellFixtures;
 import jakarta.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -58,9 +60,14 @@ public class LoginController {
     // like the malformed-e-mail case redisplays what was actually typed.
     String lastUsername = username.isBlank() ? ShellFixtures.DEFAULT_IDENTITY.email() : username;
 
+    // A LinkedHashMap, not Map.of: the SPA document renders these in iteration order, and the
+    // attribute order on <html> is part of what the oracle recorded for this response.
+    Map<String, String> attributes = new LinkedHashMap<>();
+    attributes.put("login-error", error.get());
+    attributes.put("last-username", lastUsername);
+
     // A read from here on: never force a session into existence just to re-render the form.
-    String document =
-        spaDocumentService.render(request.getSession(false), supported, error.get(), lastUsername);
+    String document = spaDocumentService.render(request.getSession(false), supported, attributes);
     return ResponseEntity.ok().contentType(TEXT_HTML_UTF8).body(document);
   }
 
