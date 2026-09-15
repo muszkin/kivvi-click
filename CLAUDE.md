@@ -83,8 +83,11 @@ Docker-first — run everything through `compose.yaml`.
 - Static analysis: `cd backend && ./mvnw spotless:check` (module-boundary check is
   `ArchitectureTest`, part of `./mvnw test`) and `cd frontend && npm run typecheck && npm run lint`.
 - CI/CD: GitHub Actions (`.github/workflows/build.yml`) runs the backend (`./mvnw verify`), the
-  frontend (typecheck/lint/format/test/build) and a build-only backend Docker image check on
-  push to `main` and on pull requests; nothing is pushed to a registry from CI.
+  frontend (typecheck/lint/format/test/build), a backend Docker image build and a
+  compose-consistency check, on push to `main` and on pull requests. On `main` only, the image
+  is pushed to GHCR as `ghcr.io/muszkin/kivvi-click-api` (tags `latest` and the commit SHA) and
+  a final `deploy` job — gated on every other job being green — calls the Portainer stack
+  webhook, which redeploys production. A pull request never pushes an image and never deploys.
 - E2E: `cd tests/e2e && npm install && E2E_BASE_URL=https://localhost:8443 npx playwright test`
   — headless Chrome against the running stack (`E2E_BASE_URL` overrides the default
   `https://localhost:8543` in `playwright.config.ts`). Run `events.spec.ts`, `dashboard.spec.ts`
@@ -93,13 +96,23 @@ Docker-first — run everything through `compose.yaml`.
   independently of `frontend/`'s Vite/Vitest one.
 - Migration parity check (oracle regression, safe to keep running after cutover):
   `node tools/migration-verify/compare.mjs --journey <id> --base <url> [--dimension contract|visual|performance|all]`.
-- Production on this host: run from this directory only —
-  `docker compose -p kivvi-click --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --wait`
-  → http://localhost:23456, fronted by a reverse proxy that terminates TLS for
-  https://kivvi.click. The project name (`-p kivvi-click`) must match this directory's own
-  name; NEVER run the prod compose from a git worktree, whose different directory name would
-  start a second, colliding stack. Secrets and ports live in `.env.prod.docker` (git- and
-  docker-ignored).
+- Production is **managed by Portainer**, not by a local compose command. The stack
+  `kivvi-click` (id 65) on the `nas` environment at https://docker.mucha.family is deployed
+  from this repository's `main` branch, reading `compose.portainer.yaml`; it pulls `api` from
+  GHCR and publishes port `23456`, which a Cloudflare tunnel fronts for https://kivvi.click.
+  **That port number is load-bearing — changing it breaks the tunnel.** Secrets
+  (`POSTGRES_PASSWORD`, `MERCURE_JWT_SECRET`) live in the stack's environment variables in
+  Portainer, not in the repository.
+  - Deploying: merge to `main`. CI builds, pushes the image and calls the stack webhook.
+    Nothing else is needed, and no one should run a production compose command by hand.
+  - Rolling back: set `API_TAG` to an earlier commit SHA in the stack's environment variables
+    and redeploy the stack from Portainer. `latest` always points at the newest `main`.
+  - The data lives in three volumes declared `external` under the names the pre-Portainer
+    stack created: `kivvi-next_database_data`, `kivvi-next_mercure_data`,
+    `kivvi-next_mercure_config`. Never let a stack create its own — it would come up on an
+    empty database and look healthy while serving nothing.
+  - `compose.prod.yaml` is kept for reference and disaster recovery only. Running it by hand
+    would bind port 23456 and collide with the Portainer-managed stack.
 
 ## Workflow — overrides the global gitflow/Jira rules for this repo
 
