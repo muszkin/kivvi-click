@@ -1,14 +1,11 @@
 package click.kivvi.application.waitlist;
 
+import click.kivvi.domain.Sha256;
 import click.kivvi.domain.waitlist.WaitlistSignup;
 import click.kivvi.domain.waitlist.WaitlistSignupError;
 import click.kivvi.infrastructure.waitlist.SignupThrottle;
 import click.kivvi.infrastructure.waitlist.WaitlistSubscriberStore;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
-import java.util.HexFormat;
 import java.util.Locale;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -140,18 +137,12 @@ public class WaitlistSignupService {
    * throwaway abuse counter that anyone can fill, and it has no business holding readable e-mail
    * addresses. Hashing also keeps every key the same short length, which is what lets the column
    * stay narrow while the address column allows the full 320 characters a mailbox may have.
+   *
+   * <p>PIO-71 moved the digest itself into {@link Sha256}: the confirmation token hashes the same
+   * way, and two private copies of the same four lines are two chances to disagree about encoding
+   * or case.
    */
   private static String emailBucketKey(String normalizedEmail) {
-    return EMAIL_BUCKET_PREFIX + sha256Hex(normalizedEmail);
-  }
-
-  private static String sha256Hex(String value) {
-    try {
-      byte[] digest =
-          MessageDigest.getInstance("SHA-256").digest(value.getBytes(StandardCharsets.UTF_8));
-      return HexFormat.of().formatHex(digest);
-    } catch (NoSuchAlgorithmException exception) {
-      throw new IllegalStateException("SHA-256 is unavailable on this JVM.", exception);
-    }
+    return EMAIL_BUCKET_PREFIX + Sha256.hex(normalizedEmail);
   }
 }
