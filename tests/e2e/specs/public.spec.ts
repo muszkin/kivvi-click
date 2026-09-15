@@ -10,7 +10,13 @@ test.describe("landing", () => {
         await page.goto("/pl");
 
         await expect(page.locator(".hero h1")).toContainText("Widzisz");
-        await expect(page.locator(".hero-cta a")).toHaveCount(2);
+        // Was 2 until PIO-70. The waitlist form replaced the primary CTA
+        // ("Załóż darmowe konto") in the hero, so "Zobacz panel demo" is the
+        // only link left in .hero-cta. Lowered deliberately rather than
+        // loosened: the form that took its place is asserted on the next line,
+        // and waitlist.spec.ts covers what it does.
+        await expect(page.locator(".hero-cta a")).toHaveCount(1);
+        await expect(page.locator("form.waitlist-form")).toBeVisible();
         await expect(page.locator(".hero-preview .kpi")).toHaveCount(4);
         // The marketing preview renders the traffic shape server-side, not as the live canvas.
     await expect(page.locator(".hero-preview svg path")).not.toHaveCount(0);

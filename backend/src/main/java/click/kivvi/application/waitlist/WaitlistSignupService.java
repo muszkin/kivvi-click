@@ -37,10 +37,10 @@ public class WaitlistSignupService {
    * Generous enough that an office or a mobile carrier behind one NAT never notices, tight enough
    * that a single host cannot stuff the list.
    */
-  static final int SIGNUPS_PER_IP_PER_HOUR = 10;
+  private static final int SIGNUPS_PER_IP_PER_HOUR = 10;
 
   /** A real person needs one attempt, or a couple after a typo. Nobody needs a fourth. */
-  static final int SIGNUPS_PER_ADDRESS_PER_HOUR = 3;
+  private static final int SIGNUPS_PER_ADDRESS_PER_HOUR = 3;
 
   private static final String IP_BUCKET_PREFIX = "ip:";
   private static final String EMAIL_BUCKET_PREFIX = "email:";
