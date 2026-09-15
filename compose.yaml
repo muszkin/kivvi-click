@@ -9,6 +9,12 @@ services:
       dockerfile: backend/Dockerfile
     restart: unless-stopped
     environment:
+      # PIO-71. `dev` is the development default and the production overlay pins `prod`. The
+      # profile decides how mail leaves: under `dev` every message is written to ./var/mail as an
+      # .eml (so the Playwright suite can read a confirmation link without a mail container, and
+      # Postgres stays the only backing service); under anything else the application refuses to
+      # start without an SMTP relay configured.
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev}
       SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/${POSTGRES_DB:-app}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-app}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
@@ -19,6 +25,11 @@ services:
       # endpoint injected as MERCURE_URL into the API container.
       # The explicit mercure:80 site below serves plain HTTP without an HTTPS redirect.
       MERCURE_URL: ${MERCURE_INTERNAL_URL:-http://mercure/.well-known/mercure}
+    volumes:
+      # The dev maildrop, on the host so the end-to-end suite — which runs outside the container —
+      # can read what the `dev` profile wrote. compose.prod.yaml resets this list: production talks
+      # to a relay and writes no mail to disk at all.
+      - ./var/mail:/app/var/mail
     depends_on:
       database:
         condition: service_healthy

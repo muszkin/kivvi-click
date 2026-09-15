@@ -44,6 +44,10 @@ npm-debug.log*
 /tools/migration-verify/node_modules/
 /tools/migration-verify/.out/
 
+# Dev-profile maildrop: .eml files the api container writes instead of contacting a relay,
+# mounted from the host so the e2e suite can read them (compose.yaml, PIO-71).
+/var/mail/
+
 # Agent pipeline (.ai/agentic.config.json) — per-run QA state and artifacts, never source
 /.ai/qa/artifacts_*/
 /.ai/qa/test-env.json
