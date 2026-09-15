@@ -1,0 +1,97 @@
+---
+# Production stack as deployed by Portainer on the `nas` environment.
+#
+# This is the file Portainer reads from the repository; it replaces the local
+# `compose.yaml + compose.prod.yaml` overlay for production only. Development still uses the
+# base compose.yaml (see CLAUDE.md), which keeps its `build:` section — here `api` is never
+# built, only pulled: GitHub Actions builds the image, pushes it to GHCR, and calls this
+# stack's webhook, which makes Portainer re-pull and recreate the container.
+#
+# Flattened on purpose. The overlay pair relies on `!override` / `!reset`, which resolve
+# through `docker compose -f a -f b`; Portainer deploys a single compose path, so the merged
+# result is written out here rather than left to a merge that would not happen.
+#
+# The volumes are declared external under the names the live production data already uses.
+# A non-external declaration would have Portainer create empty `<stack>_database_data`
+# volumes and the site would come up with no sessions, no ShedLock row and an empty schema
+# that Flyway would then migrate from scratch.
+services:
+  api:
+    # Tag, not digest: the deploy workflow pushes both `latest` and the commit SHA, and the
+    # webhook redeploy pulls whatever `latest` points at. Rolling back is setting API_TAG to a
+    # previous SHA in the stack's environment variables and redeploying.
+    image: ghcr.io/muszkin/kivvi-click-api:${API_TAG:-latest}
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/${POSTGRES_DB:-app}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-app}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      # All three names the api container reads derive from the single documented secret,
+      # exactly as compose.prod.yaml did — one secret to rotate, not three to keep in step.
+      MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_JWT_SECRET}
+      MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_JWT_SECRET}
+      MERCURE_JWT_SECRET: ${MERCURE_JWT_SECRET}
+      MERCURE_URL: http://mercure/.well-known/mercure
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/actuator/health"]
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  mercure:
+    image: dunglas/mercure:v0.24.2
+    restart: unless-stopped
+    environment:
+      # TLS terminates upstream (Cloudflare tunnel → this port), so the edge serves plain
+      # HTTP. A bare `:80` matches any Host header without an automatic-HTTPS redirect, which
+      # also makes the api container's internal http://mercure/... publish work unchanged.
+      SERVER_NAME: ${SERVER_NAME:-:80}
+      MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_JWT_SECRET}
+      MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_JWT_SECRET}
+    volumes:
+      # Read from the repository Portainer checks out for this stack.
+      - ./mercure/Caddyfile:/etc/caddy/Caddyfile:ro
+      - mercure_data:/data
+      - mercure_config:/config
+    depends_on:
+      api:
+        condition: service_healthy
+    # Only the plain HTTP port is published: the Cloudflare tunnel connects here, and this
+    # port number is load-bearing — changing it breaks the tunnel, not just a bookmark.
+    ports:
+      - name: http
+        target: 80
+        published: ${HTTP_PORT:-23456}
+        protocol: tcp
+
+  database:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}"]
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    volumes:
+      # Postgres 18+ keeps the cluster in a versioned subdirectory of /var/lib/postgresql;
+      # mounting .../data directly makes the entrypoint abort.
+      - database_data:/var/lib/postgresql:rw
+    # No published port: the database is reachable only over this stack's private network.
+
+volumes:
+  database_data:
+    external: true
+    name: kivvi-next_database_data
+  mercure_data:
+    external: true
+    name: kivvi-next_mercure_data
+  mercure_config:
+    external: true
+    name: kivvi-next_mercure_config
