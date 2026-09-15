@@ -68,11 +68,12 @@ class ConfirmationTokenTest {
   @Test
   @DisplayName("a token is live right up to its deadline and lapsed from the deadline on")
   void theDeadlineIsExclusive() {
-    ConfirmationToken token = ConfirmationToken.issue(NOW);
+    Instant deadline = ConfirmationToken.issue(NOW).expiresAt();
 
-    assertThat(token.isExpired(NOW.plus(Duration.ofDays(7)).minusSeconds(1))).isFalse();
-    assertThat(token.isExpired(NOW.plus(Duration.ofDays(7)))).isTrue();
-    assertThat(token.isExpired(NOW.plus(Duration.ofDays(8)))).isTrue();
+    assertThat(ConfirmationToken.hasLapsed(deadline, NOW.plus(Duration.ofDays(7)).minusSeconds(1)))
+        .isFalse();
+    assertThat(ConfirmationToken.hasLapsed(deadline, NOW.plus(Duration.ofDays(7)))).isTrue();
+    assertThat(ConfirmationToken.hasLapsed(deadline, NOW.plus(Duration.ofDays(8)))).isTrue();
   }
 
   @Test

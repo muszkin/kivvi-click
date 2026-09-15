@@ -32,6 +32,30 @@ services:
       MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_JWT_SECRET}
       MERCURE_JWT_SECRET: ${MERCURE_JWT_SECRET}
       MERCURE_URL: http://mercure/.well-known/mercure
+      # Anything but `dev`. The `dev` profile diverts every message to a directory instead of a
+      # relay — convenient locally, silent data loss here.
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-prod}
+      # Transactional mail (PIO-71). Brevo's SMTP relay, reached through spring.mail.* rather than
+      # a provider SDK, so changing provider is these four values and nothing else. The password is
+      # Brevo's SMTP key (SMTP & API -> SMTP), not the account password and not an API v3 key.
+      #
+      # No defaults, exactly like POSTGRES_PASSWORD and MERCURE_JWT_SECRET above: these four and
+      # KIVVI_UNSUBSCRIBE_SECRET must be set in this stack's environment variables in Portainer
+      # BEFORE the first deploy that carries PIO-71. Without SPRING_MAIL_HOST the application
+      # refuses to start (MailConfigurationGuard) and the healthcheck never passes; without a
+      # 32-character KIVVI_UNSUBSCRIBE_SECRET it refuses to start as well, because every
+      # unsubscribe link is derived from it and subscriber ids are sequential.
+      SPRING_MAIL_HOST: ${SPRING_MAIL_HOST}
+      SPRING_MAIL_PORT: ${SPRING_MAIL_PORT:-587}
+      SPRING_MAIL_USERNAME: ${SPRING_MAIL_USERNAME}
+      SPRING_MAIL_PASSWORD: ${SPRING_MAIL_PASSWORD}
+      # Absolute base for the links inside those messages: they are composed now and delivered by
+      # a background job later, so there is no request to derive a host from.
+      KIVVI_BASE_URL: ${KIVVI_BASE_URL:-https://kivvi.click}
+      KIVVI_MAIL_FROM_ADDRESS: ${KIVVI_MAIL_FROM_ADDRESS:-no-reply@kivvi.click}
+      # Rotating this invalidates every unsubscribe link already delivered — see
+      # backend/src/main/java/click/kivvi/domain/waitlist/UnsubscribeToken.java.
+      KIVVI_UNSUBSCRIBE_SECRET: ${KIVVI_UNSUBSCRIBE_SECRET}
     depends_on:
       database:
         condition: service_healthy

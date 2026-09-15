@@ -92,15 +92,20 @@ public class WaitlistConfirmationController {
   /**
    * Post/redirect/get, so a reload of the "check your inbox" page cannot queue a second message.
    *
-   * <p>Answers identically whatever the token turns out to be. A form reachable by anybody that
-   * said "no such subscriber" would be an address-enumeration oracle wearing a helpful face.
+   * <p>Answers identically whatever the token turns out to be, and whether or not the caller is
+   * over its allowance. A form reachable by anybody that said "no such subscriber" — or that
+   * answered differently once the limiter bit — would be an address-enumeration oracle wearing a
+   * helpful face.
    */
   @PostMapping("/{locale:pl|en}/waitlist/confirm/resend")
   public ResponseEntity<Void> resend(
       @PathVariable String locale,
-      @RequestParam(name = "token", required = false, defaultValue = "") String token) {
+      @RequestParam(name = "token", required = false, defaultValue = "") String token,
+      HttpServletRequest request) {
     SupportedLocale supported = SupportedLocale.fromCode(locale).orElseThrow();
-    confirmationService.resend(token, Instant.now());
+    // Same allowance, same bucket key as the signup form: one caller, one hourly budget, however
+    // it chooses to spend it.
+    confirmationService.resend(token, request.getRemoteAddr(), Instant.now());
 
     return ResponseEntity.status(HttpStatus.FOUND)
         .location(URI.create("/" + supported.code() + "/waitlist/confirm/sent"))

@@ -17,9 +17,9 @@ class OutboundMailTest {
   }
 
   @Test
-  @DisplayName("a repeatable message carries no deduplication key, so queueing it twice sends two")
-  void aRepeatableMessageHasNoKey() {
-    OutboundMail mail = OutboundMail.repeatable("ala@sklep.pl", "Temat", "<p>hi</p>", "hi");
+  @DisplayName("a message with no deduplication key queues every time, so a resend really resends")
+  void aKeylessMessageHasNoDeduplicationKey() {
+    OutboundMail mail = new OutboundMail("ala@sklep.pl", "Temat", "<p>hi</p>", "hi", null);
 
     assertThat(mail.deduplicationKey()).isEmpty();
   }

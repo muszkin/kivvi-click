@@ -24,6 +24,11 @@ spring:
 
 kivvi:
   mail:
+    # No default in application.yml on purpose (a readable one would let anyone unsubscribe the
+    # whole list), and the *IT suite runs under the default profile, so the tests supply their own.
+    # That it is a fixed literal is the point: UnsubscribeToken is deterministic, and a test that
+    # generated a fresh secret per run could not assert that.
+    unsubscribe-secret: test-only-unsubscribe-secret-not-a-real-one
     sender:
       # No background draining during tests. A scheduled pass claiming a row between a test's setup
       # and its assertion fails a correct test, and fails it only sometimes; the tests that care

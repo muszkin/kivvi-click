@@ -105,6 +105,7 @@ CREATE INDEX mail_outbox_due_idx ON mail_outbox (status, next_attempt_at);
 
 - **Token nigdy nie leży w bazie jawnie.** Generujemy 32 losowe bajty z `SecureRandom`, wysyłamy
   w linku jako hex, zapisujemy SHA-256 — dokładnie jak `EventDedupStore` hashuje swoje klucze.
+  Wyjątek: token wypisujący nie jest losowy, tylko wyprowadzany (K13).
 - **Dwa osobne tokeny, celowo.** Potwierdzający wygasa po 7 dniach i jest jednorazowy (kasowany po
   użyciu). Wypisujący **nie wygasa nigdy** — wędruje w stopce każdego maila i musi działać rok
   później, inaczej jedyną drogą wypisu zostaje zgłoszenie do obsługi.
@@ -267,7 +268,9 @@ Mailpit zaprzeczyłoby zasadzie „Postgres jest jedyną usługą wspierającą"
 
 1. `WaitlistConfirmationServiceTest`: potwierdzenie żywym tokenem, token zużyty, token wygasły,
    token nieznany, wypis, wypis powtórzony, ponowny zapis niepotwierdzonego adresu wydaje nowy token
-   i nie tworzy drugiego wiersza.
+   i nie tworzy drugiego wiersza, potwierdzenie po wypisie nie wskrzesza wiersza (K15), ponowny
+   zapis po wypisie otwiera wiersz na nowo (K15), ponowienie jest limitowane (K17), a zbyt krótki
+   sekret wypisu przerywa start (K16).
 2. `WaitlistConfirmationControllerTest`: cztery stany potwierdzenia, dwa wypisu, `302` po ponowieniu,
    nieznany token przy ponowieniu zachowuje się jak znany.
 3. `WaitlistConfirmationApiIT`: pełna ścieżka na prawdziwej bazie — zapis, odczyt maila z outboxu,
@@ -319,7 +322,7 @@ Mailpit zaprzeczyłoby zasadzie „Postgres jest jedyną usługą wspierającą"
 | --- | --- | --- |
 | R1 | Bez SPF/DKIM/DMARC potwierdzenia trafią do spamu, a zimna domena straci reputację przy pierwszej większej wysyłce. | Krok poza kodem, po stronie właściciela — wypisany w dokumencie research. PR nie jest gotowy do produkcji, dopóki rekordy nie stoją. |
 | R2 | `GET` mutujący stan: prefetch linków przez klienta pocztowego albo skaner antywirusowy może potwierdzić adres bez udziału człowieka. | Znane ograniczenie double opt-in w całej branży. Łagodzimy zapisem IP i user-agenta potwierdzenia — skan widać po rozjeździe z IP zapisu. Nie zamieniamy na POST, bo to zabija konwersję. |
-| R3 | Token w URL-u trafia do logów serwera i nagłówka `Referer`. | Token jest jednorazowy i kasowany przy użyciu; ważność 7 dni. Strona potwierdzenia nie ładuje żadnego zasobu z obcej domeny, więc `Referer` nie wycieka na zewnątrz. |
+| R3 | Token w URL-u trafia do logów serwera i nagłówka `Referer`. | Token jest jednorazowy (warunek `confirmed_at IS NULL` w `UPDATE`, **nie** kasowanie hasha — patrz K12) i ważny 7 dni; wydanie nowego unieważnia poprzedni. Strona potwierdzenia nie ładuje żadnego zasobu z obcej domeny, więc `Referer` nie wycieka na zewnątrz. |
 | R4 | Wysyłka blokuje scheduler i zatrzymuje heartbeat. | Sender ma własną pulę, nigdy nie współdzieli tej od heartbeatu. Test to sprawdza. |
 | R5 | Bean przechwytujący maile w dev trafia przypadkiem na produkcję i wszystko cicho ląduje na dysku. | `@Profile("dev")` + twarde przerwanie startu przy braku `spring.mail.host` poza profilem dev. Osobny test tego pilnuje. |
 | R6 | Spec pisany przed merge'em PIO-70 może rozminąć się z tym, co faktycznie wylądowało. | **Zamknięte 2026-09-15**: dokument uzgodniony z `main` na `327049d` przed pierwszą linijką kodu. Rozbieżności spisane niżej. |
@@ -345,3 +348,7 @@ zmieniło i dlaczego.
 | K11 | (brak) | Ticket ma siódme kryterium akceptacji (ponawianie i `failed`), którego tabela dowodów nie obejmowała. | Dopisane do tabeli „Kryteria akceptacji → dowód”. |
 | K12 | „Poprawny, żywy token → … token skasowany”, a zaraz obok „token już zużyty, ale adres potwierdzony → `already`”. | Te dwa zdania się wykluczają: skasowany hash nie da się odróżnić od linku, którego nigdy nie było. | Hash **zostaje** w wierszu. Jednorazowość wymusza warunek `confirmed_at IS NULL` w `UPDATE`, nie kasowanie — dzięki temu drugie kliknięcie widzi `already`, a nie `unknown`. Link traci ważność dopiero przy wydaniu nowego tokenu. |
 | K13 | (brak) | Token wypisujący miał być losowy i trzymany wyłącznie jako hash — ale link w stopce **każdego** maila trzeba umieć odtworzyć, a losowego tokenu bez plaintextu odtworzyć się nie da. | Token wypisujący to HMAC-SHA256 z `id` subskrybenta pod sekretem serwera (`kivvi.mail.unsubscribe-secret`): nieodgadywalny, identyczny przy każdym liczeniu, w bazie nadal tylko hash. Cena: rotacja sekretu unieważnia linki, które już poszły. |
+| K14 | (brak) | `main` odjechało o cztery commity: produkcję wdraża dziś Portainer z `compose.portainer.yaml`, a nie lokalne `compose.yaml + compose.prod.yaml`, i robi to automatycznie po merge'u do `main`. | Blok zmiennych pocztowych trafia **do `compose.portainer.yaml`**; bez tego pierwszy deploy po merge'u nie wstaje (strażnik z R5) i kivvi.click leży. Zmienne trzeba ustawić w stacku **przed** merge'em. |
+| K15 | „Wypisujący nie wygasa nigdy” — i na tym koniec. | Oba linki jadą w tej samej wiadomości, a skanery bezpieczeństwa odwiedzają wszystkie linki w dowolnej kolejności, więc „wypisz się, potem potwierdź” to kolejność, która wystąpi. | `CONFIRM_SQL` dostaje `AND unsubscribed_at IS NULL`, więc stary link nie wskrzesi wypisanego adresu. Droga powrotu jest jedna i świadoma: ponowny zapis formularzem, który otwiera wiersz na nowo ze świeżym dowodem zgody i kasuje stare stemple potwierdzenia. |
+| K16 | Sekret linku wypisu miał domyślną wartość w `application.yml`. | Token wypisu to HMAC z sekwencyjnego `id`, więc czytelny default = lista, którą każdy może wypisać, przechodząc `id = 1..N`. Pusta zmienna z kolei wywraca `SecretKeySpec` przy pierwszym zapisie — aplikacja wygląda zdrowo, a formularz zwraca 500. | Zero defaultu poza profilem `dev`; `WaitlistConfirmationService` przerywa start przy braku sekretu albo wartości krótszej niż 32 znaki. Profil `dev` ma własną, jawnie nietajną wartość w `application-dev.yml`. |
+| K17 | „Ten sam limit zapytań co zapis (PIO-70)” przy ponowieniu. | W pierwszej wersji implementacji ponowienie nie miało żadnego limitu — a każde wydaje token, kolejkuje maila i unieważnia poprzedni link. | Ponowienie liczy się na tym samym kubełku per-IP co formularz zapisu, plus własny kubełek per token; odmowa jest cicha i odpowiada tym samym `302`, żeby nie zrobić z limitera oracle'a. |

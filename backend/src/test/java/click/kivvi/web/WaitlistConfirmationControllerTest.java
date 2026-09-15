@@ -122,6 +122,17 @@ class WaitlistConfirmationControllerTest {
   }
 
   @Test
+  @DisplayName("the resend hands the client address on, so the same allowance covers both forms")
+  void theResendCarriesTheClientAddress() throws Exception {
+    mvc.perform(post("/pl/waitlist/confirm/resend").param("token", TOKEN))
+        .andExpect(status().isFound());
+
+    assertThat(confirmations.resends).hasSize(1);
+    assertThat(confirmations.resends.getFirst().token()).isEqualTo(TOKEN);
+    assertThat(confirmations.resends.getFirst().ip()).isNotBlank();
+  }
+
+  @Test
   @DisplayName("a resend for a token nobody issued is answered exactly like one that worked")
   void anUnknownResendLooksIdentical() throws Exception {
     mvc.perform(post("/pl/waitlist/confirm/resend").param("token", "f".repeat(64)))
@@ -187,15 +198,17 @@ class WaitlistConfirmationControllerTest {
   static final class ScriptedConfirmationService extends WaitlistConfirmationService {
 
     private final List<Confirmation> confirmations = new ArrayList<>();
+    private final List<Confirmation> resends = new ArrayList<>();
     private ConfirmationOutcome confirmOutcome = new ConfirmationOutcome.Unknown();
     private UnsubscribeOutcome unsubscribeOutcome = new UnsubscribeOutcome.Unknown();
 
     private ScriptedConfirmationService() {
-      super(null, null, null, "unused");
+      super(null, null, null, null, "a-secret-long-enough-to-satisfy-the-guard");
     }
 
     private void reset() {
       confirmations.clear();
+      resends.clear();
       confirmOutcome = new ConfirmationOutcome.Unknown();
       unsubscribeOutcome = new UnsubscribeOutcome.Unknown();
     }
@@ -215,9 +228,8 @@ class WaitlistConfirmationControllerTest {
     }
 
     @Override
-    public void resend(String rawToken, Instant now) {
-      // Nothing to record: the point of the resend endpoint is that it answers identically
-      // whatever it is given.
+    public void resend(String rawToken, String clientIp, Instant now) {
+      resends.add(new Confirmation(rawToken, clientIp, null));
     }
 
     @Override

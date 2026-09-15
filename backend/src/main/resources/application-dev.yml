@@ -1,0 +1,18 @@
+# Development profile (PIO-71).
+#
+# Activated by compose.yaml, which sets SPRING_PROFILES_ACTIVE=dev for the local stack. Two things
+# differ from every other environment, and both are about mail:
+#
+#   * FilesystemMailTransport replaces SmtpMailTransport (see its @Profile), so messages are
+#     written to kivvi.mail.dev-directory as .eml files rather than handed to a relay. That is what
+#     lets the Playwright suite follow a real confirmation link without adding a mail container to
+#     a stack whose only backing service is Postgres.
+#   * MailConfigurationGuard is not registered, because there is deliberately no relay to check.
+#
+# The unsubscribe secret below is NOT a secret and is not pretending to be one: under this profile
+# it protects nothing, and every developer's stack deriving the same links is convenient rather
+# than dangerous. Production has no default at all — an unset KIVVI_UNSUBSCRIBE_SECRET stops the
+# application from starting.
+kivvi:
+  mail:
+    unsubscribe-secret: development-only-unsubscribe-secret-not-a-real-one

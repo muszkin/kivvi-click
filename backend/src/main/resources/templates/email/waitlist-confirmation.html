@@ -7,10 +7,11 @@
   1. No external stylesheet is ever fetched, so every declaration is inlined on the element it
      styles. That also rules out reusing EmailDocument.vue, which is a preview component in the
      campaign editor styled by 04-patterns.css - a different job wearing a similar face.
-  2. oklch() is CSS Color 4 and most clients do not implement it, so the colours here are hex
-     values converted from the design tokens in frontend/src/styles/01-tokens.css (light theme):
-     bg #f7f3eb, card #fefcf7, ink #172319, muted #606d62, rule #ddd7ca, accent #34563b.
-     A grep for "oklch(" in this file is a test assertion, not a style preference.
+  2. oklch() is CSS Color 4 and most clients do not implement it, so every colour here is a hex
+     conversion of a light-theme token from frontend/src/styles/01-tokens.css: --bg #f7f3eb,
+     --bg-card #fefcf7, --fg #172319, --fg-1 #2f3c31, --fg-muted #606d62, --fg-subtle #919c91,
+     --line #ddd7ca, --accent #34563b, --accent-fg #fdfaf4. Nine tokens, nine values, no other
+     colour in the file. A grep for "oklch(" here is a test assertion, not a style preference.
   3. Outlook renders through Word, which ignores modern layout entirely - hence nested tables and
      a fixed 600px content column rather than flexbox or grid.
 

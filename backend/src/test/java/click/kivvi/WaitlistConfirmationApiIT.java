@@ -196,6 +196,45 @@ class WaitlistConfirmationApiIT {
   }
 
   @Test
+  @DisplayName("signing up again after unsubscribing puts the address back and sends a new link")
+  void signingUpAgainAfterUnsubscribingWorks() {
+    String email = uniqueEmail("rejoin");
+    signUp(email);
+    Matcher matcher = UNSUBSCRIBE_LINK.matcher(mailFor(email).get("text_body").toString());
+    assertThat(matcher.find()).isTrue();
+    follow(matcher.group());
+    assertThat(subscriberRow(email).get("status")).isEqualTo(SubscriberStatus.UNSUBSCRIBED.value());
+
+    signUp(email);
+
+    assertThat(subscriberCount(email)).isEqualTo(1);
+    assertThat(mailCount(email)).isEqualTo(2);
+    Map<String, Object> row = subscriberRow(email);
+    assertThat(row.get("status")).isEqualTo(SubscriberStatus.PENDING.value());
+    assertThat(row.get("unsubscribed_at")).isNull();
+    assertThat(follow("/pl/waitlist/confirm/" + latestTokenFor(email)).getBody())
+        .contains("data-waitlist-confirm=\"ok\"");
+  }
+
+  @Test
+  @DisplayName("a confirmation link cannot put an address back after it has unsubscribed")
+  void aStaleLinkCannotResurrectAnUnsubscribedAddress() {
+    String email = uniqueEmail("withdrawn");
+    signUp(email);
+    String confirmation = confirmTokenFrom(mailFor(email));
+    Matcher matcher = UNSUBSCRIBE_LINK.matcher(mailFor(email).get("text_body").toString());
+    assertThat(matcher.find()).isTrue();
+    follow(matcher.group());
+
+    // Both links are in the same message, and a link scanner opens every URL in whatever order
+    // it likes — so this is an order that happens in the wild, not a contrived one.
+    assertThat(follow("/pl/waitlist/confirm/" + confirmation).getBody())
+        .contains("data-waitlist-confirm=\"unknown\"");
+    assertThat(subscriberRow(email).get("status")).isEqualTo(SubscriberStatus.UNSUBSCRIBED.value());
+    assertThat(subscriberRow(email).get("confirmed_at")).isNull();
+  }
+
+  @Test
   @DisplayName("the mail is written in the language the visitor signed up in")
   void theMailFollowsTheSignupLanguage() {
     String polish = uniqueEmail("pl-copy");

@@ -11,6 +11,7 @@ import jakarta.mail.internet.MimeMessage;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,10 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.junit.jupiter.Container;
@@ -65,6 +69,7 @@ class MailOutboxSenderIT {
   @Autowired private MailOutboxStore outbox;
   @Autowired private MailOutboxSenderJob senderJob;
   @Autowired private JdbcTemplate jdbcTemplate;
+  @Autowired private ApplicationContext context;
 
   @BeforeEach
   void emptyTheOutbox() throws FolderException {
@@ -107,6 +112,22 @@ class MailOutboxSenderIT {
 
     assertThat(jdbcTemplate.queryForObject("select status from mail_outbox", String.class))
         .isEqualTo("sent");
+  }
+
+  @Test
+  @DisplayName("the sender's pool is a different bean from the heartbeat's in the real context")
+  void theSenderDoesNotShareTheHeartbeatPool() {
+    // Risk R4, asserted where it actually matters: MailSchedulingConfigTest can only show that two
+    // @Bean methods return different objects, which is not the same as Spring wiring two different
+    // schedulers into one running application.
+    Map<String, TaskScheduler> schedulers = context.getBeansOfType(TaskScheduler.class);
+
+    assertThat(schedulers).hasSize(2).containsKeys("heartbeatTaskScheduler", "mailTaskScheduler");
+    assertThat(schedulers.get("mailTaskScheduler"))
+        .isNotSameAs(schedulers.get("heartbeatTaskScheduler"));
+    assertThat(
+            ((ThreadPoolTaskScheduler) schedulers.get("mailTaskScheduler")).getThreadNamePrefix())
+        .isEqualTo("mail-sender-");
   }
 
   @Test

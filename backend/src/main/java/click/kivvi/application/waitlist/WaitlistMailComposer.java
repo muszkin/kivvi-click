@@ -39,8 +39,18 @@ public class WaitlistMailComposer {
   private static final String UNSUBSCRIBE_KEY = "mail.unsubscribe";
 
   /**
-   * One queued confirmation per issued token. A resend issues a new token, so it gets a new key and
-   * goes out; a double submit reuses neither and is collapsed into one message.
+   * One queued message per issued token.
+   *
+   * <p>Narrower than it sounds, and deliberately so. Every issue — a first signup, a repeat signup,
+   * a resend — mints a new token and therefore a new key, so each one is genuinely a different
+   * message and each one goes out. What this stops is the same token being queued twice, which is
+   * what two concurrent requests racing through one issue would otherwise do.
+   *
+   * <p>The consequence, which the acceptance tests pin: submitting the form twice for the same
+   * unconfirmed address really does send two messages, and the link in the first is dead by the
+   * time it arrives, because issuing the second retired it. That is the behaviour the ticket asks
+   * for — a repeat signup is how somebody asks for another link — and the per-address allowance is
+   * what bounds it.
    */
   private static final String DEDUP_KEY_PREFIX = "waitlist-confirm:";
 

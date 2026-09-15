@@ -183,6 +183,57 @@ class WaitlistSubscriberStoreIT {
   }
 
   @Test
+  @DisplayName("PIO-71 a live token cannot confirm an address that has unsubscribed")
+  void anUnsubscribedAddressCannotBeConfirmed() {
+    String email = uniqueEmail("withdrawn");
+    store.save(signup(email));
+    long id = store.findByEmail(email).orElseThrow().id();
+    Instant now = Instant.now();
+    store.issueTokens(
+        id, confirmationHash(email), now.plus(Duration.ofDays(7)), unsubscribeHash(email));
+    store.unsubscribe(unsubscribeHash(email), now);
+
+    assertThat(store.confirm(confirmationHash(email), now, "203.0.113.9", "Scanner/1.0")).isFalse();
+
+    Map<String, Object> row = rowFor(email);
+    assertThat(row.get("status")).isEqualTo(SubscriberStatus.UNSUBSCRIBED.value());
+    assertThat(row.get("confirmed_at")).isNull();
+  }
+
+  @Test
+  @DisplayName("PIO-71 signing up again after unsubscribing reopens the row with fresh consent")
+  void reopeningClearsTheWithdrawalAndTheOldConfirmation() {
+    String email = uniqueEmail("rejoin");
+    store.save(signup(email));
+    long id = store.findByEmail(email).orElseThrow().id();
+    Instant now = Instant.now();
+    store.issueTokens(
+        id, confirmationHash(email), now.plus(Duration.ofDays(7)), unsubscribeHash(email));
+    store.confirm(confirmationHash(email), now, "203.0.113.9", "Mozilla/5.0");
+    store.unsubscribe(unsubscribeHash(email), now);
+
+    store.reopen(
+        id,
+        WaitlistSignup.landingSignup(
+            email,
+            SupportedLocale.EN,
+            now,
+            "198.51.100.4",
+            "Mozilla/5.0 (rejoin)",
+            "I agree to be told when it launches."));
+
+    Map<String, Object> row = rowFor(email);
+    assertThat(row.get("status")).isEqualTo(SubscriberStatus.PENDING.value());
+    assertThat(row.get("unsubscribed_at")).isNull();
+    // Cleared on purpose: a confirmed_at from before the opt-out would attest to a consent that
+    // was withdrawn. Coming back costs a fresh confirmation.
+    assertThat(row.get("confirmed_at")).isNull();
+    assertThat(row.get("confirmed_ip")).isNull();
+    assertThat(row.get("consent_ip")).isEqualTo("198.51.100.4");
+    assertThat(row.get("locale")).isEqualTo("en");
+  }
+
+  @Test
   @DisplayName("PIO-71 a token nobody issued belongs to nobody")
   void anUnknownTokenBelongsToNobody() {
     String nobodys = Sha256.hex("nobody-" + System.nanoTime());

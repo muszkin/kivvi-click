@@ -30,12 +30,6 @@ public record OutboundMail(
     }
   }
 
-  /** A message that may safely be queued more than once. */
-  public static OutboundMail repeatable(
-      String recipient, String subject, String htmlBody, String textBody) {
-    return new OutboundMail(recipient, subject, htmlBody, textBody, null);
-  }
-
   public Optional<String> deduplicationKey() {
     return Optional.ofNullable(dedupKey);
   }

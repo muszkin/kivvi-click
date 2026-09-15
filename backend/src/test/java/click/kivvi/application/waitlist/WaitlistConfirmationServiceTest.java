@@ -1,6 +1,7 @@
 package click.kivvi.application.waitlist;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 
 import click.kivvi.application.mail.MailQueue;
 import click.kivvi.domain.SupportedLocale;
@@ -11,6 +12,7 @@ import click.kivvi.domain.waitlist.UnsubscribeToken;
 import click.kivvi.domain.waitlist.WaitlistSignup;
 import click.kivvi.infrastructure.mail.MailOutboxStore;
 import click.kivvi.infrastructure.mail.MailTemplateRenderer;
+import click.kivvi.infrastructure.waitlist.SignupThrottle;
 import click.kivvi.infrastructure.waitlist.WaitlistSubscriberStore;
 import java.time.Duration;
 import java.time.Instant;
@@ -37,13 +39,35 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 class WaitlistConfirmationServiceTest {
 
   private static final Instant NOW = Instant.parse("2026-09-15T10:00:00Z");
-  private static final String SECRET = "test-unsubscribe-secret";
+  private static final String SECRET = "a-test-unsubscribe-secret-long-enough-to-pass-the-guard";
   private static final String CONSENT = "Zgadzam się na otrzymanie powiadomienia o starcie.";
+
+  private static final String CLIENT_IP = "203.0.113.7";
 
   private final InMemorySubscribers subscribers = new InMemorySubscribers();
   private final RecordingQueue queue = new RecordingQueue();
+  private final CountingThrottle throttle = new CountingThrottle();
   private final WaitlistConfirmationService service =
-      new WaitlistConfirmationService(subscribers, composer(), queue, SECRET);
+      new WaitlistConfirmationService(subscribers, composer(), queue, throttle, SECRET);
+
+  @Test
+  @DisplayName("a missing or too-short unsubscribe secret stops the application from starting")
+  void aWeakUnsubscribeSecretRefusesToStart() {
+    // Not a nicety. Every unsubscribe link is an HMAC of a sequential BIGSERIAL id, so a secret
+    // anyone can read or guess is a list anyone can unsubscribe by walking id = 1..N. An empty
+    // one is worse still: SecretKeySpec throws "Empty key" on the first signup, so the application
+    // looks healthy while every submission 500s.
+    for (String unusable :
+        new String[] {null, "", "   ", "too-short", "31-characters-is-one-short--!!!"}) {
+      assertThatIllegalStateException()
+          .as("secret: %s", unusable)
+          .isThrownBy(
+              () ->
+                  new WaitlistConfirmationService(
+                      subscribers, composer(), queue, throttle, unusable))
+          .withMessageContaining("KIVVI_UNSUBSCRIBE_SECRET");
+    }
+  }
 
   @Test
   @DisplayName("a new address is stored and gets a confirmation link in the post")
@@ -143,7 +167,7 @@ class WaitlistConfirmationServiceTest {
     String expired = tokenFor("ala@sklep.pl");
     queue.queued.clear();
 
-    service.resend(expired, NOW.plus(Duration.ofDays(8)));
+    service.resend(expired, CLIENT_IP, NOW.plus(Duration.ofDays(8)));
 
     assertThat(queue.queued).hasSize(1);
     assertThat(subscribers.confirmationHashOf("ala@sklep.pl"))
@@ -153,8 +177,8 @@ class WaitlistConfirmationServiceTest {
   @Test
   @DisplayName("a resend for a token nobody issued queues nothing and says nothing either way")
   void aResendForAnUnknownTokenIsSilent() {
-    service.resend("f".repeat(64), NOW);
-    service.resend("nonsense", NOW);
+    service.resend("f".repeat(64), CLIENT_IP, NOW);
+    service.resend("nonsense", CLIENT_IP, NOW);
 
     assertThat(queue.queued).isEmpty();
   }
@@ -167,9 +191,76 @@ class WaitlistConfirmationServiceTest {
     service.confirm(token, NOW, "203.0.113.7", "UA");
     queue.queued.clear();
 
-    service.resend(token, NOW.plusSeconds(1));
+    service.resend(token, CLIENT_IP, NOW.plusSeconds(1));
 
     assertThat(queue.queued).isEmpty();
+  }
+
+  @Test
+  @DisplayName("a stale confirmation link cannot put an address back after it unsubscribed")
+  void aStaleLinkCannotResurrectAnUnsubscribedAddress() {
+    // Both links travel in the same message, and a corporate link scanner visits every URL in one
+    // in whatever order it likes — so "unsubscribe, then confirm" is an order that will happen.
+    service.register(signup("ala@sklep.pl"));
+    String confirmation = tokenFor("ala@sklep.pl");
+    service.unsubscribe(unsubscribeTokenFor("ala@sklep.pl"), NOW);
+
+    ConfirmationOutcome outcome =
+        service.confirm(confirmation, NOW.plusSeconds(1), "203.0.113.7", "Scanner/1.0");
+
+    assertThat(outcome).isEqualTo(new ConfirmationOutcome.Unknown());
+    assertThat(subscribers.byEmailRow("ala@sklep.pl").status)
+        .isEqualTo(SubscriberStatus.UNSUBSCRIBED);
+    assertThat(subscribers.byEmailRow("ala@sklep.pl").confirmedAt).isNull();
+  }
+
+  @Test
+  @DisplayName("signing up again after unsubscribing puts the address back, unconfirmed")
+  void signingUpAgainAfterUnsubscribingWorks() {
+    // Both pages tell people they can come back this way, so it has to actually work.
+    service.register(signup("ala@sklep.pl"));
+    service.unsubscribe(unsubscribeTokenFor("ala@sklep.pl"), NOW);
+    queue.queued.clear();
+
+    boolean stored = service.register(signup("ala@sklep.pl"));
+
+    assertThat(stored).isFalse();
+    assertThat(subscribers.rows).hasSize(1);
+    assertThat(subscribers.byEmailRow("ala@sklep.pl").status).isEqualTo(SubscriberStatus.PENDING);
+    assertThat(subscribers.byEmailRow("ala@sklep.pl").unsubscribedAt).isNull();
+    assertThat(queue.queued).hasSize(1);
+    assertThat(service.confirm(tokenFor("ala@sklep.pl"), NOW.plusSeconds(1), "203.0.113.7", "UA"))
+        .isEqualTo(new ConfirmationOutcome.Confirmed());
+  }
+
+  @Test
+  @DisplayName("the resend is rate limited, and refusing looks exactly like succeeding")
+  void theResendIsRateLimited() {
+    service.register(signup("ala@sklep.pl"));
+    String token = tokenFor("ala@sklep.pl");
+    queue.queued.clear();
+    throttle.exhaustEverything();
+
+    service.resend(token, CLIENT_IP, NOW);
+
+    assertThat(queue.queued).isEmpty();
+  }
+
+  @Test
+  @DisplayName("an unknown token costs the caller its allowance too, so the limiter is no oracle")
+  void anUnknownResendStillChargesTheCaller() {
+    // A well-formed token that belongs to nobody is charged against both buckets, exactly as a
+    // real one is — an allowance that only bit on tokens it recognised would be the address
+    // oracle this endpoint exists to avoid. A value that is not a token shape at all never
+    // reaches the second bucket, because there is no hash to key it by; the per-IP charge is
+    // what bounds that path.
+    service.resend("f".repeat(64), CLIENT_IP, NOW);
+    service.resend("nonsense", CLIENT_IP, NOW);
+
+    assertThat(throttle.acquisitions)
+        .filteredOn(key -> key.startsWith("ip:"))
+        .containsExactly("ip:" + CLIENT_IP, "ip:" + CLIENT_IP);
+    assertThat(throttle.acquisitions).filteredOn(key -> key.startsWith("resend:")).hasSize(1);
   }
 
   @Test
@@ -266,6 +357,25 @@ class WaitlistConfirmationServiceTest {
     return source;
   }
 
+  /** Counts attempts per bucket in memory, and can declare every bucket already exhausted. */
+  private static final class CountingThrottle implements SignupThrottle {
+
+    private final List<String> acquisitions = new ArrayList<>();
+    private final Map<String, Integer> hits = new HashMap<>();
+    private boolean everythingExhausted;
+
+    private void exhaustEverything() {
+      everythingExhausted = true;
+    }
+
+    @Override
+    public boolean tryAcquire(String bucketKey, int limit) {
+      acquisitions.add(bucketKey);
+      int used = hits.merge(bucketKey, 1, Integer::sum);
+      return !everythingExhausted && used <= limit;
+    }
+  }
+
   private static final class RecordingQueue extends MailQueue {
     private final List<OutboundMail> queued = new ArrayList<>();
 
@@ -360,6 +470,7 @@ class WaitlistConfirmationServiceTest {
       return rows.values().stream()
           .filter(row -> tokenHash.equals(row.confirmationHash))
           .filter(row -> row.confirmedAt == null)
+          .filter(row -> row.unsubscribedAt == null)
           .filter(
               row -> row.confirmationExpiresAt != null && now.isBefore(row.confirmationExpiresAt))
           .findFirst()
@@ -386,6 +497,16 @@ class WaitlistConfirmationServiceTest {
                 return true;
               })
           .orElse(false);
+    }
+
+    @Override
+    public void reopen(long subscriberId, WaitlistSignup signup) {
+      Row row = rowById(subscriberId);
+      row.status = SubscriberStatus.PENDING;
+      row.unsubscribedAt = null;
+      row.confirmedAt = null;
+      row.confirmedIp = null;
+      row.confirmedUserAgent = null;
     }
 
     private Row rowById(long id) {

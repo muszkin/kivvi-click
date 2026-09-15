@@ -1,6 +1,5 @@
 package click.kivvi.application.waitlist;
 
-import click.kivvi.domain.Sha256;
 import click.kivvi.domain.waitlist.WaitlistSignup;
 import click.kivvi.domain.waitlist.WaitlistSignupError;
 import click.kivvi.infrastructure.waitlist.SignupThrottle;
@@ -28,18 +27,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class WaitlistSignupService {
-
-  /**
-   * Generous enough that an office or a mobile carrier behind one NAT never notices, tight enough
-   * that a single host cannot stuff the list.
-   */
-  private static final int SIGNUPS_PER_IP_PER_HOUR = 10;
-
-  /** A real person needs one attempt, or a couple after a typo. Nobody needs a fourth. */
-  private static final int SIGNUPS_PER_ADDRESS_PER_HOUR = 3;
-
-  private static final String IP_BUCKET_PREFIX = "ip:";
-  private static final String EMAIL_BUCKET_PREFIX = "email:";
 
   /**
    * The clause whose wording is stored as the consent proof. It must stay word-for-word identical
@@ -95,7 +82,8 @@ public class WaitlistSignupService {
    * happened to type.
    */
   private boolean withinAllowance(SignupRequest request) {
-    if (!throttle.tryAcquire(IP_BUCKET_PREFIX + request.clientIp(), SIGNUPS_PER_IP_PER_HOUR)) {
+    if (!throttle.tryAcquire(
+        SignupAllowance.ipBucket(request.clientIp()), SignupAllowance.PER_IP_PER_HOUR)) {
       return false;
     }
 
@@ -109,7 +97,8 @@ public class WaitlistSignupService {
       return true;
     }
 
-    return throttle.tryAcquire(emailBucketKey(normalizedEmail), SIGNUPS_PER_ADDRESS_PER_HOUR);
+    return throttle.tryAcquire(
+        SignupAllowance.addressBucket(normalizedEmail), SignupAllowance.PER_ADDRESS_PER_HOUR);
   }
 
   private void record(SignupRequest request) {
@@ -133,19 +122,5 @@ public class WaitlistSignupService {
     if (!stored) {
       LOG.info("Waitlist signup: the address was already on the list.");
     }
-  }
-
-  /**
-   * The address is hashed rather than stored in the bucket key: {@code waitlist_throttle} is a
-   * throwaway abuse counter that anyone can fill, and it has no business holding readable e-mail
-   * addresses. Hashing also keeps every key the same short length, which is what lets the column
-   * stay narrow while the address column allows the full 320 characters a mailbox may have.
-   *
-   * <p>PIO-71 moved the digest itself into {@link Sha256}: the confirmation token hashes the same
-   * way, and two private copies of the same four lines are two chances to disagree about encoding
-   * or case.
-   */
-  private static String emailBucketKey(String normalizedEmail) {
-    return EMAIL_BUCKET_PREFIX + Sha256.hex(normalizedEmail);
   }
 }

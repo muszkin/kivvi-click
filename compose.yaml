@@ -25,6 +25,11 @@ services:
       # endpoint injected as MERCURE_URL into the API container.
       # The explicit mercure:80 site below serves plain HTTP without an HTTPS redirect.
       MERCURE_URL: ${MERCURE_INTERNAL_URL:-http://mercure/.well-known/mercure}
+      # The links inside the messages the dev profile drops in ./var/mail. Without this they would
+      # fall back to application.yml's production default, and a developer clicking a link in their
+      # own maildrop would land on kivvi.click. Override it when the stack runs on another port
+      # than the 8443 this default assumes.
+      KIVVI_BASE_URL: ${KIVVI_BASE_URL:-https://localhost:8443}
     volumes:
       # The dev maildrop, on the host so the end-to-end suite — which runs outside the container —
       # can read what the `dev` profile wrote. compose.prod.yaml resets this list: production talks

@@ -79,7 +79,7 @@ class MailOutboxStoreIT {
   void aKeylessMessageAlwaysQueues() {
     Instant now = Instant.now();
     OutboundMail resend =
-        OutboundMail.repeatable("resend@sklep.pl", "Potwierdź adres", "<p>hi</p>", "hi");
+        new OutboundMail("resend@sklep.pl", "Potwierdź adres", "<p>hi</p>", "hi", null);
 
     assertThat(store.enqueue(resend, now)).isTrue();
     assertThat(store.enqueue(resend, now)).isTrue();

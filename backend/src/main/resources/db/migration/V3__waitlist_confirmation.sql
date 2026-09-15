@@ -20,11 +20,14 @@ ALTER TABLE waitlist_subscriber
     ADD COLUMN confirmed_ip           VARCHAR(45),
     ADD COLUMN confirmed_user_agent   VARCHAR(512);
 
--- Partial unique indexes: a token hash identifies exactly one subscriber, but the overwhelming
--- majority of rows have none (confirmed rows have their confirmation token cleared, and rows
--- captured before this migration have neither). A plain unique index would have to treat every one
--- of those NULLs as distinct anyway; WHERE ... IS NOT NULL says so out loud and keeps the index
--- small enough to stay in cache.
+-- Partial unique indexes: a token hash identifies exactly one subscriber, but every row captured
+-- before this migration has neither hash, and a plain unique index would have to treat all those
+-- NULLs as distinct anyway. WHERE ... IS NOT NULL says so out loud and keeps the index small
+-- enough to stay in cache.
+--
+-- A confirmation hash is NOT cleared when it is used: keeping it is what lets a second click on a
+-- link that worked say "already confirmed" rather than "we have never heard of this link". The
+-- token is single-use because the UPDATE that spends it requires confirmed_at IS NULL.
 CREATE UNIQUE INDEX waitlist_subscriber_confirmation_token_idx
     ON waitlist_subscriber (confirmation_token_hash)
     WHERE confirmation_token_hash IS NOT NULL;

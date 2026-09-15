@@ -59,6 +59,11 @@ public class MailOutboxSenderJob {
    * become due, and those rows stay off limits until their own lease lapses. The two together mean
    * a crash costs at most one lease, never a duplicate delivery.
    *
+   * <p>A full batch of twenty messages against a relay that is timing out can outlast that two
+   * minutes, so the lock is not what guarantees a single sender here — the row lease is, and it
+   * holds whether or not the lock has lapsed. What the lock buys is that two healthy instances do
+   * not both wake up and query for work every thirty seconds.
+   *
    * <p>No {@code lockAtLeastFor}, unlike {@link
    * click.kivvi.infrastructure.scheduling.HeartbeatJob}. That setting exists to stop a rapid
    * re-trigger from doing the work twice, and here the row lease already does that — a second pass
@@ -100,11 +105,15 @@ public class MailOutboxSenderJob {
     if (MailRetryPolicy.isExhausted(claimed.attempts())) {
       // The one path in this application that logs above INFO, and it earns it: an unconfirmed
       // address is a subscriber lost silently, and nothing else will ever mention it again.
+      //
+      // The reason is stored, not logged. An SMTP rejection routinely quotes the recipient
+      // ("550 5.1.1 <ala@sklep.pl> unknown"), and a subscriber's address does not belong in a log
+      // file with a different retention policy from the table it came out of. The row id is here
+      // and mail_outbox.last_error holds the detail.
       LOG.error(
-          "Mail outbox: giving up on message {} after {} attempts — {}",
+          "Mail outbox: giving up on message {} after {} attempts. See its last_error column.",
           claimed.id(),
-          claimed.attempts(),
-          reason);
+          claimed.attempts());
       outbox.giveUp(claimed.id(), reason);
       return;
     }

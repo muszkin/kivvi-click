@@ -153,12 +153,17 @@ kivvi:
     from-name: ${KIVVI_MAIL_FROM_NAME:kivvi·click}
     # Derives the unsubscribe link from the subscriber's id (domain.waitlist.UnsubscribeToken), so
     # a link that has to work a year from now can be rebuilt for every message without the token
-    # ever being stored in the clear. The placeholder mirrors MERCURE_JWT_SECRET's: a value that
-    # says out loud it must be replaced, never a plausible-looking one.
+    # ever being stored in the clear.
+    #
+    # Deliberately NO fallback value, unlike MERCURE_JWT_SECRET's placeholder. A subscriber id is a
+    # sequential BIGSERIAL, so a default anyone can read off this file is a list anyone can
+    # unsubscribe by walking id = 1..N. Empty here means WaitlistConfirmationService refuses to
+    # start and says which variable is missing; application-dev.yml supplies a fixed value for the
+    # dev profile, where there is nothing to protect.
     #
     # Rotating this invalidates every unsubscribe link already in the wild. That is the price of a
-    # link that never expires, and it is why the value belongs in .env.prod.docker and nowhere else.
-    unsubscribe-secret: ${KIVVI_UNSUBSCRIBE_SECRET:!ChangeThisWaitlistUnsubscribeSecret!}
+    # link that never expires, and it is why the value belongs in the deployment's own secrets.
+    unsubscribe-secret: ${KIVVI_UNSUBSCRIBE_SECRET:}
     # Where the dev profile drops .eml files instead of connecting to a relay. Relative to the api
     # container's working directory (/app — see backend/Dockerfile), and mounted from the host in
     # compose.yaml so the Playwright suite can read what the container wrote.

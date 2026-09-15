@@ -8,9 +8,10 @@ import java.util.Objects;
  * A freshly issued confirmation token together with the moment it stops working.
  *
  * <p>Seven days is long enough to survive a holiday and short enough that a link forwarded or left
- * in an archived mailbox does not stay live indefinitely. The token is single-use as well: the
- * store clears the hash on confirmation, so following the same link twice hits the "already
- * confirmed" page rather than re-running the confirmation.
+ * in an archived mailbox does not stay live indefinitely. The token is single-use as well, though
+ * not by being erased: the store keeps the hash and guards the update with {@code confirmed_at IS
+ * NULL}, so following the same link twice reaches the "already confirmed" page instead of the "we
+ * have never heard of this link" one a cleared hash would produce.
  *
  * <p>There is deliberately no expiry on the unsubscribe token ({@link OpaqueToken} on its own). It
  * travels in the footer of every message this system will ever send and has to still work a year
@@ -49,9 +50,5 @@ public record ConfirmationToken(OpaqueToken token, Instant expiresAt) {
    */
   public static boolean hasLapsed(Instant expiresAt, Instant now) {
     return expiresAt == null || !now.isBefore(expiresAt);
-  }
-
-  public boolean isExpired(Instant now) {
-    return hasLapsed(expiresAt, now);
   }
 }

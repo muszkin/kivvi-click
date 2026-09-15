@@ -65,7 +65,18 @@ public class WaitlistSubscriberStore {
          SET status = ?, confirmed_at = ?, confirmed_ip = ?, confirmed_user_agent = ?
        WHERE confirmation_token_hash = ?
          AND confirmed_at IS NULL
+         AND unsubscribed_at IS NULL
          AND confirmation_token_expires_at > ?
+      """;
+
+  private static final String REOPEN_SQL =
+      """
+      UPDATE waitlist_subscriber
+         SET status = ?, unsubscribed_at = NULL,
+             locale = ?, signed_up_at = ?,
+             consent_at = ?, consent_ip = ?, consent_user_agent = ?, consent_text = ?,
+             confirmed_at = NULL, confirmed_ip = NULL, confirmed_user_agent = NULL
+       WHERE id = ?
       """;
 
   private static final String UNSUBSCRIBE_SQL =
@@ -150,6 +161,13 @@ public class WaitlistSubscriberStore {
    * wrong thing to tell someone who has just successfully confirmed; the token is single-use
    * because of the {@code confirmed_at IS NULL} guard, not because the row forgets it.
    *
+   * <p>{@code unsubscribed_at IS NULL} matters more than it looks. Both links travel in the same
+   * message, and a corporate link scanner visits every URL in a message in whatever order it likes
+   * — so "unsubscribe, then confirm" is an order that will happen. Without this clause that
+   * sequence would put a row back on the list after an explicit opt-out, with {@code
+   * unsubscribed_at} still set: a row contradicting itself. Coming back is possible, but only
+   * through the front door — signing up again, with fresh consent ({@link #reopen}).
+   *
    * @return {@code true} when this call is the one that confirmed the address
    */
   public boolean confirm(String tokenHash, Instant now, String ip, String userAgent) {
@@ -175,6 +193,29 @@ public class WaitlistSubscriberStore {
     return jdbcTemplate.update(
             UNSUBSCRIBE_SQL, SubscriberStatus.UNSUBSCRIBED.value(), Timestamp.from(now), tokenHash)
         == 1;
+  }
+
+  /**
+   * Puts an unsubscribed address back on the list as unconfirmed, with the consent proof of the
+   * submission that asked for it.
+   *
+   * <p>Not a token-level operation, and deliberately not reachable from a link: the only way back
+   * is to fill the form in again, which is what produces the fresh consent record this writes. The
+   * old confirmation stamps are cleared with it — somebody who left and came back has to prove the
+   * mailbox again, and a {@code confirmed_at} from before the opt-out would be attesting to a
+   * consent that was withdrawn.
+   */
+  public void reopen(long subscriberId, WaitlistSignup signup) {
+    jdbcTemplate.update(
+        REOPEN_SQL,
+        SubscriberStatus.PENDING.value(),
+        signup.locale().code(),
+        Timestamp.from(signup.signedUpAt()),
+        Timestamp.from(signup.consent().at()),
+        signup.consent().ip(),
+        signup.consent().userAgent(),
+        signup.consent().text(),
+        subscriberId);
   }
 
   private Optional<Subscriber> findOne(String sql, String argument) {
