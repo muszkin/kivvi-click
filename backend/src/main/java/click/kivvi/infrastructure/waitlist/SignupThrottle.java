@@ -11,7 +11,7 @@ import java.time.Duration;
 public interface SignupThrottle {
 
   /**
-   * Every waitlist bucket slides over the same one-hour window; only the allowance differs per
+   * Every waitlist bucket counts over the same one-hour window; only the allowance differs per
    * bucket. Declared here rather than in the caller so the hourly sweep that drops lapsed buckets
    * cannot drift away from the window the limiter actually enforces.
    */

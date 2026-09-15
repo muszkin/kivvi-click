@@ -41,6 +41,57 @@ class WaitlistSignupTest {
   }
 
   @Test
+  @DisplayName(
+      "an address too long for the column is refused, not passed on to blow up on the INSERT")
+  void anOverlongAddressIsRefused() {
+    String overlong = "a".repeat(320) + "@sklep.pl";
+
+    assertThat(WaitlistSignup.validate(overlong, true))
+        .contains(WaitlistSignupError.EMAIL_MALFORMED);
+  }
+
+  @Test
+  @DisplayName("an address of exactly the maximum length is still accepted")
+  void anAddressAtTheMaximumLengthIsAccepted() {
+    String atLimit = "a".repeat(320 - "@sklep.pl".length()) + "@sklep.pl";
+
+    assertThat(atLimit).hasSize(320);
+    assertThat(WaitlistSignup.validate(atLimit, true)).isEmpty();
+  }
+
+  @Test
+  @DisplayName("an over-long User-Agent is truncated rather than allowed to overflow its column")
+  void anOverlongUserAgentIsTruncated() {
+    String overlong = "U".repeat(1024);
+
+    WaitlistSignup signup =
+        WaitlistSignup.landingSignup(
+            "ala@sklep.pl",
+            SupportedLocale.PL,
+            Instant.now(),
+            "203.0.113.7",
+            overlong,
+            CONSENT_TEXT);
+
+    assertThat(signup.consent().userAgent()).hasSize(512);
+  }
+
+  @Test
+  @DisplayName("a User-Agent that fits is stored exactly as it arrived")
+  void aNormalUserAgentIsUntouched() {
+    WaitlistSignup signup =
+        WaitlistSignup.landingSignup(
+            "ala@sklep.pl",
+            SupportedLocale.PL,
+            Instant.now(),
+            "203.0.113.7",
+            "Mozilla/5.0",
+            CONSENT_TEXT);
+
+    assertThat(signup.consent().userAgent()).isEqualTo("Mozilla/5.0");
+  }
+
+  @Test
   @DisplayName("an unticked consent box is refused even when the address is perfectly good")
   void missingConsentIsRefused() {
     assertThat(WaitlistSignup.validate("ala@sklep.pl", false))

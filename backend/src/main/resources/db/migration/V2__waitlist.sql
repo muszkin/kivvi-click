@@ -27,7 +27,7 @@ CREATE TABLE waitlist_subscriber (
 
 CREATE INDEX waitlist_subscriber_status_idx ON waitlist_subscriber (status);
 
--- Sliding-window request counter, one row per bucket ("ip:<address>", "email:<address>").
+-- Hourly request counter, one row per bucket ("ip:<address>", "email:<address>").
 -- Postgres backs everything in this stack — there is no Redis to hold a rate limiter, and
 -- this table is the same shape of solution event_dedup already is for idempotency.
 CREATE TABLE waitlist_throttle (

@@ -17,7 +17,7 @@ export default {
         sections: [
             {
                 heading: "Kto jest administratorem",
-                body: "Administratorem Twoich danych jest właściciel serwisu kivvi·click, dostępnego pod adresem kivvi.click. W sprawach dotyczących danych osobowych napisz na adres kontaktowy podany w stopce serwisu.",
+                body: "Administratorem Twoich danych jest właściciel serwisu kivvi·click, dostępnego pod adresem kivvi.click. W sprawach dotyczących danych osobowych pisz na adres podany niżej, w sekcji „Kontakt”.",
             },
             {
                 heading: "Jakie dane zbieramy",
@@ -37,11 +37,18 @@ export default {
             },
             {
                 heading: "Jak wycofać zgodę",
-                body: "Napisz na adres kontaktowy podany w stopce serwisu, a usuniemy Twój adres z listy. Każde wysłane przez nas powiadomienie zawiera też link do wypisania się jednym kliknięciem. Wycofanie zgody nie wpływa na zgodność z prawem tego, co zrobiliśmy przed jej wycofaniem.",
+                body: "Napisz na adres podany w sekcji „Kontakt”, a usuniemy Twój adres z listy. Wycofanie zgody nie wpływa na zgodność z prawem tego, co zrobiliśmy przed jej wycofaniem.",
             },
             {
                 heading: "Twoje prawa",
                 body: "Masz prawo dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania oraz przeniesienia. Masz też prawo wnieść skargę do Prezesa Urzędu Ochrony Danych Osobowych, jeśli uznasz, że przetwarzamy Twoje dane niezgodnie z prawem.",
+            },
+            {
+                heading: "Kontakt",
+                // DO UZUPEŁNIENIA PRZED PUBLIKACJĄ. To jedyna wskazana w tym dokumencie droga
+                // wycofania zgody, więc dopóki nie ma tu prawdziwego adresu, polityka opisuje
+                // mechanizm, którego nie da się użyć.
+                body: "[adres e-mail administratora — do uzupełnienia przed publikacją]",
             },
             {
                 heading: "Komu powierzamy dane",

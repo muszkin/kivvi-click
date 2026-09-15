@@ -7,6 +7,11 @@ import { expect, test } from "@playwright/test";
  * per-IP one is 10, both counted in Postgres and therefore shared by everything running against
  * this stack — reusing a literal address across tests, or across two runs within the hour, would
  * make the result depend on what ran before.
+ *
+ * The per-IP bucket is the one to watch when re-running: unique addresses do nothing for it, and
+ * this file spends 4 of its 10 hourly submissions per run. A third run against the same stack
+ * inside the hour will start seeing 429s. Start the dev stack with `down -v` first (the documented
+ * flow) and the counter starts empty.
  */
 function uniqueEmail(prefix: string): string {
     return `${prefix}-${Date.now()}-${Math.floor(Math.random() * 1e6)}@sklep.pl`;

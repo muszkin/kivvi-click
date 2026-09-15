@@ -6,10 +6,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 /**
- * Sliding-window request counter on {@code waitlist_throttle}. Postgres backs everything in this
- * stack, so the limiter is a table rather than a Redis counter or a new library (CODE_REVIEW.md,
- * "Architecture") — and being a table, it survives a restart of the single {@code api} process
- * instead of handing an abuser a fresh quota.
+ * Hourly request counter on {@code waitlist_throttle}. The window is a fixed one anchored at the
+ * bucket's first hit, not a rolling one — deliberately, because that is what the ticket asked for
+ * and what one statement can do without keeping a row per attempt. It is also the stricter of the
+ * two: a caller cannot creep back under the limit as individual attempts age out. Postgres backs
+ * everything in this stack, so the limiter is a table rather than a Redis counter or a new library
+ * (CODE_REVIEW.md, "Architecture") — and being a table, it survives a restart of the single {@code
+ * api} process instead of handing an abuser a fresh quota.
  *
  * <p>One statement does the whole job. The {@code CASE} pairs decide, inside the database, whether
  * the stored window has lapsed — restarting the count at 1 and stamping a new window — or is still

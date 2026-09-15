@@ -100,6 +100,30 @@ class WaitlistSignupServiceTest {
   }
 
   @Test
+  @DisplayName("a blank address is never charged to a per-address bucket everyone would share")
+  void aBlankAddressDoesNotConsumeASharedAllowance() {
+    service.signUp(request("", true, ""));
+
+    assertThat(throttle.acquisitions).containsExactly("ip:203.0.113.7");
+  }
+
+  @Test
+  @DisplayName(
+      "blank submissions from many visitors keep getting told to enter an address, never that"
+          + " they have tried too often")
+  void blankSubmissionsDoNotExhaustEachOthersAllowance() {
+    for (int visitor = 0; visitor < 10; visitor++) {
+      SignupOutcome outcome =
+          service.signUp(
+              new SignupRequest("", true, "", SupportedLocale.PL, "198.51.100." + visitor, "UA"));
+
+      assertThat(outcome)
+          .describedAs("visitor %d", visitor)
+          .isEqualTo(new SignupOutcome.Rejected(WaitlistSignupError.EMAIL_EMPTY));
+    }
+  }
+
+  @Test
   @DisplayName("a repeat of an address already on the list still reads as success")
   void aDuplicateStillLooksLikeSuccess() {
     store.reportEverythingAsAlreadyPresent();

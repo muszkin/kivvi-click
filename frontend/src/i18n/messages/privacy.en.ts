@@ -13,7 +13,7 @@ export default {
         sections: [
             {
                 heading: "Who the controller is",
-                body: "The controller of your data is the owner of kivvi·click, available at kivvi.click. For anything concerning personal data, write to the contact address given in the site footer.",
+                body: 'The controller of your data is the owner of kivvi·click, available at kivvi.click. For anything concerning personal data, write to the address given below, under "Contact".',
             },
             {
                 heading: "What we collect",
@@ -33,11 +33,17 @@ export default {
             },
             {
                 heading: "How to withdraw consent",
-                body: "Write to the contact address in the site footer and we will remove your address from the list. Every notification we send also carries a one-click unsubscribe link. Withdrawing consent does not affect the lawfulness of what we did before you withdrew it.",
+                body: 'Write to the address under "Contact" and we will remove your address from the list. Withdrawing consent does not affect the lawfulness of what we did before you withdrew it.',
             },
             {
                 heading: "Your rights",
                 body: "You have the right to access your data, to have it corrected or erased, to restrict its processing and to have it ported. You also have the right to lodge a complaint with the President of the Personal Data Protection Office if you believe we are processing your data unlawfully.",
+            },
+            {
+                heading: "Contact",
+                // TO BE FILLED IN BEFORE PUBLICATION — see privacy.pl.ts. This is the only route
+                // for withdrawing consent the document names.
+                body: "[controller's e-mail address — to be filled in before publication]",
             },
             {
                 heading: "Who else handles it",

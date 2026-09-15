@@ -24,10 +24,11 @@ import org.testcontainers.postgresql.PostgreSQLContainer;
  */
 @Testcontainers
 @SpringBootTest
-// The hourly sweep clears exactly the table this test asserts on, and a @Scheduled
-// fixedRate task fires the moment its context is ready — so leaving it on lets the
-// startup sweep land between this test's setup and its assertion. Off here; what the
-// job itself does is covered by ExpiredRowsCleanupJobTest.
+// This test asserts on how many rows its own delete removed, and the hourly job sweeps
+// the very same table. A @Scheduled fixedRate task fires the moment its context is
+// ready, so leaving it on lets the startup sweep land between the setup and the
+// assertion and carry the row off first. What the job itself does is covered by
+// ExpiredRowsCleanupJobTest.
 @TestPropertySource(properties = "kivvi.cleanup.enabled=false")
 class EventDedupStoreIT {
 

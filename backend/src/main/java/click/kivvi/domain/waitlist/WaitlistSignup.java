@@ -24,6 +24,12 @@ public record WaitlistSignup(
     Instant signedUpAt,
     ConsentProof consent) {
 
+  /** Mirrors {@code waitlist_subscriber.email}'s own width, which is the RFC's maximum. */
+  private static final int MAX_EMAIL_LENGTH = 320;
+
+  /** Mirrors {@code waitlist_subscriber.consent_user_agent}'s width. */
+  private static final int MAX_USER_AGENT_LENGTH = 512;
+
   /**
    * What was agreed to, when, and from where. {@code ip} and {@code userAgent} are nullable: a
    * request can legitimately arrive without a {@code User-Agent} header, and that is not a reason
@@ -71,6 +77,12 @@ public record WaitlistSignup(
     if (email.isEmpty()) {
       return Optional.of(WaitlistSignupError.EMAIL_EMPTY);
     }
+    // Before the pattern, not after: EmailValidation's local-part is unbounded, so a
+    // several-hundred-character address passes it happily and then fails the column's own
+    // 320-character limit — turning a typo into a 500 on a page anyone can reach.
+    if (email.length() > MAX_EMAIL_LENGTH) {
+      return Optional.of(WaitlistSignupError.EMAIL_MALFORMED);
+    }
     if (EmailValidation.errorFor(email).isPresent()) {
       return Optional.of(WaitlistSignupError.EMAIL_MALFORMED);
     }
@@ -94,6 +106,19 @@ public record WaitlistSignup(
         SignupSource.LANDING,
         SubscriberStatus.PENDING,
         now,
-        new ConsentProof(now, consentIp, consentUserAgent, consentText));
+        new ConsentProof(now, consentIp, truncate(consentUserAgent), consentText));
+  }
+
+  /**
+   * A {@code User-Agent} header is whatever the caller chose to send and has no length limit of its
+   * own, while the column that records it holds 512 characters. Truncating keeps an over-long
+   * header from turning a signup into a 500; what is kept still identifies the browser, which is
+   * all this field is evidence of.
+   */
+  private static String truncate(String userAgent) {
+    if (userAgent == null || userAgent.length() <= MAX_USER_AGENT_LENGTH) {
+      return userAgent;
+    }
+    return userAgent.substring(0, MAX_USER_AGENT_LENGTH);
   }
 }

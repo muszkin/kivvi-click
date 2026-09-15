@@ -102,7 +102,18 @@ public class WaitlistSignupService {
     if (!throttle.tryAcquire(IP_BUCKET_PREFIX + request.clientIp(), SIGNUPS_PER_IP_PER_HOUR)) {
       return false;
     }
-    return throttle.tryAcquire(emailBucketKey(request.email()), SIGNUPS_PER_ADDRESS_PER_HOUR);
+
+    // An empty field is not an address, and it must not be counted as one: every visitor who
+    // submits the form blank normalizes to the same empty string, so a shared bucket would let
+    // three blank submissions from anywhere on earth start answering everyone else with "too
+    // many attempts" instead of "enter an e-mail address". The per-IP bucket above has already
+    // been charged, which is the limit that actually protects anything here.
+    String normalizedEmail = WaitlistSignup.normalizeEmail(request.email());
+    if (normalizedEmail.isEmpty()) {
+      return true;
+    }
+
+    return throttle.tryAcquire(emailBucketKey(normalizedEmail), SIGNUPS_PER_ADDRESS_PER_HOUR);
   }
 
   private void record(SignupRequest request) {
@@ -130,8 +141,8 @@ public class WaitlistSignupService {
    * addresses. Hashing also keeps every key the same short length, which is what lets the column
    * stay narrow while the address column allows the full 320 characters a mailbox may have.
    */
-  private static String emailBucketKey(String rawEmail) {
-    return EMAIL_BUCKET_PREFIX + sha256Hex(WaitlistSignup.normalizeEmail(rawEmail));
+  private static String emailBucketKey(String normalizedEmail) {
+    return EMAIL_BUCKET_PREFIX + sha256Hex(normalizedEmail);
   }
 
   private static String sha256Hex(String value) {
