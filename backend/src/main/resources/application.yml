@@ -92,12 +92,19 @@ kivvi:
     # HttpMercurePublisher's class comment.
     url: ${MERCURE_URL:http://mercure/.well-known/mercure}
     jwt-secret: ${MERCURE_JWT_SECRET:!ChangeThisMercureHubJWTSecretKey!}
-  tracking:
-    dedup-cleanup:
-      # Mirrors the old stack's cache TTL sweep cadence; piggybacks on the wave-1 scheduler
-      # (SchedulingConfig's single TaskScheduler bean and @EnableSchedulerLock), so no new
-      # scheduling infrastructure is introduced here.
-      interval: PT1H
+  cleanup:
+    # Hourly housekeeping sweep (ExpiredRowsCleanupJob): lapsed event_dedup claims and lapsed
+    # waitlist_throttle windows. Mirrors the old stack's cache TTL sweep cadence; piggybacks on
+    # the wave-1 scheduler (SchedulingConfig's single TaskScheduler bean and
+    # @EnableSchedulerLock), so no new scheduling infrastructure is introduced here. Was
+    # kivvi.tracking.dedup-cleanup.interval while the job swept only event_dedup; that key was
+    # set nowhere outside this file.
+    interval: PT1H
+    # Stated here for discoverability; the job defaults to on when the key is absent. Only the
+    # integration tests that assert on the tables it sweeps set it to false, so the sweep that
+    # a @Scheduled fixedRate task performs at context startup cannot delete a row between such
+    # a test's setup and its assertion. Never set this to false outside tests.
+    enabled: true
   import:
     # Relative to the api container's working directory (/app — see backend/Dockerfile), so
     # this resolves to /app/var/import — mirrors the old stack's own `var/import`. A path

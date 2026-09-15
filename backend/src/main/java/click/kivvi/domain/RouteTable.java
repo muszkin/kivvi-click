@@ -33,6 +33,15 @@ public final class RouteTable {
   private static final List<Route> LOCALE_PREFIXED =
       List.of(
           new Route("home", "", Layout.PUBLIC),
+          // PIO-70: the first route here that is not a port of a Symfony route. The waitlist
+          // form's consent clause links to it, so it has to answer a direct hit and a reload,
+          // not only an in-SPA transition — which is exactly what an entry here provides.
+          new Route("privacy", "/privacy", Layout.PUBLIC),
+          // The waitlist form's own POST target. A refused submission re-renders the landing
+          // document without redirecting, which leaves the browser on this URL — so a reload
+          // from there has to serve the landing page rather than a 404. GET here is just the
+          // landing page; only POST (WaitlistController) does anything.
+          new Route("waitlist", "/waitlist", Layout.PUBLIC),
           new Route("login", "/login", Layout.AUTH),
           new Route("dashboard", "/dashboard", Layout.APP),
           new Route("events", "/events", Layout.APP),

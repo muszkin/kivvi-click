@@ -7,6 +7,7 @@ import click.kivvi.domain.Theme;
 import click.kivvi.infrastructure.IndexHtmlTemplate;
 import click.kivvi.infrastructure.SessionPreferencesStore;
 import jakarta.servlet.http.HttpSession;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,17 +26,20 @@ public class SpaDocumentService {
   }
 
   public String render(HttpSession session, SupportedLocale locale) {
-    return render(session, locale, null, null);
+    return render(session, locale, Map.of());
   }
 
-  /** A failed login POST re-renders the same document carrying the error and the typed address. */
+  /**
+   * A form POST that could not be accepted re-renders the same document, carrying what the SPA
+   * needs to redisplay the form: {@code dataAttributes} maps each attribute name without its {@code
+   * data-} prefix to its value.
+   */
   public String render(
-      HttpSession session, SupportedLocale locale, String loginError, String lastUsername) {
+      HttpSession session, SupportedLocale locale, Map<String, String> dataAttributes) {
     Theme theme = preferences.theme(session);
     SidebarState sidebar = preferences.sidebarState(session);
     var attrs =
-        new SpaDocument.Attributes(
-            locale.code(), theme.value(), sidebar.value(), loginError, lastUsername);
+        new SpaDocument.Attributes(locale.code(), theme.value(), sidebar.value(), dataAttributes);
     return SpaDocument.inject(template.content(), attrs);
   }
 }

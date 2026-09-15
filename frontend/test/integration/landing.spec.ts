@@ -83,6 +83,31 @@ describe("B22 the home route resolves to the landing view for both the bare and 
         expect(demoLink?.attributes("data-action")).toBeUndefined();
     });
 
+    // PIO-70: the hero now carries the waitlist form where the primary CTA used to be, so
+    // .hero-cta holds exactly one link and the form sits beside it.
+    it("'/pl' renders the waitlist form alongside the single remaining CTA link", async () => {
+        const { wrapper } = await mountAtRoute("/pl");
+
+        expect(wrapper.findAll(".hero-cta a")).toHaveLength(1);
+        const form = wrapper.find("form.waitlist-form");
+        expect(form.attributes("action")).toBe("/pl/waitlist");
+        expect(form.attributes("method")).toBe("post");
+    });
+
+    it("'?waitlist=ok' shows the thank-you in place of the form", async () => {
+        const { wrapper } = await mountAtRoute("/pl?waitlist=ok");
+
+        expect(wrapper.find("form.waitlist-form").exists()).toBe(false);
+        expect(wrapper.find(".waitlist-thanks").exists()).toBe(true);
+    });
+
+    it("the waitlist POST url resolves to the landing view, so a refusal still renders", async () => {
+        const { wrapper, router } = await mountAtRoute("/pl/waitlist");
+
+        expect(router.currentRoute.value.name).toBe("waitlist");
+        expect(wrapper.findComponent(LandingView).exists()).toBe(true);
+    });
+
     it("'/en' fetches the English-locale endpoint", async () => {
         await mountAtRoute("/en");
 

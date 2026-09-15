@@ -11,6 +11,9 @@ const locale = computed(() =>
     typeof route.params.locale === "string" ? route.params.locale : "pl",
 );
 const loginHref = computed(() => `/${locale.value}/login`);
+// PIO-70 (decision D3): the footer's privacy link was href="#" until there was a page to point
+// it at. The three siblings that are still "#" — terms, DPA, status — are out of scope here.
+const privacyHref = computed(() => `/${locale.value}/privacy`);
 const year = new Date().getFullYear();
 </script>
 
@@ -46,7 +49,7 @@ const year = new Date().getFullYear();
             <Wordmark :size="16" :font-size="14" />
             <span>·</span><span>© {{ year }}</span
             ><span>·</span> <a href="#">{{ t("landing.terms") }}</a
-            ><a href="#">{{ t("landing.privacy") }}</a
+            ><a :href="privacyHref">{{ t("landing.privacy") }}</a
             ><a href="#">RODO / DPA</a><a href="#">{{ t("common.status") }}</a>
             <div style="flex: 1"></div>
             <span class="mono" style="font-size: 11px"

@@ -48,6 +48,30 @@ class RouteTableTest {
   }
 
   @Test
+  @DisplayName("PIO-70 the privacy policy is a public document route in both languages")
+  void thePrivacyPolicyIsAPublicRoute() {
+    assertThat(RouteTable.match("/pl/privacy").map(RouteTable.Match::routeName))
+        .contains("privacy");
+    assertThat(RouteTable.match("/pl/privacy").map(RouteTable.Match::layout))
+        .contains(RouteTable.Layout.PUBLIC);
+    assertThat(RouteTable.match("/en/privacy").map(RouteTable.Match::locale))
+        .contains(SupportedLocale.EN);
+    assertThat(RouteTable.match("/de/privacy")).isEmpty();
+  }
+
+  @Test
+  @DisplayName(
+      "PIO-70 the waitlist form's POST url is also a document route, so a refused submission"
+          + " — which leaves the browser on it — can be reloaded without a 404")
+  void theWaitlistPostUrlIsAlsoADocumentRoute() {
+    assertThat(RouteTable.match("/pl/waitlist").map(RouteTable.Match::routeName))
+        .contains("waitlist");
+    assertThat(RouteTable.match("/pl/waitlist").map(RouteTable.Match::layout))
+        .contains(RouteTable.Layout.PUBLIC);
+    assertThat(RouteTable.match("/de/waitlist")).isEmpty();
+  }
+
+  @Test
   @DisplayName("B07 unsupported locale prefix is unknown to the route table")
   void unsupportedLocaleIsUnknown() {
     assertThat(RouteTable.match("/de/dashboard")).isEmpty();

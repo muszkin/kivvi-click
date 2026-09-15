@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.TestPropertySource;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.postgresql.PostgreSQLContainer;
@@ -23,6 +24,12 @@ import org.testcontainers.postgresql.PostgreSQLContainer;
  */
 @Testcontainers
 @SpringBootTest
+// This test asserts on how many rows its own delete removed, and the hourly job sweeps
+// the very same table. A @Scheduled fixedRate task fires the moment its context is
+// ready, so leaving it on lets the startup sweep land between the setup and the
+// assertion and carry the row off first. What the job itself does is covered by
+// ExpiredRowsCleanupJobTest.
+@TestPropertySource(properties = "kivvi.cleanup.enabled=false")
 class EventDedupStoreIT {
 
   private static final String COUNT_BY_HASH_SQL =

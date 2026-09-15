@@ -9,6 +9,11 @@ withDefaults(
         mono?: boolean;
         help?: string;
         error?: string;
+        // PIO-70: lets a native form POST rely on the browser's own required-field check, the
+        // way the login form already relies on type="email". Absent unless asked for, so no
+        // existing Field starts refusing to submit.
+        required?: boolean;
+        autocomplete?: string;
     }>(),
     { type: "text", value: "", placeholder: "" },
 );
@@ -25,6 +30,8 @@ withDefaults(
             :type="type"
             :value="value"
             :placeholder="placeholder"
+            :required="required || undefined"
+            :autocomplete="autocomplete"
             :aria-invalid="error ? 'true' : undefined"
         />
         <div v-if="help" class="muted" style="font-size: 12px; margin-top: 4px">
