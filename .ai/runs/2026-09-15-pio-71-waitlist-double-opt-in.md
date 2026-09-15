@@ -159,5 +159,34 @@ Two defects the run found and fixed, neither of them in the plan:
   create `/app/var/import` — every customer-import upload became an `AccessDeniedException`. The
   image now creates that tree itself. The e2e suite is what caught it.
 
-Deliberately left out: re-opening an `unsubscribed` row when that address signs up again.
-Unsubscribe stays terminal here; a rejoin path is follow-up work.
+## Review rounds
+
+Four passes of independent review found two blockers, four majors and one regression the first
+round of fixes introduced. All are closed, each with a test that fails without its fix. In order:
+
+1. The branch had gone stale — `main` moved production onto a Portainer-deployed
+   `compose.portainer.yaml`, so this ticket's mail configuration sat in a file nothing deploys.
+2. The unsubscribe secret shipped a readable default; the token is an HMAC of a sequential id, so
+   that was a list anyone could unsubscribe. No default outside `dev` now, and too short refuses
+   to start.
+3. Confirming could undo an unsubscribe — both links ride in the same message and link scanners
+   open them in any order. Guarded, with a deliberate way back through the signup form.
+4. The resend had no rate limit, though the spec asked for the signup's.
+5. `main` then added its own Brevo block under different variable names; this branch adopted
+   `main`'s, in all three files that carry them.
+6. The From address is the verified `piotr@kivvi.click`; anything else on the domain is
+   DKIM-unaligned.
+7. A regression from round 1: a confirmed row keeps its deadline, so checking "lapsed" first told
+   people their own confirmed link had expired.
+8. Adopting `main`'s host default silently disarmed the startup guard; it checks the credentials
+   now, which are the pair with no default.
+
+Deliberately left out: nothing, in the end — the rejoin path that was going to be follow-up work is
+in, because both pages already promised it.
+
+## Merge preconditions
+
+Not defects, but load-bearing: `SMTP_USERNAME`, `SMTP_PASSWORD` and a 32-character
+`KIVVI_UNSUBSCRIBE_SECRET` must exist in the Portainer stack before this reaches `main`, or the
+`api` container refuses to start and the post-deploy check goes red. And the plan's R1 still stands:
+SPF, DKIM and DMARC at `p=none` on the domain before the first real send.
