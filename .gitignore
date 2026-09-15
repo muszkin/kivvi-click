@@ -43,3 +43,8 @@ npm-debug.log*
 /frontend/coverage/
 /tools/migration-verify/node_modules/
 /tools/migration-verify/.out/
+
+# Agent pipeline (.ai/agentic.config.json) — per-run QA state and artifacts, never source
+/.ai/qa/artifacts_*/
+/.ai/qa/test-env.json
+/.ai/qa/test-env.env

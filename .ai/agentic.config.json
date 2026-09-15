@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "baseBranch": "auto",
+  "tracker": "linear",
+  "browser": { "provider": "playwright" },
+  "validation": {
+    "commands": [
+      "cd frontend && npm ci",
+      "cd frontend && npm run typecheck",
+      "cd frontend && npm run lint",
+      "cd frontend && npm run format:check",
+      "cd frontend && npm run test -- --run",
+      "cd frontend && npm run test:integration -- --run",
+      "cd frontend && npm run build && rm -rf ../backend/src/main/resources/static && mkdir -p ../backend/src/main/resources/static && cp -r dist/. ../backend/src/main/resources/static/",
+      "cd backend && JAVA_HOME=$HOME/.cache/kivvi-toolchains/jdk-25 ./mvnw -B -q verify"
+    ]
+  },
+  "labels": {
+    "enabled": true,
+    "pipeline": [
+      "review",
+      "changes-requested",
+      "qa",
+      "qa-failed",
+      "merge-queue",
+      "blocked",
+      "do-not-merge"
+    ],
+    "category": [
+      "bug",
+      "feature",
+      "refactor",
+      "security",
+      "dependencies",
+      "documentation"
+    ],
+    "meta": [
+      "needs-qa",
+      "skip-qa",
+      "qa-approved",
+      "qa-self-verified",
+      "in-progress",
+      "ci-monitoring"
+    ],
+    "priority": [
+      "priority-low",
+      "priority-medium",
+      "priority-high",
+      "priority-extreme"
+    ],
+    "risk": ["risk-low", "risk-medium", "risk-high"]
+  },
+  "qaGate": true,
+  "ci": { "maxWaitMinutes": 40 },
+  "engine": {
+    "loopStepThreshold": 20,
+    "executorTier": "standard",
+    "stepReview": "final"
+  },
+  "paths": {
+    "runs": ".ai/runs",
+    "analysis": ".ai/analysis",
+    "specs": "context/plans",
+    "scripts": ".ai/scripts",
+    "qa": ".ai/qa"
+  },
+  "reviewChecklist": null,
+  "closeKeywords": []
+}
