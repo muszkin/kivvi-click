@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.TestPropertySource;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.postgresql.PostgreSQLContainer;
@@ -26,6 +27,11 @@ import org.testcontainers.postgresql.PostgreSQLContainer;
  */
 @Testcontainers
 @SpringBootTest
+// The hourly sweep clears exactly the table this test asserts on, and a @Scheduled
+// fixedRate task fires the moment its context is ready — so leaving it on lets the
+// startup sweep land between this test's setup and its assertion. Off here; what the
+// job itself does is covered by ExpiredRowsCleanupJobTest.
+@TestPropertySource(properties = "kivvi.cleanup.enabled=false")
 class WaitlistSubscriberStoreIT {
 
   private static final String CONSENT_TEXT = "Zgadzam się na otrzymanie powiadomienia o starcie.";

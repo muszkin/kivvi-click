@@ -5,6 +5,7 @@ import click.kivvi.infrastructure.waitlist.JdbcSignupThrottle;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,14 @@ import org.springframework.stereotype.Component;
  * guards the same "rapid re-trigger" case {@link HeartbeatJob} documents.
  */
 @Component
+// On by default; only the integration tests that assert on the very tables this job sweeps turn
+// it off. A @Scheduled fixedRate task runs once the moment its context is ready, so without this
+// switch the startup sweep can land between such a test's own setup and its assertion and delete
+// the row out from under it — a race that fails a correct test and, worse, fails it only
+// sometimes. Disabling it there costs no coverage: what sweep() does is proven directly by
+// ExpiredRowsCleanupJobTest, and what each delete does by EventDedupStoreIT and
+// JdbcSignupThrottleIT.
+@ConditionalOnProperty(name = "kivvi.cleanup.enabled", havingValue = "true", matchIfMissing = true)
 public class ExpiredRowsCleanupJob {
 
   // Deliberately still the name this job locked under when it only swept event_dedup: the row

@@ -100,6 +100,11 @@ kivvi:
     # kivvi.tracking.dedup-cleanup.interval while the job swept only event_dedup; that key was
     # set nowhere outside this file.
     interval: PT1H
+    # Stated here for discoverability; the job defaults to on when the key is absent. Only the
+    # integration tests that assert on the tables it sweeps set it to false, so the sweep that
+    # a @Scheduled fixedRate task performs at context startup cannot delete a row between such
+    # a test's setup and its assertion. Never set this to false outside tests.
+    enabled: true
   import:
     # Relative to the api container's working directory (/app — see backend/Dockerfile), so
     # this resolves to /app/var/import — mirrors the old stack's own `var/import`. A path
