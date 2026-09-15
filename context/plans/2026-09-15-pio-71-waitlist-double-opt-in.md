@@ -1,6 +1,7 @@
 # PIO-71 — Waitlista: potwierdzenie adresu (double opt-in)
 
 **Status:** spec + plan gotowe do wykonania (2026-09-15). Decyzje właściciela podjęte przed spisaniem.
+**Uzgodnione z kodem:** 2026-09-15, po merge'u PIO-70 (`327049d`) — patrz „Korekty po merge'u PIO-70”.
 **Ticket:** [PIO-71](https://linear.app/piotr-mucha/issue/PIO-71/waitlista-potwierdzenie-adresu-double-opt-in) · P0 · `growth`
 **Blokowane przez:** PIO-70 — startuje dopiero po jego merge'u. Dotyka tych samych plików i tej samej tabeli.
 **Gałąź:** `muszkin/pio-71-waitlista-potwierdzenie-adresu-double-opt-in`
@@ -34,8 +35,11 @@ Każdy mail niesie działający link „wypisz się", który nie wymaga logowani
 | **`EmailDocument.vue` używa `oklch()`.** | tamże, plus `.ee-doc` w `04-patterns.css` | `oklch()` to CSS Color 4 — klienci pocztowi w większości go nie obsługują. Szablon maila musi używać **hexów**, nie oklch. Kolory dobieramy tak, by wyglądały jak te z podglądu. |
 | **Brak Messengera i jakiejkolwiek kolejki.** | `backend/pom.xml`, `CLAUDE.md` („no message-queue/outbox layer exists") | Ticket mówi „puszczamy przez Messenger (async), worker już działa" — nieprawda w tym stacku. Stąd D2. |
 | **Scheduler ma pulę jednowątkową.** `heartbeatTaskScheduler` to `ThreadPoolTaskScheduler` z `poolSize = 1`, a heartbeat jedzie na własnym triggerze. | `infrastructure/config/SchedulingConfig.java` | Dorzucenie wysyłki do tej samej puli oznacza, że timeout SMTP zablokuje heartbeat. Sender dostaje **własną pulę jednowątkową**, nie współdzieli tej. |
-| **Sprzątanie wygasłych wierszy jest już uogólnione.** PIO-70 przemianował `EventDedupCleanupJob` na `ExpiredRowsCleanupJob` i przeniósł go do `infrastructure/scheduling`, a klucz konfiguracji na `kivvi.cleanup.interval`. | stan gałęzi PIO-70 | Sprzątanie wysłanych wierszy outboxu dokładamy **do tego zadania**, nie tworzymy trzeciego. |
-| Kolumny tokenu istnieją już w `waitlist_subscriber` (nullable), założone przez PIO-70. | `V2__waitlist.sql` | Migracja PIO-71 tylko je wykorzystuje i dokłada to, czego brakuje — nie przebudowuje tabeli. |
+| **Sprzątanie wygasłych wierszy jest już uogólnione.** PIO-70 przemianował `EventDedupCleanupJob` na `ExpiredRowsCleanupJob`, przeniósł go do `infrastructure/scheduling`, ustawił klucz konfiguracji na `kivvi.cleanup.interval` i osłonił `@ConditionalOnProperty("kivvi.cleanup.enabled")`. Nazwa blokady została **stara** — `LOCK_NAME = "event-dedup-cleanup"`. | `infrastructure/scheduling/ExpiredRowsCleanupJob.java` na `main` | Sprzątanie wysłanych wierszy outboxu dokładamy **do tego zadania**, nie tworzymy trzeciego, i nie ruszamy nazwy blokady — produkcyjny wiersz w `shedlock` zostałby osierocony. |
+| Kolumny tokenu istnieją już w `waitlist_subscriber` (nullable), założone przez PIO-70: `confirmation_token_hash CHAR(64)`, `confirmation_token_expires_at TIMESTAMPTZ`, `confirmed_at TIMESTAMPTZ`. | zmergowany `V2__waitlist.sql` | Potwierdzone. Migracja PIO-71 tylko je wykorzystuje i dokłada to, czego brakuje — nie przebudowuje tabeli. |
+| **Wyniki operacji mieszkają w `application.waitlist`, nie w `domain.waitlist`.** PIO-70 umieścił tam `SignupOutcome` (sealed interface) razem z `SignupRequest`. | `application/waitlist/SignupOutcome.java` | `ConfirmationOutcome` i `UnsubscribeOutcome` idą obok niego, a nie do `domain`. `ArchitectureTest` dopuszcza oba miejsca; spójność z sąsiadem rozstrzyga. |
+| **Jedyny `TaskScheduler` jest wpięty w rejestrator zadań.** `SchedulingConfig.configureTasks` woła `registrar.setTaskScheduler(heartbeatTaskScheduler())`, więc **każde** `@Scheduled` w aplikacji — łącznie z `ExpiredRowsCleanupJob` — jedzie po tym jednym wątku heartbeatu. | `infrastructure/config/SchedulingConfig.java` | Sender **nie może** być `@Scheduled`: to by go wsadziło dokładnie do puli, której R4 zabrania. Rejestrujemy go ręcznie na własnym `ThreadPoolTaskScheduler`. |
+| **`WaitlistSubscriberStore.save` zwraca `boolean`** (`INSERT ... ON CONFLICT (email) DO NOTHING`) i nie oddaje identyfikatora wiersza. | `infrastructure/waitlist/WaitlistSubscriberStore.java` | Nie zmieniamy tego kontraktu. Po zapisie serwis odczytuje wiersz po adresie — dzięki temu nowy zapis i powtórny zapis niepotwierdzonego adresu idą **jedną** ścieżką. |
 
 > **Uwaga o kolejności.** Ten spec opisuje stan po merge'u PIO-70. Zanim zacznie się implementacja,
 > trzeba przeczytać faktycznie zmergowaną `V2__waitlist.sql` i nazwy klas — jeżeli PIO-70 odjechało
@@ -105,7 +109,10 @@ CREATE INDEX mail_outbox_due_idx ON mail_outbox (status, next_attempt_at);
   użyciu). Wypisujący **nie wygasa nigdy** — wędruje w stopce każdego maila i musi działać rok
   później, inaczej jedyną drogą wypisu zostaje zgłoszenie do obsługi.
 - **`dedup_key`** chroni przed podwójną wysyłką tego samego maila przy równoległym żądaniu:
-  `waitlist-confirm:<id subskrybenta>:<numer wydania tokenu>`.
+  `waitlist-confirm:<hash tokenu potwierdzającego>`. **Korekta:** pierwotnie miał to być
+  `<id subskrybenta>:<numer wydania tokenu>`, co wymagałoby dodatkowej kolumny-licznika. Hash już
+  jest w bazie, jest unikalny dla każdego wydania tokenu i zmienia się przy każdym ponowieniu —
+  robi dokładnie to samo za darmo.
 - **`text_body` jest obowiązkowe.** Mail bez części tekstowej dostaje gorszą ocenę
   antyspamową i jest nieczytelny w klientach tekstowych.
 
@@ -129,14 +136,18 @@ HTTP, wymuszone medium — odnotowane, nie przypadkowe.
 ## Architektura i pliki
 
 ```
+domain/
+  Sha256.java                   wspólne hashowanie hex (wyjęte z WaitlistSignupService)
 domain/waitlist/
-  ConfirmationToken.java        generowanie, hashowanie, ważność (7 dni)
-  ConfirmationOutcome.java      sealed: Confirmed | AlreadyConfirmed | Expired | Unknown
-  UnsubscribeOutcome.java       sealed: Unsubscribed | Unknown
+  OpaqueToken.java              32 bajty z SecureRandom, hex, SHA-256, kontrola kształtu
+  ConfirmationToken.java        token + termin ważności (7 dni)
 domain/mail/
   OutboundMail.java             record: odbiorca, temat, html, tekst, klucz deduplikacji
 application/waitlist/
-  WaitlistConfirmationService.java   potwierdzenie, ponowienie, wypis
+  ConfirmationOutcome.java      sealed: Confirmed | AlreadyConfirmed | Expired | Unknown
+  UnsubscribeOutcome.java       sealed: Unsubscribed | Unknown
+  WaitlistConfirmationService.java   rejestracja (transakcyjnie: wiersz + mail), potwierdzenie,
+                                     ponowienie, wypis
   WaitlistMailComposer.java          składa OutboundMail z szablonu i locale subskrybenta
 application/mail/
   MailQueue.java                     wstawia do outboxu (używane też przez PIO-76)
@@ -144,8 +155,14 @@ infrastructure/waitlist/
   WaitlistSubscriberStore.java       rozszerzone o operacje na tokenach (z PIO-70)
 infrastructure/mail/
   MailOutboxStore.java               JdbcTemplate: wstaw, pobierz należne, oznacz wysłane/nieudane
-  MailOutboxSenderJob.java           @Scheduled co 30 s + @SchedulerLock, własna pula
-  FilesystemMailSender.java          profil dev: zapis .eml na dysk zamiast SMTP (D5)
+  MailOutboxSenderJob.java           @SchedulerLock, uruchamiany z własnej puli
+  MailTransport.java                 seam wysyłkowy
+  SmtpMailTransport.java             @Profile("!dev"): JavaMailSender → SMTP
+  FilesystemMailTransport.java       @Profile("dev"): zapis .eml na dysk zamiast SMTP (D5)
+  MimeMailComposer.java              jeden MimeMessage dla obu transportów
+  MailConfigurationGuard.java        @Profile("!dev"): brak spring.mail.host przerywa start (R5)
+infrastructure/config/
+  MailSchedulingConfig.java          własna pula jednowątkowa + rejestracja sendera co 30 s
 web/
   WaitlistConfirmationController.java
 resources/templates/email/
@@ -171,8 +188,13 @@ i `next_attempt_at = now()`. Wstawienie jest w tej samej transakcji co zmiana st
 więc albo mamy oba, albo żadnego — to jest cały sens outboxu.
 
 **Sender.** Zadanie co 30 sekund, pod blokadą ShedLock, na własnej jednowątkowej puli
-(nie na tej od heartbeatu — SMTP potrafi wisieć). Pobiera do 20 należnych wierszy jednym
+(nie na tej od heartbeatu — SMTP potrafi wisieć). **Korekta:** rejestrujemy je ręcznie na własnym
+`ThreadPoolTaskScheduler`, a nie adnotacją `@Scheduled` — `SchedulingConfig` wpina pulę heartbeatu
+jako scheduler całego rejestratora zadań, więc `@Scheduled` trafiłoby dokładnie tam, gdzie nie wolno. Pobiera do 20 należnych wierszy jednym
 `UPDATE ... RETURNING` ze statusem `sending`, więc dwa procesy nigdy nie wyślą tego samego maila.
+Przejęcie wiersza jest **dzierżawą**: ustawia `next_attempt_at = teraz + 10 min`, a warunek wyboru
+bierze `status IN ('pending','sending') AND next_attempt_at <= teraz`. Dzięki temu wiersz porzucony
+przez proces, który padł w trakcie wysyłki, wraca do obiegu sam, bez osobnego zadania odzyskującego.
 Sukces → `sent` + `sent_at`. Błąd → `attempts + 1`, `last_error`, `next_attempt_at` przesunięte
 wykładniczo (1 min, 5 min, 25 min, 2 h, 10 h); po piątej próbie status `failed` i wpis
 w logu na poziomie `ERROR` — to jedyny przypadek, w którym wolno zalogować coś głośniej niż INFO,
@@ -188,6 +210,9 @@ Mailpit zaprzeczyłoby zasadzie „Postgres jest jedyną usługą wspierającą"
 
 - w profilu `dev` bean `FilesystemMailSender` zapisuje każdą wiadomość jako `.eml`
   w `${kivvi.mail.dev-directory:./var/mail}` zamiast łączyć się z SMTP;
+- `compose.yaml` ustawia `SPRING_PROFILES_ACTIVE` (domyślnie `dev`; overlay produkcyjny nadpisuje go
+  na `prod`) i podmontowuje `./var/mail` do kontenera — **korekta**: bez tego pliki `.eml` powstają
+  wyłącznie wewnątrz kontenera, a suita Playwright działa na hoście i nie ma ich jak przeczytać;
 - test E2E zapisuje adres, czeka na plik i wyciąga z niego link potwierdzający;
 - w produkcji bean w ogóle nie powstaje (`@Profile("dev")`), więc nie ma ryzyka, że maile cicho
   wylądują na dysku zamiast u odbiorcy. Brak skonfigurowanego `spring.mail.host` poza profilem
@@ -230,8 +255,11 @@ Mailpit zaprzeczyłoby zasadzie „Postgres jest jedyną usługą wspierającą"
    wyjątku ponawia z backoffem, po piątej próbie oznacza `failed`.
 2. `MailOutboxSenderIT` na **GreenMail**: wiadomość naprawdę dociera na SMTP, ma oba warianty treści
    i poprawnego nadawcę.
-3. `MailOutboxSenderJob` + własna pula w `SchedulingConfig` + `FilesystemMailSender` dla profilu `dev`.
-4. Sekcja `spring.mail.*` w `application.yml`, wszystko z env, zero poświadczeń w repo.
+3. `MailOutboxSenderJob` + własna pula w nowym `MailSchedulingConfig` + `FilesystemMailTransport`
+   dla profilu `dev` i `MailConfigurationGuard` poza nim.
+4. Sekcja `spring.mail.*` w `application.yml`, wszystko z env, zero poświadczeń w repo, oraz
+   `backend/src/test/resources/application.yml` z atrapą hosta — **korekta**: każdy `*IT` startuje
+   pełny kontekst w profilu domyślnym, więc bez tego strażnik z R5 wywróciłby całą suitę.
 
 **Bramka:** pełna bramka.
 
@@ -254,6 +282,14 @@ Mailpit zaprzeczyłoby zasadzie „Postgres jest jedyną usługą wspierającą"
 1. `frontend/test/integration/WaitlistConfirmView.spec.ts` i `WaitlistUnsubscribeView.spec.ts`:
    każdy stan renderuje właściwy komunikat, stan „wygasł" pokazuje przycisk ponowienia.
 2. Widoki, trasy, katalogi i18n PL i EN.
+3. **Dodane w trakcie:** treść „dzięki, jesteś na liście” na landingu mówi dziś nieprawdę — wiersz
+   jest dopiero `pending`. Zmieniamy ją w PL i EN na komunikat o wysłanym linku i poprawiamy testy,
+   które ją cytują (`WaitlistForm.spec.ts`, `waitlist.spec.ts`).
+4. **Dodane w trakcie:** polityka prywatności z PIO-70 obiecuje w sekcji „Komu powierzamy dane”, że
+   dostawca poczty **zostanie nazwany, zanim wyjdzie pierwsza wiadomość**. Ten PR włącza wysyłkę,
+   więc nazywa Brevo w obu językach (`privacy.pl.ts`, `privacy.en.ts`) — patrz też research, punkt
+   4 listy zadań właściciela. Adres kontaktowy w tych katalogach pisze się `piotr{'@'}kivvi.click`:
+   vue-i18n czyta goły `@` jako składnię linked-message i odmawia kompilacji.
 
 **Bramka:** pełna bramka.
 
@@ -275,6 +311,7 @@ Mailpit zaprzeczyłoby zasadzie „Postgres jest jedyną usługą wspierającą"
 | Powtórny zapis niepotwierdzonego adresu wysyła nowy link, bez drugiego wpisu | `WaitlistConfirmationServiceTest`, `WaitlistConfirmationApiIT` |
 | Link „wypisz się" działa bez logowania i ustawia `unsubscribed` | `WaitlistConfirmationControllerTest`, E2E |
 | W bazie widać czas i IP potwierdzenia zgody | `WaitlistConfirmationApiIT` |
+| Nieudana wysyłka jest ponawiana, a po wyczerpaniu prób zostaje jako `failed` | `MailOutboxSenderJobTest`, `MailOutboxStoreIT` |
 
 ## Ryzyka
 
@@ -285,4 +322,24 @@ Mailpit zaprzeczyłoby zasadzie „Postgres jest jedyną usługą wspierającą"
 | R3 | Token w URL-u trafia do logów serwera i nagłówka `Referer`. | Token jest jednorazowy i kasowany przy użyciu; ważność 7 dni. Strona potwierdzenia nie ładuje żadnego zasobu z obcej domeny, więc `Referer` nie wycieka na zewnątrz. |
 | R4 | Wysyłka blokuje scheduler i zatrzymuje heartbeat. | Sender ma własną pulę, nigdy nie współdzieli tej od heartbeatu. Test to sprawdza. |
 | R5 | Bean przechwytujący maile w dev trafia przypadkiem na produkcję i wszystko cicho ląduje na dysku. | `@Profile("dev")` + twarde przerwanie startu przy braku `spring.mail.host` poza profilem dev. Osobny test tego pilnuje. |
-| R6 | Spec pisany przed merge'em PIO-70 może rozminąć się z tym, co faktycznie wylądowało. | Pierwszy krok implementacji czyta zmergowaną `V2__waitlist.sql` i koryguje ten dokument, zanim dotknie kodu. |
+| R6 | Spec pisany przed merge'em PIO-70 może rozminąć się z tym, co faktycznie wylądowało. | **Zamknięte 2026-09-15**: dokument uzgodniony z `main` na `327049d` przed pierwszą linijką kodu. Rozbieżności spisane niżej. |
+
+## Korekty po merge'u PIO-70
+
+Wykonane 2026-09-15 na `main` w stanie `327049d`, przed pierwszą zmianą w kodzie (R6, „Uwaga
+o kolejności”). Każda pozycja jest naniesiona w treści dokumentu powyżej; ta lista mówi, co się
+zmieniło i dlaczego.
+
+| # | Spec mówił | Kod mówi | Korekta |
+| --- | --- | --- | --- |
+| K1 | Kolumny tokenu „istnieją, nullable” — bez nazw. | `V2__waitlist.sql` daje `confirmation_token_hash CHAR(64)`, `confirmation_token_expires_at`, `confirmed_at`. | Potwierdzone bez zmian; nazwy wpisane wprost, żeby `V3` nie zgadywał. |
+| K2 | `ConfirmationOutcome` i `UnsubscribeOutcome` w `domain.waitlist`. | PIO-70 trzyma `SignupOutcome` w `application.waitlist`. | Oba wyniki lądują w `application.waitlist`, obok sąsiada. |
+| K3 | `dedup_key = waitlist-confirm:<id>:<numer wydania>`. | Numeru wydania nigdzie nie ma i wymagałby kolumny-licznika. | `dedup_key = waitlist-confirm:<hash tokenu>` — hash już jest w bazie i zmienia się przy każdym ponowieniu. |
+| K4 | Sender jako `@Scheduled` „na własnej puli”. | `SchedulingConfig.configureTasks` wpina pulę heartbeatu (`poolSize = 1`) jako scheduler **całego** rejestratora, więc każde `@Scheduled` jedzie po niej. | Sender rejestrowany ręcznie w nowym `MailSchedulingConfig`; adnotacja `@Scheduled` byłaby dokładnie tym, czego zabrania R4. |
+| K5 | Sprzątanie „dokładamy do `ExpiredRowsCleanupJob`”. | Zadanie ma `LOCK_NAME = "event-dedup-cleanup"` — celowo starą nazwę, bo wiersz istnieje w produkcyjnym `shedlock`. | Dokładamy trzeci sweep, **nie ruszając** nazwy blokady ani `@ConditionalOnProperty`. |
+| K6 | `WaitlistSubscriberStore` „rozszerzone o operacje na tokenach”. | `save()` zwraca `boolean` i nie oddaje `id`. | Kontrakt `save()` zostaje; serwis po zapisie odczytuje wiersz po adresie, więc nowy i powtórny zapis idą jedną ścieżką. |
+| K7 | Profil `dev` zapisuje `.eml` „na dysk”. | `compose.yaml` nie ustawia `SPRING_PROFILES_ACTIVE` i nie montuje niczego z hosta. | Compose ustawia profil i montuje `./var/mail`; bez tego Playwright (host) nie zobaczy plików z kontenera. |
+| K8 | „Brak `spring.mail.host` poza profilem `dev` przerywa start”. | Każdy `*IT` startuje pełny kontekst w profilu domyślnym. | `backend/src/test/resources/application.yml` podaje atrapę hosta i wyłącza sendera; inaczej strażnik wywraca całą suitę. |
+| K9 | (brak) | Landing mówi „jesteś na liście” w chwili zapisu, a wiersz jest dopiero `pending`. | Treść w PL i EN zmieniona na komunikat o wysłanym linku; testy cytujące ją poprawione. |
+| K10 | (brak) | Polityka prywatności obiecuje nazwać dostawcę poczty **zanim wyjdzie pierwsza wiadomość**. | Ten PR włącza wysyłkę, więc nazywa Brevo w obu katalogach polityki. |
+| K11 | (brak) | Ticket ma siódme kryterium akceptacji (ponawianie i `failed`), którego tabela dowodów nie obejmowała. | Dopisane do tabeli „Kryteria akceptacji → dowód”. |
