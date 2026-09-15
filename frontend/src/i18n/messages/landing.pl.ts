@@ -11,8 +11,26 @@ export default {
         headline:
             '<span class="accent">Widzisz</span>, <span class="brown">decydujesz</span>,<br>i działasz <em class="accent">w czasie rzeczywistym</em>.',
         lead: "Kivvi-click łączy śledzenie zachowania odwiedzających z automatyzacjami: popupami, e-mailami, kuponami i rekomendacjami — wysyłanymi w odpowiednim momencie.",
+        // PIO-70 replaced the primary CTA with the waitlist form; ctaPrimary stays in the
+        // catalogue because the pricing cards still use the same wording on their own buttons.
         ctaPrimary: "Załóż darmowe konto →",
         ctaSecondary: "Zobacz panel demo",
+        waitlist: {
+            label: "Adres e-mail",
+            // vue-i18n reads a bare "@" as the start of a linked message, so the address
+            // placeholder escapes it as a literal.
+            placeholder: "twoj{'@'}sklep.pl",
+            submit: "Powiadom mnie →",
+            // Stored verbatim as the consent proof on every subscriber row, so this must stay
+            // word-for-word identical to waitlist.consent.text in
+            // backend/src/main/resources/messages_pl.properties.
+            consent:
+                "Zgadzam się na otrzymanie jednorazowego powiadomienia o starcie kivvi·click na podany adres e-mail.",
+            privacyLink: "Co robimy z tymi danymi",
+            note: "Jeden e-mail, kiedy ruszamy. Żadnego spamu, wypisujesz się jednym kliknięciem.",
+            thanks: "Dzięki — jesteś na liście. Odezwiemy się, kiedy ruszamy.",
+            honeypotLabel: "Zostaw to pole puste",
+        },
         featuresTitle:
             "Wszystko czego potrzebuje<br>nowoczesny <em>e-commerce</em>.",
         featuresLead:

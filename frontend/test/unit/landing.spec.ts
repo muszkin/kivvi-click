@@ -103,11 +103,14 @@ describe("B22 the landing page structure (unit)", () => {
         i18n.global.locale.value = "pl";
     });
 
-    it("renders the Polish hero heading, two hero CTAs and the demo link", async () => {
+    // PIO-70 lowered this count from 2 to 1 on purpose: the waitlist form took the primary
+    // CTA's place in the hero, so "Zobacz panel demo" is the only link left in .hero-cta.
+    // The form itself is covered by test/unit/WaitlistForm.spec.ts.
+    it("renders the Polish hero heading, one hero CTA and the demo link", async () => {
         const wrapper = await mountAt("/pl");
 
         expect(wrapper.find(".hero h1").text()).toContain("Widzisz");
-        expect(wrapper.findAll(".hero-cta a")).toHaveLength(2);
+        expect(wrapper.findAll(".hero-cta a")).toHaveLength(1);
         const demoLink = wrapper
             .findAll(".hero-cta a")
             .find((a) => a.text().includes("demo"));

@@ -16,6 +16,7 @@ import LandingView from "@/views/LandingView.vue";
 import LoginView from "@/views/LoginView.vue";
 import PopupEditorView from "@/views/PopupEditorView.vue";
 import PopupsView from "@/views/PopupsView.vue";
+import PrivacyView from "@/views/PrivacyView.vue";
 import SettingsView from "@/views/SettingsView.vue";
 
 const LOCALE = "pl|en";
@@ -35,6 +36,23 @@ export const routes: RouteRecordRaw[] = [
         path: `/:locale(${LOCALE})?`,
         name: "home",
         component: LandingView,
+        meta: { layout: PublicLayout, section: "home" },
+    },
+    {
+        // PIO-70. The waitlist form posts here and, when the submission is refused, the server
+        // answers with the landing document rather than a redirect — which leaves the browser
+        // sitting on this URL. Without a route for it the SPA would have nothing to render and
+        // the message would never reach the visitor. It renders the landing page, exactly as
+        // /{locale}/login renders LoginView after its own failed POST.
+        path: `/:locale(${LOCALE})/waitlist`,
+        name: "waitlist",
+        component: LandingView,
+        meta: { layout: PublicLayout, section: "home" },
+    },
+    {
+        path: `/:locale(${LOCALE})/privacy`,
+        name: "privacy",
+        component: PrivacyView,
         meta: { layout: PublicLayout, section: "home" },
     },
     {

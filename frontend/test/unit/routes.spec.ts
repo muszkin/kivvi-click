@@ -8,6 +8,11 @@ describe("B01 every panel/public route in the table resolves", () => {
     it.each([
         "/",
         "/pl",
+        "/pl/privacy",
+        "/en/privacy",
+        // PIO-70: the waitlist form's POST target resolves too — a refused submission is
+        // answered with the landing document, leaving the browser on this URL.
+        "/pl/waitlist",
         "/pl/login",
         "/pl/dashboard",
         "/pl/events",

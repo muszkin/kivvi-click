@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 import Button from "@/components/atoms/Button.vue";
+import Field from "@/components/atoms/Field.vue";
 import Icon from "@/components/atoms/Icon.vue";
 import Feat from "@/components/molecules/Feat.vue";
 import PriceCard from "@/components/molecules/PriceCard.vue";
@@ -52,6 +53,21 @@ const locale = computed(() =>
 );
 const loginHref = computed(() => `/${locale.value}/login`);
 const demoHref = computed(() => `/${locale.value}/demo`);
+const waitlistAction = computed(() => `/${locale.value}/waitlist`);
+const privacyHref = computed(() => `/${locale.value}/privacy`);
+
+// PIO-70. The waitlist form is a native document POST, not a fetch — the same pattern
+// LoginView.vue uses. That means both of its outcomes arrive as a fresh document:
+//   success  → the server redirects to /{locale}?waitlist=ok (post/redirect/get, so a reload
+//              cannot submit twice), and the query is what swaps the form for the thank-you;
+//   refusal  → the server re-renders this very document with data-waitlist-* on <html>,
+//              carrying the message, the address as typed and whether the box was ticked, so
+//              nothing the visitor entered is lost.
+const dataset = document.documentElement.dataset;
+const waitlistError = dataset.waitlistError ?? null;
+const submittedEmail = dataset.waitlistEmail ?? "";
+const submittedConsent = dataset.waitlistConsent === "true";
+const signedUp = computed(() => route.query.waitlist === "ok");
 
 // The Twig template's <title> block reads `landing.kicker` too, so this doubles as the page
 // title's suffix — set once here rather than in a shared router hook, since every other route
@@ -88,13 +104,77 @@ onMounted(async () => {
             </div>
             <h1 v-html="t('landingPage.headline')"></h1>
             <p class="lead">{{ t("landingPage.lead") }}</p>
+            <p v-if="signedUp" class="waitlist-thanks" role="status">
+                <Icon name="check" />{{ " "
+                }}{{ t("landingPage.waitlist.thanks") }}
+            </p>
+            <form
+                v-else
+                class="waitlist-form"
+                method="post"
+                :action="waitlistAction"
+            >
+                <div class="waitlist-row">
+                    <Field
+                        name="email"
+                        type="email"
+                        required
+                        autocomplete="email"
+                        :label="t('landingPage.waitlist.label')"
+                        :placeholder="t('landingPage.waitlist.placeholder')"
+                        :value="submittedEmail"
+                        :error="waitlistError ?? undefined"
+                    />
+                    <Button
+                        variant="primary"
+                        size="lg"
+                        type="submit"
+                        :label="t('landingPage.waitlist.submit')"
+                    />
+                </div>
+
+                <label class="waitlist-consent">
+                    <!-- Deliberately not `required`: the browser would then block the submit
+                         and the server-side consent check - the one that actually decides
+                         whether a row is written - would never be exercised in a real
+                         browser. The e-mail field keeps `required` because its server-side
+                         check is reachable by any other client anyway. -->
+                    <input
+                        type="checkbox"
+                        name="consent"
+                        value="1"
+                        :checked="submittedConsent"
+                    />
+                    <span>
+                        {{ t("landingPage.waitlist.consent") }}
+                        <a :href="privacyHref">{{
+                            t("landingPage.waitlist.privacyLink")
+                        }}</a>
+                    </span>
+                </label>
+
+                <!-- Honeypot: no human ever sees or tabs into this, so anything in it means a
+                     script filled the form. aria-hidden keeps it out of the accessibility tree
+                     as well, so a screen-reader user is not asked to skip a phantom field. -->
+                <div class="visually-hidden" aria-hidden="true">
+                    <label for="f-website">{{
+                        t("landingPage.waitlist.honeypotLabel")
+                    }}</label>
+                    <input
+                        id="f-website"
+                        name="website"
+                        type="text"
+                        tabindex="-1"
+                        autocomplete="off"
+                    />
+                </div>
+
+                <p class="waitlist-note">
+                    {{ t("landingPage.waitlist.note") }}
+                </p>
+            </form>
+
             <div class="hero-cta">
-                <Button
-                    variant="primary"
-                    size="lg"
-                    :label="t('landingPage.ctaPrimary')"
-                    :href="loginHref"
-                />
                 <Button
                     size="lg"
                     :label="t('landingPage.ctaSecondary')"
