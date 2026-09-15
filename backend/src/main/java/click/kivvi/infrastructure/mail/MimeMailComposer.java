@@ -29,8 +29,8 @@ public class MimeMailComposer {
   private final String fromName;
 
   public MimeMailComposer(
-      @Value("${kivvi.mail.from-address}") String fromAddress,
-      @Value("${kivvi.mail.from-name}") String fromName) {
+      @Value("${kivvi.mail.from}") String fromAddress,
+      @Value("${kivvi.mail.sender-name}") String fromName) {
     this.fromAddress = fromAddress;
     this.fromName = fromName;
   }

@@ -149,8 +149,12 @@ kivvi:
     # from a visitor-controlled Host header is how a confirmation link ends up pointing at somebody
     # else's server.
     base-url: ${KIVVI_BASE_URL:https://kivvi.click}
-    from-address: ${KIVVI_MAIL_FROM_ADDRESS:no-reply@kivvi.click}
-    from-name: ${KIVVI_MAIL_FROM_NAME:kivvi·click}
+    # `kivvi.mail.from`, so the production stack's own KIVVI_MAIL_FROM binds it (compose.portainer.yaml).
+    # piotr@kivvi.click is the verified sender on the authenticated domain: sending as anything
+    # else on kivvi.click breaks DKIM alignment, and an unaligned first send from a cold domain is
+    # how confirmations end up in spam.
+    from: ${KIVVI_MAIL_FROM:piotr@kivvi.click}
+    sender-name: ${KIVVI_MAIL_SENDER_NAME:kivvi·click}
     # Derives the unsubscribe link from the subscriber's id (domain.waitlist.UnsubscribeToken), so
     # a link that has to work a year from now can be rebuilt for every message without the token
     # ever being stored in the clear.

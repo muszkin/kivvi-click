@@ -101,9 +101,9 @@ Docker-first — run everything through `compose.yaml`.
   from this repository's `main` branch, reading `compose.portainer.yaml`; it pulls `api` from
   GHCR and publishes port `23456`, which a Cloudflare tunnel fronts for https://kivvi.click.
   **That port number is load-bearing — changing it breaks the tunnel.** Secrets
-  (`POSTGRES_PASSWORD`, `MERCURE_JWT_SECRET`, and for transactional mail `SPRING_MAIL_HOST`,
-  `SPRING_MAIL_USERNAME`, `SPRING_MAIL_PASSWORD` and `KIVVI_UNSUBSCRIBE_SECRET`) live in the
-  stack's environment variables in Portainer, not in the repository. **The application refuses to
+  (`POSTGRES_PASSWORD`, `MERCURE_JWT_SECRET`, and for transactional mail `SMTP_HOST`,
+  `SMTP_USERNAME`, `SMTP_PASSWORD` and `KIVVI_UNSUBSCRIBE_SECRET`) live in the stack's
+  environment variables in Portainer, not in the repository. **The application refuses to
   start without an SMTP host or without a 32-character unsubscribe secret** — deliberately, since
   the alternative is looking healthy while every confirmation silently fails — so a new one of
   these must be set in Portainer *before* the change that needs it reaches `main`.

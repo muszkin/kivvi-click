@@ -97,7 +97,9 @@ class MailOutboxSenderIT {
     MimeMessage received = awaitMessages(1)[0];
     assertThat(received.getSubject()).isEqualTo("Potwierdź swój adres");
     assertThat(received.getAllRecipients()[0]).hasToString("ala@sklep.pl");
-    assertThat(received.getFrom()[0].toString()).contains("no-reply@kivvi.click");
+    // The verified sender on the authenticated domain. Sending as anything else on kivvi.click
+    // breaks DKIM alignment, which is how a cold domain's first send lands in spam.
+    assertThat(received.getFrom()[0].toString()).contains("piotr@kivvi.click");
 
     // Both alternatives, decoded: quoted-printable would otherwise hide every Polish diacritic
     // behind an "=C4=99" and the assertion would be about the transfer encoding, not the message.
@@ -122,7 +124,9 @@ class MailOutboxSenderIT {
     // schedulers into one running application.
     Map<String, TaskScheduler> schedulers = context.getBeansOfType(TaskScheduler.class);
 
-    assertThat(schedulers).hasSize(2).containsKeys("heartbeatTaskScheduler", "mailTaskScheduler");
+    // By identity, not by count: a future starter bringing its own scheduler would fail a
+    // size assertion without saying anything about the property this test exists for.
+    assertThat(schedulers).containsKeys("heartbeatTaskScheduler", "mailTaskScheduler");
     assertThat(schedulers.get("mailTaskScheduler"))
         .isNotSameAs(schedulers.get("heartbeatTaskScheduler"));
     assertThat(

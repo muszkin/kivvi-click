@@ -137,6 +137,23 @@ class WaitlistConfirmationServiceTest {
   }
 
   @Test
+  @DisplayName("a confirmed address stays 'already confirmed' even long past the token's deadline")
+  void aConfirmedAddressIsNeverReportedAsExpired() {
+    // A confirmed row keeps its token hash AND its deadline, and a confirmation mail sits in an
+    // inbox indefinitely. Checking the deadline before the status would tell somebody who
+    // confirmed weeks ago that their link had expired, and offer them a replacement the resend
+    // would never send — a dead end with a button on it.
+    service.register(signup("ala@sklep.pl"));
+    String token = tokenFor("ala@sklep.pl");
+    service.confirm(token, NOW, "203.0.113.7", "UA");
+
+    ConfirmationOutcome outcome =
+        service.confirm(token, NOW.plus(Duration.ofDays(30)), "203.0.113.7", "UA");
+
+    assertThat(outcome).isEqualTo(new ConfirmationOutcome.AlreadyConfirmed());
+  }
+
+  @Test
   @DisplayName("a link past its deadline says so and hands the token back for a resend")
   void anExpiredLinkOffersAResend() {
     service.register(signup("ala@sklep.pl"));
@@ -231,6 +248,30 @@ class WaitlistConfirmationServiceTest {
     assertThat(queue.queued).hasSize(1);
     assertThat(service.confirm(tokenFor("ala@sklep.pl"), NOW.plusSeconds(1), "203.0.113.7", "UA"))
         .isEqualTo(new ConfirmationOutcome.Confirmed());
+  }
+
+  @Test
+  @DisplayName("rejoining in another language gets the message in that language")
+  void rejoiningInAnotherLanguageIsMailedInIt() {
+    service.register(signup("ala@sklep.pl"));
+    service.unsubscribe(unsubscribeTokenFor("ala@sklep.pl"), NOW);
+    queue.queued.clear();
+
+    service.register(
+        WaitlistSignup.landingSignup(
+            "ala@sklep.pl",
+            SupportedLocale.EN,
+            NOW,
+            "203.0.113.7",
+            "Mozilla/5.0",
+            "I agree to be told when it launches."));
+
+    // Composing from the row as it was read before reopen() would send Polish copy with /pl/
+    // links to somebody who just signed up in English.
+    assertThat(queue.queued).hasSize(1);
+    assertThat(queue.queued.getFirst().textBody())
+        .contains("/en/waitlist/confirm/")
+        .contains("Unsubscribe");
   }
 
   @Test
@@ -393,6 +434,7 @@ class WaitlistConfirmationServiceTest {
   private static final class Row {
     private final long id;
     private final String email;
+    private SupportedLocale locale = SupportedLocale.PL;
     private SubscriberStatus status = SubscriberStatus.PENDING;
     private String confirmationHash;
     private Instant confirmationExpiresAt;
@@ -439,7 +481,9 @@ class WaitlistConfirmationServiceTest {
       if (rows.containsKey(signup.email())) {
         return false;
       }
-      rows.put(signup.email(), new Row(nextId++, signup.email()));
+      Row row = new Row(nextId++, signup.email());
+      row.locale = signup.locale();
+      rows.put(signup.email(), row);
       return true;
     }
 
@@ -501,8 +545,11 @@ class WaitlistConfirmationServiceTest {
 
     @Override
     public void reopen(long subscriberId, WaitlistSignup signup) {
+      // Mirrors every column REOPEN_SQL writes, locale included. A stand-in that models less than
+      // the statement it stands in for is how M1 passed review the first time round.
       Row row = rowById(subscriberId);
       row.status = SubscriberStatus.PENDING;
+      row.locale = signup.locale();
       row.unsubscribedAt = null;
       row.confirmedAt = null;
       row.confirmedIp = null;
@@ -514,8 +561,7 @@ class WaitlistConfirmationServiceTest {
     }
 
     private static Subscriber toSubscriber(Row row) {
-      return new Subscriber(
-          row.id, row.email, SupportedLocale.PL, row.status, row.confirmationExpiresAt);
+      return new Subscriber(row.id, row.email, row.locale, row.status, row.confirmationExpiresAt);
     }
   }
 }

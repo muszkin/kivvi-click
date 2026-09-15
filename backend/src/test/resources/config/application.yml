@@ -12,7 +12,7 @@ spring:
     # *IT starts a full context under the default profile. A host that points nowhere is the right
     # answer here: nothing in the suite sends over it (MailOutboxSenderIT supplies GreenMail's real
     # port through @DynamicPropertySource), and it keeps the guard itself honest — it is proven by
-    # MailConfigurationGuardTest, not by being switched off.
+    # MailTransportProfileTest, not by being switched off.
     host: localhost
     properties:
       mail:

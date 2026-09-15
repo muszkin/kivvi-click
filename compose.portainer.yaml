@@ -32,28 +32,43 @@ services:
       MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_JWT_SECRET}
       MERCURE_JWT_SECRET: ${MERCURE_JWT_SECRET}
       MERCURE_URL: http://mercure/.well-known/mercure
-      # Anything but `dev`. The `dev` profile diverts every message to a directory instead of a
-      # relay — convenient locally, silent data loss here.
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-prod}
-      # Transactional mail (PIO-71). Brevo's SMTP relay, reached through spring.mail.* rather than
-      # a provider SDK, so changing provider is these four values and nothing else. The password is
-      # Brevo's SMTP key (SMTP & API -> SMTP), not the account password and not an API v3 key.
+      # Brevo, wired ahead of PIO-71 so the double opt-in has a relay to send through the
+      # moment it merges. Inert until then: nothing on `main` reads these yet.
       #
-      # No defaults, exactly like POSTGRES_PASSWORD and MERCURE_JWT_SECRET above: these four and
-      # KIVVI_UNSUBSCRIBE_SECRET must be set in this stack's environment variables in Portainer
-      # BEFORE the first deploy that carries PIO-71. Without SPRING_MAIL_HOST the application
-      # refuses to start (MailConfigurationGuard) and the healthcheck never passes; without a
-      # 32-character KIVVI_UNSUBSCRIBE_SECRET it refuses to start as well, because every
-      # unsubscribe link is derived from it and subscriber ids are sequential.
-      SPRING_MAIL_HOST: ${SPRING_MAIL_HOST}
-      SPRING_MAIL_PORT: ${SPRING_MAIL_PORT:-587}
-      SPRING_MAIL_USERNAME: ${SPRING_MAIL_USERNAME}
-      SPRING_MAIL_PASSWORD: ${SPRING_MAIL_PASSWORD}
-      # Absolute base for the links inside those messages: they are composed now and delivered by
-      # a background job later, so there is no request to derive a host from.
+      # These are Spring Boot's own relaxed-binding names — SPRING_MAIL_HOST binds
+      # spring.mail.host with no entry in application.yml at all — so PIO-71 must not invent
+      # its own. The password is Brevo's SMTP key, which is NOT the v3 API key; the two are
+      # separate credentials and using one where the other belongs fails with a bare
+      # authentication error.
+      SPRING_MAIL_HOST: ${SMTP_HOST:-smtp-relay.brevo.com}
+      SPRING_MAIL_PORT: ${SMTP_PORT:-587}
+      SPRING_MAIL_USERNAME: ${SMTP_USERNAME}
+      SPRING_MAIL_PASSWORD: ${SMTP_PASSWORD}
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: "true"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: "true"
+      # The From address. `piotr@kivvi.click` is the verified sender on the authenticated
+      # domain — sending as anything else on kivvi.click would break DKIM alignment.
+      KIVVI_MAIL_FROM: ${MAIL_FROM:-piotr@kivvi.click}
+      # Contact-list sync: after an address confirms, it is added to this Brevo list, which is
+      # what the launch campaign will target. Brevo owns the list and nothing else — the token,
+      # the consent proof and the confirmation e-mail stay in this application.
+      KIVVI_BREVO_API_KEY: ${BREVO_API_KEY}
+      KIVVI_BREVO_LIST_ID: ${BREVO_LIST_ID:-3}
+      # PIO-71 adds two more. The names above are `main`'s and stay `main`'s — this ticket binds
+      # to them rather than inventing a parallel set, which is exactly the collision that would
+      # have left the stack's own SMTP_* variables read by nothing.
+      #
+      # Absolute base for the links inside the messages: they are composed now and delivered by a
+      # background job later, so there is no request to derive a host from, and deriving one from
+      # a visitor-controlled Host header is how a confirmation link ends up pointing elsewhere.
       KIVVI_BASE_URL: ${KIVVI_BASE_URL:-https://kivvi.click}
-      KIVVI_MAIL_FROM_ADDRESS: ${KIVVI_MAIL_FROM_ADDRESS:-no-reply@kivvi.click}
-      # Rotating this invalidates every unsubscribe link already delivered — see
+      # Required, and with no default on purpose. Every unsubscribe link is an HMAC of the
+      # subscriber's id under this secret, and those ids are sequential — a value anyone can read
+      # or guess is a list anyone can unsubscribe by walking id = 1..N. Under 32 characters, or
+      # absent, the application refuses to start and says so. Set it in this stack's environment
+      # variables BEFORE the deploy that carries PIO-71: `openssl rand -base64 48`.
+      #
+      # Rotating it invalidates every unsubscribe link already delivered — see
       # backend/src/main/java/click/kivvi/domain/waitlist/UnsubscribeToken.java.
       KIVVI_UNSUBSCRIBE_SECRET: ${KIVVI_UNSUBSCRIBE_SECRET}
     depends_on:

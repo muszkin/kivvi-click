@@ -70,6 +70,10 @@ public class WaitlistConfirmationService implements WaitlistRegistrar {
    * to start says which variable is wrong, once, to the person who is already looking.
    */
   private static String requireUsableSecret(String secret) {
+    // Stripped before it is measured AND before it is returned. A value pasted into a deployment
+    // panel picks up a trailing newline more often than not, and a secret whose whitespace is
+    // part of the HMAC key is a secret that cannot be tidied later without invalidating every
+    // unsubscribe link already delivered.
     if (secret == null || secret.strip().length() < MIN_SECRET_LENGTH) {
       throw new IllegalStateException(
           "KIVVI_UNSUBSCRIBE_SECRET must be set to at least "
@@ -78,7 +82,7 @@ public class WaitlistConfirmationService implements WaitlistRegistrar {
               + "so a missing, empty or guessable value would let anyone walk the subscriber ids "
               + "and unsubscribe the whole list.");
     }
-    return secret;
+    return secret.strip();
   }
 
   /**
@@ -113,6 +117,13 @@ public class WaitlistConfirmationService implements WaitlistRegistrar {
               if (subscriber.status() == SubscriberStatus.UNSUBSCRIBED) {
                 LOG.info("Waitlist signup: an unsubscribed address is re-joining the list.");
                 store.reopen(subscriber.id(), signup);
+                // Re-read: reopen() writes this submission's locale, and the row loaded a moment
+                // ago still carries the old one. Composing from the stale copy would send Polish
+                // copy with /pl/ links to somebody who just signed up in English.
+                store
+                    .findByEmail(signup.email())
+                    .ifPresent(reopened -> issueAndQueue(reopened, now));
+                return;
               }
               issueAndQueue(subscriber, now);
             });
@@ -154,11 +165,18 @@ public class WaitlistConfirmationService implements WaitlistRegistrar {
       // the unsubscribe page and this one already point at.
       return new ConfirmationOutcome.Unknown();
     }
+    // Confirmed is checked BEFORE the deadline, and the order is the whole point. A confirmed row
+    // keeps both its token hash and its deadline, so a subscriber clicking their own link again
+    // eight days later would otherwise be told it had expired and offered a replacement — which
+    // the resend, filtering on `pending`, would never actually send.
+    if (subscriber.status() == SubscriberStatus.CONFIRMED) {
+      return new ConfirmationOutcome.AlreadyConfirmed();
+    }
     if (ConfirmationToken.hasLapsed(subscriber.confirmationTokenExpiresAt(), now)) {
       return new ConfirmationOutcome.Expired(rawToken);
     }
-    // Confirmed, or pending-and-live and therefore confirmed by a request that committed while
-    // this one was waiting on its row lock. Both mean the same thing to the person reading it.
+    // Pending and live, yet the guarded update matched nothing: another request confirmed it while
+    // this one waited on the row lock. The same thing to say to the person reading it.
     return new ConfirmationOutcome.AlreadyConfirmed();
   }
 

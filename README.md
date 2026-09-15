@@ -152,23 +152,24 @@ the Mercure edge is the only path in.
 > **Where production actually reads its configuration.** The live stack is deployed by Portainer
 > from `compose.portainer.yaml` (see CLAUDE.md), and its values come from that stack's own
 > environment variables — not from `.env.prod.docker`, which now only serves a local
-> production-shaped run through the `compose.yaml + compose.prod.yaml` overlay. The two files carry
-> the same keys on purpose; a variable added to one belongs in both.
+> production-shaped run through the `compose.yaml + compose.prod.yaml` overlay. Three files spell
+> the same variable names on purpose — `compose.portainer.yaml`, `compose.prod.yaml` and
+> `.env.prod.docker.example`. A variable added to one belongs in all three, under the same name.
 
 Runtime configuration and secrets live in `.env.prod.docker` (git- and docker-ignored; copy
 from `.env.prod.docker.example`): `SERVER_NAME`, `HTTP_PORT`, `POSTGRES_DB`/`POSTGRES_USER`/
 `POSTGRES_PASSWORD` (shared by `database` and `api`), `MERCURE_JWT_SECRET` (derives all three
 Mercure JWT env vars for both `api` and `mercure`), the transactional-mail settings
-`SPRING_MAIL_HOST`/`SPRING_MAIL_PORT`/`SPRING_MAIL_USERNAME`/`SPRING_MAIL_PASSWORD` plus
-`KIVVI_BASE_URL`, `KIVVI_MAIL_FROM_ADDRESS` and `KIVVI_UNSUBSCRIBE_SECRET`, and an optional
-`IMAGES_PREFIX` for the built image tag.
+`SMTP_HOST`/`SMTP_PORT`/`SMTP_USERNAME`/`SMTP_PASSWORD` plus `KIVVI_BASE_URL`, `MAIL_FROM` and
+`KIVVI_UNSUBSCRIBE_SECRET`, and an optional `IMAGES_PREFIX` for the built image tag.
 
 Mail goes out over Brevo's plain SMTP relay; the password is Brevo's **SMTP key**, not the account
 password and not an API v3 key. Two of these stop the application from starting if they are
 missing, deliberately — not starting is the honest failure, where starting up and silently dropping
 every confirmation is not:
 
-- `SPRING_MAIL_HOST`, outside the `dev` profile, because there would be nowhere to send.
+- `SMTP_HOST` (bound to Spring's `SPRING_MAIL_HOST`), outside the `dev` profile, because there
+  would be nowhere to send.
 - `KIVVI_UNSUBSCRIBE_SECRET`, at least 32 characters, because every unsubscribe link is an HMAC of
   the subscriber's id and those ids are sequential: a missing or guessable secret is a list anyone
   can unsubscribe. Rotating it invalidates the links in messages already delivered.

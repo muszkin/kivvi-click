@@ -38,12 +38,16 @@ services:
       # so swapping providers is these four values and nothing else. The password is Brevo's SMTP
       # key (SMTP & API -> SMTP), not the account password and not an API v3 key. All of them, and
       # the unsubscribe-link secret, live in .env.prod.docker — never in this file.
-      SPRING_MAIL_HOST: ${SPRING_MAIL_HOST}
-      SPRING_MAIL_PORT: ${SPRING_MAIL_PORT:-587}
-      SPRING_MAIL_USERNAME: ${SPRING_MAIL_USERNAME}
-      SPRING_MAIL_PASSWORD: ${SPRING_MAIL_PASSWORD}
+      # Same stack-variable names as compose.portainer.yaml, which is what production actually
+      # deploys: two files describing one deployment must not ask for two different variables.
+      SPRING_MAIL_HOST: ${SMTP_HOST:-smtp-relay.brevo.com}
+      SPRING_MAIL_PORT: ${SMTP_PORT:-587}
+      SPRING_MAIL_USERNAME: ${SMTP_USERNAME}
+      SPRING_MAIL_PASSWORD: ${SMTP_PASSWORD}
       KIVVI_BASE_URL: ${KIVVI_BASE_URL:-https://kivvi.click}
-      KIVVI_MAIL_FROM_ADDRESS: ${KIVVI_MAIL_FROM_ADDRESS:-no-reply@kivvi.click}
+      # piotr@kivvi.click is the verified sender on the authenticated domain; anything else on
+      # kivvi.click breaks DKIM alignment.
+      KIVVI_MAIL_FROM: ${MAIL_FROM:-piotr@kivvi.click}
       # Rotating this invalidates every unsubscribe link already in the wild — see
       # domain/waitlist/UnsubscribeToken.java.
       KIVVI_UNSUBSCRIBE_SECRET: ${KIVVI_UNSUBSCRIBE_SECRET}
