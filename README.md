@@ -168,15 +168,18 @@ password and not an API v3 key. Two of these stop the application from starting 
 missing, deliberately — not starting is the honest failure, where starting up and silently dropping
 every confirmation is not:
 
-- `SMTP_HOST` (bound to Spring's `SPRING_MAIL_HOST`), outside the `dev` profile, because there
-  would be nowhere to send.
+- `SMTP_HOST`, outside the `dev` profile, because there would be nowhere to send — and
+  `SMTP_USERNAME`/`SMTP_PASSWORD` with it whenever the relay wants authentication, which Brevo
+  does. The host has a working default, so a half-configured stack never shows up as a missing
+  host: it shows up as a relay that answers and rejects every message at AUTH, which is why the
+  credentials are the pair actually worth refusing over.
 - `KIVVI_UNSUBSCRIBE_SECRET`, at least 32 characters, because every unsubscribe link is an HMAC of
   the subscriber's id and those ids are sequential: a missing or guessable secret is a list anyone
   can unsubscribe. Rotating it invalidates the links in messages already delivered.
 
 Under the `dev` profile (`compose.yaml`'s default) no relay is contacted at all: every message is
 written to `./var/mail` as an `.eml`, which is what lets the Playwright suite follow a real
-confirmation link. The production overlay pins `SPRING_PROFILES_ACTIVE=prod` and resets that mount.
+confirmation link. Both production paths pin `SPRING_PROFILES_ACTIVE=prod` and neither mounts it.
 
 ```bash
 docker compose -p kivvi-click --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --build --wait

@@ -41,16 +41,44 @@ class MailTransportProfileTest {
   @DisplayName("a blank SMTP host stops the application from starting at all")
   void aBlankHostRefusesToStart() {
     assertThatIllegalStateException()
-        .isThrownBy(() -> new MailConfigurationGuard("   "))
-        .withMessageContaining("SPRING_MAIL_HOST");
-    assertThatIllegalStateException().isThrownBy(() -> new MailConfigurationGuard(""));
-    assertThatIllegalStateException().isThrownBy(() -> new MailConfigurationGuard(null));
+        .isThrownBy(() -> guard("   ", "user", "key"))
+        .withMessageContaining("SMTP_HOST");
+    assertThatIllegalStateException().isThrownBy(() -> guard("", "user", "key"));
+    assertThatIllegalStateException().isThrownBy(() -> guard(null, "user", "key"));
   }
 
   @Test
-  @DisplayName("a configured host starts normally")
-  void aConfiguredHostIsAccepted() {
-    assertThat(new MailConfigurationGuard("smtp-relay.brevo.com")).isNotNull();
+  @DisplayName("missing credentials stop it too, which is the case the host default would hide")
+  void missingCredentialsRefuseToStart() {
+    // Both production compose files default the host to smtp-relay.brevo.com, so a half-configured
+    // stack never presents as a blank host. It presents as a relay that answers and rejects every
+    // AUTH — the container healthy, the site serving, and every confirmation retrying for thirteen
+    // hours before being parked as failed, in a system with no monitoring.
+    assertThatIllegalStateException()
+        .isThrownBy(() -> guard("smtp-relay.brevo.com", "", "key"))
+        .withMessageContaining("SMTP_USERNAME");
+    assertThatIllegalStateException()
+        .isThrownBy(() -> guard("smtp-relay.brevo.com", "user", "  "))
+        .withMessageContaining("SMTP_PASSWORD");
+    assertThatIllegalStateException().isThrownBy(() -> guard("smtp-relay.brevo.com", null, null));
+  }
+
+  @Test
+  @DisplayName("a relay that needs no authentication needs no credentials either")
+  void anUnauthenticatedRelayNeedsNoCredentials() {
+    // GreenMail in the integration tests, or an internal smarthost: demanding credentials here
+    // would refuse to start a configuration that works perfectly well.
+    assertThat(new MailConfigurationGuard("127.0.0.1", "", "", false)).isNotNull();
+  }
+
+  @Test
+  @DisplayName("a fully configured relay starts normally")
+  void aConfiguredRelayIsAccepted() {
+    assertThat(guard("smtp-relay.brevo.com", "user", "smtp-key")).isNotNull();
+  }
+
+  private static MailConfigurationGuard guard(String host, String username, String password) {
+    return new MailConfigurationGuard(host, username, password, true);
   }
 
   private static String[] profilesOf(Class<?> type) {

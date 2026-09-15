@@ -104,9 +104,11 @@ Docker-first — run everything through `compose.yaml`.
   (`POSTGRES_PASSWORD`, `MERCURE_JWT_SECRET`, and for transactional mail `SMTP_HOST`,
   `SMTP_USERNAME`, `SMTP_PASSWORD` and `KIVVI_UNSUBSCRIBE_SECRET`) live in the stack's
   environment variables in Portainer, not in the repository. **The application refuses to
-  start without an SMTP host or without a 32-character unsubscribe secret** — deliberately, since
-  the alternative is looking healthy while every confirmation silently fails — so a new one of
-  these must be set in Portainer *before* the change that needs it reaches `main`.
+  start** without an SMTP host, without the relay's username and password when it wants
+  authentication, or without a 32-character unsubscribe secret — deliberately, since the
+  alternative is a container that looks healthy, serves every page, passes the post-deploy check,
+  and fails every message at AUTH into a system with no monitoring. A new one of these must be set
+  in Portainer *before* the change that needs it reaches `main`.
   - Deploying: merge to `main`. CI builds, pushes the image and calls the stack webhook.
     Nothing else is needed, and no one should run a production compose command by hand.
   - Rolling back: set `API_TAG` to an earlier commit SHA in the stack's environment variables

@@ -30,7 +30,7 @@ public class MimeMailComposer {
 
   public MimeMailComposer(
       @Value("${kivvi.mail.from}") String fromAddress,
-      @Value("${kivvi.mail.sender-name}") String fromName) {
+      @Value("${kivvi.mail.display-name}") String fromName) {
     this.fromAddress = fromAddress;
     this.fromName = fromName;
   }

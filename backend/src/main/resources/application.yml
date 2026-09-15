@@ -154,7 +154,11 @@ kivvi:
     # else on kivvi.click breaks DKIM alignment, and an unaligned first send from a cold domain is
     # how confirmations end up in spam.
     from: ${KIVVI_MAIL_FROM:piotr@kivvi.click}
-    sender-name: ${KIVVI_MAIL_SENDER_NAME:kivvi·click}
+    # `display-name`, not `from-name` or `sender-name`: relaxed binding canonicalises
+    # KIVVI_MAIL_SENDER_NAME to both `sender-name` and `sender.name`, which would sit on top of
+    # the `sender:` subtree below, and `from-name` would do the same to `from`. A prefix nothing
+    # else uses cannot collide with either.
+    display-name: ${KIVVI_MAIL_DISPLAY_NAME:kivvi·click}
     # Derives the unsubscribe link from the subscriber's id (domain.waitlist.UnsubscribeToken), so
     # a link that has to work a year from now can be rebuilt for every message without the token
     # ever being stored in the clear.
