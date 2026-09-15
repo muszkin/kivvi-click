@@ -185,3 +185,23 @@ jobs:
           # 2xx only. A 404 means the stack or its webhook is gone, and silently carrying on
           # would report a deployment that never happened.
           case "$status" in 2??) ;; *) exit 1 ;; esac
+
+      # The webhook answers 204 the moment it accepts the request, not when the stack is back
+      # up — so the step above proves "accepted", never "deployed". Without this, a redeploy
+      # that leaves production down still paints the run green. This does not prove the new
+      # commit is live (that would need a build-info endpoint the app does not expose yet); it
+      # proves the site survived the deploy, which is the failure worth catching here.
+      - name: The site is serving after the redeploy
+        run: |
+          for attempt in $(seq 1 30); do
+            status=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 10 \
+              https://kivvi.click/pl || echo 000)
+            if [ "$status" = "200" ]; then
+              echo "kivvi.click is serving (HTTP 200) after $((attempt * 5))s"
+              exit 0
+            fi
+            echo "attempt $attempt: HTTP $status"
+            sleep 5
+          done
+          echo "kivvi.click did not return 200 within 150s of the redeploy"
+          exit 1
