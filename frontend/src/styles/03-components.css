@@ -901,23 +901,48 @@
     margin: 0 auto 24px;
     text-align: left;
 }
+/* The button pairs with the input, but the input is not what flexbox can align to:
+   .field-row wraps a label above it, a 14px bottom margin for stacked forms
+   (04-patterns.css) and, after a refused submit, a validation message below it.
+   Aligning to either edge of that box therefore tracked something other than the
+   control — flex-end left the input 14px high in the clean state and 22px high once
+   an error appeared. So the row aligns at the top, where only the label intervenes,
+   and the button is offset by exactly the label's own height. */
 .waitlist-row {
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
     gap: 10px;
 }
 .waitlist-row .field-row {
     flex: 1;
+    margin-bottom: 0;
 }
-/* The submit button sits on the field's baseline; without this it stretches
-   to the row height whenever the field grows an error message under it. */
+/* Pinned, because the button's offset below is derived from it. */
+.waitlist-row .label {
+    line-height: 15px;
+    margin-bottom: 6px;
+}
+/* The field and the submit read as one control, so they have to share a height.
+   .input is 13px text on 8px padding and .btn.lg is 14px on 9px, which left the
+   two boxes 4px apart even once their edges agreed. */
+.waitlist-row .input {
+    padding-block: 9px;
+    font-size: 14px;
+}
 .waitlist-row .btn {
     flex: none;
+    /* 15px label + 6px gap: clears the label so the button's top edge meets the
+       input's, and stays put when a validation message grows underneath. */
+    margin-top: 21px;
 }
 @media (max-width: 560px) {
     .waitlist-row {
         flex-direction: column;
         align-items: stretch;
+    }
+    /* Stacked, the button sits under the field and has no label to clear. */
+    .waitlist-row .btn {
+        margin-top: 0;
     }
 }
 
