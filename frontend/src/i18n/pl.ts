@@ -54,11 +54,16 @@ export default {
     landing: {
         features: "Funkcje",
         how: "Jak to działa",
-        pricing: "Cennik",
+        openSource: "Open source",
         blog: "Blog",
         login: "Logowanie",
         register: "Załóż konto →",
         terms: "Regulamin",
         privacy: "Prywatność",
+        // PIO-121: the footer used to claim Symfony and PHP, hard-coded in PublicLayout.vue —
+        // which is why the English site rendered it in Polish. It is a key now, in both
+        // catalogues, so the fix cannot regress the same way.
+        builtWith: "Zbudowane w Polsce na Javie i Vue 3. Kod na licencji MIT.",
+        repo: "GitHub",
     },
 };

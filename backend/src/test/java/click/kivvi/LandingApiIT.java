@@ -47,10 +47,8 @@ class LandingApiIT {
     assertThat(body).isNotNull();
     assertThat(body.features()).hasSize(6);
     assertThat(body.steps()).hasSize(3);
-    assertThat(body.plans()).hasSize(2);
-    assertThat(body.plans().get(1).tier()).isEqualTo("Pro");
-    assertThat(body.plans().get(1).featured()).isTrue();
-    assertThat(body.trustPoints()).hasSize(3);
+    assertThat(body.trustPoints())
+        .containsExactly("Licencja MIT", "Postawisz u siebie", "Skrypt 2 KB");
     assertThat(body.previewTiles()).hasSize(4);
     assertThat(body.previewTiles())
         .extracting(LandingView.PreviewTileView::value)
@@ -72,7 +70,6 @@ class LandingApiIT {
     LandingView body = response.getBody();
     assertThat(body).isNotNull();
     assertThat(body.features().get(0).title()).isEqualTo("Strumień zdarzeń na żywo");
-    assertThat(body.plans().get(0).cta()).isEqualTo("Zacznij za darmo");
   }
 
   @Test

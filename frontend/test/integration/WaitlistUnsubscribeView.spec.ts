@@ -55,7 +55,7 @@ describe("PIO-71 the waitlist unsubscribe page", () => {
         const wrapper = await mountAtRoute(`/pl/waitlist/unsubscribe/${TOKEN}`);
 
         expect(wrapper.find("h1").text()).toBe("Wypisaliśmy Cię");
-        expect(wrapper.text()).toContain("zapisać się ponownie");
+        expect(wrapper.text()).toContain("zostawić go ponownie");
         expect(wrapper.find(".confirm-actions a").attributes("href")).toBe(
             "/pl",
         );

@@ -1,104 +1,148 @@
 # kivvi-click
 
-Marketing-automation platform for e-commerce: track visitor events, configure rule-based
-automations, and deliver popups / emails / coupons / product recommendations at the right
-moment. This repository is a from-scratch rebuild of the original kivvi-click on a new stack —
-migrated from Symfony/Twig on 2026-09-09, see `docs/adr` and `context/plans`.
+Marketing automation for e-commerce: track what visitors do on your shop, build rules from those
+events, and deliver popups, e-mails, coupons and product recommendations at the moment they are
+worth sending.
 
-See `CLAUDE.md` for architecture decisions and the `product-spec` skill (`.claude/skills/`) for
-the full product vision.
+The whole thing is open source under the [MIT licence](LICENSE). Clone it, build it, run it on
+your own infrastructure — there is no hosted plan to buy and nothing is gated behind a licence key.
+If you would rather not run it yourself, see [Getting it deployed](#getting-it-deployed).
+
+> **Status:** the public site and the waitlist/contact flow are production code. The panel behind
+> them (dashboard, event stream, customers, automations, campaigns, popups, feeds, import,
+> settings) is a complete, navigable UI built against fixture data — the screens and the design
+> system are real, the domain persistence behind most of them is not written yet. Treat this as an
+> early-stage project you can run and read, not a finished product you can migrate a shop onto.
+
+## What is in the box
+
+- **Event collection** — `POST /collect` takes a tracked event, drops duplicates through a
+  24-hour idempotency table, and publishes it for the live stream.
+- **Live event stream** — the browser subscribes over Server-Sent Events, so the dashboard shows
+  events as they land instead of polling.
+- **The panel** — landing, login, dashboard, event stream, customers and a 360 profile,
+  automations, e-mail campaigns with a template editor, popups and widgets with an editor,
+  product feeds, a four-step customer import wizard, and settings.
+- **Two languages** — Polish by default, English available; every route is prefixed `/pl` or
+  `/en`.
 
 ## Stack
 
-- Backend: Java 25, Spring Boot 4.1.1, Maven (wrapper `./mvnw`). Package root `click.kivvi`,
-  layered `web` → `application` → `domain`, with `infrastructure` reachable only from
-  `application` (enforced by `ArchitectureTest`).
-- Frontend: Vue 3.5 SPA (Vite build, no SSR), history-mode vue-router, Pinia, vue-i18n. Pure
-  CSS design system under `frontend/src/styles/`, byte-identical to the original. No JS/CSS
-  frameworks (React, Svelte, Tailwind, Bootstrap).
-- One deployable: the Spring Boot jar serves the built SPA from its own classpath
-  (`backend/src/main/resources/static`); `backend/Dockerfile` builds both stages into one image.
-- PostgreSQL 18 — the only backing service: application data, Spring Session JDBC sessions,
-  `event_dedup` idempotency, ShedLock scheduling, all via Flyway-managed schema. No
-  Redis/RabbitMQ/Kafka/Memcached.
-- Real-time: the Mercure Hub (`dunglas/mercure`, embeds Caddy) is the stack's public edge —
-  Server-Sent Events, not a separate WebSocket server.
-- i18n: Polish by default, English available (`/pl`, `/en`), via vue-i18n.
+| Layer | Choice |
+| --- | --- |
+| Backend | Java 25, Spring Boot 4.1.1, Maven (wrapper included — no local Maven needed) |
+| Frontend | Vue 3.5 SPA, Vite, vue-router, Pinia, vue-i18n; a hand-written CSS design system, no UI framework |
+| Database | PostgreSQL 18 — the only backing service |
+| Real-time | Mercure Hub (Server-Sent Events), which also fronts the stack as its HTTP edge |
+| Packaging | One image: the Spring Boot jar serves the built SPA from its own classpath |
+
+There is deliberately no Redis, RabbitMQ, Kafka or Memcached. Sessions, scheduling locks and event
+de-duplication all live in Postgres. Schema changes are Flyway migrations.
 
 ## Requirements
 
-- Docker Engine with the Compose plugin (`docker compose`, not the standalone v1
-  `docker-compose`) — this is the only thing required for the commands below.
-- For host-local backend work (outside Docker): JDK 25 (Temurin). On this host, set
-  `export JAVA_HOME=~/.cache/kivvi-toolchains/jdk-25` before running `./mvnw`.
-- For host-local frontend work (outside Docker): Node 26+.
+Docker Engine with the Compose plugin (`docker compose`, not the old standalone `docker-compose`).
+That is all you need to run it.
 
-## Run locally
+To work on the code outside containers you will also want JDK 25 and Node 26+.
 
-Production already runs on this host under the Compose project `kivvi-click` (see Production
-below). Always give the dev stack its own project name — a bare `docker compose up` here
-defaults to this directory's name (`kivvi-click`) and would collide with prod's containers and
-volumes:
+## Run it
 
 ```bash
-mkdir -p var/mail && chmod 777 var/mail   # first run only: the dev maildrop, see below
-HTTP_PORT=8080 HTTPS_PORT=8443 HTTP3_PORT=8443 docker compose -p kivvi-dev up -d --build --wait
+git clone https://github.com/muszkin/kivvi-click.git
+cd kivvi-click
+mkdir -p var/mail && chmod 777 var/mail   # first run only — see "Mail in development"
+docker compose up -d --build --wait
 ```
 
-The dev stack runs under the `dev` Spring profile, which writes every outgoing message to
-`var/mail` as an `.eml` instead of contacting an SMTP relay. That directory is bind-mounted from
-the host so the Playwright suite can read it, which means it has to exist before the stack starts
-and be writable by the container's unprivileged `kivvi` user — hence the world-writable mode on a
-git-ignored scratch directory that only ever holds development mail. Neither production path
-mounts it. If the stack runs on a port other than 8443, set `KIVVI_BASE_URL` too, or the links
-inside those messages will point at the wrong host.
+Then open <https://localhost:8443/> and accept the self-signed certificate.
 
-Open https://localhost:8443/ (self-signed certificate in dev). This builds the `api` image
-(Spring Boot jar with the Vue SPA baked into its classpath), starts `mercure` as the public
-edge and `database` (Postgres 18, no fixed host port — find it with
-`docker compose -p kivvi-dev port database 5432`).
-
-## Common commands
+The first build compiles the SPA and the jar, so it takes a few minutes. After that:
 
 ```bash
-docker compose -p kivvi-dev logs -f api                # follow app logs
-docker compose -p kivvi-dev build api                   # rebuild after a Dockerfile/dependency change
-cd backend && ./mvnw -q test                             # unit tests + ArchitectureTest, no containers
-cd backend && ./mvnw -q verify                           # + Testcontainers Postgres 18 integration tests
-cd backend && ./mvnw spotless:apply                      # format (google-java-format)
-cd frontend && npm ci && npm run dev                      # Vite dev server
-cd frontend && npm run format                             # format (Prettier)
+docker compose logs -f api     # follow application logs
+docker compose build api       # rebuild after a dependency or Dockerfile change
+docker compose down -v         # stop and wipe the database volume
 ```
 
-## Panel
+Ports are configurable if 8443 is taken:
 
-The whole panel is a Vue 3 SPA (`frontend/src/`) served by the Spring Boot API (`backend/`)
-from its own classpath — one process, one deployable jar. Screens: landing, login, dashboard,
-live event stream, customers + 360 profile, automations, email campaigns + template editor,
-popups/widgets + widget editor, product feeds, the four-step customer import wizard, and eight
-settings tabs. Components are organized atoms → molecules → organisms in
-`frontend/src/components/`, ported 1:1 from the original design system; the CSS itself was
-copied byte-for-byte into `frontend/src/styles/`.
+```bash
+HTTP_PORT=8544 HTTPS_PORT=8543 HTTP3_PORT=8543 docker compose up -d --build --wait
+```
 
-Navigation between routes is always a full document request (plain `<a>` hrefs through
-`useIntents`'s `navigate` intent), never `router.push` — this matches every transition the
-original server-rendered app made, which the Playwright e2e suite still asserts against.
+If you move off 8443, set `KIVVI_BASE_URL` to the URL you actually serve on — otherwise the links
+inside confirmation e-mails will point at the wrong host.
 
-The live event stream subscribes to the Mercure Hub over Server-Sent Events; `POST /collect`
-takes a tracked event, drops duplicates via the `event_dedup` table (24h TTL), and publishes it
-for the SPA's live rows to pick up.
+Postgres is not published on a fixed host port. Find it with `docker compose port database 5432`.
 
-There is no component storybook route in this stack (`/_storybook` is intentionally excluded
-from the route table).
+### Mail in development
+
+The default `dev` profile never contacts an SMTP relay. Every outgoing message is written to
+`./var/mail` as an `.eml` file, which is what lets you (and the end-to-end suite) follow a real
+confirmation link without a mail account. The directory is bind-mounted, so it has to exist and be
+writable by the container before the stack starts — hence the `chmod 777` on a git-ignored scratch
+directory that only ever holds development mail.
+
+## Configuration
+
+Everything is environment variables; nothing is compiled in.
+
+| Variable | Needed when | What it does |
+| --- | --- | --- |
+| `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD` | always | Database name and credentials, shared by `database` and `api` |
+| `MERCURE_JWT_SECRET` | always | Signs the Mercure publish/subscribe tokens |
+| `SERVER_NAME`, `HTTP_PORT` | deployment | What the edge answers on |
+| `KIVVI_BASE_URL` | deployment | Absolute base URL used to build links inside e-mails |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD` | outside `dev` | Any SMTP relay. The application refuses to start without these rather than silently dropping mail |
+| `MAIL_FROM` | outside `dev` | Envelope sender |
+| `KIVVI_UNSUBSCRIBE_SECRET` | outside `dev` | At least 32 characters. Every unsubscribe link is an HMAC of a sequential subscriber id, so a missing or guessable secret means anyone can unsubscribe anyone. Rotating it invalidates links in messages already sent |
+
+Copy `.env.prod.docker.example` as a starting point for a real deployment.
+
+## Deploying it
+
+`compose.prod.yaml` layers a built-image, no-bind-mount configuration over `compose.yaml`:
+
+```bash
+docker compose --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --build --wait
+```
+
+The stack does **not** terminate TLS. The Mercure edge serves plain HTTP on the published port and
+expects a reverse proxy in front of it, forwarding `X-Forwarded-Proto`, `X-Forwarded-Host` and
+`X-Forwarded-For`. Spring reads those headers natively.
+
+One thing to get right: the live event stream is Server-Sent Events, so your proxy must not buffer
+it. With nginx:
+
+```nginx
+location / {
+    proxy_pass http://127.0.0.1:8080;
+    proxy_set_header Host              $host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Host  $host;
+    proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+
+    proxy_http_version 1.1;
+    proxy_buffering    off;
+    proxy_read_timeout 24h;
+}
+```
+
+With Caddy, `reverse_proxy` plus `flush_interval -1` does the same job.
+
+The database volume survives redeploys and Flyway applies only new, forward-only migrations on top
+of it. `GET /actuator/health` is intentionally not exposed through the public edge.
 
 ## Tests
 
-Backend:
+Backend — unit tests and the ArchUnit module-boundary check need nothing but a JDK; `verify` adds
+integration tests that start a real Postgres 18 through Testcontainers, so it needs Docker:
 
 ```bash
 cd backend
-./mvnw -q test      # unit tests + ArchitectureTest, no containers
-./mvnw -q verify     # + Testcontainers Postgres 18 integration tests (*IT.java), needs Docker
+./mvnw test      # fast, no containers
+./mvnw verify    # + *IT.java integration tests
 ```
 
 Frontend:
@@ -106,154 +150,65 @@ Frontend:
 ```bash
 cd frontend
 npm ci
-npm run test -- --run              # Vitest unit
-npm run test:integration -- --run  # Vitest integration
-npm run lint
-npm run typecheck
-npm run format:check
+npm run test -- --run              # unit
+npm run test:integration -- --run  # integration
+npm run lint && npm run typecheck && npm run format:check
 ```
 
-End-to-end tests drive the running stack with Playwright, headless Chrome — unchanged across
-the rewrite, this suite is the migration's parity oracle:
+End-to-end, with Playwright against a running stack in headless Chrome:
 
 ```bash
-cd tests/e2e && npm install                              # first run only
-E2E_BASE_URL=https://localhost:8443 npx playwright test  # default base is https://localhost:8543
+cd tests/e2e
+npm install                                              # first run only
+E2E_BASE_URL=https://localhost:8443 npx playwright test --workers=1
 ```
 
-`events.spec.ts`, `dashboard.spec.ts` and `navigation.spec.ts` share live/SSE state and should
-run serialized: add `--workers=1` when running them. The e2e suite has its own `package.json`,
-independent of `frontend/`'s.
+Run it single-worker: several specs share live/SSE state and are flaky in parallel. The suite keeps
+its own `package.json` so its Playwright version moves independently of the frontend's toolchain.
 
-`waitlist.spec.ts` reads the confirmation link out of `var/mail` — set `E2E_MAILDROP` if the stack
-writes somewhere else. It also spends 6 of the hourly 10 signups allowed per IP, so a second run
-inside the hour starts seeing 429s; bring the stack up with `down -v` first and the counter starts
-empty.
+`waitlist.spec.ts` reads confirmation links out of `var/mail` (override with `E2E_MAILDROP`). It
+also spends part of the hourly per-IP signup allowance, so a second run within the hour starts
+seeing HTTP 429 — `docker compose down -v` first and the counter starts empty.
 
-Migration parity/regression check (optional; replays the pre-migration oracle capture):
+## Formatting
 
 ```bash
-node tools/migration-verify/compare.mjs --journey <id> --base <url> --dimension all
+cd backend && ./mvnw spotless:apply   # google-java-format
+cd frontend && npm run format          # Prettier
 ```
 
-## Production
+CI runs the same checks on every pull request.
 
-Production uses `compose.prod.yaml` layered on `compose.yaml` (built image, no bind-mount):
-`api` builds from `backend/Dockerfile` (Node stage → Maven stage → JRE runtime, one jar serving
-the SPA), `mercure` is the public edge, `database` is Postgres 18 on its own volume.
+## Project layout
 
-TLS is **not** terminated here. The `mercure` edge serves plain HTTP on the published port and
-a reverse proxy in front of the stack answers for https://kivvi.click, forwarding
-`X-Forwarded-Proto`, `X-Forwarded-Host` and `X-Forwarded-For`. Spring reads them natively
-(`server.forward-headers-strategy: native`, see `backend/src/main/resources/application.yml`);
-no explicit trusted-proxy CIDR list is needed because `api` publishes no host port of its own —
-the Mercure edge is the only path in.
-
-> **Where production actually reads its configuration.** The live stack is deployed by Portainer
-> from `compose.portainer.yaml` (see CLAUDE.md), and its values come from that stack's own
-> environment variables — not from `.env.prod.docker`, which now only serves a local
-> production-shaped run through the `compose.yaml + compose.prod.yaml` overlay. Three files spell
-> the same variable names on purpose — `compose.portainer.yaml`, `compose.prod.yaml` and
-> `.env.prod.docker.example`. A variable added to one belongs in all three, under the same name.
-
-Runtime configuration and secrets live in `.env.prod.docker` (git- and docker-ignored; copy
-from `.env.prod.docker.example`): `SERVER_NAME`, `HTTP_PORT`, `POSTGRES_DB`/`POSTGRES_USER`/
-`POSTGRES_PASSWORD` (shared by `database` and `api`), `MERCURE_JWT_SECRET` (derives all three
-Mercure JWT env vars for both `api` and `mercure`), the transactional-mail settings
-`SMTP_HOST`/`SMTP_PORT`/`SMTP_USERNAME`/`SMTP_PASSWORD` plus `KIVVI_BASE_URL`, `MAIL_FROM` and
-`KIVVI_UNSUBSCRIBE_SECRET`, and an optional `IMAGES_PREFIX` for the built image tag.
-
-Mail goes out over Brevo's plain SMTP relay; the password is Brevo's **SMTP key**, not the account
-password and not an API v3 key. Missing any of the following stops the application from starting,
-deliberately — not starting is the honest failure, where starting up and silently dropping every
-confirmation is not:
-
-- `SMTP_HOST`, outside the `dev` profile, because there would be nowhere to send — and
-  `SMTP_USERNAME`/`SMTP_PASSWORD` with it whenever the relay wants authentication, which Brevo
-  does. The host has a working default, so a half-configured stack never shows up as a missing
-  host: it shows up as a relay that answers and rejects every message at AUTH, which is why the
-  credentials are the pair actually worth refusing over.
-- `KIVVI_UNSUBSCRIBE_SECRET`, at least 32 characters, because every unsubscribe link is an HMAC of
-  the subscriber's id and those ids are sequential: a missing or guessable secret is a list anyone
-  can unsubscribe. Rotating it invalidates the links in messages already delivered.
-
-Under the `dev` profile (`compose.yaml`'s default) no relay is contacted at all: every message is
-written to `./var/mail` as an `.eml`, which is what lets the Playwright suite follow a real
-confirmation link. Both production paths pin `SPRING_PROFILES_ACTIVE=prod` and neither mounts it.
-
-```bash
-docker compose -p kivvi-click --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --build --wait
+```
+backend/    Spring Boot API; package root click.kivvi, layered web -> application -> domain,
+            with infrastructure reachable only from application (enforced by ArchitectureTest)
+frontend/   Vue 3 SPA; components as atoms -> molecules -> organisms, CSS design system in styles/
+mercure/    Mercure Hub / Caddy edge configuration
+tests/e2e/  Playwright end-to-end suite
+docs/adr/   Architecture decision records
+context/    Specifications, plans and migration history
 ```
 
-Run this **from this directory only** — the Compose project name (`-p kivvi-click`) must match
-the checkout's own directory name; a git worktree has a different directory name and would
-start a second, colliding stack rather than update this one.
+One convention worth knowing before you read the frontend: navigation between routes is a full
+document request through plain `<a>` hrefs, not `router.push`. That is deliberate and the
+end-to-end suite asserts it.
 
-The app is then reachable on http://localhost:23456 and, through the proxy, on
-https://kivvi.click. Example nginx server block:
+## History
 
-```nginx
-server {
-    server_name kivvi.click;
-    listen 443 ssl http2;
+This is a from-scratch rebuild of the original kivvi-click. It ran on Symfony and Twig until
+September 2026, when it was migrated to the Spring Boot and Vue stack described above. The
+decision records are in `docs/adr/`; the full migration plan and its evidence are under
+`context/`.
 
-    location / {
-        proxy_pass http://127.0.0.1:23456;
-        proxy_set_header Host              $host;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Host  $host;
-        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+## Getting it deployed
 
-        # The live event stream is Server-Sent Events: no buffering, no read timeout.
-        proxy_http_version 1.1;
-        proxy_buffering    off;
-        proxy_read_timeout 24h;
-    }
-}
-```
+If you want kivvi-click running but would rather not do it yourself, leave your address on the
+site and we will get in touch about deploying it, integrating it with your shop and keeping it
+running. That is a paid service; the software itself stays free and MIT-licensed either way.
 
-Caddy in front instead:
+## Licence
 
-```caddyfile
-kivvi.click {
-	reverse_proxy 127.0.0.1:23456 {
-		flush_interval -1   # stream SSE straight through
-	}
-}
-```
-
-## Production operations
-
-Redeploy (pull latest, rebuild, restart in place):
-
-```bash
-git pull
-docker compose -p kivvi-click --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --build --wait
-docker compose -p kivvi-click -f compose.yaml -f compose.prod.yaml ps   # expect all services healthy
-curl -I http://localhost:23456/pl
-```
-
-Roll back to a previous known-good commit (plain git + redeploy — there is no second stack to
-fall back to any more):
-
-```bash
-git checkout <previous-good-sha>
-docker compose -p kivvi-click --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --build --wait
-```
-
-Smoke-test against the public edge after either operation:
-
-```bash
-cd tests/e2e && E2E_BASE_URL=https://kivvi.click npx playwright test
-```
-
-The database volume persists across redeploys; Flyway applies only new, forward-only
-migrations on top of it — never edit `V1__baseline.sql`. `GET /actuator/health` is deliberately
-not reachable through the public edge (`mercure/Caddyfile` returns 404 for `/actuator/*`); use
-`docker compose -p kivvi-click -f compose.yaml -f compose.prod.yaml ps` or a real route like
-`/pl` to check health from outside the host.
-
-Full history of the cutover itself (the rollback rehearsal, the CUT-1 attempts and their
-outages, and the decision records) is preserved in
-`context/plans/2026-09-08-symfony-to-spring-vue-migration.md` and `docs/adr/` — this section
-only covers day-to-day operation of the stack that is live now.
+MIT — see [LICENSE](LICENSE). Do what you like with it, including commercially; keep the copyright
+notice and understand there is no warranty.

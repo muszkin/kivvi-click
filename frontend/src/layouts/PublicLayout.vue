@@ -14,6 +14,8 @@ const loginHref = computed(() => `/${locale.value}/login`);
 // PIO-70 (decision D3): the footer's privacy link was href="#" until there was a page to point
 // it at. The three siblings that are still "#" — terms, DPA, status — are out of scope here.
 const privacyHref = computed(() => `/${locale.value}/privacy`);
+// PIO-121: the footer names the stack and links the source. Constant, not locale-dependent.
+const repoHref = "https://github.com/muszkin/kivvi-click";
 const year = new Date().getFullYear();
 </script>
 
@@ -24,7 +26,7 @@ const year = new Date().getFullYear();
             <nav class="nav-links">
                 <a href="#features">{{ t("landing.features") }}</a>
                 <a href="#how">{{ t("landing.how") }}</a>
-                <a href="#pricing">{{ t("landing.pricing") }}</a>
+                <a href="#open-source">{{ t("landing.openSource") }}</a>
                 <a href="#docs">{{ t("common.documentation") }}</a>
                 <a href="#blog">{{ t("landing.blog") }}</a>
             </nav>
@@ -52,9 +54,16 @@ const year = new Date().getFullYear();
             ><a :href="privacyHref">{{ t("landing.privacy") }}</a
             ><a href="#">RODO / DPA</a><a href="#">{{ t("common.status") }}</a>
             <div style="flex: 1"></div>
-            <span class="mono" style="font-size: 11px"
-                >Zbudowane w Polsce z Symfony, PHP i sporą ilością herbaty</span
-            >
+            <span class="mono" style="font-size: 11px">
+                {{ t("landing.builtWith") }}
+                <a
+                    class="landing-foot-repo"
+                    :href="repoHref"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >{{ t("landing.repo") }}</a
+                >
+            </span>
         </footer>
     </div>
 </template>

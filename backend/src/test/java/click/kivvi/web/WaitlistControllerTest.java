@@ -108,8 +108,8 @@ class WaitlistControllerTest {
             content()
                 .string(
                     containsString(
-                        "data-waitlist-error=\"Zaznacz zgodę, żebyśmy mogli wysłać Ci"
-                            + " powiadomienie.\"")))
+                        "data-waitlist-error=\"Zaznacz zgodę, żebyśmy mogli się z Tobą"
+                            + " skontaktować.\"")))
         .andExpect(content().string(containsString("data-waitlist-email=\"ala@sklep.pl\"")))
         .andExpect(content().string(containsString("data-waitlist-consent=\"false\"")));
   }

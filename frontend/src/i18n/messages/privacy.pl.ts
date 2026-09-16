@@ -29,7 +29,7 @@
 export default {
     privacyPage: {
         title: "Polityka prywatności",
-        updated: "Ostatnia aktualizacja: 15 września 2026",
+        updated: "Ostatnia aktualizacja: 16 września 2026",
         intro: "Ta polityka opisuje, co dzieje się z danymi, które zostawiasz, zapisując się na listę oczekujących kivvi·click. Dotyczy wyłącznie tego zapisu — panel i konta użytkowników nie są jeszcze dostępne publicznie.",
         sections: [
             {
@@ -46,7 +46,7 @@ export default {
             },
             {
                 heading: "W jakim celu",
-                body: "Wyłącznie po to, żeby wysłać Ci jedno powiadomienie, kiedy kivvi·click ruszy. Nie wysyłamy newslettera, nie profilujemy Cię i nie przekazujemy Twojego adresu nikomu w celach marketingowych.",
+                body: "Żeby skontaktować się z Tobą w sprawie wdrożenia kivvi·click: odpowiedzieć na pytania, umówić rozmowę i przedstawić zakres wsparcia, o który poprosisz. Nie wysyłamy newslettera, nie profilujemy Cię i nie przekazujemy Twojego adresu nikomu w celach marketingowych.",
             },
             {
                 heading: "Na jakiej podstawie",
@@ -54,11 +54,11 @@ export default {
             },
             {
                 heading: "Czy podanie danych jest obowiązkowe",
-                body: "Nie. Podanie adresu e-mail i wyrażenie zgody są całkowicie dobrowolne. Jedynym skutkiem niepodania danych jest to, że nie trafisz na listę oczekujących i nie dostaniesz powiadomienia o starcie. Nie tracisz przez to niczego innego — serwis pozostaje dostępny tak samo.",
+                body: "Nie. Podanie adresu e-mail i wyrażenie zgody są całkowicie dobrowolne. Jedynym skutkiem niepodania danych jest to, że nie skontaktujemy się z Tobą. Nie tracisz przez to niczego innego — serwis pozostaje dostępny tak samo.",
             },
             {
                 heading: "Jak długo przechowujemy dane",
-                body: "Do czasu wysłania powiadomienia o starcie i przez maksymalnie 12 miesięcy po nim, albo do chwili wycofania zgody — zależnie od tego, co nastąpi wcześniej. Potem usuwamy adres wraz z dowodem zgody.",
+                body: "Do zakończenia rozmowy o wdrożeniu i przez maksymalnie 12 miesięcy po ostatnim kontakcie, albo do chwili wycofania zgody — zależnie od tego, co nastąpi wcześniej. Potem usuwamy adres wraz z dowodem zgody.",
             },
             {
                 heading: "Jak wycofać zgodę",
@@ -91,7 +91,7 @@ export default {
             },
             {
                 heading: "Zmiany tej polityki",
-                body: "Ta wersja obowiązuje od 15 września 2026 i wymienia Brevo jako podmiot przetwarzający, dopisany zanim wyszła pierwsza wiadomość. Jeśli zmienimy zakres przetwarzania — na przykład zmienimy dostawcę poczty albo uruchomimy konta użytkowników — zaktualizujemy tę stronę i zmienimy datę powyżej.",
+                body: "Ta wersja obowiązuje od 16 września 2026 i opisuje nowy cel przetwarzania: kontakt w sprawie wdrożenia. Jeśli zmienimy zakres przetwarzania — na przykład zmienimy dostawcę poczty albo uruchomimy konta użytkowników — zaktualizujemy tę stronę i zmienimy datę powyżej.",
             },
         ],
     },

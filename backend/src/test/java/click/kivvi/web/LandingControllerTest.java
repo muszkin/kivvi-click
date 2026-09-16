@@ -26,10 +26,9 @@ class LandingControllerTest {
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.features.length()").value(6))
         .andExpect(jsonPath("$.steps.length()").value(3))
-        .andExpect(jsonPath("$.plans.length()").value(2))
-        .andExpect(jsonPath("$.plans[1].tier").value("Pro"))
-        .andExpect(jsonPath("$.plans[1].featured").value(true))
+        .andExpect(jsonPath("$.plans").doesNotExist())
         .andExpect(jsonPath("$.trustPoints.length()").value(3))
+        .andExpect(jsonPath("$.trustPoints[0]").value("Licencja MIT"))
         .andExpect(jsonPath("$.previewTiles.length()").value(4))
         .andExpect(jsonPath("$.previewSeries.length()").value(60));
   }

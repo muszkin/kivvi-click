@@ -7,12 +7,12 @@ export default {
     waitlistPage: {
         confirm: {
             ok: {
-                title: "Done — you are on the list",
-                body: "Your address is confirmed. We will write exactly once: when kivvi·click launches.",
+                title: "Done — your address is confirmed",
+                body: "Your address is confirmed. We will be in touch about deploying kivvi·click.",
             },
             already: {
                 title: "This address is already confirmed",
-                body: "There is nothing else to do — you are on the list, waiting for a single launch notification.",
+                body: "There is nothing else to do — we have your address and will be in touch about your deployment.",
             },
             expired: {
                 title: "This link has expired",
@@ -21,7 +21,7 @@ export default {
             },
             unknown: {
                 title: "We do not know this link",
-                body: "Your mail client may have shortened or truncated it. Copy the whole link from the message, or sign up again on the home page.",
+                body: "Your mail client may have shortened or truncated it. Copy the whole link from the message, or leave your address again on the home page.",
             },
             sent: {
                 title: "Check your inbox",
@@ -31,7 +31,7 @@ export default {
         unsubscribe: {
             ok: {
                 title: "You are unsubscribed",
-                body: "Your address is off the waiting list and we will send you nothing. If you change your mind, you can sign up again on the home page.",
+                body: "We have removed your address and will send you nothing. If you change your mind, you can leave it again on the home page.",
             },
             unknown: {
                 title: "We do not know this link",

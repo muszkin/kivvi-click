@@ -75,6 +75,51 @@ describe("PIO-70 the privacy policy page", () => {
         expect(text).not.toMatch(/do uzupełnienia|\[.*—.*\]/);
     });
 
+    it("PIO-121 states the new purpose — contact about a deployment, not a launch notification", async () => {
+        const { wrapper } = await mountAtRoute("/pl/privacy");
+
+        const text = wrapper.text();
+        expect(text).toContain("w sprawie wdrożenia kivvi·click");
+        expect(text).not.toContain(
+            "jedno powiadomienie, kiedy kivvi·click ruszy",
+        );
+    });
+
+    it("PIO-121 ties retention to the deployment conversation, not to a launch that will not happen", async () => {
+        const { wrapper } = await mountAtRoute("/pl/privacy");
+
+        const text = wrapper.text();
+        expect(text).toContain("Do zakończenia rozmowy o wdrożeniu");
+        expect(text).not.toContain("Do czasu wysłania powiadomienia o starcie");
+    });
+
+    it("PIO-121 says the consequence of withholding data is no contact, not a missed list", async () => {
+        const { wrapper } = await mountAtRoute("/pl/privacy");
+
+        expect(wrapper.text()).toContain("nie skontaktujemy się z Tobą");
+    });
+
+    it("PIO-121 carries the same three changes in English", async () => {
+        i18n.global.locale.value = "en";
+        const { wrapper } = await mountAtRoute("/en/privacy");
+
+        const text = wrapper.text();
+        expect(text).toContain("about deploying kivvi·click");
+        expect(text).toContain(
+            "Until the conversation about your deployment has ended",
+        );
+        expect(text).toContain("we will not contact you");
+    });
+
+    it("PIO-121 dates both language versions to the day the purpose changed", async () => {
+        const polish = await mountAtRoute("/pl/privacy");
+        expect(polish.wrapper.text()).toContain("16 września 2026");
+
+        i18n.global.locale.value = "en";
+        const english = await mountAtRoute("/en/privacy");
+        expect(english.wrapper.text()).toContain("16 September 2026");
+    });
+
     it("discloses the Google Fonts transfer while index.html still loads them from Google", async () => {
         const { wrapper } = await mountAtRoute("/pl/privacy");
 

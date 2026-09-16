@@ -25,26 +25,7 @@ const LANDING_PAYLOAD = {
         { number: "02", title: "Wybierz szablon", body: "..." },
         { number: "03", title: "Publikuj", body: "..." },
     ],
-    plans: [
-        {
-            tier: "Free",
-            price: "0",
-            unit: " zł / mies.",
-            items: ["Reguły, popupy, kupony"],
-            cta: "Zacznij za darmo",
-            featured: false,
-        },
-        {
-            tier: "Pro",
-            price: "149",
-            unit: " zł / mies.",
-            items: ["Webhooks, API, RODO/DPA"],
-            cta: "Zacznij 14-dniowy trial →",
-            featured: true,
-            badge: "popularne",
-        },
-    ],
-    trustPoints: ["14 dni Pro za darmo", "Bez karty", "Skrypt 2 KB"],
+    trustPoints: ["Licencja MIT", "Postawisz u siebie", "Skrypt 2 KB"],
     previewTiles: [
         { label: "Zdarzeń / min", value: "847" },
         { label: "Aktywne sesje", value: "312" },
@@ -86,7 +67,7 @@ function within(wrapper: ReturnType<typeof mount>, containerSelector: string) {
 }
 
 describe("B22 the landing page structure (unit)", () => {
-    // landingPage.headline/featuresTitle/howTitle/pricingTitle are deliberately
+    // landingPage.headline/featuresTitle/howTitle/openSourceTitle are deliberately
     // HTML-carrying messages rendered with v-html (the ported `|raw`-filtered Twig strings —
     // see landing.pl.ts/landing.en.ts and AuthLayout.vue's auth.headline for the same
     // established pattern). intlify's dev-only XSS advisory for this is expected, not a
@@ -133,11 +114,21 @@ describe("B22 the landing page structure (unit)", () => {
         expect(within(wrapper, "#how").count(".feat")).toBe(3);
     });
 
-    it("renders two price cards, the Pro one carrying the .pro class and tier text", async () => {
+    it("renders no price cards and an open-source section in their place", async () => {
         const wrapper = await mountAt("/pl");
 
-        expect(wrapper.findAll(".price-card")).toHaveLength(2);
-        expect(wrapper.find(".price-card.pro .tier").text()).toBe("Pro");
+        expect(wrapper.findAll(".price-card")).toHaveLength(0);
+        expect(wrapper.find("#open-source").exists()).toBe(true);
+        expect(wrapper.find("#pricing").exists()).toBe(false);
+    });
+
+    it("the open-source section links the repository", async () => {
+        const wrapper = await mountAt("/pl");
+
+        const repoLink = wrapper.find("#open-source").find("a");
+        expect(repoLink.attributes("href")).toBe(
+            "https://github.com/muszkin/kivvi-click",
+        );
     });
 
     it("English landing keeps the same section counts", async () => {
@@ -157,14 +148,6 @@ describe("B22 the landing page structure (unit)", () => {
         expect(revenueTile?.find(".kpi-value").text()).toBe("94 200zł");
     });
 
-    it("the price and its unit render as one node with no separating space", async () => {
-        const wrapper = await mountAt("/pl");
-
-        expect(wrapper.find(".price-card.pro .price").text()).toBe(
-            "149 zł / mies.",
-        );
-    });
-
     it("a trust point keeps exactly one space between its icon and its label", async () => {
         const wrapper = await mountAt("/pl");
 
@@ -172,13 +155,6 @@ describe("B22 the landing page structure (unit)", () => {
         // The icon contributes no text of its own; the raw textContent still carries the
         // single space the {{ " " }} glue inserts before the label — innerText() (what the
         // oracle/compare.mjs actually reads) trims it the same way `.trim()` does here.
-        expect(trustPoints[0]?.textContent?.trim()).toBe("14 dni Pro za darmo");
-    });
-
-    it("a price-list item keeps exactly one space between its icon and its label", async () => {
-        const wrapper = await mountAt("/pl");
-
-        const item = wrapper.find(".price-card .price-list li");
-        expect(item.text()).toBe("Reguły, popupy, kupony");
+        expect(trustPoints[0]?.textContent?.trim()).toBe("Licencja MIT");
     });
 });

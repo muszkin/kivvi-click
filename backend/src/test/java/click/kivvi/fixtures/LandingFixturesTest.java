@@ -2,7 +2,6 @@ package click.kivvi.fixtures;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import click.kivvi.fixtures.LandingFixtures.Plan;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -24,19 +23,18 @@ class LandingFixturesTest {
   }
 
   @Test
-  @DisplayName("B22 the pricing grid is Free then featured Pro, carrying the 'popularne' badge")
-  void pricingGridIsFreeThenFeaturedPro() {
-    assertThat(LandingFixtures.plans()).hasSize(2);
+  @DisplayName("PIO-121 the trust points promise the licence and self-hosting, not a trial")
+  void trustPointsPromiseTheLicenceNotATrial() {
+    assertThat(LandingFixtures.trustPoints())
+        .containsExactly("Licencja MIT", "Postawisz u siebie", "Skrypt 2 KB");
+  }
 
-    Plan free = LandingFixtures.plans().get(0);
-    assertThat(free.tier()).isEqualTo("Free");
-    assertThat(free.featured()).isFalse();
-    assertThat(free.badge()).isNull();
-
-    Plan pro = LandingFixtures.plans().get(1);
-    assertThat(pro.tier()).isEqualTo("Pro");
-    assertThat(pro.featured()).isTrue();
-    assertThat(pro.badge()).isEqualTo("popularne");
+  @Test
+  @DisplayName("PIO-121 no feature card gates a capability behind a paid plan")
+  void noFeatureCardGatesACapabilityBehindAPaidPlan() {
+    assertThat(LandingFixtures.features())
+        .extracting("body")
+        .noneMatch(body -> ((String) body).contains("Plan Pro"));
   }
 
   @Test

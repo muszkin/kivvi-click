@@ -4,7 +4,7 @@ import { expect, test } from "@playwright/test";
  * The public surface: landing page and the way into the panel.
  */
 test.describe("landing", () => {
-    test("hero, preview frame, features, steps and pricing", async ({
+    test("hero, preview frame, features, steps and the open-source section", async ({
         page,
     }) => {
         await page.goto("/pl");
@@ -22,8 +22,48 @@ test.describe("landing", () => {
     await expect(page.locator(".hero-preview svg path")).not.toHaveCount(0);
         await expect(page.locator("#features .feat")).toHaveCount(6);
         await expect(page.locator("#how .feat")).toHaveCount(3);
-        await expect(page.locator(".price-card")).toHaveCount(2);
-        await expect(page.locator(".price-card.pro .tier")).toHaveText("Pro");
+        // PIO-121 removed the price list: the software is MIT-licensed and self-hostable, so
+        // there is nothing to price. The section in its place explains that instead.
+        await expect(page.locator(".price-card")).toHaveCount(0);
+        await expect(page.locator("#pricing")).toHaveCount(0);
+        await expect(page.locator("#open-source")).toBeVisible();
+        await expect(page.locator("#open-source")).toContainText("licencji MIT");
+    });
+
+    test("no page promises a launch, a trial or a price", async ({ page }) => {
+        await page.goto("/pl");
+
+        const body = page.locator("body");
+        await expect(body).not.toContainText("14 dni Pro");
+        await expect(body).not.toContainText("trial");
+        await expect(body).not.toContainText("149");
+        await expect(body).not.toContainText("powiadomienie o starcie");
+    });
+
+    test("the footer names the current stack and links the repository", async ({
+        page,
+    }) => {
+        await page.goto("/pl");
+
+        const footer = page.locator(".landing-foot");
+        await expect(footer).toContainText("Javie i Vue 3");
+        await expect(footer).not.toContainText("Symfony");
+        await expect(footer).not.toContainText("PHP");
+        await expect(footer.locator(".landing-foot-repo")).toHaveAttribute(
+            "href",
+            "https://github.com/muszkin/kivvi-click",
+        );
+    });
+
+    test("the nav open-source entry scrolls to a section that exists", async ({
+        page,
+    }) => {
+        await page.goto("/pl");
+
+        const entry = page.locator('.nav-links a[href="#open-source"]');
+        await expect(entry).toBeVisible();
+        await entry.click();
+        await expect(page.locator("#open-source")).toBeInViewport();
     });
 
     test("the demo button lands in the panel", async ({ page }) => {

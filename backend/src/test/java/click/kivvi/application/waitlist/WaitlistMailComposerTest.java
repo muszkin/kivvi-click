@@ -44,7 +44,7 @@ class WaitlistMailComposerTest {
     OutboundMail mail = confirmationFor(SupportedLocale.PL, "ala@sklep.pl");
 
     assertThat(mail.recipient()).isEqualTo("ala@sklep.pl");
-    assertThat(mail.subject()).isEqualTo("Potwierdź swój adres — lista oczekujących kivvi·click");
+    assertThat(mail.subject()).isEqualTo("Potwierdź swój adres — kivvi·click");
     assertThat(mail.htmlBody())
         .contains("https://kivvi.click/pl/waitlist/confirm/")
         .contains("https://kivvi.click/pl/waitlist/unsubscribe/")
@@ -61,7 +61,7 @@ class WaitlistMailComposerTest {
   void theEnglishMailIsInEnglish() {
     OutboundMail mail = confirmationFor(SupportedLocale.EN, "ann@shop.uk");
 
-    assertThat(mail.subject()).isEqualTo("Confirm your address — kivvi·click waiting list");
+    assertThat(mail.subject()).isEqualTo("Confirm your address — kivvi·click");
     assertThat(mail.htmlBody())
         .contains("Confirm my address")
         .contains("https://kivvi.click/en/waitlist/confirm/")

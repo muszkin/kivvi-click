@@ -66,7 +66,9 @@ class WaitlistApiIT {
     assertThat(row.get("status")).isEqualTo(SubscriberStatus.PENDING.value());
     assertThat(row.get("source")).isEqualTo(SignupSource.LANDING.value());
     assertThat(row.get("locale")).isEqualTo("pl");
-    assertThat(row.get("consent_text").toString()).contains("Zgadzam się");
+    assertThat(row.get("consent_text").toString())
+        .isEqualTo(
+            "Zgadzam się na kontakt w sprawie wdrożenia kivvi·click na podany adres e-mail.");
     assertThat(row.get("consent_ip")).isNotNull();
     assertThat(row.get("confirmed_at")).isNull();
     // PIO-71: the row is pending *and* already carries the token of the confirmation link that

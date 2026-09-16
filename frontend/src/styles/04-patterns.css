@@ -979,61 +979,13 @@
     font-size: 14px;
 }
 
-.pricing-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-    margin-top: 36px;
-    max-width: 760px;
+/* PIO-121 removed the price cards; the section in their place is plain prose plus one link. */
+.open-source-repo {
+    margin-top: 24px;
 }
-.price-card {
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 28px;
-}
-.price-card.pro {
-    background: linear-gradient(160deg, var(--accent-soft), var(--bg-card));
-    border-color: var(--accent);
-}
-.price-card .tier {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--fg-muted);
-    margin-bottom: 6px;
-}
-.price-card .price {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 56px;
-    letter-spacing: -0.03em;
-    line-height: 1;
-    margin: 6px 0 16px;
-}
-.price-card .price .unit {
-    font-family: var(--font-sans);
-    font-style: normal;
-    font-size: 14px;
-    color: var(--fg-muted);
-}
-.price-list li {
-    list-style: none;
-    padding: 6px 0;
-    font-size: 13.5px;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-.price-list li .icon {
-    width: 14px;
-    height: 14px;
-    color: var(--good);
-}
-.price-list {
-    padding: 0;
-    margin: 0 0 22px;
+.open-source-repo a {
+    color: var(--accent);
+    font-weight: 500;
 }
 
 .landing-foot {

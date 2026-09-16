@@ -60,7 +60,9 @@ describe("PIO-71 the waitlist confirmation page", () => {
 
         const wrapper = await mountAtRoute(`/pl/waitlist/confirm/${TOKEN}`);
 
-        expect(wrapper.find("h1").text()).toBe("Gotowe — jesteś na liście");
+        expect(wrapper.find("h1").text()).toBe(
+            "Gotowe — potwierdziliśmy adres",
+        );
         expect(wrapper.find(".confirm-page").attributes("data-state")).toBe(
             "ok",
         );

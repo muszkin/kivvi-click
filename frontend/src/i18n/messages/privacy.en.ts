@@ -9,7 +9,7 @@
 export default {
     privacyPage: {
         title: "Privacy policy",
-        updated: "Last updated: 15 September 2026",
+        updated: "Last updated: 16 September 2026",
         intro: "This policy describes what happens to the data you leave when you join the kivvi·click waiting list. It covers that signup only — the panel and user accounts are not publicly available yet.",
         sections: [
             {
@@ -26,7 +26,7 @@ export default {
             },
             {
                 heading: "What for",
-                body: "Only to send you a single notification when kivvi·click launches. We do not run a newsletter, we do not profile you, and we do not pass your address to anyone for marketing.",
+                body: "To get in touch with you about deploying kivvi·click: to answer your questions, arrange a call and set out the scope of support you ask for. We do not run a newsletter, we do not profile you, and we do not pass your address to anyone for marketing.",
             },
             {
                 heading: "On what basis",
@@ -34,11 +34,11 @@ export default {
             },
             {
                 heading: "Is giving us your data mandatory",
-                body: "No. Giving your e-mail address and consenting are entirely voluntary. The only consequence of not doing so is that you will not be on the waiting list and will not be notified at launch. Nothing else changes — the site stays just as available to you.",
+                body: "No. Giving your e-mail address and consenting are entirely voluntary. The only consequence of not doing so is that we will not contact you. Nothing else changes — the site stays just as available to you.",
             },
             {
                 heading: "How long we keep it",
-                body: "Until the launch notification has been sent and for at most 12 months after that, or until you withdraw your consent, whichever comes first. We then delete the address together with the consent record.",
+                body: "Until the conversation about your deployment has ended and for at most 12 months after the last contact, or until you withdraw your consent, whichever comes first. We then delete the address together with the consent record.",
             },
             {
                 heading: "How to withdraw consent",
@@ -70,7 +70,7 @@ export default {
             },
             {
                 heading: "Changes to this policy",
-                body: "This version takes effect on 15 September 2026 and names Brevo as a processor, added before the first message went out. If we change the scope of processing — by switching e-mail provider, say, or launching user accounts — we will update this page and change the date above.",
+                body: "This version takes effect on 16 September 2026 and describes the new purpose of processing: contact about a deployment. If we change the scope of processing — by switching e-mail provider, say, or launching user accounts — we will update this page and change the date above.",
             },
         ],
     },

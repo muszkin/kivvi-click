@@ -14,7 +14,6 @@ public class LandingViewService {
     return new LandingView(
         LandingFixtures.features().stream().map(this::toFeatureView).toList(),
         LandingFixtures.steps().stream().map(this::toStepView).toList(),
-        LandingFixtures.plans().stream().map(this::toPlanView).toList(),
         LandingFixtures.trustPoints(),
         LandingFixtures.previewTiles().stream().map(this::toPreviewTileView).toList(),
         LandingFixtures.previewSeries());
@@ -26,17 +25,6 @@ public class LandingViewService {
 
   private LandingView.StepView toStepView(LandingFixtures.Step step) {
     return new LandingView.StepView(step.number(), step.title(), step.body());
-  }
-
-  private LandingView.PlanView toPlanView(LandingFixtures.Plan plan) {
-    return new LandingView.PlanView(
-        plan.tier(),
-        plan.price(),
-        plan.unit(),
-        plan.items(),
-        plan.cta(),
-        plan.featured(),
-        plan.badge());
   }
 
   private LandingView.PreviewTileView toPreviewTileView(LandingFixtures.PreviewTile tile) {

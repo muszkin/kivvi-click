@@ -55,7 +55,7 @@ export default {
     landing: {
         features: "Features",
         how: "How it works",
-        pricing: "Pricing",
+        openSource: "Open source",
         // "Blog", "Logowanie" and "Załóż konto →" have no entry in messages.en.yaml either —
         // same PL fallback as common.collapseSidebar above.
         blog: "Blog",
@@ -63,5 +63,8 @@ export default {
         register: "Załóż konto →",
         terms: "Regulamin",
         privacy: "Prywatność",
+        // PIO-121: see pl.ts — the footer claim is a key now, translated on both sides.
+        builtWith: "Built in Poland with Java and Vue 3. MIT-licensed code.",
+        repo: "GitHub",
     },
 };
