@@ -30,7 +30,7 @@ export default {
     privacyPage: {
         title: "Polityka prywatności",
         updated: "Ostatnia aktualizacja: 16 września 2026",
-        intro: "Ta polityka opisuje, co dzieje się z danymi, które zostawiasz, zapisując się na listę oczekujących kivvi·click. Dotyczy wyłącznie tego zapisu — panel i konta użytkowników nie są jeszcze dostępne publicznie.",
+        intro: "Ta polityka opisuje, co dzieje się z danymi, które zostawiasz, prosząc o kontakt w sprawie wdrożenia kivvi·click. Dotyczy wyłącznie tego formularza — panel i konta użytkowników nie są jeszcze dostępne publicznie.",
         sections: [
             {
                 heading: "Kto jest administratorem",
@@ -42,7 +42,7 @@ export default {
             },
             {
                 heading: "Jakie dane zbieramy",
-                body: "Przy zapisie na listę oczekujących zapisujemy: podany adres e-mail, datę i godzinę wyrażenia zgody, adres IP, z którego wysłano formularz, identyfikator przeglądarki (user-agent) oraz dokładną treść klauzuli zgody, którą widziałeś w chwili zapisu. Trzy ostatnie służą wyłącznie temu, żeby móc wykazać, na co i kiedy wyraziłeś zgodę.",
+                body: "Zostawiając nam kontakt, zapisujemy: podany adres e-mail, datę i godzinę wyrażenia zgody, adres IP, z którego wysłano formularz, identyfikator przeglądarki (user-agent) oraz dokładną treść klauzuli zgody, którą widziałeś w chwili zapisu. Trzy ostatnie służą wyłącznie temu, żeby móc wykazać, na co i kiedy wyraziłeś zgodę.",
             },
             {
                 heading: "W jakim celu",
@@ -70,7 +70,7 @@ export default {
             },
             {
                 heading: "Komu powierzamy dane",
-                body: "Twój adres e-mail i dowód zgody przechowujemy wyłącznie na serwerze administratora, stojącym pod adresem siedziby podanym wyżej. Nie korzystamy z zewnętrznego dostawcy hostingu. Wiadomości — potwierdzenie zapisu i powiadomienie o starcie — wysyła w naszym imieniu Brevo (Sendinblue SAS, 106 boulevard Haussmann, 75008 Paryż, Francja), z którym zawarliśmy umowę powierzenia przetwarzania danych. Brevo przetwarza dane w całości na terenie Unii Europejskiej i dostaje wyłącznie to, co jest potrzebne do doręczenia wiadomości: Twój adres e-mail i jej treść. Żadnemu innemu podmiotowi nie przekazujemy tych danych.",
+                body: "Twój adres e-mail i dowód zgody przechowujemy wyłącznie na serwerze administratora, stojącym pod adresem siedziby podanym wyżej. Nie korzystamy z zewnętrznego dostawcy hostingu. Wiadomości — potwierdzenie adresu i korespondencję w sprawie wdrożenia — wysyła w naszym imieniu Brevo (Sendinblue SAS, 106 boulevard Haussmann, 75008 Paryż, Francja), z którym zawarliśmy umowę powierzenia przetwarzania danych. Brevo przetwarza dane w całości na terenie Unii Europejskiej i dostaje wyłącznie to, co jest potrzebne do doręczenia wiadomości: Twój adres e-mail i jej treść. Żadnemu innemu podmiotowi nie przekazujemy tych danych.",
             },
             {
                 heading:
@@ -83,7 +83,7 @@ export default {
             },
             {
                 heading: "Automatyczne decyzje i profilowanie",
-                body: "Nie podejmujemy wobec Ciebie decyzji w sposób zautomatyzowany i nie profilujemy Cię w rozumieniu art. 22 RODO. Twój adres trafia na listę i czeka tam na jedno powiadomienie — nic poza tym się z nim nie dzieje.",
+                body: "Nie podejmujemy wobec Ciebie decyzji w sposób zautomatyzowany i nie profilujemy Cię w rozumieniu art. 22 RODO. Twój adres trafia na listę kontaktów i czeka na rozmowę o wdrożeniu — nic poza tym się z nim nie dzieje.",
             },
             {
                 heading: "Kontakt",

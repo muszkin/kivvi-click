@@ -11,6 +11,31 @@ import PrivacyView from "@/views/PrivacyView.vue";
  * route table, render its own copy rather than the fallback locale's, and be reachable from the
  * footer link that used to be href="#".
  */
+
+/**
+ * PIO-121 changed the purpose of processing from a launch notification to contact about a
+ * deployment. The first pass rewrote only the three sections the spec named, which left the
+ * document stating one purpose in three sections and a waiting list in four — a reader could not
+ * tell which one they had consented to, and the consent proof stored in `waitlist_subscriber`
+ * attests to a clause the surrounding document contradicted.
+ *
+ * These are the phrases that carried the old narrative. None of them may come back: a single one
+ * reappearing means the policy has gone internally inconsistent again, which is worse than either
+ * version on its own.
+ */
+const STALE_LAUNCH_PHRASES_PL = [
+    "listę oczekujących",
+    "liście oczekujących",
+    "powiadomienie o starcie",
+    "powiadomienia o starcie",
+    "jedno powiadomienie",
+];
+
+const STALE_LAUNCH_PHRASES_EN = [
+    "waiting list",
+    "launch notification",
+    "one notification",
+];
 async function mountAtRoute(path: string) {
     const router = createRouter({ history: createWebHistory(), routes });
     await router.push(path);
@@ -118,6 +143,21 @@ describe("PIO-70 the privacy policy page", () => {
         i18n.global.locale.value = "en";
         const english = await mountAtRoute("/en/privacy");
         expect(english.wrapper.text()).toContain("16 September 2026");
+    });
+
+    it("PIO-121 carries no waiting-list language left anywhere in the document", async () => {
+        const polish = await mountAtRoute("/pl/privacy");
+        const polishText = polish.wrapper.text();
+        for (const stale of STALE_LAUNCH_PHRASES_PL) {
+            expect(polishText).not.toContain(stale);
+        }
+
+        i18n.global.locale.value = "en";
+        const english = await mountAtRoute("/en/privacy");
+        const englishText = english.wrapper.text();
+        for (const stale of STALE_LAUNCH_PHRASES_EN) {
+            expect(englishText).not.toContain(stale);
+        }
     });
 
     it("discloses the Google Fonts transfer while index.html still loads them from Google", async () => {

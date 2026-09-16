@@ -10,7 +10,7 @@ export default {
     privacyPage: {
         title: "Privacy policy",
         updated: "Last updated: 16 September 2026",
-        intro: "This policy describes what happens to the data you leave when you join the kivvi·click waiting list. It covers that signup only — the panel and user accounts are not publicly available yet.",
+        intro: "This policy describes what happens to the data you leave when you ask us about deploying kivvi·click. It covers that form only — the panel and user accounts are not publicly available yet.",
         sections: [
             {
                 heading: "Who the controller is",
@@ -22,7 +22,7 @@ export default {
             },
             {
                 heading: "What we collect",
-                body: "When you join the waiting list we store: the e-mail address you gave, the date and time you consented, the IP address the form was sent from, your browser identifier (user agent) and the exact wording of the consent clause you saw at that moment. The last three exist only so we can show what you agreed to, and when.",
+                body: "When you leave us a contact address we store: the e-mail address you gave, the date and time you consented, the IP address the form was sent from, your browser identifier (user agent) and the exact wording of the consent clause you saw at that moment. The last three exist only so we can show what you agreed to, and when.",
             },
             {
                 heading: "What for",
@@ -50,7 +50,7 @@ export default {
             },
             {
                 heading: "Who else handles it",
-                body: "Your e-mail address and consent record are held solely on the controller's own server, located at the registered address given above. We use no external hosting provider. Our messages — the signup confirmation and the launch notification — are delivered on our behalf by Brevo (Sendinblue SAS, 106 boulevard Haussmann, 75008 Paris, France), with whom we have a data processing agreement. Brevo processes the data entirely within the European Union and receives only what delivering a message requires: your e-mail address and the content of that message. We pass this data to no one else.",
+                body: "Your e-mail address and consent record are held solely on the controller's own server, located at the registered address given above. We use no external hosting provider. Our messages — the address confirmation and the correspondence about deploying it — are delivered on our behalf by Brevo (Sendinblue SAS, 106 boulevard Haussmann, 75008 Paris, France), with whom we have a data processing agreement. Brevo processes the data entirely within the European Union and receives only what delivering a message requires: your e-mail address and the content of that message. We pass this data to no one else.",
             },
             {
                 heading: "Transfers outside the European Economic Area",
@@ -62,7 +62,7 @@ export default {
             },
             {
                 heading: "Automated decisions and profiling",
-                body: "We make no automated decisions about you and do not profile you within the meaning of Article 22 GDPR. Your address goes on a list and waits there for one notification — nothing else happens to it.",
+                body: "We make no automated decisions about you and do not profile you within the meaning of Article 22 GDPR. Your address goes on a list and waits there for a conversation about deploying it — nothing else happens to it.",
             },
             {
                 heading: "Contact",
