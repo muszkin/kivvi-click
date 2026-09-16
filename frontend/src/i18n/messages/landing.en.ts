@@ -22,7 +22,10 @@ export default {
                 "I agree to receive a single notification by e-mail when kivvi·click launches.",
             privacyLink: "What we do with this data",
             note: "One e-mail when we launch. No spam, and one click to unsubscribe.",
-            thanks: "Thanks — you are on the list. We will write when we launch.",
+            // PIO-71 made this true. It used to say the visitor was on the list, which stopped
+            // being the case the moment signing up only created a `pending` row: the address is
+            // on the list once the link in the mail is followed, and not a second earlier.
+            thanks: "Thanks — we have sent you a confirmation link. Click it and you are on the list.",
             honeypotLabel: "Leave this field empty",
         },
         featuresTitle: "Everything a modern<br><em>e-commerce</em> needs.",

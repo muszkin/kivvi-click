@@ -101,8 +101,14 @@ Docker-first — run everything through `compose.yaml`.
   from this repository's `main` branch, reading `compose.portainer.yaml`; it pulls `api` from
   GHCR and publishes port `23456`, which a Cloudflare tunnel fronts for https://kivvi.click.
   **That port number is load-bearing — changing it breaks the tunnel.** Secrets
-  (`POSTGRES_PASSWORD`, `MERCURE_JWT_SECRET`) live in the stack's environment variables in
-  Portainer, not in the repository.
+  (`POSTGRES_PASSWORD`, `MERCURE_JWT_SECRET`, and for transactional mail `SMTP_HOST`,
+  `SMTP_USERNAME`, `SMTP_PASSWORD` and `KIVVI_UNSUBSCRIBE_SECRET`) live in the stack's
+  environment variables in Portainer, not in the repository. **The application refuses to
+  start** without an SMTP host, without the relay's username and password when it wants
+  authentication, or without a 32-character unsubscribe secret — deliberately, since the
+  alternative is a container that looks healthy, serves every page, passes the post-deploy check,
+  and fails every message at AUTH into a system with no monitoring. A new one of these must be set
+  in Portainer *before* the change that needs it reaches `main`.
   - Deploying: merge to `main`. CI builds, pushes the image and calls the stack webhook.
     Nothing else is needed, and no one should run a production compose command by hand.
   - Rolling back: set `API_TAG` to an earlier commit SHA in the stack's environment variables

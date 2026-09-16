@@ -54,6 +54,29 @@ services:
       # the consent proof and the confirmation e-mail stay in this application.
       KIVVI_BREVO_API_KEY: ${BREVO_API_KEY}
       KIVVI_BREVO_LIST_ID: ${BREVO_LIST_ID:-3}
+      # Pinned so this file and compose.prod.yaml describe the same runtime: without it the two
+      # production paths differ by an active profile, and the first application-prod.yml anyone
+      # adds would apply in the local rehearsal and silently not here. Anything but `dev` — that
+      # profile diverts every message to a directory, which is convenient locally and silent data
+      # loss in production.
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-prod}
+      # PIO-71 adds two more. The names above are `main`'s and stay `main`'s — this ticket binds
+      # to them rather than inventing a parallel set, which is exactly the collision that would
+      # have left the stack's own SMTP_* variables read by nothing.
+      #
+      # Absolute base for the links inside the messages: they are composed now and delivered by a
+      # background job later, so there is no request to derive a host from, and deriving one from
+      # a visitor-controlled Host header is how a confirmation link ends up pointing elsewhere.
+      KIVVI_BASE_URL: ${KIVVI_BASE_URL:-https://kivvi.click}
+      # Required, and with no default on purpose. Every unsubscribe link is an HMAC of the
+      # subscriber's id under this secret, and those ids are sequential — a value anyone can read
+      # or guess is a list anyone can unsubscribe by walking id = 1..N. Under 32 characters, or
+      # absent, the application refuses to start and says so. Set it in this stack's environment
+      # variables BEFORE the deploy that carries PIO-71: `openssl rand -base64 48`.
+      #
+      # Rotating it invalidates every unsubscribe link already delivered — see
+      # backend/src/main/java/click/kivvi/domain/waitlist/UnsubscribeToken.java.
+      KIVVI_UNSUBSCRIBE_SECRET: ${KIVVI_UNSUBSCRIBE_SECRET}
     depends_on:
       database:
         condition: service_healthy

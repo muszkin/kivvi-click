@@ -1,18 +1,22 @@
 package click.kivvi.infrastructure.scheduling;
 
+import click.kivvi.infrastructure.mail.MailOutboxStore;
 import click.kivvi.infrastructure.tracking.EventDedupStore;
 import click.kivvi.infrastructure.waitlist.JdbcSignupThrottle;
+import java.time.Duration;
+import java.time.Instant;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
- * Sweeps the two tables that accumulate rows nobody reads again — {@code event_dedup}'s lapsed
- * idempotency claims and {@code waitlist_throttle}'s lapsed rate-limit windows — so neither grows
- * unbounded.
+ * Sweeps the three tables that accumulate rows nobody reads again — {@code event_dedup}'s lapsed
+ * idempotency claims, {@code waitlist_throttle}'s lapsed rate-limit windows, and {@code
+ * mail_outbox}'s delivered messages — so none of them grows unbounded.
  *
  * <p>PIO-70 added the second sweep here rather than scheduling a job of its own: one lock and one
  * cadence already exist for exactly this kind of housekeeping, and a second {@code @Scheduled}
@@ -47,10 +51,18 @@ public class ExpiredRowsCleanupJob {
 
   private final EventDedupStore dedupStore;
   private final JdbcSignupThrottle signupThrottle;
+  private final MailOutboxStore mailOutbox;
+  private final Duration sentMailRetention;
 
-  public ExpiredRowsCleanupJob(EventDedupStore dedupStore, JdbcSignupThrottle signupThrottle) {
+  public ExpiredRowsCleanupJob(
+      EventDedupStore dedupStore,
+      JdbcSignupThrottle signupThrottle,
+      MailOutboxStore mailOutbox,
+      @Value("${kivvi.mail.sent-retention}") Duration sentMailRetention) {
     this.dedupStore = dedupStore;
     this.signupThrottle = signupThrottle;
+    this.mailOutbox = mailOutbox;
+    this.sentMailRetention = sentMailRetention;
   }
 
   @Scheduled(fixedRateString = "${kivvi.cleanup.interval:PT1H}")
@@ -58,9 +70,12 @@ public class ExpiredRowsCleanupJob {
   public void sweep() {
     int dedupRows = dedupStore.deleteExpired();
     int throttleWindows = signupThrottle.deleteLapsedWindows();
+    int deliveredMail = mailOutbox.deleteSentBefore(Instant.now().minus(sentMailRetention));
     LOG.info(
-        "Cleanup removed {} expired dedup row(s) and {} lapsed throttle window(s).",
+        "Cleanup removed {} expired dedup row(s), {} lapsed throttle window(s) and {} delivered"
+            + " message(s).",
         dedupRows,
-        throttleWindows);
+        throttleWindows,
+        deliveredMail);
   }
 }

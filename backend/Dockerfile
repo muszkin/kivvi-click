@@ -32,6 +32,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl \
 RUN groupadd --system kivvi && useradd --system --gid kivvi --home-dir /app kivvi
 WORKDIR /app
 COPY --from=backend-build /backend/target/kivvi-click-*.jar app.jar
+# Created here rather than left to the application, because compose bind-mounts ./var/mail into
+# this tree (PIO-71's dev maildrop). Docker creates any missing parent of a mount point as
+# root-owned, and a root-owned /app/var stops the unprivileged runtime user from ever creating
+# /app/var/import — which turns every customer-import upload into an AccessDeniedException.
+RUN mkdir -p /app/var/import /app/var/mail
 RUN chown -R kivvi:kivvi /app
 USER kivvi
 EXPOSE 8080

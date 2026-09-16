@@ -41,8 +41,17 @@ defaults to this directory's name (`kivvi-click`) and would collide with prod's 
 volumes:
 
 ```bash
+mkdir -p var/mail && chmod 777 var/mail   # first run only: the dev maildrop, see below
 HTTP_PORT=8080 HTTPS_PORT=8443 HTTP3_PORT=8443 docker compose -p kivvi-dev up -d --build --wait
 ```
+
+The dev stack runs under the `dev` Spring profile, which writes every outgoing message to
+`var/mail` as an `.eml` instead of contacting an SMTP relay. That directory is bind-mounted from
+the host so the Playwright suite can read it, which means it has to exist before the stack starts
+and be writable by the container's unprivileged `kivvi` user — hence the world-writable mode on a
+git-ignored scratch directory that only ever holds development mail. Neither production path
+mounts it. If the stack runs on a port other than 8443, set `KIVVI_BASE_URL` too, or the links
+inside those messages will point at the wrong host.
 
 Open https://localhost:8443/ (self-signed certificate in dev). This builds the `api` image
 (Spring Boot jar with the Vue SPA baked into its classpath), starts `mercure` as the public
@@ -116,6 +125,11 @@ E2E_BASE_URL=https://localhost:8443 npx playwright test  # default base is https
 run serialized: add `--workers=1` when running them. The e2e suite has its own `package.json`,
 independent of `frontend/`'s.
 
+`waitlist.spec.ts` reads the confirmation link out of `var/mail` — set `E2E_MAILDROP` if the stack
+writes somewhere else. It also spends 6 of the hourly 10 signups allowed per IP, so a second run
+inside the hour starts seeing 429s; bring the stack up with `down -v` first and the counter starts
+empty.
+
 Migration parity/regression check (optional; replays the pre-migration oracle capture):
 
 ```bash
@@ -135,11 +149,37 @@ a reverse proxy in front of the stack answers for https://kivvi.click, forwardin
 no explicit trusted-proxy CIDR list is needed because `api` publishes no host port of its own —
 the Mercure edge is the only path in.
 
+> **Where production actually reads its configuration.** The live stack is deployed by Portainer
+> from `compose.portainer.yaml` (see CLAUDE.md), and its values come from that stack's own
+> environment variables — not from `.env.prod.docker`, which now only serves a local
+> production-shaped run through the `compose.yaml + compose.prod.yaml` overlay. Three files spell
+> the same variable names on purpose — `compose.portainer.yaml`, `compose.prod.yaml` and
+> `.env.prod.docker.example`. A variable added to one belongs in all three, under the same name.
+
 Runtime configuration and secrets live in `.env.prod.docker` (git- and docker-ignored; copy
 from `.env.prod.docker.example`): `SERVER_NAME`, `HTTP_PORT`, `POSTGRES_DB`/`POSTGRES_USER`/
 `POSTGRES_PASSWORD` (shared by `database` and `api`), `MERCURE_JWT_SECRET` (derives all three
-Mercure JWT env vars for both `api` and `mercure`), and an optional `IMAGES_PREFIX` for the
-built image tag.
+Mercure JWT env vars for both `api` and `mercure`), the transactional-mail settings
+`SMTP_HOST`/`SMTP_PORT`/`SMTP_USERNAME`/`SMTP_PASSWORD` plus `KIVVI_BASE_URL`, `MAIL_FROM` and
+`KIVVI_UNSUBSCRIBE_SECRET`, and an optional `IMAGES_PREFIX` for the built image tag.
+
+Mail goes out over Brevo's plain SMTP relay; the password is Brevo's **SMTP key**, not the account
+password and not an API v3 key. Missing any of the following stops the application from starting,
+deliberately — not starting is the honest failure, where starting up and silently dropping every
+confirmation is not:
+
+- `SMTP_HOST`, outside the `dev` profile, because there would be nowhere to send — and
+  `SMTP_USERNAME`/`SMTP_PASSWORD` with it whenever the relay wants authentication, which Brevo
+  does. The host has a working default, so a half-configured stack never shows up as a missing
+  host: it shows up as a relay that answers and rejects every message at AUTH, which is why the
+  credentials are the pair actually worth refusing over.
+- `KIVVI_UNSUBSCRIBE_SECRET`, at least 32 characters, because every unsubscribe link is an HMAC of
+  the subscriber's id and those ids are sequential: a missing or guessable secret is a list anyone
+  can unsubscribe. Rotating it invalidates the links in messages already delivered.
+
+Under the `dev` profile (`compose.yaml`'s default) no relay is contacted at all: every message is
+written to `./var/mail` as an `.eml`, which is what lets the Playwright suite follow a real
+confirmation link. Both production paths pin `SPRING_PROFILES_ACTIVE=prod` and neither mounts it.
 
 ```bash
 docker compose -p kivvi-click --env-file .env.prod.docker -f compose.yaml -f compose.prod.yaml up -d --build --wait

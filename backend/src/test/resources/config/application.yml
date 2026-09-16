@@ -1,0 +1,36 @@
+# Test-only configuration overrides (PIO-71).
+#
+# Deliberately at classpath:/config/ rather than classpath:/. Spring Boot reads both, with
+# /config/ taking precedence, so this file *overrides* src/main/resources/application.yml rather
+# than shadowing it — a second application.yml on the test classpath would replace the real one
+# outright and silently drop every setting it does not repeat.
+#
+# Two settings, both there so the whole *IT suite keeps booting:
+spring:
+  mail:
+    # Outside the `dev` profile MailConfigurationGuard refuses to start without a relay, and every
+    # *IT starts a full context under the default profile. A host that points nowhere is the right
+    # answer here: nothing in the suite sends over it (MailOutboxSenderIT supplies GreenMail's real
+    # port through @DynamicPropertySource), and it keeps the guard itself honest — it is proven by
+    # MailTransportProfileTest, not by being switched off.
+    host: localhost
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+            required: false
+
+kivvi:
+  mail:
+    # No default in application.yml on purpose (a readable one would let anyone unsubscribe the
+    # whole list), and the *IT suite runs under the default profile, so the tests supply their own.
+    # That it is a fixed literal is the point: UnsubscribeToken is deterministic, and a test that
+    # generated a fresh secret per run could not assert that.
+    unsubscribe-secret: test-only-unsubscribe-secret-not-a-real-one
+    sender:
+      # No background draining during tests. A scheduled pass claiming a row between a test's setup
+      # and its assertion fails a correct test, and fails it only sometimes; the tests that care
+      # call MailOutboxSenderJob.send() themselves.
+      enabled: false

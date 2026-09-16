@@ -3,12 +3,7 @@ package click.kivvi.application.waitlist;
 import click.kivvi.domain.waitlist.WaitlistSignup;
 import click.kivvi.domain.waitlist.WaitlistSignupError;
 import click.kivvi.infrastructure.waitlist.SignupThrottle;
-import click.kivvi.infrastructure.waitlist.WaitlistSubscriberStore;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
-import java.util.HexFormat;
 import java.util.Locale;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -34,18 +29,6 @@ import org.springframework.stereotype.Service;
 public class WaitlistSignupService {
 
   /**
-   * Generous enough that an office or a mobile carrier behind one NAT never notices, tight enough
-   * that a single host cannot stuff the list.
-   */
-  private static final int SIGNUPS_PER_IP_PER_HOUR = 10;
-
-  /** A real person needs one attempt, or a couple after a typo. Nobody needs a fourth. */
-  private static final int SIGNUPS_PER_ADDRESS_PER_HOUR = 3;
-
-  private static final String IP_BUCKET_PREFIX = "ip:";
-  private static final String EMAIL_BUCKET_PREFIX = "email:";
-
-  /**
    * The clause whose wording is stored as the consent proof. It must stay word-for-word identical
    * to what the form renders — {@code landingPage.waitlist.consent} in {@code
    * frontend/src/i18n/messages/landing.{pl,en}.ts} — or the record would attest to something the
@@ -55,13 +38,13 @@ public class WaitlistSignupService {
 
   private static final Logger LOG = LoggerFactory.getLogger(WaitlistSignupService.class);
 
-  private final WaitlistSubscriberStore store;
+  private final WaitlistRegistrar registrar;
   private final SignupThrottle throttle;
   private final MessageSource messageSource;
 
   public WaitlistSignupService(
-      WaitlistSubscriberStore store, SignupThrottle throttle, MessageSource messageSource) {
-    this.store = store;
+      WaitlistRegistrar registrar, SignupThrottle throttle, MessageSource messageSource) {
+    this.registrar = registrar;
     this.throttle = throttle;
     this.messageSource = messageSource;
   }
@@ -99,7 +82,8 @@ public class WaitlistSignupService {
    * happened to type.
    */
   private boolean withinAllowance(SignupRequest request) {
-    if (!throttle.tryAcquire(IP_BUCKET_PREFIX + request.clientIp(), SIGNUPS_PER_IP_PER_HOUR)) {
+    if (!throttle.tryAcquire(
+        SignupAllowance.ipBucket(request.clientIp()), SignupAllowance.PER_IP_PER_HOUR)) {
       return false;
     }
 
@@ -113,7 +97,8 @@ public class WaitlistSignupService {
       return true;
     }
 
-    return throttle.tryAcquire(emailBucketKey(normalizedEmail), SIGNUPS_PER_ADDRESS_PER_HOUR);
+    return throttle.tryAcquire(
+        SignupAllowance.addressBucket(normalizedEmail), SignupAllowance.PER_ADDRESS_PER_HOUR);
   }
 
   private void record(SignupRequest request) {
@@ -129,29 +114,13 @@ public class WaitlistSignupService {
             request.userAgent(),
             consentText);
 
-    boolean stored = store.save(signup);
+    // PIO-71: registering is no longer just an insert — it also puts a confirmation link in the
+    // post, in the same transaction. A repeat signup for an address that has not confirmed yet is
+    // therefore not "ignored" any more: nothing new is stored, but a fresh link goes out, which is
+    // exactly what someone is asking for when they submit the form again.
+    boolean stored = registrar.register(signup);
     if (!stored) {
-      LOG.info("Waitlist signup ignored: the address is already on the list.");
-    }
-  }
-
-  /**
-   * The address is hashed rather than stored in the bucket key: {@code waitlist_throttle} is a
-   * throwaway abuse counter that anyone can fill, and it has no business holding readable e-mail
-   * addresses. Hashing also keeps every key the same short length, which is what lets the column
-   * stay narrow while the address column allows the full 320 characters a mailbox may have.
-   */
-  private static String emailBucketKey(String normalizedEmail) {
-    return EMAIL_BUCKET_PREFIX + sha256Hex(normalizedEmail);
-  }
-
-  private static String sha256Hex(String value) {
-    try {
-      byte[] digest =
-          MessageDigest.getInstance("SHA-256").digest(value.getBytes(StandardCharsets.UTF_8));
-      return HexFormat.of().formatHex(digest);
-    } catch (NoSuchAlgorithmException exception) {
-      throw new IllegalStateException("SHA-256 is unavailable on this JVM.", exception);
+      LOG.info("Waitlist signup: the address was already on the list.");
     }
   }
 }

@@ -18,6 +18,8 @@ import PopupEditorView from "@/views/PopupEditorView.vue";
 import PopupsView from "@/views/PopupsView.vue";
 import PrivacyView from "@/views/PrivacyView.vue";
 import SettingsView from "@/views/SettingsView.vue";
+import WaitlistConfirmView from "@/views/WaitlistConfirmView.vue";
+import WaitlistUnsubscribeView from "@/views/WaitlistUnsubscribeView.vue";
 
 const LOCALE = "pl|en";
 
@@ -47,6 +49,27 @@ export const routes: RouteRecordRaw[] = [
         path: `/:locale(${LOCALE})/waitlist`,
         name: "waitlist",
         component: LandingView,
+        meta: { layout: PublicLayout, section: "home" },
+    },
+    {
+        // PIO-71. The three pages a confirmation mail leads to. The token pattern is the token's
+        // own shape, mirroring domain/RouteTable.java: a truncated link is a 404 rather than a
+        // page that says it has never heard of a link nobody ever issued.
+        path: `/:locale(${LOCALE})/waitlist/confirm/sent`,
+        name: "waitlist-confirm-sent",
+        component: WaitlistConfirmView,
+        meta: { layout: PublicLayout, section: "home" },
+    },
+    {
+        path: `/:locale(${LOCALE})/waitlist/confirm/:token([0-9a-f]{64})`,
+        name: "waitlist-confirm",
+        component: WaitlistConfirmView,
+        meta: { layout: PublicLayout, section: "home" },
+    },
+    {
+        path: `/:locale(${LOCALE})/waitlist/unsubscribe/:token([0-9a-f]{64})`,
+        name: "waitlist-unsubscribe",
+        component: WaitlistUnsubscribeView,
         meta: { layout: PublicLayout, section: "home" },
     },
     {

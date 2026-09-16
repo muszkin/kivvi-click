@@ -9,7 +9,14 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
+    # The base file mounts ./var/mail for the dev profile's .eml maildrop. Production sends over
+    # SMTP and must never write a message to disk, so the list is reset rather than inherited —
+    # Compose merges volume lists instead of replacing them.
+    volumes: !reset []
     environment:
+      # Anything but `dev`. Under `dev` the application diverts mail to a directory; here it must
+      # refuse to start unless SPRING_MAIL_HOST names a real relay (MailConfigurationGuard).
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-prod}
       # Derived from the same POSTGRES_* keys the `database` service below uses — one
       # documented secret (POSTGRES_PASSWORD), not a second, independently-named one that an
       # operator could set for `database` and forget for `api` (or vice versa).
@@ -26,6 +33,24 @@ services:
       # bridge network can hand out. `api` publishes no host port (see compose.yaml): the
       # `mercure` edge is the only path in, so there is no CIDR an operator could usefully
       # narrow this to. See application.yml's `server.forward-headers-strategy` comment.
+      #
+      # PIO-71: transactional mail. Brevo's SMTP relay, addressed entirely through spring.mail.*
+      # so swapping providers is these four values and nothing else. The password is Brevo's SMTP
+      # key (SMTP & API -> SMTP), not the account password and not an API v3 key. All of them, and
+      # the unsubscribe-link secret, live in .env.prod.docker — never in this file.
+      # Same stack-variable names as compose.portainer.yaml, which is what production actually
+      # deploys: two files describing one deployment must not ask for two different variables.
+      SPRING_MAIL_HOST: ${SMTP_HOST:-smtp-relay.brevo.com}
+      SPRING_MAIL_PORT: ${SMTP_PORT:-587}
+      SPRING_MAIL_USERNAME: ${SMTP_USERNAME}
+      SPRING_MAIL_PASSWORD: ${SMTP_PASSWORD}
+      KIVVI_BASE_URL: ${KIVVI_BASE_URL:-https://kivvi.click}
+      # piotr@kivvi.click is the verified sender on the authenticated domain; anything else on
+      # kivvi.click breaks DKIM alignment.
+      KIVVI_MAIL_FROM: ${MAIL_FROM:-piotr@kivvi.click}
+      # Rotating this invalidates every unsubscribe link already in the wild — see
+      # domain/waitlist/UnsubscribeToken.java.
+      KIVVI_UNSUBSCRIBE_SECRET: ${KIVVI_UNSUBSCRIBE_SECRET}
 
   mercure:
     environment:

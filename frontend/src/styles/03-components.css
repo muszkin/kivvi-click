@@ -1049,3 +1049,55 @@
     line-height: 1.65;
     color: var(--fg-1);
 }
+
+/* ------------------------------------------------------------------
+   CONFIRMATION PAGES
+   Where a link from an e-mail lands (PIO-71): one outcome, one sentence
+   of explanation, one thing to do next. Narrower and more centred than
+   .legal-page — nobody reads these, they glance at them and leave.
+   ------------------------------------------------------------------ */
+
+.confirm-page {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 96px 32px 120px;
+    text-align: center;
+}
+.confirm-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 24px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--bg-card);
+    color: var(--fg-muted);
+}
+/* A confirmed address is the one outcome worth celebrating; the rest are
+   informational and stay in the neutral palette rather than shouting. */
+.confirm-mark.is-ok,
+.confirm-mark.is-already {
+    border-color: var(--accent-soft);
+    background: var(--accent-soft);
+    color: var(--accent-soft-fg);
+}
+.confirm-page h1 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(28px, 4.5vw, 40px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+}
+.confirm-page .lead {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--fg-muted);
+    margin: 0 0 32px;
+}
+.confirm-actions {
+    display: flex;
+    justify-content: center;
+}
