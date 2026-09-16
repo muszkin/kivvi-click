@@ -7,9 +7,9 @@ import LandingView from "@/views/LandingView.vue";
 
 /**
  * Mirrors the shape GET /api/v1/{locale}/landing returns (see
- * backend/src/main/java/click/kivvi/application/LandingView.java) — six features, three
- * onboarding steps, the Free/Pro pair, three trust points, four KPI tiles and a short traffic
- * series stand in for LandingFixtures' real 60-point sparkline.
+ * backend/src/main/java/click/kivvi/application/LandingView.java) — six features, four
+ * onboarding steps, three trust points, four KPI tiles and a short traffic series stand in for
+ * LandingFixtures' real 60-point sparkline.
  */
 const LANDING_PAYLOAD = {
     features: [
@@ -21,9 +21,10 @@ const LANDING_PAYLOAD = {
         { icon: "target", title: "Rekomendacje ML", body: "..." },
     ],
     steps: [
-        { number: "01", title: "Wklej snippet", body: "..." },
-        { number: "02", title: "Wybierz szablon", body: "..." },
-        { number: "03", title: "Publikuj", body: "..." },
+        { number: "01", title: "Postaw u siebie", body: "..." },
+        { number: "02", title: "Wklej snippet", body: "..." },
+        { number: "03", title: "Wybierz szablon", body: "..." },
+        { number: "04", title: "Publikuj", body: "..." },
     ],
     trustPoints: ["Licencja MIT", "Postawisz u siebie", "Skrypt 2 KB"],
     previewTiles: [
@@ -107,11 +108,13 @@ describe("B22 the landing page structure (unit)", () => {
         ).toBeGreaterThan(0);
     });
 
-    it("renders six features and three onboarding steps", async () => {
+    // PIO-121 raised this from three to four: deploying your own instance became step 01,
+    // because the page no longer describes a hosted product you simply paste a snippet into.
+    it("renders six features and four onboarding steps", async () => {
         const wrapper = await mountAt("/pl");
 
         expect(within(wrapper, "#features").count(".feat")).toBe(6);
-        expect(within(wrapper, "#how").count(".feat")).toBe(3);
+        expect(within(wrapper, "#how").count(".feat")).toBe(4);
     });
 
     it("renders no price cards and an open-source section in their place", async () => {

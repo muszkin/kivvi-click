@@ -58,20 +58,35 @@ public final class LandingFixtures {
               "Rekomendacje ML",
               "Collaborative filtering, „kupili też”, „podobne”, „trending”."));
 
+  /**
+   * PIO-121 put deployment first. The three steps this used to hold described a hosted product a
+   * visitor walks into and pastes a snippet on; the landing page now says the software is
+   * self-hostable, so the path has to start with getting an instance of your own.
+   *
+   * <p>Polish only, like every other array here — the old stack never ran these through the
+   * translator either. The English wording agreed for the new step is "Run it yourself" / "Clone
+   * the repository and bring an instance up with one command. Would rather not — we will do it for
+   * you."; it lands when PIO-117 makes these fixtures locale-aware.
+   */
   private static final List<Step> STEPS =
       List.of(
           new Step(
               "01",
-              "Wklej snippet",
-              "Jeden tag <script> w <head>. Po 30 sekundach zaczynasz widzieć zdarzenia w"
-                  + " panelu."),
+              "Postaw u siebie",
+              "Klonujesz repozytorium i stawiasz instancję jednym poleceniem. Nie chcesz sam —"
+                  + " robimy to za Ciebie."),
           new Step(
               "02",
+              "Wklej snippet",
+              "Jeden tag <script> w <head>. Po 30 sekundach zaczynasz widzieć zdarzenia w swoim"
+                  + " panelu."),
+          new Step(
+              "03",
               "Wybierz szablon",
               "Powitanie, porzucony koszyk, win-back, rekomendacje — startuj z gotowca i"
                   + " dopasuj do Twoich tonacji."),
           new Step(
-              "03",
+              "04",
               "Publikuj",
               "Najpierw test na danych historycznych. Potem przycisk „Opublikuj” — i"
                   + " automatyzacja działa."));

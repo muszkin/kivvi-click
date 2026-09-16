@@ -27,7 +27,7 @@ export default {
             consent:
                 "Zgadzam się na kontakt w sprawie wdrożenia kivvi·click na podany adres e-mail.",
             privacyLink: "Co robimy z tymi danymi",
-            note: "Odezwiemy się w sprawie wdrożenia. Żadnego newslettera, wypisujesz się jednym kliknięciem.",
+            note: "Odezwiemy się w sprawie wdrożenia. Adres zostaje tylko na tę rozmowę.",
             // PIO-71 made this true: signing up only creates a `pending` row, so nothing is
             // promised until the link in the mail is followed.
             thanks: "Wysłaliśmy link potwierdzający. Potwierdź adres, a odezwiemy się w sprawie wdrożenia.",

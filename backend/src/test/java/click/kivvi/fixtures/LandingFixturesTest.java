@@ -16,10 +16,16 @@ class LandingFixturesTest {
   }
 
   @Test
-  @DisplayName("B22 the onboarding path has three numbered steps")
-  void onboardingPathHasThreeSteps() {
-    assertThat(LandingFixtures.steps()).hasSize(3);
-    assertThat(LandingFixtures.steps()).extracting("number").containsExactly("01", "02", "03");
+  @DisplayName("PIO-121 the onboarding path starts with deploying, in four numbered steps")
+  void onboardingPathStartsWithDeploying() {
+    assertThat(LandingFixtures.steps()).hasSize(4);
+    assertThat(LandingFixtures.steps())
+        .extracting("number")
+        .containsExactly("01", "02", "03", "04");
+    // The first step is the whole point of the new narrative: you get your own instance before
+    // you paste anything. B22's three steps began at the snippet, which only makes sense for a
+    // hosted product the visitor never installs.
+    assertThat(LandingFixtures.steps().getFirst().title()).isEqualTo("Postaw u siebie");
   }
 
   @Test

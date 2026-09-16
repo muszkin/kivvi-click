@@ -20,7 +20,7 @@ export default {
             consent:
                 "I agree to be contacted about deploying kivvi·click at the e-mail address given.",
             privacyLink: "What we do with this data",
-            note: "We will be in touch about your deployment. No newsletter, and one click to unsubscribe.",
+            note: "We'll be in touch about your deployment. The address is only ever used for that conversation.",
             // PIO-71 made this true: nothing is promised until the link in the mail is followed.
             thanks: "We have sent you a confirmation link. Confirm your address and we will be in touch about your deployment.",
             honeypotLabel: "Leave this field empty",
@@ -31,7 +31,7 @@ export default {
         howTitle: 'Five minutes to the first<br><em>"wow"</em>.',
         openSourceTitle: "Run it yourself,<br>or <em>with us</em>.",
         openSourceLead:
-            "The code is MIT-licensed — clone it, build it, run it on your own infrastructure and pay nobody. If you would rather not do that yourself, we will help you deploy it, integrate it with your shop and keep it running.",
+            "The code is MIT-licensed — clone it, build it, run it on your own infrastructure and pay nothing. If you would rather not do that yourself, we will help you deploy it, integrate it with your shop and keep it running.",
         openSourceRepo: "See the code on GitHub →",
     },
 };

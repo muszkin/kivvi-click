@@ -20,16 +20,6 @@ interface Step {
     body: string;
 }
 
-interface Plan {
-    tier: string;
-    price: string;
-    unit: string;
-    items: string[];
-    cta: string;
-    featured: boolean;
-    badge?: string;
-}
-
 interface PreviewTile {
     label: string;
     value: string;
@@ -39,7 +29,6 @@ interface PreviewTile {
 interface LandingData {
     features: Feature[];
     steps: Step[];
-    plans: Plan[];
     trustPoints: string[];
     previewTiles: PreviewTile[];
     previewSeries: number[];
@@ -254,7 +243,7 @@ onMounted(async () => {
             <div
                 style="
                     display: grid;
-                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                    grid-template-columns: repeat(4, minmax(0, 1fr));
                     gap: 18px;
                     margin-top: 36px;
                 "

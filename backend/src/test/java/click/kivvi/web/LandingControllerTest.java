@@ -25,7 +25,7 @@ class LandingControllerTest {
     mvc.perform(get("/api/v1/pl/landing"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.features.length()").value(6))
-        .andExpect(jsonPath("$.steps.length()").value(3))
+        .andExpect(jsonPath("$.steps.length()").value(4))
         .andExpect(jsonPath("$.plans").doesNotExist())
         .andExpect(jsonPath("$.trustPoints.length()").value(3))
         .andExpect(jsonPath("$.trustPoints[0]").value("Licencja MIT"))

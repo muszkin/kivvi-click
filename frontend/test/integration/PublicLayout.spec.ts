@@ -60,6 +60,45 @@ describe("PIO-121 the public nav and footer", () => {
         expect(footer).not.toContain("Zbudowane w Polsce");
     });
 
+    it("the header's primary button points at the repository, not the login form", async () => {
+        const wrapper = await mountLayout("/pl");
+
+        const cta = wrapper.find(".landing-nav-repo");
+        expect(cta.text()).toBe("Kod na GitHubie →");
+        expect(cta.attributes("href")).toBe(
+            "https://github.com/muszkin/kivvi-click",
+        );
+        // An outbound link now, so it gets the treatment one needs.
+        expect(cta.attributes("target")).toBe("_blank");
+        expect(cta.attributes("rel")).toContain("noopener");
+    });
+
+    it("the header no longer offers to create an account there is no way to create", async () => {
+        const wrapper = await mountLayout("/pl");
+
+        const header = wrapper.find(".landing-nav").text();
+        expect(header).not.toContain("Załóż konto");
+    });
+
+    it("the English header is in English, both buttons", async () => {
+        i18n.global.locale.value = "en";
+        const wrapper = await mountLayout("/en");
+
+        const header = wrapper.find(".landing-nav").text();
+        expect(header).toContain("Sign in");
+        expect(header).toContain("Source on GitHub →");
+        expect(header).not.toContain("Logowanie");
+    });
+
+    it("the login button still leads to the panel, because the demo behind it is real", async () => {
+        const wrapper = await mountLayout("/pl");
+
+        const login = wrapper
+            .findAll(".landing-nav a")
+            .find((a) => a.text() === "Logowanie");
+        expect(login?.attributes("href")).toBe("/pl/login");
+    });
+
     it("the nav points at the open-source section, not a dead pricing anchor", async () => {
         const wrapper = await mountLayout("/pl");
 

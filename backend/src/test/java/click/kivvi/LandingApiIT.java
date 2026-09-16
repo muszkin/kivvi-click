@@ -46,7 +46,7 @@ class LandingApiIT {
     LandingView body = response.getBody();
     assertThat(body).isNotNull();
     assertThat(body.features()).hasSize(6);
-    assertThat(body.steps()).hasSize(3);
+    assertThat(body.steps()).hasSize(4);
     assertThat(body.trustPoints())
         .containsExactly("Licencja MIT", "Postawisz u siebie", "Skrypt 2 KB");
     assertThat(body.previewTiles()).hasSize(4);

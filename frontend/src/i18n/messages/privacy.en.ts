@@ -50,7 +50,7 @@ export default {
             },
             {
                 heading: "Who else handles it",
-                body: "Your e-mail address and consent record are held solely on the controller's own server, located at the registered address given above. We use no external hosting provider. Our messages — the address confirmation and the correspondence about deploying it — are delivered on our behalf by Brevo (Sendinblue SAS, 106 boulevard Haussmann, 75008 Paris, France), with whom we have a data processing agreement. Brevo processes the data entirely within the European Union and receives only what delivering a message requires: your e-mail address and the content of that message. We pass this data to no one else.",
+                body: "Your e-mail address and consent record are held solely on the controller's own server, located at the registered address given above. We use no external hosting provider. Our messages — the address confirmation and the correspondence about deploying kivvi·click — are delivered on our behalf by Brevo (Sendinblue SAS, 106 boulevard Haussmann, 75008 Paris, France), with whom we have a data processing agreement. Brevo processes the data entirely within the European Union and receives only what delivering a message requires: your e-mail address and the content of that message. We pass this data to no one else.",
             },
             {
                 heading: "Transfers outside the European Economic Area",
@@ -62,7 +62,7 @@ export default {
             },
             {
                 heading: "Automated decisions and profiling",
-                body: "We make no automated decisions about you and do not profile you within the meaning of Article 22 GDPR. Your address goes on a list and waits there for a conversation about deploying it — nothing else happens to it.",
+                body: "We make no automated decisions about you and do not profile you within the meaning of Article 22 GDPR. Your address goes on a list and waits there for a conversation about deploying kivvi·click — nothing else happens to it.",
             },
             {
                 heading: "Contact",

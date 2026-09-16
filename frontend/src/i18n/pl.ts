@@ -57,7 +57,11 @@ export default {
         openSource: "Open source",
         blog: "Blog",
         login: "Logowanie",
-        register: "Załóż konto →",
+        // PIO-121: this used to read "Załóż konto →" and point at the login form, because there
+        // is no registration to point it at. On a page that says "run it yourself", whose privacy
+        // policy says accounts are not publicly available, it was the loudest thing left from the
+        // old story. It points at the source now. The login button stays: the demo panel is real.
+        register: "Kod na GitHubie →",
         terms: "Regulamin",
         privacy: "Prywatność",
         // PIO-121: the footer used to claim Symfony and PHP, hard-coded in PublicLayout.vue —
