@@ -55,13 +55,19 @@ export default {
     landing: {
         features: "Features",
         how: "How it works",
-        pricing: "Pricing",
-        // "Blog", "Logowanie" and "Załóż konto →" have no entry in messages.en.yaml either —
-        // same PL fallback as common.collapseSidebar above.
+        openSource: "Open source",
+        // "Blog" reads the same either way. `terms` and `privacy` still carry the Polish string
+        // for want of an entry in messages.en.yaml — same PL fallback as common.collapseSidebar
+        // above, and PIO-117's to finish.
         blog: "Blog",
-        login: "Logowanie",
-        register: "Załóż konto →",
+        // PIO-121 translated these two: see pl.ts for why `register` stopped selling an account
+        // and now points at the repository.
+        login: "Sign in",
+        register: "Source on GitHub →",
         terms: "Regulamin",
         privacy: "Prywatność",
+        // PIO-121: see pl.ts — the footer claim is a key now, translated on both sides.
+        builtWith: "Built in Poland with Java and Vue 3. MIT-licensed code.",
+        repo: "GitHub",
     },
 };

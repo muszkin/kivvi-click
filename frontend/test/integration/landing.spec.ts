@@ -18,17 +18,7 @@ const LANDING_PAYLOAD = {
         { icon: "activity", title: "Strumień zdarzeń na żywo", body: "..." },
     ],
     steps: [{ number: "01", title: "Wklej snippet", body: "..." }],
-    plans: [
-        {
-            tier: "Free",
-            price: "0",
-            unit: " zł / mies.",
-            items: ["x"],
-            cta: "Zacznij za darmo",
-            featured: false,
-        },
-    ],
-    trustPoints: ["14 dni Pro za darmo"],
+    trustPoints: ["Licencja MIT"],
     previewTiles: [{ label: "Zdarzeń / min", value: "847" }],
     previewSeries: [10, 15, 12, 30],
 };

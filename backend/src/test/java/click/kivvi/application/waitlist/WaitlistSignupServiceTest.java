@@ -28,7 +28,7 @@ import org.springframework.context.support.StaticMessageSource;
  */
 class WaitlistSignupServiceTest {
 
-  private static final String CONSENT_TEXT = "Zgadzam się na otrzymanie powiadomienia o starcie.";
+  private static final String CONSENT_TEXT = "Zgadzam się na kontakt w sprawie wdrożenia.";
 
   private final RecordingRegistrar registrar = new RecordingRegistrar();
   private final CountingThrottle throttle = new CountingThrottle();
@@ -164,7 +164,7 @@ class WaitlistSignupServiceTest {
             "ala@sklep.pl", true, "", SupportedLocale.EN, "203.0.113.7", "Mozilla/5.0"));
 
     assertThat(registrar.registered.getFirst().consent().text())
-        .isEqualTo("I agree to be told when it launches.");
+        .isEqualTo("I agree to be contacted about a deployment.");
   }
 
   private static SignupRequest request(String email, boolean consentGiven, String honeypot) {
@@ -178,7 +178,7 @@ class WaitlistSignupServiceTest {
     source.addMessage(
         "waitlist.consent.text",
         Locale.forLanguageTag("en"),
-        "I agree to be told when it launches.");
+        "I agree to be contacted about a deployment.");
     return source;
   }
 

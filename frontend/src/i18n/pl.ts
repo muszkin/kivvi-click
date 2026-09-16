@@ -54,11 +54,20 @@ export default {
     landing: {
         features: "Funkcje",
         how: "Jak to działa",
-        pricing: "Cennik",
+        openSource: "Open source",
         blog: "Blog",
         login: "Logowanie",
-        register: "Załóż konto →",
+        // PIO-121: this used to read "Załóż konto →" and point at the login form, because there
+        // is no registration to point it at. On a page that says "run it yourself", whose privacy
+        // policy says accounts are not publicly available, it was the loudest thing left from the
+        // old story. It points at the source now. The login button stays: the demo panel is real.
+        register: "Kod na GitHubie →",
         terms: "Regulamin",
         privacy: "Prywatność",
+        // PIO-121: the footer used to claim Symfony and PHP, hard-coded in PublicLayout.vue —
+        // which is why the English site rendered it in Polish. It is a key now, in both
+        // catalogues, so the fix cannot regress the same way.
+        builtWith: "Zbudowane w Polsce na Javie i Vue 3. Kod na licencji MIT.",
+        repo: "GitHub",
     },
 };

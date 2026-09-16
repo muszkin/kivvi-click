@@ -13,12 +13,12 @@ export default {
     waitlistPage: {
         confirm: {
             ok: {
-                title: "Gotowe — jesteś na liście",
-                body: "Potwierdziliśmy Twój adres. Odezwiemy się dokładnie raz: kiedy kivvi·click ruszy.",
+                title: "Gotowe — potwierdziliśmy adres",
+                body: "Potwierdziliśmy Twój adres. Odezwiemy się w sprawie wdrożenia kivvi·click.",
             },
             already: {
                 title: "Ten adres jest już potwierdzony",
-                body: "Nie musisz nic więcej robić — jesteś na liście i czekasz na jedno powiadomienie o starcie.",
+                body: "Nie musisz nic więcej robić — mamy Twój adres i odezwiemy się w sprawie wdrożenia.",
             },
             expired: {
                 title: "Ten link już wygasł",
@@ -27,7 +27,7 @@ export default {
             },
             unknown: {
                 title: "Nie znamy tego linku",
-                body: "Link mógł zostać skrócony albo przycięty przez program pocztowy. Skopiuj go z wiadomości w całości albo zapisz się ponownie na stronie głównej.",
+                body: "Link mógł zostać skrócony albo przycięty przez program pocztowy. Skopiuj go z wiadomości w całości albo zostaw adres ponownie na stronie głównej.",
             },
             sent: {
                 title: "Sprawdź skrzynkę",
@@ -37,7 +37,7 @@ export default {
         unsubscribe: {
             ok: {
                 title: "Wypisaliśmy Cię",
-                body: "Twój adres nie jest już na liście oczekujących i nie dostaniesz od nas żadnej wiadomości. Jeśli zmienisz zdanie, możesz zapisać się ponownie na stronie głównej.",
+                body: "Usunęliśmy Twój adres i nie dostaniesz od nas żadnej wiadomości. Jeśli zmienisz zdanie, możesz zostawić go ponownie na stronie głównej.",
             },
             unknown: {
                 title: "Nie znamy tego linku",

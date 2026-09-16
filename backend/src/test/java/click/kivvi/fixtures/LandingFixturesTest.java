@@ -2,7 +2,6 @@ package click.kivvi.fixtures;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import click.kivvi.fixtures.LandingFixtures.Plan;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -17,26 +16,31 @@ class LandingFixturesTest {
   }
 
   @Test
-  @DisplayName("B22 the onboarding path has three numbered steps")
-  void onboardingPathHasThreeSteps() {
-    assertThat(LandingFixtures.steps()).hasSize(3);
-    assertThat(LandingFixtures.steps()).extracting("number").containsExactly("01", "02", "03");
+  @DisplayName("PIO-121 the onboarding path starts with deploying, in four numbered steps")
+  void onboardingPathStartsWithDeploying() {
+    assertThat(LandingFixtures.steps()).hasSize(4);
+    assertThat(LandingFixtures.steps())
+        .extracting("number")
+        .containsExactly("01", "02", "03", "04");
+    // The first step is the whole point of the new narrative: you get your own instance before
+    // you paste anything. B22's three steps began at the snippet, which only makes sense for a
+    // hosted product the visitor never installs.
+    assertThat(LandingFixtures.steps().getFirst().title()).isEqualTo("Postaw u siebie");
   }
 
   @Test
-  @DisplayName("B22 the pricing grid is Free then featured Pro, carrying the 'popularne' badge")
-  void pricingGridIsFreeThenFeaturedPro() {
-    assertThat(LandingFixtures.plans()).hasSize(2);
+  @DisplayName("PIO-121 the trust points promise the licence and self-hosting, not a trial")
+  void trustPointsPromiseTheLicenceNotATrial() {
+    assertThat(LandingFixtures.trustPoints())
+        .containsExactly("Licencja MIT", "Postawisz u siebie", "Skrypt 2 KB");
+  }
 
-    Plan free = LandingFixtures.plans().get(0);
-    assertThat(free.tier()).isEqualTo("Free");
-    assertThat(free.featured()).isFalse();
-    assertThat(free.badge()).isNull();
-
-    Plan pro = LandingFixtures.plans().get(1);
-    assertThat(pro.tier()).isEqualTo("Pro");
-    assertThat(pro.featured()).isTrue();
-    assertThat(pro.badge()).isEqualTo("popularne");
+  @Test
+  @DisplayName("PIO-121 no feature card gates a capability behind a paid plan")
+  void noFeatureCardGatesACapabilityBehindAPaidPlan() {
+    assertThat(LandingFixtures.features())
+        .extracting("body")
+        .noneMatch(body -> ((String) body).contains("Plan Pro"));
   }
 
   @Test

@@ -7,33 +7,31 @@ export default {
         kicker: "Marketing automation for e-commerce",
         headline:
             '<span class="accent">See</span>, <span class="brown">decide</span>,<br>and act <em class="accent">in real time</em>.',
-        lead: "Kivvi-click connects visitor tracking with automations: popups, emails, coupons and recommendations — delivered at the right moment.",
-        // See landing.pl.ts for why ctaPrimary stays after PIO-70 replaced the hero CTA.
-        ctaPrimary: "Create a free account →",
+        lead: "Kivvi-click connects visitor tracking with automations: popups, emails, coupons and recommendations — delivered at the right moment. The whole codebase is open under the MIT licence: you can run it yourself.",
+        // See landing.pl.ts for why PIO-121 removed ctaPrimary along with the price cards.
         ctaSecondary: "See the demo panel",
         waitlist: {
             label: "E-mail address",
             // See landing.pl.ts: a bare "@" would read as a linked message.
             placeholder: "you{'@'}shop.com",
-            submit: "Notify me →",
+            submit: "Let's talk about your deployment →",
             // Must stay word-for-word identical to waitlist.consent.text in
             // backend/src/main/resources/messages_en.properties — see landing.pl.ts.
             consent:
-                "I agree to receive a single notification by e-mail when kivvi·click launches.",
+                "I agree to be contacted about deploying kivvi·click at the e-mail address given.",
             privacyLink: "What we do with this data",
-            note: "One e-mail when we launch. No spam, and one click to unsubscribe.",
-            // PIO-71 made this true. It used to say the visitor was on the list, which stopped
-            // being the case the moment signing up only created a `pending` row: the address is
-            // on the list once the link in the mail is followed, and not a second earlier.
-            thanks: "Thanks — we have sent you a confirmation link. Click it and you are on the list.",
+            note: "We'll be in touch about your deployment. The address is only ever used for that conversation.",
+            // PIO-71 made this true: nothing is promised until the link in the mail is followed.
+            thanks: "We have sent you a confirmation link. Confirm your address and we will be in touch about your deployment.",
             honeypotLabel: "Leave this field empty",
         },
         featuresTitle: "Everything a modern<br><em>e-commerce</em> needs.",
         featuresLead:
             "One panel instead of five tools. The full customer picture, automations driven by real behaviour, delivery channels in one place.",
         howTitle: 'Five minutes to the first<br><em>"wow"</em>.',
-        pricingTitle: "No hidden costs,<br>no penalty for growing.",
-        pricingLead:
-            "Start free. Pay when you need more scale or the ML engine.",
+        openSourceTitle: "Run it yourself,<br>or <em>with us</em>.",
+        openSourceLead:
+            "The code is MIT-licensed — clone it, build it, run it on your own infrastructure and pay nothing. If you would rather not do that yourself, we will help you deploy it, integrate it with your shop and keep it running.",
+        openSourceRepo: "See the code on GitHub →",
     },
 };

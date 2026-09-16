@@ -10,28 +10,27 @@ export default {
         kicker: "Marketing automation dla e-commerce",
         headline:
             '<span class="accent">Widzisz</span>, <span class="brown">decydujesz</span>,<br>i działasz <em class="accent">w czasie rzeczywistym</em>.',
-        lead: "Kivvi-click łączy śledzenie zachowania odwiedzających z automatyzacjami: popupami, e-mailami, kuponami i rekomendacjami — wysyłanymi w odpowiednim momencie.",
-        // PIO-70 replaced the primary CTA with the waitlist form; ctaPrimary stays in the
-        // catalogue because the pricing cards still use the same wording on their own buttons.
-        ctaPrimary: "Załóż darmowe konto →",
+        lead: "Kivvi-click łączy śledzenie zachowania odwiedzających z automatyzacjami: popupami, e-mailami, kuponami i rekomendacjami — wysyłanymi w odpowiednim momencie. Cały kod jest otwarty na licencji MIT: możesz postawić go u siebie.",
+        // PIO-121 removed ctaPrimary together with the price cards: their buttons were its only
+        // remaining reader once PIO-70 had replaced the hero CTA with the form below.
         ctaSecondary: "Zobacz panel demo",
         waitlist: {
             label: "Adres e-mail",
             // vue-i18n reads a bare "@" as the start of a linked message, so the address
             // placeholder escapes it as a literal.
             placeholder: "twoj{'@'}sklep.pl",
-            submit: "Powiadom mnie →",
+            submit: "Porozmawiajmy o wdrożeniu →",
             // Stored verbatim as the consent proof on every subscriber row, so this must stay
             // word-for-word identical to waitlist.consent.text in
-            // backend/src/main/resources/messages_pl.properties.
+            // backend/src/main/resources/messages_pl.properties. PIO-121 changed the purpose to
+            // contact about a deployment; rows collected under the old clause keep it.
             consent:
-                "Zgadzam się na otrzymanie jednorazowego powiadomienia o starcie kivvi·click na podany adres e-mail.",
+                "Zgadzam się na kontakt w sprawie wdrożenia kivvi·click na podany adres e-mail.",
             privacyLink: "Co robimy z tymi danymi",
-            note: "Jeden e-mail, kiedy ruszamy. Żadnego spamu, wypisujesz się jednym kliknięciem.",
-            // PIO-71 made this true. It used to say the visitor was on the list, which stopped
-            // being the case the moment signing up only created a `pending` row: the address is
-            // on the list once the link in the mail is followed, and not a second earlier.
-            thanks: "Dzięki — wysłaliśmy Ci link potwierdzający. Kliknij go, a trafisz na listę.",
+            note: "Odezwiemy się w sprawie wdrożenia. Adres zostaje tylko na tę rozmowę.",
+            // PIO-71 made this true: signing up only creates a `pending` row, so nothing is
+            // promised until the link in the mail is followed.
+            thanks: "Wysłaliśmy link potwierdzający. Potwierdź adres, a odezwiemy się w sprawie wdrożenia.",
             honeypotLabel: "Zostaw to pole puste",
         },
         featuresTitle:
@@ -39,8 +38,9 @@ export default {
         featuresLead:
             "Jeden panel zamiast pięciu narzędzi. Pełny obraz klienta, automatyzacje oparte o realne zachowanie, kanały dostarczania w jednym miejscu.",
         howTitle: "Pięć minut do pierwszego<br><em>„wow”</em>.",
-        pricingTitle: "Bez ukrytych kosztów,<br>bez kar za sukces.",
-        pricingLead:
-            "Zaczynasz za darmo. Płacisz dopiero gdy potrzebujesz większej skali albo silnika ML.",
+        openSourceTitle: "Postaw sam<br>albo <em>z nami</em>.",
+        openSourceLead:
+            "Kod jest na licencji MIT — klonujesz, budujesz, uruchamiasz na swojej infrastrukturze i nikomu nic nie płacisz. Jeśli wolisz nie robić tego sam, pomożemy wdrożyć, zintegrować z Twoim sklepem i utrzymać.",
+        openSourceRepo: "Zobacz kod na GitHubie →",
     },
 };

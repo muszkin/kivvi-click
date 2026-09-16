@@ -11,6 +11,31 @@ import PrivacyView from "@/views/PrivacyView.vue";
  * route table, render its own copy rather than the fallback locale's, and be reachable from the
  * footer link that used to be href="#".
  */
+
+/**
+ * PIO-121 changed the purpose of processing from a launch notification to contact about a
+ * deployment. The first pass rewrote only the three sections the spec named, which left the
+ * document stating one purpose in three sections and a waiting list in four — a reader could not
+ * tell which one they had consented to, and the consent proof stored in `waitlist_subscriber`
+ * attests to a clause the surrounding document contradicted.
+ *
+ * These are the phrases that carried the old narrative. None of them may come back: a single one
+ * reappearing means the policy has gone internally inconsistent again, which is worse than either
+ * version on its own.
+ */
+const STALE_LAUNCH_PHRASES_PL = [
+    "listę oczekujących",
+    "liście oczekujących",
+    "powiadomienie o starcie",
+    "powiadomienia o starcie",
+    "jedno powiadomienie",
+];
+
+const STALE_LAUNCH_PHRASES_EN = [
+    "waiting list",
+    "launch notification",
+    "one notification",
+];
 async function mountAtRoute(path: string) {
     const router = createRouter({ history: createWebHistory(), routes });
     await router.push(path);
@@ -73,6 +98,66 @@ describe("PIO-70 the privacy policy page", () => {
         // what this page shipped with before the owner supplied the real one.
         expect(text).toContain("piotr@kivvi.click");
         expect(text).not.toMatch(/do uzupełnienia|\[.*—.*\]/);
+    });
+
+    it("PIO-121 states the new purpose — contact about a deployment, not a launch notification", async () => {
+        const { wrapper } = await mountAtRoute("/pl/privacy");
+
+        const text = wrapper.text();
+        expect(text).toContain("w sprawie wdrożenia kivvi·click");
+        expect(text).not.toContain(
+            "jedno powiadomienie, kiedy kivvi·click ruszy",
+        );
+    });
+
+    it("PIO-121 ties retention to the deployment conversation, not to a launch that will not happen", async () => {
+        const { wrapper } = await mountAtRoute("/pl/privacy");
+
+        const text = wrapper.text();
+        expect(text).toContain("Do zakończenia rozmowy o wdrożeniu");
+        expect(text).not.toContain("Do czasu wysłania powiadomienia o starcie");
+    });
+
+    it("PIO-121 says the consequence of withholding data is no contact, not a missed list", async () => {
+        const { wrapper } = await mountAtRoute("/pl/privacy");
+
+        expect(wrapper.text()).toContain("nie skontaktujemy się z Tobą");
+    });
+
+    it("PIO-121 carries the same three changes in English", async () => {
+        i18n.global.locale.value = "en";
+        const { wrapper } = await mountAtRoute("/en/privacy");
+
+        const text = wrapper.text();
+        expect(text).toContain("about deploying kivvi·click");
+        expect(text).toContain(
+            "Until the conversation about your deployment has ended",
+        );
+        expect(text).toContain("we will not contact you");
+    });
+
+    it("PIO-121 dates both language versions to the day the purpose changed", async () => {
+        const polish = await mountAtRoute("/pl/privacy");
+        expect(polish.wrapper.text()).toContain("16 września 2026");
+
+        i18n.global.locale.value = "en";
+        const english = await mountAtRoute("/en/privacy");
+        expect(english.wrapper.text()).toContain("16 September 2026");
+    });
+
+    it("PIO-121 carries no waiting-list language left anywhere in the document", async () => {
+        const polish = await mountAtRoute("/pl/privacy");
+        const polishText = polish.wrapper.text();
+        for (const stale of STALE_LAUNCH_PHRASES_PL) {
+            expect(polishText).not.toContain(stale);
+        }
+
+        i18n.global.locale.value = "en";
+        const english = await mountAtRoute("/en/privacy");
+        const englishText = english.wrapper.text();
+        for (const stale of STALE_LAUNCH_PHRASES_EN) {
+            expect(englishText).not.toContain(stale);
+        }
     });
 
     it("discloses the Google Fonts transfer while index.html still loads them from Google", async () => {

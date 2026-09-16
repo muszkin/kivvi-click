@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Copy for the public marketing page: feature grid, the three onboarding steps, and the Free / Pro
- * pricing pair — ported from {@code LandingContent}. None of it is translated (the old stack never
- * ran these arrays through the translator either), so it is the same for every locale.
+ * Copy for the public marketing page: feature grid, the three onboarding steps and the trust points
+ * — ported from {@code LandingContent}. None of it is translated (the old stack never ran these
+ * arrays through the translator either), so it is the same for every locale.
+ *
+ * <p>PIO-121 removed the Free / Pro pricing pair: the software is MIT-licensed and self-hostable,
+ * so there is no price list to render.
  *
  * <p>Returns its own record types rather than {@code application.LandingView}'s nested ones —
  * mirrors {@code ShellFixtures.Workspace}: {@code fixtures} is a leaf package, so an application
@@ -20,16 +23,6 @@ public final class LandingFixtures {
   public record Feature(String icon, String title, String body) {}
 
   public record Step(String number, String title, String body) {}
-
-  /** {@code unit} carries its own leading space, mirroring {@code LandingContent::plans()}. */
-  public record Plan(
-      String tier,
-      String price,
-      String unit,
-      List<String> items,
-      String cta,
-      boolean featured,
-      String badge) {}
 
   public record PreviewTile(String label, String value, String unit) {}
 
@@ -63,57 +56,43 @@ public final class LandingFixtures {
           new Feature(
               "target",
               "Rekomendacje ML",
-              "Collaborative filtering, „kupili też”, „podobne”, „trending”. Plan Pro"
-                  + " odblokowuje pełen silnik personalizacji."));
+              "Collaborative filtering, „kupili też”, „podobne”, „trending”."));
 
+  /**
+   * PIO-121 put deployment first. The three steps this used to hold described a hosted product a
+   * visitor walks into and pastes a snippet on; the landing page now says the software is
+   * self-hostable, so the path has to start with getting an instance of your own.
+   *
+   * <p>Polish only, like every other array here — the old stack never ran these through the
+   * translator either. The English wording agreed for the new step is "Run it yourself" / "Clone
+   * the repository and bring an instance up with one command. Would rather not — we will do it for
+   * you."; it lands when PIO-117 makes these fixtures locale-aware.
+   */
   private static final List<Step> STEPS =
       List.of(
           new Step(
               "01",
-              "Wklej snippet",
-              "Jeden tag <script> w <head>. Po 30 sekundach zaczynasz widzieć zdarzenia w"
-                  + " panelu."),
+              "Postaw u siebie",
+              "Klonujesz repozytorium i stawiasz instancję jednym poleceniem. Nie chcesz sam —"
+                  + " robimy to za Ciebie."),
           new Step(
               "02",
+              "Wklej snippet",
+              "Jeden tag <script> w <head>. Po 30 sekundach zaczynasz widzieć zdarzenia w swoim"
+                  + " panelu."),
+          new Step(
+              "03",
               "Wybierz szablon",
               "Powitanie, porzucony koszyk, win-back, rekomendacje — startuj z gotowca i"
                   + " dopasuj do Twoich tonacji."),
           new Step(
-              "03",
+              "04",
               "Publikuj",
               "Najpierw test na danych historycznych. Potem przycisk „Opublikuj” — i"
                   + " automatyzacja działa."));
 
-  private static final List<Plan> PLANS =
-      List.of(
-          new Plan(
-              "Free",
-              "0",
-              " zł / mies.",
-              List.of(
-                  "1 strona, do 50 000 zdarzeń / mies.",
-                  "1 000 maili / mies.",
-                  "Reguły, popupy, kupony",
-                  "Wsparcie społeczności"),
-              "Zacznij za darmo",
-              false,
-              null),
-          new Plan(
-              "Pro",
-              "149",
-              " zł / mies.",
-              List.of(
-                  "5 stron, bez limitu zdarzeń",
-                  "Bez limitu maili (Twój dostawca)",
-                  "Pełny silnik rekomendacji ML",
-                  "Webhooks, API, RODO/DPA",
-                  "Wsparcie e-mail w 24h"),
-              "Zacznij 14-dniowy trial →",
-              true,
-              "popularne"));
-
   private static final List<String> TRUST_POINTS =
-      List.of("14 dni Pro za darmo", "Bez karty", "Skrypt 2 KB");
+      List.of("Licencja MIT", "Postawisz u siebie", "Skrypt 2 KB");
 
   private LandingFixtures() {}
 
@@ -123,10 +102,6 @@ public final class LandingFixtures {
 
   public static List<Step> steps() {
     return STEPS;
-  }
-
-  public static List<Plan> plans() {
-    return PLANS;
   }
 
   public static List<String> trustPoints() {

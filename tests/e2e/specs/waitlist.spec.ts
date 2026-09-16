@@ -176,7 +176,7 @@ test.describe("waitlist double opt-in", () => {
             "data-state",
             "ok",
         );
-        await expect(page.locator("h1")).toContainText("jesteś na liście");
+        await expect(page.locator("h1")).toContainText("potwierdziliśmy adres");
 
         // Following it again is reassurance, not an error and not a second confirmation.
         await page.reload();

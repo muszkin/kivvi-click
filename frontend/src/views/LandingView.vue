@@ -6,7 +6,6 @@ import Button from "@/components/atoms/Button.vue";
 import Field from "@/components/atoms/Field.vue";
 import Icon from "@/components/atoms/Icon.vue";
 import Feat from "@/components/molecules/Feat.vue";
-import PriceCard from "@/components/molecules/PriceCard.vue";
 import HeroPreview from "@/components/organisms/HeroPreview.vue";
 
 interface Feature {
@@ -21,16 +20,6 @@ interface Step {
     body: string;
 }
 
-interface Plan {
-    tier: string;
-    price: string;
-    unit: string;
-    items: string[];
-    cta: string;
-    featured: boolean;
-    badge?: string;
-}
-
 interface PreviewTile {
     label: string;
     value: string;
@@ -40,7 +29,6 @@ interface PreviewTile {
 interface LandingData {
     features: Feature[];
     steps: Step[];
-    plans: Plan[];
     trustPoints: string[];
     previewTiles: PreviewTile[];
     previewSeries: number[];
@@ -51,7 +39,9 @@ const route = useRoute();
 const locale = computed(() =>
     typeof route.params.locale === "string" ? route.params.locale : "pl",
 );
-const loginHref = computed(() => `/${locale.value}/login`);
+// PIO-121 replaced the price cards — the only readers of loginHref here — with the open-source
+// section, which links the repository instead.
+const repoHref = "https://github.com/muszkin/kivvi-click";
 const demoHref = computed(() => `/${locale.value}/demo`);
 const waitlistAction = computed(() => `/${locale.value}/waitlist`);
 const privacyHref = computed(() => `/${locale.value}/privacy`);
@@ -253,7 +243,7 @@ onMounted(async () => {
             <div
                 style="
                     display: grid;
-                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                    grid-template-columns: repeat(4, minmax(0, 1fr));
                     gap: 18px;
                     margin-top: 36px;
                 "
@@ -282,7 +272,7 @@ onMounted(async () => {
 
         <section
             class="landing-section"
-            id="pricing"
+            id="open-source"
             style="border-top: 1px solid var(--line)"
         >
             <div
@@ -295,24 +285,15 @@ onMounted(async () => {
                     margin-bottom: 8px;
                 "
             >
-                {{ t("landing.pricing") }}
+                {{ t("landing.openSource") }}
             </div>
-            <h2 v-html="t('landingPage.pricingTitle')"></h2>
-            <p class="lead">{{ t("landingPage.pricingLead") }}</p>
-            <div class="pricing-grid">
-                <PriceCard
-                    v-for="plan in landing.plans"
-                    :key="plan.tier"
-                    :tier="plan.tier"
-                    :price="plan.price"
-                    :unit="plan.unit"
-                    :items="plan.items"
-                    :cta="plan.cta"
-                    :featured="plan.featured"
-                    :badge="plan.badge"
-                    :href="loginHref"
-                />
-            </div>
+            <h2 v-html="t('landingPage.openSourceTitle')"></h2>
+            <p class="lead">{{ t("landingPage.openSourceLead") }}</p>
+            <p class="open-source-repo">
+                <a :href="repoHref" target="_blank" rel="noopener noreferrer">{{
+                    t("landingPage.openSourceRepo")
+                }}</a>
+            </p>
         </section>
     </template>
 </template>
