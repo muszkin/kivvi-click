@@ -11,9 +11,10 @@ Before repository-wide research, implementation planning, implementation orchest
 ## Product Context
 
 This project is `kivvi-click`, a from-scratch rebuild of the original kivvi-click product.
-It is a multi-tenant SaaS marketing-automation platform for e-commerce sites and consumer
-websites: track visitor behavior, configure rule-based automations, and deliver popups,
-emails, coupons, banners, and product recommendations at the right moment.
+It is open-source marketing-automation software for e-commerce sites and consumer websites,
+MIT-licensed and run on your own infrastructure, with many accounts on one instance: track
+visitor behavior, configure rule-based automations, and deliver popups, emails, coupons,
+banners, and product recommendations at the right moment.
 
 Use the local product spec in `.claude/skills/product-spec/SKILL.md` when planning or
 building features, deciding scope, or answering domain-model questions. Reuse the product
@@ -37,7 +38,8 @@ Important product constraints:
 - Tracking script should stay lightweight, about 2KB minified, with no external dependencies.
 - Tracking events must be idempotent and deduplicated by idempotency id.
 - Multi-tenancy is fundamental.
-- Default language is Polish; English is optional.
+- Default language is English; Polish is a full, equal language behind `/pl`. The privacy
+  policy's Polish text stays the binding version.
 - Free and Pro tiers are expected, with ML features reserved for Pro.
 
 ## Stack

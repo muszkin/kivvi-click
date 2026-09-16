@@ -67,7 +67,9 @@ stack for this rebuild is in `CLAUDE.md`.
   whatever its mail provider (SMTP/SES/SendGrid) and its own configuration allow, and whoever
   runs it may cap usage per account. A limit throttles volume; it never unlocks a capability.
 - Privacy/security: authenticated access; HTTPS in production.
-- i18n: default language **Polish**; English is an optional toggle (build PL-first, EN translations).
+- i18n: default language **English**; Polish is a full, equal language behind the language switch —
+  every string ships in both. The privacy policy's Polish text is the binding version, because the
+  controller answers to the Polish supervisory authority.
 - Idempotency: event dedup via idempotency id.
 - Tracking script must stay minimal (~2KB, no external deps).
 
