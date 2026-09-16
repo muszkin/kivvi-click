@@ -1,13 +1,22 @@
 package click.kivvi.fixtures;
 
 import click.kivvi.domain.Format;
+import click.kivvi.domain.SupportedLocale;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Copy for the public marketing page: feature grid, the three onboarding steps and the trust points
- * — ported from {@code LandingContent}. None of it is translated (the old stack never ran these
- * arrays through the translator either), so it is the same for every locale.
+ * Copy for the public marketing page: feature grid, the four onboarding steps, the trust points and
+ * the preview tiles' labels — ported from {@code LandingContent}.
+ *
+ * <p>PIO-117 made it locale-aware. The old stack never ran these arrays through the translator, so
+ * the port served the same Polish copy to {@code /en} as well — tolerable while English was an
+ * optional toggle, not once PIO-125 made it the default. Every accessor takes the locale and
+ * switches over it exhaustively: a third {@link SupportedLocale} does not compile until it has copy
+ * of its own here, rather than silently rendering someone else's.
+ *
+ * <p>Polish and English carry the same entries in the same order — the same icons, step numbers and
+ * values — and differ only in their words. {@code LandingFixturesTest} holds them to that.
  *
  * <p>PIO-121 removed the Free / Pro pricing pair: the software is MIT-licensed and self-hostable,
  * so there is no price list to render.
@@ -26,7 +35,7 @@ public final class LandingFixtures {
 
   public record PreviewTile(String label, String value, String unit) {}
 
-  private static final List<Feature> FEATURES =
+  private static final List<Feature> FEATURES_PL =
       List.of(
           new Feature(
               "activity",
@@ -58,17 +67,45 @@ public final class LandingFixtures {
               "Rekomendacje ML",
               "Collaborative filtering, „kupili też”, „podobne”, „trending”."));
 
+  private static final List<Feature> FEATURES_EN =
+      List.of(
+          new Feature(
+              "activity",
+              "Live event stream",
+              "See every click, add-to-cart and purchase as it happens, down to the millisecond."
+                  + " Pushed over Mercure, with no polling."),
+          new Feature(
+              "bolt",
+              "Rules without code",
+              "WHEN → IF → THEN. Build an automation from blocks or drag nodes onto the canvas."
+                  + " Test a rule against historical data before it goes live."),
+          new Feature(
+              "mail",
+              "Emails done properly",
+              "A WYSIWYG editor with blocks and variables. Sent through your own provider (SMTP /"
+                  + " SES / SendGrid), with opens and clicks tracked in the panel."),
+          new Feature(
+              "layout",
+              "Popups and web layers",
+              "Modals, slide-ins, bars. Full control over what triggers them: exit intent, time"
+                  + " on page, scroll depth, customer segment."),
+          new Feature(
+              "coupon",
+              "Coupons at the point of conversion",
+              "Generate unique codes and show them at the moment they matter: on cart"
+                  + " abandonment, to VIPs, after N purchases."),
+          new Feature(
+              "target",
+              "ML recommendations",
+              "Collaborative filtering: “customers also bought”, “similar products”,"
+                  + " “trending”."));
+
   /**
    * PIO-121 put deployment first. The three steps this used to hold described a hosted product a
    * visitor walks into and pastes a snippet on; the landing page now says the software is
    * self-hostable, so the path has to start with getting an instance of your own.
-   *
-   * <p>Polish only, like every other array here — the old stack never ran these through the
-   * translator either. The English wording agreed for the new step is "Run it yourself" / "Clone
-   * the repository and bring an instance up with one command. Would rather not — we will do it for
-   * you."; it lands when PIO-117 makes these fixtures locale-aware.
    */
-  private static final List<Step> STEPS =
+  private static final List<Step> STEPS_PL =
       List.of(
           new Step(
               "01",
@@ -91,40 +128,89 @@ public final class LandingFixtures {
               "Najpierw test na danych historycznych. Potem przycisk „Opublikuj” — i"
                   + " automatyzacja działa."));
 
-  private static final List<String> TRUST_POINTS =
+  /**
+   * Step 01's wording is the one agreed when PIO-121 added it and parked beside the Polish step
+   * until these fixtures could carry it.
+   */
+  private static final List<Step> STEPS_EN =
+      List.of(
+          new Step(
+              "01",
+              "Run it yourself",
+              "Clone the repository and bring an instance up with one command. Would rather not"
+                  + " — we will do it for you."),
+          new Step(
+              "02",
+              "Paste the snippet",
+              "One <script> tag in your <head>. Within 30 seconds, events start showing up in"
+                  + " your panel."),
+          new Step(
+              "03",
+              "Pick a template",
+              "Welcome, abandoned cart, win-back, recommendations — start from a ready-made"
+                  + " template and adjust it to your tone of voice."),
+          new Step(
+              "04",
+              "Publish",
+              "First, a test run on historical data. Then press “Publish” and the automation is"
+                  + " live."));
+
+  private static final List<String> TRUST_POINTS_PL =
       List.of("Licencja MIT", "Postawisz u siebie", "Skrypt 2 KB");
+
+  private static final List<String> TRUST_POINTS_EN =
+      List.of("MIT licence", "Host it yourself", "2 KB script");
+
+  private static final int PREVIEW_EVENTS_PER_MINUTE = 847;
+  private static final int PREVIEW_ACTIVE_SESSIONS = 312;
+  private static final int PREVIEW_EMAILS_PER_DAY = 8410;
+  private static final int PREVIEW_REVENUE_PER_DAY = 94200;
 
   private LandingFixtures() {}
 
-  public static List<Feature> features() {
-    return FEATURES;
+  public static List<Feature> features(SupportedLocale locale) {
+    return switch (locale) {
+      case PL -> FEATURES_PL;
+      case EN -> FEATURES_EN;
+    };
   }
 
-  public static List<Step> steps() {
-    return STEPS;
+  public static List<Step> steps(SupportedLocale locale) {
+    return switch (locale) {
+      case PL -> STEPS_PL;
+      case EN -> STEPS_EN;
+    };
   }
 
-  public static List<String> trustPoints() {
-    return TRUST_POINTS;
+  public static List<String> trustPoints(SupportedLocale locale) {
+    return switch (locale) {
+      case PL -> TRUST_POINTS_PL;
+      case EN -> TRUST_POINTS_EN;
+    };
   }
 
   /**
    * KPI tiles inside the framed product preview — mirrors {@code LandingContent::previewTiles()},
    * pre-formatted with {@link Format#number}.
+   *
+   * <p>The numbers are the same in both languages; the labels and the currency are not. The digit
+   * grouping stays Format's narrow no-break space in English too: it is the SI convention, and it
+   * reads the same whichever language surrounds it.
    */
-  public static List<PreviewTile> previewTiles() {
-    return List.of(
-        new PreviewTile("Zdarzeń / min", "847", null),
-        new PreviewTile("Aktywne sesje", "312", null),
-        new PreviewTile("Maile (24h)", Format.number(8410), null),
-        new PreviewTile("Przychód (24h)", Format.number(94200), "zł"));
+  public static List<PreviewTile> previewTiles(SupportedLocale locale) {
+    return switch (locale) {
+      case PL ->
+          previewTiles("Zdarzeń / min", "Aktywne sesje", "Maile (24h)", "Przychód (24h)", "zł");
+      case EN ->
+          previewTiles("Events / min", "Active sessions", "Emails (24h)", "Revenue (24h)", "PLN");
+    };
   }
 
   /**
    * Traffic shape drawn inside the framed product preview — mirrors {@code
    * LandingContent::previewSeries()} exactly: the panel's cardiogram is a live canvas, the
    * marketing page has no live account behind it, so the same shape is server-rendered as a
-   * sparkline instead of showing a visitor an empty chart.
+   * sparkline instead of showing a visitor an empty chart. Numbers only, so it has no locale.
    */
   public static List<Double> previewSeries() {
     List<Double> values = new ArrayList<>(60);
@@ -134,6 +220,19 @@ public final class LandingFixtures {
       values.add(round2(12 + 5 * pulse + ramp));
     }
     return List.copyOf(values);
+  }
+
+  private static List<PreviewTile> previewTiles(
+      String eventsLabel,
+      String sessionsLabel,
+      String emailsLabel,
+      String revenueLabel,
+      String currency) {
+    return List.of(
+        new PreviewTile(eventsLabel, Format.number(PREVIEW_EVENTS_PER_MINUTE), null),
+        new PreviewTile(sessionsLabel, Format.number(PREVIEW_ACTIVE_SESSIONS), null),
+        new PreviewTile(emailsLabel, Format.number(PREVIEW_EMAILS_PER_DAY), null),
+        new PreviewTile(revenueLabel, Format.number(PREVIEW_REVENUE_PER_DAY), currency));
   }
 
   /** Half-away-from-zero rounding to 2 decimals — every value here is positive. */
