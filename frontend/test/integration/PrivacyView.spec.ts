@@ -5,6 +5,7 @@ import { i18n } from "@/i18n";
 import { routes } from "@/router/routes";
 import PublicLayout from "@/layouts/PublicLayout.vue";
 import PrivacyView from "@/views/PrivacyView.vue";
+import { serveInLocaleOf } from "../support/documentLocale";
 
 /**
  * The privacy policy page (PIO-70, decision D3): it has to resolve in both languages from the
@@ -37,6 +38,7 @@ const STALE_LAUNCH_PHRASES_EN = [
     "one notification",
 ];
 async function mountAtRoute(path: string) {
+    serveInLocaleOf(path);
     const router = createRouter({ history: createWebHistory(), routes });
     await router.push(path);
     await router.isReady();
@@ -226,6 +228,45 @@ describe("PIO-70 the privacy policy page", () => {
             .map((h) => h.text());
         expect(headings).toContain("Who the controller is");
         expect(headings.length).toBeGreaterThanOrEqual(8);
+    });
+
+    it("PIO-125 the English policy says it is a translation and points to the binding Polish text", async () => {
+        const { wrapper } = await mountAtRoute("/en/privacy");
+
+        const notice = wrapper.find(".legal-translation");
+        expect(notice.exists()).toBe(true);
+        expect(notice.attributes("role")).toBe("note");
+        expect(notice.text()).toContain("translation");
+        expect(notice.text()).toContain(
+            "The Polish original is the binding text.",
+        );
+        const link = notice.find("a");
+        expect(link.attributes("href")).toBe("/pl/privacy");
+        expect(link.attributes("hreflang")).toBe("pl");
+    });
+
+    it("PIO-125 the notice sits between the date and the policy itself, not inside it", async () => {
+        const { wrapper } = await mountAtRoute("/en/privacy");
+
+        const children = Array.from(
+            wrapper.find(".legal-page").element.children,
+        ).map((child) => child.className || child.tagName);
+        expect(children.slice(0, 4)).toEqual([
+            "H1",
+            "legal-updated",
+            "callout legal-translation",
+            "lead",
+        ]);
+    });
+
+    it("PIO-125 the Polish policy — the binding one — carries no such notice and is otherwise unchanged", async () => {
+        const { wrapper } = await mountAtRoute("/pl/privacy");
+
+        expect(wrapper.find(".legal-translation").exists()).toBe(false);
+        expect(wrapper.text()).not.toContain("tłumaczeniem");
+        expect(wrapper.find(".legal-updated").text()).toBe(
+            "Ostatnia aktualizacja: 16 września 2026",
+        );
     });
 
     it("'/de/privacy' is unknown, like every other unsupported locale prefix", async () => {

@@ -100,6 +100,17 @@ class RouteTableTest {
   }
 
   @Test
+  @DisplayName("PIO-125 the bare root is the landing page in English, the default locale")
+  void theBareRootIsTheEnglishLandingPage() {
+    assertThat(SupportedLocale.DEFAULT).isEqualTo(SupportedLocale.EN);
+    assertThat(RouteTable.match("/").map(RouteTable.Match::locale)).contains(SupportedLocale.EN);
+    assertThat(RouteTable.match("/").map(RouteTable.Match::layout))
+        .contains(RouteTable.Layout.PUBLIC);
+    // Polish is still a full language of its own, not a fallback: its prefix resolves to itself.
+    assertThat(RouteTable.match("/pl").map(RouteTable.Match::locale)).contains(SupportedLocale.PL);
+  }
+
+  @Test
   @DisplayName("B07 unsupported locale prefix is unknown to the route table")
   void unsupportedLocaleIsUnknown() {
     assertThat(RouteTable.match("/de/dashboard")).isEmpty();

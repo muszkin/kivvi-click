@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { i18n } from "@/i18n";
 import { routes } from "@/router/routes";
 import LandingView from "@/views/LandingView.vue";
+import { serveInLocaleOf } from "../support/documentLocale";
 
 /**
  * The waitlist form in the landing hero (PIO-70): what it renders, what it hides from bots and
@@ -30,6 +31,7 @@ const WAITLIST_ATTRIBUTES = [
 ] as const;
 
 async function mountAt(path: string) {
+    serveInLocaleOf(path);
     vi.stubGlobal(
         "fetch",
         vi.fn(async () => Response.json(LANDING_PAYLOAD)),

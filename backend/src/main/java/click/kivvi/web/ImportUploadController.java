@@ -24,6 +24,10 @@ import org.springframework.web.multipart.MultipartFile;
  * whatever locale-prefixed page the upload was posted from. Reproduced verbatim, quirk and all: the
  * oracle only ever recorded this from a {@code /pl/...} page, so it never had a chance to show
  * otherwise, but the mechanism is the framework default, not "the current page's locale".
+ *
+ * <p>PIO-125 moved that default to English, so the redirect now lands on {@code /en/import/2} and
+ * the quirk points the other way: an upload posted from a {@code /pl/...} page leaves Polish.
+ * Carrying the page's own locale through the upload is a panel change, left to its own decision.
  */
 @RestController
 public class ImportUploadController {

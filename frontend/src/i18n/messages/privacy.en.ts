@@ -10,6 +10,12 @@ export default {
     privacyPage: {
         title: "Privacy policy",
         updated: "Last updated: 16 September 2026",
+        // PIO-125. Rendered above the policy on every page that is not the Polish original, so
+        // making English the interface default never makes this text the one that binds.
+        translation: {
+            notice: "This English version is a translation provided for convenience. The Polish original is the binding text.",
+            link: "Read the Polish original →",
+        },
         intro: "This policy describes what happens to the data you leave when you ask us about deploying kivvi·click. It covers that form only — the panel and user accounts are not publicly available yet.",
         sections: [
             {

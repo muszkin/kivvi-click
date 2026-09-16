@@ -75,7 +75,11 @@ public final class RouteTable {
 
   private RouteTable() {}
 
-  /** Matches a request path against the table, resolving its locale from the URL segment. */
+  /**
+   * Matches a request path against the table, resolving its locale from the URL segment. The bare
+   * root has no segment to read, so it is the landing page in {@link SupportedLocale#DEFAULT} —
+   * English since PIO-125.
+   */
   public static Optional<Match> match(String path) {
     if (ROOT.matcher(path).matches()) {
       return Optional.of(new Match("home", Layout.PUBLIC, SupportedLocale.DEFAULT));

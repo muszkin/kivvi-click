@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { i18n } from "@/i18n";
 import { routes } from "@/router/routes";
 import LandingView from "@/views/LandingView.vue";
+import { serveInLocaleOf } from "../support/documentLocale";
 
 /**
  * Mirrors the shape GET /api/v1/{locale}/landing returns (see
@@ -37,6 +38,7 @@ const LANDING_PAYLOAD = {
 };
 
 async function mountAt(path: string) {
+    serveInLocaleOf(path);
     vi.stubGlobal(
         "fetch",
         vi.fn(async () => Response.json(LANDING_PAYLOAD)),

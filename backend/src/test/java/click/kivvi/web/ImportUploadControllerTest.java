@@ -39,14 +39,16 @@ class ImportUploadControllerTest {
   @Autowired private MockMvc mvc;
 
   @Test
-  @DisplayName("B31 a POSTed file is stored and redirects (302) to /pl/import/2")
+  @DisplayName(
+      "B31 a POSTed file is stored and redirects (302) to step 2 in the default locale, which"
+          + " PIO-125 made /en/import/2")
   void uploadStoresTheFileAndRedirectsToStepTwo() throws Exception {
     MockMultipartFile file =
         new MockMultipartFile("file", "klienci-e2e.csv", "text/csv", "email;imie\n".getBytes());
 
     mvc.perform(multipart("/import/upload").file(file))
         .andExpect(status().isFound())
-        .andExpect(header().string("Location", "/pl/import/2"));
+        .andExpect(header().string("Location", "/en/import/2"));
 
     assertThat(uploadDirectory).isDirectoryContaining(p -> p.toString().endsWith(".csv"));
   }

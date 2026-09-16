@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { i18n } from "@/i18n";
 import { routes } from "@/router/routes";
 import SettingsView from "@/views/SettingsView.vue";
+import { serveInLocaleOf } from "../support/documentLocale";
 
 const TABS = [
     { id: "account", icon: "user", label: "Konto", href: "/pl/settings" },
@@ -232,6 +233,7 @@ function payloadFor(tab: string) {
 }
 
 async function mountAt(path: string) {
+    serveInLocaleOf(path);
     const router = createRouter({ history: createWebHistory(), routes });
     await router.push(path);
     await router.isReady();

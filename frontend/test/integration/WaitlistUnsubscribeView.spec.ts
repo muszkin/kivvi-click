@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { i18n } from "@/i18n";
 import { routes } from "@/router/routes";
 import WaitlistUnsubscribeView from "@/views/WaitlistUnsubscribeView.vue";
+import { serveInLocaleOf } from "../support/documentLocale";
 
 /**
  * The page the "unsubscribe" link in a message's footer lands on (PIO-71). Two states, and neither
@@ -22,6 +23,7 @@ function reportState(state: string | null) {
 }
 
 async function mountAtRoute(path: string) {
+    serveInLocaleOf(path);
     const router = createRouter({ history: createWebHistory(), routes });
     await router.push(path);
     await router.isReady();

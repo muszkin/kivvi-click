@@ -36,6 +36,14 @@ export default {
     privacyPage: {
         title: "Polityka prywatności",
         updated: "Ostatnia aktualizacja: 16 września 2026",
+        // PIO-125. The Polish text is the binding one, so PrivacyView.vue never renders this on the
+        // Polish page — there is nothing to mark there, and the policy itself stays untouched. It
+        // exists so both catalogues keep the same keys (test/unit/i18n.spec.ts), and it reads as
+        // what a translation into another language would have to say.
+        translation: {
+            notice: "Ta wersja jest tłumaczeniem udostępnionym dla wygody. Wiążący jest polski oryginał.",
+            link: "Przeczytaj polski oryginał →",
+        },
         intro: "Ta polityka opisuje, co dzieje się z danymi, które zostawiasz, prosząc o kontakt w sprawie wdrożenia kivvi·click. Dotyczy wyłącznie tego formularza — panel i konta użytkowników nie są jeszcze dostępne publicznie.",
         sections: [
             {

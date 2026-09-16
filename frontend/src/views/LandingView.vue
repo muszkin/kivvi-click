@@ -7,6 +7,7 @@ import Field from "@/components/atoms/Field.vue";
 import Icon from "@/components/atoms/Icon.vue";
 import Feat from "@/components/molecules/Feat.vue";
 import HeroPreview from "@/components/organisms/HeroPreview.vue";
+import { routeLocale } from "@/router/routeLocale";
 
 interface Feature {
     icon: string;
@@ -36,9 +37,8 @@ interface LandingData {
 
 const { t } = useI18n();
 const route = useRoute();
-const locale = computed(() =>
-    typeof route.params.locale === "string" ? route.params.locale : "pl",
-);
+// PIO-125: "/" has no locale segment and is the English landing page now.
+const locale = computed(() => routeLocale(route));
 // PIO-121 replaced the price cards — the only readers of loginHref here — with the open-source
 // section, which links the repository instead.
 const repoHref = "https://github.com/muszkin/kivvi-click";

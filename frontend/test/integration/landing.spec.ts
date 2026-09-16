@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { i18n } from "@/i18n";
 import { routes } from "@/router/routes";
 import LandingView from "@/views/LandingView.vue";
+import { serveInLocaleOf } from "../support/documentLocale";
 
 /**
  * Router-driven coverage complementing test/unit/landing.spec.ts's component-level assertions:
@@ -24,6 +25,7 @@ const LANDING_PAYLOAD = {
 };
 
 async function mountAtRoute(path: string) {
+    serveInLocaleOf(path);
     vi.stubGlobal(
         "fetch",
         vi.fn(async (input: RequestInfo | URL) => {
@@ -49,14 +51,28 @@ describe("B22 the home route resolves to the landing view for both the bare and 
         vi.unstubAllGlobals();
     });
 
-    it("bare '/' resolves to the home route and fetches the Polish payload", async () => {
+    // PIO-125 turned this around: it asserted the Polish payload while Polish was the default.
+    it("bare '/' resolves to the home route and fetches the English payload", async () => {
         const { router } = await mountAtRoute("/");
 
         expect(router.currentRoute.value.name).toBe("home");
         expect(fetch).toHaveBeenCalledWith(
-            "/api/v1/pl/landing",
+            "/api/v1/en/landing",
             expect.anything(),
         );
+    });
+
+    it("PIO-125 every link and form on bare '/' stays in English", async () => {
+        const { wrapper } = await mountAtRoute("/");
+
+        expect(wrapper.find("form.waitlist-form").attributes("action")).toBe(
+            "/en/waitlist",
+        );
+        expect(wrapper.find(".waitlist-consent a").attributes("href")).toBe(
+            "/en/privacy",
+        );
+        expect(wrapper.find(".hero-cta a").attributes("href")).toBe("/en/demo");
+        expect(wrapper.find(".hero h1").text()).toContain("See");
     });
 
     it("'/pl' renders the landing view's hero and demo link", async () => {

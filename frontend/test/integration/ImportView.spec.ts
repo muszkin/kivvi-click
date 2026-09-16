@@ -6,6 +6,7 @@ import { i18n } from "@/i18n";
 import { routes } from "@/router/routes";
 import { useShellStore } from "@/stores/shell";
 import ImportView from "@/views/ImportView.vue";
+import { serveInLocaleOf } from "../support/documentLocale";
 
 const STEPS = [
     { n: 1, label: "Plik" },
@@ -235,6 +236,7 @@ function payloadFor(step: number) {
 }
 
 async function mountAt(path: string, step: number) {
+    serveInLocaleOf(path);
     const router = createRouter({ history: createWebHistory(), routes });
     await router.push(path);
     await router.isReady();

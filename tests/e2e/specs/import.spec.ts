@@ -83,10 +83,14 @@ test.describe("customer import", () => {
         const file = join(directory, "klienci-e2e.csv");
         writeFileSync(file, "email;imie\nhania.k@aurea.pl;Hania\n", "utf8");
 
-        await page.goto("/pl/import/1");
+        // POST /import/upload has no locale segment, so it redirects into the default locale —
+        // /pl until PIO-125 made English the default. The upload starts from the default locale's
+        // own step 1, as it always has, so what this asserts is still "the upload advances to the
+        // mapping step" and not a locale change on the way.
+        await page.goto("/en/import/1");
         await page.locator('.dropzone input[type="file"]').setInputFiles(file);
 
-        await page.waitForURL(/\/pl\/import\/2/);
+        await page.waitForURL(/\/en\/import\/2/);
         await expect(page.locator(".file-pill")).toContainText(
             "klienci-e2e.csv",
         );

@@ -129,6 +129,20 @@ test.describe("waitlist signup", () => {
         await expect(page).toHaveURL(/\/pl\/privacy$/);
         await expect(page.locator("h1")).toContainText("Polityka prywatności");
     });
+
+    test("PIO-125 on the default English page, the consent clause links to the English policy", async ({
+        page,
+    }) => {
+        await page.goto("/");
+
+        await expect(page.locator(".waitlist-consent")).toContainText(
+            "I agree to be contacted",
+        );
+        await page.locator(".waitlist-consent a").click();
+
+        await expect(page).toHaveURL(/\/en\/privacy$/);
+        await expect(page.locator("h1")).toContainText("Privacy policy");
+    });
 });
 
 test.describe("privacy policy", () => {
@@ -149,23 +163,51 @@ test.describe("privacy policy", () => {
 
         await expect(page.locator("h1")).toContainText("Privacy policy");
     });
+
+    test("PIO-125 the English policy says the Polish text binds, and leads to it", async ({
+        page,
+    }) => {
+        await page.goto("/en/privacy");
+
+        const notice = page.locator(".legal-translation");
+        await expect(notice).toContainText(
+            "The Polish original is the binding text.",
+        );
+        await notice.locator("a").click();
+
+        await expect(page).toHaveURL(/\/pl\/privacy$/);
+        await expect(page.locator("h1")).toContainText("Polityka prywatności");
+        // The binding version marks nothing: it is not a translation of anything.
+        await expect(page.locator(".legal-translation")).toHaveCount(0);
+    });
 });
 
 test.describe("waitlist double opt-in", () => {
     test.describe.configure({ timeout: MAIL_TIMEOUT_MS + 30_000 });
 
+    // PIO-125 moved this journey onto the default page. It used to start at /pl and assert the
+    // Polish message; it now starts where most visitors do — "/", in English — and asserts the
+    // message follows the language of the form. The Polish message is still asserted, by the
+    // unsubscribe journey below, so each language keeps one real message through the outbox
+    // without spending a seventh signup of the hourly per-IP allowance.
     test("the confirmation link in the message confirms the address, once", async ({
         page,
     }) => {
         const email = uniqueEmail("e2e-confirm");
-        await page.goto("/pl");
+        await page.goto("/");
         await page.locator("#f-email").fill(email);
         await page.locator(".waitlist-consent input[type=checkbox]").check();
         await page.locator(".waitlist-form button[type=submit]").click();
-        await expect(page).toHaveURL(/\/pl\?waitlist=ok$/);
+        await expect(page).toHaveURL(/\/en\?waitlist=ok$/);
+        await expect(page.locator(".waitlist-thanks")).toContainText(
+            "confirmation link",
+        );
 
         const message = await waitForMessage(email);
-        expect(message).toContain("Potwier");
+        expect(message).toContain("Confirm my address");
+        expect(message).not.toContain("Potwier");
+        expect(pathFrom(message, "confirm")).toMatch(/^\/en\//);
+        expect(pathFrom(message, "unsubscribe")).toMatch(/^\/en\//);
         // The plain-text alternative is mandatory; a message without one scores worse with spam
         // filters and is unreadable in a text client.
         expect(message).toContain("text/plain");
@@ -176,7 +218,9 @@ test.describe("waitlist double opt-in", () => {
             "data-state",
             "ok",
         );
-        await expect(page.locator("h1")).toContainText("potwierdziliśmy adres");
+        await expect(page.locator("h1")).toContainText(
+            "your address is confirmed",
+        );
 
         // Following it again is reassurance, not an error and not a second confirmation.
         await page.reload();
@@ -197,6 +241,11 @@ test.describe("waitlist double opt-in", () => {
         await expect(page).toHaveURL(/\/pl\?waitlist=ok$/);
 
         const message = await waitForMessage(email);
+        // Submitted in Polish, so written in Polish — the other half of the language check the
+        // confirmation journey above makes in English.
+        expect(message).toContain("Potwier");
+        expect(message).not.toContain("Confirm my address");
+        expect(pathFrom(message, "unsubscribe")).toMatch(/^\/pl\//);
 
         await page.goto(pathFrom(message, "unsubscribe"));
         await expect(page.locator(".confirm-page")).toHaveAttribute(

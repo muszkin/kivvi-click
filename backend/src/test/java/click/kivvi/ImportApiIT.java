@@ -48,6 +48,12 @@ class ImportApiIT {
   static PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:18-alpine");
 
   /**
+   * The upload route has no locale segment, so it redirects into the default locale — {@code /pl}
+   * until PIO-125 made English the default. See {@code ImportUploadController}.
+   */
+  private static final String EXPECTED_REDIRECT = "/en/import/2";
+
+  /**
    * Repair-3 (R3-B): {@code uploadDirectory} used to be the {@code @TempDir} itself, created
    * directly under the JVM's shared {@code java.io.tmpdir} (this host: {@code /tmp}, ~3000+ entries
    * from unrelated concurrent tooling, observed mutating on a sub-second cadence — see {@code
@@ -120,7 +126,7 @@ class ImportApiIT {
 
   @Test
   @DisplayName(
-      "B31 uploading a file redirects (302) to exactly /pl/import/2, and the next GET on the"
+      "B31 uploading a file redirects (302) to exactly /en/import/2, and the next GET on the"
           + " same session reflects the uploaded file's original name — a real spring_session"
           + " round trip, not a same-JVM in-memory session")
   void uploadRedirectsAndTheFileNameSurvivesASecondRequest() {
@@ -135,7 +141,7 @@ class ImportApiIT {
         noRedirects.postForEntity("/import/upload", new HttpEntity<>(body, headers), Void.class);
 
     assertThat(upload.getStatusCode().value()).isEqualTo(302);
-    assertThat(upload.getHeaders().getFirst(HttpHeaders.LOCATION)).isEqualTo("/pl/import/2");
+    assertThat(upload.getHeaders().getFirst(HttpHeaders.LOCATION)).isEqualTo(EXPECTED_REDIRECT);
     String sessionCookie = upload.getHeaders().getFirst(HttpHeaders.SET_COOKIE);
     assertThat(sessionCookie).as("Spring Session issues a SESSION cookie").startsWith("SESSION=");
 
@@ -143,7 +149,7 @@ class ImportApiIT {
     cookieHeader.add(HttpHeaders.COOKIE, sessionCookie);
     ResponseEntity<String> stepTwo =
         restTemplate.exchange(
-            "/api/v1/pl/import/2", HttpMethod.GET, new HttpEntity<>(cookieHeader), String.class);
+            "/api/v1/en/import/2", HttpMethod.GET, new HttpEntity<>(cookieHeader), String.class);
 
     assertThat(stepTwo.getStatusCode().value()).isEqualTo(200);
     assertThat(stepTwo.getBody()).contains("\"name\":\"klienci-oracle.csv\"");
@@ -182,7 +188,7 @@ class ImportApiIT {
         noRedirects.postForEntity("/import/upload", new HttpEntity<>(body, headers), Void.class);
 
     assertThat(upload.getStatusCode().value()).isEqualTo(302);
-    assertThat(upload.getHeaders().getFirst(HttpHeaders.LOCATION)).isEqualTo("/pl/import/2");
+    assertThat(upload.getHeaders().getFirst(HttpHeaders.LOCATION)).isEqualTo(EXPECTED_REDIRECT);
 
     List<String> newFiles = newEntries(storedBefore, storedFileNames());
     assertThat(newFiles).as("the empty file was stored, not rejected").hasSize(1);
@@ -222,7 +228,7 @@ class ImportApiIT {
         noRedirects.postForEntity("/import/upload", new HttpEntity<>(body, headers), Void.class);
 
     assertThat(upload.getStatusCode().value()).isEqualTo(302);
-    assertThat(upload.getHeaders().getFirst(HttpHeaders.LOCATION)).isEqualTo("/pl/import/2");
+    assertThat(upload.getHeaders().getFirst(HttpHeaders.LOCATION)).isEqualTo(EXPECTED_REDIRECT);
 
     assertThat(childNames(root))
         .as(

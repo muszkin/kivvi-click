@@ -4,8 +4,10 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { i18n } from "@/i18n";
 import { routes } from "@/router/routes";
 import LoginView from "@/views/LoginView.vue";
+import { serveInLocaleOf } from "../support/documentLocale";
 
 async function mountAt(path: string) {
+    serveInLocaleOf(path);
     const router = createRouter({ history: createWebHistory(), routes });
     await router.push(path);
     await router.isReady();
@@ -85,7 +87,8 @@ describe("B11 the login view shows the welcome copy and submit action", () => {
         i18n.global.locale.value = "pl";
     });
 
-    it("renders the Polish welcome heading and submit label by default", async () => {
+    // Was "…by default" until PIO-125 made English the default; Polish is what /pl serves.
+    it("renders the Polish welcome heading and submit label on /pl", async () => {
         const wrapper = await mountAt("/pl/login");
         expect(wrapper.find("h1").text()).toBe("Wróć do Kivvi");
         expect(wrapper.find('button[type="submit"]').text()).toContain(

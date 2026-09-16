@@ -4,6 +4,7 @@ import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 import Button from "@/components/atoms/Button.vue";
 import Icon from "@/components/atoms/Icon.vue";
+import { routeLocale } from "@/router/routeLocale";
 
 /**
  * Where a confirmation link lands (PIO-71).
@@ -37,9 +38,7 @@ const ICONS: Record<ConfirmState, string> = {
 const { t } = useI18n();
 const route = useRoute();
 
-const locale = computed(() =>
-    typeof route.params.locale === "string" ? route.params.locale : "pl",
-);
+const locale = computed(() => routeLocale(route));
 const homeHref = computed(() => `/${locale.value}`);
 const resendAction = computed(() => `/${locale.value}/waitlist/confirm/resend`);
 
