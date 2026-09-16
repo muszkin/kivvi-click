@@ -23,7 +23,11 @@ on:
 
 jobs:
   backend:
-    runs-on: [self-hosted, home]
+    # Runner chosen by trust, not convenience: a pull request — which anyone can open
+    # once this repository is public — runs on GitHub's infrastructure, while pushes to
+    # `main` keep using the home runner that also hosts production. Pinning every job to
+    # the self-hosted runner would let a fork execute arbitrary code on that machine.
+    runs-on: ${{ github.event_name == 'pull_request' && 'ubuntu-latest' || fromJSON('["self-hosted", "home"]') }}
     steps:
       - uses: actions/checkout@v5
 
@@ -54,7 +58,7 @@ jobs:
         run: ./mvnw -B -q verify
 
   frontend:
-    runs-on: [self-hosted, home]
+    runs-on: ${{ github.event_name == 'pull_request' && 'ubuntu-latest' || fromJSON('["self-hosted", "home"]') }}
     steps:
       - uses: actions/checkout@v5
 
@@ -96,7 +100,7 @@ jobs:
   # a broken COPY/stage reference before it reaches a runbook. On `main` the same build is
   # pushed to GHCR, which is where the Portainer-managed production stack pulls `api` from.
   backend-image:
-    runs-on: [self-hosted, home]
+    runs-on: ${{ github.event_name == 'pull_request' && 'ubuntu-latest' || fromJSON('["self-hosted", "home"]') }}
     permissions:
       contents: read
       packages: write
@@ -132,7 +136,7 @@ jobs:
   # stack bind-mounts, or the production edge quietly diverges from what anyone reads or tests
   # locally. Portainer cannot bind-mount it (see that file's comment), so this is the guard.
   compose-consistency:
-    runs-on: [self-hosted, home]
+    runs-on: ${{ github.event_name == 'pull_request' && 'ubuntu-latest' || fromJSON('["self-hosted", "home"]') }}
     steps:
       - uses: actions/checkout@v5
 
