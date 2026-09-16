@@ -5,9 +5,10 @@ description: Product vision, features, domain entities, and assumptions for kivv
 
 # kivvi-click-10x — Product Spec
 
-A multi-tenant SaaS **marketing-automation platform for e-commerce sites and websites**.
+A multi-tenant **marketing-automation platform for e-commerce sites and websites**.
 It bridges real-time visitor tracking with automated responses: **see** what visitors do,
 **decide** what to do (rules), **act** instantly (emails / popups / coupons / recommendations).
+The software is open source under the MIT licence — anyone can run their own instance.
 
 Build the new app to these goals. The original used a different stack — ignore that; the
 stack for this rebuild is in `CLAUDE.md`.
@@ -40,7 +41,7 @@ stack for this rebuild is in `CLAUDE.md`.
 
 ## Domain concepts (entities)
 
-- **Account** — a company using the platform (company_name, address, tax id).
+- **Account** — a company using the platform (company_name, address).
 - **User** — a user within an account (email/password auth).
 - **Webpage** — a tracked URL/site under an account (url, name, tracking enabled).
 - **Tracking event / AccountEvent** — raw event from the script (event_type, customer_id,
@@ -55,9 +56,16 @@ stack for this rebuild is in `CLAUDE.md`.
 ## Assumptions / constraints
 
 - Target audience: e-commerce stores and consumer-facing websites.
-- Multi-tenancy: many independent accounts on one platform.
+- Multi-tenancy: many independent accounts on one deployment.
 - Scale: event ingestion is high-throughput; processing is real-time.
-- Pricing: two tiers — Free (usage with email-send limits, no ML) and Pro (unlimited email, full ML).
+- Distribution: open source under the MIT licence. Anyone can clone the code and run their own
+  instance — there is no hosted plan to buy, no licence key, and no capability held back from
+  anyone: every instance has the whole feature set, ML recommendations included. What is paid
+  for is the work around the software — deploying it, integrating it with a shop, keeping it
+  running — never access to a feature.
+- Sending and usage limits belong to an instance, not to a plan: what an instance can send is
+  whatever its mail provider (SMTP/SES/SendGrid) and its own configuration allow, and whoever
+  runs it may cap usage per account. A limit throttles volume; it never unlocks a capability.
 - Privacy/security: authenticated access; HTTPS in production.
 - i18n: default language **Polish**; English is an optional toggle (build PL-first, EN translations).
 - Idempotency: event dedup via idempotency id.
