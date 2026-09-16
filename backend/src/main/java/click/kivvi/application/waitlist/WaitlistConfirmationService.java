@@ -105,7 +105,12 @@ public class WaitlistConfirmationService implements WaitlistRegistrar {
   @Override
   @Transactional
   public boolean register(WaitlistSignup signup) {
-    Instant now = Instant.now();
+    // The signup already carries the instant it was recorded at, and the confirmation
+    // window has to start there rather than at a second, later reading of the clock:
+    // a hidden Instant.now() here made the link's deadline untestable, and the unit test
+    // that pinned it only passed while the real date stayed far enough from its fixed
+    // NOW. Every other method on this service takes its instant from the caller.
+    Instant now = signup.signedUpAt();
     boolean stored = store.save(signup);
     store
         .findByEmail(signup.email())
