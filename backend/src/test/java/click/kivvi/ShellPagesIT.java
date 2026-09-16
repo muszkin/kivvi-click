@@ -20,9 +20,9 @@ import org.testcontainers.postgresql.PostgreSQLContainer;
 
 /**
  * Integration-level (real HTTP layer, real Spring context) equivalent of the old stack's {@code
- * tests/Controller/PanelPagesTest.php}: every one of its 25 URLs still renders through the real
- * HTTP layer, and — for the panel pages that carry the shell (all but landing/login, which use
- * {@code PublicLayout}/{@code AuthLayout} and never render a sidebar or breadcrumb) — {@code GET
+ * tests/Controller/PanelPagesTest.php}: every one of its URLs still renders through the real HTTP
+ * layer, and — for the panel pages that carry the shell (all but landing/login, which use {@code
+ * PublicLayout}/{@code AuthLayout} and never render a sidebar or breadcrumb) — {@code GET
  * /api/v1/{locale}/shell?route=<name>} resolves the same {@code currentSection}/{@code crumb} the
  * old page's server-rendered breadcrumb carried (B01, B02).
  *
@@ -93,13 +93,14 @@ class ShellPagesIT {
         new Page("/pl/settings/providers", "settings", "settings", "Ustawienia"),
         new Page("/pl/settings/api", "settings", "settings", "Ustawienia"),
         new Page("/pl/settings/notifications", "settings", "settings", "Ustawienia"),
-        new Page("/pl/settings/billing", "settings", "settings", "Ustawienia"),
+        // PIO-123 retired the billing tab; /pl/settings/billing is a 404 now and is covered as
+        // such by SettingsApiIT and SettingsControllerTest rather than as a rendering page here.
         new Page("/pl/settings/gdpr", "settings", "settings", "Ustawienia"));
   }
 
   @ParameterizedTest
   @MethodSource("pages")
-  @DisplayName("B01 every one of PanelPagesTest.php's 25 URLs renders the SPA document 200")
+  @DisplayName("B01 every one of PanelPagesTest.php's still-live URLs renders the SPA document 200")
   void everyPageDocumentRenders200(Page page) {
     ResponseEntity<String> response = restTemplate.getForEntity(page.url(), String.class);
 

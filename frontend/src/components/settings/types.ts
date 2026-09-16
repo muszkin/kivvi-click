@@ -73,13 +73,6 @@ export interface NotificationRowData {
     sms: boolean;
 }
 
-export interface InvoiceData {
-    number: string;
-    date: string;
-    amount: string;
-    status: string;
-}
-
 export interface DataSubjectRequestData {
     id: string;
     person: string;
@@ -106,8 +99,6 @@ export interface SettingsData {
     webhooks: WebhookData[];
     apiLimits: SettingsBar[];
     notificationMatrix: NotificationRowData[];
-    planUsage: SettingsBar[];
-    invoices: InvoiceData[];
     dataSubjectRequests: DataSubjectRequestData[];
     retentionPolicies: RetentionPolicyData[];
 }

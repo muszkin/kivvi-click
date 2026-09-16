@@ -2,7 +2,7 @@
  * Settings tabs' page chrome — ported verbatim from the page-level `|trans` calls across
  * `pages/settings.html.twig` and its 27 tab partials. Only strings the old templates actually ran
  * through `|trans` live here; every other piece of copy — tab labels/subtitles, tracked-site
- * names, team members, provider stats, DNS values, API keys, webhook URLs, invoices, DSR rows,
+ * names, team members, provider stats, DNS values, API keys, webhook URLs, DSR rows,
  * retention policy labels/options, and every UI word the old partials left un-translated (e.g.
  * "2FA", "E-mail"/"Slack"/"SMS", "PLN"/"EUR", "ON", "Bounce", "Reply-to", "Wersja k.js: 2.4.1",
  * "aureashop.pl") — is either hard-coded Polish fixture text (SettingsFixtures/
@@ -125,31 +125,6 @@ export default {
             quietFrom: "Nie powiadamiaj od",
             quietTo: "do",
             criticalBypass: "Alerty krytyczne omijają ciszę nocną",
-        },
-        billing: {
-            limitsCardTitle: "Wykorzystanie limitów",
-            limitsCardSub: "okres 1–26 sierpnia 2026",
-            paymentMethodCardTitle: "Metoda płatności",
-            change: "Zmień",
-            cardExpiry: "wygasa 04/2029 · Maciej Kowalczyk",
-            defaultPaymentMethod: "domyślna",
-            // "@" is vue-i18n message-syntax reserved (linked-message references, "@:key"), so
-            // a literal "@" in the address must be escaped as {'@'} — quoted-literal escaping,
-            // the same mechanism vue-i18n reserves "{", "}" and "|" for.
-            invoiceRecipient:
-                "Wysyłaj faktury na <span class=\"mono\">ksiegowosc{'@'}aureashop.pl</span>",
-            invoicesCardTitle: "Faktury",
-            downloadAll: "Pobierz wszystkie",
-            columnNumber: "Numer",
-            columnDate: "Data",
-            columnAmount: "Kwota netto",
-            columnStatus: "Status",
-            yourPlan: "Twój plan",
-            monthlyBilling: "rozliczenie miesięczne",
-            nextRenewal:
-                "Następne odnowienie 1 września 2026 · 149,00 zł netto",
-            switchToYearly: "Zmień na roczny (−20%)",
-            changePlan: "Zmień plan",
         },
         gdpr: {
             dpaCardTitle: "Umowa powierzenia (DPA)",

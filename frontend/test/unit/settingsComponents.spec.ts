@@ -64,8 +64,8 @@ describe("B32 ToggleRow", () => {
     it("renders the label with v-html, so an embedded span survives as markup", () => {
         const wrapper = mount(ToggleRow, {
             props: {
-                name: "invoice_recipient",
-                label: 'Wysyłaj faktury na <span class="mono">ksiegowosc@aureashop.pl</span>',
+                name: "report_recipient",
+                label: 'Wysyłaj raporty na <span class="mono">ksiegowosc@aureashop.pl</span>',
             },
         });
 

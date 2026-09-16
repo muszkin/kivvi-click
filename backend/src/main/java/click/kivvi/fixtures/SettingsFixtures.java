@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The eight settings tabs and the data each one renders — ported from {@code SettingsCatalog}.
+ * The seven settings tabs and the data each one renders — ported from {@code SettingsCatalog}.
  *
  * <p>Every tab is a URL ({@code /settings/{tab}}), so a support link can point straight at "e-mail
  * providers" and the browser's back button behaves. None of this data is translated: the old
@@ -55,8 +55,6 @@ public final class SettingsFixtures {
 
   public record NotificationRow(String label, boolean email, boolean slack, boolean sms) {}
 
-  public record Invoice(String number, String date, String amount, String status) {}
-
   public record DataSubjectRequest(
       String id, String person, String type, String status, boolean done, String due) {}
 
@@ -93,19 +91,17 @@ public final class SettingsFixtures {
           new Tab("providers", "mail", "Dostawcy email"),
           new Tab("api", "code", "Webhooks i API"),
           new Tab("notifications", "bell", "Powiadomienia"),
-          new Tab("billing", "money", "Plan i płatności"),
           new Tab("gdpr", "info", "RODO / DPA"));
 
   private static final Map<String, String> SUBTITLES =
       Map.ofEntries(
-          Map.entry("account", "Dane firmy, faktury i preferencje właściciela konta."),
+          Map.entry("account", "Dane firmy i preferencje właściciela konta."),
           Map.entry("sites", "Domeny objęte trackingiem oraz instalacja skryptu."),
           Map.entry("team", "Osoby z dostępem do panelu, ich role i zaproszenia."),
           Map.entry(
               "providers", "Skąd wychodzą Twoje e-maile i jak radzą sobie z dostarczalnością."),
           Map.entry("api", "Klucze API, webhooks i logi wywołań."),
           Map.entry("notifications", "Kiedy Kivvi ma Cię powiadomić i którym kanałem."),
-          Map.entry("billing", "Plan, wykorzystanie limitów, metoda płatności i faktury."),
           Map.entry("gdpr", "Retencja danych, umowa powierzenia i obsługa żądań podmiotów."));
 
   private static final List<TrackedSite> TRACKED_SITES =
@@ -253,21 +249,6 @@ public final class SettingsFixtures {
           new NotificationRow("Tygodniowe podsumowanie wyników", true, false, false),
           new NotificationRow("Tracker przestał odbierać zdarzenia", true, true, true));
 
-  private static final List<Bar> PLAN_USAGE =
-      List.of(
-          new Bar("Zdarzenia", 34.0, "1,42 mln / bez limitu", "accent"),
-          new Bar("Wysłane e-maile", 58.0, "142 410 / bez limitu", "accent"),
-          new Bar("Śledzone strony", 60.0, "3 / 5", "brown"),
-          new Bar("Członkowie zespołu", 40.0, "4 / 10", "brown"),
-          new Bar("Rekomendacje ML", 100.0, "włączone", "accent"));
-
-  private static final List<Invoice> INVOICES =
-      List.of(
-          new Invoice("FV/2026/08/0142", "01 sie 2026", "149,00 zł", "zapłacona"),
-          new Invoice("FV/2026/07/0139", "01 lip 2026", "149,00 zł", "zapłacona"),
-          new Invoice("FV/2026/06/0131", "01 cze 2026", "149,00 zł", "zapłacona"),
-          new Invoice("FV/2026/05/0127", "01 maj 2026", "198,00 zł", "zapłacona"));
-
   private static final List<DataSubjectRequest> DATA_SUBJECT_REQUESTS =
       List.of(
           new DataSubjectRequest(
@@ -356,14 +337,6 @@ public final class SettingsFixtures {
 
   public static List<NotificationRow> notificationMatrix() {
     return NOTIFICATION_MATRIX;
-  }
-
-  public static List<Bar> planUsage() {
-    return PLAN_USAGE;
-  }
-
-  public static List<Invoice> invoices() {
-    return INVOICES;
   }
 
   public static List<DataSubjectRequest> dataSubjectRequests() {

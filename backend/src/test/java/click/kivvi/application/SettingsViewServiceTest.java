@@ -19,8 +19,7 @@ class SettingsViewServiceTest {
     SettingsViewService.Payload payload = settingsViewService.build("account", SupportedLocale.PL);
 
     assertThat(payload.tab()).isEqualTo("account");
-    assertThat(payload.tabSubtitle())
-        .isEqualTo("Dane firmy, faktury i preferencje właściciela konta.");
+    assertThat(payload.tabSubtitle()).isEqualTo("Dane firmy i preferencje właściciela konta.");
     assertThat(payload.tabs())
         .filteredOn(SettingsViewService.TabView::active)
         .extracting(SettingsViewService.TabView::id)
@@ -43,7 +42,6 @@ class SettingsViewServiceTest {
             tuple("providers", "/pl/settings/providers"),
             tuple("api", "/pl/settings/api"),
             tuple("notifications", "/pl/settings/notifications"),
-            tuple("billing", "/pl/settings/billing"),
             tuple("gdpr", "/pl/settings/gdpr"));
   }
 
@@ -53,13 +51,22 @@ class SettingsViewServiceTest {
     SettingsViewService.Payload payload = settingsViewService.build("gdpr", SupportedLocale.EN);
 
     assertThat(payload.tabs().get(0).href()).isEqualTo("/en/settings");
-    assertThat(payload.tabs().get(7).href()).isEqualTo("/en/settings/gdpr");
+    assertThat(payload.tabs().get(6).href()).isEqualTo("/en/settings/gdpr");
   }
 
   @Test
   @DisplayName("B06 an unknown tab throws, mirroring SettingsController's 404")
   void unknownTabThrows() {
     assertThatThrownBy(() -> settingsViewService.build("nonexistent", SupportedLocale.PL))
+        .isInstanceOf(NoSuchElementException.class);
+  }
+
+  @Test
+  @DisplayName(
+      "PIO-123 the retired \"billing\" tab throws like any other unknown tab — the panel no "
+          + "longer has a subscription surface to render")
+  void retiredBillingTabThrows() {
+    assertThatThrownBy(() -> settingsViewService.build("billing", SupportedLocale.PL))
         .isInstanceOf(NoSuchElementException.class);
   }
 }

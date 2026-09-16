@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 class SettingsFixturesTest {
 
   @Test
-  @DisplayName("B32 eight settings tabs, in the oracle's exact order")
-  void eightTabsInOracleOrder() {
+  @DisplayName("B32 seven settings tabs, in the oracle's order minus the retired billing tab")
+  void sevenTabsInOracleOrder() {
     assertThat(SettingsFixtures.tabs())
         .extracting(SettingsFixtures.Tab::id, SettingsFixtures.Tab::label)
         .containsExactly(
@@ -20,7 +20,6 @@ class SettingsFixturesTest {
             tuple("providers", "Dostawcy email"),
             tuple("api", "Webhooks i API"),
             tuple("notifications", "Powiadomienia"),
-            tuple("billing", "Plan i płatności"),
             tuple("gdpr", "RODO / DPA"));
   }
 
@@ -30,6 +29,17 @@ class SettingsFixturesTest {
     assertThat(SettingsFixtures.isKnownTab("account")).isTrue();
     assertThat(SettingsFixtures.isKnownTab("gdpr")).isTrue();
     assertThat(SettingsFixtures.isKnownTab("nonexistent")).isFalse();
+  }
+
+  @Test
+  @DisplayName(
+      "PIO-123 \"billing\" is no longer a known tab — the panel carries no subscription surface, "
+          + "so the id joins every other unknown tab in failing isKnownTab")
+  void billingIsNoLongerAKnownTab() {
+    assertThat(SettingsFixtures.isKnownTab("billing")).isFalse();
+    assertThat(SettingsFixtures.tabs())
+        .extracting(SettingsFixtures.Tab::id)
+        .doesNotContain("billing");
   }
 
   @Test

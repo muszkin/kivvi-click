@@ -19,11 +19,9 @@ describe("B32/repair-1 buildLocaleHref — generic Symfony-style default-param o
     });
 
     it("a non-default settings tab keeps its URL segment", () => {
-        const route = router.resolve("/pl/settings/billing");
+        const route = router.resolve("/pl/settings/gdpr");
 
-        expect(buildLocaleHref(router, route, "en")).toBe(
-            "/en/settings/billing",
-        );
+        expect(buildLocaleHref(router, route, "en")).toBe("/en/settings/gdpr");
     });
 
     it("a route with no meta.defaultParams (customer detail) is unaffected", () => {

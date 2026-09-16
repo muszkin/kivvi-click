@@ -38,7 +38,7 @@ const SHELL_PAYLOAD = {
     crumb: "Ustawienia",
     workspace: {
         name: "aureashop.pl",
-        meta: "Plan Pro · 3 strony",
+        meta: "3 strony",
         mark: "AS",
     },
     user: { name: "Maciej Kowalczyk", email: "maciej@aureashop.pl" },
@@ -83,10 +83,10 @@ describe("repair-3 (R-B) locale toggle through the real router/AppLayout/Topbar 
         expect(localeToggleHref(wrapper)).toBe("/en/settings");
     });
 
-    it("at /pl/settings/billing (not the default tab), the toggle keeps the segment: /en/settings/billing", async () => {
-        const wrapper = await mountAppLayoutAt("/pl/settings/billing");
+    it("at /pl/settings/gdpr (not the default tab), the toggle keeps the segment: /en/settings/gdpr", async () => {
+        const wrapper = await mountAppLayoutAt("/pl/settings/gdpr");
 
-        expect(localeToggleHref(wrapper)).toBe("/en/settings/billing");
+        expect(localeToggleHref(wrapper)).toBe("/en/settings/gdpr");
     });
 
     it("at /pl/customers/c_1001 (a route with no meta.defaultParams), the toggle is an unmodified prefix swap: /en/customers/c_1001", async () => {

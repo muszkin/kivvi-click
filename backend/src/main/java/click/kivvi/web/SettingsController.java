@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Eight settings tabs, one URL each — mirrors {@code SettingsController}.
+ * Seven settings tabs, one URL each — mirrors {@code SettingsController}.
  *
  * <p>The document route for one tab ({@code GET /{locale}/settings/{tab}}) is handled here rather
  * than by {@link SpaDocumentController}'s generic {@code /{locale}/**} route table, for the same
@@ -106,8 +106,6 @@ public class SettingsController {
         SettingsFixtures.notificationMatrix().stream()
             .map(SettingsController::toNotificationRow)
             .toList(),
-        SettingsFixtures.planUsage().stream().map(SettingsController::toBar).toList(),
-        SettingsFixtures.invoices().stream().map(SettingsController::toInvoice).toList(),
         SettingsFixtures.dataSubjectRequests().stream()
             .map(SettingsController::toDataSubjectRequest)
             .toList(),
@@ -170,11 +168,6 @@ public class SettingsController {
   private static SettingsResponse.NotificationRow toNotificationRow(
       SettingsFixtures.NotificationRow row) {
     return new SettingsResponse.NotificationRow(row.label(), row.email(), row.slack(), row.sms());
-  }
-
-  private static SettingsResponse.Invoice toInvoice(SettingsFixtures.Invoice invoice) {
-    return new SettingsResponse.Invoice(
-        invoice.number(), invoice.date(), invoice.amount(), invoice.status());
   }
 
   private static SettingsResponse.DataSubjectRequest toDataSubjectRequest(

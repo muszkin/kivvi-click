@@ -125,9 +125,12 @@ class ShellApiIT {
     // Oracle a11y: navigation "Ścieżka": aureashop.pl / Pulpit
     assertThat(shell.crumb()).isEqualTo("Pulpit");
 
-    // Oracle a11y: button "AS aureashop.pl Plan Pro · 3 strony"
+    // Oracle a11y was: button "AS aureashop.pl Plan Pro · 3 strony". PIO-123 dropped the plan
+    // name from the meta line — the software is open source, so the workspace switcher states the
+    // fact it has (three tracked sites) instead of a subscription tier.
     assertThat(shell.workspace().name()).isEqualTo("aureashop.pl");
-    assertThat(shell.workspace().meta()).isEqualTo("Plan Pro · 3 strony");
+    assertThat(shell.workspace().meta()).isEqualTo("3 strony");
+    assertThat(shell.workspace().meta()).doesNotContain("Plan");
     assertThat(shell.workspace().mark()).isEqualTo("AS");
 
     // Oracle a11y (step 8, after logout): text: MK Maciej Kowalczyk maciej@aureashop.pl
