@@ -160,13 +160,47 @@ describe("PIO-70 the privacy policy page", () => {
         }
     });
 
-    it("discloses the Google Fonts transfer while index.html still loads them from Google", async () => {
+    it("PIO-118 states plainly that nothing leaves the EEA, now that the fonts are self-hosted", async () => {
         const { wrapper } = await mountAtRoute("/pl/privacy");
 
-        // Pinned to frontend/index.html: every visitor's browser reaches Google's CDN, so the
-        // page cannot claim a blanket "no transfers outside the EEA". Self-hosting the fonts is
-        // what lets this assertion — and that section — go away.
-        expect(wrapper.text()).toContain("Google Fonts");
+        const text = wrapper.text();
+        // This assertion is the inverse of the one it replaced. Until PIO-118 index.html pulled
+        // the typefaces from Google's CDN, so the policy had to disclose that transfer and the
+        // test held it to that disclosure. The transfer is gone, so naming Google here would now
+        // describe something the site does not do — and the plain statement below would be a
+        // lie the moment any third-party asset came back. fonts.spec.ts and the e2e network
+        // assertion in tests/e2e/specs/public.spec.ts guard the other half of that pair.
+        expect(text).not.toContain("Google Fonts");
+        expect(text).toContain(
+            "Nie przekazujemy Twoich danych poza Europejski Obszar Gospodarczy",
+        );
+    });
+
+    it("PIO-118 carries the same statement in English", async () => {
+        i18n.global.locale.value = "en";
+        const { wrapper } = await mountAtRoute("/en/privacy");
+
+        const text = wrapper.text();
+        expect(text).not.toContain("Google Fonts");
+        expect(text).toContain(
+            "We transfer no data outside the European Economic Area",
+        );
+    });
+
+    it("PIO-118 leaves the rest of the policy exactly as it was", async () => {
+        const { wrapper } = await mountAtRoute("/pl/privacy");
+
+        const text = wrapper.text();
+        // The EEA section was the only one this change was allowed to touch. These are the
+        // statements around it that a careless rewrite would take with it: the controller, the
+        // absence of a DPO, the rights, the e-mail subprocessor, the cookie statement and the
+        // Article 22 statement.
+        expect(text).toContain("Fairydeck Piotr Mucha");
+        expect(text).toContain("Nie powołaliśmy inspektora ochrony danych");
+        expect(text).toContain("Prezesa Urzędu Ochrony Danych Osobowych");
+        expect(text).toContain("Brevo");
+        expect(text).toContain("nie zapisują żadnych ciasteczek");
+        expect(text).toContain("art. 22 RODO");
     });
 
     it("keeps the Polish and English policies in step", async () => {

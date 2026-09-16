@@ -13,9 +13,15 @@
  * Two statements here are pinned to things the code actually does, and both break silently if the
  * code changes: the "no cookies on the public pages" section is only true while no controller
  * calls request.getSession(true) on a public path (today only LoginService and
- * ImportUploadController do, both behind the panel), and the Google Fonts disclosure is only
- * needed while frontend/index.html still loads them from Google's CDN. Self-hosting the fonts
- * removes a transfer to the United States and lets that section shrink to one sentence.
+ * ImportUploadController do, both behind the panel), and the "no transfers outside the EEA"
+ * section is only true while every asset the public pages load comes from our own origin.
+ *
+ * PIO-118 made that second statement true. The typefaces used to come from Google's CDN, so this
+ * page had to disclose a transfer that happened on every page view; they are now served from
+ * src/assets/fonts/, and the section says plainly that we transfer nothing. Re-introducing any
+ * third-party asset — a font, a script, an analytics pixel, an embedded map — makes this section
+ * false again and has to be paid for here in the same change. frontend/test/unit/fonts.spec.ts and
+ * tests/e2e/specs/public.spec.ts are what keep that from happening quietly.
  *
  * The contact address is written `piotr{'@'}kivvi.click`, not with a bare `@`: vue-i18n reads an
  * unescaped `@` as the start of its linked-message syntax and refuses to compile the string at all
@@ -75,7 +81,7 @@ export default {
             {
                 heading:
                     "Przekazywanie danych poza Europejski Obszar Gospodarczy",
-                body: "Strony tego serwisu ładują kroje pisma z Google Fonts (Google Ireland Limited, z infrastrukturą także poza EOG). Oznacza to, że przy wyświetlaniu strony Twoja przeglądarka łączy się z serwerami Google i przekazuje im Twój adres IP — dzieje się to niezależnie od tego, czy zapiszesz się na listę. Poza tym jednym przypadkiem nie przekazujemy danych poza Europejski Obszar Gospodarczy. Pracujemy nad tym, żeby kroje pisma serwować z własnego serwera i usunąć to przekazanie.",
+                body: "Nie przekazujemy Twoich danych poza Europejski Obszar Gospodarczy. Wszystko, z czego składa się ta strona — łącznie z krojami pisma — serwujemy z własnego serwera, więc jej wyświetlenie nie łączy Twojej przeglądarki z żadnym podmiotem spoza EOG.",
             },
             {
                 heading: "Ciasteczka i analityka",
