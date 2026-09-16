@@ -16,8 +16,7 @@ public final class ShellFixtures {
   public static final Identity DEFAULT_IDENTITY =
       new Identity("maciej@aureashop.pl", "Maciej Kowalczyk");
 
-  private static final Workspace WORKSPACE =
-      new Workspace("aureashop.pl", "Plan Pro · 3 strony", "AS");
+  private static final Workspace WORKSPACE = new Workspace("aureashop.pl", "3 strony", "AS");
 
   private ShellFixtures() {}
 

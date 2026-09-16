@@ -1,8 +1,9 @@
 <script setup lang="ts">
 // ATOM · ToggleRow — checkbox or radio with an inline label, ported from
 // components/atoms/toggle-row.html.twig. `label` is bound with v-html: every settings usage of
-// this atom passes developer-authored copy, one of them (payment-method's "invoice recipient"
-// row) carrying an embedded `<span class="mono">` exactly like the old `{{ label|raw }}` did.
+// this atom passes developer-authored copy, one of them (the import wizard's "send report to
+// <email>" row) carrying an embedded `<span class="mono">` exactly like the old `{{ label|raw }}`
+// did.
 withDefaults(
     defineProps<{
         kind?: "checkbox" | "radio";

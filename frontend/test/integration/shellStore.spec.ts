@@ -181,7 +181,7 @@ describe("B08/B10 shell store preference toggles", () => {
                     crumb: "Pulpit",
                     workspace: {
                         name: "aureashop.pl",
-                        meta: "Plan Pro · 3 strony",
+                        meta: "3 strony",
                         mark: "AS",
                     },
                     user: { name: "Anna", email: "anna@aureashop.pl" },

@@ -21,7 +21,7 @@ public class SettingsViewService {
       String tab, List<TabView> tabs, String tabSubtitle, String trackerSnippet) {}
 
   /**
-   * @throws NoSuchElementException when {@code tab} is not one of the eight known tabs — mirrors
+   * @throws NoSuchElementException when {@code tab} is not one of the seven known tabs — mirrors
    *     {@code SettingsController::index}'s {@code createNotFoundException} when {@code
    *     SettingsCatalog::isKnownTab} fails.
    */

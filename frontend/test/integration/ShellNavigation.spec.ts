@@ -106,7 +106,7 @@ const NAV_GROUPS = [
 
 const WORKSPACE = {
     name: "aureashop.pl",
-    meta: "Plan Pro · 3 strony",
+    meta: "3 strony",
     mark: "AS",
 };
 const USER = { name: "Maciej Kowalczyk", email: "maciej@aureashop.pl" };
@@ -151,7 +151,7 @@ const PANEL_ROUTES: Array<{ path: string; section: string; crumb: string }> = [
     { path: "/pl/import", section: "import", crumb: "Import klientów" },
     { path: "/pl/import/2", section: "import", crumb: "Import klientów" },
     { path: "/pl/settings", section: "settings", crumb: "Ustawienia" },
-    { path: "/pl/settings/billing", section: "settings", crumb: "Ustawienia" },
+    { path: "/pl/settings/gdpr", section: "settings", crumb: "Ustawienia" },
 ];
 
 const ALL_ROUTES = NAV_GROUPS.flatMap((group) =>

@@ -49,8 +49,6 @@ public record SettingsResponse(
 
   public record NotificationRow(String label, boolean email, boolean slack, boolean sms) {}
 
-  public record Invoice(String number, String date, String amount, String status) {}
-
   public record DataSubjectRequest(
       String id, String person, String type, String status, boolean done, String due) {}
 
@@ -67,8 +65,6 @@ public record SettingsResponse(
       List<Webhook> webhooks,
       List<Bar> apiLimits,
       List<NotificationRow> notificationMatrix,
-      List<Bar> planUsage,
-      List<Invoice> invoices,
       List<DataSubjectRequest> dataSubjectRequests,
       List<RetentionPolicy> retentionPolicies) {}
 }

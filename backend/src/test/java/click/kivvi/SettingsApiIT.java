@@ -64,8 +64,7 @@ class SettingsApiIT {
     SettingsResponse body = api.getBody();
     assertThat(body).isNotNull();
     assertThat(body.tab()).isEqualTo("account");
-    assertThat(body.tabSubtitle())
-        .isEqualTo("Dane firmy, faktury i preferencje właściciela konta.");
+    assertThat(body.tabSubtitle()).isEqualTo("Dane firmy i preferencje właściciela konta.");
   }
 
   @Test
@@ -159,25 +158,6 @@ class SettingsApiIT {
 
   @Test
   @DisplayName(
-      "B01 GET /pl/settings/billing renders the SPA document 200 and its own tabSubtitle marker")
-  void billingRowRendersWithItsOwnMarker() {
-    ResponseEntity<String> document =
-        restTemplate.getForEntity("/pl/settings/billing", String.class);
-    assertThat(document.getStatusCode().value()).isEqualTo(200);
-    assertThat(document.getBody()).contains("<html");
-
-    ResponseEntity<SettingsResponse> api =
-        restTemplate.getForEntity("/api/v1/pl/settings/billing", SettingsResponse.class);
-    assertThat(api.getStatusCode().value()).isEqualTo(200);
-    SettingsResponse body = api.getBody();
-    assertThat(body).isNotNull();
-    assertThat(body.tab()).isEqualTo("billing");
-    assertThat(body.tabSubtitle())
-        .isEqualTo("Plan, wykorzystanie limitów, metoda płatności i faktury.");
-  }
-
-  @Test
-  @DisplayName(
       "B01 GET /pl/settings/gdpr renders the SPA document 200 and its own tabSubtitle marker")
   void gdprRowRendersWithItsOwnMarker() {
     ResponseEntity<String> document = restTemplate.getForEntity("/pl/settings/gdpr", String.class);
@@ -196,7 +176,7 @@ class SettingsApiIT {
 
   @Test
   @DisplayName(
-      "B32 GET /api/v1/pl/settings/account: 8 tabs, 3 tracked sites, 5 team rows, through the "
+      "B32 GET /api/v1/pl/settings/account: 7 tabs, 3 tracked sites, 5 team rows, through the "
           + "real HTTP layer")
   void settingsPayloadMatchesTheOracleThroughTheRealHttpLayer() {
     ResponseEntity<SettingsResponse> response =
@@ -205,7 +185,7 @@ class SettingsApiIT {
     assertThat(response.getStatusCode().value()).isEqualTo(200);
     SettingsResponse body = response.getBody();
     assertThat(body).isNotNull();
-    assertThat(body.tabs()).hasSize(8);
+    assertThat(body.tabs()).hasSize(7);
     assertThat(body.settings().trackedSites()).hasSize(3);
     assertThat(body.settings().team()).hasSize(5);
   }
@@ -229,6 +209,44 @@ class SettingsApiIT {
         restTemplate.getForEntity("/pl/settings/nonexistent", String.class);
 
     assertThat(response.getStatusCode().value()).isEqualTo(404);
+  }
+
+  /**
+   * PIO-123 retired the billing tab. {@code billing} is now an unknown tab id, so both its document
+   * and its API route 404 — the same behaviour every other unknown tab has always had. It is
+   * asserted here, in the full context, for the same reason the {@code nonexistent} case is: {@code
+   * /pl/settings/billing} still matches {@link click.kivvi.domain.RouteTable}'s {@code
+   * settings(?:/[a-z0-9-]+)?} pattern, so without {@link click.kivvi.web.SettingsController}'s
+   * exact mapping winning over {@link click.kivvi.web.SpaDocumentController}'s wildcard the retired
+   * tab would quietly render a 200 shell with an empty body. The url also used to be a live page,
+   * which is exactly why the 404 needs to be written down rather than inferred.
+   */
+  @Test
+  @DisplayName(
+      "PIO-123 GET /pl/settings/billing is a 404 document through the real HTTP layer now that "
+          + "the tab is retired")
+  void retiredBillingTabDocumentIsNotFoundThroughTheRealHttpLayer() {
+    ResponseEntity<String> response =
+        restTemplate.getForEntity("/pl/settings/billing", String.class);
+
+    assertThat(response.getStatusCode().value()).isEqualTo(404);
+  }
+
+  @Test
+  @DisplayName(
+      "PIO-123 GET /api/v1/pl/settings/billing is not found through the real HTTP layer, and no "
+          + "tab in the payload points back at it")
+  void retiredBillingTabApiIsNotFoundThroughTheRealHttpLayer() {
+    ResponseEntity<String> response =
+        restTemplate.getForEntity("/api/v1/pl/settings/billing", String.class);
+
+    assertThat(response.getStatusCode().value()).isEqualTo(404);
+
+    ResponseEntity<SettingsResponse> account =
+        restTemplate.getForEntity("/api/v1/pl/settings/account", SettingsResponse.class);
+    SettingsResponse body = account.getBody();
+    assertThat(body).isNotNull();
+    assertThat(body.tabs()).extracting(SettingsResponse.Tab::id).doesNotContain("billing");
   }
 
   @Test

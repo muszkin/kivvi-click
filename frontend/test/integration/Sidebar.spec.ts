@@ -37,7 +37,7 @@ describe("Sidebar navigation", () => {
                 current: "events",
                 workspace: {
                     name: "aureashop.pl",
-                    meta: "Plan Pro · 3 strony",
+                    meta: "3 strony",
                     mark: "AS",
                 },
                 user: {
@@ -63,7 +63,7 @@ describe("Sidebar navigation", () => {
                 current: "customers",
                 workspace: {
                     name: "aureashop.pl",
-                    meta: "Plan Pro · 3 strony",
+                    meta: "3 strony",
                     mark: "AS",
                 },
                 user: {
@@ -87,7 +87,7 @@ describe("Sidebar navigation", () => {
                 current: "dashboard",
                 workspace: {
                     name: "aureashop.pl",
-                    meta: "Plan Pro · 3 strony",
+                    meta: "3 strony",
                     mark: "AS",
                 },
                 user: { name: "Anna", email: "anna@aureashop.pl" },

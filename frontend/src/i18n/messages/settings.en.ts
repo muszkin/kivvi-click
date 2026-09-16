@@ -118,30 +118,6 @@ export default {
             quietTo: "do", // no en.yaml entry
             criticalBypass: "Alerty krytyczne omijają ciszę nocną", // no en.yaml entry
         },
-        billing: {
-            limitsCardTitle: "Limit usage", // en.yaml: 'Wykorzystanie limitów'
-            limitsCardSub: "okres 1–26 sierpnia 2026", // no en.yaml entry
-            paymentMethodCardTitle: "Payment method", // en.yaml: 'Metoda płatności'
-            change: "Zmień", // no en.yaml entry
-            cardExpiry: "wygasa 04/2029 · Maciej Kowalczyk", // no en.yaml entry
-            defaultPaymentMethod: "domyślna", // no en.yaml entry
-            // "@" is vue-i18n message-syntax reserved (linked-message references) — escaped as
-            // {'@'}; see settings.pl.ts's comment on the same key.
-            invoiceRecipient:
-                "Wysyłaj faktury na <span class=\"mono\">ksiegowosc{'@'}aureashop.pl</span>", // no en.yaml entry
-            invoicesCardTitle: "Invoices", // en.yaml: 'Faktury'
-            downloadAll: "Pobierz wszystkie", // no en.yaml entry
-            columnNumber: "Numer", // no en.yaml entry
-            columnDate: "Data", // no en.yaml entry
-            columnAmount: "Kwota netto", // no en.yaml entry
-            columnStatus: "Status", // no en.yaml entry
-            yourPlan: "Twój plan", // no en.yaml entry
-            monthlyBilling: "rozliczenie miesięczne", // no en.yaml entry
-            nextRenewal:
-                "Następne odnowienie 1 września 2026 · 149,00 zł netto", // no en.yaml entry
-            switchToYearly: "Zmień na roczny (−20%)", // no en.yaml entry
-            changePlan: "Zmień plan", // no en.yaml entry
-        },
         gdpr: {
             dpaCardTitle: "Data processing agreement (DPA)", // en.yaml: 'Umowa powierzenia (DPA)'
             dpaSigned: "Podpisana 14 stycznia 2024", // no en.yaml entry

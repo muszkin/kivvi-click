@@ -33,12 +33,6 @@ const TABS = [
         href: "/pl/settings/notifications",
     },
     {
-        id: "billing",
-        icon: "money",
-        label: "Plan i płatności",
-        href: "/pl/settings/billing",
-    },
-    {
         id: "gdpr",
         icon: "info",
         label: "RODO / DPA",
@@ -47,14 +41,13 @@ const TABS = [
 ];
 
 const SUBTITLES: Record<string, string> = {
-    account: "Dane firmy, faktury i preferencje właściciela konta.",
+    account: "Dane firmy i preferencje właściciela konta.",
     sites: "Domeny objęte trackingiem oraz instalacja skryptu.",
     team: "Osoby z dostępem do panelu, ich role i zaproszenia.",
     providers:
         "Skąd wychodzą Twoje e-maile i jak radzą sobie z dostarczalnością.",
     api: "Klucze API, webhooks i logi wywołań.",
     notifications: "Kiedy Kivvi ma Cię powiadomić i którym kanałem.",
-    billing: "Plan, wykorzystanie limitów, metoda płatności i faktury.",
     gdpr: "Retencja danych, umowa powierzenia i obsługa żądań podmiotów.",
 };
 
@@ -209,22 +202,6 @@ const SETTINGS = {
             sms: true,
         },
     ],
-    planUsage: [
-        {
-            label: "Zdarzenia",
-            pct: 34,
-            value: "1,42 mln / bez limitu",
-            tone: "accent",
-        },
-    ],
-    invoices: [
-        {
-            number: "FV/2026/08/0142",
-            date: "01 sie 2026",
-            amount: "149,00 zł",
-            status: "zapłacona",
-        },
-    ],
     dataSubjectRequests: [
         {
             id: "DSR-0142",
@@ -265,7 +242,7 @@ async function mountAt(path: string) {
     return wrapper;
 }
 
-describe("B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix", () => {
+describe("B32 7 tabs at own URLs with markers, highlighted tracker snippet, DNS states, failing webhook, notification matrix", () => {
     beforeEach(() => {
         vi.stubGlobal(
             "fetch",
@@ -303,11 +280,11 @@ describe("B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS 
         );
     });
 
-    it("renders all 8 tabs, with the current one aria-current=true", async () => {
+    it("renders all 7 tabs, with the current one aria-current=true", async () => {
         const wrapper = await mountAt("/pl/settings/sites");
 
         const links = wrapper.findAll(".settings-nav a");
-        expect(links).toHaveLength(8);
+        expect(links).toHaveLength(7);
         expect(
             links.filter((link) => link.attributes("aria-current") === "true"),
         ).toHaveLength(1);
@@ -370,23 +347,17 @@ describe("B32 8 tabs at own URLs with markers, highlighted tracker snippet, DNS 
         expect(checked).toHaveLength(15);
     });
 
-    it('B01 the billing tab shows its marker text (mirrors PanelPagesTest\'s .card-title "Wykorzystanie limitów")', async () => {
-        const wrapper = await mountAt("/pl/settings/billing");
+    it("PIO-123 no tab links to the retired billing tab, and the nav names no plan, price or invoice", async () => {
+        const wrapper = await mountAt("/pl/settings/account");
 
-        expect(wrapper.text()).toContain("Wykorzystanie limitów");
+        const hrefs = wrapper
+            .findAll(".settings-nav a")
+            .map((link) => link.attributes("href"));
+        expect(hrefs).not.toContain("/pl/settings/billing");
+        const nav = wrapper.find(".settings-nav").text();
+        expect(nav).not.toContain("Plan i płatności");
+        expect(nav).not.toContain("Faktury");
     });
-
-    it(
-        "the billing tab's invoice-recipient toggle renders a literal '@' and the embedded " +
-            "mono span, despite '@' being vue-i18n's linked-message reserved character",
-        async () => {
-            const wrapper = await mountAt("/pl/settings/billing");
-
-            const mono = wrapper.find(".checkbox-row span.mono");
-            expect(mono.exists()).toBe(true);
-            expect(mono.text()).toBe("ksiegowosc@aureashop.pl");
-        },
-    );
 
     it('B01 the gdpr tab shows its marker text ("Retencja danych" — a second, also-unique card title on this tab; PanelPagesTest\'s own .card-title marker for this row is "Umowa powierzenia (DPA)", the first card)', async () => {
         const wrapper = await mountAt("/pl/settings/gdpr");
@@ -417,6 +388,18 @@ describe("B06 an unknown tab never renders a page body", () => {
     it("stays empty when the API 404s", async () => {
         const wrapper = await mountAt("/pl/settings/nonexistent");
 
+        expect(wrapper.find(".page").exists()).toBe(false);
+    });
+
+    it("PIO-123 the retired billing tab is one of those unknown tabs — the API 404s and the view renders nothing", async () => {
+        const wrapper = await mountAt("/pl/settings/billing");
+
+        expect(fetch).toHaveBeenCalledWith(
+            "/api/v1/pl/settings/billing",
+            expect.objectContaining({
+                headers: { Accept: "application/json" },
+            }),
+        );
         expect(wrapper.find(".page").exists()).toBe(false);
     });
 });

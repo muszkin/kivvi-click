@@ -52,7 +52,7 @@ const SHELL_PAYLOAD_FOR_CUSTOMER_SHOW = {
     crumb: "Klienci",
     workspace: {
         name: "aureashop.pl",
-        meta: "Plan Pro · 3 strony",
+        meta: "3 strony",
         mark: "AS",
     },
     user: { name: "Maciej Kowalczyk", email: "maciej@aureashop.pl" },

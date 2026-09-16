@@ -1,7 +1,9 @@
 import { expect, test } from "@playwright/test";
 
 /**
- * Settings: eight tabs, each addressable, each rendering its own surface.
+ * Settings: seven tabs, each addressable, each rendering its own surface. PIO-123 retired the
+ * eighth ("Plan i płatności") — the software is open source, so the panel describes no
+ * subscription; `/pl/settings/billing` now 404s like any other unknown tab.
  */
 const TABS = [
     { id: "account", label: "Konto", marker: "Dane konta" },
@@ -17,11 +19,6 @@ const TABS = [
         id: "notifications",
         label: "Powiadomienia",
         marker: "Kanały powiadomień",
-    },
-    {
-        id: "billing",
-        label: "Plan i płatności",
-        marker: "Wykorzystanie limitów",
     },
     { id: "gdpr", label: "RODO / DPA", marker: "Retencja danych" },
 ];
@@ -48,6 +45,37 @@ test.describe("settings", () => {
             );
         });
     }
+
+    test("the settings nav offers seven tabs and none of them is billing", async ({
+        page,
+    }) => {
+        await page.goto("/pl/settings/account");
+
+        await expect(page.locator(".settings-nav a")).toHaveCount(7);
+        await expect(page.locator(".settings-nav")).not.toContainText(
+            "Plan i płatności",
+        );
+        await expect(page.locator(".settings-grid")).not.toContainText(
+            "149,00 zł",
+        );
+    });
+
+    test("the retired billing tab is a 404 document, not an empty panel page", async ({
+        page,
+    }) => {
+        const response = await page.goto("/pl/settings/billing");
+
+        expect(response?.status()).toBe(404);
+    });
+
+    test("the workspace switcher states the site count, not a plan", async ({
+        page,
+    }) => {
+        await page.goto("/pl/settings/account");
+
+        await expect(page.locator(".ws-card")).toContainText("3 strony");
+        await expect(page.locator(".ws-card")).not.toContainText("Plan Pro");
+    });
 
     test("the tracker snippet is highlighted server-side", async ({ page }) => {
         await page.goto("/pl/settings/sites");

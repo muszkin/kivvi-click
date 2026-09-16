@@ -1,7 +1,8 @@
 <script setup lang="ts">
-// PAGE · Ustawienia — ported from pages/settings.html.twig. Eight tabs, each its own URL
+// PAGE · Ustawienia — ported from pages/settings.html.twig. Seven tabs, each its own URL
 // (/settings/{tab}); the bare /settings route resolves to the "account" default tab client-side,
-// exactly like the old stack's route default did server-side.
+// exactly like the old stack's route default did server-side. The eighth tab, "billing", was
+// retired by PIO-123: the software is open source, so the panel has no subscription to describe.
 //
 // Data arrives from GET /api/v1/{locale}/settings/{tab}, pre-formatted by SettingsViewService —
 // this view (and every tab component under components/settings/) never formats a number itself.
@@ -15,7 +16,6 @@ import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 import AccountTab from "@/components/settings/AccountTab.vue";
 import ApiTab from "@/components/settings/ApiTab.vue";
-import BillingTab from "@/components/settings/BillingTab.vue";
 import GdprTab from "@/components/settings/GdprTab.vue";
 import NotificationsTab from "@/components/settings/NotificationsTab.vue";
 import ProvidersTab from "@/components/settings/ProvidersTab.vue";
@@ -44,7 +44,6 @@ const TAB_COMPONENTS: Record<string, unknown> = {
     providers: ProvidersTab,
     api: ApiTab,
     notifications: NotificationsTab,
-    billing: BillingTab,
     gdpr: GdprTab,
 };
 
@@ -104,8 +103,6 @@ const tabProps = computed((): Record<string, unknown> => {
             };
         case "notifications":
             return { notificationMatrix: s.notificationMatrix };
-        case "billing":
-            return { planUsage: s.planUsage, invoices: s.invoices };
         case "gdpr":
             return {
                 retentionPolicies: s.retentionPolicies,
