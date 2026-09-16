@@ -104,6 +104,136 @@ test.describe("landing", () => {
     });
 });
 
+/**
+ * PIO-118 — nothing a public page loads comes from anywhere but this origin.
+ *
+ * index.html used to pull Geist, Geist Mono and Instrument Serif from Google's CDN, so every
+ * visitor disclosed their IP address to Google simply by opening the page. The privacy policy
+ * had to say so. The typefaces are served from this origin now, the policy says we transfer
+ * nothing, and these tests are what make that statement checkable rather than aspirational.
+ *
+ * frontend/test/unit/fonts.spec.ts covers the same ground statically, against the source. This
+ * covers what the static test cannot: what a real browser actually goes and fetches.
+ */
+test.describe("no third-party requests", () => {
+    for (const path of ["/pl", "/en"]) {
+        test(`loading ${path} issues no request to any host but our own`, async ({
+            page,
+            baseURL,
+        }) => {
+            const ourHost = new URL(baseURL as string).host;
+            const offHost: string[] = [];
+
+            page.on("request", (request) => {
+                const url = new URL(request.url());
+                // data: and blob: cost no network request; only real schemes can leak.
+                if (url.protocol !== "http:" && url.protocol !== "https:") {
+                    return;
+                }
+                if (url.host !== ourHost) {
+                    offHost.push(`${request.resourceType()} ${request.url()}`);
+                }
+            });
+
+            await page.goto(path);
+            // Requests for fonts are issued during layout, after load — waiting only for
+            // "load" would let exactly the requests this test exists for slip past it.
+            await page.evaluate(async () => {
+                await document.fonts.ready;
+            });
+            await page.waitForLoadState("networkidle");
+
+            expect(offHost).toEqual([]);
+        });
+    }
+
+    test("the typefaces come from this origin and are really used", async ({
+        page,
+        baseURL,
+    }) => {
+        const ourHost = new URL(baseURL as string).host;
+        const fontRequests: string[] = [];
+
+        page.on("request", (request) => {
+            if (request.resourceType() === "font") {
+                fontRequests.push(request.url());
+            }
+        });
+
+        await page.goto("/pl");
+        await page.evaluate(async () => {
+            await document.fonts.ready;
+        });
+
+        // Not just "no off-host requests": a page that loaded no webfont at all would pass
+        // that. The page has to be fetching our files and rendering in them.
+        expect(fontRequests.length).toBeGreaterThan(0);
+        for (const url of fontRequests) {
+            expect(new URL(url).host).toBe(ourHost);
+            expect(url).toMatch(/\.woff2(\?|$)/);
+        }
+        expect(
+            await page.evaluate(() =>
+                getComputedStyle(document.body).fontFamily.includes("Geist"),
+            ),
+        ).toBe(true);
+    });
+});
+
+/**
+ * PIO-118 — the risk the ticket names: an over-eager subset drops the Polish diacritics, and it
+ * shows up in production rather than in CI, because nothing else in the suite happens to contain
+ * `ąćęłńóśźż`.
+ *
+ * Google splits each family by unicode-range: `ó` comes from the `latin` file, the other eight
+ * accented letters from `latin-ext`. So the browser, asked to render a string with all nine, must
+ * match and successfully download TWO faces per family. One means the latin-ext subset is gone
+ * and half of every Polish word is silently rendering in the fallback face.
+ */
+test.describe("Polish diacritics in all three typefaces", () => {
+    const POLISH = "ąćęłńóśźż";
+
+    for (const family of ["Geist", "Geist Mono", "Instrument Serif"]) {
+        test(`${family} renders ${POLISH}`, async ({ page }) => {
+            await page.goto("/pl");
+
+            const coverage = await page.evaluate(
+                async ([name, text]) => {
+                    const spec = `400 16px "${name}"`;
+                    // Per letter, not per string: document.fonts.load() returns the faces whose
+                    // unicode-range matches the text, so a letter no @font-face covers comes back
+                    // as an empty list — the browser would silently render it in the fallback.
+                    // Asserting letter by letter names which one broke instead of "something".
+                    const perLetter: Record<string, string[]> = {};
+                    for (const letter of text) {
+                        const matched = await document.fonts.load(spec, letter);
+                        perLetter[letter] = matched.map((face) => face.status);
+                    }
+                    const whole = await document.fonts.load(spec, text);
+                    return {
+                        perLetter,
+                        facesForWholeString: whole.length,
+                        check: document.fonts.check(spec, text),
+                    };
+                },
+                [family, POLISH] as const,
+            );
+
+            for (const letter of POLISH) {
+                expect(
+                    coverage.perLetter[letter],
+                    `${family} has no loaded @font-face covering "${letter}"`,
+                ).toEqual(["loaded"]);
+            }
+            // Two, because the nine letters straddle the latin/latin-ext split: `ó` comes from
+            // one file and the other eight from the other. One face here means a subset was
+            // dropped; the per-letter assertions above say which letters went with it.
+            expect(coverage.facesForWholeString).toBe(2);
+            expect(coverage.check).toBe(true);
+        });
+    }
+});
+
 test.describe("login", () => {
     test("signs in and shows the identity in the sidebar", async ({ page }) => {
         await page.goto("/pl/login");
