@@ -6,6 +6,28 @@ byte-for-byte from the old stack's `assets/styles/`. Served by the Spring Boot A
 `../backend/` from its own classpath — see that module's README for how the two combine
 into one jar.
 
+## Typefaces
+
+Geist, Geist Mono and Instrument Serif are **self-hosted** (PIO-118): the `.woff2` files live in
+`src/assets/fonts/` and the `@font-face` declarations that point at them are in
+`src/assets/fonts/fonts.css`, imported from `main.ts`. They used to come from Google's CDN, which
+disclosed every visitor's IP address to Google on every page view — a transfer outside the EEA
+that the privacy policy had to disclose. It no longer happens, and
+`src/i18n/messages/privacy.{pl,en}.ts` now states plainly that nothing leaves the EEA.
+
+Two rules follow from that, and both are enforced by tests rather than by review:
+
+- **Nothing the public pages load may come from another origin.** `test/unit/fonts.spec.ts`
+  fails if `index.html` gains any absolute URL; `../tests/e2e/specs/public.spec.ts` fails if
+  loading `/pl` or `/en` issues a single request off-host. Adding a hosted font, script, or
+  analytics pixel means amending the privacy policy in the same change.
+- **Both the `latin` and `latin-ext` subsets ship for every face.** `ó` comes from `latin`, and
+  `ą ć ę ł ń ś ź ż` from `latin-ext`; dropping either leaves English pages perfect and renders
+  half of every Polish word in the fallback face. Both test files above check this explicitly.
+
+All three families are under the SIL Open Font License 1.1, which permits self-hosting on
+condition the licence travels with the files: `src/assets/fonts/OFL-*.txt`.
+
 ## Build
 
 ```sh

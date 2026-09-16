@@ -14,3 +14,6 @@ bin/console text eol=lf
 
 *.ico binary
 *.png binary
+# Self-hosted typefaces (PIO-118). Marked explicitly rather than left to `text=auto` detection:
+# a woff2 that ever got line-ending normalisation applied to it would be a corrupt font file.
+*.woff2 binary

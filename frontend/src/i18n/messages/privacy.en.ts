@@ -54,7 +54,7 @@ export default {
             },
             {
                 heading: "Transfers outside the European Economic Area",
-                body: "The pages of this site load typefaces from Google Fonts (Google Ireland Limited, whose infrastructure also sits outside the EEA). That means your browser connects to Google's servers when a page is displayed and discloses your IP address to them — this happens whether or not you join the list. Apart from that one case we transfer no data outside the European Economic Area. We are working towards serving the typefaces from our own server and removing that transfer.",
+                body: "We transfer no data outside the European Economic Area. Everything this page is made of — the typefaces included — is served from our own server, so displaying it connects your browser to nobody outside the EEA.",
             },
             {
                 heading: "Cookies and analytics",
