@@ -8,12 +8,11 @@ import { useRoute } from "vue-router";
 import Button from "@/components/atoms/Button.vue";
 import Icon from "@/components/atoms/Icon.vue";
 import Dropzone from "@/components/molecules/Dropzone.vue";
+import { routeLocale } from "@/router/routeLocale";
 
 const { t } = useI18n();
 const route = useRoute();
-const locale = computed(() =>
-    typeof route.params.locale === "string" ? route.params.locale : "pl",
-);
+const locale = computed(() => routeLocale(route));
 const apiSettingsHref = computed(() => `/${locale.value}/settings/api`);
 </script>
 
@@ -23,6 +22,7 @@ const apiSettingsHref = computed(() => `/${locale.value}/settings/api`);
         <p class="wiz-sub">{{ t("import.upload.sub") }}</p>
 
         <Dropzone
+            :locale="locale"
             :title="t('import.upload.dropzoneTitle')"
             :sub="t('import.upload.dropzoneSub')"
             hint="np. newsletter-2026-mar.csv"

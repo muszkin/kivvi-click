@@ -17,20 +17,21 @@ import org.springframework.web.multipart.MultipartFile;
  * file picker take; the SPA's {@code Dropzone.vue} follows the redirect with a full document
  * navigation, exactly like {@code assets/controllers/upload.ts} did.
  *
- * <p>The redirect target's locale is always {@link SupportedLocale#DEFAULT}, never the locale the
- * browser was actually on: this route carries no {@code {locale}} segment of its own, so the old
- * stack's {@code redirectToRoute('import', ['step' => 2])} — which never passes {@code _locale}
- * explicitly — falls back to Symfony's configured {@code default_locale} ({@code pl}), not to
- * whatever locale-prefixed page the upload was posted from. Reproduced verbatim, quirk and all: the
- * oracle only ever recorded this from a {@code /pl/...} page, so it never had a chance to show
- * otherwise, but the mechanism is the framework default, not "the current page's locale".
+ * <p>The redirect returns to the locale the upload was posted from. This route carries no {@code
+ * {locale}} segment of its own, so the SPA names it in the multipart body's {@value #LOCALE_FIELD}
+ * field; a missing or unsupported value falls back to {@link SupportedLocale#DEFAULT}.
  *
- * <p>PIO-125 moved that default to English, so the redirect now lands on {@code /en/import/2} and
- * the quirk points the other way: an upload posted from a {@code /pl/...} page leaves Polish.
- * Carrying the page's own locale through the upload is a panel change, left to its own decision.
+ * <p>Until PIO-125 this always redirected to the default locale, reproducing the old stack's {@code
+ * redirectToRoute('import', ['step' => 2])}, which fell back to Symfony's {@code default_locale}
+ * whatever page the upload came from. That only ever pulled {@code /en} users into Polish; once
+ * English became the default it pulled every {@code /pl} user into English instead, so the page's
+ * own locale travels with the upload now. The field is a form value rather than the {@code Referer}
+ * header, which a browser or proxy may strip or truncate.
  */
 @RestController
 public class ImportUploadController {
+
+  static final String LOCALE_FIELD = "locale";
 
   private final ImportUploadService importUploadService;
 
@@ -50,6 +51,7 @@ public class ImportUploadController {
   @PostMapping("/import/upload")
   public ResponseEntity<Void> upload(
       @RequestParam(name = "file", required = false) MultipartFile file,
+      @RequestParam(name = LOCALE_FIELD, required = false) String locale,
       HttpServletRequest request) {
     if (file == null) {
       return ResponseEntity.notFound().build();
@@ -57,8 +59,9 @@ public class ImportUploadController {
 
     importUploadService.store(request.getSession(true), file);
 
+    SupportedLocale returnTo = SupportedLocale.fromCode(locale).orElse(SupportedLocale.DEFAULT);
     return ResponseEntity.status(HttpStatus.FOUND)
-        .location(URI.create("/" + SupportedLocale.DEFAULT.code() + "/import/2"))
+        .location(URI.create("/" + returnTo.code() + "/import/2"))
         .build();
   }
 }

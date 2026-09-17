@@ -10,15 +10,23 @@
 // version of this component swapped the third entry for `router.push` (a cheaper, SPA-native
 // transition) as a deliberate breaking change; the orchestrator rejected that (repair-1: workers
 // may not introduce an unapproved deviation, and the zero-change rule wins over "cheaper") and
-// ruled that this component must match the old stack byte-for-byte instead. Request shape is
-// unchanged either way: `fetch("/import/upload", { method: "POST", body })`, same `file` field
-// name, default credentials.
+// ruled that this component must match the old stack byte-for-byte instead. Request shape:
+// `fetch("/import/upload", { method: "POST", body })`, same `file` field name, default
+// credentials.
+//
+// PIO-125 added one field, `locale`: the language of the page the upload is posted from. The
+// upload route has no locale segment, so without it the server could only redirect into the
+// default locale — which, once English became the default, sent every Polish user to English.
+// A prop rather than useRoute(), like Stepper's own `locale`: the parent step already knows it.
 import { ref } from "vue";
 import Icon from "@/components/atoms/Icon.vue";
 
-withDefaults(
+const LOCALE_FIELD = "locale";
+
+const props = withDefaults(
     defineProps<{
         title: string;
+        locale: string;
         sub?: string;
         hint?: string;
         accept?: string;
@@ -32,6 +40,7 @@ const input = ref<HTMLInputElement | null>(null);
 async function send(file: File): Promise<void> {
     const body = new FormData();
     body.append("file", file);
+    body.append(LOCALE_FIELD, props.locale);
     const response = await fetch("/import/upload", { method: "POST", body });
     if (response.redirected) {
         window.location.href = response.url;

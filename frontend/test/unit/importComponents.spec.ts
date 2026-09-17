@@ -97,7 +97,10 @@ describe("B31 Dropzone posts the file and follows a redirected response with a f
         );
 
         const wrapper = mount(Dropzone, {
-            props: { title: "Przeciągnij plik tutaj lub kliknij aby wybrać" },
+            props: {
+                title: "Przeciągnij plik tutaj lub kliknij aby wybrać",
+                locale: "pl",
+            },
         });
 
         const input = wrapper.find('input[type="file"]');
@@ -132,7 +135,9 @@ describe("B31 Dropzone posts the file and follows a redirected response with a f
             ),
         );
 
-        const wrapper = mount(Dropzone, { props: { title: "x" } });
+        const wrapper = mount(Dropzone, {
+            props: { title: "x", locale: "pl" },
+        });
 
         const input = wrapper.find('input[type="file"]');
         Object.defineProperty(input.element, "files", {
@@ -144,8 +149,40 @@ describe("B31 Dropzone posts the file and follows a redirected response with a f
         expect(window.location.href).toBe("https://localhost/pl/import/1");
     });
 
+    // PIO-125: the upload route has no locale segment, so the page's own locale travels in the
+    // body — otherwise the server can only redirect into the default one (English), and a Polish
+    // user uploading from /pl/import/1 would be dropped into /en/import/2.
+    for (const locale of ["pl", "en"]) {
+        it(`sends the page's locale (${locale}) with the file, so the redirect returns to it`, async () => {
+            vi.stubGlobal(
+                "fetch",
+                vi.fn(
+                    async () =>
+                        ({
+                            redirected: false,
+                            url: "https://localhost/import/upload",
+                        }) as unknown as Response,
+                ),
+            );
+            const wrapper = mount(Dropzone, { props: { title: "x", locale } });
+
+            const input = wrapper.find('input[type="file"]');
+            const file = new File(["x"], "a.csv", { type: "text/csv" });
+            Object.defineProperty(input.element, "files", { value: [file] });
+            await input.trigger("change");
+            await flushPromises();
+
+            const [, init] = vi.mocked(fetch).mock.calls[0]!;
+            const body = (init as RequestInit).body as FormData;
+            expect(body.get("locale")).toBe(locale);
+            expect(body.get("file")).toBe(file);
+        });
+    }
+
     it("a drag over the dropzone sets data-dragging, cleared again on drag leave", async () => {
-        const wrapper = mount(Dropzone, { props: { title: "x" } });
+        const wrapper = mount(Dropzone, {
+            props: { title: "x", locale: "pl" },
+        });
 
         await wrapper.find("label.dropzone").trigger("dragenter");
         expect(wrapper.find("label.dropzone").attributes("data-dragging")).toBe(
