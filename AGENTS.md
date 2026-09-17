@@ -40,7 +40,14 @@ Important product constraints:
 - Multi-tenancy is fundamental.
 - Default language is English; Polish is a full, equal language behind `/pl`. The privacy
   policy's Polish text stays the binding version.
-- Free and Pro tiers are expected, with ML features reserved for Pro.
+- Distribution: open source under the MIT licence. Anyone can clone the code and run their own
+  instance — there is no hosted plan to buy, no licence key, and no capability held back from
+  anyone: every instance has the whole feature set, ML recommendations included. What is paid
+  for is the work around the software — deploying it, integrating it with a shop, keeping it
+  running — never access to a feature.
+- There are no plans or tiers. Sending and usage limits belong to an instance: what it can send is
+  whatever its mail provider and its own configuration allow, and whoever runs it may cap usage
+  per account. A limit throttles volume; it never unlocks a capability.
 
 ## Stack
 
