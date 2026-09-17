@@ -5,13 +5,16 @@ import { useRoute } from "vue-router";
 import Button from "@/components/atoms/Button.vue";
 import Field from "@/components/atoms/Field.vue";
 import Callout from "@/components/molecules/Callout.vue";
+import { routeLocale } from "@/router/routeLocale";
+import { waitlistFormHref } from "@/router/waitlistForm";
 
 const { t } = useI18n();
 const route = useRoute();
-const locale = computed(() =>
-    typeof route.params.locale === "string" ? route.params.locale : "pl",
-);
+const locale = computed(() => routeLocale(route));
 const formAction = computed(() => `/${locale.value}/login`);
+// PIO-125: "No account?" used to link back to this very form, under a promise of registration
+// that does not exist. It leads to the deployment conversation on the landing page instead.
+const deploymentHref = computed(() => waitlistFormHref(locale.value));
 
 // Mirrors pages/login.html.twig's `last_username|default('maciej@aureashop.pl')`: a fresh
 // GET pre-fills the sample address; a failed POST re-renders the SPA document with
@@ -79,8 +82,11 @@ const errorMessage = dataset.loginError ?? null;
         style="font-size: 13px; margin-top: 24px; text-align: center"
     >
         {{ t("auth.noAccount") }}
-        <a :href="formAction" style="color: var(--accent); font-weight: 500">{{
-            t("auth.registerCta")
-        }}</a>
+        <a
+            class="login-deployment-cta"
+            :href="deploymentHref"
+            style="color: var(--accent); font-weight: 500"
+            >{{ t("auth.deploymentCta") }}</a
+        >
     </p>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, nextTick, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 import Button from "@/components/atoms/Button.vue";
@@ -8,6 +8,7 @@ import Icon from "@/components/atoms/Icon.vue";
 import Feat from "@/components/molecules/Feat.vue";
 import HeroPreview from "@/components/organisms/HeroPreview.vue";
 import { routeLocale } from "@/router/routeLocale";
+import { WAITLIST_FORM_ANCHOR } from "@/router/waitlistForm";
 
 interface Feature {
     icon: string;
@@ -65,6 +66,20 @@ const signedUp = computed(() => route.query.waitlist === "ok");
 document.title = `kivvi·click — ${t("landingPage.kicker")}`;
 
 const landing = ref<LandingData | null>(null);
+const waitlistForm = ref<HTMLFormElement | null>(null);
+
+/**
+ * PIO-125: the login page's "No account?" line links to `/{locale}#waitlist`. The browser jumps to
+ * a fragment while the document loads — before this page has fetched its content and rendered the
+ * form — so it finds nothing to jump to, and the router's scrollBehavior then starts every fresh
+ * navigation at the top. Once the form exists, bring it into view the way the jump would have.
+ */
+function revealLinkedForm(): void {
+    if (route.hash !== `#${WAITLIST_FORM_ANCHOR}`) {
+        return;
+    }
+    waitlistForm.value?.scrollIntoView({ block: "center" });
+}
 
 onMounted(async () => {
     const response = await fetch(`/api/v1/${locale.value}/landing`, {
@@ -74,6 +89,8 @@ onMounted(async () => {
         return;
     }
     landing.value = (await response.json()) as LandingData;
+    await nextTick();
+    revealLinkedForm();
 });
 </script>
 
@@ -100,6 +117,8 @@ onMounted(async () => {
             </p>
             <form
                 v-else
+                :id="WAITLIST_FORM_ANCHOR"
+                ref="waitlistForm"
                 class="waitlist-form"
                 method="post"
                 :action="waitlistAction"

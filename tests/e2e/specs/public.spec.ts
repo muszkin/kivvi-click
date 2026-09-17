@@ -19,7 +19,7 @@ test.describe("landing", () => {
         await expect(page.locator("form.waitlist-form")).toBeVisible();
         await expect(page.locator(".hero-preview .kpi")).toHaveCount(4);
         // The marketing preview renders the traffic shape server-side, not as the live canvas.
-    await expect(page.locator(".hero-preview svg path")).not.toHaveCount(0);
+        await expect(page.locator(".hero-preview svg path")).not.toHaveCount(0);
         await expect(page.locator("#features .feat")).toHaveCount(6);
         // Was 3 until PIO-121. "Postaw u siebie" became step 01: the landing page now says
         // the software is self-hostable, so the path starts with getting your own instance
@@ -30,7 +30,9 @@ test.describe("landing", () => {
         await expect(page.locator(".price-card")).toHaveCount(0);
         await expect(page.locator("#pricing")).toHaveCount(0);
         await expect(page.locator("#open-source")).toBeVisible();
-        await expect(page.locator("#open-source")).toContainText("licencji MIT");
+        await expect(page.locator("#open-source")).toContainText(
+            "licencji MIT",
+        );
     });
 
     test("no page promises a launch, a trial or a price", async ({ page }) => {
@@ -115,9 +117,9 @@ test.describe("landing", () => {
         await expect(page.locator("#how .feat h3").first()).toHaveText(
             "Run it yourself",
         );
-        await expect(page.locator(".hero-preview .kpi-label").first()).toHaveText(
-            "Events / min",
-        );
+        await expect(
+            page.locator(".hero-preview .kpi-label").first(),
+        ).toHaveText("Events / min");
         const footer = page.locator(".landing-foot");
         await expect(footer).toContainText("Terms");
         await expect(footer).toContainText("Privacy");
@@ -156,7 +158,9 @@ test.describe("English by default", () => {
     }) => {
         await page.goto("/");
 
-        await page.locator(".landing-nav-locale", { hasText: "Polski" }).click();
+        await page
+            .locator(".landing-nav-locale", { hasText: "Polski" })
+            .click();
         await expect(page).toHaveURL(/\/pl$/);
         await expect(page.locator("html")).toHaveAttribute("lang", "pl");
         await expect(page.locator(".hero h1")).toContainText("Widzisz");
@@ -164,7 +168,9 @@ test.describe("English by default", () => {
             "Postaw u siebie",
         );
 
-        await page.locator(".landing-nav-locale", { hasText: "English" }).click();
+        await page
+            .locator(".landing-nav-locale", { hasText: "English" })
+            .click();
         await expect(page).toHaveURL(/\/en$/);
         await expect(page.locator("html")).toHaveAttribute("lang", "en");
         await expect(page.locator(".hero h1")).toContainText("See");
@@ -184,9 +190,9 @@ test.describe("English by default", () => {
         await expect(page.locator("#features .feat h3").first()).toHaveText(
             "Strumień zdarzeń na żywo",
         );
-        await expect(page.locator(".hero-preview .kpi-label").first()).toHaveText(
-            "Zdarzeń / min",
-        );
+        await expect(
+            page.locator(".hero-preview .kpi-label").first(),
+        ).toHaveText("Zdarzeń / min");
         await expect(page.locator(".landing-nav")).toContainText("Logowanie");
         const footer = page.locator(".landing-foot");
         await expect(footer).toContainText("Regulamin");
@@ -229,12 +235,17 @@ test.describe("no Polish on an English public page", () => {
         { path: "/en", ready: ".hero h1" },
         { path: "/en/privacy", ready: ".legal-page h1" },
         { path: "/en/waitlist/confirm/sent", ready: ".confirm-page h1" },
-        { path: `/en/waitlist/confirm/${UNKNOWN_TOKEN}`, ready: ".confirm-page h1" },
+        {
+            path: `/en/waitlist/confirm/${UNKNOWN_TOKEN}`,
+            ready: ".confirm-page h1",
+        },
         {
             path: `/en/waitlist/unsubscribe/${UNKNOWN_TOKEN}`,
             ready: ".confirm-page h1",
         },
         { path: "/en/no-such-page", ready: "h1" },
+        // The public header's "Sign in" leads here.
+        { path: "/en/login", ready: ".auth-form h1" },
     ]) {
         test(`${path} renders no Polish text`, async ({ page }) => {
             await page.goto(path);
@@ -414,4 +425,41 @@ test.describe("login", () => {
             .evaluate((el: HTMLInputElement) => el.checkValidity());
         expect(valid).toBe(false);
     });
+
+    // PIO-125: the line under the form offered to create an account in two minutes and linked
+    // back to the same login form. There is no registration; the way in is a deployment, so it
+    // leads to the landing page's contact form — and lands on it, not just near the top.
+    for (const { locale, prompt, cta } of [
+        {
+            locale: "en",
+            prompt: "No account?",
+            cta: "Talk to us about deploying kivvi·click →",
+        },
+        {
+            locale: "pl",
+            prompt: "Nie masz konta?",
+            cta: "Porozmawiajmy o wdrożeniu →",
+        },
+    ]) {
+        test(`/${locale}/login offers the deployment conversation, not an account`, async ({
+            page,
+        }) => {
+            // A short window, so the form sits below the fold and only a real scroll reveals it.
+            await page.setViewportSize({ width: 1440, height: 500 });
+            await page.goto(`/${locale}/login`);
+
+            const form = page.locator(".auth-form");
+            await expect(form).toContainText(prompt);
+            await expect(form).not.toContainText("Create one");
+            await expect(form).not.toContainText("Załóż");
+
+            await page
+                .locator(".login-deployment-cta", { hasText: cta })
+                .click();
+
+            await expect(page).toHaveURL(new RegExp(`/${locale}#waitlist$`));
+            await expect(page.locator("html")).toHaveAttribute("lang", locale);
+            await expect(page.locator("form#waitlist")).toBeInViewport();
+        });
+    }
 });

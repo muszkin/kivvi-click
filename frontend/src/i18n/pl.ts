@@ -45,8 +45,12 @@ export default {
         welcomeBack: "Wróć do Kivvi",
         loginSub: "Zaloguj się do panelu zarządzania automatyzacjami.",
         signIn: "Zaloguj się →",
-        noAccount: "Nie masz jeszcze konta?",
-        registerCta: "Załóż w 2 minuty →",
+        // PIO-125: this pair used to read "Nie masz jeszcze konta? Załóż w 2 minuty →" and linked
+        // back to this very form, because there is no registration to link to — the same promise
+        // PIO-121 took out of the landing header. It leads to the landing page's deployment form
+        // now, and the key is no longer called `registerCta`.
+        noAccount: "Nie masz konta?",
+        deploymentCta: "Porozmawiajmy o wdrożeniu →",
     },
     dashboard: {
         title: "Co dzieje się teraz",

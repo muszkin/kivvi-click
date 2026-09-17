@@ -29,20 +29,26 @@ function merged(locale: "pl" | "en"): Catalogue {
 }
 
 /**
- * Every key a public page (landing, privacy policy, confirmation and unsubscribe pages, and the
- * public header and footer around them) renders. The panel's catalogues are not listed: translating
- * the panel is outside PIO-117 and PIO-125.
+ * Every key a public page (landing, privacy policy, confirmation and unsubscribe pages, the login
+ * page the public header links to, and the header and footer around them) renders. The panel's
+ * catalogues are not listed: translating the panel is outside PIO-117 and PIO-125.
  */
 const PUBLIC_NAMESPACES = [
     "landing.",
     "landingPage.",
     "waitlistPage.",
     "privacyPage.",
+    "auth.",
 ];
 const PUBLIC_COMMON_KEYS = [
     "common.documentation",
     "common.status",
     "common.changeLanguage",
+    "common.email",
+    "common.password",
+    "common.or",
+    "common.continueWithGoogle",
+    "common.marketingAutomation",
 ];
 
 /** Keys whose English and Polish really are the same word — every one of them on purpose. */
@@ -51,6 +57,8 @@ const IDENTICAL_BY_DESIGN = new Set([
     "landing.blog",
     "landing.repo",
     "common.status",
+    "common.email",
+    "common.marketingAutomation",
 ]);
 
 /** Letters only Polish uses. */
@@ -115,6 +123,7 @@ describe("PIO-117 every string on an English public page is English", () => {
         expect(publicKeys).toContain("landing.terms");
         expect(publicKeys).toContain("landingPage.waitlist.consent");
         expect(publicKeys).toContain("privacyPage.translation.notice");
+        expect(publicKeys).toContain("auth.deploymentCta");
         expect(publicKeys.length).toBeGreaterThan(50);
     });
 

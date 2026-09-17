@@ -1,6 +1,6 @@
 import { flushPromises, mount } from "@vue/test-utils";
 import { createRouter, createWebHistory } from "vue-router";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { i18n } from "@/i18n";
 import { routes } from "@/router/routes";
 import LandingView from "@/views/LandingView.vue";
@@ -112,6 +112,45 @@ describe("B22 the home route resolves to the landing view for both the bare and 
 
         expect(router.currentRoute.value.name).toBe("waitlist");
         expect(wrapper.findComponent(LandingView).exists()).toBe(true);
+    });
+
+    // PIO-125: the login page's "No account?" line links to /{locale}#waitlist.
+    describe("the #waitlist anchor", () => {
+        let scrollIntoView: ReturnType<typeof vi.fn>;
+
+        beforeEach(() => {
+            // jsdom implements no layout, so it has no scrollIntoView to call.
+            scrollIntoView = vi.fn();
+            Element.prototype.scrollIntoView =
+                scrollIntoView as unknown as Element["scrollIntoView"];
+        });
+
+        afterEach(() => {
+            delete (Element.prototype as Partial<Element>).scrollIntoView;
+        });
+
+        it("names the contact form, so a link can point at it", async () => {
+            const { wrapper } = await mountAtRoute("/en");
+
+            expect(wrapper.find("form.waitlist-form").attributes("id")).toBe(
+                "waitlist",
+            );
+        });
+
+        it("brings the form into view once the page has rendered it", async () => {
+            const { wrapper } = await mountAtRoute("/pl#waitlist");
+
+            expect(scrollIntoView).toHaveBeenCalledTimes(1);
+            expect(scrollIntoView.mock.contexts[0]).toBe(
+                wrapper.find("form.waitlist-form").element,
+            );
+        });
+
+        it("leaves an ordinary visit where the router put it", async () => {
+            await mountAtRoute("/en");
+
+            expect(scrollIntoView).not.toHaveBeenCalled();
+        });
     });
 
     it("'/en' fetches the English-locale endpoint", async () => {

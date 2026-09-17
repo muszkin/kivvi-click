@@ -105,3 +105,41 @@ describe("B11 the login view shows the welcome copy and submit action", () => {
         expect(wrapper.find("h1").text()).toBe("Welcome back to Kivvi");
     });
 });
+
+/**
+ * PIO-125. The line under the form offered "Create one in 2 minutes →" / "Załóż w 2 minuty →" and
+ * linked back to this same login form: there is no registration, and PIO-121 had already taken
+ * the same offer out of the landing header. It now leads to the deployment conversation.
+ */
+describe("PIO-125 the login page offers the deployment conversation, not an account", () => {
+    for (const { locale, prompt, cta } of [
+        {
+            locale: "en",
+            prompt: "No account?",
+            cta: "Talk to us about deploying kivvi·click →",
+        },
+        {
+            locale: "pl",
+            prompt: "Nie masz konta?",
+            cta: "Porozmawiajmy o wdrożeniu →",
+        },
+    ]) {
+        it(`/${locale}/login links to the landing page's contact form in ${locale}`, async () => {
+            const wrapper = await mountAt(`/${locale}/login`);
+
+            const link = wrapper.find(".login-deployment-cta");
+            expect(link.text()).toBe(cta);
+            expect(link.attributes("href")).toBe(`/${locale}#waitlist`);
+            expect(link.element.parentElement?.textContent).toContain(prompt);
+        });
+    }
+
+    it("no language promises an account there is no way to create", async () => {
+        for (const path of ["/en/login", "/pl/login"]) {
+            const text = (await mountAt(path)).text();
+
+            expect(text, path).not.toMatch(/Create one|2 minut|Załóż/);
+            expect(text, path).not.toContain("Don't have an account yet");
+        }
+    });
+});

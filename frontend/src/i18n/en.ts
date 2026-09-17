@@ -45,8 +45,9 @@ export default {
         welcomeBack: "Welcome back to Kivvi",
         loginSub: "Sign in to your automation panel.",
         signIn: "Sign in →",
-        noAccount: "Don't have an account yet?",
-        registerCta: "Create one in 2 minutes →",
+        // PIO-125: see pl.ts — there is no registration, so this points at the deployment form.
+        noAccount: "No account?",
+        deploymentCta: "Talk to us about deploying kivvi·click →",
     },
     dashboard: {
         title: "What's happening now",
