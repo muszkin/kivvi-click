@@ -4,6 +4,7 @@ import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 import Button from "@/components/atoms/Button.vue";
 import Icon from "@/components/atoms/Icon.vue";
+import { routeLocale } from "@/router/routeLocale";
 
 /**
  * Where the "unsubscribe" link in a message's footer lands (PIO-71).
@@ -17,9 +18,7 @@ type UnsubscribeState = "ok" | "unknown";
 const { t } = useI18n();
 const route = useRoute();
 
-const locale = computed(() =>
-    typeof route.params.locale === "string" ? route.params.locale : "pl",
-);
+const locale = computed(() => routeLocale(route));
 const homeHref = computed(() => `/${locale.value}`);
 
 const state: UnsubscribeState =

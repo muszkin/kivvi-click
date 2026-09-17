@@ -45,8 +45,9 @@ export default {
         welcomeBack: "Welcome back to Kivvi",
         loginSub: "Sign in to your automation panel.",
         signIn: "Sign in →",
-        noAccount: "Don't have an account yet?",
-        registerCta: "Create one in 2 minutes →",
+        // PIO-125: see pl.ts — there is no registration, so this points at the deployment form.
+        noAccount: "No account?",
+        deploymentCta: "Talk to us about deploying kivvi·click →",
     },
     dashboard: {
         title: "What's happening now",
@@ -56,16 +57,20 @@ export default {
         features: "Features",
         how: "How it works",
         openSource: "Open source",
-        // "Blog" reads the same either way. `terms` and `privacy` still carry the Polish string
-        // for want of an entry in messages.en.yaml — same PL fallback as common.collapseSidebar
-        // above, and PIO-117's to finish.
+        // "Blog" reads the same either way.
         blog: "Blog",
         // PIO-121 translated these two: see pl.ts for why `register` stopped selling an account
         // and now points at the repository.
         login: "Sign in",
         register: "Source on GitHub →",
-        terms: "Regulamin",
-        privacy: "Prywatność",
+        // PIO-117: these two carried the Polish string, for want of an entry in the old stack's
+        // messages.en.yaml, until English became the default and the footer could not stay Polish.
+        terms: "Terms",
+        privacy: "Privacy",
+        // See pl.ts: the name English has for RODO is GDPR.
+        dpa: "GDPR / DPA",
+        // See pl.ts: each language is named in itself, so a Polish reader finds "Polski" here.
+        otherLanguage: "Polski",
         // PIO-121: see pl.ts — the footer claim is a key now, translated on both sides.
         builtWith: "Built in Poland with Java and Vue 3. MIT-licensed code.",
         repo: "GitHub",

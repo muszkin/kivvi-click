@@ -121,7 +121,8 @@ management:
 
 kivvi:
   supported-locales: pl,en
-  default-locale: pl
+  # PIO-125. Must match SupportedLocale.DEFAULT, which is what the code actually reads.
+  default-locale: en
   scheduling:
     heartbeat:
       # Symfony's `RecurringMessage::every('1 hour', new Heartbeat())` (src/Schedule.php).

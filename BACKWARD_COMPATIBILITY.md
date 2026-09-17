@@ -10,7 +10,7 @@ assumed.
 | Surface | Contract | Why it is frozen |
 | --- | --- | --- |
 | `POST /collect` | `202` for a newly accepted event, `200` for a duplicate, `400` + `{"error": …}` for a malformed payload; JSON body `{"status": …}`. Accepts a JSON object; a JSON array is accepted and read as all-fields-absent. | Called by tracking scripts embedded in customer shops. Those scripts are deployed outside this repository and cannot be updated in lockstep; a status-code change silently breaks retry logic. |
-| `POST /import/upload` | `302` to import step 2 on success. Multipart, 8 MB request and file ceiling. | The ceiling mirrors the pre-migration runtime; lowering it rejects uploads that used to work. |
+| `POST /import/upload` | `302` to import step 2 on success, in the locale named by the optional multipart field `locale` (`pl` or `en`): `/pl/import/2` or `/en/import/2`. A missing or unsupported value redirects into the default locale (`/en/import/2`). Before PIO-125 the redirect always went to the default locale and there was no `locale` field. A client that does not send the field, such as a bundle cached from before this change, still gets a working redirect, into English. Multipart, 8 MB request and file ceiling. | The ceiling mirrors the pre-migration runtime; lowering it rejects uploads that used to work. Removing the `locale` field again would send every upload from a non-default locale into the default one. |
 | `POST /theme`, `POST /sidebar` | Session-scoped preference writes used by the SPA shell. | Called from the built SPA; a stale cached bundle keeps calling the old path. |
 
 ## HTTP — SPA view API
@@ -24,11 +24,11 @@ built SPA for anyone holding a cached bundle. Additive fields are safe; removals
 
 | Surface | Contract |
 | --- | --- |
-| `/`, `/{pl|en}`, `/{pl|en}/**` | Serves the SPA document for every path in `RouteTable`; anything else is `404` with the minimal Polish 404 body. Unknown locale, unknown customer id, unknown settings tab and unknown import step all 404 — this is deliberate parity behaviour, not an accident. |
+| `/`, `/{pl|en}`, `/{pl|en}/**` | Serves the SPA document for every path in `RouteTable`; `/` is the landing page in the default locale. Anything else is `404` with a minimal 404 body in the path's own language (Polish for `/pl/**`, English for `/en/**` — it was always Polish before PIO-125). Unknown locale, unknown customer id, unknown settings tab and unknown import step all 404 — this is deliberate parity behaviour, not an accident. |
 | SPA document `<html>` tag | `lang`, `data-theme`, `data-sidebar`, plus `data-login-error` / `data-last-username` on a failed login POST. The SPA reads these before first paint. Attributes may be added; the existing ones may not change name or meaning. |
 | `POST /{pl|en}/login`, `POST /{pl|en}/logout` | Native form POST. Login: `302` to the dashboard on success, `200 text/html` re-render on failure. Logout: `302` to the login page. |
 | `GET /{pl|en}/demo` | `302` into the dashboard. Linked from the public landing page. |
-| Locale prefix | Exactly `pl` and `en`. Polish is the default. Adding a locale means touching `SupportedLocale`, `RouteTable`, both message bundles and both i18n catalogues together. |
+| Locale prefix | Exactly `pl` and `en`. English is the default (PIO-125; Polish before): `/` renders `<html lang="en">`, and the default is what a route with no locale segment of its own falls back to — `POST /import/upload` without its `locale` field. Adding a locale means touching `SupportedLocale`, `RouteTable`, `LandingFixtures`, both message bundles and both i18n catalogues together. |
 | `Content-Type` on HTML responses | `text/html; charset=UTF-8`, always explicit. |
 
 ## Real-time

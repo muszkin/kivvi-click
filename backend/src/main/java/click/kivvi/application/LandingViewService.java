@@ -1,21 +1,22 @@
 package click.kivvi.application;
 
+import click.kivvi.domain.SupportedLocale;
 import click.kivvi.fixtures.LandingFixtures;
 import org.springframework.stereotype.Service;
 
 /**
  * Assembles the public marketing page's view-model — mirrors what {@code LandingContent} exposed to
- * {@code pages/landing.html.twig}.
+ * {@code pages/landing.html.twig}, in the language the page is being read in (PIO-117).
  */
 @Service
 public class LandingViewService {
 
-  public LandingView build() {
+  public LandingView build(SupportedLocale locale) {
     return new LandingView(
-        LandingFixtures.features().stream().map(this::toFeatureView).toList(),
-        LandingFixtures.steps().stream().map(this::toStepView).toList(),
-        LandingFixtures.trustPoints(),
-        LandingFixtures.previewTiles().stream().map(this::toPreviewTileView).toList(),
+        LandingFixtures.features(locale).stream().map(this::toFeatureView).toList(),
+        LandingFixtures.steps(locale).stream().map(this::toStepView).toList(),
+        LandingFixtures.trustPoints(locale),
+        LandingFixtures.previewTiles(locale).stream().map(this::toPreviewTileView).toList(),
         LandingFixtures.previewSeries());
   }
 

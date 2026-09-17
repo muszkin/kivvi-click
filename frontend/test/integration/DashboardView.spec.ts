@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { i18n } from "@/i18n";
 import { routes } from "@/router/routes";
 import DashboardView from "@/views/DashboardView.vue";
+import { serveInLocaleOf } from "../support/documentLocale";
 
 class FakeEventSource {
     static instances: FakeEventSource[] = [];
@@ -128,6 +129,7 @@ const PAYLOAD = {
 };
 
 async function mountAt(path: string) {
+    serveInLocaleOf(path);
     const router = createRouter({ history: createWebHistory(), routes });
     await router.push(path);
     await router.isReady();

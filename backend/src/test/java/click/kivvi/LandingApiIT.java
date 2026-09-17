@@ -56,20 +56,33 @@ class LandingApiIT {
     assertThat(body.previewSeries()).isNotEmpty();
   }
 
+  /**
+   * Deliberately the inverse of the assertion it replaced. B22 pinned the parity quirk: the old
+   * stack's {@code LandingContent} never ran these arrays through the translator, so the oracle's
+   * English capture ({@code journeys/landing/steps/2/texts.json}) shows Polish feature and step
+   * copy on {@code /en}. PIO-117 retired that quirk when PIO-125 made English the default — the
+   * default page could not be half Polish.
+   */
   @Test
   @DisplayName(
-      "B22 GET /api/v1/en/landing returns the same Polish copy as /pl — the old stack's "
-          + "LandingContent never ran these arrays through the translator either, confirmed by "
-          + "the oracle's journeys/landing/steps/2/texts.json (the English capture), whose "
-          + "feature/step/plan copy stays Polish even on /en — through the real HTTP layer")
-  void englishRouteReturnsTheSamePolishCopyThroughTheRealHttpLayer() {
+      "PIO-117 GET /api/v1/en/landing returns English copy, not the Polish arrays the old stack"
+          + " served to both locales — through the real HTTP layer")
+  void englishRouteReturnsEnglishCopyThroughTheRealHttpLayer() {
     ResponseEntity<LandingView> response =
         restTemplate.getForEntity("/api/v1/en/landing", LandingView.class);
 
     assertThat(response.getStatusCode().value()).isEqualTo(200);
     LandingView body = response.getBody();
     assertThat(body).isNotNull();
-    assertThat(body.features().get(0).title()).isEqualTo("Strumień zdarzeń na żywo");
+    assertThat(body.features()).hasSize(6);
+    assertThat(body.features().get(0).title()).isEqualTo("Live event stream");
+    assertThat(body.steps()).hasSize(4);
+    assertThat(body.steps().get(0).title()).isEqualTo("Run it yourself");
+    assertThat(body.trustPoints())
+        .containsExactly("MIT licence", "Host it yourself", "2 KB script");
+    assertThat(body.previewTiles())
+        .extracting(LandingView.PreviewTileView::label)
+        .containsExactly("Events / min", "Active sessions", "Emails (24h)", "Revenue (24h)");
   }
 
   @Test

@@ -27,8 +27,7 @@ public class LandingController {
   public LandingView landing(@PathVariable String locale) {
     // The mapping regex already gates pl|en; this mirrors ShellController's redundant
     // validation so an unsupported locale can never silently fall through.
-    SupportedLocale.fromCode(locale).orElseThrow();
-    return landingViewService.build();
+    return landingViewService.build(SupportedLocale.fromCode(locale).orElseThrow());
   }
 
   @GetMapping("/{locale:pl|en}/demo")

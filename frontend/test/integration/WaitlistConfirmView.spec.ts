@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { i18n } from "@/i18n";
 import { routes } from "@/router/routes";
 import WaitlistConfirmView from "@/views/WaitlistConfirmView.vue";
+import { serveInLocaleOf } from "../support/documentLocale";
 
 /**
  * The page a confirmation link lands on (PIO-71).
@@ -30,6 +31,7 @@ function reportState(state: string | null, token?: string) {
 }
 
 async function mountAtRoute(path: string) {
+    serveInLocaleOf(path);
     const router = createRouter({ history: createWebHistory(), routes });
     await router.push(path);
     await router.isReady();

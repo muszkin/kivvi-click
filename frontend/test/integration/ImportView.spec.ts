@@ -6,6 +6,7 @@ import { i18n } from "@/i18n";
 import { routes } from "@/router/routes";
 import { useShellStore } from "@/stores/shell";
 import ImportView from "@/views/ImportView.vue";
+import { serveInLocaleOf } from "../support/documentLocale";
 
 const STEPS = [
     { n: 1, label: "Plik" },
@@ -235,6 +236,7 @@ function payloadFor(step: number) {
 }
 
 async function mountAt(path: string, step: number) {
+    serveInLocaleOf(path);
     const router = createRouter({ history: createWebHistory(), routes });
     await router.push(path);
     await router.isReady();
@@ -332,4 +334,26 @@ describe("B31/B01 the import wizard matches the oracle: 4 steps, one URL each", 
             "8 420",
         );
     });
+
+    // PIO-125: step 1 hands the route's locale to the dropzone, which posts it with the file, so
+    // the server's redirect into step 2 stays in the language the wizard was opened in.
+    for (const locale of ["pl", "en"]) {
+        it(`PIO-125 an upload from /${locale}/import/1 names ${locale} as the locale to return to`, async () => {
+            const wrapper = await mountAt(`/${locale}/import/1`, 1);
+
+            const input = wrapper.find('.dropzone input[type="file"]');
+            Object.defineProperty(input.element, "files", {
+                value: [new File(["x"], "klienci.csv", { type: "text/csv" })],
+            });
+            await input.trigger("change");
+            await flushPromises();
+
+            const upload = vi
+                .mocked(fetch)
+                .mock.calls.find(([url]) => String(url) === "/import/upload");
+            expect(upload).toBeDefined();
+            const body = (upload![1] as RequestInit).body as FormData;
+            expect(body.get("locale")).toBe(locale);
+        });
+    }
 });

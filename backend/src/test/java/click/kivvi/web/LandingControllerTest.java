@@ -34,11 +34,29 @@ class LandingControllerTest {
   }
 
   @Test
-  @DisplayName("B22 GET /api/v1/en/landing returns the same locale-invariant copy")
-  void englishRouteReturnsTheSameContent() throws Exception {
+  @DisplayName(
+      "PIO-117 GET /api/v1/en/landing returns the same shape in English — it used to return the"
+          + " Polish copy for both locales")
+  void englishRouteReturnsEnglishCopy() throws Exception {
     mvc.perform(get("/api/v1/en/landing"))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.features.length()").value(6));
+        .andExpect(jsonPath("$.features.length()").value(6))
+        .andExpect(jsonPath("$.features[0].title").value("Live event stream"))
+        .andExpect(jsonPath("$.steps.length()").value(4))
+        .andExpect(jsonPath("$.steps[0].title").value("Run it yourself"))
+        .andExpect(jsonPath("$.trustPoints[0]").value("MIT licence"))
+        .andExpect(jsonPath("$.previewTiles[0].label").value("Events / min"))
+        .andExpect(jsonPath("$.previewSeries.length()").value(60));
+  }
+
+  @Test
+  @DisplayName("PIO-117 GET /api/v1/pl/landing keeps the Polish copy")
+  void polishRouteKeepsPolishCopy() throws Exception {
+    mvc.perform(get("/api/v1/pl/landing"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.features[0].title").value("Strumień zdarzeń na żywo"))
+        .andExpect(jsonPath("$.steps[0].title").value("Postaw u siebie"))
+        .andExpect(jsonPath("$.previewTiles[0].label").value("Zdarzeń / min"));
   }
 
   @Test

@@ -1035,6 +1035,17 @@
     color: var(--fg-muted);
     margin: 0 0 40px;
 }
+/* PIO-125: on a translated policy, the pointer to the binding Polish text.
+   Borrows .callout's tone; only the spacing and the link are its own. */
+.legal-translation {
+    margin: 0 0 28px;
+    line-height: 1.5;
+}
+.legal-translation a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    white-space: nowrap;
+}
 .legal-section {
     margin-bottom: 28px;
 }

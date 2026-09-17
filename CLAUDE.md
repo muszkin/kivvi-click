@@ -10,10 +10,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-kivvi-click-10x is a from-scratch rebuild of the kivvi-click product on a new stack. It is a
-multi-tenant SaaS marketing-automation platform for e-commerce sites: track visitor events,
-configure rule-based automations, and deliver popups / emails / coupons / product
-recommendations at the right moment in the customer journey.
+kivvi-click-10x is a from-scratch rebuild of the kivvi-click product on a new stack. It is
+open-source marketing-automation software for e-commerce sites, MIT-licensed and run on your own
+infrastructure — there is no hosted service to sign up for, and one instance can serve many
+accounts: track visitor events, configure rule-based automations, and deliver popups / emails /
+coupons / product recommendations at the right moment in the customer journey.
 
 Full product vision, feature list, domain entities, and assumptions live in the `product-spec`
 skill — invoke it when planning or building features. Carry over the product goals from the
@@ -26,9 +27,10 @@ original, NOT its tech stack.
   reachable only from `application` (enforced by `ArchitectureTest`, an ArchUnit test). Always
   use latest stable versions.
 - Frontend: Vue 3.5 SPA (Vite build, no SSR), history-mode vue-router, Pinia, vue-i18n
-  (Polish default, English toggle). Pure CSS design system — byte-identical to the original —
-  under `frontend/src/styles/`. NO CSS frameworks (Tailwind/Bootstrap) and no other frontend
-  framework (React/Svelte). Do not pull in npm UI libs beyond what's already declared.
+  (English default, Polish behind the language switch). Pure CSS design system —
+  byte-identical to the original — under `frontend/src/styles/`. NO CSS frameworks
+  (Tailwind/Bootstrap) and no other frontend framework (React/Svelte). Do not pull in npm UI
+  libs beyond what's already declared.
 - One deployable artifact: the Spring Boot jar serves the built SPA from its own classpath
   (`backend/src/main/resources/static`); `backend/Dockerfile` builds both in one multi-stage
   image (Node stage → Maven stage → JRE runtime) — that image is what `compose.yaml` runs.
@@ -56,8 +58,13 @@ Postgres backs everything; there is no Redis, RabbitMQ, Kafka, or Memcached.
 - Real-time (live event dashboard): the Mercure Hub is the edge (see Stack) — Server-Sent
   Events (SSE), not a separate WebSocket server. `api` publishes over the internal Docker
   network; the browser subscribes through the public Mercure edge.
-- i18n: vue-i18n message catalogues in `frontend/src/i18n/{pl,en}.ts` — default language
-  Polish; English is an optional toggle. Build strings PL-first with EN translations.
+- i18n: vue-i18n message catalogues in `frontend/src/i18n/{pl,en}.ts` and
+  `frontend/src/i18n/messages/<journey>.{pl,en}.ts`, plus `messages_{pl,en}.properties` on the
+  server — default language English (`/` is the English landing page); Polish is a full, equal
+  language behind `/pl` and the language switch, not a fallback. Every string ships in both
+  languages in the same change: a key missing on either side fails
+  `frontend/test/unit/i18n.spec.ts` or `MessageBundlesTest`. One exception to equality: the
+  privacy policy's Polish text is the binding one, and every other language's page says so.
 
 ## Commands
 

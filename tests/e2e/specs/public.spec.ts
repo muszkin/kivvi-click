@@ -19,7 +19,7 @@ test.describe("landing", () => {
         await expect(page.locator("form.waitlist-form")).toBeVisible();
         await expect(page.locator(".hero-preview .kpi")).toHaveCount(4);
         // The marketing preview renders the traffic shape server-side, not as the live canvas.
-    await expect(page.locator(".hero-preview svg path")).not.toHaveCount(0);
+        await expect(page.locator(".hero-preview svg path")).not.toHaveCount(0);
         await expect(page.locator("#features .feat")).toHaveCount(6);
         // Was 3 until PIO-121. "Postaw u siebie" became step 01: the landing page now says
         // the software is self-hostable, so the path starts with getting your own instance
@@ -30,7 +30,9 @@ test.describe("landing", () => {
         await expect(page.locator(".price-card")).toHaveCount(0);
         await expect(page.locator("#pricing")).toHaveCount(0);
         await expect(page.locator("#open-source")).toBeVisible();
-        await expect(page.locator("#open-source")).toContainText("licencji MIT");
+        await expect(page.locator("#open-source")).toContainText(
+            "licencji MIT",
+        );
     });
 
     test("no page promises a launch, a trial or a price", async ({ page }) => {
@@ -101,7 +103,164 @@ test.describe("landing", () => {
 
         await expect(page.locator(".hero h1")).toContainText("See");
         await expect(page.locator("#features .feat")).toHaveCount(6);
+        // PIO-117: the structure was never the problem — the words inside it were. The trust
+        // points, cards, steps and tiles come from the API, the footer from the catalogue, and
+        // all of them used to reach /en in Polish.
+        await expect(page.locator(".hero .row > span")).toHaveText([
+            "MIT licence",
+            "Host it yourself",
+            "2 KB script",
+        ]);
+        await expect(page.locator("#features .feat h3").first()).toHaveText(
+            "Live event stream",
+        );
+        await expect(page.locator("#how .feat h3").first()).toHaveText(
+            "Run it yourself",
+        );
+        await expect(
+            page.locator(".hero-preview .kpi-label").first(),
+        ).toHaveText("Events / min");
+        const footer = page.locator(".landing-foot");
+        await expect(footer).toContainText("Terms");
+        await expect(footer).toContainText("Privacy");
+        await expect(footer).toContainText("GDPR / DPA");
+        await expect(footer).not.toContainText("Regulamin");
+        await expect(footer).not.toContainText("Prywatność");
     });
+});
+
+/**
+ * PIO-125 — the project is open source, and its first contact is in English.
+ *
+ * Every spec above visits /pl or /en explicitly, so none of them noticed which language "/" was.
+ * These do.
+ */
+test.describe("English by default", () => {
+    test("'/' is the English landing page, not a redirect to either prefix", async ({
+        page,
+    }) => {
+        await page.goto("/");
+
+        await expect(page).toHaveURL(/\/$/);
+        await expect(page.locator("html")).toHaveAttribute("lang", "en");
+        await expect(page.locator(".hero h1")).toContainText("See");
+        await expect(page.locator("#features .feat h3").first()).toHaveText(
+            "Live event stream",
+        );
+        await expect(page.locator("form.waitlist-form")).toHaveAttribute(
+            "action",
+            "/en/waitlist",
+        );
+    });
+
+    test("the language switch goes to Polish and back, keeping the page", async ({
+        page,
+    }) => {
+        await page.goto("/");
+
+        await page
+            .locator(".landing-nav-locale", { hasText: "Polski" })
+            .click();
+        await expect(page).toHaveURL(/\/pl$/);
+        await expect(page.locator("html")).toHaveAttribute("lang", "pl");
+        await expect(page.locator(".hero h1")).toContainText("Widzisz");
+        await expect(page.locator("#how .feat h3").first()).toHaveText(
+            "Postaw u siebie",
+        );
+
+        await page
+            .locator(".landing-nav-locale", { hasText: "English" })
+            .click();
+        await expect(page).toHaveURL(/\/en$/);
+        await expect(page.locator("html")).toHaveAttribute("lang", "en");
+        await expect(page.locator(".hero h1")).toContainText("See");
+    });
+
+    test("/pl stays complete: header, cards, steps, trust points, tiles and footer all Polish", async ({
+        page,
+    }) => {
+        await page.goto("/pl");
+
+        await expect(page.locator("html")).toHaveAttribute("lang", "pl");
+        await expect(page.locator(".hero .row > span")).toHaveText([
+            "Licencja MIT",
+            "Postawisz u siebie",
+            "Skrypt 2 KB",
+        ]);
+        await expect(page.locator("#features .feat h3").first()).toHaveText(
+            "Strumień zdarzeń na żywo",
+        );
+        await expect(
+            page.locator(".hero-preview .kpi-label").first(),
+        ).toHaveText("Zdarzeń / min");
+        await expect(page.locator(".landing-nav")).toContainText("Logowanie");
+        const footer = page.locator(".landing-foot");
+        await expect(footer).toContainText("Regulamin");
+        await expect(footer).toContainText("RODO / DPA");
+        await expect(footer).toContainText("Zbudowane w Polsce");
+    });
+});
+
+/**
+ * PIO-117's acceptance test, widened by PIO-125 to every public page a visitor can reach in
+ * English: the landing page (bare and prefixed), the privacy policy, the three pages a mail links
+ * to, and the 404 a mistyped address gets.
+ *
+ * Two checks, because each misses what the other catches. A Polish letter is proof of a leak, but
+ * plenty of Polish has none ("Licencja MIT", "Wklej snippet", "Publikuj"), so the words that did
+ * leak — or sit one careless edit away from it — are named as well.
+ */
+test.describe("no Polish on an English public page", () => {
+    const POLISH_LETTERS = /[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/;
+    // The controller's registered address is a place name, and stays one in every language.
+    const PROPER_NOUNS = ["Niepołomice"];
+    const POLISH_WORDS = [
+        "Regulamin",
+        "RODO",
+        "Logowanie",
+        "Licencja",
+        "Postaw",
+        "Wklej",
+        "Wybierz",
+        "Publikuj",
+        "Zdarzeń",
+        "Przychód",
+        "Zbudowane",
+        "Nie znaleziono",
+    ];
+    const UNKNOWN_TOKEN = "f".repeat(64);
+
+    for (const { path, ready } of [
+        { path: "/", ready: ".hero h1" },
+        { path: "/en", ready: ".hero h1" },
+        { path: "/en/privacy", ready: ".legal-page h1" },
+        { path: "/en/waitlist/confirm/sent", ready: ".confirm-page h1" },
+        {
+            path: `/en/waitlist/confirm/${UNKNOWN_TOKEN}`,
+            ready: ".confirm-page h1",
+        },
+        {
+            path: `/en/waitlist/unsubscribe/${UNKNOWN_TOKEN}`,
+            ready: ".confirm-page h1",
+        },
+        { path: "/en/no-such-page", ready: "h1" },
+        // The public header's "Sign in" leads here.
+        { path: "/en/login", ready: ".auth-form h1" },
+    ]) {
+        test(`${path} renders no Polish text`, async ({ page }) => {
+            await page.goto(path);
+            await expect(page.locator(ready)).toBeVisible();
+
+            const text = PROPER_NOUNS.reduce(
+                (remaining, noun) => remaining.replaceAll(noun, ""),
+                await page.locator("body").innerText(),
+            );
+            expect(text).not.toMatch(POLISH_LETTERS);
+            for (const word of POLISH_WORDS) {
+                expect(text, `"${word}" on ${path}`).not.toContain(word);
+            }
+        });
+    }
 });
 
 /**
@@ -116,7 +275,8 @@ test.describe("landing", () => {
  * covers what the static test cannot: what a real browser actually goes and fetches.
  */
 test.describe("no third-party requests", () => {
-    for (const path of ["/pl", "/en"]) {
+    // "/" joined the list with PIO-125: it is the page most visitors now open first.
+    for (const path of ["/", "/pl", "/en"]) {
         test(`loading ${path} issues no request to any host but our own`, async ({
             page,
             baseURL,
@@ -265,4 +425,41 @@ test.describe("login", () => {
             .evaluate((el: HTMLInputElement) => el.checkValidity());
         expect(valid).toBe(false);
     });
+
+    // PIO-125: the line under the form offered to create an account in two minutes and linked
+    // back to the same login form. There is no registration; the way in is a deployment, so it
+    // leads to the landing page's contact form — and lands on it, not just near the top.
+    for (const { locale, prompt, cta } of [
+        {
+            locale: "en",
+            prompt: "No account?",
+            cta: "Talk to us about deploying kivvi·click →",
+        },
+        {
+            locale: "pl",
+            prompt: "Nie masz konta?",
+            cta: "Porozmawiajmy o wdrożeniu →",
+        },
+    ]) {
+        test(`/${locale}/login offers the deployment conversation, not an account`, async ({
+            page,
+        }) => {
+            // A short window, so the form sits below the fold and only a real scroll reveals it.
+            await page.setViewportSize({ width: 1440, height: 500 });
+            await page.goto(`/${locale}/login`);
+
+            const form = page.locator(".auth-form");
+            await expect(form).toContainText(prompt);
+            await expect(form).not.toContainText("Create one");
+            await expect(form).not.toContainText("Załóż");
+
+            await page
+                .locator(".login-deployment-cta", { hasText: cta })
+                .click();
+
+            await expect(page).toHaveURL(new RegExp(`/${locale}#waitlist$`));
+            await expect(page.locator("html")).toHaveAttribute("lang", locale);
+            await expect(page.locator("form#waitlist")).toBeInViewport();
+        });
+    }
 });

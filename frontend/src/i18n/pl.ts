@@ -1,7 +1,8 @@
 /**
- * Polish message catalogue — the default locale. Values are ported verbatim from
- * translations/messages.pl.yaml and the inline Polish strings in the ported Twig
- * templates (the old stack's convention: untranslated Polish text IS the message id).
+ * Polish message catalogue. Values are ported verbatim from translations/messages.pl.yaml and the
+ * inline Polish strings in the ported Twig templates (the old stack's convention: untranslated
+ * Polish text IS the message id). It was the default locale until PIO-125 made English the
+ * default; it stays a complete language of its own behind /pl.
  */
 export default {
     brand: {
@@ -44,8 +45,12 @@ export default {
         welcomeBack: "Wróć do Kivvi",
         loginSub: "Zaloguj się do panelu zarządzania automatyzacjami.",
         signIn: "Zaloguj się →",
-        noAccount: "Nie masz jeszcze konta?",
-        registerCta: "Załóż w 2 minuty →",
+        // PIO-125: this pair used to read "Nie masz jeszcze konta? Załóż w 2 minuty →" and linked
+        // back to this very form, because there is no registration to link to — the same promise
+        // PIO-121 took out of the landing header. It leads to the landing page's deployment form
+        // now, and the key is no longer called `registerCta`.
+        noAccount: "Nie masz konta?",
+        deploymentCta: "Porozmawiajmy o wdrożeniu →",
     },
     dashboard: {
         title: "Co dzieje się teraz",
@@ -64,6 +69,13 @@ export default {
         register: "Kod na GitHubie →",
         terms: "Regulamin",
         privacy: "Prywatność",
+        // PIO-117: hard-coded in PublicLayout.vue until the English footer had to stop saying
+        // RODO, which is what Polish calls the GDPR.
+        dpa: "RODO / DPA",
+        // PIO-125: the public header's language switch. It names the language it leads TO, in
+        // that language — "English" here, "Polski" in en.ts — because the person who needs the
+        // switch is the one who cannot read the page they are on.
+        otherLanguage: "English",
         // PIO-121: the footer used to claim Symfony and PHP, hard-coded in PublicLayout.vue —
         // which is why the English site rendered it in Polish. It is a key now, in both
         // catalogues, so the fix cannot regress the same way.

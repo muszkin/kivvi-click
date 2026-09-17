@@ -122,6 +122,17 @@ test.describe("app shell", () => {
         ).toHaveText("Customers");
     });
 
+    // PIO-125: with English the default, the way back to Polish matters as much as the way out.
+    test("locale switch leads back to Polish too", async ({ page }) => {
+        await page.goto("/en/customers");
+        await page.locator(".tb-btn", { hasText: "EN" }).click();
+
+        await expect(page).toHaveURL(/\/pl\/customers/);
+        await expect(
+            page.locator('.nav-item[data-route="customers"] .nav-label'),
+        ).toHaveText("Klienci");
+    });
+
     test("breadcrumb names the current section", async ({ page }) => {
         await page.goto("/pl/feeds");
 

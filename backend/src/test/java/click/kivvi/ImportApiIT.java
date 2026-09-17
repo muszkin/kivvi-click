@@ -120,14 +120,16 @@ class ImportApiIT {
 
   @Test
   @DisplayName(
-      "B31 uploading a file redirects (302) to exactly /pl/import/2, and the next GET on the"
-          + " same session reflects the uploaded file's original name — a real spring_session"
+      "B31 uploading a file from /pl redirects (302) to exactly /pl/import/2, and the next GET on"
+          + " the same session reflects the uploaded file's original name — a real spring_session"
           + " round trip, not a same-JVM in-memory session")
   void uploadRedirectsAndTheFileNameSurvivesASecondRequest() {
     TestRestTemplate noRedirects = restTemplate.withRedirects(HttpRedirects.DONT_FOLLOW);
 
     MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
     body.add("file", namedResource("klienci-oracle.csv", "email;imie\nhania.k@aurea.pl;Hania\n"));
+    // PIO-125: what Dropzone.vue sends from a /pl page, so the redirect stays in Polish.
+    body.add("locale", "pl");
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
@@ -175,6 +177,7 @@ class ImportApiIT {
 
     MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
     body.add("file", namedResource("empty.csv", ""));
+    body.add("locale", "en");
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
@@ -182,7 +185,7 @@ class ImportApiIT {
         noRedirects.postForEntity("/import/upload", new HttpEntity<>(body, headers), Void.class);
 
     assertThat(upload.getStatusCode().value()).isEqualTo(302);
-    assertThat(upload.getHeaders().getFirst(HttpHeaders.LOCATION)).isEqualTo("/pl/import/2");
+    assertThat(upload.getHeaders().getFirst(HttpHeaders.LOCATION)).isEqualTo("/en/import/2");
 
     List<String> newFiles = newEntries(storedBefore, storedFileNames());
     assertThat(newFiles).as("the empty file was stored, not rejected").hasSize(1);
@@ -222,7 +225,8 @@ class ImportApiIT {
         noRedirects.postForEntity("/import/upload", new HttpEntity<>(body, headers), Void.class);
 
     assertThat(upload.getStatusCode().value()).isEqualTo(302);
-    assertThat(upload.getHeaders().getFirst(HttpHeaders.LOCATION)).isEqualTo("/pl/import/2");
+    // No locale field in this body, so the redirect falls back to the default locale.
+    assertThat(upload.getHeaders().getFirst(HttpHeaders.LOCATION)).isEqualTo("/en/import/2");
 
     assertThat(childNames(root))
         .as(

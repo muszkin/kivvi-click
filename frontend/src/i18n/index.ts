@@ -4,7 +4,9 @@ import pl from "./pl";
 
 export const SUPPORTED_LOCALES = ["pl", "en"] as const;
 export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
-export const DEFAULT_LOCALE: SupportedLocale = "pl";
+// PIO-125: English, matching SupportedLocale.DEFAULT on the server. Polish stays a full language
+// behind /pl, not a fallback.
+export const DEFAULT_LOCALE: SupportedLocale = "en";
 
 function initialLocale(): SupportedLocale {
     const fromDocument =

@@ -68,4 +68,13 @@ describe("B22 the login form matches the browser-validated, server-rendered cont
 
         expect(wrapper.find('button[type="submit"]').exists()).toBe(true);
     });
+
+    // PIO-125: the "no account?" line used to point back at this form; see the integration spec.
+    it("the no-account line points at the landing page's form, never back at the login form", async () => {
+        const wrapper = await mountAt("/pl/login");
+
+        const href = wrapper.find(".login-deployment-cta").attributes("href");
+        expect(href).toBe("/pl#waitlist");
+        expect(href).not.toBe(wrapper.find("form").attributes("action"));
+    });
 });

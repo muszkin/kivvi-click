@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { i18n } from "@/i18n";
 import { routes } from "@/router/routes";
 import PublicLayout from "@/layouts/PublicLayout.vue";
+import { serveInLocaleOf } from "../support/documentLocale";
 
 /**
  * The public shell's nav and footer (PIO-121).
@@ -14,6 +15,7 @@ import PublicLayout from "@/layouts/PublicLayout.vue";
  * that it now comes from the message catalogues, so neither can regress silently.
  */
 async function mountLayout(path: string) {
+    serveInLocaleOf(path);
     const router = createRouter({ history: createWebHistory(), routes });
     await router.push(path);
     await router.isReady();
@@ -107,5 +109,102 @@ describe("PIO-121 the public nav and footer", () => {
             .map((a) => a.attributes("href"));
         expect(hrefs).toContain("#open-source");
         expect(hrefs).not.toContain("#pricing");
+    });
+});
+
+/** Letters only Polish uses — none belongs in the English header or footer. */
+const POLISH_LETTERS = /[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/;
+
+describe("PIO-117 the English public header and footer carry no Polish", () => {
+    it("the footer's legal links are in English", async () => {
+        const wrapper = await mountLayout("/en");
+
+        const footerLinks = wrapper
+            .findAll(".landing-foot a")
+            .map((a) => a.text());
+        expect(footerLinks).toEqual(
+            expect.arrayContaining([
+                "Terms",
+                "Privacy",
+                "GDPR / DPA",
+                "Status",
+            ]),
+        );
+        const footer = wrapper.find(".landing-foot").text();
+        expect(footer).not.toContain("Regulamin");
+        expect(footer).not.toContain("Prywatność");
+        expect(footer).not.toContain("RODO");
+    });
+
+    it("the Polish footer keeps its Polish legal links", async () => {
+        const wrapper = await mountLayout("/pl");
+
+        const footerLinks = wrapper
+            .findAll(".landing-foot a")
+            .map((a) => a.text());
+        expect(footerLinks).toEqual(
+            expect.arrayContaining(["Regulamin", "Prywatność", "RODO / DPA"]),
+        );
+    });
+
+    it("no Polish letter appears anywhere in the English header or footer", async () => {
+        for (const path of ["/", "/en", "/en/privacy"]) {
+            const wrapper = await mountLayout(path);
+
+            expect(wrapper.find(".landing-nav").text(), path).not.toMatch(
+                POLISH_LETTERS,
+            );
+            expect(wrapper.find(".landing-foot").text(), path).not.toMatch(
+                POLISH_LETTERS,
+            );
+        }
+    });
+});
+
+describe("PIO-125 English by default, Polish one click away", () => {
+    it("bare '/' is English and every public link it builds stays in English", async () => {
+        const wrapper = await mountLayout("/");
+
+        const login = wrapper
+            .findAll(".landing-nav a")
+            .find((a) => a.text() === "Sign in");
+        expect(login?.attributes("href")).toBe("/en/login");
+        const privacy = wrapper
+            .findAll(".landing-foot a")
+            .find((a) => a.text() === "Privacy");
+        expect(privacy?.attributes("href")).toBe("/en/privacy");
+    });
+
+    it("the English header offers Polish, named in Polish, leading to /pl", async () => {
+        const wrapper = await mountLayout("/");
+
+        const toggle = wrapper.find(".landing-nav-locale");
+        expect(toggle.text()).toBe("Polski");
+        expect(toggle.attributes("href")).toBe("/pl");
+        expect(toggle.attributes("hreflang")).toBe("pl");
+        expect(toggle.attributes("lang")).toBe("pl");
+        expect(toggle.attributes("title")).toBe("Change language");
+    });
+
+    it("the Polish header offers English back, leading to /en", async () => {
+        const wrapper = await mountLayout("/pl");
+
+        const toggle = wrapper.find(".landing-nav-locale");
+        expect(toggle.text()).toBe("English");
+        expect(toggle.attributes("href")).toBe("/en");
+        expect(toggle.attributes("hreflang")).toBe("en");
+        expect(toggle.attributes("title")).toBe("Zmień język");
+    });
+
+    it("the switch keeps the page: each privacy policy leads to the other language's", async () => {
+        const english = await mountLayout("/en/privacy");
+        expect(english.find(".landing-nav-locale").attributes("href")).toBe(
+            "/pl/privacy",
+        );
+
+        const polish = await mountLayout("/pl/privacy");
+        expect(polish.find(".landing-nav-locale").attributes("href")).toBe(
+            "/en/privacy",
+        );
     });
 });

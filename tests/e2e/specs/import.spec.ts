@@ -78,17 +78,37 @@ test.describe("customer import", () => {
         await expect(page).toHaveURL(/\/pl\/import\/2/);
     });
 
-    test("uploading a file advances to the mapping step", async ({ page }) => {
-        const directory = mkdtempSync(join(tmpdir(), "kivvi-import-"));
-        const file = join(directory, "klienci-e2e.csv");
-        writeFileSync(file, "email;imie\nhania.k@aurea.pl;Hania\n", "utf8");
+    // PIO-125: POST /import/upload has no locale segment, and used to redirect into the default
+    // locale whatever page the file came from. Once English became the default, that dropped every
+    // Polish user into English. The page's locale travels with the upload now, so the mapping step
+    // opens in the language the wizard was started in — asserted for both, since each direction was
+    // broken by one of the two defaults.
+    for (const { locale, stepTwoTitle } of [
+        { locale: "pl", stepTwoTitle: "Mapowanie kolumn" },
+        { locale: "en", stepTwoTitle: "Column mapping" },
+    ]) {
+        test(`uploading a file from /${locale} advances to the mapping step in /${locale}`, async ({
+            page,
+        }) => {
+            const directory = mkdtempSync(join(tmpdir(), "kivvi-import-"));
+            const file = join(directory, `klienci-e2e-${locale}.csv`);
+            writeFileSync(file, "email;imie\nhania.k@aurea.pl;Hania\n", "utf8");
 
-        await page.goto("/pl/import/1");
-        await page.locator('.dropzone input[type="file"]').setInputFiles(file);
+            await page.goto(`/${locale}/import/1`);
+            await page
+                .locator('.dropzone input[type="file"]')
+                .setInputFiles(file);
 
-        await page.waitForURL(/\/pl\/import\/2/);
-        await expect(page.locator(".file-pill")).toContainText(
-            "klienci-e2e.csv",
-        );
-    });
+            await page.waitForURL(new RegExp(`/${locale}/import/2$`));
+            await expect(page.locator("html")).toHaveAttribute("lang", locale);
+            // The page heading comes from the catalogue; the stepper's own labels are panel
+            // fixture copy, still Polish in both languages.
+            await expect(page.locator(".wiz-title").first()).toHaveText(
+                stepTwoTitle,
+            );
+            await expect(page.locator(".file-pill")).toContainText(
+                `klienci-e2e-${locale}.csv`,
+            );
+        });
+    }
 });

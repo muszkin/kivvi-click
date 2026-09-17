@@ -23,8 +23,8 @@ If you would rather not run it yourself, see [Getting it deployed](#getting-it-d
 - **The panel** — landing, login, dashboard, event stream, customers and a 360 profile,
   automations, e-mail campaigns with a template editor, popups and widgets with an editor,
   product feeds, a four-step customer import wizard, and settings.
-- **Two languages** — Polish by default, English available; every route is prefixed `/pl` or
-  `/en`.
+- **Two languages** — English by default, Polish in full behind the language switch; every
+  route except `/` is prefixed `/en` or `/pl`.
 
 ## Stack
 

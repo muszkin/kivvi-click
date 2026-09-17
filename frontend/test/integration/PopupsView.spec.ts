@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { i18n } from "@/i18n";
 import { routes } from "@/router/routes";
 import PopupsView from "@/views/PopupsView.vue";
+import { serveInLocaleOf } from "../support/documentLocale";
 
 function cardFor(
     id: string,
@@ -94,6 +95,7 @@ function payloadFor(preview: string | null) {
 }
 
 async function mountAt(path: string) {
+    serveInLocaleOf(path);
     const router = createRouter({ history: createWebHistory(), routes });
     await router.push(path);
     await router.isReady();
