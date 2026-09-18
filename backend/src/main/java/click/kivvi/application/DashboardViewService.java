@@ -39,6 +39,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class DashboardViewService {
 
+  /**
+   * PIO-129: the dashboard also shows two lists whose words belong to other pages — the
+   * best-performing automations and the recently-seen customers. Those pages are still Polish-only,
+   * so their figures stay Polish too rather than pairing a Polish automation name with a euro
+   * amount. Each slice that translates a page replaces its own marker with the real locale; the
+   * guard test in {@code PanelTranslationCoverageTest} holds the remaining markers to a declared
+   * list, so the last one cannot be forgotten silently.
+   */
+  private static final SupportedLocale UNTRANSLATED = SupportedLocale.PL;
+
   private static final int LIVE_ROWS = 10;
   private static final int RECENT_CUSTOMERS = 6;
   private static final int TOP_AUTOMATIONS = 4;
@@ -83,8 +93,8 @@ public class DashboardViewService {
 
   public Payload build(SupportedLocale locale, Instant now) {
     return new Payload(
-        DashboardFixtures.kpis().stream().map(DashboardViewService::toKpiView).toList(),
-        DashboardFixtures.legend().stream()
+        DashboardFixtures.kpis(locale).stream().map(DashboardViewService::toKpiView).toList(),
+        DashboardFixtures.legend(locale).stream()
             .map(seed -> new LegendView(seed.label(), seed.value()))
             .toList(),
         liveRows(locale, LIVE_ROWS, now),
@@ -133,7 +143,7 @@ public class DashboardViewService {
         customer.name(),
         customer.email(),
         customer.orders(),
-        Format.timeAgo(lastSeenAt, now));
+        Format.timeAgo(lastSeenAt, now, UNTRANSLATED));
   }
 
   /** {@code AutomationCatalog::topEarning()}: active automations only, highest revenue first. */
@@ -151,14 +161,14 @@ public class DashboardViewService {
         automation.id(),
         automation.name(),
         automation.channels(),
-        Format.number(automation.runs()),
-        Format.percent(automation.conversion()),
-        Format.money(automation.revenue()));
+        Format.number(automation.runs(), UNTRANSLATED),
+        Format.percent(automation.conversion(), UNTRANSLATED),
+        Format.money(automation.revenue(), UNTRANSLATED));
   }
 
   /** {@code EventFeed::rows()}, ported call for call, limited to {@link #LIVE_ROWS} rows. */
   private List<RowView> liveRows(SupportedLocale locale, int count, Instant now) {
-    List<SampleCustomer> customers = EventsFixtures.customers();
+    List<SampleCustomer> customers = EventsFixtures.customers(locale);
     List<RowView> rows = new ArrayList<>(count);
     for (int i = 0; i < count; i++) {
       EventType type = EventType.FEED_TYPES.get((i * 3 + 1) % EventType.FEED_TYPES.size());
@@ -172,7 +182,7 @@ public class DashboardViewService {
               type.icon(),
               type.tone(),
               type.label(locale),
-              detail(type, i, customer.email()),
+              detail(locale, type, i, customer.email()),
               customer.name(),
               customer.id(),
               site.siteName(),
@@ -181,48 +191,15 @@ public class DashboardViewService {
     return rows;
   }
 
-  /** {@code EventFeed::detail()}, ported case for case. */
-  private static String detail(EventType type, int seed, String email) {
+  /** {@code EventFeed::detail()}, ported case for case, in the language the feed is read in. */
+  private static String detail(SupportedLocale locale, EventType type, int seed, String email) {
     return switch (type) {
-      case PAGEVIEW ->
-          "/produkt/"
-              + EventsFixtures.PRODUCT_PATHS.get(seed % EventsFixtures.PRODUCT_PATHS.size());
-      case ADD_TO_CART, WISHLIST ->
-          EventsFixtures.PRODUCT_NAMES.get(seed % EventsFixtures.PRODUCT_NAMES.size());
-      case PURCHASE ->
-          formatPricePl(((seed * 47) % 350) + 89)
-              + " PLN · "
-              + EventsFixtures.BASKET_SIZES.get(seed % EventsFixtures.BASKET_SIZES.size());
-      case SEARCH ->
-          "„"
-              + EventsFixtures.SEARCH_PHRASES.get(seed % EventsFixtures.SEARCH_PHRASES.size())
-              + "”";
-      case CART_ABANDON ->
-          EventsFixtures.ABANDON_DELAYS.get(seed % EventsFixtures.ABANDON_DELAYS.size());
+      case PAGEVIEW -> EventDetail.pagePath(locale, seed);
+      case ADD_TO_CART, WISHLIST -> EventDetail.productName(locale, seed);
+      case PURCHASE -> EventDetail.purchase(locale, seed);
+      case SEARCH -> EventDetail.searchPhrase(locale, seed);
+      case CART_ABANDON -> EventDetail.abandonDelay(locale, seed);
       default -> email;
     };
-  }
-
-  /**
-   * {@code EventFeed::detail()}'s inline {@code number_format($value, 2, ',', ' ')} for the
-   * purchase amount — a plain-ASCII-space grouping distinct from {@link Format#number}'s narrow
-   * no-break space, exactly like {@code EventsViewService.formatPricePl} documents for the same
-   * call site.
-   */
-  private static String formatPricePl(int value) {
-    BigDecimal rounded = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP);
-    String[] parts = rounded.toPlainString().split("\\.", 2);
-    return groupWithSpace(parts[0]) + "," + parts[1];
-  }
-
-  private static String groupWithSpace(String digits) {
-    StringBuilder grouped = new StringBuilder();
-    for (int i = 0; i < digits.length(); i++) {
-      if (i > 0 && (digits.length() - i) % 3 == 0) {
-        grouped.append(' ');
-      }
-      grouped.append(digits.charAt(i));
-    }
-    return grouped.toString();
   }
 }

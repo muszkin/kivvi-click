@@ -1,6 +1,7 @@
 package click.kivvi.application;
 
 import click.kivvi.domain.Format;
+import click.kivvi.domain.SupportedLocale;
 import click.kivvi.fixtures.ImportFixtures;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ImportViewService {
+
+  /**
+   * PIO-129 translates the panel one page at a time. This page's copy is still Polish only, so its
+   * figures stay Polish too — a Polish label above a euro amount would be worse than either
+   * language on its own. The slice that translates this page replaces the marker with the real
+   * locale; {@code PanelTranslationCoverageTest} holds the remaining markers to a declared list, so
+   * the last page cannot be forgotten silently.
+   */
+  private static final SupportedLocale UNTRANSLATED = SupportedLocale.PL;
 
   private static final Map<String, StatusChip> STATUS_CHIP =
       Map.of(
@@ -147,11 +157,16 @@ public class ImportViewService {
   private static List<SummaryTile> summary() {
     return List.of(
         new SummaryTile(
-            "Wierszy łącznie", Format.number(8420), "plik wczytany poprawnie", "up", "check"),
-        new SummaryTile("Nowi klienci", Format.number(7124), "~84,6% wszystkich", "up", null),
+            "Wierszy łącznie",
+            Format.number(8420, UNTRANSLATED),
+            "plik wczytany poprawnie",
+            "up",
+            "check"),
+        new SummaryTile(
+            "Nowi klienci", Format.number(7124, UNTRANSLATED), "~84,6% wszystkich", "up", null),
         new SummaryTile(
             "Aktualizacje istniejących",
-            Format.number(1252),
+            Format.number(1252, UNTRANSLATED),
             "nadpisanie wg reguł z kroku 3",
             "flat",
             "check"),
@@ -169,7 +184,7 @@ public class ImportViewService {
 
   private static PreviewRow toPreviewRow(ImportFixtures.RawPreviewRow row) {
     StatusChip chip = STATUS_CHIP.get(row.status());
-    String ltv = row.ltv() == null ? "?" : Format.money(row.ltv());
+    String ltv = row.ltv() == null ? "?" : Format.money(row.ltv(), UNTRANSLATED);
     return new PreviewRow(
         row.status(),
         chip.tone(),
@@ -191,7 +206,12 @@ public class ImportViewService {
 
   private static RecentImportView toRecentImportView(ImportFixtures.RecentImport item) {
     return new RecentImportView(
-        item.file(), Format.number(item.rows()), item.date(), item.who(), item.ok(), item.note());
+        item.file(),
+        Format.number(item.rows(), UNTRANSLATED),
+        item.date(),
+        item.who(),
+        item.ok(),
+        item.note());
   }
 
   /**

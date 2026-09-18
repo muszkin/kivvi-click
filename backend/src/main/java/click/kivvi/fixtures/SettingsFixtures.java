@@ -1,6 +1,7 @@
 package click.kivvi.fixtures;
 
 import click.kivvi.domain.Format;
+import click.kivvi.domain.SupportedLocale;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,15 @@ import java.util.Map;
  * CustomersFixtures} does for customer rows.
  */
 public final class SettingsFixtures {
+
+  /**
+   * PIO-129 translates the panel one page at a time. This page's copy is still Polish only, so its
+   * figures stay Polish too — a Polish label above a euro amount would be worse than either
+   * language on its own. The slice that translates this page replaces the marker with the real
+   * locale; {@code PanelTranslationCoverageTest} holds the remaining markers to a declared list, so
+   * the last page cannot be forgotten silently.
+   */
+  private static final SupportedLocale UNTRANSLATED = SupportedLocale.PL;
 
   public static final String DEFAULT_TAB = "account";
 
@@ -106,9 +116,15 @@ public final class SettingsFixtures {
 
   private static final List<TrackedSite> TRACKED_SITES =
       List.of(
-          new TrackedSite("aureashop.pl", "#7a8763", Format.number(28410), "pk_live_8a4f2c…"),
-          new TrackedSite("mlot-narzedzia.pl", "#a3825b", Format.number(14820), "pk_live_3c91b7…"),
-          new TrackedSite("polna-bistro.pl", "#8b6f53", Format.number(12240), "pk_live_be22a0…"));
+          new TrackedSite(
+              "aureashop.pl", "#7a8763", Format.number(28410, UNTRANSLATED), "pk_live_8a4f2c…"),
+          new TrackedSite(
+              "mlot-narzedzia.pl",
+              "#a3825b",
+              Format.number(14820, UNTRANSLATED),
+              "pk_live_3c91b7…"),
+          new TrackedSite(
+              "polna-bistro.pl", "#8b6f53", Format.number(12240, UNTRANSLATED), "pk_live_be22a0…"));
 
   private static final List<String> AUTOMATIC_EVENTS =
       List.of(
@@ -165,7 +181,7 @@ public final class SettingsFixtures {
               "eu-central-1",
               "good",
               "Główny",
-              Format.number(118420),
+              Format.number(118420, UNTRANSLATED),
               "0,24%",
               false,
               "0,01%",
@@ -175,7 +191,7 @@ public final class SettingsFixtures {
               "EU",
               "info",
               "Zapasowy",
-              Format.number(23990),
+              Format.number(23990, UNTRANSLATED),
               "0,41%",
               true,
               "0,03%",

@@ -1,6 +1,7 @@
 package click.kivvi.application;
 
 import click.kivvi.domain.Format;
+import click.kivvi.domain.SupportedLocale;
 import click.kivvi.fixtures.CampaignsFixtures;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CampaignsViewService {
+
+  /**
+   * PIO-129 translates the panel one page at a time. This page's copy is still Polish only, so its
+   * figures stay Polish too — a Polish label above a euro amount would be worse than either
+   * language on its own. The slice that translates this page replaces the marker with the real
+   * locale; {@code PanelTranslationCoverageTest} holds the remaining markers to a declared list, so
+   * the last page cannot be forgotten silently.
+   */
+  private static final SupportedLocale UNTRANSLATED = SupportedLocale.PL;
 
   private static final String SENDER = "sklep@aureashop.pl";
   private static final String KNOWN_TEMPLATE_META =
@@ -82,10 +92,15 @@ public class CampaignsViewService {
 
   private static List<Kpi> kpis() {
     return List.of(
-        new Kpi("Wysłane (30 dni)", Format.number(142410), null, "+18% vs poprzedni okres", "up"),
+        new Kpi(
+            "Wysłane (30 dni)",
+            Format.number(142410, UNTRANSLATED),
+            null,
+            "+18% vs poprzedni okres",
+            "up"),
         new Kpi("Średni open rate", "38,4", "%", "+2,1pp", "up"),
         new Kpi("Średni CTR", "7,8", "%", "−0,4pp", "down"),
-        new Kpi("Przychód z kampanii", Format.money(184230), null, "+24%", "up"));
+        new Kpi("Przychód z kampanii", Format.money(184230, UNTRANSLATED), null, "+24%", "up"));
   }
 
   private static List<Filter> filters(String active) {
@@ -126,10 +141,10 @@ public class CampaignsViewService {
         chip.label(),
         trigger ? "Wyzwalana" : "Masowa",
         trigger ? "accent" : "brown",
-        campaign.sent() > 0 ? Format.number(campaign.sent()) : "—",
-        campaign.open() > 0 ? Format.percent(campaign.open()) : "—",
-        campaign.click() > 0 ? Format.percent(campaign.click()) : "—",
-        campaign.revenue() > 0 ? Format.money(campaign.revenue()) : "—");
+        campaign.sent() > 0 ? Format.number(campaign.sent(), UNTRANSLATED) : "—",
+        campaign.open() > 0 ? Format.percent(campaign.open(), UNTRANSLATED) : "—",
+        campaign.click() > 0 ? Format.percent(campaign.click(), UNTRANSLATED) : "—",
+        campaign.revenue() > 0 ? Format.money(campaign.revenue(), UNTRANSLATED) : "—");
   }
 
   private static Template template(String id) {

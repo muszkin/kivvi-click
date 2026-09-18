@@ -7,8 +7,6 @@ import click.kivvi.domain.tracking.EventType;
 import click.kivvi.domain.tracking.TrackedSite;
 import click.kivvi.fixtures.EventsFixtures;
 import click.kivvi.fixtures.EventsFixtures.SampleCustomer;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -66,9 +64,9 @@ public class EventsViewService {
     return new Payload(
         typeFilters(locale, activeType),
         siteFilters(locale, activeSite),
-        ranges(activeRange),
+        ranges(locale, activeRange),
         rows(locale, ROWS_PER_PAGE, Instant.now()),
-        Format.number(EVENTS_IN_WINDOW),
+        Format.number(EVENTS_IN_WINDOW, locale),
         ROWS_PER_PAGE,
         EventStreamTopic.forCurrentAccount());
   }
@@ -109,16 +107,25 @@ public class EventsViewService {
     return filters;
   }
 
-  private List<RangeView> ranges(String active) {
-    return List.of(
-        new RangeView("5m", "5 min", "5m".equals(active)),
-        new RangeView("1h", "1 godz.", "1h".equals(active)),
-        new RangeView("24h", "24 godz.", "24h".equals(active)),
-        new RangeView("7d", "7 dni", "7d".equals(active)));
+  private List<RangeView> ranges(SupportedLocale locale, String active) {
+    return switch (locale) {
+      case PL ->
+          List.of(
+              new RangeView("5m", "5 min", "5m".equals(active)),
+              new RangeView("1h", "1 godz.", "1h".equals(active)),
+              new RangeView("24h", "24 godz.", "24h".equals(active)),
+              new RangeView("7d", "7 dni", "7d".equals(active)));
+      case EN ->
+          List.of(
+              new RangeView("5m", "5 min", "5m".equals(active)),
+              new RangeView("1h", "1 hr", "1h".equals(active)),
+              new RangeView("24h", "24 hr", "24h".equals(active)),
+              new RangeView("7d", "7 days", "7d".equals(active)));
+    };
   }
 
   private List<RowView> rows(SupportedLocale locale, int count, Instant now) {
-    List<SampleCustomer> customers = EventsFixtures.customers();
+    List<SampleCustomer> customers = EventsFixtures.customers(locale);
     List<RowView> rows = new ArrayList<>(count);
     for (int i = 0; i < count; i++) {
       EventType type = EventType.FEED_TYPES.get((i * 3 + 1) % EventType.FEED_TYPES.size());
@@ -132,7 +139,7 @@ public class EventsViewService {
               type.icon(),
               type.tone(),
               type.label(locale),
-              detail(type, i, customer.email()),
+              detail(locale, type, i, customer.email()),
               customer.name(),
               customer.id(),
               site.siteName(),
@@ -141,24 +148,14 @@ public class EventsViewService {
     return rows;
   }
 
-  /** {@code EventFeed::detail()}, ported case for case. */
-  private String detail(EventType type, int seed, String email) {
+  /** {@code EventFeed::detail()}, ported case for case, in the language the feed is read in. */
+  private String detail(SupportedLocale locale, EventType type, int seed, String email) {
     return switch (type) {
-      case PAGEVIEW ->
-          "/produkt/"
-              + EventsFixtures.PRODUCT_PATHS.get(seed % EventsFixtures.PRODUCT_PATHS.size());
-      case ADD_TO_CART, WISHLIST ->
-          EventsFixtures.PRODUCT_NAMES.get(seed % EventsFixtures.PRODUCT_NAMES.size());
-      case PURCHASE ->
-          formatPricePl(((seed * 47) % 350) + 89)
-              + " PLN · "
-              + EventsFixtures.BASKET_SIZES.get(seed % EventsFixtures.BASKET_SIZES.size());
-      case SEARCH ->
-          "„"
-              + EventsFixtures.SEARCH_PHRASES.get(seed % EventsFixtures.SEARCH_PHRASES.size())
-              + "”";
-      case CART_ABANDON ->
-          EventsFixtures.ABANDON_DELAYS.get(seed % EventsFixtures.ABANDON_DELAYS.size());
+      case PAGEVIEW -> EventDetail.pagePath(locale, seed);
+      case ADD_TO_CART, WISHLIST -> EventDetail.productName(locale, seed);
+      case PURCHASE -> EventDetail.purchase(locale, seed);
+      case SEARCH -> EventDetail.searchPhrase(locale, seed);
+      case CART_ABANDON -> EventDetail.abandonDelay(locale, seed);
       default -> email;
     };
   }
@@ -169,29 +166,5 @@ public class EventsViewService {
 
   private static String orDefault(String value, String fallback) {
     return value == null || value.isBlank() ? fallback : value;
-  }
-
-  /**
-   * {@code EventFeed::detail()}'s inline {@code number_format($value, 2, ',', ' ')} for the
-   * purchase amount — a plain-ASCII-space grouping distinct from {@link Format#number}'s narrow
-   * no-break space, exactly like {@code FeedsViewService.groupWithSpace} documents for its own
-   * unrelated call site. Values here (89..438) never reach four digits, so grouping never actually
-   * triggers, but the port stays faithful to the original formatting call regardless.
-   */
-  private static String formatPricePl(int value) {
-    BigDecimal rounded = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP);
-    String[] parts = rounded.toPlainString().split("\\.", 2);
-    return groupWithSpace(parts[0]) + "," + parts[1];
-  }
-
-  private static String groupWithSpace(String digits) {
-    StringBuilder grouped = new StringBuilder();
-    for (int i = 0; i < digits.length(); i++) {
-      if (i > 0 && (digits.length() - i) % 3 == 0) {
-        grouped.append(' ');
-      }
-      grouped.append(digits.charAt(i));
-    }
-    return grouped.toString();
   }
 }

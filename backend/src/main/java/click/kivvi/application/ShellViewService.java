@@ -55,7 +55,7 @@ public class ShellViewService {
             .map(group -> toGroupView(group, locale, javaLocale))
             .toList();
 
-    ShellFixtures.Workspace workspace = ShellFixtures.workspace();
+    ShellFixtures.Workspace workspace = ShellFixtures.workspace(locale);
     return new ShellView(
         locale.code(),
         theme.value(),

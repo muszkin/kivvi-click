@@ -1,6 +1,7 @@
 package click.kivvi.application;
 
 import click.kivvi.domain.Format;
+import click.kivvi.domain.SupportedLocale;
 import click.kivvi.fixtures.WidgetFixtures;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class WidgetViewService {
+
+  /**
+   * PIO-129 translates the panel one page at a time. This page's copy is still Polish only, so its
+   * figures stay Polish too — a Polish label above a euro amount would be worse than either
+   * language on its own. The slice that translates this page replaces the marker with the real
+   * locale; {@code PanelTranslationCoverageTest} holds the remaining markers to a declared list, so
+   * the last page cannot be forgotten silently.
+   */
+  private static final SupportedLocale UNTRANSLATED = SupportedLocale.PL;
 
   private static final String NEW_WIDGET_NAME = "Nowy widget";
   private static final String NEW_WIDGET_META = "Szkic · nieopublikowany";
@@ -126,8 +136,8 @@ public class WidgetViewService {
                     "%s na aureashop.pl · %s wyświetleń · %s konwersji"
                         .formatted(
                             WidgetFixtures.statusChip(widget.status()).label(),
-                            Format.number(widget.impressions()),
-                            Format.percent(widget.conversion()))))
+                            Format.number(widget.impressions(), UNTRANSLATED),
+                            Format.percent(widget.conversion(), UNTRANSLATED))))
         .orElseGet(() -> new Resolved(id, NEW_WIDGET_NAME, NEW_WIDGET_TYPE, NEW_WIDGET_META));
   }
 
@@ -148,9 +158,12 @@ public class WidgetViewService {
     List<Metric> metrics =
         List.of(
             new Metric(
-                hasImpressions ? Format.number(widget.impressions()) : "—", "wyświetleń", 90, null),
+                hasImpressions ? Format.number(widget.impressions(), UNTRANSLATED) : "—",
+                "wyświetleń",
+                90,
+                null),
             new Metric(
-                hasConversion ? Format.percent(widget.conversion()) : "—",
+                hasConversion ? Format.percent(widget.conversion(), UNTRANSLATED) : "—",
                 "konwersja",
                 80,
                 hasConversion ? "var(--good)" : "var(--fg-muted)"));
