@@ -3,10 +3,11 @@
 // variant of the rule builder: edges are dashed bezier paths in one SVG behind the nodes; the
 // dotted background is a repeating radial-gradient at 24px (CSS only, already byte-identical).
 //
-// "Węzeł" / "Auto-układ" and the node/edge count footer are NOT `|trans`'d in the old template
-// either (rule-pipeline's add-slot label is a fixture param, these two are template-literal Polish
-// left as-is) — reproduced verbatim rather than through vue-i18n.
+// PIO-129: the two button labels and the node/edge count footer were template-literal Polish in
+// the old stack, never passed through `|trans`, and the port reproduced that verbatim. On an
+// English panel it simply reads as Polish, so they go through vue-i18n now like everything else.
 import { computed } from "vue";
+import { useI18n } from "vue-i18n";
 import Button from "@/components/atoms/Button.vue";
 import FlowNode from "@/components/molecules/FlowNode.vue";
 
@@ -24,6 +25,8 @@ export interface FlowCanvasEdge {
     from: number;
     to: number;
 }
+
+const { t } = useI18n();
 
 const props = withDefaults(
     defineProps<{
@@ -104,11 +107,16 @@ const edgePaths = computed<EdgePath[]>(() => {
                 gap: 6px;
             "
         >
-            <Button size="sm" icon="plus" label="Węzeł" action="add-node" />
+            <Button
+                size="sm"
+                icon="plus"
+                :label="t('automations.addNode')"
+                action="add-node"
+            />
             <Button
                 size="sm"
                 icon="move"
-                label="Auto-układ"
+                :label="t('automations.autoLayout')"
                 action="autolayout"
             />
         </div>
@@ -122,7 +130,12 @@ const edgePaths = computed<EdgePath[]>(() => {
                 color: var(--fg-muted);
             "
         >
-            {{ nodes.length }} węzłów · {{ edges.length }} połączeń
+            {{
+                t("automations.graphSize", {
+                    nodes: nodes.length,
+                    edges: edges.length,
+                })
+            }}
         </div>
     </div>
 </template>

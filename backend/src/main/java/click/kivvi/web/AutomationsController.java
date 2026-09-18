@@ -31,8 +31,8 @@ public class AutomationsController {
   @GetMapping("/api/v1/{locale:pl|en}/automations")
   public AutomationListResponse list(
       @PathVariable String locale, @RequestParam(defaultValue = "all") String status) {
-    SupportedLocale.fromCode(locale).orElseThrow();
-    AutomationsViewService.ListPayload payload = automationsViewService.list(status);
+    AutomationsViewService.ListPayload payload =
+        automationsViewService.list(SupportedLocale.fromCode(locale).orElseThrow(), status);
     return new AutomationListResponse(
         payload.filters().stream().map(AutomationsController::toFilter).toList(),
         payload.automations().stream().map(AutomationsController::toCard).toList());
@@ -43,8 +43,8 @@ public class AutomationsController {
       @PathVariable String locale,
       @PathVariable String id,
       @RequestParam(required = false) String view) {
-    SupportedLocale.fromCode(locale).orElseThrow();
-    AutomationsViewService.EditorPayload payload = automationsViewService.editor(id, view);
+    AutomationsViewService.EditorPayload payload =
+        automationsViewService.editor(SupportedLocale.fromCode(locale).orElseThrow(), id, view);
     return new AutomationEditorResponse(
         toAutomation(payload.automation()),
         payload.view(),

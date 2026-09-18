@@ -41,11 +41,11 @@ public class DashboardViewService {
 
   /**
    * PIO-129: the dashboard also shows two lists whose words belong to other pages — the
-   * best-performing automations and the recently-seen customers. Those pages are still Polish-only,
-   * so their figures stay Polish too rather than pairing a Polish automation name with a euro
-   * amount. Each slice that translates a page replaces its own marker with the real locale; the
-   * guard test in {@code PanelTranslationCoverageTest} holds the remaining markers to a declared
-   * list, so the last one cannot be forgotten silently.
+   * recently-seen customers. That page is still Polish-only, so its figures stay Polish too rather
+   * than pairing a Polish customer name with a euro amount. The best-performing automations left
+   * this list when the automations page was translated. Each slice that translates a page replaces
+   * its own marker with the real locale; the guard test in {@code PanelTranslationCoverageTest}
+   * holds the remaining markers to a declared list, so the last one cannot be forgotten silently.
    */
   private static final SupportedLocale UNTRANSLATED = SupportedLocale.PL;
 
@@ -100,7 +100,7 @@ public class DashboardViewService {
         liveRows(locale, LIVE_ROWS, now),
         EventStreamTopic.forCurrentAccount(),
         recentCustomers(now),
-        topAutomations());
+        topAutomations(locale));
   }
 
   private static KpiView toKpiView(DashboardFixtures.KpiSeed seed) {
@@ -147,23 +147,24 @@ public class DashboardViewService {
   }
 
   /** {@code AutomationCatalog::topEarning()}: active automations only, highest revenue first. */
-  private List<AutomationView> topAutomations() {
-    return AutomationsFixtures.all().stream()
+  private List<AutomationView> topAutomations(SupportedLocale locale) {
+    return AutomationsFixtures.all(locale).stream()
         .filter(automation -> "active".equals(automation.status()))
         .sorted(Comparator.comparingDouble(AutomationsFixtures.Automation::revenue).reversed())
         .limit(TOP_AUTOMATIONS)
-        .map(DashboardViewService::toAutomationView)
+        .map(automation -> toAutomationView(locale, automation))
         .toList();
   }
 
-  private static AutomationView toAutomationView(AutomationsFixtures.Automation automation) {
+  private static AutomationView toAutomationView(
+      SupportedLocale locale, AutomationsFixtures.Automation automation) {
     return new AutomationView(
         automation.id(),
         automation.name(),
         automation.channels(),
-        Format.number(automation.runs(), UNTRANSLATED),
-        Format.percent(automation.conversion(), UNTRANSLATED),
-        Format.money(automation.revenue(), UNTRANSLATED));
+        Format.number(automation.runs(), locale),
+        Format.percent(automation.conversion(), locale),
+        Format.money(automation.revenue(), locale));
   }
 
   /** {@code EventFeed::rows()}, ported call for call, limited to {@link #LIVE_ROWS} rows. */
