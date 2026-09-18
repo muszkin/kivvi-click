@@ -229,6 +229,38 @@ test.describe("the panel speaks the language of the URL", () => {
         await expect(page.locator(".cond-rule").first()).toContainText("IF");
     });
 
+    test("the settings tabs and role descriptions are English on /en", async ({
+        page,
+    }) => {
+        await page.goto("/en/settings");
+        await expect(page.locator(".settings-nav")).toHaveAttribute(
+            "aria-label",
+            "Settings sections",
+        );
+        await expect(page.locator(".settings-nav a").first()).toContainText(
+            "Account",
+        );
+
+        await page.goto("/en/settings/team");
+        await expect(page.locator(".page-sub")).toContainText(
+            "Who can reach the panel",
+        );
+        await expect(page.locator(".settings-grid")).toContainText("Owner");
+        await expect(page.locator(".settings-grid")).toContainText(
+            "Everything except deleting the account.",
+        );
+    });
+
+    test("PIO-128 no role description mentions billing, in either language", async ({
+        page,
+    }) => {
+        for (const path of ["/en/settings/team", "/pl/settings/team"]) {
+            await page.goto(path);
+            const text = await page.locator(".page").innerText();
+            expect(text).not.toMatch(/rozliczeni|billing|invoice|faktur/i);
+        }
+    });
+
     test("the workspace card counts sites in English on /en", async ({
         page,
     }) => {

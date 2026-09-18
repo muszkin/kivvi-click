@@ -19,23 +19,23 @@ const { t } = useI18n();
             <Field
                 name="company"
                 :label="t('settings.account.companyName')"
-                value="Aurea Shop sp. z o.o."
+                :value="t('settings.account.sampleCompanyName')"
             />
             <Field
                 name="vat_id"
                 :label="t('settings.account.vatId')"
-                value="527-289-11-04"
+                :value="t('settings.account.sampleVatId')"
                 mono
             />
             <Field
                 name="street"
                 :label="t('settings.account.street')"
-                value="ul. Świętokrzyska 18/22"
+                :value="t('settings.account.sampleStreet')"
             />
             <Field
                 name="city"
                 :label="t('settings.account.cityAndPostcode')"
-                value="00-052 Warszawa"
+                :value="t('settings.account.sampleCityAndPostcode')"
             />
             <SettingsSelectField
                 name="country"

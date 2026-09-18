@@ -5,6 +5,7 @@ import ToggleRow from "@/components/atoms/ToggleRow.vue";
 import DnsRow from "@/components/molecules/DnsRow.vue";
 import HookRow from "@/components/molecules/HookRow.vue";
 import SettingsNav from "@/components/organisms/SettingsNav.vue";
+import { i18n } from "@/i18n";
 
 describe("B32 SettingsNav", () => {
     const tabs = [
@@ -25,7 +26,10 @@ describe("B32 SettingsNav", () => {
     ];
 
     it("marks the active tab aria-current=true and every other tab aria-current=false", () => {
-        const wrapper = mount(SettingsNav, { props: { tabs } });
+        const wrapper = mount(SettingsNav, {
+            global: { plugins: [i18n] },
+            props: { tabs },
+        });
 
         const links = wrapper.findAll(".settings-nav a");
         expect(links).toHaveLength(2);
@@ -34,7 +38,10 @@ describe("B32 SettingsNav", () => {
     });
 
     it("renders a real navigation link (href), not a router-link", () => {
-        const wrapper = mount(SettingsNav, { props: { tabs } });
+        const wrapper = mount(SettingsNav, {
+            global: { plugins: [i18n] },
+            props: { tabs },
+        });
 
         expect(wrapper.findAll(".settings-nav a")[1]?.attributes("href")).toBe(
             "/pl/settings/sites",
@@ -42,7 +49,10 @@ describe("B32 SettingsNav", () => {
     });
 
     it("carries the tab label as text", () => {
-        const wrapper = mount(SettingsNav, { props: { tabs } });
+        const wrapper = mount(SettingsNav, {
+            global: { plugins: [i18n] },
+            props: { tabs },
+        });
 
         expect(wrapper.text()).toContain("Śledzone strony");
     });

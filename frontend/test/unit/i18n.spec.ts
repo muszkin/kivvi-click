@@ -77,6 +77,9 @@ const IDENTICAL_BY_DESIGN = new Set([
     "import.run.colEmail",
     "import.run.colOptIn",
     "import.run.colLtv",
+    "settings.providers.test",
+    "settings.api.webhooksCardTitle",
+    "settings.gdpr.columnStatus",
 ]);
 
 /** Letters only Polish uses. */
@@ -169,17 +172,15 @@ describe("PIO-117 every string on an English public page is English", () => {
 });
 
 /**
- * PIO-129 is translating the panel one page at a time. These are the areas it has not reached yet;
- * their English catalogues still hold the Polish original, a deliberate migration-parity artefact
- * from a time when the old stack's translator fell back to the Polish message id. Delete a prefix
- * when its slice lands — the checks below then start guarding it, and the panel is finished when
- * the list is empty.
+ * Empty, and it should stay that way. The panel's English catalogues used to hold the Polish
+ * original wherever the old stack's translator had no entry and fell back to the message id;
+ * PIO-129 finished translating every area, so nothing is excluded from the two checks below any
+ * more. The list survives so that an area arriving in Polish only has to be written down here
+ * rather than slipping past them unnoticed.
  */
-const PANEL_AREAS_STILL_POLISH = [
-    "settings.", // slice 5
-];
+const PANEL_AREAS_STILL_POLISH: string[] = [];
 
-describe("PIO-129 every string in a translated part of the panel is English", () => {
+describe("PIO-129 every string in the panel is English", () => {
     const polish = leaves(merged("pl"));
     const english = leaves(merged("en"));
     const guarded = [...english.keys()].filter(
@@ -188,12 +189,13 @@ describe("PIO-129 every string in a translated part of the panel is English", ()
             !PANEL_AREAS_STILL_POLISH.some((area) => key.startsWith(area)),
     );
 
-    it("guards the areas already translated, and only those", () => {
+    it("guards every panel area, with none left excluded", () => {
         expect(guarded).toContain("dashboard.title");
         expect(guarded).toContain("events.webhook");
         expect(guarded).toContain("common.collapseSidebar");
-        expect(guarded).not.toContain("settings.team.columnPerson");
-        expect(guarded.length).toBeGreaterThan(80);
+        expect(guarded).toContain("settings.team.columnPerson");
+        expect(PANEL_AREAS_STILL_POLISH).toEqual([]);
+        expect(guarded.length).toBeGreaterThan(300);
     });
 
     it("no English panel string is a copy of its Polish original", () => {
