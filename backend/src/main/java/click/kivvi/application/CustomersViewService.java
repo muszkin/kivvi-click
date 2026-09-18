@@ -92,7 +92,7 @@ public class CustomersViewService {
         toDetail(customer),
         profileSub,
         facts(customer),
-        AutomationsFixtures.activeForCustomer(),
+        AutomationsFixtures.activeForCustomer(UNTRANSLATED),
         tabs(customer),
         scores(),
         timeline(customer.email()));

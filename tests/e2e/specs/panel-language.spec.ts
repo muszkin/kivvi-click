@@ -85,6 +85,47 @@ test.describe("the panel speaks the language of the URL", () => {
         );
     });
 
+    test("the automations index is English on /en and Polish on /pl", async ({
+        page,
+    }) => {
+        await page.goto("/en/automations");
+        const englishCards = page.locator(".auto-card .auto-card__title");
+        await expect(englishCards.first()).toHaveText("Abandoned cart recovery");
+
+        await page.goto("/pl/automations");
+        const polishCards = page.locator(".auto-card .auto-card__title");
+        await expect(polishCards.first()).toHaveText(
+            "Powrót do porzuconego koszyka",
+        );
+    });
+
+    test("the rule builder's WHEN/IF/THEN steps are English on /en", async ({
+        page,
+    }) => {
+        await page.goto("/en/automations/a1");
+        const kickers = page.locator(".rb-step .rb-step__kicker");
+
+        await expect(kickers.nth(0)).toContainText("WHEN");
+        await expect(kickers.nth(1)).toContainText("IF");
+        await expect(kickers.nth(2)).toContainText("THEN");
+    });
+
+    test("the flow canvas labels its buttons and counts in English on /en", async ({
+        page,
+    }) => {
+        await page.goto("/en/automations/a1?view=flow");
+
+        await expect(page.locator('[data-action="add-node"]')).toContainText(
+            "Node",
+        );
+        await expect(page.locator('[data-action="autolayout"]')).toContainText(
+            "Auto-layout",
+        );
+        await expect(page.locator(".flow-canvas")).toContainText(
+            "6 nodes · 5 connections",
+        );
+    });
+
     test("the workspace card counts sites in English on /en", async ({
         page,
     }) => {
