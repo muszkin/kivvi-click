@@ -25,8 +25,8 @@ public class FeedsController {
 
   @GetMapping("/api/v1/{locale:pl|en}/feeds")
   public FeedsResponse feeds(@PathVariable String locale) {
-    SupportedLocale.fromCode(locale).orElseThrow();
-    FeedsViewService.Payload payload = feedsViewService.build();
+    FeedsViewService.Payload payload =
+        feedsViewService.build(SupportedLocale.fromCode(locale).orElseThrow());
     return new FeedsResponse(
         payload.kpis().stream().map(FeedsController::toKpi).toList(),
         payload.sources().stream().map(FeedsController::toSource).toList(),

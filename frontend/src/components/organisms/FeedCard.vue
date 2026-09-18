@@ -9,6 +9,7 @@
 // a number. `mismatched` stays a raw int — the Twig source never ran it through number_format
 // either.
 import { computed } from "vue";
+import { useI18n } from "vue-i18n";
 import Button from "@/components/atoms/Button.vue";
 import Chip from "@/components/atoms/Chip.vue";
 import Icon from "@/components/atoms/Icon.vue";
@@ -58,18 +59,24 @@ const BADGES: Record<
     },
 };
 
+// PIO-129: the four sync-status labels were Polish literals here, outside the translator. Only
+// the tone belongs to the component; the word comes from the catalogue like every other label.
 const STATES: Record<
     FeedStatus,
-    { tone: "good" | "info" | "bad" | "warn"; label: string }
+    { tone: "good" | "info" | "bad" | "warn"; key: string }
 > = {
-    synced: { tone: "good", label: "Zsynchronizowany" },
-    syncing: { tone: "info", label: "Synchronizuje…" },
-    error: { tone: "bad", label: "Błąd" },
-    paused: { tone: "warn", label: "Wstrzymany" },
+    synced: { tone: "good", key: "feeds.statusSynced" },
+    syncing: { tone: "info", key: "feeds.statusSyncing" },
+    error: { tone: "bad", key: "feeds.statusError" },
+    paused: { tone: "warn", key: "feeds.statusPaused" },
 };
 
+const { t } = useI18n();
 const badge = computed(() => BADGES[props.source]);
-const state = computed(() => STATES[props.status]);
+const state = computed(() => ({
+    tone: STATES[props.status].tone,
+    label: t(STATES[props.status].key),
+}));
 const mismatchedColor = computed(() =>
     props.mismatched ? "var(--bad)" : "var(--good)",
 );
@@ -111,7 +118,7 @@ const mismatchedColor = computed(() =>
                 <Button
                     size="sm"
                     icon="play"
-                    label="Wznów"
+                    :label="t('feeds.resume')"
                     action="resume-feed"
                 />
             </span>
@@ -127,7 +134,7 @@ const mismatchedColor = computed(() =>
                         letter-spacing: 0.06em;
                     "
                 >
-                    Produktów
+                    {{ t("feeds.productsLabel") }}
                 </div>
                 <div
                     class="mono"
@@ -223,13 +230,13 @@ const mismatchedColor = computed(() =>
             <Button
                 size="sm"
                 icon="list"
-                label="Mapowanie pól"
+                :label="t('feeds.fieldMapping')"
                 action="map-feed"
             />
             <Button
                 size="sm"
                 icon="eye"
-                label="Podgląd"
+                :label="t('feeds.preview')"
                 action="preview-feed"
             />
             <Button
@@ -245,7 +252,7 @@ const mismatchedColor = computed(() =>
                 size="sm"
                 icon="trash"
                 action="remove-feed"
-                aria-label="Usuń feed"
+                :aria-label="t('feeds.removeFeed')"
             />
         </div>
     </div>

@@ -44,6 +44,8 @@ export default {
         openSearch: "Search",
         blocks: "Blocks",
         properties: "Properties",
+        previousPage: "← Previous",
+        nextPage: "Next →",
         search_kbd: "⌘K",
     },
     auth: {

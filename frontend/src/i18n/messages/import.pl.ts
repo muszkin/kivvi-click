@@ -60,6 +60,7 @@ export default {
             segmentsTitle: "Segmenty do przypisania",
             segmentsSub: "wszyscy importowani klienci",
             addSegment: "Dodaj segment",
+            condIf: "JEŚLI",
             conditionalSegments: "Warunkowe segmenty",
             addCondRule: "Dodaj regułę warunkową",
             condSuffixVip: "PLN, dodaj do",

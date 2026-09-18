@@ -1,6 +1,7 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, it } from "vitest";
 import Pagination from "@/components/molecules/Pagination.vue";
+import { i18n } from "@/i18n";
 import Table from "@/components/molecules/Table.vue";
 
 interface Row {
@@ -64,7 +65,10 @@ describe("B25 Table", () => {
 
 describe("B25 Pagination", () => {
     it("disables the previous button on page 1 and enables next when pages remain", () => {
-        const wrapper = mount(Pagination, { props: { page: 1, pages: 192 } });
+        const wrapper = mount(Pagination, {
+            global: { plugins: [i18n] },
+            props: { page: 1, pages: 192 },
+        });
 
         const buttons = wrapper.findAll("button[data-action='go-page']");
         expect(buttons).toHaveLength(2);
@@ -74,7 +78,10 @@ describe("B25 Pagination", () => {
     });
 
     it("disables the next button on the last page", () => {
-        const wrapper = mount(Pagination, { props: { page: 192, pages: 192 } });
+        const wrapper = mount(Pagination, {
+            global: { plugins: [i18n] },
+            props: { page: 192, pages: 192 },
+        });
 
         const buttons = wrapper.findAll("button[data-action='go-page']");
         expect(buttons[0]?.attributes("disabled")).toBeUndefined();
@@ -82,7 +89,10 @@ describe("B25 Pagination", () => {
     });
 
     it("neither button is disabled on a middle page, and payloads are page ± 1", () => {
-        const wrapper = mount(Pagination, { props: { page: 5, pages: 192 } });
+        const wrapper = mount(Pagination, {
+            global: { plugins: [i18n] },
+            props: { page: 5, pages: 192 },
+        });
 
         const buttons = wrapper.findAll("button[data-action='go-page']");
         expect(buttons[0]?.attributes("disabled")).toBeUndefined();

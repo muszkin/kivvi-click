@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.tuple;
 
+import click.kivvi.domain.SupportedLocale;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,8 +14,8 @@ class CustomersFixturesTest {
   @Test
   @DisplayName("B25 the index has 24 seeded customers, first two matching the oracle exactly")
   void indexHasTwentyFourSeededCustomers() {
-    assertThat(CustomersFixtures.all()).hasSize(24);
-    assertThat(CustomersFixtures.all())
+    assertThat(CustomersFixtures.all(SupportedLocale.PL)).hasSize(24);
+    assertThat(CustomersFixtures.all(SupportedLocale.PL))
         .extracting(
             CustomersFixtures.Customer::id,
             CustomersFixtures.Customer::name,
@@ -37,13 +38,13 @@ class CustomersFixturesTest {
   @Test
   @DisplayName("B05 byId finds a seeded customer by id")
   void byIdFindsASeededCustomer() {
-    assertThat(CustomersFixtures.byId("c_1000").name()).isEqualTo("Anna K.");
+    assertThat(CustomersFixtures.byId(SupportedLocale.PL, "c_1000").name()).isEqualTo("Anna K.");
   }
 
   @Test
   @DisplayName("B05 byId throws for an id outside the seeded set")
   void byIdThrowsForAnUnknownId() {
-    assertThatThrownBy(() -> CustomersFixtures.byId("c_9999"))
+    assertThatThrownBy(() -> CustomersFixtures.byId(SupportedLocale.PL, "c_9999"))
         .isInstanceOf(NoSuchElementException.class);
   }
 }

@@ -3,6 +3,7 @@ package click.kivvi.application;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import click.kivvi.domain.SupportedLocale;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ class ImportViewServiceTest {
   @Test
   @DisplayName("B31 the file falls back to \"klienci.csv\" when no upload has happened yet")
   void fileFallsBackToTheFixtureNameWithoutAnUpload() {
-    ImportViewService.Payload payload = service.build(1, null);
+    ImportViewService.Payload payload = service.build(SupportedLocale.PL, 1, null);
 
     assertThat(payload.file().name()).isEqualTo("klienci.csv");
     assertThat(payload.file().meta()).isEqualTo("8 420 wierszy · CSV UTF-8 · ; jako separator");
@@ -23,7 +24,7 @@ class ImportViewServiceTest {
   @Test
   @DisplayName("B31 an uploaded file's session-derived name reaches the payload verbatim")
   void uploadedFileNameOverridesTheFixtureDefault() {
-    ImportViewService.Payload payload = service.build(2, "klienci-oracle.csv");
+    ImportViewService.Payload payload = service.build(SupportedLocale.PL, 2, "klienci-oracle.csv");
 
     assertThat(payload.file().name()).isEqualTo("klienci-oracle.csv");
   }
@@ -31,7 +32,7 @@ class ImportViewServiceTest {
   @Test
   @DisplayName("B31 detection counts 9 confident (>=70), 1 unsure and 1 skipped (confidence 0)")
   void detectionCountsMatchTheOracle() {
-    ImportViewService.Detection detection = service.build(1, null).detection();
+    ImportViewService.Detection detection = service.build(SupportedLocale.PL, 1, null).detection();
 
     assertThat(detection.total()).isEqualTo(11);
     assertThat(detection.sure()).isEqualTo(9);
@@ -43,7 +44,7 @@ class ImportViewServiceTest {
   @Test
   @DisplayName("B31 the skipped column (confidence 0) is the one mapped to \"__skip\"")
   void theZeroConfidenceColumnIsMarkedSkipped() {
-    ImportViewService.Payload payload = service.build(1, null);
+    ImportViewService.Payload payload = service.build(SupportedLocale.PL, 1, null);
 
     assertThat(payload.columns())
         .filteredOn(ImportViewService.MapRow::skipped)
@@ -54,7 +55,7 @@ class ImportViewServiceTest {
   @Test
   @DisplayName("B31 the one preview row with a validation error has a null ltv, rendered as \"?\"")
   void theErrorRowsLtvRendersAsAQuestionMark() {
-    ImportViewService.Payload payload = service.build(4, null);
+    ImportViewService.Payload payload = service.build(SupportedLocale.PL, 4, null);
 
     assertThat(payload.preview())
         .filteredOn(row -> "error".equals(row.status()))
@@ -67,7 +68,7 @@ class ImportViewServiceTest {
       "B31 the run CTA's row count uses a plain space, distinct from the KPI tile's narrow"
           + " no-break space — both conventions ported verbatim, not reconciled")
   void rowCountLabelUsesAPlainAsciiSpace() {
-    ImportViewService.Payload payload = service.build(4, null);
+    ImportViewService.Payload payload = service.build(SupportedLocale.PL, 4, null);
 
     assertThat(payload.rowCountLabel()).isEqualTo("8 420");
     assertThat(payload.rowCountLabel().codePointAt(1)).isEqualTo(' ');
@@ -77,7 +78,9 @@ class ImportViewServiceTest {
   @Test
   @DisplayName("B31/DEV-12 a step outside 1-4 throws, mapped to a 404 by ImportController")
   void outOfRangeStepThrows() {
-    assertThatThrownBy(() -> service.build(5, null)).isInstanceOf(NoSuchElementException.class);
-    assertThatThrownBy(() -> service.build(0, null)).isInstanceOf(NoSuchElementException.class);
+    assertThatThrownBy(() -> service.build(SupportedLocale.PL, 5, null))
+        .isInstanceOf(NoSuchElementException.class);
+    assertThatThrownBy(() -> service.build(SupportedLocale.PL, 0, null))
+        .isInstanceOf(NoSuchElementException.class);
   }
 }

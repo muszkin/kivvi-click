@@ -71,6 +71,12 @@ const IDENTICAL_BY_DESIGN = new Set([
     "campaigns.editor.mobile",
     "popups.editor.mobile",
     "popups.editor.desktop",
+    // Column headings and a matching key that are the same word in both languages.
+    "import.rules.matchEmail",
+    "import.run.colStatus",
+    "import.run.colEmail",
+    "import.run.colOptIn",
+    "import.run.colLtv",
 ]);
 
 /** Letters only Polish uses. */
@@ -170,7 +176,6 @@ describe("PIO-117 every string on an English public page is English", () => {
  * the list is empty.
  */
 const PANEL_AREAS_STILL_POLISH = [
-    "import.", // slice 4
     "settings.", // slice 5
 ];
 

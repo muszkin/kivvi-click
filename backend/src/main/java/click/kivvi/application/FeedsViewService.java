@@ -19,15 +19,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class FeedsViewService {
 
-  /**
-   * PIO-129 translates the panel one page at a time. This page's copy is still Polish only, so its
-   * figures stay Polish too — a Polish label above a euro amount would be worse than either
-   * language on its own. The slice that translates this page replaces the marker with the real
-   * locale; {@code PanelTranslationCoverageTest} holds the remaining markers to a declared list, so
-   * the last page cannot be forgotten silently.
-   */
-  private static final SupportedLocale UNTRANSLATED = SupportedLocale.PL;
-
   /** One connected feed with every number already formatted for display. */
   public record Feed(
       String name,
@@ -50,29 +41,30 @@ public class FeedsViewService {
       List<FeedsFixtures.FallbackRule> fallbackRules,
       int mismatched) {}
 
-  public Payload build() {
-    List<Feed> feeds = FeedsFixtures.rawFeeds().stream().map(FeedsViewService::toFeed).toList();
+  public Payload build(SupportedLocale locale) {
+    List<Feed> feeds =
+        FeedsFixtures.rawFeeds(locale).stream().map(raw -> toFeed(locale, raw)).toList();
     return new Payload(
-        FeedsFixtures.kpis(),
-        FeedsFixtures.sources(),
+        FeedsFixtures.kpis(locale),
+        FeedsFixtures.sources(locale),
         feeds,
-        FeedsFixtures.coverage(),
-        FeedsFixtures.fallbackRules(),
+        FeedsFixtures.coverage(locale),
+        FeedsFixtures.fallbackRules(locale),
         FeedsFixtures.mismatchedCount());
   }
 
-  private static Feed toFeed(FeedsFixtures.RawFeed raw) {
+  private static Feed toFeed(SupportedLocale locale, FeedsFixtures.RawFeed raw) {
     return new Feed(
         raw.name(),
         raw.url(),
         raw.source(),
         raw.status(),
         raw.error(),
-        groupWithSpace(raw.products()),
-        groupWithSpace(raw.mapped()),
-        mappedPercent(raw.mapped(), raw.products()),
+        grouped(raw.products(), locale),
+        grouped(raw.mapped(), locale),
+        mappedPercent(raw.mapped(), raw.products(), locale),
         raw.mismatched(),
-        lastSync(raw.lastSyncMinutes()),
+        lastSync(locale, raw.lastSyncMinutes()),
         raw.schedule());
   }
 
@@ -81,8 +73,12 @@ public class FeedsViewService {
    * 'godz. temu'} branch, computed here instead — exactly like {@code ProductFeedCatalog::feeds()}
    * already did on the old stack.
    */
-  private static String lastSync(int minutes) {
-    return minutes < 60 ? minutes + " min temu" : (minutes / 60) + " godz. temu";
+  private static String lastSync(SupportedLocale locale, int minutes) {
+    boolean withinTheHour = minutes < 60;
+    return switch (locale) {
+      case PL -> withinTheHour ? minutes + " min temu" : (minutes / 60) + " godz. temu";
+      case EN -> withinTheHour ? minutes + " min ago" : (minutes / 60) + " hr ago";
+    };
   }
 
   /**
@@ -91,12 +87,17 @@ public class FeedsViewService {
    * strip uses (U+202F narrow no-break space). Both conventions exist verbatim in the old stack and
    * are reproduced verbatim here, not reconciled into one.
    */
-  private static String groupWithSpace(int value) {
+  private static String grouped(int value, SupportedLocale locale) {
+    char separator =
+        switch (locale) {
+          case PL -> ' ';
+          case EN -> ',';
+        };
     String digits = Integer.toString(value);
     StringBuilder grouped = new StringBuilder();
     for (int i = 0; i < digits.length(); i++) {
       if (i > 0 && (digits.length() - i) % 3 == 0) {
-        grouped.append(' ');
+        grouped.append(separator);
       }
       grouped.append(digits.charAt(i));
     }
@@ -110,10 +111,10 @@ public class FeedsViewService {
    * Format#percent}'s narrow-no-break-space grouping never actually triggers — safe to reuse rather
    * than reimplementing Twig's plain-space grouping a second time for a case that cannot occur.
    */
-  private static String mappedPercent(int mapped, int products) {
+  private static String mappedPercent(int mapped, int products, SupportedLocale locale) {
     if (products == 0) {
       return null;
     }
-    return Format.percent(mapped * 100.0 / products, 1, UNTRANSLATED);
+    return Format.percent(mapped * 100.0 / products, 1, locale);
   }
 }

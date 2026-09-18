@@ -56,16 +56,7 @@ class PanelTranslationCoverageTest {
    * same change, or this test fails.
    */
   private static final Set<String> STILL_POLISH_ONLY =
-      new TreeSet<>(
-          Set.of(
-              // Translated itself, but it also shows the recently-seen customers, borrowed from a
-              // page that is not. It leaves the list when that one is translated.
-              "click/kivvi/application/DashboardViewService.java",
-              "click/kivvi/application/CustomersViewService.java",
-              "click/kivvi/application/FeedsViewService.java",
-              "click/kivvi/application/ImportViewService.java",
-              "click/kivvi/fixtures/FeedsFixtures.java",
-              "click/kivvi/fixtures/SettingsFixtures.java"));
+      new TreeSet<>(Set.of("click/kivvi/fixtures/SettingsFixtures.java"));
 
   /**
    * Strings that read the same in Polish and in English on purpose: the shop's domain and its
@@ -82,6 +73,8 @@ class PanelTranslationCoverageTest {
           "28 ev/s · 12:42:18",
           // A campaign named after the shopping weekend it runs on; the name is the same in both.
           "Black weekend — VIP",
+          // The customer segment, and the initialism is the same word in both languages.
+          "VIP",
           // Sections carry only the fields their own kind uses; the rest are absent in both.
           "");
 
@@ -278,6 +271,66 @@ class PanelTranslationCoverageTest {
             WIDGET_CONTENT_TYPES.stream()
                 .map(type -> WidgetFixtures.content(locale, type).cta())
                 .toList());
+
+    zipList(
+        pairs,
+        "CustomersFixtures.all.name",
+        locale -> map(CustomersFixtures.all(locale), CustomersFixtures.Customer::name));
+    zipList(
+        pairs,
+        "CustomersFixtures.all.segment",
+        locale ->
+            CustomersFixtures.all(locale).stream()
+                .map(customer -> customer.segment().label())
+                .toList());
+
+    zipList(
+        pairs,
+        "FeedsFixtures.kpis.label",
+        locale -> map(FeedsFixtures.kpis(locale), FeedsFixtures.Kpi::label));
+    zipList(
+        pairs,
+        "FeedsFixtures.sources.sub",
+        locale -> map(FeedsFixtures.sources(locale), FeedsFixtures.Source::sub));
+    zipList(
+        pairs,
+        "FeedsFixtures.rawFeeds.schedule",
+        locale -> map(FeedsFixtures.rawFeeds(locale), FeedsFixtures.RawFeed::schedule));
+    zipList(
+        pairs,
+        "FeedsFixtures.coverage.label",
+        locale -> map(FeedsFixtures.coverage(locale), FeedsFixtures.CoverageBar::label));
+    zipList(
+        pairs,
+        "FeedsFixtures.fallbackRules.text",
+        locale -> map(FeedsFixtures.fallbackRules(locale), FeedsFixtures.FallbackRule::text));
+
+    zipList(
+        pairs,
+        "ImportFixtures.steps.label",
+        locale -> map(ImportFixtures.steps(locale), ImportFixtures.StepDef::label));
+    zipList(
+        pairs,
+        "ImportFixtures.targets.label",
+        locale -> map(ImportFixtures.targets(locale), ImportFixtures.Target::label));
+    zipList(
+        pairs,
+        "ImportFixtures.rawColumns.name",
+        locale -> map(ImportFixtures.rawColumns(locale), ImportFixtures.RawColumn::name));
+    zipList(
+        pairs,
+        "ImportFixtures.validations.label",
+        locale -> map(ImportFixtures.validations(locale), ImportFixtures.ValidationCheck::label));
+    zipList(
+        pairs,
+        "ImportFixtures.dedupStrategies.label",
+        locale -> map(ImportFixtures.dedupStrategies(locale), ImportFixtures.DedupStrategy::label));
+    zipList(
+        pairs,
+        "ImportFixtures.rawPreviewRows.name",
+        locale -> map(ImportFixtures.rawPreviewRows(locale), ImportFixtures.RawPreviewRow::name));
+    zip(pairs, "ImportFixtures.fileMeta", ImportFixtures::fileMeta);
+    zip(pairs, "ImportFixtures.defaultFileName", ImportFixtures::defaultFileName);
 
     zipList(
         pairs,

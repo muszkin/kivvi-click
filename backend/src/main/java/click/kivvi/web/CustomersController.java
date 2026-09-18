@@ -54,8 +54,9 @@ public class CustomersController {
   @GetMapping("/api/v1/{locale:pl|en}/customers")
   public CustomerListResponse list(
       @PathVariable String locale, @RequestParam(defaultValue = "1") int page) {
-    SupportedLocale.fromCode(locale).orElseThrow();
-    CustomersViewService.ListPayload payload = customersViewService.list(page, Instant.now());
+    CustomersViewService.ListPayload payload =
+        customersViewService.list(
+            SupportedLocale.fromCode(locale).orElseThrow(), page, Instant.now());
     return new CustomerListResponse(
         payload.subtitle(),
         payload.segments().stream().map(CustomersController::toSegment).toList(),
@@ -67,9 +68,10 @@ public class CustomersController {
   @GetMapping("/api/v1/{locale:pl|en}/customers/{id}")
   public ResponseEntity<CustomerDetailResponse> detail(
       @PathVariable String locale, @PathVariable String id) {
-    SupportedLocale.fromCode(locale).orElseThrow();
+    SupportedLocale supported = SupportedLocale.fromCode(locale).orElseThrow();
     try {
-      return ResponseEntity.ok(toDetailResponse(customersViewService.detail(id, Instant.now())));
+      return ResponseEntity.ok(
+          toDetailResponse(customersViewService.detail(supported, id, Instant.now())));
     } catch (NoSuchElementException unknownCustomer) {
       return ResponseEntity.notFound().build();
     }
@@ -80,7 +82,7 @@ public class CustomersController {
       @PathVariable String locale, @PathVariable String id, HttpServletRequest request) {
     SupportedLocale supported = SupportedLocale.fromCode(locale).orElseThrow();
     try {
-      CustomersFixtures.byId(id);
+      CustomersFixtures.byId(supported, id);
     } catch (NoSuchElementException unknownCustomer) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
           .contentType(TEXT_HTML_UTF8)

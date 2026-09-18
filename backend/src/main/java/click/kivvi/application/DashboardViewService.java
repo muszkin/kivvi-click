@@ -39,16 +39,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class DashboardViewService {
 
-  /**
-   * PIO-129: the dashboard also shows two lists whose words belong to other pages — the
-   * recently-seen customers. That page is still Polish-only, so its figures stay Polish too rather
-   * than pairing a Polish customer name with a euro amount. The best-performing automations left
-   * this list when the automations page was translated. Each slice that translates a page replaces
-   * its own marker with the real locale; the guard test in {@code PanelTranslationCoverageTest}
-   * holds the remaining markers to a declared list, so the last one cannot be forgotten silently.
-   */
-  private static final SupportedLocale UNTRANSLATED = SupportedLocale.PL;
-
   private static final int LIVE_ROWS = 10;
   private static final int RECENT_CUSTOMERS = 6;
   private static final int TOP_AUTOMATIONS = 4;
@@ -99,7 +89,7 @@ public class DashboardViewService {
             .toList(),
         liveRows(locale, LIVE_ROWS, now),
         EventStreamTopic.forCurrentAccount(),
-        recentCustomers(now),
+        recentCustomers(locale, now),
         topAutomations(locale));
   }
 
@@ -129,21 +119,22 @@ public class DashboardViewService {
     return BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP).doubleValue();
   }
 
-  private List<CustomerView> recentCustomers(Instant now) {
-    return CustomersFixtures.all().stream()
+  private List<CustomerView> recentCustomers(SupportedLocale locale, Instant now) {
+    return CustomersFixtures.all(locale).stream()
         .limit(RECENT_CUSTOMERS)
-        .map(customer -> toCustomerView(customer, now))
+        .map(customer -> toCustomerView(locale, customer, now))
         .toList();
   }
 
-  private static CustomerView toCustomerView(CustomersFixtures.Customer customer, Instant now) {
+  private static CustomerView toCustomerView(
+      SupportedLocale locale, CustomersFixtures.Customer customer, Instant now) {
     Instant lastSeenAt = now.minusSeconds(customer.lastSeenMinutes() * 60L);
     return new CustomerView(
         customer.id(),
         customer.name(),
         customer.email(),
         customer.orders(),
-        Format.timeAgo(lastSeenAt, now, UNTRANSLATED));
+        Format.timeAgo(lastSeenAt, now, locale));
   }
 
   /** {@code AutomationCatalog::topEarning()}: active automations only, highest revenue first. */

@@ -40,11 +40,12 @@ public class ImportController {
   @GetMapping("/api/v1/{locale:pl|en}/import/{step:\\d+}")
   public ResponseEntity<ImportResponse> wizard(
       @PathVariable String locale, @PathVariable int step, HttpServletRequest request) {
-    SupportedLocale.fromCode(locale).orElseThrow();
+    SupportedLocale supported = SupportedLocale.fromCode(locale).orElseThrow();
     try {
       String uploadedFileName =
           importUploadService.currentFileName(request.getSession(false)).orElse(null);
-      ImportViewService.Payload payload = importViewService.build(step, uploadedFileName);
+      ImportViewService.Payload payload =
+          importViewService.build(supported, step, uploadedFileName);
       return ResponseEntity.ok(toResponse(payload));
     } catch (NoSuchElementException outOfRange) {
       return ResponseEntity.notFound().build();

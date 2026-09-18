@@ -18,18 +18,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomersViewService {
 
-  /**
-   * PIO-129 translates the panel one page at a time. This page's copy is still Polish only, so its
-   * figures stay Polish too — a Polish label above a euro amount would be worse than either
-   * language on its own. The slice that translates this page replaces the marker with the real
-   * locale; {@code PanelTranslationCoverageTest} holds the remaining markers to a declared list, so
-   * the last page cannot be forgotten silently.
-   */
-  private static final SupportedLocale UNTRANSLATED = SupportedLocale.PL;
-
   private static final int PAGES = 192;
   private static final int ANONYMOUS_SESSIONS = 7_632;
-  private static final String PROFILE_SINCE = "14 stycznia 2024";
+  private static final String PROFILE_SINCE_PL = "14 stycznia 2024";
+  private static final String PROFILE_SINCE_EN = "14 January 2024";
 
   /** One segment-rail tile. {@code icon} is {@code null} for every tile but "Wszyscy". */
   public record SegmentTile(
@@ -73,32 +65,47 @@ public class CustomersViewService {
       List<Score> scores,
       List<TimelineEntry> timeline) {}
 
-  public ListPayload list(int page, Instant now) {
+  public ListPayload list(SupportedLocale locale, int page, Instant now) {
     int safePage = Math.max(1, page);
-    List<CustomerRow> rows = CustomersFixtures.all().stream().map(c -> toRow(c, now)).toList();
-    return new ListPayload(subtitle(), segments(), rows, safePage, PAGES);
+    List<CustomerRow> rows =
+        CustomersFixtures.all(locale).stream().map(c -> toRow(locale, c, now)).toList();
+    return new ListPayload(subtitle(locale), segments(locale), rows, safePage, PAGES);
   }
 
   /**
    * @throws java.util.NoSuchElementException when {@code id} is not a seeded customer — mirrors
    *     {@code CustomerController::show}'s catch of {@code CustomerDirectory::byId}.
    */
-  public DetailPayload detail(String id, Instant now) {
-    CustomersFixtures.Customer customer = CustomersFixtures.byId(id);
-    String lastSeen = lastSeen(customer, now);
+  public DetailPayload detail(SupportedLocale locale, String id, Instant now) {
+    CustomersFixtures.Customer customer = CustomersFixtures.byId(locale, id);
+    String lastSeen = lastSeen(locale, customer, now);
     String profileSub =
-        customer.email() + " · klient od " + PROFILE_SINCE + " · ostatnia aktywność " + lastSeen;
+        switch (locale) {
+          case PL ->
+              customer.email()
+                  + " · klient od "
+                  + PROFILE_SINCE_PL
+                  + " · ostatnia aktywność "
+                  + lastSeen;
+          case EN ->
+              customer.email()
+                  + " · customer since "
+                  + PROFILE_SINCE_EN
+                  + " · last seen "
+                  + lastSeen;
+        };
     return new DetailPayload(
-        toDetail(customer),
+        toDetail(locale, customer),
         profileSub,
-        facts(customer),
-        AutomationsFixtures.activeForCustomer(UNTRANSLATED),
-        tabs(customer),
-        scores(),
-        timeline(customer.email()));
+        facts(locale, customer),
+        AutomationsFixtures.activeForCustomer(locale),
+        tabs(locale, customer),
+        scores(locale),
+        timeline(locale, customer.email()));
   }
 
-  private static CustomerRow toRow(CustomersFixtures.Customer customer, Instant now) {
+  private static CustomerRow toRow(
+      SupportedLocale locale, CustomersFixtures.Customer customer, Instant now) {
     return new CustomerRow(
         customer.id(),
         customer.name(),
@@ -106,77 +113,144 @@ public class CustomersViewService {
         customer.email(),
         customer.segment(),
         String.valueOf(customer.orders()),
-        Format.money(customer.revenue(), UNTRANSLATED),
-        lastSeen(customer, now));
+        Format.money(customer.revenue(), locale),
+        lastSeen(locale, customer, now));
   }
 
-  private static String lastSeen(CustomersFixtures.Customer customer, Instant now) {
+  private static String lastSeen(
+      SupportedLocale locale, CustomersFixtures.Customer customer, Instant now) {
     Instant moment = now.minusSeconds(customer.lastSeenMinutes() * 60L);
-    return Format.timeAgo(moment, now, UNTRANSLATED);
+    return Format.timeAgo(moment, now, locale);
   }
 
-  private static String subtitle() {
-    return Format.number(CustomersFixtures.total(), UNTRANSLATED)
-        + " zidentyfikowanych klientów · "
-        + Format.number(ANONYMOUS_SESSIONS, UNTRANSLATED)
-        + " anonimowych sesji";
+  private static String subtitle(SupportedLocale locale) {
+    String identified = Format.number(CustomersFixtures.total(), locale);
+    String anonymous = Format.number(ANONYMOUS_SESSIONS, locale);
+    return switch (locale) {
+      case PL -> identified + " zidentyfikowanych klientów · " + anonymous + " anonimowych sesji";
+      case EN -> identified + " identified customers · " + anonymous + " anonymous sessions";
+    };
   }
 
-  private static List<SegmentTile> segments() {
+  private static List<SegmentTile> segments(SupportedLocale locale) {
+    String[] labels =
+        switch (locale) {
+          case PL ->
+              new String[] {
+                "Wszyscy", "VIP", "Nowi (7 dni)", "Porzucone koszyki", "Subskrybenci", "Reaktywować"
+              };
+          case EN ->
+              new String[] {
+                "Everyone", "VIP", "New (7 days)", "Abandoned baskets", "Subscribers", "Win back"
+              };
+        };
     return List.of(
         new SegmentTile(
-            "Wszyscy",
+            labels[0],
             "users",
-            groupWithSpace(CustomersFixtures.total()),
+            grouped(CustomersFixtures.total(), locale),
             true,
             "set-segment",
             "all"),
-        new SegmentTile("VIP", null, groupWithSpace(142), false, "set-segment", "vip"),
-        new SegmentTile("Nowi (7 dni)", null, groupWithSpace(412), false, "set-segment", "new"),
+        new SegmentTile(labels[1], null, grouped(142, locale), false, "set-segment", "vip"),
+        new SegmentTile(labels[2], null, grouped(412, locale), false, "set-segment", "new"),
+        new SegmentTile(labels[3], null, grouped(287, locale), false, "set-segment", "abandoned"),
         new SegmentTile(
-            "Porzucone koszyki", null, groupWithSpace(287), false, "set-segment", "abandoned"),
-        new SegmentTile(
-            "Subskrybenci", null, groupWithSpace(1_829), false, "set-segment", "subscribers"),
-        new SegmentTile("Reaktywować", null, groupWithSpace(612), false, "set-segment", "winback"));
+            labels[4], null, grouped(1_829, locale), false, "set-segment", "subscribers"),
+        new SegmentTile(labels[5], null, grouped(612, locale), false, "set-segment", "winback"));
   }
 
-  private static CustomerDetail toDetail(CustomersFixtures.Customer customer) {
+  private static CustomerDetail toDetail(
+      SupportedLocale locale, CustomersFixtures.Customer customer) {
     // The three profile tags are hard-coded in CustomerController::show, independent of the
     // customer's own list-page segment — reproduced verbatim, not derived from customer.segment().
+    String subscriber =
+        switch (locale) {
+          case PL -> "subskrybent";
+          case EN -> "subscriber";
+        };
     List<Tag> tags =
-        List.of(new Tag("VIP", "accent"), new Tag("subskrybent", "brown"), new Tag("PL", null));
+        List.of(new Tag("VIP", "accent"), new Tag(subscriber, "brown"), new Tag("PL", null));
     return new CustomerDetail(
         customer.id(), customer.name(), customer.initials(), customer.email(), tags);
   }
 
-  private static List<Fact> facts(CustomersFixtures.Customer customer) {
+  private static List<Fact> facts(SupportedLocale locale, CustomersFixtures.Customer customer) {
+    String[] labels =
+        switch (locale) {
+          case PL ->
+              new String[] {
+                "Zamówienia",
+                "Wartość życiowa",
+                "Średnia wartość koszyka",
+                "Pierwsze zdarzenie",
+                "14 sty 2024",
+                "Liczba sesji",
+                "Liczba zdarzeń"
+              };
+          case EN ->
+              new String[] {
+                "Orders",
+                "Lifetime value",
+                "Average basket value",
+                "First event",
+                "14 Jan 2024",
+                "Sessions",
+                "Events"
+              };
+        };
     return List.of(
-        new Fact("Zamówienia", String.valueOf(customer.orders()), false),
-        new Fact("Wartość życiowa", Format.money(customer.revenue() * 4.0, UNTRANSLATED), false),
-        new Fact("Średnia wartość koszyka", Format.money(customer.revenue(), UNTRANSLATED), false),
-        new Fact("Pierwsze zdarzenie", "14 sty 2024", false),
-        new Fact("Liczba sesji", "28", false),
-        new Fact("Liczba zdarzeń", "412", false),
+        new Fact(labels[0], String.valueOf(customer.orders()), false),
+        new Fact(labels[1], Format.money(customer.revenue() * 4.0, locale), false),
+        new Fact(labels[2], Format.money(customer.revenue(), locale), false),
+        new Fact(labels[3], labels[4], false),
+        new Fact(labels[5], "28", false),
+        new Fact(labels[6], "412", false),
         new Fact("customer_id", customer.id(), true));
   }
 
-  private static List<Tab> tabs(CustomersFixtures.Customer customer) {
-    return List.of(
-        new Tab("Aktywność", true),
-        new Tab("Zamówienia (" + customer.orders() + ")", false),
-        new Tab("Wysłane maile (12)", false),
-        new Tab("Otrzymane kupony (3)", false),
-        new Tab("Atrybuty", false));
+  private static List<Tab> tabs(SupportedLocale locale, CustomersFixtures.Customer customer) {
+    return switch (locale) {
+      case PL ->
+          List.of(
+              new Tab("Aktywność", true),
+              new Tab("Zamówienia (" + customer.orders() + ")", false),
+              new Tab("Wysłane maile (12)", false),
+              new Tab("Otrzymane kupony (3)", false),
+              new Tab("Atrybuty", false));
+      case EN ->
+          List.of(
+              new Tab("Activity", true),
+              new Tab("Orders (" + customer.orders() + ")", false),
+              new Tab("Emails sent (12)", false),
+              new Tab("Coupons received (3)", false),
+              new Tab("Attributes", false));
+    };
   }
 
-  private static List<Score> scores() {
-    return List.of(
-        new Score("Wskaźnik zaangażowania", "82", "/100", "+12 vs miesiąc temu", "up", null),
-        new Score("Prawd. zakupu (30d)", "68", "%", "silny sygnał", "up", "spark"),
-        new Score("Open rate (90d)", "74", "%", "+6,2pp", "up", null));
+  private static List<Score> scores(SupportedLocale locale) {
+    return switch (locale) {
+      case PL ->
+          List.of(
+              new Score("Wskaźnik zaangażowania", "82", "/100", "+12 vs miesiąc temu", "up", null),
+              new Score("Prawd. zakupu (30d)", "68", "%", "silny sygnał", "up", "spark"),
+              new Score("Open rate (90d)", "74", "%", "+6,2pp", "up", null));
+      case EN ->
+          List.of(
+              new Score("Engagement score", "82", "/100", "+12 vs last month", "up", null),
+              new Score("Purchase likelihood (30d)", "68", "%", "a strong signal", "up", "spark"),
+              new Score("Open rate (90d)", "74", "%", "+6.2pp", "up", null));
+    };
   }
 
-  private static List<TimelineEntry> timeline(String email) {
+  private static List<TimelineEntry> timeline(SupportedLocale locale, String email) {
+    return switch (locale) {
+      case PL -> polishTimeline(email);
+      case EN -> englishTimeline(email);
+    };
+  }
+
+  private static List<TimelineEntry> polishTimeline(String email) {
     return List.of(
         new TimelineEntry(
             "Dziś · 14:42", "Wyświetlenie produktu", "/produkt/zielona-herbata-sencha", "eye"),
@@ -204,6 +278,29 @@ public class CustomersViewService {
             "14 mar · 11:08", "Zakup", "4 produkty · 412,00 PLN · zamówienie #AR-1287", "money"));
   }
 
+  private static List<TimelineEntry> englishTimeline(String email) {
+    return List.of(
+        new TimelineEntry("Today · 14:42", "Product viewed", "/product/sencha-green-tea", "eye"),
+        new TimelineEntry(
+            "Today · 14:39", "Added to basket", "Sencha green tea 100g · €38.90", "cart"),
+        new TimelineEntry("Today · 14:38", "Product viewed", "/product/soy-candle-fig", "eye"),
+        new TimelineEntry("Today · 14:32", "Search", "“organic green tea”", "search"),
+        new TimelineEntry("Today · 14:30", "Signed in", email, "user"),
+        new TimelineEntry(
+            "Yesterday · 18:14",
+            "Email received",
+            "Newsletter “Taste Week #18” — opened after 12 min",
+            "mail"),
+        new TimelineEntry(
+            "Yesterday · 17:09",
+            "Basket abandoned",
+            "2 items · €88.90 · the “Back to the basket” rule fired",
+            "cart"),
+        new TimelineEntry("Yesterday · 16:42", "Page viewed", "/collection/winter-2025", "eye"),
+        new TimelineEntry(
+            "14 Mar · 11:08", "Purchase", "4 items · €412.00 · order #AR-1287", "money"));
+  }
+
   /**
    * filter-chip.html.twig's own {@code {{ count|number_format(0, ',', ' ') }}}: zero decimals,
    * grouped with a plain ASCII space — a different separator from {@link Format#number} (U+202F
@@ -211,12 +308,17 @@ public class CustomersViewService {
    * old stack and are reproduced verbatim here, not reconciled into one — the same duplication
    * {@code FeedsViewService.groupWithSpace} documents for the same reason.
    */
-  private static String groupWithSpace(int value) {
+  private static String grouped(int value, SupportedLocale locale) {
+    char separator =
+        switch (locale) {
+          case PL -> ' ';
+          case EN -> ',';
+        };
     String digits = Integer.toString(value);
     StringBuilder grouped = new StringBuilder();
     for (int i = 0; i < digits.length(); i++) {
       if (i > 0 && (digits.length() - i) % 3 == 0) {
-        grouped.append(' ');
+        grouped.append(separator);
       }
       grouped.append(digits.charAt(i));
     }
