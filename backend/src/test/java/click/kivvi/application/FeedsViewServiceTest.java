@@ -3,6 +3,7 @@ package click.kivvi.application;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
+import click.kivvi.domain.SupportedLocale;
 import click.kivvi.fixtures.FeedsFixtures;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ class FeedsViewServiceTest {
   @Test
   @DisplayName("B30 the four KPIs match the oracle, narrow-space-grouped and money-formatted")
   void kpisMatchTheOracle() {
-    FeedsViewService.Payload payload = feedsViewService.build();
+    FeedsViewService.Payload payload = feedsViewService.build(SupportedLocale.PL);
 
     assertThat(payload.kpis())
         .extracting(FeedsFixtures.Kpi::label, FeedsFixtures.Kpi::value, FeedsFixtures.Kpi::unit)
@@ -28,7 +29,7 @@ class FeedsViewServiceTest {
   @Test
   @DisplayName("B30 four sources are offered, Google Merchant recommended")
   void sourcesMatchTheOracle() {
-    FeedsViewService.Payload payload = feedsViewService.build();
+    FeedsViewService.Payload payload = feedsViewService.build(SupportedLocale.PL);
 
     assertThat(payload.sources())
         .extracting(
@@ -47,7 +48,7 @@ class FeedsViewServiceTest {
       "B30 four feeds are connected, one failing with HTTP 503, product/mapped counts "
           + "plain-space-grouped and the match rate computed here (never in the SPA)")
   void feedsMatchTheOracle() {
-    FeedsViewService.Payload payload = feedsViewService.build();
+    FeedsViewService.Payload payload = feedsViewService.build(SupportedLocale.PL);
 
     assertThat(payload.feeds())
         .extracting(
@@ -101,7 +102,7 @@ class FeedsViewServiceTest {
   @Test
   @DisplayName("B30 the matching diagnostic: 4 coverage bars, 3 fallback rules, 142 mismatched")
   void matchingDiagnosticMatchesTheOracle() {
-    FeedsViewService.Payload payload = feedsViewService.build();
+    FeedsViewService.Payload payload = feedsViewService.build(SupportedLocale.PL);
 
     assertThat(payload.coverage())
         .extracting(FeedsFixtures.CoverageBar::label, FeedsFixtures.CoverageBar::value)

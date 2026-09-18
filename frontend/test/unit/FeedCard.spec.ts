@@ -1,6 +1,7 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, it } from "vitest";
 import FeedCard from "@/components/organisms/FeedCard.vue";
+import { i18n } from "@/i18n";
 
 const SYNCED = {
     name: "aureashop.pl — Google Merchant",
@@ -18,6 +19,7 @@ const SYNCED = {
 describe("FeedCard", () => {
     it("B30 renders the failing feed's HTTP 503 error strip", () => {
         const wrapper = mount(FeedCard, {
+            global: { plugins: [i18n] },
             props: {
                 ...SYNCED,
                 name: "mlot-narzedzia.pl — Google Merchant",
@@ -38,7 +40,10 @@ describe("FeedCard", () => {
     });
 
     it("B30 a synced feed carries no error strip and shows the mapped percentage", () => {
-        const wrapper = mount(FeedCard, { props: SYNCED });
+        const wrapper = mount(FeedCard, {
+            global: { plugins: [i18n] },
+            props: SYNCED,
+        });
 
         expect(wrapper.find(".feed-card__err").exists()).toBe(false);
         expect(wrapper.find(".feed-stats").text()).toContain("(100,0%)");
@@ -46,6 +51,7 @@ describe("FeedCard", () => {
 
     it("B30 a syncing feed shows a live info chip", () => {
         const wrapper = mount(FeedCard, {
+            global: { plugins: [i18n] },
             props: { ...SYNCED, status: "syncing" },
         });
 
@@ -53,8 +59,14 @@ describe("FeedCard", () => {
     });
 
     it("colours the mismatched count bad only when it is non-zero", () => {
-        const clean = mount(FeedCard, { props: SYNCED });
-        const dirty = mount(FeedCard, { props: { ...SYNCED, mismatched: 2 } });
+        const clean = mount(FeedCard, {
+            global: { plugins: [i18n] },
+            props: SYNCED,
+        });
+        const dirty = mount(FeedCard, {
+            global: { plugins: [i18n] },
+            props: { ...SYNCED, mismatched: 2 },
+        });
 
         expect(
             clean.find(".feed-stat:nth-child(3) .mono").attributes("style"),

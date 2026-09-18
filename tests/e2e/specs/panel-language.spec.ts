@@ -178,6 +178,57 @@ test.describe("the panel speaks the language of the URL", () => {
         );
     });
 
+    test("the customers index and profile are English on /en", async ({
+        page,
+    }) => {
+        await page.goto("/en/customers");
+        await expect(page.locator(".page-sub")).toContainText(
+            "identified customers",
+        );
+        await expect(
+            page.locator(".table tbody tr").first().locator("td").nth(4),
+        ).toContainText("€");
+
+        await page.goto("/en/customers/c_1001");
+        await expect(page.locator(".profile-card .profile-fact").first()).toContainText(
+            "Orders",
+        );
+        await expect(page.locator(".tab-strip .tab").first()).toHaveText(
+            "Activity",
+        );
+        await expect(page.locator(".timeline")).toContainText("Today · 14:42");
+    });
+
+    test("the feeds page reports its sync state in English on /en", async ({
+        page,
+    }) => {
+        await page.goto("/en/feeds");
+
+        await expect(page.locator(".feed-card .chip").first()).toHaveText(
+            "Synchronised",
+        );
+        await expect(page.locator(".kpi-grid .kpi-label").first()).toHaveText(
+            "Active feeds",
+        );
+    });
+
+    test("the import wizard's steps and columns are English on /en", async ({
+        page,
+    }) => {
+        await page.goto("/en/import");
+        await expect(
+            page.locator('.step[data-state="cur"] .step__title'),
+        ).toHaveText("File");
+
+        await page.goto("/en/import/2");
+        await expect(page.locator(".map-table .map-row--head")).toContainText(
+            "Column in the file",
+        );
+
+        await page.goto("/en/import/3");
+        await expect(page.locator(".cond-rule").first()).toContainText("IF");
+    });
+
     test("the workspace card counts sites in English on /en", async ({
         page,
     }) => {

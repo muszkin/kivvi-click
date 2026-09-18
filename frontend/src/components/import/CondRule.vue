@@ -4,8 +4,11 @@
 // automations (its originally intended first owner) shipped without needing it, so import-wizard
 // produces it here rather than in the shared molecules/ tree; promote it there if a later journey
 // needs the same component.
+import { useI18n } from "vue-i18n";
 import Button from "@/components/atoms/Button.vue";
 import Chip from "@/components/atoms/Chip.vue";
+
+const { t } = useI18n();
 
 withDefaults(
     defineProps<{
@@ -29,7 +32,7 @@ withDefaults(
 
 <template>
     <div class="cond-rule">
-        <span class="muted">JEŚLI</span>
+        <span class="muted">{{ t("import.rules.condIf") }}</span>
         <Chip :label="field" mono />
         <select class="select" style="width: auto">
             <option v-for="operator in operators" :key="operator">

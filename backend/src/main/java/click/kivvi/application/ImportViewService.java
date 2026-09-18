@@ -18,20 +18,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class ImportViewService {
 
-  /**
-   * PIO-129 translates the panel one page at a time. This page's copy is still Polish only, so its
-   * figures stay Polish too — a Polish label above a euro amount would be worse than either
-   * language on its own. The slice that translates this page replaces the marker with the real
-   * locale; {@code PanelTranslationCoverageTest} holds the remaining markers to a declared list, so
-   * the last page cannot be forgotten silently.
-   */
-  private static final SupportedLocale UNTRANSLATED = SupportedLocale.PL;
-
-  private static final Map<String, StatusChip> STATUS_CHIP =
+  private static final Map<String, StatusChip> STATUS_CHIP_PL =
       Map.of(
           "new", new StatusChip("good", "Nowy"),
           "update", new StatusChip("info", "Aktualizacja"),
           "error", new StatusChip("bad", "Błąd"));
+
+  private static final Map<String, StatusChip> STATUS_CHIP_EN =
+      Map.of(
+          "new", new StatusChip("good", "New"),
+          "update", new StatusChip("info", "Update"),
+          "error", new StatusChip("bad", "Error"));
+
+  private static final int NEW_CUSTOMERS = 7_124;
+  private static final int UPDATED_CUSTOMERS = 1_252;
 
   private record StatusChip(String tone, String label) {}
 
@@ -91,53 +91,55 @@ public class ImportViewService {
    *     'step' => '[1-4]'}, which never let a request reach {@code ImportController::wizard} with
    *     any other value in the first place.
    */
-  public Payload build(int step, String uploadedFileName) {
+  public Payload build(SupportedLocale locale, int step, String uploadedFileName) {
     if (!ImportFixtures.isValidStep(step)) {
       throw new NoSuchElementException("Unknown import step \"" + step + "\".");
     }
     return new Payload(
         step,
-        ImportFixtures.steps(),
-        file(uploadedFileName),
-        columns(),
-        detection(),
-        ImportFixtures.validations(),
-        ImportFixtures.dedupStrategies(),
-        summary(),
-        preview(),
+        ImportFixtures.steps(locale),
+        file(locale, uploadedFileName),
+        columns(locale),
+        detection(locale),
+        ImportFixtures.validations(locale),
+        ImportFixtures.dedupStrategies(locale),
+        summary(locale),
+        preview(locale),
         ImportFixtures.rowCount(),
-        groupWithSpace(ImportFixtures.rowCount()),
+        grouped(ImportFixtures.rowCount(), locale),
         ImportFixtures.errorCount(),
-        recent());
+        recent(locale));
   }
 
-  private static FileInfo file(String uploadedFileName) {
-    String name = uploadedFileName != null ? uploadedFileName : ImportFixtures.DEFAULT_FILE_NAME;
-    return new FileInfo(name, ImportFixtures.FILE_META);
+  private static FileInfo file(SupportedLocale locale, String uploadedFileName) {
+    String name =
+        uploadedFileName != null ? uploadedFileName : ImportFixtures.defaultFileName(locale);
+    return new FileInfo(name, ImportFixtures.fileMeta(locale));
   }
 
-  private static List<MapRow> columns() {
-    List<ImportFixtures.RawColumn> raw = ImportFixtures.rawColumns();
-    return IntStream.range(0, raw.size()).mapToObj(i -> toMapRow(raw.get(i), i)).toList();
+  private static List<MapRow> columns(SupportedLocale locale) {
+    List<ImportFixtures.RawColumn> raw = ImportFixtures.rawColumns(locale);
+    return IntStream.range(0, raw.size()).mapToObj(i -> toMapRow(locale, raw.get(i), i)).toList();
   }
 
-  private static MapRow toMapRow(ImportFixtures.RawColumn column, int index) {
+  private static MapRow toMapRow(
+      SupportedLocale locale, ImportFixtures.RawColumn column, int index) {
     char letter = (char) ('A' + index);
     return new MapRow(
         String.valueOf(letter),
         column.name(),
         column.samples(),
-        ImportFixtures.targets(),
+        ImportFixtures.targets(locale),
         column.mapped(),
         column.confidence(),
         "__skip".equals(column.mapped()));
   }
 
-  private static Detection detection() {
+  private static Detection detection(SupportedLocale locale) {
     int sure = 0;
     int unsure = 0;
     int skipped = 0;
-    for (ImportFixtures.RawColumn column : ImportFixtures.rawColumns()) {
+    for (ImportFixtures.RawColumn column : ImportFixtures.rawColumns(locale)) {
       if (column.confidence() == 0) {
         skipped++;
       } else if (column.confidence() >= 70) {
@@ -146,7 +148,7 @@ public class ImportViewService {
         unsure++;
       }
     }
-    int total = ImportFixtures.rawColumns().size();
+    int total = ImportFixtures.rawColumns(locale).size();
     return new Detection(sure + unsure, total, sure, unsure, skipped);
   }
 
@@ -154,37 +156,50 @@ public class ImportViewService {
    * Hardcoded deltas/directions, ported verbatim from {@code ImportWizard::summary()} — a simulated
    * run's own narrative text, not derived from any other field here.
    */
-  private static List<SummaryTile> summary() {
-    return List.of(
-        new SummaryTile(
-            "Wierszy łącznie",
-            Format.number(8420, UNTRANSLATED),
-            "plik wczytany poprawnie",
-            "up",
-            "check"),
-        new SummaryTile(
-            "Nowi klienci", Format.number(7124, UNTRANSLATED), "~84,6% wszystkich", "up", null),
-        new SummaryTile(
-            "Aktualizacje istniejących",
-            Format.number(1252, UNTRANSLATED),
-            "nadpisanie wg reguł z kroku 3",
-            "flat",
-            "check"),
-        new SummaryTile(
-            "Z błędem walidacji",
-            String.valueOf(ImportFixtures.errorCount()),
-            "zostaną pominięte",
-            "down",
-            "info"));
+  private static List<SummaryTile> summary(SupportedLocale locale) {
+    String rows = Format.number(ImportFixtures.rowCount(), locale);
+    String created = Format.number(NEW_CUSTOMERS, locale);
+    String updated = Format.number(UPDATED_CUSTOMERS, locale);
+    String errors = String.valueOf(ImportFixtures.errorCount());
+    return switch (locale) {
+      case PL ->
+          List.of(
+              new SummaryTile("Wierszy łącznie", rows, "plik wczytany poprawnie", "up", "check"),
+              new SummaryTile("Nowi klienci", created, "~84,6% wszystkich", "up", null),
+              new SummaryTile(
+                  "Aktualizacje istniejących",
+                  updated,
+                  "nadpisanie wg reguł z kroku 3",
+                  "flat",
+                  "check"),
+              new SummaryTile("Z błędem walidacji", errors, "zostaną pominięte", "down", "info"));
+      case EN ->
+          List.of(
+              new SummaryTile("Rows in total", rows, "the file read cleanly", "up", "check"),
+              new SummaryTile("New customers", created, "~84.6% of them all", "up", null),
+              new SummaryTile(
+                  "Updates to existing ones",
+                  updated,
+                  "overwritten by the rules from step 3",
+                  "flat",
+                  "check"),
+              new SummaryTile("Failing validation", errors, "these are skipped", "down", "info"));
+    };
   }
 
-  private static List<PreviewRow> preview() {
-    return ImportFixtures.rawPreviewRows().stream().map(ImportViewService::toPreviewRow).toList();
+  private static List<PreviewRow> preview(SupportedLocale locale) {
+    return ImportFixtures.rawPreviewRows(locale).stream()
+        .map(row -> toPreviewRow(locale, row))
+        .toList();
   }
 
-  private static PreviewRow toPreviewRow(ImportFixtures.RawPreviewRow row) {
-    StatusChip chip = STATUS_CHIP.get(row.status());
-    String ltv = row.ltv() == null ? "?" : Format.money(row.ltv(), UNTRANSLATED);
+  private static PreviewRow toPreviewRow(SupportedLocale locale, ImportFixtures.RawPreviewRow row) {
+    StatusChip chip =
+        switch (locale) {
+          case PL -> STATUS_CHIP_PL.get(row.status());
+          case EN -> STATUS_CHIP_EN.get(row.status());
+        };
+    String ltv = row.ltv() == null ? "?" : Format.money(row.ltv(), locale);
     return new PreviewRow(
         row.status(),
         chip.tone(),
@@ -198,16 +213,17 @@ public class ImportViewService {
         row.error() != null ? row.error() : "");
   }
 
-  private static List<RecentImportView> recent() {
-    return ImportFixtures.recentImports().stream()
-        .map(ImportViewService::toRecentImportView)
+  private static List<RecentImportView> recent(SupportedLocale locale) {
+    return ImportFixtures.recentImports(locale).stream()
+        .map(item -> toRecentImportView(locale, item))
         .toList();
   }
 
-  private static RecentImportView toRecentImportView(ImportFixtures.RecentImport item) {
+  private static RecentImportView toRecentImportView(
+      SupportedLocale locale, ImportFixtures.RecentImport item) {
     return new RecentImportView(
         item.file(),
-        Format.number(item.rows(), UNTRANSLATED),
+        Format.number(item.rows(), locale),
         item.date(),
         item.who(),
         item.ok(),
@@ -221,12 +237,17 @@ public class ImportViewService {
    * in the old stack and are reproduced verbatim here, not reconciled into one — see {@code
    * FeedsViewService#groupWithSpace} for the same distinction on that page.
    */
-  private static String groupWithSpace(int value) {
+  private static String grouped(int value, SupportedLocale locale) {
+    char separator =
+        switch (locale) {
+          case PL -> ' ';
+          case EN -> ',';
+        };
     String digits = Integer.toString(value);
     StringBuilder grouped = new StringBuilder();
     for (int i = 0; i < digits.length(); i++) {
       if (i > 0 && (digits.length() - i) % 3 == 0) {
-        grouped.append(' ');
+        grouped.append(separator);
       }
       grouped.append(digits.charAt(i));
     }
