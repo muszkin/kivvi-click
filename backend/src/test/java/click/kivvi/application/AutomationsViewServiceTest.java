@@ -3,6 +3,7 @@ package click.kivvi.application;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
+import click.kivvi.domain.SupportedLocale;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,8 @@ class AutomationsViewServiceTest {
   @Test
   @DisplayName("B26 4 status filters, plain-space-grouped counts 6/4/1/1, 'all' active by default")
   void statusFiltersMatchTheOracle() {
-    AutomationsViewService.ListPayload payload = automationsViewService.list("all");
+    AutomationsViewService.ListPayload payload =
+        automationsViewService.list(SupportedLocale.PL, "all");
 
     assertThat(payload.filters())
         .extracting(
@@ -32,7 +34,8 @@ class AutomationsViewServiceTest {
   @Test
   @DisplayName("B26 ?status=active marks only the 'Aktywne' chip active")
   void activeStatusMarksOnlyAktywneActive() {
-    AutomationsViewService.ListPayload payload = automationsViewService.list("active");
+    AutomationsViewService.ListPayload payload =
+        automationsViewService.list(SupportedLocale.PL, "active");
 
     assertThat(payload.filters())
         .extracting(AutomationsViewService.Filter::active)
@@ -43,7 +46,8 @@ class AutomationsViewServiceTest {
   @DisplayName(
       "B26 an unrecognised status marks no chip active — same ternary as AutomationController")
   void unrecognisedStatusMarksNoChipActive() {
-    AutomationsViewService.ListPayload payload = automationsViewService.list("bogus");
+    AutomationsViewService.ListPayload payload =
+        automationsViewService.list(SupportedLocale.PL, "bogus");
 
     assertThat(payload.filters())
         .extracting(AutomationsViewService.Filter::active)
@@ -54,16 +58,16 @@ class AutomationsViewServiceTest {
   @DisplayName(
       "B26 the status filter never actually filters — always 6 cards regardless of ?status=")
   void statusNeverFiltersTheCardList() {
-    assertThat(automationsViewService.list("all").automations()).hasSize(6);
-    assertThat(automationsViewService.list("active").automations()).hasSize(6);
-    assertThat(automationsViewService.list("draft").automations()).hasSize(6);
+    assertThat(automationsViewService.list(SupportedLocale.PL, "all").automations()).hasSize(6);
+    assertThat(automationsViewService.list(SupportedLocale.PL, "active").automations()).hasSize(6);
+    assertThat(automationsViewService.list(SupportedLocale.PL, "draft").automations()).hasSize(6);
   }
 
   @Test
   @DisplayName("B26 the first card matches the oracle: title, chips, three metrics")
   void firstCardMatchesTheOracle() {
     AutomationsViewService.AutomationCard first =
-        automationsViewService.list("all").automations().get(0);
+        automationsViewService.list(SupportedLocale.PL, "all").automations().get(0);
 
     assertThat(first.title()).isEqualTo("Powrót do porzuconego koszyka");
     assertThat(first.chips())
@@ -89,7 +93,7 @@ class AutomationsViewServiceTest {
   @DisplayName("B26 a zero-conversion automation renders '—' for conversion and revenue, muted")
   void zeroConversionAutomationRendersEmDash() {
     AutomationsViewService.AutomationCard winback =
-        automationsViewService.list("all").automations().get(4);
+        automationsViewService.list(SupportedLocale.PL, "all").automations().get(4);
 
     assertThat(winback.title()).isEqualTo("Win-back po 60 dniach nieaktywności");
     assertThat(winback.metrics().get(1).value()).isEqualTo("—");
@@ -100,7 +104,8 @@ class AutomationsViewServiceTest {
   @Test
   @DisplayName("B26 editor(\"a1\", null) resolves to the list view by default")
   void editorDefaultsToListView() {
-    AutomationsViewService.EditorPayload payload = automationsViewService.editor("a1", null);
+    AutomationsViewService.EditorPayload payload =
+        automationsViewService.editor(SupportedLocale.PL, "a1", null);
 
     assertThat(payload.view()).isEqualTo("list");
     assertThat(payload.automation().name()).isEqualTo("Powrót do porzuconego koszyka");
@@ -114,16 +119,20 @@ class AutomationsViewServiceTest {
   @Test
   @DisplayName("B26 editor(\"a1\", \"flow\") resolves to the flow view; any other value stays list")
   void editorResolvesViewExactly() {
-    assertThat(automationsViewService.editor("a1", "flow").view()).isEqualTo("flow");
-    assertThat(automationsViewService.editor("a1", "FLOW").view()).isEqualTo("list");
-    assertThat(automationsViewService.editor("a1", "").view()).isEqualTo("list");
+    assertThat(automationsViewService.editor(SupportedLocale.PL, "a1", "flow").view())
+        .isEqualTo("flow");
+    assertThat(automationsViewService.editor(SupportedLocale.PL, "a1", "FLOW").view())
+        .isEqualTo("list");
+    assertThat(automationsViewService.editor(SupportedLocale.PL, "a1", "").view())
+        .isEqualTo("list");
   }
 
   @Test
   @DisplayName(
       "B26 editor(\"new\", ...) carries the same fixed rule content as a seeded automation")
   void editorForNewCarriesTheSameFixedRuleContent() {
-    AutomationsViewService.EditorPayload payload = automationsViewService.editor("new", "list");
+    AutomationsViewService.EditorPayload payload =
+        automationsViewService.editor(SupportedLocale.PL, "new", "list");
 
     assertThat(payload.automation().name()).isEqualTo("Nowa automatyzacja");
     assertThat(payload.automation().status()).isEqualTo("draft");

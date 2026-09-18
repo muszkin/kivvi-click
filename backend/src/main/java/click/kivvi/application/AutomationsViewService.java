@@ -25,15 +25,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AutomationsViewService {
 
-  /**
-   * PIO-129 translates the panel one page at a time. This page's copy is still Polish only, so its
-   * figures stay Polish too — a Polish label above a euro amount would be worse than either
-   * language on its own. The slice that translates this page replaces the marker with the real
-   * locale; {@code PanelTranslationCoverageTest} holds the remaining markers to a declared list, so
-   * the last page cannot be forgotten silently.
-   */
-  private static final SupportedLocale UNTRANSLATED = SupportedLocale.PL;
-
   private static final String VIEW_FLOW = "flow";
   private static final String VIEW_LIST = "list";
   private static final String STATUS_ALL = "all";
@@ -63,69 +54,73 @@ public class AutomationsViewService {
       List<AutomationsFixtures.Edge> edges,
       List<AutomationsFixtures.SimulationItem> simulation) {}
 
-  public ListPayload list(String status) {
-    return new ListPayload(statusFilters(status), cards());
+  public ListPayload list(SupportedLocale locale, String status) {
+    return new ListPayload(statusFilters(locale, status), cards(locale));
   }
 
-  public EditorPayload editor(String id, String view) {
+  public EditorPayload editor(SupportedLocale locale, String id, String view) {
     String resolvedView = VIEW_FLOW.equals(view) ? VIEW_FLOW : VIEW_LIST;
     return new EditorPayload(
-        AutomationsFixtures.header(id),
+        AutomationsFixtures.header(locale, id),
         resolvedView,
-        AutomationsFixtures.editorTabs(),
-        AutomationsFixtures.pipelineSteps(),
-        AutomationsFixtures.flowNodes(),
+        AutomationsFixtures.editorTabs(locale),
+        AutomationsFixtures.pipelineSteps(locale),
+        AutomationsFixtures.flowNodes(locale),
         AutomationsFixtures.flowEdges(),
-        AutomationsFixtures.simulation());
+        AutomationsFixtures.simulation(locale));
   }
 
-  private static List<Filter> statusFilters(String active) {
+  private static List<Filter> statusFilters(SupportedLocale locale, String active) {
     Map<String, Long> counts =
-        AutomationsFixtures.all().stream()
+        AutomationsFixtures.all(locale).stream()
             .collect(
                 Collectors.groupingBy(
                     AutomationsFixtures.Automation::status, Collectors.counting()));
     return List.of(
         new Filter(
-            "Wszystkie",
+            filterLabels(locale)[0],
             "grid",
-            Format.number(AutomationsFixtures.all().size(), UNTRANSLATED),
+            Format.number(AutomationsFixtures.all(locale).size(), locale),
             STATUS_ALL.equals(active),
             "set-automation-status",
             STATUS_ALL),
         new Filter(
-            "Aktywne",
+            filterLabels(locale)[1],
             null,
-            Format.number(counts.getOrDefault("active", 0L), UNTRANSLATED),
+            Format.number(counts.getOrDefault("active", 0L), locale),
             "active".equals(active),
             "set-automation-status",
             "active"),
         new Filter(
-            "Wstrzymane",
+            filterLabels(locale)[2],
             null,
-            Format.number(counts.getOrDefault("paused", 0L), UNTRANSLATED),
+            Format.number(counts.getOrDefault("paused", 0L), locale),
             "paused".equals(active),
             "set-automation-status",
             "paused"),
         new Filter(
-            "Szkice",
+            filterLabels(locale)[3],
             null,
-            Format.number(counts.getOrDefault("draft", 0L), UNTRANSLATED),
+            Format.number(counts.getOrDefault("draft", 0L), locale),
             "draft".equals(active),
             "set-automation-status",
             "draft"));
   }
 
-  private static List<AutomationCard> cards() {
-    return AutomationsFixtures.all().stream().map(AutomationsViewService::toCard).toList();
+  private static List<AutomationCard> cards(SupportedLocale locale) {
+    return AutomationsFixtures.all(locale).stream()
+        .map(automation -> toCard(locale, automation))
+        .toList();
   }
 
-  private static AutomationCard toCard(AutomationsFixtures.Automation automation) {
-    AutomationsFixtures.StatusChip statusChip = AutomationsFixtures.statusChip(automation.status());
+  private static AutomationCard toCard(
+      SupportedLocale locale, AutomationsFixtures.Automation automation) {
+    AutomationsFixtures.StatusChip statusChip =
+        AutomationsFixtures.statusChip(locale, automation.status());
 
     List<Chip> chips = new ArrayList<>();
     chips.add(new Chip(statusChip.label(), statusChip.tone()));
-    chips.add(new Chip(AutomationsFixtures.triggerLabel(automation.trigger()), "accent"));
+    chips.add(new Chip(AutomationsFixtures.triggerLabel(locale, automation.trigger()), "accent"));
     for (String channel : automation.channels()) {
       chips.add(new Chip(channel, "brown"));
     }
@@ -134,18 +129,34 @@ public class AutomationsViewService {
     boolean hasRevenue = automation.revenue() > 0;
     List<Metric> metrics =
         List.of(
-            new Metric(Format.number(automation.runs(), UNTRANSLATED), "uruchomień (7d)", 90, null),
+            new Metric(Format.number(automation.runs(), locale), metricLabels(locale)[0], 90, null),
             new Metric(
-                hasConversion ? Format.percent(automation.conversion(), UNTRANSLATED) : "—",
-                "konwersja",
+                hasConversion ? Format.percent(automation.conversion(), locale) : "—",
+                metricLabels(locale)[1],
                 80,
                 hasConversion ? "var(--good)" : "var(--fg-muted)"),
             new Metric(
-                hasRevenue ? Format.money(automation.revenue(), UNTRANSLATED) : "—",
-                "przychód (7d)",
+                hasRevenue ? Format.money(automation.revenue(), locale) : "—",
+                metricLabels(locale)[2],
                 110,
                 null));
 
     return new AutomationCard(automation.name(), chips, metrics, "go-automation", automation.id());
+  }
+
+  /** Index filter chips: all, active, paused, drafts. */
+  private static String[] filterLabels(SupportedLocale locale) {
+    return switch (locale) {
+      case PL -> new String[] {"Wszystkie", "Aktywne", "Wstrzymane", "Szkice"};
+      case EN -> new String[] {"All", "Active", "Paused", "Drafts"};
+    };
+  }
+
+  /** The three figures under each card: runs, conversion, revenue. */
+  private static String[] metricLabels(SupportedLocale locale) {
+    return switch (locale) {
+      case PL -> new String[] {"uruchomień (7d)", "konwersja", "przychód (7d)"};
+      case EN -> new String[] {"runs (7d)", "conversion", "revenue (7d)"};
+    };
   }
 }

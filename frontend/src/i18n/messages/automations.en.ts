@@ -18,5 +18,8 @@ export default {
         ruleTestTitle: "Rule test",
         ruleTestSub: "Run a simulation over a sample of events",
         runTest: "Run test",
+        addNode: "Node",
+        autoLayout: "Auto-layout",
+        graphSize: "{nodes} nodes · {edges} connections",
     },
 };

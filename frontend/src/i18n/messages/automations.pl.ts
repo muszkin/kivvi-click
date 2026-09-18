@@ -24,5 +24,8 @@ export default {
         ruleTestTitle: "Test reguły",
         ruleTestSub: "Uruchom symulację na próbce zdarzeń",
         runTest: "Uruchom test",
+        addNode: "Węzeł",
+        autoLayout: "Auto-układ",
+        graphSize: "{nodes} węzłów · {edges} połączeń",
     },
 };

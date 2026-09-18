@@ -1,7 +1,9 @@
 import { mount } from "@vue/test-utils";
+import { nextTick } from "vue";
 import { describe, expect, it } from "vitest";
 import AutoCard from "@/components/organisms/AutoCard.vue";
 import FlowCanvas from "@/components/organisms/FlowCanvas.vue";
+import { i18n } from "@/i18n";
 import RulePipeline, {
     type PipelineStep,
 } from "@/components/organisms/RulePipeline.vue";
@@ -108,6 +110,7 @@ const STEPS: PipelineStep[] = [
 describe("B26 FlowCanvas", () => {
     it("renders one FlowNode per node and one dashed path per edge", () => {
         const wrapper = mount(FlowCanvas, {
+            global: { plugins: [i18n] },
             props: { nodes: NODES, edges: EDGES },
         });
 
@@ -115,16 +118,27 @@ describe("B26 FlowCanvas", () => {
         expect(wrapper.findAll(".flow-svg path")).toHaveLength(5);
     });
 
-    it("reports the node/edge counts in its footer", () => {
+    // PIO-129: the footer and the two canvas buttons were template-literal Polish, outside the
+    // translator on the old stack and in the port. They follow the locale now, so this asserts
+    // both halves rather than only the Polish one.
+    it("reports the node/edge counts in its footer, in the active language", async () => {
         const wrapper = mount(FlowCanvas, {
+            global: { plugins: [i18n] },
             props: { nodes: NODES, edges: EDGES },
         });
 
+        expect(wrapper.text()).toContain("6 nodes · 5 connections");
+
+        i18n.global.locale.value = "pl";
+        await nextTick();
         expect(wrapper.text()).toContain("6 węzłów · 5 połączeń");
+
+        i18n.global.locale.value = "en";
     });
 
     it("computes an edge path from the tail node's right edge to the head node's left edge", () => {
         const wrapper = mount(FlowCanvas, {
+            global: { plugins: [i18n] },
             props: { nodes: NODES, edges: EDGES },
         });
 

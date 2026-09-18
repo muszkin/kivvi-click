@@ -58,11 +58,9 @@ class PanelTranslationCoverageTest {
   private static final Set<String> STILL_POLISH_ONLY =
       new TreeSet<>(
           Set.of(
-              // Translated itself, but it also shows two lists borrowed from pages that are not:
-              // the best-performing automations and the recently-seen customers. It leaves the list
-              // when both of those do.
+              // Translated itself, but it also shows the recently-seen customers, borrowed from a
+              // page that is not. It leaves the list when that one is translated.
               "click/kivvi/application/DashboardViewService.java",
-              "click/kivvi/application/AutomationsViewService.java",
               "click/kivvi/application/CampaignsViewService.java",
               "click/kivvi/application/CustomersViewService.java",
               "click/kivvi/application/FeedsViewService.java",
@@ -152,7 +150,85 @@ class PanelTranslationCoverageTest {
     zipList(pairs, "EventsFixtures.abandonDelays", EventsFixtures::abandonDelays);
     zipList(pairs, "EventsFixtures.basketSizes", EventsFixtures::basketSizes);
 
+    zipList(
+        pairs,
+        "AutomationsFixtures.all.name",
+        locale -> map(AutomationsFixtures.all(locale), AutomationsFixtures.Automation::name));
+    zipList(
+        pairs,
+        "AutomationsFixtures.activeForCustomer.name",
+        locale ->
+            map(
+                AutomationsFixtures.activeForCustomer(locale),
+                AutomationsFixtures.ActiveAutomation::name));
+    zipList(
+        pairs,
+        "AutomationsFixtures.editorTabs.label",
+        locale ->
+            map(AutomationsFixtures.editorTabs(locale), AutomationsFixtures.EditorTab::label));
+    zipList(
+        pairs,
+        "AutomationsFixtures.pipelineSteps.title",
+        locale ->
+            map(
+                AutomationsFixtures.pipelineSteps(locale),
+                AutomationsFixtures.PipelineStep::title));
+    zipList(
+        pairs,
+        "AutomationsFixtures.pipelineSteps.kicker",
+        locale ->
+            map(
+                AutomationsFixtures.pipelineSteps(locale),
+                AutomationsFixtures.PipelineStep::kicker));
+    zipList(
+        pairs,
+        "AutomationsFixtures.pipelineSteps.addLabel",
+        locale ->
+            map(
+                AutomationsFixtures.pipelineSteps(locale),
+                AutomationsFixtures.PipelineStep::addLabel));
+    zipList(
+        pairs,
+        "AutomationsFixtures.pipelineSteps.blocks.title",
+        PanelTranslationCoverageTest::pipelineBlockTitles);
+    zipList(
+        pairs,
+        "AutomationsFixtures.pipelineSteps.blocks.body",
+        PanelTranslationCoverageTest::pipelineBlockBodies);
+    zipList(
+        pairs,
+        "AutomationsFixtures.flowNodes.title",
+        locale -> map(AutomationsFixtures.flowNodes(locale), AutomationsFixtures.FlowNode::title));
+    zipList(
+        pairs,
+        "AutomationsFixtures.flowNodes.kicker",
+        locale -> map(AutomationsFixtures.flowNodes(locale), AutomationsFixtures.FlowNode::kicker));
+    zipList(
+        pairs,
+        "AutomationsFixtures.simulation.label",
+        locale ->
+            map(AutomationsFixtures.simulation(locale), AutomationsFixtures.SimulationItem::label));
+    zipList(
+        pairs,
+        "AutomationsFixtures.simulation.note",
+        locale ->
+            map(AutomationsFixtures.simulation(locale), AutomationsFixtures.SimulationItem::note));
+
     return pairs;
+  }
+
+  private static List<String> pipelineBlockTitles(SupportedLocale locale) {
+    return AutomationsFixtures.pipelineSteps(locale).stream()
+        .flatMap(step -> step.blocks().stream())
+        .map(AutomationsFixtures.PipelineBlock::title)
+        .toList();
+  }
+
+  private static List<String> pipelineBlockBodies(SupportedLocale locale) {
+    return AutomationsFixtures.pipelineSteps(locale).stream()
+        .flatMap(step -> step.blocks().stream())
+        .map(AutomationsFixtures.PipelineBlock::body)
+        .toList();
   }
 
   private static <T> List<String> map(List<T> values, Function<T, String> field) {
