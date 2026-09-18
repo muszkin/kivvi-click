@@ -12,32 +12,37 @@ import org.springframework.stereotype.Service;
  * formatted here, exactly like {@code CampaignCatalog::rows()}/{@code ::kpis()} already did on the
  * old stack — the SPA never formats a number itself.
  *
- * <p>Neither endpoint varies its content by locale: {@code CampaignCatalog} never took a locale
- * parameter either (its fixture text — campaign names, status/type labels, block library, document
- * copy — is hard-coded Polish regardless of {@code _locale}), so {@code locale} only gates which of
- * the two supported route prefixes resolves, exactly like {@code FeedsViewService}'s own doc
- * comment describes for the product-feeds page.
+ * <p>Neither endpoint used to vary its content by locale: {@code CampaignCatalog} never took a
+ * locale parameter, and its fixture text — campaign names, status and type labels, the block
+ * library, the sample e-mail's own copy — was hard-coded Polish whatever {@code _locale} said.
+ * PIO-129 changed that: both endpoints now answer in the language of the route prefix, including
+ * the demonstration e-mail itself, which is written in euro for English readers.
  */
 @Service
 public class CampaignsViewService {
 
-  /**
-   * PIO-129 translates the panel one page at a time. This page's copy is still Polish only, so its
-   * figures stay Polish too — a Polish label above a euro amount would be worse than either
-   * language on its own. The slice that translates this page replaces the marker with the real
-   * locale; {@code PanelTranslationCoverageTest} holds the remaining markers to a declared list, so
-   * the last page cannot be forgotten silently.
-   */
-  private static final SupportedLocale UNTRANSLATED = SupportedLocale.PL;
+  private static final int SENT_LAST_30_DAYS = 142_410;
+  private static final int REVENUE_FROM_CAMPAIGNS = 184_230;
 
-  private static final String SENDER = "sklep@aureashop.pl";
-  private static final String KNOWN_TEMPLATE_META =
+  /** The demonstration shop's sending address, in the language of the shop being shown. */
+  private static final String SENDER_PL = "sklep@aureashop.pl";
+
+  private static final String SENDER_EN = "shop@aureashop.pl";
+
+  private static final String KNOWN_TEMPLATE_META_PL =
       "Szablon wyzwalany · 3 produkty placeholders · 412 wysyłek (7d)";
-  private static final String KNOWN_TEMPLATE_SUBJECT =
+  private static final String KNOWN_TEMPLATE_META_EN =
+      "Triggered template · 3 product placeholders · 412 sends (7d)";
+  private static final String KNOWN_TEMPLATE_SUBJECT_PL =
       "Hania, Twój koszyk czeka — wróć i odbierz −10%";
-  private static final String NEW_TEMPLATE_NAME = "Nowy szablon email";
-  private static final String NEW_TEMPLATE_META = "Szkic · nigdy nie wysłany";
-  private static final String NEW_TEMPLATE_SUBJECT = "Temat wiadomości";
+  private static final String KNOWN_TEMPLATE_SUBJECT_EN =
+      "Hannah, your basket is waiting — come back for −10%";
+  private static final String NEW_TEMPLATE_NAME_PL = "Nowy szablon email";
+  private static final String NEW_TEMPLATE_NAME_EN = "New email template";
+  private static final String NEW_TEMPLATE_META_PL = "Szkic · nigdy nie wysłany";
+  private static final String NEW_TEMPLATE_META_EN = "Draft · never sent";
+  private static final String NEW_TEMPLATE_SUBJECT_PL = "Temat wiadomości";
+  private static final String NEW_TEMPLATE_SUBJECT_EN = "Message subject";
 
   /** One KPI tile, every number/percent already formatted for display. */
   public record Kpi(String label, String value, String unit, String delta, String dir) {}
@@ -72,8 +77,8 @@ public class CampaignsViewService {
       List<CampaignsFixtures.Section> sections,
       CampaignsFixtures.SelectedBlock selectedBlock) {}
 
-  public ListPayload list(String filter) {
-    return new ListPayload(kpis(), filters(filter), columns(), rows());
+  public ListPayload list(SupportedLocale locale, String filter) {
+    return new ListPayload(kpis(locale), filters(locale, filter), columns(locale), rows(locale));
   }
 
   /**
@@ -81,74 +86,98 @@ public class CampaignsViewService {
    *     "new" itself) falls back to the same blank-template shape {@code CampaignCatalog::template}
    *     returns for any unmatched id — not just literally "new".
    */
-  public EditorPayload editor(String id) {
+  public EditorPayload editor(SupportedLocale locale, String id) {
     return new EditorPayload(
-        template(id),
-        CampaignsFixtures.blocks(),
-        CampaignsFixtures.variables(),
-        CampaignsFixtures.sections(),
-        CampaignsFixtures.selectedBlock());
+        template(locale, id),
+        CampaignsFixtures.blocks(locale),
+        CampaignsFixtures.variables(locale),
+        CampaignsFixtures.sections(locale),
+        CampaignsFixtures.selectedBlock(locale));
   }
 
-  private static List<Kpi> kpis() {
-    return List.of(
-        new Kpi(
-            "Wysłane (30 dni)",
-            Format.number(142410, UNTRANSLATED),
-            null,
-            "+18% vs poprzedni okres",
-            "up"),
-        new Kpi("Średni open rate", "38,4", "%", "+2,1pp", "up"),
-        new Kpi("Średni CTR", "7,8", "%", "−0,4pp", "down"),
-        new Kpi("Przychód z kampanii", Format.money(184230, UNTRANSLATED), null, "+24%", "up"));
+  private static List<Kpi> kpis(SupportedLocale locale) {
+    String sent = Format.number(SENT_LAST_30_DAYS, locale);
+    String revenue = Format.money(REVENUE_FROM_CAMPAIGNS, locale);
+    return switch (locale) {
+      case PL ->
+          List.of(
+              new Kpi("Wysłane (30 dni)", sent, null, "+18% vs poprzedni okres", "up"),
+              new Kpi("Średni open rate", "38,4", "%", "+2,1pp", "up"),
+              new Kpi("Średni CTR", "7,8", "%", "−0,4pp", "down"),
+              new Kpi("Przychód z kampanii", revenue, null, "+24%", "up"));
+      case EN ->
+          List.of(
+              new Kpi("Sent (30 days)", sent, null, "+18% vs the previous period", "up"),
+              new Kpi("Average open rate", "38.4", "%", "+2.1pp", "up"),
+              new Kpi("Average CTR", "7.8", "%", "−0.4pp", "down"),
+              new Kpi("Campaign revenue", revenue, null, "+24%", "up"));
+    };
   }
 
-  private static List<Filter> filters(String active) {
+  private static List<Filter> filters(SupportedLocale locale, String active) {
     String safeActive = active == null ? "all" : active;
+    String[] labels =
+        switch (locale) {
+          case PL -> new String[] {"Wszystkie", "Wyzwalane", "Jednorazowe", "Wstrzymane"};
+          case EN -> new String[] {"All", "Triggered", "One-off", "Paused"};
+        };
     return List.of(
-        new Filter("Wszystkie", "18", "all".equals(safeActive), "set-campaign-filter", "all"),
+        new Filter(labels[0], "18", "all".equals(safeActive), "set-campaign-filter", "all"),
+        new Filter(labels[1], "12", "trigger".equals(safeActive), "set-campaign-filter", "trigger"),
         new Filter(
-            "Wyzwalane", "12", "trigger".equals(safeActive), "set-campaign-filter", "trigger"),
-        new Filter(
-            "Jednorazowe", "6", "broadcast".equals(safeActive), "set-campaign-filter", "broadcast"),
-        new Filter(
-            "Wstrzymane", "2", "paused".equals(safeActive), "set-campaign-filter", "paused"));
+            labels[2], "6", "broadcast".equals(safeActive), "set-campaign-filter", "broadcast"),
+        new Filter(labels[3], "2", "paused".equals(safeActive), "set-campaign-filter", "paused"));
   }
 
-  private static List<Column> columns() {
+  private static List<Column> columns(SupportedLocale locale) {
+    String[] headings =
+        switch (locale) {
+          case PL ->
+              new String[] {
+                "Kampania", "Typ", "Status", "Wysłane", "Otwarcia", "Kliknięcia", "Przychód"
+              };
+          case EN ->
+              new String[] {"Campaign", "Type", "Status", "Sent", "Opens", "Clicks", "Revenue"};
+        };
     return List.of(
-        new Column("Kampania", null),
-        new Column("Typ", null),
-        new Column("Status", null),
-        new Column("Wysłane", "right"),
-        new Column("Otwarcia", "right"),
-        new Column("Kliknięcia", "right"),
-        new Column("Przychód", "right"),
+        new Column(headings[0], null),
+        new Column(headings[1], null),
+        new Column(headings[2], null),
+        new Column(headings[3], "right"),
+        new Column(headings[4], "right"),
+        new Column(headings[5], "right"),
+        new Column(headings[6], "right"),
         new Column("", null));
   }
 
-  private static List<Row> rows() {
-    return CampaignsFixtures.all().stream().map(CampaignsViewService::toRow).toList();
+  private static List<Row> rows(SupportedLocale locale) {
+    return CampaignsFixtures.all(locale).stream().map(campaign -> toRow(locale, campaign)).toList();
   }
 
-  private static Row toRow(CampaignsFixtures.Campaign campaign) {
-    CampaignsFixtures.StatusChip chip = CampaignsFixtures.statusChip(campaign.status());
+  private static Row toRow(SupportedLocale locale, CampaignsFixtures.Campaign campaign) {
+    CampaignsFixtures.StatusChip chip = CampaignsFixtures.statusChip(locale, campaign.status());
     boolean trigger = "trigger".equals(campaign.type());
+    String[] typeLabels =
+        switch (locale) {
+          case PL -> new String[] {"Wyzwalana", "Masowa"};
+          case EN -> new String[] {"Triggered", "Broadcast"};
+        };
     return new Row(
         campaign.id(),
         campaign.name(),
         chip.tone(),
         chip.label(),
-        trigger ? "Wyzwalana" : "Masowa",
+        trigger ? typeLabels[0] : typeLabels[1],
         trigger ? "accent" : "brown",
-        campaign.sent() > 0 ? Format.number(campaign.sent(), UNTRANSLATED) : "—",
-        campaign.open() > 0 ? Format.percent(campaign.open(), UNTRANSLATED) : "—",
-        campaign.click() > 0 ? Format.percent(campaign.click(), UNTRANSLATED) : "—",
-        campaign.revenue() > 0 ? Format.money(campaign.revenue(), UNTRANSLATED) : "—");
+        campaign.sent() > 0 ? Format.number(campaign.sent(), locale) : "—",
+        campaign.open() > 0 ? Format.percent(campaign.open(), locale) : "—",
+        campaign.click() > 0 ? Format.percent(campaign.click(), locale) : "—",
+        campaign.revenue() > 0 ? Format.money(campaign.revenue(), locale) : "—");
   }
 
-  private static Template template(String id) {
-    return CampaignsFixtures.all().stream()
+  private static Template template(SupportedLocale locale, String id) {
+    String sender = pick(locale, SENDER_PL, SENDER_EN);
+    return CampaignsFixtures.all(locale).stream()
         .filter(campaign -> campaign.id().equals(id))
         .findFirst()
         .map(
@@ -156,12 +185,23 @@ public class CampaignsViewService {
                 new Template(
                     campaign.id(),
                     campaign.name(),
-                    KNOWN_TEMPLATE_META,
-                    KNOWN_TEMPLATE_SUBJECT,
-                    SENDER))
+                    pick(locale, KNOWN_TEMPLATE_META_PL, KNOWN_TEMPLATE_META_EN),
+                    pick(locale, KNOWN_TEMPLATE_SUBJECT_PL, KNOWN_TEMPLATE_SUBJECT_EN),
+                    sender))
         .orElseGet(
             () ->
                 new Template(
-                    id, NEW_TEMPLATE_NAME, NEW_TEMPLATE_META, NEW_TEMPLATE_SUBJECT, SENDER));
+                    id,
+                    pick(locale, NEW_TEMPLATE_NAME_PL, NEW_TEMPLATE_NAME_EN),
+                    pick(locale, NEW_TEMPLATE_META_PL, NEW_TEMPLATE_META_EN),
+                    pick(locale, NEW_TEMPLATE_SUBJECT_PL, NEW_TEMPLATE_SUBJECT_EN),
+                    sender));
+  }
+
+  private static String pick(SupportedLocale locale, String polish, String english) {
+    return switch (locale) {
+      case PL -> polish;
+      case EN -> english;
+    };
   }
 }

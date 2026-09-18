@@ -31,8 +31,8 @@ public class WidgetController {
   @GetMapping("/api/v1/{locale:pl|en}/popups")
   public WidgetsResponse popups(
       @PathVariable String locale, @RequestParam(required = false) String preview) {
-    SupportedLocale.fromCode(locale).orElseThrow();
-    WidgetViewService.ListPayload payload = widgetViewService.list(preview);
+    WidgetViewService.ListPayload payload =
+        widgetViewService.list(SupportedLocale.fromCode(locale).orElseThrow(), preview);
     return new WidgetsResponse(
         payload.cards().stream().map(WidgetController::toCard).toList(),
         toSelected(payload.selected()),
@@ -45,8 +45,8 @@ public class WidgetController {
       @PathVariable String id,
       @RequestParam(required = false) String type,
       @RequestParam(required = false) String device) {
-    SupportedLocale.fromCode(locale).orElseThrow();
-    WidgetViewService.EditorPayload payload = widgetViewService.editor(id, type, device);
+    WidgetViewService.EditorPayload payload =
+        widgetViewService.editor(SupportedLocale.fromCode(locale).orElseThrow(), id, type, device);
     return new WidgetEditorResponse(
         toWidget(payload.widget()),
         payload.device(),

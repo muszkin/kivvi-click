@@ -32,8 +32,8 @@ public class CampaignsController {
   @GetMapping("/api/v1/{locale:pl|en}/campaigns")
   public CampaignsResponse campaigns(
       @PathVariable String locale, @RequestParam(defaultValue = "all") String filter) {
-    SupportedLocale.fromCode(locale).orElseThrow();
-    CampaignsViewService.ListPayload payload = campaignsViewService.list(filter);
+    CampaignsViewService.ListPayload payload =
+        campaignsViewService.list(SupportedLocale.fromCode(locale).orElseThrow(), filter);
     return new CampaignsResponse(
         payload.kpis().stream().map(CampaignsController::toKpi).toList(),
         payload.filters().stream().map(CampaignsController::toFilter).toList(),
@@ -43,8 +43,8 @@ public class CampaignsController {
 
   @GetMapping("/api/v1/{locale:pl|en}/emails/{id:new|k\\d+}")
   public CampaignEmailResponse email(@PathVariable String locale, @PathVariable String id) {
-    SupportedLocale.fromCode(locale).orElseThrow();
-    CampaignsViewService.EditorPayload payload = campaignsViewService.editor(id);
+    CampaignsViewService.EditorPayload payload =
+        campaignsViewService.editor(SupportedLocale.fromCode(locale).orElseThrow(), id);
     return new CampaignEmailResponse(
         toTemplate(payload.template()),
         payload.blocks().stream().map(CampaignsController::toBlock).toList(),

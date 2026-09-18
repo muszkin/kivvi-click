@@ -39,6 +39,8 @@ export default {
         mainNavigation: "Nawigacja główna",
         breadcrumb: "Ścieżka",
         openSearch: "Szukaj",
+        blocks: "Bloki",
+        properties: "Właściwości",
         search_kbd: "⌘K",
     },
     auth: {

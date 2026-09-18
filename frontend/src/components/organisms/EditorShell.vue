@@ -4,24 +4,31 @@
 // inspector (hidden under 1300px, CSS only — see 04-patterns.css's `.email-right` media query).
 // Wires the shared block-library → canvas drag-and-drop (useEditorDrag) on its own root: per
 // DEV-7 a dropped block visibly does nothing (see that composable's class comment).
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import Icon from "@/components/atoms/Icon.vue";
 import { useEditorDrag } from "@/composables/useEditorDrag";
 
-withDefaults(
+// PIO-129: the two pane headings defaulted to Polish literals. `rightTitle` is never passed by
+// either editor, so "Właściwości" was the heading on an English page as well.
+const props = withDefaults(
     defineProps<{
-        leftTitle?: string;
+        leftTitle?: string | null;
         leftIcon?: string | null;
-        rightTitle?: string;
+        rightTitle?: string | null;
         rightIcon?: string;
     }>(),
     {
-        leftTitle: "Bloki",
+        leftTitle: null,
         leftIcon: null,
-        rightTitle: "Właściwości",
+        rightTitle: null,
         rightIcon: "sliders",
     },
 );
+
+const { t } = useI18n();
+const leftHeading = computed(() => props.leftTitle ?? t("common.blocks"));
+const rightHeading = computed(() => props.rightTitle ?? t("common.properties"));
 
 defineSlots<{
     left(): unknown;
@@ -38,7 +45,7 @@ useEditorDrag(root);
         <div class="ee-panel">
             <div class="ee-panel-head">
                 <Icon v-if="leftIcon" :name="leftIcon" />{{ " "
-                }}{{ leftTitle }}
+                }}{{ leftHeading }}
             </div>
             <div class="ee-panel-body"><slot name="left" /></div>
         </div>
@@ -47,7 +54,7 @@ useEditorDrag(root);
 
         <div v-if="$slots.right" class="ee-panel email-right">
             <div class="ee-panel-head">
-                <Icon :name="rightIcon" />{{ " " }}{{ rightTitle }}
+                <Icon :name="rightIcon" />{{ " " }}{{ rightHeading }}
             </div>
             <div class="ee-panel-body"><slot name="right" /></div>
         </div>

@@ -68,6 +68,9 @@ const IDENTICAL_BY_DESIGN = new Set([
     "customers.columns.email",
     "customers.columns.segment",
     "events.webhook",
+    "campaigns.editor.mobile",
+    "popups.editor.mobile",
+    "popups.editor.desktop",
 ]);
 
 /** Letters only Polish uses. */
@@ -167,8 +170,6 @@ describe("PIO-117 every string on an English public page is English", () => {
  * the list is empty.
  */
 const PANEL_AREAS_STILL_POLISH = [
-    "campaigns.", // slice 3
-    "popups.", // slice 3
     "import.", // slice 4
     "settings.", // slice 5
 ];
