@@ -3,6 +3,7 @@ package click.kivvi.application;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
+import click.kivvi.domain.SupportedLocale;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,7 @@ class WidgetViewServiceTest {
   @Test
   @DisplayName("B29 the popup index carries 5 cards matching the oracle's names and metrics")
   void cardsMatchTheOracle() {
-    WidgetViewService.ListPayload payload = widgetViewService.list(null);
+    WidgetViewService.ListPayload payload = widgetViewService.list(SupportedLocale.PL, null);
 
     assertThat(payload.cards())
         .extracting(WidgetViewService.Card::title)
@@ -36,7 +37,7 @@ class WidgetViewServiceTest {
   @Test
   @DisplayName("B29 a missing ?preview= falls back to the first seeded widget (p1, modal)")
   void missingPreviewFallsBackToTheFirstWidget() {
-    WidgetViewService.ListPayload payload = widgetViewService.list(null);
+    WidgetViewService.ListPayload payload = widgetViewService.list(SupportedLocale.PL, null);
 
     assertThat(payload.selected().id()).isEqualTo("p1");
     assertThat(payload.selected().type()).isEqualTo("modal");
@@ -46,7 +47,7 @@ class WidgetViewServiceTest {
   @Test
   @DisplayName("B29 ?preview=p2 selects the banner widget's own type and content")
   void knownPreviewSelectsItsOwnWidget() {
-    WidgetViewService.ListPayload payload = widgetViewService.list("p2");
+    WidgetViewService.ListPayload payload = widgetViewService.list(SupportedLocale.PL, "p2");
 
     assertThat(payload.selected().id()).isEqualTo("p2");
     assertThat(payload.selected().type()).isEqualTo("banner");
@@ -59,7 +60,7 @@ class WidgetViewServiceTest {
       "B29 an unknown ?preview= id never 404s — falls back to the same blank-draft shape as an"
           + " unmatched editor id")
   void unknownPreviewFallsBackToTheBlankDraftShapeWithoutFailing() {
-    WidgetViewService.ListPayload payload = widgetViewService.list("p999");
+    WidgetViewService.ListPayload payload = widgetViewService.list(SupportedLocale.PL, "p999");
 
     assertThat(payload.selected().id()).isEqualTo("p999");
     assertThat(payload.selected().name()).isEqualTo("Nowy widget");
@@ -69,7 +70,8 @@ class WidgetViewServiceTest {
   @Test
   @DisplayName("B29 GET .../popups/p1 resolves the known widget's name, meta and own type")
   void knownWidgetEditorMatchesTheOracle() {
-    WidgetViewService.EditorPayload payload = widgetViewService.editor("p1", null, null);
+    WidgetViewService.EditorPayload payload =
+        widgetViewService.editor(SupportedLocale.PL, "p1", null, null);
 
     assertThat(payload.widget().id()).isEqualTo("p1");
     assertThat(payload.widget().name()).isEqualTo("Exit intent — 10% rabatu");
@@ -83,9 +85,10 @@ class WidgetViewServiceTest {
   @DisplayName(
       "B29 an id with no seeded widget (including \"new\") falls back to the blank-draft shape")
   void unknownIdFallsBackToTheBlankWidget() {
-    WidgetViewService.EditorWidget fromNew = widgetViewService.editor("new", null, null).widget();
+    WidgetViewService.EditorWidget fromNew =
+        widgetViewService.editor(SupportedLocale.PL, "new", null, null).widget();
     WidgetViewService.EditorWidget fromUnseeded =
-        widgetViewService.editor("p999", null, null).widget();
+        widgetViewService.editor(SupportedLocale.PL, "p999", null, null).widget();
 
     for (WidgetViewService.EditorWidget widget : java.util.List.of(fromNew, fromUnseeded)) {
       assertThat(widget.name()).isEqualTo("Nowy widget");
@@ -99,7 +102,8 @@ class WidgetViewServiceTest {
   @Test
   @DisplayName("B29 ?type= overrides the shown content's shape but never the widget's own name")
   void typeQueryOverridesContentOnly() {
-    WidgetViewService.EditorPayload payload = widgetViewService.editor("p1", "banner", null);
+    WidgetViewService.EditorPayload payload =
+        widgetViewService.editor(SupportedLocale.PL, "p1", "banner", null);
 
     assertThat(payload.widget().type()).isEqualTo("banner");
     assertThat(payload.widget().name()).isEqualTo("Exit intent — 10% rabatu");
@@ -111,7 +115,8 @@ class WidgetViewServiceTest {
   @Test
   @DisplayName("B29 a missing ?type= falls back to the widget's own type")
   void missingTypeFallsBackToTheWidgetsOwnType() {
-    WidgetViewService.EditorPayload payload = widgetViewService.editor("p2", null, null);
+    WidgetViewService.EditorPayload payload =
+        widgetViewService.editor(SupportedLocale.PL, "p2", null, null);
 
     assertThat(payload.widget().type()).isEqualTo("banner");
   }
@@ -121,11 +126,16 @@ class WidgetViewServiceTest {
       "B29 ?device=mobile switches the viewport chip; anything else (including absent) is"
           + " desktop")
   void deviceQuerySelectsTheViewport() {
-    assertThat(widgetViewService.editor("p1", null, "mobile").device()).isEqualTo("mobile");
-    assertThat(widgetViewService.editor("p1", null, "mobile").viewport()).isEqualTo("390 × 844");
-    assertThat(widgetViewService.editor("p1", null, null).device()).isEqualTo("desktop");
-    assertThat(widgetViewService.editor("p1", null, null).viewport()).isEqualTo("1440 × 900");
-    assertThat(widgetViewService.editor("p1", null, "bogus").device()).isEqualTo("desktop");
+    assertThat(widgetViewService.editor(SupportedLocale.PL, "p1", null, "mobile").device())
+        .isEqualTo("mobile");
+    assertThat(widgetViewService.editor(SupportedLocale.PL, "p1", null, "mobile").viewport())
+        .isEqualTo("390 × 844");
+    assertThat(widgetViewService.editor(SupportedLocale.PL, "p1", null, null).device())
+        .isEqualTo("desktop");
+    assertThat(widgetViewService.editor(SupportedLocale.PL, "p1", null, null).viewport())
+        .isEqualTo("1440 × 900");
+    assertThat(widgetViewService.editor(SupportedLocale.PL, "p1", null, "bogus").device())
+        .isEqualTo("desktop");
   }
 
   @Test
@@ -133,8 +143,10 @@ class WidgetViewServiceTest {
       "B29 the editor payload always carries 5 types, 10 blocks, 4 variables, 3 triggers and 4"
           + " audience rows")
   void editorPayloadShapeIsConstantAcrossIds() {
-    WidgetViewService.EditorPayload known = widgetViewService.editor("p1", null, null);
-    WidgetViewService.EditorPayload blank = widgetViewService.editor("new", null, null);
+    WidgetViewService.EditorPayload known =
+        widgetViewService.editor(SupportedLocale.PL, "p1", null, null);
+    WidgetViewService.EditorPayload blank =
+        widgetViewService.editor(SupportedLocale.PL, "new", null, null);
 
     for (WidgetViewService.EditorPayload payload : java.util.List.of(known, blank)) {
       assertThat(payload.types()).hasSize(5);

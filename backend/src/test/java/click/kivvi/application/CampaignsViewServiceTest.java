@@ -3,6 +3,7 @@ package click.kivvi.application;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
+import click.kivvi.domain.SupportedLocale;
 import click.kivvi.fixtures.CampaignsFixtures;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +17,7 @@ class CampaignsViewServiceTest {
   @DisplayName(
       "B27 the four campaign KPIs match the oracle, narrow-space-grouped and money-formatted")
   void kpisMatchTheOracle() {
-    CampaignsViewService.ListPayload payload = campaignsViewService.list("all");
+    CampaignsViewService.ListPayload payload = campaignsViewService.list(SupportedLocale.PL, "all");
 
     assertThat(payload.kpis())
         .extracting(
@@ -36,8 +37,9 @@ class CampaignsViewServiceTest {
   @DisplayName(
       "B27 four filters are offered; only the requested one is active, others fall back to \"all\"")
   void filtersMarkTheRequestedOneActive() {
-    CampaignsViewService.ListPayload triggered = campaignsViewService.list("trigger");
-    CampaignsViewService.ListPayload fallback = campaignsViewService.list(null);
+    CampaignsViewService.ListPayload triggered =
+        campaignsViewService.list(SupportedLocale.PL, "trigger");
+    CampaignsViewService.ListPayload fallback = campaignsViewService.list(SupportedLocale.PL, null);
 
     assertThat(triggered.filters())
         .extracting(
@@ -57,8 +59,9 @@ class CampaignsViewServiceTest {
   @Test
   @DisplayName("B27 the filter never changes which 5 rows come back — only which chip is active")
   void rowsAreIdenticalRegardlessOfFilter() {
-    CampaignsViewService.ListPayload all = campaignsViewService.list("all");
-    CampaignsViewService.ListPayload triggered = campaignsViewService.list("trigger");
+    CampaignsViewService.ListPayload all = campaignsViewService.list(SupportedLocale.PL, "all");
+    CampaignsViewService.ListPayload triggered =
+        campaignsViewService.list(SupportedLocale.PL, "trigger");
 
     assertThat(all.rows())
         .extracting(CampaignsViewService.Row::id)
@@ -70,7 +73,7 @@ class CampaignsViewServiceTest {
   @DisplayName(
       "B27 the 5 rows match the oracle: names, type/status chips, and \"—\" for the two unsent campaigns")
   void rowsMatchTheOracle() {
-    CampaignsViewService.ListPayload payload = campaignsViewService.list("all");
+    CampaignsViewService.ListPayload payload = campaignsViewService.list(SupportedLocale.PL, "all");
 
     assertThat(payload.rows())
         .extracting(
@@ -106,7 +109,8 @@ class CampaignsViewServiceTest {
   @Test
   @DisplayName("B28 GET .../emails/k1 resolves a known template's name, meta and subject")
   void knownTemplateMatchesTheOracle() {
-    CampaignsViewService.EditorPayload payload = campaignsViewService.editor("k1");
+    CampaignsViewService.EditorPayload payload =
+        campaignsViewService.editor(SupportedLocale.PL, "k1");
 
     assertThat(payload.template())
         .extracting(
@@ -127,8 +131,10 @@ class CampaignsViewServiceTest {
   @DisplayName(
       "B28 an id with no seeded campaign (including \"new\") falls back to the blank draft shape")
   void unknownIdFallsBackToTheBlankTemplate() {
-    CampaignsViewService.Template fromNew = campaignsViewService.editor("new").template();
-    CampaignsViewService.Template fromUnseeded = campaignsViewService.editor("k999").template();
+    CampaignsViewService.Template fromNew =
+        campaignsViewService.editor(SupportedLocale.PL, "new").template();
+    CampaignsViewService.Template fromUnseeded =
+        campaignsViewService.editor(SupportedLocale.PL, "k999").template();
 
     for (CampaignsViewService.Template template : List.of(fromNew, fromUnseeded)) {
       assertThat(template.name()).isEqualTo("Nowy szablon email");
@@ -144,8 +150,10 @@ class CampaignsViewServiceTest {
   @DisplayName(
       "B28 the editor payload always carries 10 blocks, 5 variables, 5 sections and the same selected block")
   void editorPayloadShapeIsConstantAcrossIds() {
-    CampaignsViewService.EditorPayload known = campaignsViewService.editor("k1");
-    CampaignsViewService.EditorPayload blank = campaignsViewService.editor("new");
+    CampaignsViewService.EditorPayload known =
+        campaignsViewService.editor(SupportedLocale.PL, "k1");
+    CampaignsViewService.EditorPayload blank =
+        campaignsViewService.editor(SupportedLocale.PL, "new");
 
     for (CampaignsViewService.EditorPayload payload : List.of(known, blank)) {
       assertThat(payload.blocks()).hasSize(10);

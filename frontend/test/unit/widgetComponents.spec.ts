@@ -176,9 +176,9 @@ describe("B29 SwatchGrid", () => {
         const swatches = wrapper.findAll("button");
         expect(swatches).toHaveLength(4);
         expect(swatches[0]?.attributes("aria-pressed")).toBe("true");
-        expect(swatches[0]?.attributes("aria-label")).toBe("Kolor 1");
+        expect(swatches[0]?.attributes("aria-label")).toBe("Colour 1");
         expect(swatches[1]?.attributes("aria-pressed")).toBe("false");
-        expect(swatches[1]?.attributes("aria-label")).toBe("Kolor 2");
+        expect(swatches[1]?.attributes("aria-label")).toBe("Colour 2");
         expect(swatches[0]?.attributes("data-action")).toBe(
             "set-widget-accent",
         );

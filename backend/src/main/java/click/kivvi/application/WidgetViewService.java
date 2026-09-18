@@ -23,17 +23,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class WidgetViewService {
 
-  /**
-   * PIO-129 translates the panel one page at a time. This page's copy is still Polish only, so its
-   * figures stay Polish too — a Polish label above a euro amount would be worse than either
-   * language on its own. The slice that translates this page replaces the marker with the real
-   * locale; {@code PanelTranslationCoverageTest} holds the remaining markers to a declared list, so
-   * the last page cannot be forgotten silently.
-   */
-  private static final SupportedLocale UNTRANSLATED = SupportedLocale.PL;
-
-  private static final String NEW_WIDGET_NAME = "Nowy widget";
-  private static final String NEW_WIDGET_META = "Szkic · nieopublikowany";
+  private static final String NEW_WIDGET_NAME_PL = "Nowy widget";
+  private static final String NEW_WIDGET_NAME_EN = "New widget";
+  private static final String NEW_WIDGET_META_PL = "Szkic · nieopublikowany";
+  private static final String NEW_WIDGET_META_EN = "Draft · not published";
   private static final String NEW_WIDGET_TYPE = "modal";
   private static final String DEVICE_MOBILE = "mobile";
   private static final String DEVICE_DESKTOP = "desktop";
@@ -78,15 +71,15 @@ public class WidgetViewService {
    * @param previewId the {@code ?preview=} value, or {@code null} to fall back to the first seeded
    *     widget — mirrors {@code $request->query->get('preview', $widgets->firstId())}.
    */
-  public ListPayload list(String previewId) {
-    Resolved resolved = resolve(previewId != null ? previewId : firstId());
+  public ListPayload list(SupportedLocale locale, String previewId) {
+    Resolved resolved = resolve(locale, previewId != null ? previewId : firstId(locale));
     Selected selected =
         new Selected(
             resolved.id(),
             resolved.name(),
             resolved.type(),
-            WidgetFixtures.content(resolved.type()));
-    return new ListPayload(cards(), selected, WidgetFixtures.types());
+            WidgetFixtures.content(locale, resolved.type()));
+    return new ListPayload(cards(locale), selected, WidgetFixtures.types(locale));
   }
 
   /**
@@ -99,32 +92,42 @@ public class WidgetViewService {
    * @param deviceParam the {@code ?device=} value; only the literal {@code "mobile"} selects the
    *     mobile viewport, everything else (including {@code null}) is desktop.
    */
-  public EditorPayload editor(String id, String typeParam, String deviceParam) {
-    Resolved resolved = resolve(id);
+  public EditorPayload editor(
+      SupportedLocale locale, String id, String typeParam, String deviceParam) {
+    Resolved resolved = resolve(locale, id);
     String type = typeParam != null ? typeParam : resolved.type();
     String device = DEVICE_MOBILE.equals(deviceParam) ? DEVICE_MOBILE : DEVICE_DESKTOP;
     EditorWidget widget =
         new EditorWidget(
-            resolved.id(), resolved.name(), resolved.meta(), type, WidgetFixtures.content(type));
+            resolved.id(),
+            resolved.name(),
+            resolved.meta(),
+            type,
+            WidgetFixtures.content(locale, type));
     String viewport = DEVICE_DESKTOP.equals(device) ? VIEWPORT_DESKTOP : VIEWPORT_MOBILE;
     return new EditorPayload(
         widget,
         device,
-        WidgetFixtures.types(),
-        WidgetFixtures.blocks(),
+        WidgetFixtures.types(locale),
+        WidgetFixtures.blocks(locale),
         WidgetFixtures.variables(),
-        WidgetFixtures.triggers(),
-        WidgetFixtures.audience(),
+        WidgetFixtures.triggers(locale),
+        WidgetFixtures.audience(locale),
         WidgetFixtures.accentColors(),
         viewport);
   }
 
-  private static String firstId() {
-    return WidgetFixtures.all().get(0).id();
+  private static String firstId(SupportedLocale locale) {
+    return WidgetFixtures.all(locale).get(0).id();
   }
 
-  private static Resolved resolve(String id) {
-    return WidgetFixtures.all().stream()
+  private static Resolved resolve(SupportedLocale locale, String id) {
+    String metaTemplate =
+        switch (locale) {
+          case PL -> "%s na aureashop.pl · %s wyświetleń · %s konwersji";
+          case EN -> "%s on aureashop.pl · %s impressions · %s conversion";
+        };
+    return WidgetFixtures.all(locale).stream()
         .filter(widget -> widget.id().equals(id))
         .findFirst()
         .map(
@@ -133,40 +136,62 @@ public class WidgetViewService {
                     widget.id(),
                     widget.name(),
                     widget.type(),
-                    "%s na aureashop.pl · %s wyświetleń · %s konwersji"
-                        .formatted(
-                            WidgetFixtures.statusChip(widget.status()).label(),
-                            Format.number(widget.impressions(), UNTRANSLATED),
-                            Format.percent(widget.conversion(), UNTRANSLATED))))
-        .orElseGet(() -> new Resolved(id, NEW_WIDGET_NAME, NEW_WIDGET_TYPE, NEW_WIDGET_META));
+                    metaTemplate.formatted(
+                        WidgetFixtures.statusChip(locale, widget.status()).label(),
+                        Format.number(widget.impressions(), locale),
+                        Format.percent(widget.conversion(), locale))))
+        .orElseGet(
+            () ->
+                new Resolved(
+                    id,
+                    pick(locale, NEW_WIDGET_NAME_PL, NEW_WIDGET_NAME_EN),
+                    NEW_WIDGET_TYPE,
+                    pick(locale, NEW_WIDGET_META_PL, NEW_WIDGET_META_EN)));
   }
 
-  private static List<Card> cards() {
-    return WidgetFixtures.all().stream().map(WidgetViewService::toCard).toList();
+  private static List<Card> cards(SupportedLocale locale) {
+    return WidgetFixtures.all(locale).stream().map(widget -> toCard(locale, widget)).toList();
   }
 
-  private static Card toCard(WidgetFixtures.Widget widget) {
-    WidgetFixtures.StatusChip statusChip = WidgetFixtures.statusChip(widget.status());
+  private static Card toCard(SupportedLocale locale, WidgetFixtures.Widget widget) {
+    WidgetFixtures.StatusChip statusChip = WidgetFixtures.statusChip(locale, widget.status());
+    String everywhere =
+        switch (locale) {
+          case PL -> "na wszystkich stronach";
+          case EN -> "on every page";
+        };
     List<Chip> chips =
         List.of(
             new Chip(statusChip.label(), statusChip.tone()),
-            new Chip(WidgetFixtures.typeLabel(widget.type()), "brown"),
-            new Chip("na wszystkich stronach", null),
+            new Chip(WidgetFixtures.typeLabel(locale, widget.type()), "brown"),
+            new Chip(everywhere, null),
             new Chip("exit intent", null));
     boolean hasImpressions = widget.impressions() > 0;
     boolean hasConversion = widget.conversion() > 0;
+    String[] metricLabels =
+        switch (locale) {
+          case PL -> new String[] {"wyświetleń", "konwersja"};
+          case EN -> new String[] {"impressions", "conversion"};
+        };
     List<Metric> metrics =
         List.of(
             new Metric(
-                hasImpressions ? Format.number(widget.impressions(), UNTRANSLATED) : "—",
-                "wyświetleń",
+                hasImpressions ? Format.number(widget.impressions(), locale) : "—",
+                metricLabels[0],
                 90,
                 null),
             new Metric(
-                hasConversion ? Format.percent(widget.conversion(), UNTRANSLATED) : "—",
-                "konwersja",
+                hasConversion ? Format.percent(widget.conversion(), locale) : "—",
+                metricLabels[1],
                 80,
                 hasConversion ? "var(--good)" : "var(--fg-muted)"));
     return new Card(widget.name(), chips, metrics, "go-popup", widget.id());
+  }
+
+  private static String pick(SupportedLocale locale, String polish, String english) {
+    return switch (locale) {
+      case PL -> polish;
+      case EN -> english;
+    };
   }
 }

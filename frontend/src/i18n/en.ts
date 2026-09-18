@@ -42,6 +42,8 @@ export default {
         mainNavigation: "Main navigation",
         breadcrumb: "Breadcrumb",
         openSearch: "Search",
+        blocks: "Blocks",
+        properties: "Properties",
         search_kbd: "⌘K",
     },
     auth: {

@@ -126,6 +126,58 @@ test.describe("the panel speaks the language of the URL", () => {
         );
     });
 
+    test("the campaigns table is English on /en and Polish on /pl", async ({
+        page,
+    }) => {
+        await page.goto("/en/campaigns");
+        await expect(page.locator(".table thead th").first()).toHaveText(
+            "Campaign",
+        );
+        await expect(
+            page.locator(".table tbody tr").first(),
+        ).toContainText("Triggered");
+        await expect(page.locator(".kpi-grid .kpi-value").last()).toHaveText(
+            "€184,230",
+        );
+
+        await page.goto("/pl/campaigns");
+        await expect(page.locator(".table thead th").first()).toHaveText(
+            "Kampania",
+        );
+        await expect(
+            page.locator(".table tbody tr").first(),
+        ).toContainText("Wyzwalana");
+    });
+
+    test("the sample e-mail in the editor is written in English on /en", async ({
+        page,
+    }) => {
+        await page.goto("/en/emails/k1");
+
+        await expect(page.locator(".ee-doc")).toContainText(
+            "Hannah, your basket is waiting.",
+        );
+        await expect(page.locator(".ee-doc")).toContainText("€38.90");
+        await expect(page.locator(".email-right")).toContainText(
+            "Visibility conditions",
+        );
+    });
+
+    test("the popup preview and its type list are English on /en", async ({
+        page,
+    }) => {
+        await page.goto("/en/popups");
+
+        await expect(page.locator(".auto-card__title").first()).toHaveText(
+            "Exit intent — 10% off",
+        );
+
+        await page.goto("/en/popups/p2");
+        await expect(page.locator(".pw-banner-row .pw-title")).toContainText(
+            "Over €199 we cover the postage",
+        );
+    });
+
     test("the workspace card counts sites in English on /en", async ({
         page,
     }) => {

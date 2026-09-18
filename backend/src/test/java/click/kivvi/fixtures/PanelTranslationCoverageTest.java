@@ -61,11 +61,9 @@ class PanelTranslationCoverageTest {
               // Translated itself, but it also shows the recently-seen customers, borrowed from a
               // page that is not. It leaves the list when that one is translated.
               "click/kivvi/application/DashboardViewService.java",
-              "click/kivvi/application/CampaignsViewService.java",
               "click/kivvi/application/CustomersViewService.java",
               "click/kivvi/application/FeedsViewService.java",
               "click/kivvi/application/ImportViewService.java",
-              "click/kivvi/application/WidgetViewService.java",
               "click/kivvi/fixtures/FeedsFixtures.java",
               "click/kivvi/fixtures/SettingsFixtures.java"));
 
@@ -76,7 +74,19 @@ class PanelTranslationCoverageTest {
    * unchanged is almost always a word nobody translated.
    */
   private static final Set<String> IDENTICAL_IN_BOTH_LANGUAGES =
-      Set.of("aureashop.pl", "AS", "847", "312", "28 ev/s · 12:42:18");
+      Set.of(
+          "aureashop.pl",
+          "AS",
+          "847",
+          "312",
+          "28 ev/s · 12:42:18",
+          // A campaign named after the shopping weekend it runs on; the name is the same in both.
+          "Black weekend — VIP",
+          // Sections carry only the fields their own kind uses; the rest are absent in both.
+          "");
+
+  /** The three shapes {@code WidgetFixtures.content} answers with. */
+  private static final List<String> WIDGET_CONTENT_TYPES = List.of("banner", "toast", "modal");
 
   private static final String POLISH_DIACRITICS = "ąćęłńóśźżĄĆĘŁŃÓŚŹŻ";
 
@@ -210,6 +220,67 @@ class PanelTranslationCoverageTest {
             map(AutomationsFixtures.simulation(locale), AutomationsFixtures.SimulationItem::label));
     zipList(
         pairs,
+        "CampaignsFixtures.all.name",
+        locale -> map(CampaignsFixtures.all(locale), CampaignsFixtures.Campaign::name));
+    zipList(
+        pairs,
+        "CampaignsFixtures.blocks.label",
+        locale -> map(CampaignsFixtures.blocks(locale), CampaignsFixtures.Block::label));
+    zipList(
+        pairs,
+        "CampaignsFixtures.variables.label",
+        locale ->
+            map(CampaignsFixtures.variables(locale), CampaignsFixtures.Variable::description));
+    zipList(
+        pairs,
+        "CampaignsFixtures.sections.title",
+        locale -> nullSafe(CampaignsFixtures.sections(locale), CampaignsFixtures.Section::title));
+    zipList(
+        pairs,
+        "CampaignsFixtures.sections.kicker",
+        locale -> nullSafe(CampaignsFixtures.sections(locale), CampaignsFixtures.Section::kicker));
+    zipList(
+        pairs,
+        "CampaignsFixtures.sections.body",
+        locale -> nullSafe(CampaignsFixtures.sections(locale), CampaignsFixtures.Section::body));
+    zip(
+        pairs,
+        "CampaignsFixtures.selectedBlock.blockName",
+        locale -> CampaignsFixtures.selectedBlock(locale).blockName());
+    zip(
+        pairs,
+        "CampaignsFixtures.selectedBlock.title",
+        locale -> CampaignsFixtures.selectedBlock(locale).title());
+
+    zipList(
+        pairs,
+        "WidgetFixtures.all.name",
+        locale -> map(WidgetFixtures.all(locale), WidgetFixtures.Widget::name));
+    zipList(
+        pairs,
+        "WidgetFixtures.blocks.label",
+        locale -> map(WidgetFixtures.blocks(locale), WidgetFixtures.Block::label));
+    zipList(
+        pairs,
+        "WidgetFixtures.audience.label",
+        locale -> map(WidgetFixtures.audience(locale), WidgetFixtures.AudienceRule::label));
+    zipList(
+        pairs,
+        "WidgetFixtures.content.title",
+        locale ->
+            WIDGET_CONTENT_TYPES.stream()
+                .map(type -> WidgetFixtures.content(locale, type).title())
+                .toList());
+    zipList(
+        pairs,
+        "WidgetFixtures.content.cta",
+        locale ->
+            WIDGET_CONTENT_TYPES.stream()
+                .map(type -> WidgetFixtures.content(locale, type).cta())
+                .toList());
+
+    zipList(
+        pairs,
         "AutomationsFixtures.simulation.note",
         locale ->
             map(AutomationsFixtures.simulation(locale), AutomationsFixtures.SimulationItem::note));
@@ -233,6 +304,15 @@ class PanelTranslationCoverageTest {
 
   private static <T> List<String> map(List<T> values, Function<T, String> field) {
     return values.stream().map(field).toList();
+  }
+
+  /**
+   * A section carries only the fields its own kind uses, so most of them are null. Comparing a null
+   * against a null proves nothing, and dropping them would silently shrink what is checked — they
+   * become the empty string, which is equal in both languages and so allowed by name.
+   */
+  private static <T> List<String> nullSafe(List<T> values, Function<T, String> field) {
+    return values.stream().map(field).map(value -> value == null ? "" : value).toList();
   }
 
   private static void zip(List<Pair> pairs, String where, Function<SupportedLocale, String> value) {

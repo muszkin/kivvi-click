@@ -94,6 +94,10 @@ async function mountAt(path: string) {
     const router = createRouter({ history: createWebHistory(), routes });
     await router.push(path);
     await router.isReady();
+    // PIO-129: the editor's own labels are translated now, so mounting at /pl has to put the
+    // catalogue in Polish the way main.ts does from the document's lang attribute. Without this
+    // the test would silently compare Polish fixture data against English chrome.
+    i18n.global.locale.value = path.startsWith("/pl") ? "pl" : "en";
     const wrapper = mount(EmailEditorView, {
         global: { plugins: [router, i18n] },
     });
