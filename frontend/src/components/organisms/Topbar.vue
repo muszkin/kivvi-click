@@ -46,7 +46,7 @@ const localeHref = computed(() =>
             <Icon name="sidebar" />
         </button>
 
-        <nav class="crumbs" aria-label="Ścieżka">
+        <nav class="crumbs" :aria-label="t('common.breadcrumb')">
             <span>{{ siteName }}</span>
             <span class="sep">/</span>
             <span class="now">{{ crumb }}</span>
@@ -54,7 +54,11 @@ const localeHref = computed(() =>
 
         <div class="topbar-spacer"></div>
 
-        <button class="kbar" data-action="open-command-bar" aria-label="Szukaj">
+        <button
+            class="kbar"
+            data-action="open-command-bar"
+            :aria-label="t('common.openSearch')"
+        >
             <Icon name="search" />
             <span>{{ t("common.search") }}</span>
             <Kbd keys="⌘K" />

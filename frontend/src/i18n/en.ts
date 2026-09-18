@@ -33,9 +33,15 @@ export default {
         changeLanguage: "Change language",
         theme: "Theme",
         notifications: "Notifications",
-        // Absent from messages.en.yaml in the old stack, so Symfony's translator falls back to
-        // the Polish message id itself — this button's title/aria-label is Polish even on /en/…
-        collapseSidebar: "Zwiń panel boczny",
+        // PIO-129: absent from messages.en.yaml in the old stack, so Symfony's translator fell
+        // back to the Polish message id itself and this button announced itself in Polish on
+        // /en/… too. The old stack's fallback is not a reason to keep its result.
+        collapseSidebar: "Collapse sidebar",
+        // Labels for controls that show only an icon. They are read aloud instead of the icon, so
+        // leaving them in Polish made an English panel unusable with a screen reader.
+        mainNavigation: "Main navigation",
+        breadcrumb: "Breadcrumb",
+        openSearch: "Search",
         search_kbd: "⌘K",
     },
     auth: {
