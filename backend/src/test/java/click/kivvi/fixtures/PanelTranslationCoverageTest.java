@@ -51,12 +51,12 @@ class PanelTranslationCoverageTest {
   private static final String MARKER = "UNTRANSLATED = SupportedLocale.PL";
 
   /**
-   * The pages PIO-129 has not reached yet, in the order its slices take them. Delete a line when
-   * that page's copy exists in both languages — and delete its {@code UNTRANSLATED} constant in the
-   * same change, or this test fails.
+   * Empty, and it has to stay empty: every page of the panel now exists in both languages. The
+   * check below is what stops a new one arriving in Polish only — a page that reaches for an {@code
+   * UNTRANSLATED} constant must declare itself here first, which turns the omission into a decision
+   * someone wrote down rather than something nobody noticed.
    */
-  private static final Set<String> STILL_POLISH_ONLY =
-      new TreeSet<>(Set.of("click/kivvi/fixtures/SettingsFixtures.java"));
+  private static final Set<String> STILL_POLISH_ONLY = new TreeSet<>(Set.of());
 
   /**
    * Strings that read the same in Polish and in English on purpose: the shop's domain and its
@@ -75,6 +75,9 @@ class PanelTranslationCoverageTest {
           "Black weekend — VIP",
           // The customer segment, and the initialism is the same word in both languages.
           "VIP",
+          // A role name and two provider names that are the same word in both.
+          "Administrator",
+          "Marketer",
           // Sections carry only the fields their own kind uses; the rest are absent in both.
           "");
 
@@ -84,7 +87,7 @@ class PanelTranslationCoverageTest {
   private static final String POLISH_DIACRITICS = "ąćęłńóśźżĄĆĘŁŃÓŚŹŻ";
 
   @Test
-  @DisplayName("PIO-129 exactly the pages listed here still carry the untranslated marker")
+  @DisplayName("PIO-129 no page serves Polish only, and none may start to without saying so")
   void theRemainingPagesAreTheOnesDeclared() throws IOException {
     assertThat(filesCarryingTheMarker()).isEqualTo(STILL_POLISH_ONLY);
   }
@@ -331,6 +334,62 @@ class PanelTranslationCoverageTest {
         locale -> map(ImportFixtures.rawPreviewRows(locale), ImportFixtures.RawPreviewRow::name));
     zip(pairs, "ImportFixtures.fileMeta", ImportFixtures::fileMeta);
     zip(pairs, "ImportFixtures.defaultFileName", ImportFixtures::defaultFileName);
+
+    zipList(
+        pairs,
+        "SettingsFixtures.tabs.label",
+        locale -> map(SettingsFixtures.tabs(locale), SettingsFixtures.Tab::label));
+    zipList(
+        pairs,
+        "SettingsFixtures.subtitle",
+        locale ->
+            SettingsFixtures.tabs(locale).stream()
+                .map(tab -> SettingsFixtures.subtitle(locale, tab.id()))
+                .toList());
+    zipList(
+        pairs,
+        "SettingsFixtures.roles.name",
+        locale -> map(SettingsFixtures.roles(locale), SettingsFixtures.Role::name));
+    zipList(
+        pairs,
+        "SettingsFixtures.roles.description",
+        locale -> map(SettingsFixtures.roles(locale), SettingsFixtures.Role::description));
+    zipList(
+        pairs,
+        "SettingsFixtures.team.role",
+        locale -> map(SettingsFixtures.team(locale), SettingsFixtures.TeamMember::role));
+    zipList(
+        pairs,
+        "SettingsFixtures.emailProviders.statusLabel",
+        locale ->
+            map(
+                SettingsFixtures.emailProviders(locale),
+                SettingsFixtures.EmailProvider::statusLabel));
+    zipList(
+        pairs,
+        "SettingsFixtures.apiLimits.label",
+        locale -> map(SettingsFixtures.apiLimits(locale), SettingsFixtures.Bar::label));
+    zipList(
+        pairs,
+        "SettingsFixtures.notificationMatrix.label",
+        locale ->
+            map(
+                SettingsFixtures.notificationMatrix(locale),
+                SettingsFixtures.NotificationRow::label));
+    zipList(
+        pairs,
+        "SettingsFixtures.retentionPolicies.label",
+        locale ->
+            map(
+                SettingsFixtures.retentionPolicies(locale),
+                SettingsFixtures.RetentionPolicy::label));
+    zipList(
+        pairs,
+        "SettingsFixtures.dataSubjectRequests.type",
+        locale ->
+            map(
+                SettingsFixtures.dataSubjectRequests(locale),
+                SettingsFixtures.DataSubjectRequest::type));
 
     zipList(
         pairs,

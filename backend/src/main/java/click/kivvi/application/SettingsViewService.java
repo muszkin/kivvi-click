@@ -30,8 +30,9 @@ public class SettingsViewService {
       throw new NoSuchElementException("Unknown settings tab \"" + tab + "\".");
     }
     List<TabView> tabs =
-        SettingsFixtures.tabs().stream().map(t -> toTabView(t, tab, locale)).toList();
-    return new Payload(tab, tabs, SettingsFixtures.subtitle(tab), SettingsFixtures.TRACKER_SNIPPET);
+        SettingsFixtures.tabs(locale).stream().map(t -> toTabView(t, tab, locale)).toList();
+    return new Payload(
+        tab, tabs, SettingsFixtures.subtitle(locale, tab), SettingsFixtures.TRACKER_SNIPPET);
   }
 
   private static TabView toTabView(

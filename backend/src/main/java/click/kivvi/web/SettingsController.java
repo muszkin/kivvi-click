@@ -57,7 +57,7 @@ public class SettingsController {
     SupportedLocale supported = SupportedLocale.fromCode(locale).orElseThrow();
     try {
       SettingsViewService.Payload payload = settingsViewService.build(tab, supported);
-      return ResponseEntity.ok(toResponse(payload));
+      return ResponseEntity.ok(toResponse(supported, payload));
     } catch (NoSuchElementException unknownTab) {
       return ResponseEntity.notFound().build();
     }
@@ -77,12 +77,13 @@ public class SettingsController {
     return ResponseEntity.ok().contentType(TEXT_HTML_UTF8).body(document);
   }
 
-  private static SettingsResponse toResponse(SettingsViewService.Payload payload) {
+  private static SettingsResponse toResponse(
+      SupportedLocale locale, SettingsViewService.Payload payload) {
     return new SettingsResponse(
         payload.tab(),
         payload.tabs().stream().map(SettingsController::toTab).toList(),
         payload.tabSubtitle(),
-        toSettings(),
+        toSettings(locale),
         payload.trackerSnippet());
   }
 
@@ -90,26 +91,28 @@ public class SettingsController {
     return new SettingsResponse.Tab(tab.id(), tab.icon(), tab.label(), tab.href(), tab.active());
   }
 
-  private static SettingsResponse.Settings toSettings() {
+  private static SettingsResponse.Settings toSettings(SupportedLocale locale) {
     return new SettingsResponse.Settings(
-        SettingsFixtures.trackedSites().stream().map(SettingsController::toTrackedSite).toList(),
+        SettingsFixtures.trackedSites(locale).stream()
+            .map(SettingsController::toTrackedSite)
+            .toList(),
         SettingsFixtures.automaticEvents(),
-        SettingsFixtures.team().stream().map(SettingsController::toTeamMember).toList(),
-        SettingsFixtures.roles().stream().map(SettingsController::toRole).toList(),
-        SettingsFixtures.emailProviders().stream()
+        SettingsFixtures.team(locale).stream().map(SettingsController::toTeamMember).toList(),
+        SettingsFixtures.roles(locale).stream().map(SettingsController::toRole).toList(),
+        SettingsFixtures.emailProviders(locale).stream()
             .map(SettingsController::toEmailProvider)
             .toList(),
-        SettingsFixtures.dnsRecords().stream().map(SettingsController::toDnsRecord).toList(),
-        SettingsFixtures.apiKeys().stream().map(SettingsController::toApiKey).toList(),
-        SettingsFixtures.webhooks().stream().map(SettingsController::toWebhook).toList(),
-        SettingsFixtures.apiLimits().stream().map(SettingsController::toBar).toList(),
-        SettingsFixtures.notificationMatrix().stream()
+        SettingsFixtures.dnsRecords(locale).stream().map(SettingsController::toDnsRecord).toList(),
+        SettingsFixtures.apiKeys(locale).stream().map(SettingsController::toApiKey).toList(),
+        SettingsFixtures.webhooks(locale).stream().map(SettingsController::toWebhook).toList(),
+        SettingsFixtures.apiLimits(locale).stream().map(SettingsController::toBar).toList(),
+        SettingsFixtures.notificationMatrix(locale).stream()
             .map(SettingsController::toNotificationRow)
             .toList(),
-        SettingsFixtures.dataSubjectRequests().stream()
+        SettingsFixtures.dataSubjectRequests(locale).stream()
             .map(SettingsController::toDataSubjectRequest)
             .toList(),
-        SettingsFixtures.retentionPolicies().stream()
+        SettingsFixtures.retentionPolicies(locale).stream()
             .map(SettingsController::toRetentionPolicy)
             .toList());
   }

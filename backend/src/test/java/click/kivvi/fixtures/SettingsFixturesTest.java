@@ -3,6 +3,7 @@ package click.kivvi.fixtures;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
+import click.kivvi.domain.SupportedLocale;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,7 @@ class SettingsFixturesTest {
   @Test
   @DisplayName("B32 seven settings tabs, in the oracle's order minus the retired billing tab")
   void sevenTabsInOracleOrder() {
-    assertThat(SettingsFixtures.tabs())
+    assertThat(SettingsFixtures.tabs(SupportedLocale.PL))
         .extracting(SettingsFixtures.Tab::id, SettingsFixtures.Tab::label)
         .containsExactly(
             tuple("account", "Konto"),
@@ -37,7 +38,7 @@ class SettingsFixturesTest {
           + "so the id joins every other unknown tab in failing isKnownTab")
   void billingIsNoLongerAKnownTab() {
     assertThat(SettingsFixtures.isKnownTab("billing")).isFalse();
-    assertThat(SettingsFixtures.tabs())
+    assertThat(SettingsFixtures.tabs(SupportedLocale.PL))
         .extracting(SettingsFixtures.Tab::id)
         .doesNotContain("billing");
   }
@@ -51,7 +52,7 @@ class SettingsFixturesTest {
   @Test
   @DisplayName("B32 three tracked sites, event counts narrow-space-grouped")
   void trackedSitesMatchTheOracle() {
-    assertThat(SettingsFixtures.trackedSites())
+    assertThat(SettingsFixtures.trackedSites(SupportedLocale.PL))
         .extracting(SettingsFixtures.TrackedSite::name, SettingsFixtures.TrackedSite::events)
         .containsExactly(
             tuple("aureashop.pl", "28 410"),
@@ -62,7 +63,7 @@ class SettingsFixturesTest {
   @Test
   @DisplayName("B32 four DNS records, three verified and one warning (BIMI)")
   void dnsRecordsMatchTheOracle() {
-    assertThat(SettingsFixtures.dnsRecords())
+    assertThat(SettingsFixtures.dnsRecords(SupportedLocale.PL))
         .extracting(SettingsFixtures.DnsRecord::record, SettingsFixtures.DnsRecord::ok)
         .containsExactly(
             tuple("SPF", true), tuple("DKIM", true), tuple("DMARC", true), tuple("BIMI", false));
@@ -71,7 +72,7 @@ class SettingsFixturesTest {
   @Test
   @DisplayName("B32 three webhooks, the Slack one failing with HTTP 410")
   void webhooksMatchTheOracle() {
-    assertThat(SettingsFixtures.webhooks())
+    assertThat(SettingsFixtures.webhooks(SupportedLocale.PL))
         .extracting(SettingsFixtures.Webhook::code)
         .containsExactly(200, 200, 410);
   }
@@ -80,9 +81,9 @@ class SettingsFixturesTest {
   @DisplayName(
       "B32 the notification matrix has 8 rows and exactly 15 of its 24 checkboxes are checked")
   void notificationMatrixMatchesTheOracle() {
-    assertThat(SettingsFixtures.notificationMatrix()).hasSize(8);
+    assertThat(SettingsFixtures.notificationMatrix(SupportedLocale.PL)).hasSize(8);
     long checked =
-        SettingsFixtures.notificationMatrix().stream()
+        SettingsFixtures.notificationMatrix(SupportedLocale.PL).stream()
             .flatMap(row -> java.util.stream.Stream.of(row.email(), row.slack(), row.sms()))
             .filter(Boolean::booleanValue)
             .count();

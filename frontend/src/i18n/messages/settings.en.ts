@@ -14,143 +14,147 @@ export default {
             cardTitle: "Account data", // en.yaml: 'Dane konta'
             cancel: "Cancel", // en.yaml: 'Anuluj' (common.cancel key; not reused here — see packet note)
             save: "Save changes", // en.yaml: 'Zapisz zmiany'
-            companyName: "Nazwa firmy", // no en.yaml entry
-            vatId: "NIP", // no en.yaml entry
-            street: "Adres", // no en.yaml entry
-            cityAndPostcode: "Miasto i kod", // no en.yaml entry
-            country: "Kraj", // no en.yaml entry
-            countryPoland: "Polska", // no en.yaml entry
-            countryGermany: "Niemcy", // no en.yaml entry
-            countryCzechia: "Czechy", // no en.yaml entry
-            currency: "Waluta raportowania", // no en.yaml entry
+            sampleCompanyName: "Aurea Shop Ltd",
+            sampleVatId: "GB 527 2891 04",
+            sampleStreet: "18 Lever Street",
+            sampleCityAndPostcode: "M1 1BY Manchester",
+            companyName: "Company name", // no en.yaml entry
+            vatId: "VAT id", // no en.yaml entry
+            street: "Address", // no en.yaml entry
+            cityAndPostcode: "Town and postcode", // no en.yaml entry
+            country: "Country", // no en.yaml entry
+            countryPoland: "Poland", // no en.yaml entry
+            countryGermany: "Germany", // no en.yaml entry
+            countryCzechia: "Czechia", // no en.yaml entry
+            currency: "Reporting currency", // no en.yaml entry
             ownerCardTitle: "Account owner", // en.yaml: 'Właściciel konta'
-            transferOwnership: "Przenieś własność", // no en.yaml entry
-            require2fa: "Wymagaj 2FA dla wszystkich członków zespołu", // no en.yaml entry
-            sessionExpiry: "Wyloguj sesje po 14 dniach nieaktywności", // no en.yaml entry
+            transferOwnership: "Transfer ownership", // no en.yaml entry
+            require2fa: "Require 2FA from everyone on the team", // no en.yaml entry
+            sessionExpiry: "Sign sessions out after 14 days of inactivity", // no en.yaml entry
             dangerZoneTitle: "Irreversible zone", // en.yaml: 'Strefa nieodwracalna'
-            deleteAccountTitle: "Usuń konto i wszystkie dane", // no en.yaml entry
+            deleteAccountTitle: "Delete the account and all its data", // no en.yaml entry
             deleteAccountBody:
-                "Zdarzenia, klienci, automatyzacje i szablony zostaną usunięte po 30 dniach.", // no en.yaml entry
+                "Events, customers, automations and templates are removed after 30 days.", // no en.yaml entry
             deleteAccount: "Delete account", // en.yaml: 'Usuń konto'
         },
         sites: {
-            columnDomain: "Domena", // no en.yaml entry
-            columnTrackingStatus: "Status śledzenia", // no en.yaml entry
-            columnEvents24h: "Zdarzeń (24h)", // no en.yaml entry
-            columnScript: "Skrypt", // no en.yaml entry
-            active: "Aktywne", // no en.yaml entry
+            columnDomain: "Domain", // no en.yaml entry
+            columnTrackingStatus: "Tracking status", // no en.yaml entry
+            columnEvents24h: "Events (24h)", // no en.yaml entry
+            columnScript: "Script", // no en.yaml entry
+            active: "Active", // no en.yaml entry
             cardTitle: "Tracked sites", // en.yaml: 'Śledzone strony'
-            cardSub: "3 z 5 wykorzystane w planie Pro", // no en.yaml entry
+            cardSub: "3 sites tracked", // no en.yaml entry
             addSite: "Add a site", // en.yaml: 'Dodaj stronę'
             scriptCardTitle: "Script installation", // en.yaml: 'Instalacja skryptu'
             copySnippet: "Copy snippet", // en.yaml: 'Kopiuj snippet'
-            snippetHelpBefore: "Wklej ten kod tuż przed", // no en.yaml entry
+            snippetHelpBefore: "Paste this code just before", // no en.yaml entry
             snippetHelpAfter:
-                "na wszystkich stronach. Skrypt waży ~2KB, ładuje się asynchronicznie, nie blokuje renderu.", // no en.yaml entry
-            scriptDetected: "Skrypt wykryty na 14 z 14 stron", // no en.yaml entry
-            firstEvent: "Pierwsze zdarzenie: 14 stycznia 2024", // no en.yaml entry
+                "on every page. The script weighs about 2KB, loads asynchronously and never blocks rendering.", // no en.yaml entry
+            scriptDetected: "Script found on 14 of 14 pages", // no en.yaml entry
+            firstEvent: "First event: 14 January 2024", // no en.yaml entry
             automaticEventsTitle: "Automatic events", // en.yaml: 'Zdarzenia automatyczne'
             automaticEventsSub: "detected without configuration", // en.yaml: 'wykrywane bez konfiguracji'
         },
         team: {
-            columnPerson: "Osoba", // no en.yaml entry
-            columnRole: "Rola", // no en.yaml entry
+            columnPerson: "Person", // no en.yaml entry
+            columnRole: "Role", // no en.yaml entry
             columnLastActivity: "Last activity", // en.yaml: 'Ostatnia aktywność'
             columnActions: "Actions", // en.yaml: 'Akcje'
-            invited: "zaproszony", // no en.yaml entry
-            mfaOn: "włączone", // no en.yaml entry
-            mfaOff: "brak", // no en.yaml entry
+            invited: "invited", // no en.yaml entry
+            mfaOn: "on", // no en.yaml entry
+            mfaOff: "none", // no en.yaml entry
             cardTitle: "Team members", // en.yaml: 'Członkowie zespołu'
-            cardSub:
-                "4 aktywnych · 1 zaproszenie oczekuje · limit planu Pro: 10", // no en.yaml entry
+            cardSub: "4 active · 1 invitation pending", // no en.yaml entry
             invite: "Invite someone", // en.yaml: 'Zaproś osobę'
             rolesCardTitle: "Roles and permissions", // en.yaml: 'Role i uprawnienia'
-            createRole: "Rola własna", // no en.yaml entry
-            personSingular: "osoba", // no en.yaml entry
-            personPlural: "osoby", // no en.yaml entry
+            createRole: "Custom role", // no en.yaml entry
+            personSingular: "person", // no en.yaml entry
+            personPlural: "people", // no en.yaml entry
         },
         providers: {
             cardTitle: "Sending providers", // en.yaml: 'Dostawcy wysyłki'
-            cardSub: "failover przy błędzie głównego dostawcy jest włączony", // no en.yaml entry
-            addProvider: "Dodaj dostawcę", // no en.yaml entry
-            verified: "zweryfikowany", // no en.yaml entry
-            unverified: "niezweryfikowany", // no en.yaml entry
-            sent30d: "Wysłane 30d", // no en.yaml entry
-            complaints: "Skargi", // no en.yaml entry
+            cardSub: "failover to the backup provider is switched on", // no en.yaml entry
+            addProvider: "Add a provider", // no en.yaml entry
+            verified: "verified", // no en.yaml entry
+            unverified: "unverified", // no en.yaml entry
+            sent30d: "Sent 30d", // no en.yaml entry
+            complaints: "Complaints", // no en.yaml entry
             test: "Test", // no en.yaml entry
             dnsCardTitle: "Domain authentication", // en.yaml: 'Uwierzytelnianie domeny'
             limitsCardTitle: "Sender addresses and limits", // en.yaml: 'Adresy nadawcy i limity'
-            defaultSender: "Domyślny nadawca", // no en.yaml entry
-            senderName: "Nazwa nadawcy", // no en.yaml entry
-            dailyLimit: "Limit dzienny", // no en.yaml entry
+            defaultSender: "Default sender", // no en.yaml entry
+            senderName: "Sender name", // no en.yaml entry
+            dailyLimit: "Daily limit", // no en.yaml entry
             unsubscribeOnHardBounce:
-                "Automatycznie wypisuj adresy po hard bounce", // no en.yaml entry
+                "Unsubscribe an address automatically after a hard bounce", // no en.yaml entry
             pauseOnBounceRate:
-                "Wstrzymaj kampanię, gdy bounce rate przekroczy 2%", // no en.yaml entry
+                "Pause the campaign when the bounce rate goes over 2%", // no en.yaml entry
         },
         api: {
-            columnName: "Nazwa", // no en.yaml entry
-            columnKey: "Klucz", // no en.yaml entry
-            columnScopes: "Zakresy", // no en.yaml entry
-            columnCreated: "Utworzony", // no en.yaml entry
-            columnLastUsed: "Ostatnie użycie", // no en.yaml entry
+            columnName: "Name", // no en.yaml entry
+            columnKey: "Key", // no en.yaml entry
+            columnScopes: "Scopes", // no en.yaml entry
+            columnCreated: "Created", // no en.yaml entry
+            columnLastUsed: "Last used", // no en.yaml entry
             keysCardTitle: "API keys", // en.yaml: 'Klucze API'
             newKey: "New key", // en.yaml: 'Nowy klucz'
             webhooksCardTitle: "Webhooks",
-            webhooksCardSub: "retry z backoffem: 5 prób w ciągu 6 godzin", // no en.yaml entry
+            webhooksCardSub: "retried with backoff: 5 attempts over 6 hours", // no en.yaml entry
             addWebhook: "Add a webhook", // en.yaml: 'Dodaj webhook'
             webhookWarning:
-                "Webhook Slacka zwraca 410 od 3 godzin. Po 5 nieudanych próbach zostanie automatycznie wstrzymany.", // no en.yaml entry
-            showLogs: "Pokaż logi", // no en.yaml entry
+                "The Slack webhook has been returning 410 for 3 hours. After 5 failed attempts it is paused automatically.", // no en.yaml entry
+            showLogs: "Show the logs", // no en.yaml entry
             limitsCardTitle: "API limits", // en.yaml: 'Limity API'
         },
         notifications: {
-            columnEvent: "Zdarzenie", // no en.yaml entry
+            columnEvent: "Event", // no en.yaml entry
             cardTitle: "Notification channels", // en.yaml: 'Kanały powiadomień'
-            cardSub: "ustawienia dotyczą Twojego konta, nie całego zespołu", // no en.yaml entry
+            cardSub: "these settings are yours, not the whole team's", // no en.yaml entry
             channelsCardTitle: "Channel integrations", // en.yaml: 'Integracje kanałów'
-            active: "aktywny", // no en.yaml entry
-            disconnect: "Rozłącz", // no en.yaml entry
-            smsOnly: "Tylko krytyczne alerty · dodatkowo płatne", // no en.yaml entry
-            connect: "Podłącz", // no en.yaml entry
+            active: "active", // no en.yaml entry
+            disconnect: "Disconnect", // no en.yaml entry
+            smsOnly: "Critical alerts only · charged separately", // no en.yaml entry
+            connect: "Connect", // no en.yaml entry
             quietHoursCardTitle: "Quiet hours", // en.yaml: 'Cisza nocna'
-            quietFrom: "Nie powiadamiaj od", // no en.yaml entry
-            quietTo: "do", // no en.yaml entry
-            criticalBypass: "Alerty krytyczne omijają ciszę nocną", // no en.yaml entry
+            quietFrom: "Do not notify from", // no en.yaml entry
+            quietTo: "until", // no en.yaml entry
+            criticalBypass: "Critical alerts ignore the quiet hours", // no en.yaml entry
         },
         gdpr: {
             dpaCardTitle: "Data processing agreement (DPA)", // en.yaml: 'Umowa powierzenia (DPA)'
-            dpaSigned: "Podpisana 14 stycznia 2024", // no en.yaml entry
-            dpaVersion: "wersja 3.1", // no en.yaml entry
-            dpaProcessor: "podmiot przetwarzający: Kivvi sp. z o.o.", // no en.yaml entry
-            downloadPdf: "Pobierz PDF", // no en.yaml entry
-            signNewVersion: "Podpisz nową wersję", // no en.yaml entry
-            dpaRegionBefore: "Dane przechowywane są w regionie", // no en.yaml entry
+            dpaSigned: "Signed 14 January 2024", // no en.yaml entry
+            dpaVersion: "version 3.1", // no en.yaml entry
+            dpaProcessor: "processor: Kivvi sp. z o.o.", // no en.yaml entry
+            downloadPdf: "Download the PDF", // no en.yaml entry
+            signNewVersion: "Sign the new version", // no en.yaml entry
+            dpaRegionBefore: "The data is stored in the region", // no en.yaml entry
             dpaRegionAfter:
-                "Podprzetwarzający: Amazon Web Services, SendGrid (EU). Lista podprzetwarzających jest częścią DPA.", // no en.yaml entry
+                "Sub-processors: Amazon Web Services, SendGrid (EU). The list of sub-processors is part of the DPA.", // no en.yaml entry
             retentionCardTitle: "Data retention", // en.yaml: 'Retencja danych'
             retentionCardSub:
-                "po upływie okresu dane są nieodwracalnie usuwane", // no en.yaml entry
-            anonymizeIp: "Anonimizuj adresy IP w zdarzeniach (ostatni oktet)", // no en.yaml entry
+                "once the period is over, the data is deleted irreversibly", // no en.yaml entry
+            anonymizeIp:
+                "Anonymise IP addresses in events (drop the last octet)", // no en.yaml entry
             consentGate:
-                "Nie zapisuj zdarzeń, dopóki nie ma zgody na cookies analityczne", // no en.yaml entry
+                "Record no events until there is consent for analytics cookies", // no en.yaml entry
             mlConsent:
-                "Wyłącz profilowanie ML dla klientów z UE bez wyraźnej zgody", // no en.yaml entry
-            columnPerson: "Osoba", // no en.yaml entry
-            columnType: "Typ", // no en.yaml entry
+                "Switch off ML profiling for EU customers without explicit consent", // no en.yaml entry
+            columnPerson: "Person", // no en.yaml entry
+            columnType: "Type", // no en.yaml entry
             columnStatus: "Status", // no en.yaml entry
-            columnDue: "Termin", // no en.yaml entry
+            columnDue: "Due", // no en.yaml entry
             dsrCardTitle: "Data subject requests", // en.yaml: 'Żądania podmiotów danych'
-            dsrCardSub: "termin ustawowy: 30 dni", // no en.yaml entry
-            newRequest: "Nowe żądanie", // no en.yaml entry
+            dsrCardSub: "the statutory deadline: 30 days", // no en.yaml entry
+            newRequest: "New request", // no en.yaml entry
             exportCardTitle: "Export and erasure", // en.yaml: 'Eksport i usuwanie'
-            exportAllTitle: "Eksport wszystkich danych konta", // no en.yaml entry
-            exportAllSub: "JSON + CSV, przygotowanie do 24 godzin", // no en.yaml entry
-            orderExport: "Zamów eksport", // no en.yaml entry
-            eraseCustomerTitle: "Usuń dane pojedynczego klienta", // no en.yaml entry
+            exportAllTitle: "Export every piece of account data", // no en.yaml entry
+            exportAllSub: "JSON + CSV, ready within 24 hours", // no en.yaml entry
+            orderExport: "Order the export", // no en.yaml entry
+            eraseCustomerTitle: "Erase a single customer's data", // no en.yaml entry
             eraseCustomerSub:
-                "Po e-mailu lub customer_id — natychmiastowe i nieodwracalne", // no en.yaml entry
-            eraseCustomer: "Usuń klienta", // no en.yaml entry
+                "By e-mail address or customer_id — immediate and irreversible", // no en.yaml entry
+            eraseCustomer: "Erase the customer", // no en.yaml entry
         },
     },
 };

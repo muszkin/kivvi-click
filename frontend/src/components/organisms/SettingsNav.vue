@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
 // ORGANISM · SettingsNav — 220px settings sidebar, ported from
 // components/organisms/settings-nav.html.twig. Every link is a real navigation (never
 // router.push): the oracle records a full GET document request for each tab switch.
@@ -13,10 +14,12 @@ export interface SettingsNavTab {
 }
 
 defineProps<{ tabs: SettingsNavTab[] }>();
+
+const { t } = useI18n();
 </script>
 
 <template>
-    <nav class="settings-nav" aria-label="Sekcje ustawień">
+    <nav class="settings-nav" :aria-label="t('common.settingsSections')">
         <a
             v-for="tab in tabs"
             :key="tab.id"

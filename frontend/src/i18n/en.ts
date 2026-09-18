@@ -42,6 +42,7 @@ export default {
         mainNavigation: "Main navigation",
         breadcrumb: "Breadcrumb",
         openSearch: "Search",
+        settingsSections: "Settings sections",
         blocks: "Blocks",
         properties: "Properties",
         previousPage: "← Previous",

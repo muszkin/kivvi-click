@@ -39,6 +39,7 @@ export default {
         mainNavigation: "Nawigacja główna",
         breadcrumb: "Ścieżka",
         openSearch: "Szukaj",
+        settingsSections: "Sekcje ustawień",
         blocks: "Bloki",
         properties: "Właściwości",
         previousPage: "← Poprzednia",
