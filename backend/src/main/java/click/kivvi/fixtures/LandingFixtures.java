@@ -200,9 +200,13 @@ public final class LandingFixtures {
   public static List<PreviewTile> previewTiles(SupportedLocale locale) {
     return switch (locale) {
       case PL ->
-          previewTiles("Zdarzeń / min", "Aktywne sesje", "Maile (24h)", "Przychód (24h)", "zł");
+          previewTiles(
+              locale, "Zdarzeń / min", "Aktywne sesje", "Maile (24h)", "Przychód (24h)", "zł");
+      // PIO-129: the English tile used to say "PLN" while the panel it previews now trades in
+      // euro for English readers. One preview, one currency.
       case EN ->
-          previewTiles("Events / min", "Active sessions", "Emails (24h)", "Revenue (24h)", "PLN");
+          previewTiles(
+              locale, "Events / min", "Active sessions", "Emails (24h)", "Revenue (24h)", "EUR");
     };
   }
 
@@ -223,16 +227,17 @@ public final class LandingFixtures {
   }
 
   private static List<PreviewTile> previewTiles(
+      SupportedLocale locale,
       String eventsLabel,
       String sessionsLabel,
       String emailsLabel,
       String revenueLabel,
       String currency) {
     return List.of(
-        new PreviewTile(eventsLabel, Format.number(PREVIEW_EVENTS_PER_MINUTE), null),
-        new PreviewTile(sessionsLabel, Format.number(PREVIEW_ACTIVE_SESSIONS), null),
-        new PreviewTile(emailsLabel, Format.number(PREVIEW_EMAILS_PER_DAY), null),
-        new PreviewTile(revenueLabel, Format.number(PREVIEW_REVENUE_PER_DAY), currency));
+        new PreviewTile(eventsLabel, Format.number(PREVIEW_EVENTS_PER_MINUTE, locale), null),
+        new PreviewTile(sessionsLabel, Format.number(PREVIEW_ACTIVE_SESSIONS, locale), null),
+        new PreviewTile(emailsLabel, Format.number(PREVIEW_EMAILS_PER_DAY, locale), null),
+        new PreviewTile(revenueLabel, Format.number(PREVIEW_REVENUE_PER_DAY, locale), currency));
   }
 
   /** Half-away-from-zero rounding to 2 decimals — every value here is positive. */

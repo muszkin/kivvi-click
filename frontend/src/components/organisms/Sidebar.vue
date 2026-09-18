@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
 import Avatar from "@/components/atoms/Avatar.vue";
 import Wordmark from "@/components/atoms/Wordmark.vue";
 import NavItem from "@/components/molecules/NavItem.vue";
@@ -11,6 +12,8 @@ defineProps<{
     workspace: { name: string; meta: string; mark: string };
     user: { name: string; email: string };
 }>();
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -23,7 +26,7 @@ defineProps<{
             :mark="workspace.mark"
         />
 
-        <nav class="nav scrollable" aria-label="Nawigacja główna">
+        <nav class="nav scrollable" :aria-label="t('common.mainNavigation')">
             <div v-for="group in groups" :key="group.label" class="nav-group">
                 <div class="nav-section-label">{{ group.label }}</div>
                 <NavItem

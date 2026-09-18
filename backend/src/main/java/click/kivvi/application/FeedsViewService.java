@@ -1,6 +1,7 @@
 package click.kivvi.application;
 
 import click.kivvi.domain.Format;
+import click.kivvi.domain.SupportedLocale;
 import click.kivvi.fixtures.FeedsFixtures;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FeedsViewService {
+
+  /**
+   * PIO-129 translates the panel one page at a time. This page's copy is still Polish only, so its
+   * figures stay Polish too — a Polish label above a euro amount would be worse than either
+   * language on its own. The slice that translates this page replaces the marker with the real
+   * locale; {@code PanelTranslationCoverageTest} holds the remaining markers to a declared list, so
+   * the last page cannot be forgotten silently.
+   */
+  private static final SupportedLocale UNTRANSLATED = SupportedLocale.PL;
 
   /** One connected feed with every number already formatted for display. */
   public record Feed(
@@ -104,6 +114,6 @@ public class FeedsViewService {
     if (products == 0) {
       return null;
     }
-    return Format.percent(mapped * 100.0 / products, 1);
+    return Format.percent(mapped * 100.0 / products, 1, UNTRANSLATED);
   }
 }

@@ -59,6 +59,15 @@ const IDENTICAL_BY_DESIGN = new Set([
     "common.status",
     "common.email",
     "common.marketingAutomation",
+    // PIO-129: a product name, a keyboard shortcut, and loanwords that are the same word in both
+    // languages. Listed one by one rather than matched by a rule — the whole point of the check is
+    // that "the English is identical to the Polish" needs a reason every time.
+    "brand.name",
+    "common.search_kbd",
+    "automations.diagram",
+    "customers.columns.email",
+    "customers.columns.segment",
+    "events.webhook",
 ]);
 
 /** Letters only Polish uses. */
@@ -147,6 +156,56 @@ describe("PIO-117 every string on an English public page is English", () => {
         });
 
         expect(withPolishLetters).toEqual([]);
+    });
+});
+
+/**
+ * PIO-129 is translating the panel one page at a time. These are the areas it has not reached yet;
+ * their English catalogues still hold the Polish original, a deliberate migration-parity artefact
+ * from a time when the old stack's translator fell back to the Polish message id. Delete a prefix
+ * when its slice lands — the checks below then start guarding it, and the panel is finished when
+ * the list is empty.
+ */
+const PANEL_AREAS_STILL_POLISH = [
+    "campaigns.", // slice 3
+    "popups.", // slice 3
+    "import.", // slice 4
+    "settings.", // slice 5
+];
+
+describe("PIO-129 every string in a translated part of the panel is English", () => {
+    const polish = leaves(merged("pl"));
+    const english = leaves(merged("en"));
+    const guarded = [...english.keys()].filter(
+        (key) =>
+            !isPublicKey(key) &&
+            !PANEL_AREAS_STILL_POLISH.some((area) => key.startsWith(area)),
+    );
+
+    it("guards the areas already translated, and only those", () => {
+        expect(guarded).toContain("dashboard.title");
+        expect(guarded).toContain("events.webhook");
+        expect(guarded).toContain("common.collapseSidebar");
+        expect(guarded).not.toContain("settings.team.columnPerson");
+        expect(guarded.length).toBeGreaterThan(80);
+    });
+
+    it("no English panel string is a copy of its Polish original", () => {
+        expect(
+            guarded.filter(
+                (key) =>
+                    !IDENTICAL_BY_DESIGN.has(key) &&
+                    english.get(key) === polish.get(key),
+            ),
+        ).toEqual([]);
+    });
+
+    it("no English panel string carries a Polish letter", () => {
+        expect(
+            guarded.filter((key) =>
+                POLISH_LETTERS.test(english.get(key) ?? ""),
+            ),
+        ).toEqual([]);
     });
 });
 

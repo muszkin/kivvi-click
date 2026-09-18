@@ -1,6 +1,7 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, it } from "vitest";
 import Sidebar from "@/components/organisms/Sidebar.vue";
+import { i18n } from "@/i18n";
 
 const groups = [
     {
@@ -32,6 +33,7 @@ const groups = [
 describe("Sidebar navigation", () => {
     it("marks the current section's nav item aria-current=page and data-active=true", () => {
         const wrapper = mount(Sidebar, {
+            global: { plugins: [i18n] },
             props: {
                 groups,
                 current: "events",
@@ -58,6 +60,7 @@ describe("Sidebar navigation", () => {
 
     it("keeps a detail route's index section highlighted (customer_show -> customers)", () => {
         const wrapper = mount(Sidebar, {
+            global: { plugins: [i18n] },
             props: {
                 groups,
                 current: "customers",
@@ -82,6 +85,7 @@ describe("Sidebar navigation", () => {
 
     it("renders the user's identity in the sidebar footer", () => {
         const wrapper = mount(Sidebar, {
+            global: { plugins: [i18n] },
             props: {
                 groups,
                 current: "dashboard",

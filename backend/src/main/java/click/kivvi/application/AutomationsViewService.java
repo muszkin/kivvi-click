@@ -1,6 +1,7 @@
 package click.kivvi.application;
 
 import click.kivvi.domain.Format;
+import click.kivvi.domain.SupportedLocale;
 import click.kivvi.fixtures.AutomationsFixtures;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AutomationsViewService {
+
+  /**
+   * PIO-129 translates the panel one page at a time. This page's copy is still Polish only, so its
+   * figures stay Polish too — a Polish label above a euro amount would be worse than either
+   * language on its own. The slice that translates this page replaces the marker with the real
+   * locale; {@code PanelTranslationCoverageTest} holds the remaining markers to a declared list, so
+   * the last page cannot be forgotten silently.
+   */
+  private static final SupportedLocale UNTRANSLATED = SupportedLocale.PL;
 
   private static final String VIEW_FLOW = "flow";
   private static final String VIEW_LIST = "list";
@@ -79,28 +89,28 @@ public class AutomationsViewService {
         new Filter(
             "Wszystkie",
             "grid",
-            Format.number(AutomationsFixtures.all().size()),
+            Format.number(AutomationsFixtures.all().size(), UNTRANSLATED),
             STATUS_ALL.equals(active),
             "set-automation-status",
             STATUS_ALL),
         new Filter(
             "Aktywne",
             null,
-            Format.number(counts.getOrDefault("active", 0L)),
+            Format.number(counts.getOrDefault("active", 0L), UNTRANSLATED),
             "active".equals(active),
             "set-automation-status",
             "active"),
         new Filter(
             "Wstrzymane",
             null,
-            Format.number(counts.getOrDefault("paused", 0L)),
+            Format.number(counts.getOrDefault("paused", 0L), UNTRANSLATED),
             "paused".equals(active),
             "set-automation-status",
             "paused"),
         new Filter(
             "Szkice",
             null,
-            Format.number(counts.getOrDefault("draft", 0L)),
+            Format.number(counts.getOrDefault("draft", 0L), UNTRANSLATED),
             "draft".equals(active),
             "set-automation-status",
             "draft"));
@@ -124,14 +134,17 @@ public class AutomationsViewService {
     boolean hasRevenue = automation.revenue() > 0;
     List<Metric> metrics =
         List.of(
-            new Metric(Format.number(automation.runs()), "uruchomień (7d)", 90, null),
+            new Metric(Format.number(automation.runs(), UNTRANSLATED), "uruchomień (7d)", 90, null),
             new Metric(
-                hasConversion ? Format.percent(automation.conversion()) : "—",
+                hasConversion ? Format.percent(automation.conversion(), UNTRANSLATED) : "—",
                 "konwersja",
                 80,
                 hasConversion ? "var(--good)" : "var(--fg-muted)"),
             new Metric(
-                hasRevenue ? Format.money(automation.revenue()) : "—", "przychód (7d)", 110, null));
+                hasRevenue ? Format.money(automation.revenue(), UNTRANSLATED) : "—",
+                "przychód (7d)",
+                110,
+                null));
 
     return new AutomationCard(automation.name(), chips, metrics, "go-automation", automation.id());
   }

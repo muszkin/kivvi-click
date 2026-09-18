@@ -36,6 +36,9 @@ export default {
         theme: "Motyw",
         notifications: "Powiadomienia",
         collapseSidebar: "Zwiń panel boczny",
+        mainNavigation: "Nawigacja główna",
+        breadcrumb: "Ścieżka",
+        openSearch: "Szukaj",
         search_kbd: "⌘K",
     },
     auth: {

@@ -1,6 +1,7 @@
 package click.kivvi.application;
 
 import click.kivvi.domain.Format;
+import click.kivvi.domain.SupportedLocale;
 import click.kivvi.fixtures.AutomationsFixtures;
 import click.kivvi.fixtures.CustomersFixtures;
 import java.time.Instant;
@@ -16,6 +17,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CustomersViewService {
+
+  /**
+   * PIO-129 translates the panel one page at a time. This page's copy is still Polish only, so its
+   * figures stay Polish too — a Polish label above a euro amount would be worse than either
+   * language on its own. The slice that translates this page replaces the marker with the real
+   * locale; {@code PanelTranslationCoverageTest} holds the remaining markers to a declared list, so
+   * the last page cannot be forgotten silently.
+   */
+  private static final SupportedLocale UNTRANSLATED = SupportedLocale.PL;
 
   private static final int PAGES = 192;
   private static final int ANONYMOUS_SESSIONS = 7_632;
@@ -96,19 +106,19 @@ public class CustomersViewService {
         customer.email(),
         customer.segment(),
         String.valueOf(customer.orders()),
-        Format.money(customer.revenue()),
+        Format.money(customer.revenue(), UNTRANSLATED),
         lastSeen(customer, now));
   }
 
   private static String lastSeen(CustomersFixtures.Customer customer, Instant now) {
     Instant moment = now.minusSeconds(customer.lastSeenMinutes() * 60L);
-    return Format.timeAgo(moment, now);
+    return Format.timeAgo(moment, now, UNTRANSLATED);
   }
 
   private static String subtitle() {
-    return Format.number(CustomersFixtures.total())
+    return Format.number(CustomersFixtures.total(), UNTRANSLATED)
         + " zidentyfikowanych klientów · "
-        + Format.number(ANONYMOUS_SESSIONS)
+        + Format.number(ANONYMOUS_SESSIONS, UNTRANSLATED)
         + " anonimowych sesji";
   }
 
@@ -142,8 +152,8 @@ public class CustomersViewService {
   private static List<Fact> facts(CustomersFixtures.Customer customer) {
     return List.of(
         new Fact("Zamówienia", String.valueOf(customer.orders()), false),
-        new Fact("Wartość życiowa", Format.money(customer.revenue() * 4.0), false),
-        new Fact("Średnia wartość koszyka", Format.money(customer.revenue()), false),
+        new Fact("Wartość życiowa", Format.money(customer.revenue() * 4.0, UNTRANSLATED), false),
+        new Fact("Średnia wartość koszyka", Format.money(customer.revenue(), UNTRANSLATED), false),
         new Fact("Pierwsze zdarzenie", "14 sty 2024", false),
         new Fact("Liczba sesji", "28", false),
         new Fact("Liczba zdarzeń", "412", false),

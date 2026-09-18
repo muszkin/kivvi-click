@@ -1,6 +1,7 @@
 package click.kivvi.fixtures;
 
 import click.kivvi.domain.Format;
+import click.kivvi.domain.SupportedLocale;
 import java.util.List;
 
 /**
@@ -14,6 +15,15 @@ import java.util.List;
  * number.
  */
 public final class FeedsFixtures {
+
+  /**
+   * PIO-129 translates the panel one page at a time. This page's copy is still Polish only, so its
+   * figures stay Polish too — a Polish label above a euro amount would be worse than either
+   * language on its own. The slice that translates this page replaces the marker with the real
+   * locale; {@code PanelTranslationCoverageTest} holds the remaining markers to a declared list, so
+   * the last page cannot be forgotten silently.
+   */
+  private static final SupportedLocale UNTRANSLATED = SupportedLocale.PL;
 
   public record Kpi(
       String label, String value, String unit, String delta, String dir, String deltaIcon) {}
@@ -50,11 +60,17 @@ public final class FeedsFixtures {
   private static final List<Kpi> KPIS =
       List.of(
           new Kpi("Aktywne feedy", "3", "/4", "1 z błędem", "down", null),
-          new Kpi("Produktów w katalogu", Format.number(2648), null, "+42 w tym tyg.", "up", null),
+          new Kpi(
+              "Produktów w katalogu",
+              Format.number(2648, UNTRANSLATED),
+              null,
+              "+42 w tym tyg.",
+              "up",
+              null),
           new Kpi("Dopasowanie zdarzeń → produkty", "94,8", "%", "ostatnia doba", "up", "spark"),
           new Kpi(
               "Wartość koszyków (24h)",
-              Format.money(382140),
+              Format.money(382140, UNTRANSLATED),
               null,
               "z dopasowanymi cenami",
               "up",

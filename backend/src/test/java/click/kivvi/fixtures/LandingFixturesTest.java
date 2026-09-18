@@ -95,12 +95,14 @@ class LandingFixturesTest {
   }
 
   @Test
-  @DisplayName("PIO-117 the English preview tiles are labelled in English and priced in PLN")
+  @DisplayName("PIO-129 the English preview tiles are labelled in English and priced in euro")
   void theEnglishPreviewTilesAreInEnglish() {
     assertThat(LandingFixtures.previewTiles(SupportedLocale.EN))
         .extracting(LandingFixtures.PreviewTile::label)
         .containsExactly("Events / min", "Active sessions", "Emails (24h)", "Revenue (24h)");
-    assertThat(LandingFixtures.previewTiles(SupportedLocale.EN).get(3).unit()).isEqualTo("PLN");
+    // PIO-129: the panel this tile previews now trades in euro for English readers, so the tile
+    // that used to say PLN under an English label says EUR.
+    assertThat(LandingFixtures.previewTiles(SupportedLocale.EN).get(3).unit()).isEqualTo("EUR");
   }
 
   @Test
@@ -121,11 +123,15 @@ class LandingFixturesTest {
                 .toList());
     assertThat(LandingFixtures.trustPoints(SupportedLocale.EN))
         .hasSameSizeAs(LandingFixtures.trustPoints(SupportedLocale.PL));
+    // PIO-129 gave each language its own thousands separator, so the rendered values are no
+    // longer character-identical. The figures behind them still must be: one shop, two
+    // conventions. Comparing them with the separators stripped says exactly that, and would fail
+    // if a tile's number itself drifted between the two languages.
     assertThat(LandingFixtures.previewTiles(SupportedLocale.EN))
-        .extracting(LandingFixtures.PreviewTile::value)
+        .extracting(tile -> digitsOf(tile.value()))
         .containsExactlyElementsOf(
             LandingFixtures.previewTiles(SupportedLocale.PL).stream()
-                .map(LandingFixtures.PreviewTile::value)
+                .map(tile -> digitsOf(tile.value()))
                 .toList());
   }
 
@@ -183,5 +189,12 @@ class LandingFixturesTest {
               }
             });
     return strings;
+  }
+
+  /**
+   * A rendered figure with its thousands separators removed — U+202F for Polish, "," for English.
+   */
+  private static String digitsOf(String formatted) {
+    return formatted.replace("\u202F", "").replace(",", "");
   }
 }
